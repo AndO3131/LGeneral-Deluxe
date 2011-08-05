@@ -1,0 +1,103 @@
+              
+	      ===================================================
+              LGeneral Converter for Panzer General (DOS Version)
+              ===================================================
+
+
+Quickstart
+----------
+
+If you have installed LGeneral by 'make install', mount your Panzer General
+CD (e.g., to /mnt/cdrom) and run the following command as root user:
+
+    lgc-pg -s /mnt/cdrom/DAT
+
+If you do not have the CD you can download the abandonware pg-data package
+from http://lgames.sf.net, extract it (e.g., to /tmp/pg-data) and run
+the following command as root user:
+
+    lgc-pg -s /tmp/pg-data
+
+If you compiled the source with option --disable-install to play from source 
+directory (e.g., necessary to use the reinforcements editor---see README.redit
+for more) you will have to explicitly specify the destination directory. E.g.,
+if you extracted the source to ~/sources/lgeneral-X.X.X (with X.X.X being the
+version number) then you have to run the following commands:
+
+   cd ~/sources/lgeneral-X.X.X/lgc-pg
+   ./lgc-pg -s /mnt/cdrom/DAT -d ../src
+   
+Thus, the src-directory of the package is the destination for converted data
+in case installation is disabled.
+
+This will convert the original Panzer General data. The converter can also 
+convert single custom scenarios. How, is explained below.
+
+
+Usage
+-----
+
+lgc-pg -s <PG DATA DIR> 
+       -d <LGENERAL DIR> 
+       [--defpal] 
+       [--custom -n <NAME> [-i <ID>] [-t <TACICONS>]]
+
+-s <SOURCE PATH>
+You always need to specify the source directory which contains the original 
+data or a custom scenario.
+-d <LGENERAL DIR>
+By default the data is converted to the installation path. With this option 
+another path which must contain the LGeneral data structure may be used as
+destination. If installation has been disabled it must be specified.
+--defpal
+This is optional and forces all PG images to use the default palette. 
+Usually you won't need this but if a custom scenario provides some strange 
+graphics it might be due to a corrupted palette. Using the default one for
+conversion might fix this.
+--custom
+Add this option if you want to convert a custom scenario. If you do so
+you must also provide the next options:
+-n <NAME>
+This is the scenario's file name and default title.
+-i <ID>
+This is the XXX in the source gameXXX.scn. If you do not specify this it 
+defaults to 000.
+-t <TACICONS>
+If custom tactical icons are involved (scenario offers a TACICONS.SHP) this 
+is the name of the image file. If this option is not provided it defaults to 
+<NAME>.bmp.
+
+Note that the conversion of a single scenario might be incomplete. You'll
+have to modify the title, description, authors, victory conditions (default:
+attacker must capture all victory hexes) and reinforcements (default: none). 
+The single scenario file does also includes the map and modified units.
+
+
+Examples
+--------
+
+1) Converts all data from CD-ROM:
+
+    lgc-pg -s /mnt/cdrom/DAT -d /usr/local/share/games/lgeneral
+    
+2) Converts a custom scenario:
+
+    lgc-pg -s /home/michael/newstuff/dunk -d /usr/local/share/games/lgeneral
+           --custom -n Dunkirk -i 44
+
+
+Troubleshooting
+---------------
+
+1) Lars Ekman discovered that you'll have to mount the cdrom with option 
+'check=r'. So if your distro uses another option as default and 'lgc-pg'
+doesn't work just try:
+
+    mount -o check=r /mnt/cdrom
+    
+2) NOTE: I found various notes in the Internet that this format explicitly 
+requires Panzer General *DOS* version so I guess the Win32 version won't work.
+
+
+Enjoy! 
+    Michael Speck

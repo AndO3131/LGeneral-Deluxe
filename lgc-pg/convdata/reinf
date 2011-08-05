@@ -1,0 +1,165 @@
+Poland {
+  unit { nation = pol id = 118 trsp = none delay = 3 str = 10 exp = 0 }
+}
+
+Warsaw {
+  unit { nation = ger id = 11 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 38 trsp = none delay = 1 str = 10 exp = 1 }
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = pol id = 118 trsp = none delay = 2 str = 10 exp = 0 }
+  unit { nation = pol id = 118 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = pol id = 118 trsp = none delay = 5 str = 10 exp = 0 }
+}
+
+Norway {
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 1 }
+  unit { nation = ger id = 11 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = nor id = 149 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = nor id = 149 trsp = none delay = 3 str = 10 exp = 0 }
+}
+
+LowCountries {
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 19 trsp = none delay = 2 str = 10 exp = 0 }
+  unit { nation = ger id = 19 trsp = none delay = 2 str = 10 exp = 0 }
+  unit { nation = ger id = 11 trsp = none delay = 2 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 6 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 6 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 7 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 7 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 8 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 8 str = 10 exp = 0 }
+}
+
+France {
+  unit { nation = ger id = 0 trsp = none delay = 1 str = 10 exp = 1 }
+  unit { nation = ger id = 11 trsp = none delay = 1 str = 10 exp = 1 }
+  unit { nation = ger id = 19 trsp = none delay = 2 str = 10 exp = 1 }
+  unit { nation = ger id = 0 trsp = none delay = 2 str = 10 exp = 1 }
+  unit { nation = ger id = 47 trsp = 86 delay = 2 str = 10 exp = 1 }
+  unit { nation = ger id = 104 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 3 str = 10 exp = 0 }
+  unit { nation = ger id = 38 trsp = none delay = 2 str = 10 exp = 1 }
+}
+
+Ardennes {
+  unit { nation = usa id = 379 trsp = 354 delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 379 trsp = 354 delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 386 trsp = 354 delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 371 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 376 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 355 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 377 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 363 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 367 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = usa id = 393 trsp = none delay = 3 str = 12 exp = 3 }
+  unit { nation = usa id = 393 trsp = none delay = 2 str = 12 exp = 3 }
+  unit { nation = usa id = 390 trsp = none delay = 2 str = 13 exp = 3 }
+  unit { nation = usa id = 339 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 343 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 347 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 347 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 346 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 346 trsp = none delay = 16 str = 10 exp = 3 }
+  unit { nation = usa id = 377 trsp = none delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 364 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 364 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 363 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 363 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 376 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 376 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 371 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 368 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 368 trsp = none delay = 18 str = 10 exp = 3 }
+  unit { nation = usa id = 384 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 386 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 386 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 386 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 383 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = usa id = 383 trsp = 354 delay = 18 str = 12 exp = 3 }
+  unit { nation = eng id = 213 trsp = 210 delay = 24 str = 13 exp = 3 }
+  unit { nation = eng id = 213 trsp = 210 delay = 24 str = 13 exp = 3 }
+  unit { nation = eng id = 226 trsp = 210 delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 202 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 202 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 192 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 192 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 198 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 198 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 189 trsp = none delay = 24 str = 10 exp = 3 }
+  unit { nation = eng id = 199 trsp = none delay = 24 str = 13 exp = 3 }
+  unit { nation = eng id = 199 trsp = none delay = 24 str = 13 exp = 3 }
+  unit { nation = eng id = 200 trsp = none delay = 24 str = 13 exp = 3 }
+  unit { nation = eng id = 212 trsp = 209 delay = 16 str = 10 exp = 2 }
+  unit { nation = eng id = 212 trsp = 209 delay = 16 str = 10 exp = 2 }
+  unit { nation = eng id = 198 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = eng id = 191 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = eng id = 201 trsp = none delay = 16 str = 10 exp = 2 }
+  unit { nation = eng id = 202 trsp = none delay = 16 str = 10 exp = 2 }
+}
+
+Crete {
+  unit { nation = ger id = 0 trsp = none delay = 3 str = 10 exp = 1 }
+  unit { nation = ger id = 0 trsp = none delay = 3 str = 10 exp = 2 }
+  unit { nation = ger id = 25 trsp = none delay = 3 str = 10 exp = 2 }
+  unit { nation = ger id = 25 trsp = none delay = 3 str = 10 exp = 2 }
+  unit { nation = ger id = 21 trsp = none delay = 4 str = 10 exp = 2 }
+  unit { nation = ger id = 21 trsp = none delay = 4 str = 10 exp = 2 }
+}
+
+Barbarossa {
+  unit { nation = ger id = 1 trsp = none delay = 1 str = 10 exp = 2 }
+  unit { nation = ger id = 1 trsp = none delay = 1 str = 10 exp = 1 }
+  unit { nation = ger id = 12 trsp = none delay = 2 str = 10 exp = 2 }
+  unit { nation = ger id = 21 trsp = none delay = 2 str = 10 exp = 2 }
+  unit { nation = ger id = 48 trsp = none delay = 12 str = 10 exp = 1 }
+  unit { nation = ger id = 44 trsp = none delay = 7 str = 10 exp = 1 }
+  unit { nation = ger id = 104 trsp = 85 delay = 7 str = 10 exp = 1 }
+  unit { nation = ger id = 104 trsp = 85 delay = 12 str = 10 exp = 1 }
+  unit { nation = ger id = 1 trsp = none delay = 2 str = 10 exp = 2 }
+  unit { nation = so id = 273 trsp = none delay = 13 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 21 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 21 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 19 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 17 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 15 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 13 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 13 str = 10 exp = 0 }
+}
+
+Kiev {
+  unit { nation = ger id = 104 trsp = 86 delay = 18 str = 10 exp = 1 }
+  unit { nation = ger id = 104 trsp = 86 delay = 18 str = 10 exp = 1 }
+  unit { nation = ger id = 48 trsp = none delay = 18 str = 10 exp = 1 }
+  unit { nation = ger id = 45 trsp = none delay = 18 str = 10 exp = 2 }
+  unit { nation = ger id = 104 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = ger id = 104 trsp = none delay = 1 str = 10 exp = 0 }
+  unit { nation = so id = 250 trsp = none delay = 22 str = 10 exp = 1 }
+  unit { nation = so id = 250 trsp = none delay = 19 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 19 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 19 str = 10 exp = 0 }
+  unit { nation = so id = 272 trsp = none delay = 11 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 11 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 8 str = 10 exp = 0 }
+  unit { nation = so id = 278 trsp = none delay = 8 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 6 str = 10 exp = 0 }
+  unit { nation = so id = 278 trsp = none delay = 6 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 4 str = 10 exp = 0 }
+  unit { nation = so id = 273 trsp = none delay = 4 str = 10 exp = 0 }
+}
+
+Sevastapol {
+  unit { nation = ger id = 76 trsp = none delay = 8 str = 11 exp = 3 }
+  unit { nation = ger id = 76 trsp = none delay = 8 str = 11 exp = 3 }
+  unit { nation = ger id = 100 trsp = 87 delay = 8 str = 11 exp = 3 }
+  unit { nation = ger id = 100 trsp = 87 delay = 8 str = 11 exp = 3 }
+  unit { nation = ger id = 100 trsp = 87 delay = 8 str = 12 exp = 3 }
+  unit { nation = ger id = 100 trsp = 87 delay = 8 str = 12 exp = 3 }
+}
+

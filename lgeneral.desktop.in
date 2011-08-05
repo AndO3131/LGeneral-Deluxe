@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=LGeneral
+Comment=LGeneral is a turn-based strategy engine heavily inspired by Panzer General.
+Exec=lgeneral
+Icon=
+Type=Application
+Categories=Game;

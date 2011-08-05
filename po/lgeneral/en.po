@@ -1,0 +1,36 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2005 Leo Savernik
+# Leo Savernik <l.savernik@aon.at>, 2005.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lgeneral\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-01-15 20:58+0100\n"
+"PO-Revision-Date: 2005-11-27 11:38+CET\n"
+"Last-Translator: Leo Savernik <l.savernik@aon.at>\n"
+"Language-Team: Leo Savernik <l.savernik@aon.at>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#~ msgid "This group has reached it's maximum number of buttons.\n"
+#~ msgstr "This group has reached its maximum number of buttons.\n"
+
+#, fuzzy
+#~ msgid "%i   CASUALTIES   %i"
+#~ msgstr "%i   SUPPRESSED   %i"
+
+#~ msgid "%i   SURPRESSED   %i"
+#~ msgstr "%i   SUPPRESSED   %i"
+
+#~ msgid "May_long"
+#~ msgstr "May"
+
+#, fuzzy
+#~ msgid "Mar"
+#~ msgstr "May"
+
+#~ msgid "May"
+#~ msgstr "May"

@@ -1,0 +1,179 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(Makefile.am)
+
+AM_CONFIG_HEADER(config.h)
+
+AC_CANONICAL_TARGET
+AC_USE_SYSTEM_EXTENSIONS
+
+AM_INIT_AUTOMAKE(lgeneral,1.2.1)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_RANLIB
+
+dnl various CFLAGS
+CFLAGS="$CFLAGS -g -Wall"
+#CFLAGS="-O0 -g -Wall"
+
+dnl Checks for libraries.
+AC_CHECK_LIB(m, main,, AC_MSG_ERROR(maths library is needed))
+dnl AC_CHECK_LIB(dl, main,, AC_CHECK_LIB(c, dlopen,, AC_MSG_ERROR(dl library is needed)))
+dnl AC_CHECK_LIB(dl, main,, AC_MSG_ERROR(dl library is needed))
+
+dnl Checks for functions.
+AC_CHECK_FUNCS(strcasestr)
+
+dnl check for mkdir accepting permissions
+AC_MSG_CHECKING(if mkdir rejects permissions)
+ac_mkdir_perm_broken=yes
+AC_TRY_COMPILE([#include <unistd.h>], [mkdir("test", 0777)], [ac_mkdir_perm_broken=no])
+if test x$ac_mkdir_perm_broken = xyes ; then
+  AC_DEFINE_UNQUOTED(HAVE_BROKEN_MKDIR, 1, [Defined if mkdir rejects a second permissions parameter.])
+fi
+AC_MSG_RESULT($ac_mkdir_perm_broken)
+
+dnl L10n support
+ALL_LINGUAS="en de"
+
+AM_GNU_GETTEXT
+
+XGETTEXTFLAGS=
+MSGFMTFLAGS=-v
+MSGMERGEFLAGS=
+MSGCONVFLAGS=--to-code=iso-8859-1
+INTLINCLUDES=
+
+dnl check for msgconv
+AC_PATH_PROG(MSGCONV, msgconv, cat)
+dnl reset flags if msgconv is "dummy"
+test "x$MSGCONV" = xcat && MSGCONVFLAGS=
+
+dnl FIXME: This does no logging whatsoever if anything goes wrong
+if test x$USE_NLS = xyes -a x$XGETTEXT != "x:" ; then
+  AC_MSG_CHECKING(whether xgettext needs --from-code)
+  ac_xgettext_needs_from_code=error
+  ac_xgettext_from_code=--from-code=iso-8859-1
+  cat <<EOF >ac_tmp.c
+int main() { _("äöüÜÄÖß"); }
+EOF
+  $XGETTEXT -k_ $ac_xgettext_from_code ac_tmp.c >/dev/null 2>&1 && ac_xgettext_needs_from_code=yes
+  $XGETTEXT -k_ ac_tmp.c >/dev/null 2>&1 && ac_xgettext_needs_from_code=no
+  AC_MSG_RESULT($ac_xgettext_needs_from_code)
+  if test $ac_xgettext_needs_from_code = yes ; then
+    XGETTEXTFLAGS="$XGETTEXTFLAGS $ac_xgettext_from_code"
+  elif test $ac_xgettext_needs_from_code = error ; then
+    AC_MSG_ERROR(Both invocations of $XGETTEXT failed!)
+  fi
+  rm -f ac_tmp.c
+fi
+
+dnl determining include paths for libintl.h
+if test x$USE_INCLUDED_LIBINTL = xyes ; then
+  INTLINCLUDES="-I\$(top_srcdir)/intl -I\$(top_builddir)/intl"
+fi
+
+dnl newer versions of gettext don't support CATALOGS -> create it here
+if test "x$CATALOGS" = x ; then
+  AC_MSG_CHECKING(for catalogs to be installed);
+  for l in $ALL_LINGUAS ; do
+    CATALOGS="$CATALOGS$l$CATOBJEXT "
+  done
+  AC_MSG_RESULT($ALL_LINGUAS)
+  AC_SUBST(CATALOGS)
+fi
+
+dnl newer versions of gettext don't export POFILES and GMOFILES
+dnl export them here to stay compatible with older versions
+if test "x$POFILES" = x ; then
+  for l in $ALL_LINGUAS ; do
+    POFILES="$POFILES${l}.po "
+  done
+  AC_SUBST(POFILES)
+fi
+if test "x$GMOFILES" = x ; then
+  for l in $ALL_LINGUAS ; do
+    GMOFILES="$GMOFILES$l$CATOBJEXT "
+  done
+  AC_SUBST(GMOFILES)
+fi
+
+AC_SUBST(XGETTEXTFLAGS)
+AC_SUBST(MSGFMTFLAGS)
+AC_SUBST(MSGMERGEFLAGS)
+AC_SUBST(MSGCONVFLAGS)
+AC_SUBST(INTLINCLUDES)
+
+dnl find out whether we can determine the path of the running executable
+ac_paths_determ=generic
+AC_MSG_CHECKING(if executable's path can be determined at runtime)
+readlink /proc/$$/exe >/dev/null 2>&1 && ac_paths_determ=linux
+ac_can_determ_paths=yes
+if test x$ac_paths_determ = xgeneric ; then
+  ac_can_determ_paths=no
+  AC_DEFINE_UNQUOTED(PATHS_GENERIC, 1, [Defined if detecting executable's path name is not supported at runtime.])
+fi
+AC_MSG_RESULT($ac_can_determ_paths)
+AC_MSG_RESULT(executable's path determination strategy... $ac_paths_determ)
+AM_CONDITIONAL(compile_paths_linux, test x$ac_paths_determ = xlinux)
+
+dnl check SDL version
+AM_PATH_SDL(1.1.4,, AC_MSG_ERROR(lib SDL >=1.1.4 is needed))
+
+dnl check sound
+sound_flag="-DWITH_SOUND"
+mixer_flag="-lSDL_mixer"
+AC_ARG_ENABLE( sound,
+[  --disable-sound         Disables sound], sound_flag=""; mixer_flag="")
+
+dnl check if SDL_mixer's installed
+dnl if not: clear sound_flag and mixer_flag
+AC_CHECK_LIB(SDL_mixer, main,
+AC_MSG_RESULT("SDL_Mixer found"), 
+AC_MSG_RESULT("SDL_Mixer NOT found \(get it at http://libsdl.org\): Audio disabled"); sound_flag=""; mixer_flag="")
+
+AC_SUBST(sound_flag)
+AC_SUBST(mixer_flag)
+
+dnl check use of dynamic libraries
+dnl SINCE NEVER USED TEMPORARILY DISABLED MS
+dnl dl_lib_flag="-ldl"
+dnl dl_flag="-DUSE_DL"
+dnl export_flag="-Wl,-export-dynamic"
+dl_lib_flag=""
+dl_flag=""
+export_flag=""
+AC_ARG_ENABLE( dl,
+[  --disable-dl         Disable use of dynamic AI modules], dl_flag=""; export_flag=""; dl_lib_flag="";)
+AC_SUBST(dl_flag)
+AC_SUBST(export_flag)
+AC_SUBST(dl_lib_flag)
+
+dnl installation path
+inst_dir=$datadir/games/lgeneral
+inst_flag="-DINSTALLDIR=\\\"$inst_dir\\\""
+
+dis_flag=""
+AC_ARG_ENABLE( install,
+[  --disable-install       No installation. Played from the source directory.], 
+inst_dir=.
+inst_flag=)
+
+AC_SUBST(inst_dir)
+AC_SUBST(inst_flag)
+
+# create Makefiles for Makefile.ins in po-subdirectories.
+# FIXME! autoconf is simply too stupid to grok that for-loop
+#for ac_domain in lgeneral ; do
+  AC_CONFIG_COMMANDS([po-lgeneral],
+     [case "$CONFIG_FILES" in *po/lgeneral/Makefile.in*)
+        sed -e "/POTFILES =/r po/lgeneral/POTFILES" po/lgeneral/Makefile.in > po/lgeneral/Makefile
+      esac])
+  AC_CONFIG_COMMANDS([po-pg],
+     [case "$CONFIG_FILES" in *po/pg/Makefile.in*)
+        cat po/pg/Makefile.in > po/pg/Makefile
+      esac])
+#done
+
+AC_OUTPUT(Makefile lgc-pg/Makefile lgc-pg/convdata/Makefile lged/Makefile src/Makefile src/nations/Makefile src/scenarios/Makefile src/units/Makefile src/sounds/Makefile src/music/Makefile src/terrain/Makefile src/maps/Makefile src/gfx/Makefile  src/gfx/flags/Makefile src/gfx/terrain/Makefile src/gfx/units/Makefile src/ai_modules/Makefile src/campaigns/Makefile src/themes/Makefile src/themes/default/Makefile util/Makefile intl/Makefile po/Makefile po/lgeneral/Makefile.in po/pg/Makefile.in tools/Makefile tools/ltrextract/Makefile)
+

@@ -1,0 +1,8 @@
+This direction contains all the translations of every built-in domain of
+lgeneral.
+
+Each subdirectory resembles the names of an available domain.
+
+Domains:
+lgeneral	Translations within lgeneral source code and tools
+pg		Translations extracted from the PG-resources (pending)

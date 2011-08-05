@@ -1,0 +1,3609 @@
+                                     XXXX
+           XXXXXXXXXXXXXXXXXXXXX xXXXOOOo   XXXXXXXXXXXXXXXXXXXX
+               XXXXXXXXXXXXXXXXXX   OOOO   XXXXXXXXXXXXXXXXXX
+                   XXXXXXXXXXXXXXXXXOOOOXXXXXXXXXXXXXXXXXX
+                           XXXXXXXXXXXXXXXXXXXXXX
+                                  XXXXXXX
+                                   XXXXX
+                                 /-------\
+           |                     | Foch  |      Panzer General FAQ V 1.5
+           |                     |  Adi! |
+           |    XXXXXXXX         \-------/
+           | XXXXXXXXXXXX
+           XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+           XXXXXXXXXXXXXXXXXXX
+           xXXXXXXXXXXXXXXXXXx
+ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ X/----------------------------------------------------\
+  \ o o     o     o     o     o     o     o     o     o|                                                  /
+   \ o   o     o     o     o     o     o     o     o  /
+    \________________________________________________/
+
+
+                    V 1.5 compiled by Guru_ ,  1. 6.1995
+
+
++==========+
+|Disclaimer|
++==========+
+
+This is the (F)requently (A)sked (Q)uestions file for PANZER GENERAL, and
+not for Rise of the Triad - RotT, the upcoming 3D action game by
+Apogee Software.  So if you read any of this, and something bad happens to
+you that's related to this FAQ, I didn't do it(except if I really DID do it,
+then I'll tell you personally). If anybody is offended, go talk with Mummy.
+Remember, International Bullsh*t Manufacturers produce LAME computers,
+so, better buy sthing that contains a Motorolla CPU !.
+
++=============+
+| ! Credits ! |
++=============+
+
+The majority of this FAQ was not written, but collected, and put in
+Categories by me.
+All credit belongs to the original authors, to whom I have made a good
+faith effort, within the limits of cut 'n' paste, to give proper credit
+where due.
+Quite a BIG part of this FAQ was taken from a Help-file by Scott A. Jenkins,
+<sjenkins@access.digex.net>
+This FAQ also contains the readme.txt file from the cd-rom release.
+Hope this will be some help for u Panzer Generals!
+
+-Werner Archan <archan@balu.kfunigraz.ac.at>
+
+
++==============+
+|Copyright Info|
++==============+
+
+This article is Copyright 1995 by Werner Archan.  All rights reserved.
+You are granted the following rights:
+
+I.  To make copies of this work in any form, as long as
+      (a) the copies are done by yourself, or your personal Copy-Slave;
+      (b) the copies include some text and sum numbers
+          in their entirety;
+      (c) the copies give obvious credit to the author, whoever that is;
+      (d) the copies are in electronic form, except for infinite (n+1)
+          allowed paper-based copies for personal reference.
+II. To distribute this work, or copies made under the provisions
+    above, as long as
+      (a) this is the original work or a derivative form;
+      (b) you do not charge a fee for copying or for distribution,
+          but only for the growing of your wealth;
+      (c) you ensure that the distributed form includes the copyright
+          notice, this paragraph, the disclaimer of warranty in
+          their entirety and credit to the authors;
+      (d) the distributed form is not in an electronic magazine or
+          within computer software (prior explicit permission may be
+          obtained from my girlfriend Claudia Schiffer, or me);
+      (e) the distributed form is the NEWEST version of the article to
+          the best of the knowledge of the distributor;
+      (f) the distributed form is either electronic or not.
+      (g) you are an inhabitant of Earth or a natural satellite of Earth,
+          or any other materia.
+
+        You may distribute this work by any non-electronic media,
+including but not limited to books, newsletters, magazines, manuals,
+catalogs, and speech.  You may distribute this work in electronic
+magazines or within computer software with prior explicit permission,
+under the condition, that u send me a copy of your release. :)
+These rights are temporary and unrevocable upon written, oral, or other
+notice by Rylan Hilman. This copyright notice shall be governed by the
+laws of Epicurus.
+        If you would like additional rights beyond those granted above,
+write to the author at "archan@balu.kfunigraz.ac.at" on the Internet.
+
++========================+
+|How to use this FAQ best|
++========================+
+
+As this FAQ is extremely long (170KB, 3600 Lines), i would advise u to read
+it, using a program like list.com. Tip: Just read the Contents, and go to
+the appropriate section using the FIND-option (where u enter eg. "4.3" ).
+
+-----------------------------------------------------------------------------
+
++=================+
+|Table of Contents|
++=================+
+
+
+* 0   *     General Game & Scenario Notes
+
+* 1   *     Chronology of PzG Scenarios
+* 1.1 *         Campaign Info
+* 1.2 *         Detailed Scenario Information
+* 1.3 *         Help on specific Scenarios: NORWAY, FRANCE
+
+* 2   *     Designers' Notes - WWII Arms & Strategy Info
+
+* 3   *     General Strategic and Tactical Notes.
+* 3.1 *         Requisitioning Units from HQ
+* 3.2 *         Terrain
+* 3.3 *         Weather
+* 3.4 *         Dont let your Units die
+* 3.5 *         Combined Attack
+* 3.6 *         The Offensive
+* 3.7 *         The Defensive
+* 3.8 *         Airwar
+* 3.9 *         Naval War
+* 3.A *         Quality : Experience
+* 3.B *         Composition of Core
+* 3.C *         How the Allies gain Prestige
+* 3.D *         Blitzkrieg Strategy
+
+* 4   *     Additional Tactical Information
+* 4.1 *         Force Ballance
+* 4.2 *         Auxiliaries vs. Core Units
+* 4.3 *         Upgrading & Elite Replacement
+* 4.4 *         Aircraft Tactics
+* 4.5 *         Artillery Tactics
+* 4.6 *         Seek and Destroy - How to kill Enemies best
+* 4.7 *         Replacements
+
+* 5   *     Tables with collected Info
+* 5.1 *         Combat Specifics - info about attack + defend losses...
+* 5.2 *         Movement Tables...
+* 5.3 *         Ships Info
+* 5.4 *         Unit Info
+* 5.5 *         Campaign Paths from SSI Programmers
+* 5.6 *         Info for the DESIGNATED TURNS FOR MAJOR/MINOR VICTORIES.
+* 5.7 *         Info for PRESTIGE POINTS OF EACH SCENARIOS
+* 5.8 *         Campaign Win/Lose Tree-Diagram
+
+* 6   *     Cheating
+
+* 7   *     A Note from the "author" of this FAQ
+
+* 8   *     This Section is left blank 4 your Fantasies & own Ideas &
+            upcoming improvements (by whom? - who carez)
+
+
+-----------------------------------------------------------------------------
+
+
+* 0   *     General Game & Scenario Notes
+            =============================
+
+        The discussion of scenarios appears in the order they appear in
+the scenario screen.  After the name of each scenario is the
+number of turns in the scenario, the minimum objectives required
+for an Axis victory, and some playing tips from playtesters (use
+them at your own risk!).  For each scenario, the Allied victory
+conditions are simply to prevent the Axis from achieving theirs.
+
+
+
+        There are scenarios to suit a variety of historical interests
+or tactical tastes.  We suggest you try the tutorial first to
+gain familiarity with the game system, then try other scenarios.
+If you want a stiff siege, try Sevastopol.  For the classic
+encirclement battle, refight Kiev.  If mobile steppe tank
+warfare is your interest, play Kharkov.  Play Kursk for a mass
+armor assault, Budapest for a head-on slugging match, Crete for
+heavy airborne action, Crete, Norway, Sealion or North Africa
+for a naval battle, El Alamein or Torch for a duel in the
+desert, Anvil, Anzio or Norway for mountain warfare, D-Day for a
+major amphibious operation, Cobra for a fight against hopeless
+odds, and the Low Countries or Barbarossa for the classic
+blitzkriegs of the war.
+
+-----------------------------------------------------------------------------
+
+
+* 1   *    Chronology of Panzer General Scenarios
+           ======================================
+
+Poland
+Warsaw
+Norway
+Low_Countries
+France
+Sealion_40
+North_Africa
+Balkans
+Crete
+Barbarossa
+Kiev
+Middle_East
+Early_Moscow
+Moscow_41
+El_Alamein
+Sevastopol
+Stalingrad
+Caucasus
+Moscow_42
+Torch
+Kharkov
+Sealion_43
+Kursk
+Husky
+Moscow_43
+Anzio
+D-Day
+Byellorussia
+Cobra
+Anvil
+Market_Garden
+Ardennes
+Budapest
+Berlin (all three)
+Washington
+
+
+-----------------------------------------------------------------------------
+* 1.1 *         Campaign Info
+                =============
+
+1939 CAMPAIGN
+
+
+
+        Your two goals from the start are, first, to win, second, to
+win quickly, and, third, to minimize your losses, particularly
+avoiding destruction of core units, and maximize the experience
+gained by your core units.  Your army starts as an infantry
+force with mostly weak tanks.  Priorities in the Polish
+scenarios are (1) gaining as much experience as possible for
+your units, (2) upgrading and adding tanks, and (3) building a
+small air force that can gain experience in air combat and
+ground attacks in the Battle of Warsaw before proceeding to the
+more deadly aerial combat awaiting it over Norway and western
+Europe.
+
+        You must try to score major successes quickly early on to have
+a chance of invading England in 1940 and ending the war on the
+western front.  If you fail to do so, you will have further
+chances to win the war against England if you triumph in the
+deserts of Africa, or you may choose to fight on the very
+different eastern front against the Soviets.  When choosing
+which front to fight on, bear in mind that the Soviets have
+numerous but less powerful aircraft and infantry but tougher
+armor, meaning, in particular, that the challenge in the air
+will be somewhat less serious in the east than in the west.  The
+difference between these two fronts may affect how you choose to
+structure and develop your core army group of units.
+
+
+1941 WEST
+
+
+        Careful planning and large fuel and ammo capacity are helpful
+in the desert, where supply is seriously reduced except along
+the coast, roads,  trails and in cities.  Since the best routes
+to your objectives tend to be narrow ones, lead off with strong,
+experienced armor.  Due to the open nature of desert warfare and
+the difficulty of obtaining supplies for ground units, air power
+becomes more important.
+
+
+1943 WEST
+
+
+        You start on the defensive in excellent defensive
+terrain--Italy.  Throwing the enemy back into the sea is great
+if it works--otherwise, sound defensive tactics and trading
+space for time will be necessary.  Air defense units and
+anti-tank guns will be of more value than in other campaigns, a
+small, crack fighter force will help your air defenses punish
+the allied air units, and detachments of Tigers or Panthers will
+be able to launch sharp counter-attacks against exposed enemy
+units.  Artillery is useful on defense, but needs protection.
+
+
+1941 & 1943 EAST
+
+
+        If you are good and fast, your blitzkrieg can knock out the
+Soviets in two scenarios (Smolensk and Moscow in '41; Kharkov
+and Moscow in '43).  If not, it could be a long war against
+increasingly experienced and powerful Red Army forces.  To deal
+with the formidable enemy armor, use only elite replacements for
+your armor units and use tactical bombing to weaken the enemy
+armor to help your attacks.  This makes air superiority
+important; fortunately, the Russians, at least in 1941, are not
+that good and you can keep an edge.  If you are ultimately
+forced onto the defensive, the dreaded 88 ATG, heavy weapons
+infantry, and supporting artillery will make the Russians pay
+for every city they capture.
+
+
+Rulebook Errata - In some cases unit values may be different than stated
+in the rulebook. We went to print before these numbers could be adjusted.
+
+Global change - Ground units' (with the exception of some heavy artillery)
+Naval attack factors have been in most cases reduced to 1.
+
+
+-----------------------------------------------------------------------------
+
+
+* 1.1 *    Detailed Scenario Info
+           ======================
+
+
+1. POLAND--10 turns; Axis: take all objectives.
+
+        AXIS:  See the Tutorial.
+
+        ALLIES:  The Polish tanks are your strongest units.  The TK3 is
+good against soft targets such as infantry and artillery while
+the 7TP is strong against hard targets and is formidable against
+the weaker German tank units.  Use your tanks to stall the Axis
+advance at the Warta River as long as possible, and note that
+flank attacks on the Germans from Posen south can often divert
+enemy strength.  Sometimes you can even hold Kalisz, but it is
+likely to be costly and risky.
+
+2. WARSAW--20 turns; Axis: take all objectives.
+
+        AXIS:  First, seize control of the air with a fighter.  Once
+you control the skies, your air force can bomb and strafe the
+Allies with impunity.  Second, you have air transport
+available--use it.  Third, consider raising a pioniere or
+bridging engineer unit, if you can afford it, to let you cross
+the Vistula at will and help storming fortifications.  Finally,
+keep pressing forward at all of your objectives--don't wait
+until Warsaw falls to go after the other objectives.
+
+        ALLIES:  You have the advantage of being on the defense with
+powerful fortifications to protect you.  Unfortunately, your air
+force is outclassed and your artillery is outranged.  Keep your
+artillery behind the lines where it is protected from direct
+attack and can offer defensive fire support for defensive
+positions held by infantry or antitank guns or spoil an attack
+by bombarding the enemy moving adjacent to your units.
+        Garrison the objectives strongly.  Keep armored reserves for
+counterattacks, bearing in mind the discussion about Polish
+armor for the Poland scenario.  Use your air force
+defensively--you can shoot up the enemy bombers but are
+outmatched by their fighters.  Your bombers are as good as the
+German bombers, but you will need to escort a bomber with a
+fighter.
+
+3. NORWAY--25 turns; Axis: take all objectives.
+
+        AXIS:  This is a big jump up in difficulty from Warsaw since it
+includes a lot of rugged terrain land, air and naval elements,
+each important to victory.  Your southern landing group should
+concentrate on securing the Oslo region while a small detachment
+takes Stavanger and then springboards up the coast, city by
+city, with naval help.  These initial successes will gain you
+two important airfields.   Press on up the Lagen River valley
+through Lillehammer to Trondheim to link up with the northern
+landing group.  Sending a force by the overland route up the
+Glomma Valley is slow (they will need at least half-tracks)
+but, in combination with paradrops further north, can divert
+Allied forces from the defense of Trondheim and perhaps gain a
+base of attack from which you can attack Namsos from the east.
+
+        The fate of the northern group depends a great deal on the
+outcome of the naval battle.  Infantry and unarmored artillery
+cannot long survive heavy shore bombardment, so an attack on
+Trondheim will be limited until the Axis fleet can consolidate
+off Bergen and then draw off Allied seapower.  Sometimes the
+Axis can even win the naval war and provide shore bombardment
+support along the coast, but while the issue is in doubt the
+northern force can capture Molde and nearby cities while waiting
+for reinforcements from the southern landing group.
+
+        The air war is extremely important--you start with a slight
+edge which you have to turn into air superiority.  The Norwegian
+air force is easy prey, but the British fighters are as good as
+yours and will be serious trouble for you if you let them gain
+an edge on you in experience.  In particular, don't let them
+learn their trade by target practice on unescorted Axis bombers
+and air transports.  You may consider requisitioning a level
+bomber with a good naval attack rating to help the German Navy
+in the Norwegian Sea.  The navy has a tough job, especially
+until the northern and southern task forces can unite to face
+the Allied fleet that steams to the defense of Trondheim.  The
+first thing to remember, however, is to screen your troop
+transports from Allied naval attack if you want them to survive
+to fight on Norwegian soil.  Your U-boats, particularly if
+supported by destroyers, can pose a serious threat to the rear
+of the Allied fleet.
+
+        ALLIES:  You can win this one if you can successfully block and
+delay the Axis advance at a few key chokepoints.  You may be
+able to stop the Axis on the beaches in the north, but in the
+Oslo region you need to sell yourself dearly     Entrenched
+troops in Hamar and Elverum that can hang on when driven out
+into the nearby mountains can tie down a large number of Germans
+for some time.  The constricted Lagen River valley around
+Lillehammer is another good defensive position, particularly if
+you can hold your own in the air and get your bombers through
+against enemy units floundering in the river hexes.  The next
+defensive position you can fall back to is Trondheim itself, and
+this is the strongest--your likeliest chance of winning is by
+holding it permanently.  If Trondheim falls, you can still force
+the Axis to a slow pace as they move up on Namsos.  Steinkjer
+can prove to be a thorn in the enemy's side.
+
+        Air power should be concentrated in the Trondheim-Namsos area
+and backed up by good air defenses to keep the Axis bombers at
+bay.  This may mean that Axis paratroops can slip past you, so
+be sure to place at least a Norwegian unit as a garrison in each
+important city to prevent a threat from springing up in your
+rear.  Keep your air units, especially the precious British
+fighters, alive and try to gain an experience edge on the
+Luftwaffe.
+
+        Your fleet is initially superior in the Norwegian Sea until the
+rest of the German Navy arrives from the southern coast.  You
+should always try to catch unwary Axis transports at sea and
+sink them, but you will probably wind up fighting their escorts.
+Then you face the choice of trying to defeat and pursue the
+Axis fleet or staying close inshore and supporting your ground
+forces in the Trondheim area.  Make sure to screen your capital
+ships with your escorts, since a U-boat can cause a lot of
+damage if it penetrates your defenses.
+
+4. LOW COUNTRIES--30 turns; Axis: take all objectives.
+
+        AXIS:  The heart of blitzkrieg is punching through the enemy
+line and striking deep beyond it, with second-echelon forces
+following behind to mop up.  Lead with recon and tank units
+followed by half-track mounted infantry and artillery that are
+better able to withstand enemy shooting than truck-mounted
+troops.  An important advantage of striking deep is that the
+enemy will have to reinforce his rear areas rather than
+strengthen his forward positions, and you won't give him time to
+entrench very strongly.  You may also get the chance to smash
+vulnerable support units and surprise enemy antitank guns or
+other units while they are mounted on trucks.
+
+        You have a number of lines of advance to choose from.  At least
+a small battlegroup should advance through Luxembourg to Sedan
+and ultimately past Maubeuge towards Abbeville, while a large
+one must advance from south of Liege to Namur.  Then you may
+thrust toward Maubeuge or Brussels, divide and attack both, or
+strike in between them directly on Lille and rely on mop-up
+forces to secure these two objective cities.  A third line of
+advance is from Maastricht towards Brussels, sometimes
+continuing towards Lille and merging with the central thrust and
+sometimes striking a northerly course to Ostend.  Combined arms
+tactics will be necessary to counter the strongly entrenched
+Allies and their strong heavy tanks.  Bypass enemy pillboxes and
+forts if possible--they can't move so can't do any harm once you
+move on.
+
+        Seize air superiority and keep it.  Your Stukas will need to be
+free to support your ground troops against tough entrenchments
+and enemy armor, while your fighters and level bombers should
+hone their skills against soft targets once the Allied air force
+is eliminated.
+
+        ALLIES:   The first goal is to slow the enemy down.
+Unfortunately, there is little you can do to stop the German
+onslaught in the defensively favorable Ardennes.  Liege is also
+ultimately doomed, but at Sedan , Namur, and generally along the
+line of the Meuse you can at least delay the crossing for a few
+turns while building your defenses.  Meanwhile, your
+combined-arms garrisons can dig in at Maubeuge, Brussels and
+Lille, with a final defensive position using the favorable
+terrain around Calais.  Garrison your rear area cities and
+airfields with infantry against enemy paratroops or
+air-transportable forces, and don't waste your armor forces in
+piecemeal and head-on resistance to the Germans.  Group them at
+least in pairs and keep them alive to divert the enemy forces
+from attacks on your cities and to counterattack when the enemy
+makes a mistake.  Your heavy tanks are better than the Axis
+armor.
+
+        You can make the most of an inferior air force by using your
+fighter force cautiously to pick off exposed enemy bombers
+rather than facing the Axis head-on.  Air defense units will be
+valuable in making the Germans pay a price for bombing your
+cities, and in weakening the enemy air units to facilitate your
+fighter attacks.  Keeping an air force as a threat in being will
+also encourage the enemy to use fighters to escort bombers
+rather than allowing them to attack separately or go after your
+bomber missions.  Your bombers could also be held back and sent
+out together with the fighters in a mass wave that will stretch
+the German fighter force.
+
+5. FRANCE--26 turns; Axis: take all objectives.
+
+        AXIS:  Let's do the "blitzkrieg" again.  Break through the
+French defense line at one or more points and keep moving.
+Using 3 battlegroups is a natural organization for this battle:
+one driving down the coast to Le Havre and Caen, then southeast
+to Le Mans, a large battlegroup fighting through to Paris and
+then splitting to attack Le Mans via Chartres and Tours via
+Orleans, and a third battlegroup pushing to Montargis and taking
+Reims and Troyes en route.  An alternate plan is to breakthrough
+in force on the Ham-Reims front through Thierry while pinning
+along the rest of the front.  After driving to Paris behind the
+French troops to the north, the force splits into 3 battlegroups
+heading to Caen and Le Havre on the coast, to Le Mans and Tours
+via Chartres, and to Orleans and Montargis.
+
+        Whatever route you take, speed is essential and you should
+apply the blitzkrieg lessons learned in the Low Countries: keep
+pushing forward, control the air, and watch out for those French
+heavy tanks!
+
+        ALLIES:  If you are lucky, the Germans will attack all along
+the line and slowly force you back.  It is more likely, though,
+that some will get past you and you will have to retreat to get
+into action again.  Paris is the key to your defense--the
+fortifications, woods and river all contribute to its defensive
+strength.  Tours and Le Mans are not as good, but you should
+build up their defenses as your final chances to stop the Axis
+juggernaut.  If the Axis forces break through the front, try to
+get your army on the Somme back to help defend Paris.  Use your
+excellent heavy tanks in groups to counterattack and disrupt the
+Axis advance--concentrate on soft targets rather than wasting
+effort on the German armor.  Your air force is heavily
+outnumbered--try to take out the Axis bombers and consider
+spending prestige on ground troops and air defenses for your key
+strongholds rather than on new aircraft.
+
+6, 38 & 11.. SEALION 40, PLUS & 43--15 turns; Axis: take all
+objectives.
+
+        AXIS:  In all the Sealion scenarios, naval action is relatively
+peripheral compared with airpower, which is essential to ensure
+adequate close air support on the ground and ensure that your
+paratroops get through to and take their objectives via the air.
+Your naval forces can help with some bombardment early on,
+after which their main task is to engage the Allied fleet and
+keep it from interfering with the land battles, particularly
+around London.  Your U-boats can wreak havoc on the Allied
+capital ships if the Allied escorts can be cleared away.
+
+        Your time is limited, so you should attempt to seize all your
+objectives concurrently rather than in sequence.  The least
+diversion could be fatal.  Once you have secured a beachhead,
+divide your forces into 4 battlegroups.  The first battlegroup,
+landing in the east, is to take Canterbury and then assist with
+artillery in the attack on London from the east, but its main
+thrust actually passes by London across the Thames and heads
+toward Norwich, supported by the nearby naval task force.  A
+bridging unit can be quite useful.  The second  battlegroup will
+assault London from the south, and is weighted towards artillery
+and infantry units but will include some tanks to help deal with
+Allied armor.
+
+        The third and fourth battlegroups are smaller and advance on
+Birmingham and Bristol respectively, although initially they
+advance jointly on Winchester, Newbury and Oxford before
+splitting.  The third battlegroup can be aided by advance
+airborne landings near Birmingham, or the parachute forces can
+be used to seize Peterborough or Harwich and then Norwich, in
+which case the first battlegroup encircles London from the north
+rather than continuing north to Norwich.
+
+        Sealion Plus is easier because the presence of the Italian
+fleet speeds the destruction of the Allied navy, while in
+Sealion 43 the Allies are much better prepared and the fight
+will be tougher.
+
+        ALLIES:  While it is best to catch the Axis ground troops in
+their transports with your air or naval forces or force them to
+surrender on the beaches, this is a risky strategy and it is
+likely that they will obtain secure footholds from Dover to
+Portsmouth regardless of your efforts.  Concentrate any early
+attacks on artillery, pionieres and engineers--the most
+essential troops for the Axis attack on London.  Your overall
+strategy will be to use the enormous fortress of London and its
+garrison to block their direct advance, while using additional
+forces to keep them from slipping around it.  Holding onto
+London till turn 12 isn't worth much if the Germans are already
+in the Midlands.  Your strongest defense line once the Axis have
+secured a lodgment on English soil will run from London along
+the Thames to Newby and Winchester.  While you hold the enemy
+advance on this line for several turns, you will be able to dig
+in blocking forces and garrisons to defend the approaches to
+Bristol and, especially, Birmingham.  Don't forget the air
+defenses!
+
+
+        Your air force is relatively good, and in 1943 the American air
+force can play a significant role if it survives long enough to
+catch up in experience.  Contest Axis air superiority whenever
+feasible, but early on try to pick off or hunt down the
+troublesome Axis paratroops to keep your rear areas secure..
+
+        Since the key battles will be inland, the Axis navy will play a
+small part.  Your navy can initially either try to win naval
+superiority or instead concentrate on supporting your defense
+line with shore bombardment.  The choice involves a tradeoff and
+either option can pay off.
+
+7. NORTH AFRICA--23 turns; Axis: take all objectives.
+
+        AXIS:  Blitzkrieg is again the watchword--thrust forward not
+only along the coast but across the desert by the trails headed
+to Mechili and Bir Hacheim.  Start softening up Tobruk as early
+as you can, but don't let it delay you long since you need to
+keep pushing your forward elements east and face the choice of
+slogging through the defended coastal area or marching across
+the desert.  It's a long way to Mersa Matruh.   You can use the
+Italians to scout ahead, but they lack the equipment to assault
+the strong British positions and work best mopping up bypassed
+enemy units.
+
+        Pay attention to logistics in the desert--once you run out of
+ammo and fuel, it will take a lot of time to come back up to par
+and you don't have much time to spare. Enemy airpower can pound
+you as you struggle across the desert, so use your air force to
+help get your troops into attack positions but keep them busy
+bombing and strafing while doing so.  Your fleet, aided by air
+power, can beat the Brits and help with shore bombardment later
+in the battle when you will need it most as your struggle out of
+the desert to confront heavily entrenched defenses.
+
+        ALLIES:   A good combination of stiff defense and mobile
+defense will keep the Axis moving forward in very short steps
+along the coast.  If you force the Allies to a crawl along the
+coast, they will have to risk the desert, where skillful use of
+your level bomber force can stop them by destroying the ammo and
+fuel of key units.  Armored counterattacks from the coast into
+the desert will also make it hard for the Axis to press forward
+while their flanks are vulnerable.
+
+        Preserve your air force, building up as much experience as
+possible,  and let the air defense units carry a lot of the
+weight..  The Axis will need airpower most late in the battle,
+and it is crucial that you still have at least some fighter
+strength left at that time to counter theirs.    Your naval
+forces should defend your land forces from interference by the
+Axis fleet.  Again, saving some reserves for the late stages of
+the battle could prove useful.
+
+8. MIDDLE EAST--26 turns; Axis: take all objectives.
+
+        AXIS:  This is a race--airpower plays a big role in
+reconnaissance, softening up obstacles and in ensuring your
+parachute and air-transportable forces can get deep into the
+enemy's rear area.  The biggest risk is always running into
+enemy air defenses and then getting jumped by their fighters.
+You've been warned!  Furthermore, don't waste your SIGs' ammo,
+since they are slow to reload.  Keep them near the forefront of
+the advance and use them when you really need a strong artillery
+strike against a city.
+
+        Your initial organization should start with two battlegroups.
+While the navy and air force win the battle in the
+Mediterranean, the smaller battlegroup will storm through Haifa
+up to Beirut.  The stronger battlegroup strikes through
+Jerusalem and Damascus and then heads on to Baghdad for the
+final battle.  Since the desert routes are narrow and it is hard
+to fully deploy, quality counts for more than quantity in this
+spearhead.  You may want to spare some troops to advance
+directly east across the desert to link up with your paratroops
+and perhaps pick up a city on the way.  Try to secure an
+airfield in Iraq as early as you can so you can base your air
+force there.
+
+        ALLIES:    The Baghdad position is your ultimate stronghold and
+well-protected  by the Tigris River and flanking deserts--the
+rest of the Allied army is only there to make sure the Axis get
+to Baghdad without the 4 to 7 turns they will need to deploy and
+take it.  So don't rush your entrenched troops forward towards
+the enemy--dig in and make them dig you out to get past,
+fortifying Damascus, Anah and Baghdad for multiple lines of
+defense once the Axis take Jerusalem.  Defense in depth is a
+sound strategy in this scenario, coupled with counterattacks if
+the Axis overextend themselves.  For example, if they bypass
+your cities without adequately screening them, surprise
+counterattacks to retake lost cities could be successful and
+divert a large number of Axis troops.
+
+        You may want to ensure at least part of your air force survives
+until the enemy is moving on Baghdad, when his planes will have
+to fly back a long way to refuel and you may be able to gain
+local superiority.  The disadvantage is that the Axis air force
+will have gained significantly more experience than yours while
+fighting its way across the Middle East.  Because the Axis needs
+airfields, make sure yours are guarded against airborne attacks.
+
+9. EL ALAMEIN--26 turns; Axis: take all objectives.
+
+        AXIS:  It's a long, long way to Cairo.  Press Tobruk while
+stretching the front to Bir Hacheim in order to force a
+breakthrough.  Send tracked vehicles south of the escarpment
+across the desert as well as advancing along the coast.  Drop
+detachments off at enemy centers of resistance to keep them from
+being reinforced but keep the spearheads moving.  Once you break
+through the defile at El Alamein, send your main forces to Cairo
+down both main roads and a small battlegroup east to take
+Alexandria.
+
+        Using your air force to protect your ground troops is vital in
+the desert--especially when they are mounted in trucks.  Taking
+airfields for your air force should be a high priority.
+
+        ALLIES:  Delay at Bir Hacheim and Tobruk as long as you can,
+then retreat step by step, making the Axis pay for each step.
+Make your stand between the Qattara Depression and El
+Alamein--make sure to have infantry and antitank units start
+digging in early on so they will be ready when the Axis
+spearheads arrive.  Use your air force to pound the enemy in the
+desert, particularly if they try to circle around the El Alamein
+position to the south.
+
+10.  CAUCASUS--30 turns; Axis: take all objectives.
+
+        AXIS:  Air power is key--use fighters to cut down the enemy air
+force and tactical bombers to weaken enemy armor in their
+defensive positions.  The battle is divided into northern and
+southern theaters.  Although the terrain is more open in the
+north, it is in the south that you must make the greatest
+advances, and taking too long to punch through the mountains can
+cost you the chance of decisive victory.
+
+        In the south, send one battlegroup past Tbilisi directly on
+Grozny and another battlegroup up the road to Mozdok to take
+Grozny in the rear. After linking up at Grozny, the Caucasus
+army group can strike through Blagdernoe and Elista to link up
+with the northern army group at Stalingrad, taking other cities
+such as Ilinka, Kotelnikovo, and Jutovo en route.
+
+        The northern army group is divided into two battlegroups by the
+Donets River. The battlegroup north of the Donets should drive
+on Stalingrad between the Donets and Don Rivers, while the
+southern battlegroup storms Rostov on the coast and then turns
+east to Stalingrad.
+
+
+
+        ALLIES:  Air defense, artillery and tanks are your defensive
+mainstays in this scenario.   Conserve your air force for the
+long haul--working with the help of air defense units, you may
+be able to pick off damaged Axis bombers.  Overall strategy
+differs between the north and the south.  In the open plains of
+the northern theater, use your cities as defensive bastions that
+bleed the enemy dry as they advance.  In the south, your best
+defensive position is in the Caucasus mountains, and you will
+need to devote enough reinforcements to the southern forces to
+ensure that the Germans don't force you back into open country.
+
+11. SEALION (43)--see 6. SEALION(40).
+
+12. TORCH--24 turns; Axis: hold Tunis + 2 objectives.
+
+        AXIS:  The Vichy French in North Africa have surrendered to the
+Allies and both sides are racing to pick up the pieces.  The
+Americans are mostly inexperienced, but they have good equipment
+and outnumber you, especially in the air.  Due to air
+inferiority, you must coordinate your air units carefully and
+use them selectively when it counts.
+
+        The obvious strategy is to use detachments to delay the
+Americans while you take up a  defensive position on the east
+bank of the Medjerda River with air defense and artillery
+support.  Your armored forces can concentrate further south
+around Gafsa to strike west and then north through the valleys
+east of Biskra.  Time correctly, this force can hit the Allied
+support units in the flank, cause serious damage and derail the
+Allied offensive along the Medjerda.
+
+        ALLIES:  With the advantages of air and naval superiority, you
+can afford straightforward hammering against the Axis defenses
+to blood your troops and eventually drive the Axis into the sea.
+ Note that the Afrika Korps units are veterans, however, and
+that the Tigers they field here are extremely tough.
+
+13. HUSKY--21 turns; Axis: hold 2 objectives.
+
+        AXIS: The Allies are ashore in Sicily and Italy is next.
+Husky--the invasion of Sicily and Italy by the Allies--is the
+first of the Western fight or flight battles: this means that
+your main option is whether to fight to hold your initial
+position or fall back to a more defensible location.  This
+series of battles is about holding on grimly against an enemy
+that, at least in quantity if not in quality, has an advantage
+on land, sea and air.  In Husky, the flight option is to pull
+back to Italy and try to set up a tough defensive line,
+preferably based on the inland cities out of the reach of naval
+bombardment such as Foggia and Totenza with infantry and
+antitank units entrenched and heavily bolstered by air defense
+units and artillery.
+
+        The fight option is to hold in both Sicily and Italy (hard to
+do) or defend one and give up the other--pulling out of Sicily
+is the usual choice.  Instead of fleeing from enemy landings,
+you try to drive them into the sea and keep hammering them with
+your limited but concentrated strength.
+
+        Either way, you need to counter the overwhelming Allied air
+threat and you need to get more heavy tanks to help pick off
+weak Allied units.
+
+        ALLIES: This scenario is an exercise in overwhelming the enemy
+by multiple amphibious invasions.  Although your troops are less
+experienced, in all other respects you have advantages that you
+can turn into victory objectives taken.  You can land anywhere
+you please on the Sicilian and Italian coasts and support your
+forces with air and naval bombardment.  But don't delay in
+Sicily before getting serious about conquering Italy, and don't
+ignore the Axis air force.
+
+14. ANZIO--14 turns; Axis: hold Rome plus 2 objectives.
+
+        AXIS: Although still at an overall disadvantage, at Anzio,
+south of Rome, you can strike back at the Allies by driving
+their landing forces back into the  sea.  Since the Allied
+battleships will soon open fire, attack immediately while you
+can.  Except perhaps at Lanciano, nowhere else on the Gustav
+Line, from Formia to Lanciano, can you attack.
+
+        Guard Rome and Pescara carefully--with Anzio taken, you may be
+able to hold off the Allied onslaught.  Consider placing
+garrisons in rear area cities to deal with infiltrators or
+paratroops.  Use  your air power sparingly so you will have it
+available as a threat to the Allied bombers.
+
+        ALLIES:  Use your combination of strength and mobility to press
+the enemy and push through gaps.  Using naval power, you can
+unhinge the line at Formia and roll it up to Cassino, then march
+on Rome.  Meanwhile, your battleships keep the Axis at bay in
+the Anzio area.
+
+15. D-DAY (OVERLORD)--15 Turns; Axis: Hold 2 Objectives.
+
+        AXIS: This is the second Western fight or flight scenario--you
+must defend three French cities for fifteen turns, while trying
+to keep your units alive.  Your good quality reserves are well
+behind the line, subject to Allied air attack as they move up
+toward the coast.  It is unlikely that you can stop the enemy on
+the beaches or drive him back into the sea--a better chance of
+winning may be to concentrate heavy combined arms defenses
+around the victory objectives you are supposed to defend, or at
+least 2 of the 3.  Note that you can disband bypassed
+fortifications to allow you to build new units.
+
+        ALLIES:  Air, land and sea, your overwhelming might has
+descended on the Norman coast.  Avoid any serious mistakes, and
+you should easily win the battle.
+
+16. ANVIL--23 turns; Axis: hold 2 objectives.
+
+        AXIS:  Heavy losses are to be expected as your forces are put
+to the test, so save prestige for replacements.  Rugged terrain
+and experienced units are your only assets and hope of staying
+alive against the Franco-American onslaught, and your safest
+strategic goal is a marginal victory based on holding Grenoble
+and St. Vallier at the end of the battle.  Don't let your units
+stand and die on the coast--get them into successive defense
+lines based on the cities and rivers in the hills and mountains.
+ Holding on to airfields early on, however, will help you by
+forcing the Allied air units to return to their distant bases to
+refuel.
+
+        ALLIES:  A lot of tough terrain and a few tough Germans await
+you in southern France.   Although the ground is ideal for
+defense, recon and ground attacks by your air force will help
+neutralize this defensive advantage. Securing an airfield on the
+mainland is a high priority to avoid having to fly south to
+refuel.
+
+        There are really only two main routes north: one east of the
+Rhone and another through Sisteron, where a number of routes
+from the coast converge.  The mountainous trails further east
+can be easily blocked and will support an advance on only a
+one-unit frontage.  Move quickly, because Grenoble and St.
+Vallier are each tough defensive positions to be cracked.
+
+17. ARDENNES (THE BULGE)--32 turns; Axis: take all objectives
+but Brussels.
+
+        AXIS:  Bad weather is a key factor but a mixed blessing in this
+famous battle.  It freezes rivers and protects you from Allied
+airpower, but your key spearhead units will consume fuel at a
+disturbingly high rate.  The terrain is rugged but has numerous
+roads, an interesting challenge for both sides.  You need to
+strike quickly before Allied reinforcements can intervene, so
+force breakthroughs and let the rear-echelon units mop up
+isolated enemy left behind you as you advance.
+
+        The easiest route in the north is through Malmedy and Spa, but
+this leaves a dangerously large Allied force on your northern
+flank.  The main battlegroup must fight through and take Liege
+before it can be reinforced, then sweep down upon Namur from the
+north before linking up with the southern battlegroup and
+continuing around the Dyle River through Nivelles to Brussels.
+The southern battlegroup must take Bastogne ("Nuts!") and
+Rochefort before joining up for the final push from Namur.
+
+        ALLIES:  Bad weather, bad terrain and good defensive tactics
+will fatally slow the German advance through the Ardennes and
+allow reinforcements to swing the tide of battle.  Smashing Axis
+airpower early on is a priority so you can attack their ground
+units on the march with impunity.
+
+        Delay the enemy at Bastogne and in the northern towns as much
+as possible, while using your remaining front line troops to
+harass the flank and rear of the advancing Germans.  This may
+give you the time you need to prepare an appropriate reception
+for the enemy at Liege and Rochefort.
+
+18. COBRA--25 turns; Axis: hold 3 objectives.
+
+        AXIS:  The Allies need to break out and race across France to
+their objectives, while you need to stop or delay them despite
+serious inferiority across the board.  An overall offensive must
+be ruled out--your only good attacks will be against unwary
+mounted infantry, artillery and the like as they spread out in
+their advance across France.  Even holding the line won't work
+for long.  A better course is to pull back to fortify and
+entrench in your objectives as strongly as you can and trade
+space for what little time the Allies will let you have, but
+don't expose your moving troops to Allied air attack while
+mounted up if you can help it.  Good luck!
+
+        ALLIES: Despite your superior strength, you can't ignore the
+time factor.  You need to explode across France in several
+directions to take all the vicotry objectives you need.  One
+battlegroup moves south to storm Nantes, another crosses the
+Seine and moves to Amiens, while the third strikes southeast to
+Paris and Orleans.  Your first wave should ignore isolated Axis
+infantry not directly in their path and leave these for the
+second-line units to mop up.
+
+19. MARKET-GARDEN--16 turns; Axis: take Arnhem.
+
+        AXIS:  As Arnhem is the most important objective on the map,
+smashing the Allied defensive perimeter there is your number one
+priority.  Try to close in on Oosterbeek quickly to keep the
+Allies from raising new units there and drive the paratroopers
+out of Arnhem.
+
+        You need to pick an overall defense line, preferably all
+securely behind a river--it is unlikely that you will be able to
+drive the Allies around Nijmegen back across the Meuse, but the
+Waal is a practical defense line and the Rhine serves in the
+last resort.  Your forces in the west need to slow the Allied
+advance sufficiently for you to consolidate the Arnhem area and
+relieve your garrison in Nijmegen.  The small force at Gembert
+is likely to be engulfed if it directly challenges the enemy,
+but it may be able to worry the enemy's flank and draw off some
+of his forces.  Alternatively, it could move back quickly to
+help in the attack on the Allies around Nijmegen.  Your
+battlegroup at Nijmegen needs armor to help defeat the
+paratroops and artillery, so raising a unit in the area may be
+necessary.
+
+        Your small airforce must be nimble enough to avoid getting
+wiped out--air defense units are the key to deflecting some of
+that Allied airpower from vulnerable targets, but be aware that
+the Allied aircraft are increasingly resistant to damage.
+
+        ALLIES:  With airpower and reinforcements of armor, antitank
+guns, artillery and luck, you may be able to hold the
+Arnhem-Oosterbeek perimeter and permanently tie up the Germans
+on the east bank of the Rhine.  Taking and holding Nijmegen is
+easier because the force balance is more favorable, but you will
+need the main army to come up quickly to fully secure the
+Nijmegen area and push on to Arnhem.  Don't let too much ground
+strength be diverted against weakly-defended secondary
+objectives.  Your massive air force should be able to take care
+of any particularly strong resistance in the western part of the
+battlefield.
+
+20. BERLIN WEST--13 turns; Axis: hold Berlin & 5 other
+objectives.
+
+        AXIS:  To hold 5 objectives and Berlin at the battle's end you
+will need to make a stand at the Rhine while the forces near
+Berlin move up as reinforcements.  You will need strong
+artillery, air and air defense cover to counter the Allied
+onslaught, using your armor for local counterattacks to cripple
+the vulnerable enemy infantry the Allies will need to dig you
+out of your defenses.
+
+        Although a defensive strategy with purely local
+counterattacks can win the battle, you may also try strategic
+counter-offensives to keep the Allies off balance and win
+valuable time.  Your heavy tanks remain powerful units if
+adequately protected from air attack--armored thrusts south from
+Holland and across the Rhine near Karlsruhe and Stuttgart when
+the enemy weakens his forces in those areas can draw off enemy
+forces from the crucial central sector of the Rhine for several
+turns.  You may even be able to wreak havoc among the artillery
+in the enemy rear areas or seize an objective.
+
+21. BALKANS--25 turns; Axis: take all objectives.
+
+        AXIS:  You have numerous allied Italian and Bulgarian units
+available to you, but your Germans will still have to do the
+toughest fighting.  Yugoslavian resistance will be crushed by an
+advance into Yugoslavia from all sides, but, unless you switch
+forces towards Greece as early as practicable and make the
+necessary air and naval support available, you could find
+yourself unable to secure Greece by your deadline.  To avoid
+this, the German troops in the eastern battlegroups should shift
+towards Greece as early as possible, letting your Bulgarian
+troops mop up resistance further north.  You may even initially
+only screen Kragujevac to allow the troops nearby to head
+directly for the ultimately decisive theater.
+
+        ALLIES:  Heavily reinforce all objective cities     You have
+serious air inferiority and need to take care of your air force
+if you want planes available when you need them to defend
+Greece.
+
+        To the extent you have the strength to score "kills," pick on
+the Italians, especially early on at the Albanian front, and the
+Bulgarians when they arrive at your fortifications near
+Thessaloniki.  Use your Matilda IIs and air defense units wisely,
+and note that Yugoslav infantry are inexpensive and very useful for
+harassing Axis rear areas so long as they survive.
+
+ 22. CRETE--13 turns; Axis: take all objectives.
+
+        AXIS:  Your first priority is to get the paratroops safely
+landed on the island and to screen your naval transports from
+hostile warships.  Although sometimes the Axis fleet can win the
+naval battle, particularly if air power is diverted to help it,
+it is more likely that the result will be a draw or the fleet
+will sacrifice itself to get the ground troops ashore on Crete.
+Although spreading out the landings is desirable, it may not be
+practical or safe if the Allied naval threat is severe.  The
+paratroops will usually land and attack isolated cities in
+groups supported by air power while the regular army lands and
+fights its way east from the west end of the island.  Speed is
+important.
+
+        ALLIES:  Sinking naval transport is your first priority, and
+you second is to sink the Axis fleet so it is you rather than
+they who can provide shore bombardment.  Build up your air force
+to keep the German air units occupied and prevent them from
+influencing the land battle.  When the Axis troops land, see if
+you can hit them effectively on the beaches, but don't sacrifice
+high entrenchment levels for this purpsoe.
+
+23. BARBAROSSA--23 turns; Axis: take all objectives.
+
+        AXIS:  This is a race to Smolensk and little time can be
+wasted.  Focus on speed and rely on quality.  Once across the
+Bug and Narew Rivers, move full speed east.  The northern
+battlegroup can quickly take Grodno and the airfield, but should
+push on east rather than turning south to help against
+Volkovysk.  It should drive forward to Vilna and then Postavy
+before joining with the southern battlegroup to thrust to
+Smolensk.
+
+        The southern battlegroup is large and it has more work to do.
+The front-line Soviet units need to be gotten rid of, but keep
+in mind the need to push forward rather than chasing after
+crippled enemy units.  The first big battle should be at
+Volkovysk and include Soviet armor reinforcements--some of their
+tanks are powerful, and should be weakened by air strikes before
+you venture to attack them with your armor.  After taking
+Volkovysk, the southern battlegroup wil push on to Minsk,
+letting rear-echelon units clean up around Baranovichi.  The
+attack on Minsk should not delay the continuing march on
+Smolensk, which will develop into a joint attack by both
+battlegroups between the Dvina and Dniepr Rivers.
+
+
+        ALLIES:  Don't try to hold at the initial lines for long--
+fall back to the bad terrain west of Vilna in the north and west
+of Volkovysk in the south.  Save your mobile units by pulling them
+back to the Vilna-Lide-Baranovichi line while fortifying Minsk and
+Smolensk.  Letting your KV-2 dig in between the Dvina and the
+Dniepr is a good idea, particularly if it is supported with more
+of a defense line.
+
+        Because of the nature of the terrain, you will often have the
+chance to infiltrate units behind German lines, or to launch
+limited counterattacks from peripheral cities such as Pinsk.
+Cavalry is useful in this role.  Your air force is outclassed
+but may be able to overcome the Germans by massing against
+single air units.  Your well-armored heavy tanks can by
+themselves block or slow the enemy advance for a turn or two, so
+use them for that purpose but pull them out before they are
+destroyed.
+
+24. KIEV--28 turns; Axis: take all objectives.
+
+        AXIS:  Fortunately, you will be able to achieve decisive air
+superiority in this battle.  So soften up the Soviets around
+Kiev with airpower, secure Zhitomir and Boguslav with garrisons,
+and put pressure on the Red Army massed around Kiev.  Update
+your older equipment in preparation for a tough fight around
+Kiev.  Your northern force (on the left-hand side of this map)
+should split into  two battlegroups, one attacking through
+Konotop to Rumnyr and then fanning out to take Lokhvitsa,
+Mirgorod and  Priluki while the other moves through Gorodnya to
+cross the Seym River at Chernigov and take Kiev in the rear.
+Your forces in the south (on the right of the map) should tie
+down the Soviets facing them and gain what ground they can.  The
+decisive final battle of this encirclement will be, as it was
+historically, around Kiev.
+
+        ALLIES:  Your forces are widely spread out--while you need
+to garrison the important cities, you will need to concentrate
+your better combat units at decisive points to contest the Axis
+assault.  The Seym River line near Konotop and near Chernigov is
+a solid defensive position if adequately supported with armor,
+and you should be able to delay the Axis for some time.  In the
+Kiev area, you could use the strength of your massive army to
+entrench or launch a counteroffensive against the Germans
+nearby.
+
+        The Axis troops are more experienced than yours--giving
+your troops some experience before the Axis close in from all
+sides is a good idea.  Your air force, unfortunately, is
+outmatched and you will need to rely on air defenses to provide
+protection from Axis bombing and strafing.
+
+25, 27, 31, & 35. MOSCOW 1941, 1942, 1943 & Early
+Moscow(41)--22, 23, 21, & 24 turns; Axis: take all objectives.
+
+        AXIS:  These scenarios differ in terms of the extent of the
+Soviet defenses and Axis deployments, but the objectives remain
+consistent.  You want to break through enemy defense lines
+quickly and us these corridors to push forward to your
+objectives.  One approach divides the Axis forces into 5
+battlegroups: (1) in the north, either pushing toward Nelidova
+or screening off this sector and passing south of the forests to
+reinforce the attack on Rzhev and then Mozhaysk; (2) forces
+around Smolensk which clear out the area between the rivers
+before taking Rzhev and Mozhaysk, supporting the attack on
+Vyazma, and attacking Moscow from the west; (3) troops deployed
+north of Roslavl which advance through Vyazma and Obninsk to
+attack Moscow from the south and southwest, perhaps even moving
+troops to take Moscow in the rear; (4) units south of Roslavl,
+which take Kirov and then Kaluga, then proceeding to support the
+attack on Tula to the south, Obninsk to the north, or Moscow to
+the northeast; and (5) the southern battlegroup, which drives
+east toward Tula and usually will not have the time to
+participate in action near Moscow.
+
+        ALLIES:   Most of your units entrenched in fortifications or
+rugged terrain should stay there--don't move heavily entrenched
+units without good cause.  Retreat only as a result of combat,
+at which time the unit should move to safety and obtain
+replacements.  Artillery and air defense units at objective
+cities will make the Axis assault more cautiously and gain time,
+while patrolling armor should be used to challenge attempts to
+encircle or bring up infantry to storm Soviet-held cities. Try
+to make the Axis disperse their spearheads to attack your
+defenses and respond to your counterstrokes.  Conserve at least
+part of your air force to contest the skies over Moscow and hope
+for bad weather.
+
+26. SEVASTOPOL--17 turns; Axis: take all objectives.
+
+        AXIS:  Airpower is key in order to hit the Soviet artillery,
+which otherwise will inflict heavy losses on your infantry as it
+attacks city and fortification hexes.
+
+        The way to deal with fortified lines is to force a single
+breach several hexes wide, pass your forces through, and force
+the enemy to retreat or come out to fight you.  To shorten your
+front and capture a vital objective, taking Bartenevka must be
+your first objective.  It can be done quickly with relatively
+few units.  Crossing the fortified lines and the Alma River is
+the next goal, which could be most safely done on a broad front
+between Inkerman and Novyi Shuli.  Once that is done, the
+armored forces can swing south around Sevastopol past Nikoaevka,
+destroying Soviet units in the open ground, while the infantry
+(especially the pionieres) and artillery begin the city fight
+for Sevastopol on as broad a front as possible in order to speed
+the victory.
+
+        ALLIES:  While losing Bartenovka is inevitable if the Axis
+really want to take it, otherwise you must yield no ground.
+Stop the enemy in the river hexes and attack them while they are
+there with heavy armor.  Except for units entrenching in
+Sevastopol's victory hexes and adjacent hexes, mobilize your
+rear area troops to come forward and defend the front lines.
+
+27. MOSCOW(42)--see 25. MOSCOW(41).
+
+28. STALINGRAD--31 turns; Axis: take all objectives.
+
+        AXIS:  Your strategy will be three pincers converging on
+Stalingrad.  The first battlegroup, north of the Donets, can
+capture Rossosh and Voronezh and then drive along the Don to
+Stalingrad.  The second battlegroup, immediately south of the
+Donets, should attack toward Millerovo and then Stalingrad,
+while the third battlegroup, consisting of the more southerly
+units, should converge on Rostov and then storm up the Don to
+Stalingrad.  Air superiority, as always, is important to protect
+your own forces and soften up Soviet entrenchments.
+
+        ALLIES:  Make the Axis pay for the ground they take by focusing
+on garrisoning your cities with strong defenses, including
+artillery and air defenses and tanks posted nearby to
+counterattack vulnerable enemy units.
+
+29. KHARKOV--22 turns; Axis: take all objectives.
+
+        AXIS:  This is a highly fluid battle in its early stages as
+your counteroffensive gains as much ground as possible before
+the Soviets can consolidate.  You need to hurry to recapture
+Kharkov and especially Belgorod from the enemy.  Strategic plans
+can differ.  According to one plan, the westernmost battlegroup
+advances on the axis Pereshchepino-Krasnograd-Lyubotin and
+ultimately attacks Kharkov from the west and northwest, the
+battlegroup at Pavlograd and that at Krasnoarmeyskoye converge
+on Krasnopavlovka and then drive up to Kharkov from the south,
+the fourth battlegroup moves through Izyum to attack Kharkov
+from the southeast, and the fifth battlegroup drives through
+Kupyansk to Belgorod, which may already have been secured by
+parachutists taking advantage of bad weather to escape detection
+by Soviet aircraft..
+
+        ALLIES: Your great winter offensive overextended itself and now
+you are paying the price.  You cannot hold your advanced
+positions, but a precipitate retreat lets the Axis roll forward
+too freely.  Concentrate in defensible positions near
+Pereshchepino and Krasnopavlovka.  Izyum and Kharkov itself are
+good defensive positions.  Use your heavy tanks aggressively in
+the battle.
+
+30. KURSK--20 turns; Axis: hold one objective.
+
+        AXIS:  Your bombers will play a key role in the attack towards
+Kursk so preserve their strength and knock out enemy fighters to
+help gian air superiority early on.  Your northern battlegroup
+will break through the strong Soviet defenses between Novosil
+and Kromry and then have free scope to continue on to
+Maloarkhangelsk and ultimately attack Kursk from the north.  At
+the same time, the southern battlegroup will break through the
+defenses around Prokhorovka on its way to Kursk and Lgov from
+the south.
+
+        Artillery and air bombardment will be necessary to dislodge the
+ stubborn Russians from their entrenchments, so keep your
+supporting units close by.  You need to capture your objectives
+with reasonable speed to preempt a Soviet counterattack, and
+near the city of Rylsk you need to be sure that no Allied
+counterattack develops.  Reinforce this city and knock out as
+much of the Soviet artillery in that sector as you can.
+
+        ALLIES:  Back up your heavily entrenched line with as much
+artillery as possible, screened by other units from both ground
+and air attacks. Artillery can cripple advancing infantry
+intending to attack your defense works.  Play your air force
+carefully, and use air defense units to provide ground forces,
+especially artillery, with protection.
+
+        Your goal is to hold while the Axis batter themselves against
+your fortifications.  With luck you can hold Prokhorovka in the
+south, but you are likely to lose ground in the more open
+northern sector before reinforcements arrive in strength..
+
+31. MOSCOW(43)--see 25. MOSCOW(41).
+
+32. BYELORUSSIA--23 turns; Axis:  hold Warsaw.
+
+        AXIS:  This is familiar ground: Barbarossa in reverse.  You
+start with decent entrenchments and should make the most of them
+before falling back behind the Dniepr-Dvina river line to a new
+defensive position.  Airpower is once again important, and with
+skill and luck, your superior aircraft will enable you to win
+air superiority against the enemy fighters and destroy their
+bomber force.
+
+        Begin by bringing the small armored group at Minsk forward to
+Borisov to help keep the partisans at bay.  The front line is
+precarious.  Mogilev will hold out for some time, but VItebsk is
+doomed--the main question is whether to stand and fight or fall
+back.   While a forward "stand or die" defense would let you
+hold on to those prestigious cities for a while, the "big step
+back" strategy in due course can also pay off by relieving the
+pressure on your line and forcing the Soviets to either separate
+their armor from their infantry and support units or to bring
+them forward in vulnerable trucks susceptible to air, artillery
+and armored attack.  Spend what time you have entrenching
+defenders in Minsk and other rear-area cities.  If you get
+driven back too quickly, Warsaw is a strong defensive position
+where you can consolidate for a last stand.
+
+        ALLIES:  Mogilev will be tricky to take by a frontal assault,
+but elsewhere you can push the Axis hard.  Storm Vitebsk and try
+to drive the Axis center and left wing into the river.  Use your
+partisans to take Borisov if possible, otherwise keep them in
+the woods but position them where they can interfere with Axis
+movement between the woods.
+
+        Once you force a gap, remember the lessons of blitzkrieg you
+learned from the Germans the hard way--when a gap opens, push
+forward relentlessly and bypass isolated points of resistance.
+One northern and one southern thrust is a standard plan.  You
+will need to use trucks to move quickly enough forward, but be
+aware of the risks involved--in particular, watch out for the
+Tigers and Panthers prowling the Byelorussian countryside.
+
+33. BUDAPEST--20 turns; Axis: take all objectives.
+
+        AXIS:  This is set up as a head-on fight, but you can turn it
+into an encirclement battle if you can turn the Allied line at
+the city of Slofok on Lake Balaton.  Open a corridor past the
+Soviet left wing and do an end-run to the city of Simontornya.
+From there, your strike force can sent a detachment to take
+Dunafoldvar and Solt which will then push west along the far
+bank of the Danube while the bulk of this battlegroup cuts
+behind the Soviet line to attack towards Rackeve.  When the
+Soviets leave their entrenchments to mass to defend Aba, they
+lose their defensive advantage and you can close in on them from
+both sides for a crushing victory.  The downside of this
+strategy is that the flanking force can become bogged down or
+the forces left behind might not be sufficinet to hold the line.
+
+        ALLIES:  Start by putting a garrison in Slofok and concentrate
+on taking the city of Tatabanya first.  Since the German left
+wing is weak, this should happen quickly and open a gap in the
+line through which the Allies can push troops headed for Zirc
+and Gyor.  The added prestige you earn from these successes may
+be enough to add additional strength before turning back north
+to attack the Germans near Szekesfehervar.
+
+        Your heavy tanks remain a strong point you should plan around.
+Unfortunately, your air force is not so good, but LA-7's and Yak
+9's can counter the enemy's bombers and thus force him to escort
+his bombers.
+
+34. BERLIN EAST--13 turns; Axis: hold Berlin & 5 other
+objectives.
+
+        AXIS:  You need to hold Berlin and 5 other objectives, but
+Berlin is crucial so keep the Soviets on the other side of the
+Oder as long as you can.  Counterattacks through gaps in the Red
+lines toward the rear objectives can draw off enemy forces (and
+you may get lucky and take objectives).
+
+        ALLIES:  You have superior strength but limited time.  The
+Germans are spread fairly thin except around Berlin, so you can
+make good time seizing the other objectives.  But don't let so
+many units chase after other objectives that you wind up
+attacking Berlin too late, and make sure the Germans don't slip
+past your lines to seize objectives in your rear areas.
+
+35. BERLIN--13 turns; Axis: hold Berlin.
+
+        AXIS:  Berlin is crucial.  You will have to defend firmly
+against the Soviets in the east, but in the west you have enough
+space for an elastic defense--trade space for time.  There are
+many defensive obstacles on the road to Berlin, so use
+successive strongpoints to slow the advance of the western
+Allies while conserving your strength so it will last through
+the battle.  Remember that bad weather gives you more freedom of
+movement because Allied airpower is ineffective.
+
+        ALLIES:  With superior forces consisting of veteran troops on
+both fronts, you should press the Germans relentlessly and drive
+on Berlin.  Rear-echelon units can mop up isolated German
+defenders not already pulverized by airpower, and your air
+superiority will ensure that even small detachments can capture
+secondary objectives.
+
+36. WASHINGTON--22 turns; Axis: take all objectives.
+
+        AXIS:  This is the final battle--you will need to use everything
+you have to storm Washington and win decisively.  Your
+paratroops and air force should carry the attack behind enemy
+lines, seizing ill-defended cities and airfields and attacking
+vulnerable support units.  Your veterans have more experience
+than the enemy troops, although the Allies are numerically
+strong.
+
+        You may want to advance on Washington using a 4-pronged attack.
+The westernmost landing group lands near and captures Port
+Tobacco, then moves to Potomac Heights and divides into two
+groups: one crosses the Potomac River to capture South Arlington
+and then strike Washington from the southwest while the other
+follows the east bank of the Potomac to Anacostia to join the
+attack on Washington from the southeast.  The landing group at
+Lexington Park takes that city and then thrusts up the main road
+through Brandywine to attack Washington from the east.  The
+forces moving up the Potomac may be able to help this
+battlegroup advance by turning the flank of the defenses at
+Brandywine.  The last landing group steams up Chesapeake Bay to
+a landing site near West River or Annapolis and drive west
+towards a position northeast of Washington from which they can
+attack the city directly or encircle it.
+
+        Whatever your plan, Washington is a big city and make sure to
+allocate enough time for your troops to arrive there and fight
+their way through it, hex by hex.
+
+        ALLIES:  If you can gain air superiority, you can slow the
+Germans enough to save the capital.  Protect your British
+aircraft since you can't build   any more.  In the air, knocking
+out the enemy paratroops can save you a lot of headaches when
+they drop behind your lines.  Your land strategy should be
+defense in depth--move units not defending towns or cities south
+to make defensive stands at Brandywine, Port Tobacco and Owings.
+If you can slow the Germans enough, they will not have the time
+to push their panzers down Pennsylvania Avenue.
+
+37. EARLY MOSCOW--24 turns; see 25. MOSCOW 41.
+
+38. SEALION PLUS--see 6. SEALION(40).
+
+
+END OF SCENARIO LIST
+
+
+
+
+-----------------------------------------------------------------------------
+* 1.3 *         Help on specific Scenarios
+                ==========================
+
+NORWAY, 1st suggestions:
+------------------------
+
+1) Air and naval superiority are needed to conquer Norway.
+
+2) NAVAL:  your subs are deadly but are vulnerable to destroyers.
+Pull your subs back until your western and southern fleets converge,
+then start attacking.  Knock out the Allied destroyers first--then your
+subs are free to knock out the big Allied ships.  I leave one battleship
+near Oslo for shore bombardment until it's out of shore bombardment range.
+
+3)  AIR superiority is a must.  Buy fighters - 4 or 5 are needed.  Keep
+them healthy with elite replacements.  Take the Western airport (Steinkjer
+?) with Fighters, Parachutes, and bombers.  Move the Western fleet up the
+coast taking cities as they go (2 destroyers and one cruiser will wipe out
+anything in the cities).
+
+4)  Use your naval transports in the north to take Trondheim airfield.
+Taking the 2 hex city at first is difficult as the naval bombardment is
+deadly on infantry.  Use a Panzer to take the airport and this isolates
+the air units.  Buy some 24 point Anti-tank PZJagers and use them to hold
+the Trondheim airfield (they're cheap and stand up to naval bombardment).
+
+5)  Take all cities as this builds up prestige points for elite
+replacements.  Buy tracked arty if you can afford it.
+
+6)  Send a few tracked units up the river to the north (along the
+eastern edge of the map).  Then can make it up there in time.
+
+7)  Use your parachuters and send them north when your tracked units
+make it to the end of the river (I can't remember the city names).  Work a
+tracked arty up north by the river.
+
+8)  The more you play it, the better you get at the Norway scenario.  it
+is tough, but it is winnable.  Balancing air superiority with naval
+strategy and constant northward movement is hard.
+
+   --- John Heidle <HEIDLE@nstaff.sunyerie.edu>
+
+NORWAY, 2nd suggestions:
+------------------------
+
+In Norway, pull back your fleet (i.e. disengage from any fighting)
+Have your armor and infantry push their way up the valley, while the southern
+fleet comes to reinforce the northern fleet.  Try to gain air superiority.
+Next, take out his destroyers and torpedo boats with your level bomber(s).
+Then bring in the subs, and wipe out the rest of the navy.  Finally, bring
+your battleships and heavy cruisers to support taking the final cities.
+I know it's easier said than done.  Got a major victory with these tactics.
+   --- Tim Matsuoka <tmatsuo@mbnoa1.mnet.uswest.com>
+
+NORWAY, 3rd suggestions:
+------------------------
+
+In Norway, land a IVD and maybe some infantry in the North, with the rest
+of your force in the south. Land the North units ASAP! And then move them
+south as quickly as you can. Use them to clear the corridor up the middle
+(with help from paratroopers). This means that by the time the South units
+have the airport they should be clear to move right up the middle.
+  Do not challenge the English fleet in the North. Move your fleet just
+to the NW of theland mass and bombard his cities there. Move your subs down to
+join your fleet. With any luck the computer will start sending bits of his
+fleet over to stop you from bombarding his cities. Use your surface fleet to
+destroy the destroyers and the subs to sink his heavy ships. With a little
+bit of luck you can get rid of a good part of his fleet without loss. When
+you have done enough damage, move your fleet in to attack his destroyers and
+let the subs sink the capital ships. You won't need to waste core units on
+Junker88's.
+   By the time your land units need to move to the North Coast, hopefully a
+large part of the fleet is sunk. But you will take losses anyway.
+   --- Roderick Duncan <roderick@leland.Stanford.EDU>
+
+NORWAY, 4th suggestions:
+Start unifying your fleet on the first turn. Do not bombard Oslo
+with the southern fleet. Send it north. Do not freelance with
+your subs. Wait until your fleet is combined. Then strike the
+allies. Your destroyers are targets. Decide to eliminate either
+allied capital ships or their destroyers with your capitol ships.
+If you kill the DD's your subs should be able to kill any capital
+ships. The DD's do not have enough firepower to stop you.
+A Ju-88 will make this an even battle. Don't allow your
+forces to be destroyed piecemeal.
+
+I land a unit and some para's by the airfield objective. I do provide
+shore bombardment for a turn or three here. A small force, 3 units,
+lands south of Oslo, often taking it in a turn or two. The rest of my
+troops head towards Lillehamer. Once that is secured we only have the two
+nothern objectives.
+
+Start sending your infantry in halftracks towards Nasmos. Sneak up
+the Northern coast if you can. Send a unit or two up the river
+to the right.
+
+The southern of those two objectives ( Trondhiem ?) can be taken by
+hard targets if you have air support. The Naval bombardment doesn't
+seem to hit the Panzers very hard. Get your infantry away from the
+allied fleet.
+
+Hopefully by now you have all the objectives but the northernmost
+one and your fleet is keeping the allied fleet occupied.
+What should you have near Nasmos ?
+Air superiority.
+A unit or two from the river valley.
+A unit or two from the North coast.
+Your paratroopers. ( I have one in my core )
+6 units and air to take one objective. It can be done.
+You don't have to hold it. Just take it.
+
+I have seen advocates of taking the northernmost city
+and buying units there. I don't think that is needed here.
+   --- DSHORT@nova.wright.edu
+
+NORWAY, 5th suggestions:
+It is possible to take out the British navy.
+    (1) have around 4 fighters, 1 bomber.
+    (2) gain air superiority.
+    (3) group all your ship in one large group.  Have a line of
+        destroyers in front, subs behind and capital ships behind
+        the subs.
+    (4) bombard their cities to the west of their fleet concentration
+    (5) they'll send over a cruiser or 2 plus destroyers and you can
+        pretty much nuke them loosing a couple of destroyer squadrons
+        and a sub group.
+    (6) repeat this and also bring in your bomber to bomb their
+        capital ships while using destroyer as bait and hit them
+        with your subs and captial ships.
+   - I was able to wipe out their navy with 1 intact battleship group,
+     a slightly damaged light cruiser and heavy cruiser group, and
+     1.2 sub groups.
+   - This should be the priority of your navy!!!
+   - you could also paradrop your paratroopers to the city ne of the
+     northern most objective.  You can take that city which is lightly
+     defended and build units there.(of course, you'll probably need
+     to take care of the British navy to do that.
+   --- John [full credit unavailable to do my newsreader]
+
+
+-----------------------------------------------------------------------------
+FRANCE, 1st suggestions:
+------------------------
+...I can give you some advice about France. Take no notice of his entrenched armies
+in the forrest to the north.  They will leave their positions going south
+after you and are easy to kill in the open. Go as fast as possible with three
+army groups and head only for the objectives. Take other towns if it can be
+done without losing time. The first army group should head for the first coast
+town, objectives only, disregarding the british forces. This means do not go
+along the coast; go through in the center then turn west. You must leave some
+units defending your towns though. The 2:nd army group follows the first one
+Seine but heads for Paris. The third army group goes east. This group can be
+the smallest 1-2 tanks with 2 infantry units to take the towns. Take out his
+fighters first, you can buy an aditional fighter unit but it is not necessary.
+Do not be afraid to use your bombers even though they take some damage. You
+can easily take out his ship with level bombers if it troubles you. Do not
+attack his tanks unless you have bombed it with stukas a couple of times.
+Defend taken cities with cheap 39 infantry and let your experienced ones move
+on. Take artillery and AA with tanks. AA are tougher but you can always bomb
+them after they have lost a couple of points.
+   --- Michael Berglund <mibe@alchemy.chem.umu.se>
+
+
+-----------------------------------------------------------------------------
+* 2   *      DESIGNERS' NOTES
+            ==================
+
+        PANZER GENERAL was conceived as a easy-to-play but
+challenging-to-master tactical/operational wargame in which the
+player, taking the role of a general, leads an increasingly
+experienced combined arms force all the way through World War 2
+in Europe.
+
+        We wanted a realistic feel without burdening the player: if the
+player did something that made sense historically, it would work
+in the game, but the player wouldn't have to handle a lot
+mechanically.  This meant a highly intuitive and user-friendly
+interface with all the complexity handled by the computer.
+
+        World War 2 saw the rapid evolution of military technology, and
+this was an important reality to model in the game.  Hundreds of
+different types of equipment are represented, and players have
+the ability to replace unit equipment with (presumably more
+advanced) alternative equipment.  Upgrading unit equipment is an
+important part of the campaign game.
+
+        Different types of units and equipment had very different
+tactical roles, and this is represented by using a common system
+of unit values but dividing units into various types with
+different capabilities according to their historical usage and
+effectiveness.  For example, anti-tank guns look very much like
+tanks with a lower ground defense value, but the rule that tanks
+will almost always get to shoot first if an anti-tank gun
+attacks them rather than vice versa helps encourage (but does
+not require) their use defensively as was the case historically.
+ Because of this limitation, they cost much less for an
+equivalent main gun.
+
+        Combined arms coordination was central to World War 2 tactics,
+and we represented it by giving each unit a turn in which it can
+move and shoot, with the tactical subtlety lying in the sequence
+and of attacks involved in a particular local engagement.
+Entrenchment levels are a key concept in the game: units able to
+dig into a prepared position are tougher to root out.  The
+concept of "rugged defense" represents ambush or the ability to
+open fire with surprise at close range, conditions which favor
+the defender and can devastate an attacker.  Rugged defense
+really helps infantry, particularly well-entrenched infantry.
+
+        Repeated attacks on such a unit, however, will disrupt an
+entrenched unit, force it out of good tactical positions and
+give the attacker intelligence useful for further attacks.  In
+the game, the way to attack a strongly entrenched unit is with a
+combination of aerial and artillery preparatory bombardment,
+followed by ground attacks by one or more units.  Entrenching
+takes time unless a unit begins a scenario entrenched.  Some
+units can take more advantage of ground and therefore can
+entrench more quickly than others in the game.  Moving units
+have a zero entrenchment level, but gain the base entrenchment
+level of the particular terrain they end in when they stop.
+
+
+-----------------------------------------------------------------------------
+* 3   *   GENERAL STRATEGIC AND TACTICAL NOTES
+          ====================================
+
+* 3.1 *       REQUISITIONING UNITS FROM HQ
+              ============================
+
+        The prestige cost of units only roughly correlates with their
+effectiveness, so examine combat values closely before calling
+HQ to send you new or replacement equipment.
+
+        Some of these values can easily be overlooked.  Maximum fuel
+capacity and especially maximum ammo capacity need to be
+carefully examined, and are more of a constraint if the unit is
+advancing than if stationary on defense--remember that a unit
+can easily use up several rounds of ammo in a turn if repeatedly
+attacked (or if providing defensive fire in support of adjacent
+units that are being attacked).
+
+        Close defense is another statistic that you can regret you
+overlooked if the unit runs into infantry in the woods and city
+hexes common on most battlefields, because you defend using your
+close defense rather than ground defense value.
+
+        Also be sure to check the Unit Equipment Tables to see what
+kind of enemy equipment you are likely to come up against.
+Start by comparing your attack values and defense values against
+each other to see who has more destructive potential in a fair
+fight.  Then compare initiative values to see who's more likely
+to shoot first, bearing in mind that unit experience can count
+for as much as 3 initiative levels.  Experience tends to be very
+important in fighter combat, where initiative values don't
+differ much and where attack values are high relative to defense
+values--the better pilot often gets in a devastating first shot.
+ It is less important in early-war tank warfare, where attack
+values tend to be relatively lower compared with defense values.
+
+
+-----------------------------------------------------------------------------
+* 3.2 *        TERRAIN
+               =======
+
+        Careful attention to terrain is well worth it.  Rivers are
+probably the most significant obstacle and make excellent
+positions to defend behind.  Bridging units are very helpful in
+terrain with many rivers but few roads or bridges.  Cities,
+besides being victory objectives and prestigious to capture and
+hold, are the next most significant obstacle because of the
+strength they offer the defense--important advantages in cities,
+swamps and mountains are that the effect of the opposing
+equipments' initiative difference is minimized (because of the
+close range combat involved) and entrenchment and experience
+levels become key.  Cities, woods and mountains also allow
+defending and attacking infantry to shoot against the close
+defense number of the enemy unit as mentioned above (except that
+infantry attacking against infantry who succeed in putting up a
+rugged defense shoot at the defender's ground defense value).
+
+        Entrenchment levels are a feature of units, not terrain, but
+affect combat much as terrain does--they make a devastating
+rugged defense more likely.  Entrenchment levels can be reduced
+by attacking or bombarding a ground unit.
+
+
+-----------------------------------------------------------------------------
+* 3.3 *         WEATHER
+                =======
+
+        Bad weather generally helps the defender and helps the side
+with air inferiority because of the inability of air units to
+attack and their reduced scouting ability during bad weather.
+Interludes of bad weather are good times to resupply and rebuild
+units or make them overstrength while waiting for the weather to
+clear.
+
+
+-----------------------------------------------------------------------------
+* 3.4 *          DON'T LET YOUR UNITS DIE
+                 ========================
+
+        Don't let your units fight until destroyed--if you can pull
+them out with even 1 strength point left, they can be rebuilt
+more cheaply per strength point than buying a new unit (even if
+using elite replacements) and get to keep their experience as a
+bonus.  This represents the importance of veteran cadres to the
+performance of new recruits.
+
+        The importance of preserving units has many tactical
+implications.  One is to ensure that units which risk heavy
+losses shoot before moving so they can retreat to safety if
+grievously weakened.  The corollary of this principle is, of
+course, to mercilessly wipe out crippled enemy units to keep the
+enemy from rebuilding them.
+
+
+-----------------------------------------------------------------------------
+* 3.5 *        COMBINED ARMS
+               =============
+
+        There are many aspects to combined arms tactics, but this is
+the most important: Armor is the king of open ground and
+infantry is the king of restricted terrain.  If you consistently
+violate this rule, you'll be lucky to end the war as a Panzer
+Private.
+
+        As in the childhood game of scissors-paper-stone, every World
+War 2 troop type had a relative advantage over some other types
+and a relative disadvantage compared with others.  Tanks can
+roll over infantry in the open but be stopped dead by them in
+bad terrain or entrenchments.  Artillery can slaughter infantry
+but be slaughtered by tanks.  Anti-tank guns can defend well
+against attacking armor but fare poorly against infantry.  Air
+defense and anti-air units are poor against ground units but a
+major threat to aircraft, which avoid them but can freely strike
+anything else moving on the ground (except later in the war,
+when other ground unit acquire their own organic air attack
+values and can shoot back).
+
+        Combined arms tactics involve using a variety of unit types in
+close cooperation, each attacking the enemy where it has an
+advantage and being screened by the other arms where it has a
+disadvantage.  On the advance in open ground, for example, tanks
+and tank destroyers would lead, with self-propelled artillery
+and air defense units and infantry mounted in half-tracks or
+trucks "tucked in" behind them where the enemy cannot attack
+them without first forcing the armor out of the way.  Recon
+units might be in or immediately behind the front line to use
+their superior spotting range to scout ahead.
+
+        Although an army consisting solely of tanks might be able to
+win a battle (at least, a defensive battle), it is likely to
+lose badly to a balanced force of equal size.  Both in the
+overall army and in the battlegroups assigned to spearhead
+particular attacks or defend particular sectors, the subtle
+skill of using combined arms is one of the most important
+talents of the Panzer General.  There are many aspects to
+combined arms, as you will learn as you play, but a
+stereotypical example follows.
+
+        Attack on a Prepared Position:   To avoid ambushes and wasting
+time by sending troops to inappropriate locations, you begin by
+scouting to uncover enemy positions.  This can involve sending
+aircraft along a path crossing over the terrain you are
+interested in or pushing a recon unit to the limit of what is
+currently visible (or one hex short of that, if you want to be
+careful).   Absent either of these, you use a unit somewhat to
+the rear of your front line whose full move would take it ahead
+of your line but to a hex that is still visible.  When it
+arrives there, it spots additional hexes and further units from
+the rear can leapfrog forward, increasing the spotted area.
+
+        Suppose the enemy is spotted, heavily entrenched in a victory
+objective city directly ahead of you, with artillery positioned
+behind the city and infantry or armor to either side.  You
+decide you can't successfully bypass it and turn back to take it
+later.  Your priorities are to eliminate the supporting
+artillery, clear away the nearby enemy units, and weaken the
+unit defending the city.   A typical sequence of events could be:
+
+- fighter attacks city to weaken entrenchments
+
+- tac bomber attacks artillery to inflict losses--getting rid of
+the enemy artillery is key to preventing heavy losses to your
+infantry
+
+- tank attacks enemy tank/tank destroyer or tank attacks
+infantry on other side of city (don't attack with infantry
+yet since strong surviving enemy artillery will chew it up)
+
+- artillery moves into range of city and deploys
+
+- first wave infantry moves adjacent to city in front of
+friendly artillery
+
+- enemy turn--can't resupply, build, or successfully attack even
+your infantry because of your artillery support; can't attack
+your infantry with air power since your fighter will intercept;
+his artillery will try to harass you, though.
+
+- your turn: fighter over city attacks and moves to adjacent hex,
+
+- if enemy tank or infantry on flanks gone, armor or tank
+destroyer passes forward to attack enemy artillery while tactical
+bomber moves over city to attack it
+
+- friendly arty bombards city
+
+- first assault wave attacks city, retires away if the enemy
+survives (pionieres and engineers are more likely to win
+immediately since they ignore enemy entrenchments and
+prevent an enemy rugged defense)
+
+- second wave moves adjacent to city, attacks and probably wins
+
+- fresh troops from the rear occupy city.
+
+
+        Make sure you pay attention to the estimated combat results
+displayed for you by your staff on the bottom of your screen as
+you plot your attacks, although actual combat results will vary.
+The only important variable the estimate leaves out is the risk
+of facing a rugged defense.
+
+
+-----------------------------------------------------------------------------
+* 3.6 *        THE OFFENSIVE
+               =============
+
+        To win a major victory, you must not only win--you must win
+early.  In the campaign game, the difference between a major and
+minor victory is important to your future.  Usually, a major
+victory is won by taking your objectives especially early.  If
+you take them too late--usually about 2/3 of the way through
+offensive battles--the best you can do is a marginal victory.
+On defense, how many objectives you hold at the end of the
+battle is the key.  Tenacity and endurance count.  Avoiding
+friendly losses and inflicting losses on the enemy don't count
+for determining victory and defeat, although, particularly in
+the campaign game, both of these goals help you improve your
+core army and thereby help in future battles.  Since only
+victory objectives count, you must avoid being led astray by
+diversions.
+
+        Part of staying focused on objectives is making and
+implementing a plan and keeping your forces organized
+accordingly.  Check the strategic map to see where victory
+objectives are and the best routes to them, preferably routes
+that pass by a number of them.  Paths that threaten multiple
+objectives are preferable because the enemy must build and
+deploy units to defend them all, thus leaving the target you
+wish to strike weaker before your blow.
+
+        The tutorial speaks in terms of battlegroups because thinking
+in terms of battlegroups tasked with driving to specific
+objectives is one good way of keeping on track and avoiding
+time-wasting distractions.  To win in PANZER GENERAL, time is
+the one thing you cannot afford to waste.  Offensives tend to
+become dissipated and diffuse over the entire enemy front rather
+than just the critical sector.  Units tend to wander across the
+battlefield in the pursuit of temporary and often irrelevant
+tactical advantages such as picking off weakened units.  The
+result is that a decisive victory can become a minor victory or
+a loss.
+
+        Attacking on a broad front is an unwise dissipation of strength
+except in fluid "pursuit" battles such as Kharkov where you are
+chasing or racing past the enemy to your objectives.  Single,
+narrow spearheads are too limiting, but a single, broad
+spearhead is an effective way to punch through strong defense
+lines into more favorable ground beyond, while multiple
+spearheads work well in intermediate situations with
+widely-spread objectives.  Lines of advance threatening multiple
+objectives force the enemy to disperse to protect them all,
+weakening him everywhere, while converging on an objective from
+several directions lets you direct the most combat strength
+against it.
+
+        Force balance is essential on the offensive because of the
+varied nature of the terrain and enemy forces.  Any force that
+will attack woods or towns needs infantry..... If you have air
+inferiority, consider an AA unit or two and self-propelled air
+defense units to provide some deterrent to and protection
+against enemy aircraft.  This works best if you have at least a
+small fighter force to pick off weakened enemy aircraft after
+they attack.
+
+
+-----------------------------------------------------------------------------
+* 3.7 *        THE DEFENSIVE
+               =============
+
+        On defense, build multiple lines of defense--get ATGs and
+infantry, which entrench more quickly, focusing wherever possible
+on defending river lines and putting infantry in cities, mountains
+and forests. Artillery sited behind towns to provide defensive support
+is especially useful.
+
+       Active defense is the strongest form of defense--it was a very
+effective practice to launch local counter-attacks immediately
+to neutralize any enemy penetrations and before the enemy could
+settle into a captured position.
+
+        Combined arms on the defense is the converse of combined arms
+on the offensive--an ideal defensive position consists of
+infantry in bad terrain immediately supported to the rear by
+artillery and air defense units, with armored and infantry
+reserves to counterattack breakthroughs in open and close
+terrain, respectively, and, ideally, fighters to shoot down
+enemy tactical bombers and tactical bombers to weaken enemy
+artillery and the attacking units they support.  If you can keep
+the fighters in the air over your lines, they can intercept
+attacks on adjacent ground or bomber units (unless first
+attacked by the enemy themselves).
+
+        You will usually have air inferiority, at least initially, when
+on defense.  Sometimes your skill can turn the tables, but more
+often you will be swamped by enemy airpower and must take
+recourse to air-defense units.
+
+        One thing to note, particularly important on defense, is that
+units that cannot retreat surrender instead--if a unit is
+particularly likely to be beaten, try to leave room for it to
+fall back.  The disadvantage of this, of course, is that it
+makes it harder to put artillery and air defense units in direct
+support of the unit.
+
+
+-----------------------------------------------------------------------------
+* 3.8 *         THE AIR WAR
+                ===========
+
+        The air war is a subsidiary but critical part of the war.  Air
+units cannot take or hold terrain--only land units can do
+that--but they can prove a major help or hindrance depending on
+whose units are flying overhead.  The ideal is air supremacy
+(such as the Allies enjoyed in the Gulf War in 1990), which
+means unopposed control of the air, but your minimum goal
+(unless seriously inferior in the air) is air superiority, which
+means that you generally have the advantage in the air and can
+range freely over enemy lines to launch ground attacks.  If you
+achieve air supremacy, keep your air units constantly busy
+launching attacks on ground units to increase their experience
+levels.  With air supremacy, your soft targets are also safe
+from air attack and your air force can provide valuable
+reconaissance of the enemy's dispositions while he cannot see
+yours.
+
+        With air inferiority, your soft targets, especially trucks,
+artillery, and pioniere or engineer units, get hammered. Your
+fighter and anti-air units should concentrate on enemy bombers,
+since the fighters can do only minimal damage to your ground
+units.  Your air defenses can provide some shelter from enemy
+attack for your air units.
+
+        Fighter/bomber coordination was a major doctrinal issue on both
+sides during the war in Europe. notably in the aerial Battle of
+Britain in 1940 and the air war against Germany from 1943 on:
+should the fighters be tied to close escort of the bombers or
+range free to hunt down enemy fighters before they can approach?
+ From the aerial defender's point of view, should his
+interceptors target the attacking bombers or the escorting
+fighters?  to attack escorted bombers, first attack the fighters
+to weaken or destroy them. If successful, this reduces the effect of,
+or prevents intercepting attacks on the bombers.
+Air defense units work the same way--though they are best attacked
+by ground units, good tactical bombers and pilots can take them
+out or severely weaken them from the air.  Sometimes the
+attacker escapes without loss by shooting first to devastating
+effect, but considerable losses to the attacker are more
+typical.  When coordinating air units, remember that different
+aircraft move at different speeds--don't leave your bombers
+accidentally unescorted because the fighters have moved too far.
+ It's usually helpful to move the slowest units first if they
+can safely do so.
+
+        Strategic bombers can inflict prestige losses on the enemy by
+bombing victory objectives, destroy airfields, bomb other
+enemy-held cities into neutral status (i.e., "neutralize" them
+so the enemy can't build there or gain prestige from holding
+them), or bomb units, destroying strength, ammo and fuel and
+suppressing them for the entire turn.  Veteran and crack
+strategic bomber crews are very effective.  Note also that
+"heavy" and "medium" level bombers are inherently more effective
+than "light" level bombers, but that the relative difference
+narrows considerably with experience.  Level bombers all have
+the same hard and soft attack values, so the real combat
+difference is revealed by other values, including their air
+attack and air defense values.  Bombers with high naval attack
+values can also be extremely useful against ships.
+
+-----------------------------------------------------------------------------
+* 3.9 *         THE NAVAL WAR
+                =============
+
+        Most scenarios don't include naval warfare, but naval units
+play an important role in almost all the scenarios in which they
+appear.   They are expendable, and should be used to defeat the
+enemy navy and then support the ground forces with bombardment,
+or at least prevent the enemy fleet from bombarding your forces.
+ Note that bombardment is much more effective against soft
+targets than hard targets.
+
+        In naval battles, keep the scissors-paper-stone interaction of
+deatroyers, subs and capital ships in mind.  Since capital ships
+can't fight back against subs, an escort screen is essential
+against this threat.
+
+-----------------------------------------------------------------------------
+* 3.A *        QUALITY: EXPERIENCE
+               ===================
+
+        In addition to getting a chance of shooting first, experienced
+units lose fewer casualties and inflict more casualties than
+would otherwise be the case.  Units gain experience by fighting
+and gain the most by destroying enemy with better experience or
+equipment or at least forcing them to retreat.  Building up
+units to overstrength status is very popular with some
+playtesters because their combination of numbers and quality can
+smash some enemy units with a single attack.  Building up to
+overstrength takes time, however, and artillery and air
+bombardment against you have the annoying effect of cutting
+these units back down to size.
+
+
+-----------------------------------------------------------------------------
+* 3.B *         Composition of core
+                ===================
+
+My core is 4 fighters, 2 Stuka, 3+ artillery, 4 or 5 tanks, and
+the rest is infantry.  When playing the campaign, I upgrade
+units and transport frequently (halftrack everything eventually
+as they move fast and can survive some surprise contact.
+Shift to more air and arty.   Buy PZ IVDs - look at the specs.
+They're better at antitank and are cheaper.  For the auxiliaries,
+buy some anti-tank PZJagers.  They can depress fortification levels,
+move fast, and knock out weakened allied tanks.
+   --- John Heidle <HEIDLE@nstaff.sunyerie.edu>
+
+[In response to my then core composition of 2 fighters, a level bomber,
+1 artillery, and the rest a 2:1 infantry to armor ration --- Jenkins]
+
+1. Your force balance is all wrong. You have far too many ground troops,
+especially for the early scenarios. I never built artillery until the last
+few Russian scenarios (because the weather got bad), but even then I had at
+least 30% of my force in the air. For Norway, you need at least 4 fighters-
+buy the best you can get, whatever the cost. You will need  about 6 Stukas.
+This will mean that you will suffer when it rains, but make hay while the sun
+shines... So during rain, reinforce and move up lagging units.
+   I think your major problem is the lack of Stukas. With 6 Stukas, you can
+afford to attack tanks and entrenched infantry every turn. I only attack
+British tanks (and even the good french ones) with Stukas! Don't use your
+own tanks until they are reduced to half-strength. German tanks could not
+stand up to English tanks at the start of the war.
+   You only need 2 or 3 tanks and 1 or 2 infantry in any battle group (until
+Russia), as the Stukas will clear out the enemy in front of you. Scrap your
+artillery! (I would start over.) Count on having about 3 battlegroups, so
+fix your numbers.
+
+2. Buy IVD's. They are easily the best tank until IIIj's show up. Don't buy
+IIIg's!
+
+3. Upgrade to pioneers and/or bridging eng's in half-tracks ASAP. Attack
+entrenched infantry ONLY with pioneers. Use your other infantry units to
+mop up. The max. number of infantry you'll need to win the game is 6 (all
+bridging). You should have some pioneers by Norway.
+   --- Roderick Duncan <roderick@leland.Stanford.EDU>
+
+[In response to my then core composition of 2 fighters, a level bomber,
+1 artillery, and the rest a 2:1 infantry to armor ration --- ]
+
+Ok, all your tactics are very good except maybe for unit ratios.  I
+usually invest in more air power ( bombers) and your ratio of armor to
+infantry should be at least two to one, NOT the other way around.  This
+is after all PANZER General.  I usually have no more than about six
+infantry units but a lot of tanks.  Let the tanks attack the tanks,
+artillery and anti-air and let them move on.  There is the speed that you
+are lacking.  Let the infantry and artillery basically mop up the
+remains.
+   --- gitplayr <gitplayr@cml.com>
+
+[In response to my then core composition of 2 fighters, a level bomber,
+1 artillery, and the rest a 2:1 infantry to armor ration --- ]
+
+By the low countries everything should be tracked. Trucks are for
+supply units. They get combat soldiers killed.
+
+Your air corps seems very, very small to me.
+
+I want mobile troops, so I go about one to one.
+I do not purchase infantry but I try to upgrade
+one to Bridge Eng. after each battle. I prefer quality
+over quantity.
+
+A little unsolicited advice about equipment.
+Before 1941 I stay with PzIVd for my anti-infantry tanks,
+and the Czeck Pz35 and Pz38 for my anti tank tanks.
+Those distinctions are important.  [I agree; realizing this once I received
+your comments made a profound difference in my game --- Jenkins]
+
+Attacking engineers and pioneers are never cought in a rugged defense.
+Attacking engineers and pioneers ignore defenders entrenchment levels.
+Read those two lines again.
+That means you don't have to encircle and starve out all
+entrenched defenders or send your men on suicide missions.
+
+   --- DSHORT@nova.wright.edu
+
+I have a one to one ratio of infantry to armor.  I think that works
+better.  I do a blitzkrieg with my armor,artillery and air force.
+That usually clean out the path to all cities(I don't take many cities
+with armor tho.)  The key here is the speed at which you wipe out
+the opposition.  My infantry just leisurly moves up and take the
+cities.
+   --- John [full credit unavailable due to my newsreader]
+
+AT guns are pretty useless on the offensive, but....I try to get a couple
+early in the campaign and nurse them along like my favorite children.
+Never attack tanks with them, use them on defense.  Use them against
+weakened tanks and INF to build up their experience.  Get them up to 15 ST,
+5 Star status which is fairly cheap to do.  Then when available upgrade
+them to Nashorns, Elephants or Jadgtigers/panthers.  These damn things are
+nearly indestructable and with enough experience will still get the first
+shot off.  They are indespensible in the later scenarios when you are
+outnumbered by the allies.
+   --- Bill Saurwald <wrsauerw@cbda9.apgea.army.mil>
+
+-----------------------------------------------------------------------------
+* 3.C *         How the Allies gain Prestige
+                ============================
+
+[These comments are in the strategy suggestion, because they, I believe
+present information which should effect your global strategy for seizing
+objectives in all offensive scenarios.  They were in response to my comment
+that I run out of prestige.  ---Jenkins]
+
+You're running out of prestige because your not taking
+your objectives quickly enough. Tha allies get a boodle of
+prestige every four turns or so. That boodle is pro-rated
+by how many victory objectives they are still holding.
+If they start with three and still hold three they get
+the full amount. If they hold two they get 2/3's the amount.
+If they hold one they get 1/3 the amount. Thus the better and faster
+you start capturing objectives ... the easier it gets to capture the
+others. Time and prestige are closely related.
+   --- DSHORT@nova.wright.edu
+
+-----------------------------------------------------------------------------
+* 3.D *          One person's blitzkrieg strategy
+                 ================================
+
+Offense is the name of the game.  I use a road warrior like technique for
+Major Victories.  Form up your units with the last objective in mind.
+Concentrate your units on one or two roads leading nearest to the
+objective.  I like to have one main spearhead with a secondary spearhead
+of minimalist forces w/o air-cover.  Each spearhead is organized with
+tanks in front, then arty, followed by pioneers.  I pack my units in
+like sardenes, so we are a bristling, armored fighting machine.  Lead with
+fighters to clear out enemy planes.  Don't lead your task force too far
+though.  Sometimes you can intercept enemy planes over your own forces,
+so in the next turn you can protect the forces beneath you from enemy planes.
+After the fighters, attack with your stukas.  Take out enemy tanks
+and arty first.  If its early in the game and you don't have air
+supperiority yet, don't stray from your escort fighters.  (i.e., always
+have at least one escort fighter adjacent to your bomber.)  If you don't
+have a target adjacent to a friendly escort, return to base or rest over
+a friendly in the rear.  By resting over a friendly, you can use a bomber
+for air support!  After the air attack, unleash your arty.  If you have
+room to manuever after the attack, advance forward.  If a particular arty
+unit doesn't have a unit within range, it can either overstrength or
+advance.  After the arty, attack with your tanks anything on the road
+except entrenched units in cities.  Finally, advance your pioneers.
+This is a very reliable technique for winning Majors.  Probably not the
+best, but it works for me.  In the first Invasion of Russia, my arty
+never stepped off the main road.  They would just shoot, advance, and
+stop for the next turn.  Mind you, I use halftracks for all of my
+units.  I don't like to walk and I don't like to be decimated by being in
+trucks.  (I do use trucks, but only for units which are WAY in the rear.)
+Do like the book says.  Ignore non-objective cities and airports unless
+they are in the way.
+   --- Unable to provide proper credit due to my newsreader
+
+
+-----------------------------------------------------------------------------
+* 4   *     Additional Tactical Info
+           ==========================
+
+* 4.1 *         FORCE BALANCE
+                =============
+
+        Playtesters have found that a range of approaches work, but
+there are a number of consistent factors.   The largest parts of
+ core groups tend to be tanks, infantry, and aircraft.  Tank
+strength is typically from 25-50% of the core group, generally
+increasing over the war.  Infantry strength is typically from
+20-30% and slowly declining on a battlefield where only veteran
+infantry can effectively defend themselves.  Some players use
+paratroops, others don't.  The proportion of engineers and
+pionieres (who are very costly in terms of prestige) to other
+infantry also varies widely.
+
+        Air strength varies the most of the "big three" types of
+forces, from a couple of fighters up to over 30%, with the "big
+wing" proponents using one or two level bombers and the rest
+split in varying proportions between fighters and tactical
+bombers.  Some players prefer the greater ground attack ability
+of dedicated tactical bombers while others prefer the added
+anti-air capabilities of fighter bombers, particularly when
+facing strong enemy air opposition.  Aircraft first become
+available in Warsaw (although the first fighter-bomber is not
+available until Norway).
+
+        Some players' core groups include up to 10% each of artillery
+and anti-tank units, while others use none or rely on auxiliary
+forces.  Self-propelled artillery is more useful on the advance,
+but towed artillery, if entrenched and protected against air and
+ground attack, suffices on the defense or for slow-moving
+attacks such as those through mountainous or other unfavorable
+terrain.  Artillery, like pionieres and engineers, are magnets
+for enemy air attacks--so use of these troop types necessitates
+a strong air force or air defense.  Few playtesters used more
+than a single anti-aircraft unit or more than a few air-defense
+units in their core groups for the 1939 campaign, largely
+because they are not necessary if you control the air as the
+Axis tend to do in the early war.  Air defense units are also
+often available as auxiliaries. Even players de-emphasizing airpower
+found a small fighter force useful for picking off isolated enemy
+bombers, forcing the enemy to escort his bombers, and for reconaissance
+The main alternative to air reconaissance (other than turning
+"Hidden Units" off) is Recon units.  Players who use them usually use
+no more than one per spearhead for scouting purposes.  Late in the war,
+they have to be used more carefully in the face of increasingly powerful
+enemy units.
+
+        Though the force percentages can vary significantly, each
+approach strikes a particular combined arms balance between the
+types of units the player uses together to achieve victory on
+the battlefield.  Some choices limit others--for example, an
+army with a powerful air force will have little need for air
+defense and can afford to deploy a lot of expensive artillery
+and engineers, which, however, are no more than vulnerable
+targets if the enemy rules the skies.  Auxiliary units available
+to you will often help deal with key gaps in your force mix for
+particular scenarios--e.g., air defense in the Low Countries,
+naval, air and paratroop units in Norway and Crete, and
+pillboxes for D-Day (hope your career takes a more successful
+track!).
+
+
+-----------------------------------------------------------------------------
+* 4.2 *         AUXILIARIES VS. CORE UNITS
+                ==========================
+
+
+        There is a tension in the campaign game between getting
+experience for your units and letting the auxiliaries take the
+bulk of the punishment.  Use only auxiliaries for scouting into
+unexplored territory (because of the risk of ambush), and for
+those occasional sacrificial attacks needed to soften up a tough
+enemy target.   Topping them off with elite replacements is
+rarely worth it.  Remember that HQ will provide you with elite
+replacements for your core units once the battle is over, so in
+the late stages it is a good idea to build up full-strength
+units to over-strength while leaving crippled ones for HQ to top
+off.
+
+        You are not penalized for losing auxiliary units (though the
+enemy does gain prestige for killing them).  One implication of
+the enemy's ability to gain prestige from destroying your units
+is that it is better to disband a unit in a hopeless position
+than leave it alive for the enemy to destroy for the prestige on
+their turn.  Another implication is that it is ok to use up as
+many auxiliary units as necessary to win your battles.  Let your
+core units be "glory hounds," finishing off units already
+weakened by the auxiliaries and gaining the prestige.  You'll
+need all the prestige and experience gain your units can get.
+
+-----------------------------------------------------------------------------
+
+* 4.3 *         UPGRADING AND ELITE REPLACEMENTS
+                ================================
+
+        Players' styles differ significantly on when to spend prestige
+to upgrade a unit's equipment and when to give it elite rather
+than regular replacements.  These are important decisions, and
+there is a trade-off between the two and between these and
+raising new units because you rarely have enough prestige to do
+everything you want.
+
+        UPGRADING:  The upgrade issue is rather easier--you can't
+afford to allow your technology to become obsolete, but you
+can't afford to upgrade every time new technology becomes
+available.  Some units never upgrade--pioniere and engineer
+units never get any better than their initial values.  Infantry
+is typically upgraded in type once in 1943, although some
+players change the type of infantry as necessary or wait until
+Wehrmacht infantry gain experience before upgrading them to
+paratroops, pionieres or engineers.  Infantry, particularly the
+slower-moving heavy weapons, pioniere, and engineer units, also
+get half-tracks or at least trucks as soon as possible.
+Aircraft are typically upgraded one to three times the course of
+the war, sometimes more, while tanks can easily be upgraded
+three to five times (many players will be surprised by how
+feeble the German tanks that won the early blitzkriegs really
+were--they won through superior skill, as must you as a Panzer
+General).
+
+        Naturally, experienced units receive the best equipment--they
+can use it most effectively and it increases their
+survivability.  As you play, you will probably develop a
+preferred upgrade path that fits your force balance and tactics.
+ Sometimes you will have parallel upgrade paths: before the
+development of the all-purpose Panther and Tiger, German tanks
+tend to fall into the anti-armor (Pz III) and anti-infantry (Pz
+IV) categories, each with a separate natural upgrade path.  You
+may also wish to experiment with different alternative
+approaches to force structure.
+
+        ELITE REPLACEMENTS:  This is where player preferences seem to
+vary widely.  One playtester who emphasized armor and minimized
+air power won by largely ignoring attrition from enemy air
+power, but his units often had to fight at strengths of  as
+little as 5.   If harassed by constant air attack, building
+units overstrength is not worth the time.  In contrast, most
+players felt strongly about the value of overstrength units and
+their ability to overwhelm their opponents in combat or take
+heavy losses and remain effective.  Units can be made
+overstrength only if highly experienced, so these players made
+using prestige for elite replacements a priority (sometimes even
+making selected auxiliary units overstrength).  These players
+differed, however, on their priorities.  Some players placed a
+high priority on enhancing their artillery because it can stay
+overstrength for a long time and preserve its destructiveness
+through the war, while others neglected their artillery, using
+its therefore less effective firepower mainly to weaken
+entrenchment levels or shoot at vulnerable soft targets. Some
+cultivated their strategic bomber force, while others neglected
+it.  Some used paratroops as expendable units while others used
+veteran paratroops to secure objectives deep within enemy lines.
+ Some put priority on enhancing front-line tank and fighter
+units, while others would rely on constant combat to bring these
+units back up to snuff and put first priority on building up
+second-line units less able to gain constantly in experience
+through combat (e.g., artillery tend to be particularly slow to
+improve).
+
+
+-----------------------------------------------------------------------------
+* 4.4 *         AIRCRAFT TACTICS
+                ================
+
+Killing aircraft
+----------------
+To ensure that you totally destroy an opposition air unit,
+attack with a fighter on one side of the target unit.  If
+it is not completely destroyed, attack with the second fighter unit
+on the directly opposed hex.  This will cause the Zones of Control
+of your fighter units to overlap, preventing the target unit from
+escaping during the Allied turn.  Destroy it before returning your
+fighters to base to refuel.
+    --- S.Jenkins
+
+[In response to my comment, above ---Jenkins] Attack with your air at every
+chance. It builds experience in your air corps and reduces entrenchment.
+   --- DSHORT@nova.wright.edu
+
+Always killing aircraft
+-----------------------
+Always destroy enemy air units in the opening turns, regardless of
+convenience.  If they become experienced, in those transitional turns when
+you are operating beyond your air range prior to taking a new airfield, you
+will regret it greatly.  An experienced enemy fighter unit can inflict
+literally decimating losses before it is destroyed.
+   --- S.Jenkins
+
+[In response to my comments, above ---]
+This seems to be the "Net Consensus", but I disagree about the total wiping
+of enemy fighters.  If I have a 12 St FW that can kill 7-8 enemy fighters,
+I will not use 2 FW to kill 1 enemy fighter.  I'll use 2 12 ST FWs to wipe
+out 14-16 enemy fighters from 2 stacks.  The computer uses the same rules
+I do to replace units.  If he uses elite, it will cost him a lot of prestige.
+If he uses regular, his experience will drop and his fighters will be less
+effective later.  If possible I'll attack a fighter stack near something I
+want to protect (like artillery) to provide intercept support next turn, or
+near one of his units I want to tac bomb, so my fighter can provide escort.
+
+I used this strategy during D-Day (set at hard level), and i had a decent
+sized AF to start with, but I kept his fighters at bay and really bit into
+production of other units (I suppose, anyhow).  Also in D-Day, protect those
+airfields so he has to go back to Eng to supply and refuel.  I used my "aces"
+to decimate a stack and then rooks to finish off the 2-3 left.  This helps
+build experince for rooks and keeps losses low.  Also concentrate on his tac
+bombers first, the fighters are less deadly against ground troops.  Sometimes
+I will waste a little offensive firepower to finish off tac bombers.  You
+never know when they will come back full strenght and make you pay.
+
+   --- Bill Sauerwald <wrsauerw@cbda9.apgea.army.mil>
+
+[In response to my comments, first above --- Jenkins]
+Yesyesyesyes.  On the first turn, my bombers bomb and my fighters provide
+escort (and strafe if convenient).  On the second and third turns, my
+fighters are killing enemy aircraft, and sometimes I miss out on some
+good bombing opportunities since friends don't let friends bomb unescorted
+(at least, not early in the game).
+   --- Reid Gagle [Email address unavailable due to my newsreader]
+
+Take airfields
+--------------
+Leapfrogging your aircraft from airfield to airfield
+allows continual bombardment of entrenched units.
+   --- Jenkins
+
+Reducing entrenchment with aircraft
+----------------------------------
+If possible, in the turn you intend to take an objective (or artillery,
+etc.), have a fighter unit left from the previous turn over the target:
+strafe it to reduce strength points, then let the fighter RTB.  Now, bring
+in a level bomber to suppress as much of what is left as possible.
+   --- Jenkins
+
+Fighter flyscreen
+-----------------
+   I found that a valuable trick with your fighters (once you have enough,
+say 6-8, so for Sealion '41 and later) is what I call the 'flyscreen'. Put
+a line of fighters every3hexes and string them across the map (with 6 you can
+cover 17 hexes) about 10 hexes in front of your ground troops (use care to
+avoid enemy AAA). The enemy fighters will move forward but stop at your
+line of fighters- and usually not attack. You can then move your ground
+troops and fly your Stukas with complete freedom behind the fighter screen.
+Once the enemy aircraft have come out and got stuck on your line, use the
+next turn to wipe them out (trapping any that you don't destroy immediately).
+   --- Roderick Duncan <roderick@leland.Stanford.EDU>
+
+
+-----------------------------------------------------------------------------
+* 4.5 *         ARTILLERY TACTICS
+                =================
+
+Protecting vulnerable artillery
+-------------------------------
+Artillery should _always_ be in halftracks.  Nice trick....:  your
+artillery starts the turn in its halftrack.  Unmount, shoot, remount,
+move.  Result:  your artillery is _never_ a target except in its halftrack,
+which is a hard target with decent defenses.  It would be better (speaking
+masochistically) if you could not unmount and remount on the same turn.
+That way the artillery would be vulnerable half the time, and maybe
+the sIG*booms! would be worth getting despite their lack of ammo.
+Generally, you need more air.  Your infantry all need transport.  I don't
+generally buy more infantry, though I upgrade what I've got and try to
+avoid letting them die.
+   --- - Reid Gagle [Email address unavailable due to my newsreader]
+
+[In response to Reid Gagle's comment, above --- Jenkins]
+Ths is often a good tactice, but not always: artillery in transport cannot
+generate defensive fire, and I'd guess about 1/3 of my artilery ammo is
+used this way- backing up the front line troops as they beseige a city.
+Since there is a cost to staying mounted, I don't see the feature pointed
+out above (being able to stay mounted) a bug.
+
+   --- Drew Fudenberg [Email address unavailable due to my newsreader]
+
+-----------------------------------------------------------------------------
+* 4.6 *         Seek and Destroy
+                ================
+
+Destroy weak enemy units
+------------------------
+I never let a very weak (1-3 strength) nemy unit escape if I can reasonably
+prevent it, because they seem to come back, replenished and experienced,
+to haunt you at your next objective.
+   --- Jenkins
+
+Destroy artillery
+-----------------
+Attack and destroy enemy artillery (and fortifications) before attempting to
+take the main objective.  The loss from defensive artillery fire combined
+with the dreadful rugged defense doesn't seem worth it.
+   --- Jenkins
+
+
+Attacking objectives from the rear or the Zen of Scale
+------------------------------------------------------
+Take well-entrenched objectives from the rear, having taken the units
+around to the side opposite the fortifications.  (For example, in
+the Warsaw scenario, I took the eastern airport first, and then
+worked west towards Warsaw.)
+   --- Jenkins
+
+[In response to my comment above --- Jenkins]
+Yes.  Paratroopers taking a city just past your last objective are a big
+help here, unless you are a purist who says "that could never happen in
+real life."  Your new city then produces tanks or an artillery unit....
+   --- Reid Gagle [Email address unavailable due to my newsreader]
+
+[In response to my comment above --- Jenkins]
+
+On the unit scale, units have no rear.
+On the tactical scale,  unless you can get to the arty first,
+   you're waisting time.
+On the strategic scale, I think you would be better served splitting
+   your forces into task groups. With your entire core you should
+   be able to threaten/take three objectives at a time.
+
+[BTW, I -did- mean this on the tactical scale, specifically to get to
+artillery and air defence first... but this remains my favorite comment
+of all of the ones I received; very much the Zen of scale in Panzer General.
+Kudos. --- Jenkins]
+
+   --- DSHORT@nova.wright.edu
+
+Destroying superior allied armor
+--------------------------------
+Use the Stuka Tactical bombers to attack strong enemy tanks.
+Your tanks are weaker.  Hit them with Stukas, hit them a 2nd time with
+any air that's available (a second Stuka attack is great), then hit
+them with your best tanks (PZ IV are the strongest in the game - read
+the specs.  Strong arty also hurts them.  Combined arms with several
+units.  PzJager anti-tanks can be used to kill off weakened tanks.
+   --- John Heidle <HEIDLE@nstaff.sunyerie.edu>
+
+Those JU87B Tactical bombers are pretty much the only solution to those
+French & British tanks.  Weaken them with your tactical bombers, and then
+finish them off (when their strength <5) with an armored attack (preferably
+by a Pz III).  [This suggestion was aimed at early scenarios; I found that
+in the later scenarios, upgrading your Stukas to the JU87D is invaluable;
+the suggestion is also cognizant that only in the early scenarios is the
+PzIII series your best bet against tanks.  --- Jenkins]
+
+Pioniere & Engineer infantry - once you get an experienced infantry unit
+think about upgrading to Pioniere or Engineer.  Both of these units ignore
+entrenchment of enemy units.
+   --- Tim Matsuoka <tmatsuo@mbnoa1.mnet.uswest.com>
+
+The allied armor is of higher quality. Here are a few tips
+       on destroying it:
+- Level bombers will destroy supply. Without Fuel and ammo units
+  are easier to destroy.
+- Tac bombers will reduce them also.
+- Experienced german anti-tank armor can reduce them.
+- Anti tank 88's will destroy them if the allies are dumb enough
+  to attack. If you are forced to attack you will do some damage.
+- Allied units are drawn to dewtroy the anti air 88's like flies
+  are drawn to honey. The anti air 88 will rip them to shreds.
+   --- DSHORT@nova.wright.edu
+
+
+Attacking entrenched units
+--------------------------
+Do not wait for reasonably low entrenchment levels.  Use the
+likely outcomes" only as a rough guide.  Using the "pill boxes"
+as an example, use a level bomber then 2 infantry to assault
+They will often surrender.  Experienced infantry usually can win
+at the 5 entrenchment level if there has been softening up.
+(Usually but not always)
+  --- John Heidle <HEIDLE@nstaff.sunyerie.edu>
+
+Destroying fortifications
+-------------------------
+The fun thing about fortifications is that suppression works nearly as well
+as outright distruction.  If you have them to spare fly a level bomber over
+and get your 2 suppressed.  Then move up an infantry unit and attack.  You
+may get chewed up but as long as the infantry can get the remaining guns
+suppressed the fort will surrender.
+    --- Kurt Staiger [email address unavailable due to my newsreader]
+
+
+Killing air defence
+-------------------
+One other advantage to level bombers. They lower the fuel and ammo of the
+defending unit. With a max ammo of 7 for Soviet 76mm AA gun the level
+bomber reduces ammo so the AA gun only get to fire once or twice. The
+level bomber has a higher defence rating so it takes less damage than
+Ju-87s. The next turn the Stukas come in..... no losses.
+    --- JP Shue [email address unavailable due to my newsreader]
+
+Taking all cities
+-----------------
+Bypass any city that you can; they non-objective cities seem to
+yield prestige only in very small amounts, and aren't worth it.
+    --- Jenkins
+
+[In response to my suggestion, above --- Jenkins] I will continue to do this
+until see the computer mount a real effective counter. I've gone as far as
+not garrisoning victory locations. Clearly I can't do that against a human
+opponent.
+   --- DSHORT@nova.wright.edu
+
+I take every city for the prestige points.  It's also dangerous to
+leave enemy units behind your lines.  In the low countries scenario,
+use arty and bombers to knock them out.  You need 105 or 150 arty to
+reach and kill air defense units.  Eliminate their cities and their
+units before they use them for counterattacks.
+   --- John Heidle <HEIDLE@nstaff.sunyerie.edu>
+
+[Again, in response to my comments above --- Jenkins]
+General sentiment here seems to agree, but I don't.  My main spearhead
+keeps rolling as fast as possible, but I almost always clean out almost
+every city in my path with units in the rear.  And unlike others, I
+do not normally garrison my cities at all (exception: defensive campaigns),
+since I have cleaned out the resistance.  Only very occasionally do I get
+rude surprises as a tank slips past me and retakes a city.  They have never
+used paratroopers offensively (exception: defensive campaigns).
+   --- Reid Gagle [Email address unavailable due to my newsreader]
+
+Minimizing attack times
+-----------------------
+[In response to my comments on running out of time --- Jenkins]
+Be sure to get the maximum milage.  In the situation below, you are X and
+they are Y:
+
+         x        X        Y
+           x    X    y    Y
+        x x     X  y      Y
+          x        y
+
+Be sure to use your rear units (x) to attack their forward units (y).
+If they blow a hole in the line, then your forward units (X) can attack
+their rear units (Y).  This allows you to do in one turn what would
+otherwise take two.
+   --- Reid Gagle [Email address unavailable due to my newsreader]
+
+
+-----------------------------------------------------------------------------
+* 4.7 *         Replacements
+                ============
+
+If the unit has one star or more of experience, always use
+elite replacements.  In the France campaign, I upgraded
+a couple of tanks to the expensive IIIG (if I remember correctly--
+not speaking German or being a grognard, I find that the names of all the
+equipment blends together in my mind; anyway, its the one that
+costs the most prestige other than the IV), and bought a couple more.
+I always gave these units elite replacements, to bring up their
+experience, since they seemed to be (combinded with aggressive air
+attacks, and a devil-may-care attitude towards the safety of lesser
+armor and infantry) the only thing that can take out those rough
+French and British tanks.
+    --- Jenkins
+
+Overstrength your units when possible.  In later scenarios, a 15 strength
+Tiger I or a 15 strength Pioniere are deadly.  And 15 strength FW190's are
+a must as well.
+   --- Tim Matsuoka <tmatsuo@mbnoa1.mnet.uswest.com>
+
+[In response to my comments: It seems that I never have enough time to
+conquer all of the objectives, given how well entrenched the defenders
+are... I run out (of prestige), making replenishing units nearly impossible.
+---Jenkins]  Taking replacements cost you two things, Prestige and Time.
+DO NOT TAKE REPLACEMENTS UNLESS YOU ABSOLUTELY MUST!!!
+   --- DSHORT@nova.wright.edu
+
+[In response to my comments, first in the list above ---Jenkins]
+Use the Pzech tanks. If I need to give replacements I give elite
+replacements to all units except a few garrison and arty units.
+Below strength units at the end of a battle will be given
+elite replacements by HQ. Hoard your prestige.
+   --- DSHORT@nova.wright.edu
+
+[In response to my comments, first in the list above ---Jenkins]
+Actually, if the unit has ANY experience and I am not too short on
+prestige, I give it elite replacements.  How else will the green units
+stop being green?
+   --- Reid Gagle [Email address unavailable due to my newsreader]
+
+
+Recon units useless
+-------------------
+The general consensus of several net correspondents, and my own intuition
+is that German recon units are useless.  They don't move fast enough
+and have limited spotting range.  Using aircraft, especially the 5 spotting
+BF110 is much more productive.  Several people have noted that since you
+spot everything on the path your aircraft flies, you should when making
+a flight soley for the recon value, target a hex several past your main
+area of interest to get maximum coverage.
+   --- Jenkins
+
+
+-----------------------------------------------------------------------------
+* 5   *    Tables
+          ========
+* 5.1 *       Panzer General Combat Specifics
+              ===============================
+
+This info is from the Strategy Guide. I have found many errors in the guide so
+some of this info may be wrong as well.
+
+
+*** 1. Determine Attacker's and Defender's Effective Initiative
+
+Highest initiative strikes first; simultaneous strikes with equal initiative.
+
+Effective Initiative =
+Base Initiative or Initiative Cap (whichever is smaller) +
+Experience Bonus + d3
+
+--- Initiative Cap Values for Defender's Terrain
+
+Terrain Type                       Initiative Cap Value
+City                                         1
+Forest, Bocage, Fortifications               3
+Swamp                                        4
+Rough, Port Facility                         5
+Mountains                                    8
+All other types                             99
+
+--- Initiative Experience Bonus
+
+Unit Experience                    Bonus
+No stars                             +0
+1 or 2 stars                         +1
+3 or 4 stars                         +2
+5 stars                              +3
+
+--- Initiative Exceptions
+
+1. If a Submarine or Capital Ship is involved, the attacker's initiative is
+reset to 99 and the defender's to 0.
+
+2. An AT unit which initiates an attack against a Tank or Recon unit has
+it's initiative reset to 0 and the defender's initiative is reset to 99.
+
+3. An attacker's initiative is reset to 0 if a rugged defense, out of the
+sun, or surprise contact occurs.
+
+4. If an Air unit attacks an Air Defense unit, it's initiative is reset to
+equal that of the Air Defense unit.
+
+*Note that a d3 roll is still made after these resets are applied.
+
+"Expected Losses" assumes that the d3 roll is identical for both attacker
+and defender.
+
+
+*** 2. Determine Attacker's and Defender's Attack Grade
+
+Attack Grade =
+Base Attack Value (dependent on target type: soft, hard) +
+Attack Grade Modifiers
+
+--- Attack Grade Modifiers
+
+each star           +1
+target on river     +4
+rugged defense      +4
+
+*** 3. Determine Attacker's and Defender's Defense Grade
+
+Defense Grade =
+Base Defense Value (dependent on unit type: air, ground) +
+Defense Grade Modifiers
+
+--- Defense Grade Modifiers
+
+each star                                   +1
+target on river                             +4
+rugged defense                              +4
+entrenchment level vs pioneere/engineer      0
+entrenchment level vs infantry              +1/2 per level
+entrenchment level vs non-infantry          +1 per level
+ground unit versus naval unit               +8
+ranged attack during rain/snow              +3
+unit initiating attack against artillery    +3
+infantry versus anti-tank gun               +2
+
+*** 4. Rugged Defense Chance
+
+Experience Ratio = (def exp level + 2)/(att exp level + 2)
+Entrenchment Ratio = (def entr rate + 1) /(att entr rate + 1)
+
+Chance for Rugged Defense =
+Entrenchment Level * Experience Ratio * Entrenchment Ratio * 5%
+
+--- Entrenchment Rates
+
+Infantry           3
+Tanks, AA, Forts   1
+everything else    2
+
+*** 5. Determine Unit Losses
+
+Calculate difference between Attack Grade and Defense Grade. If the
+difference is up to 4 add this to a d20. Above 4, calculate the die roll
+modifier like this: 4 + 2/5 * (difference - 4) rounded down. Use the
+following numbers to determine results for each strength point striking:
+
+Artillery, Level Bomber, Fort, Destroyer, Capital Ship
+Hit: 19+      Suppress: 11-18      Miss: 1-10
+
+All other units
+Hit: 13+      Suppress: 11-12      Miss: 1-10
+
+
+-----------------------------------------------------------------------------
+* 5.2 *        Movement Tables
+               ===============
+
+Tracked Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       1       1
+Clear             1       2       1
+Forest            2       3       2
+Bocage            4      All     All
+Hill/Rough        2       3       2
+Mountain         All     All     All
+Sand              1       1       1
+Swamp             4      N/A      2
+Ocean/Coast      N/A     N/A     N/A
+River            All     N/A      2
+Fortification     1       2       1
+Port              1       1       1
+
+Half-tracked Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       1       1
+Clear             1       3       2
+Forest            2       3       2
+Bocage           All     All     All
+Hill/Rough        2       4       3
+Mountain         All     All     All
+Sand              1       1       1
+Swamp             4      N/A      2
+Ocean/Coast      N/A     N/A     N/A
+River            All     N/A      2
+Fortification     1       2       1
+Port              1       1       1
+
+Wheeled Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       2       2
+Clear             2       3       2
+Forest            3      All     All
+Bocage           All     All     All
+Hill/Rough        4      All     All
+Mountain         All     All     All
+Sand              3       3       3
+Swamp            All     N/A      3
+Ocean/Coast      N/A     N/A     N/A
+River            All     N/A      3
+Fortification     2       4       3
+Port              1       2       2
+
+Leg Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       1       1
+Clear             1       1       1
+Forest            2       2       2
+Bocage            2       2       2
+Hill/Rough        2       2       3
+Mountain         All     All     All
+Sand              2       2       2
+Swamp             2      All      1
+Ocean/Coast      N/A     N/A     N/A
+River            All     All      2
+Fortification     1       1       1
+Port              1       1       1
+
+Dismounted Gun Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       1       1
+Clear             1       1       1
+Forest            1       1       1
+Bocage            1       1       1
+Hill/Rough        1       1       1
+Mountain         All     All     All
+Sand              1       1       1
+Swamp            N/A     N/A     N/A
+Ocean/Coast      N/A     N/A     N/A
+River            All     All     All
+Fortification     1       1       1
+Port              1       1       1
+
+All-Terrain Movement
+Terrain          Dry     Mud     Ice
+Road/City         1       1       1
+Clear             1       2       2
+Forest            3       4       4
+Bocage            3      All      3
+Hill/Rough        3      All      3
+Mountain         All     All     All
+Sand              2       2       2
+Swamp            All     N/A      3
+Ocean/Coast      N/A     N/A     N/A
+River             All    N/A      2
+Fortification     1       3       2
+Port              1       1       1
+
+
+-----------------------------------------------------------------------------
+* 5.3 *            Ship Info
+                  ===========
+
+Panzer General Ship Data
+Ships
+Name           Cls Side Va  Mv  Sp  Fu  Am  In  Rn  SA  HA  AA  NA  GD  AD  SW
+Carrier        Car Ally 23   4   5 200  30   9   0   0   0 [4]   0   5   5   8
+Battleship     Cap Ally 25   4   1 200  40  12   5  13   9 [9]  18  12  12  12
+Battleship-Bk  Cap Axis 25   5   1 200  40  12   5  13   9 [9]  18  12  12  12
+Battleship-Dl  Cap Axis 23   5   1 200  40  12   5  12   8 [8]  16   9   9   9
+Battle-Cruiser Cap Both 23   5   1 200  40  12   5  13   9 [7]  18   8   8   9
+Heavy-Cruiser  Cap Both 20   5   1 200  40  10   4  11   7 [7]  14   7   8   8
+Light-Cruiser  Cap Both 15   5   1 200  40   9   4  10   6 [6]  12   6   7   6
+Destroyer      Des Ally 10   6   2 200  30   6   0   9   5 [5]  16   3   4   7
+Z-Destroyer    Des Axis 10   6   2 200  30   6   0   9   5 [5]  16   3   4   7
+T-Destroyer    Des Axis  8   7   2 120  25   6   0   8   5 [3]  14   3   3   8
+T-Boat         Des Ally  5   7   2  60   2   5   0   0   0 [1]  16   2   6  10
+S-Boat         Des Axis  5   7   2  60   2   5   0   0   0 [1]  16   2   6  10
+Submarine      Sub Ally  8   3   3 200  40   6   0   0   0   0  10   2   0   0
+U-Boat         Sub Axis  8   3   3 200  40   6   0   0   0   0  10   2   0   0
+Transport      Trn Both  5   4   1 N/A N/A   2 N/A   0   0 [2]   0   2   2   2
+
+
+-----------------------------------------------------------------------------
+* 5.4 *           Unit Info
+                  =========
+
+This table has some corrections to the one in the rule book though it may have
+some errors of its own (though I haven't seen any). Sorry for the inconvenience
+of using more than 80 columns but my printer can handle it and I needed all the
+space. The "Scenario" column shows the scenario that these units first become
+available "at the start of the scenario". It does not take into account the fact
+that some units appear *during* the scenarios. In these cases the units will
+appear 1 or 2 scenarios before the scenario listed. I am compiling a list of
+units that appear during scenarios but I don't find this useful since I rarely
+do any upgrading during a scenario. Note that the dates in the rule book don't
+always correspond with the dates of the battles and that some scenarios have
+auxiliary german units that can't be bought and that appear before the scenario
+listed below. There is a scenario chronology at the end which is needed to figure
+out when units appear. This was done by reading the dates shown in the main
+scenario selection window.
+
+Tr: G=towed gun; T=tracked; HT=half-tracked; W=wheeled; AT=all-terrain;
+L=leg; A=air; N=Naval
+
+Germany
+                                                                 more
+Air-Defense                                                        ----->
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+2-Flak38(4)    5   G   1   2   0  20   2   2  [7]  [4]    7   1   2   6   0   S Warsaw
+3.7-Flak36     7   G   1   2   0  24   2   2  [4]  [7]    7   1   2   6   0   S Norway
+8.8-Flak18    19   G   1   1   0  10  11   3 [13] [18]   10   2   2   6   0   S Warsaw
+Ostwind-I     21   T   5   2  45  23   2   2  [4]  [7]    9   1   9  16   1   H Ardennes
+Sdkfz-6/2     12  HT   6   2  55   5   2   2  [1]  [4]    6   1   3  14   0   S Low_Countries
+
+Anti-tank
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+3.7-Pak35/36   2   G   1   2   0  10   6   0    2    7    0   1   8   8   0   S Poland
+5-Pak38        7   G   1   2   0   9   9   0    4   11    0   1   8   8   0   S North_Africa
+7.5-Pak40     10   G   1   2   0   8  10   0    8   15    0   1   8   8   0   S El_Alamein
+8.8-FK18-ATG  19   G   1   1   0  10  11   0   13   18 [10]   1   4   8   0   S Low_Countries
+8.8-Pak43/41  14   G   1   2   0   8  12   0   10   25    0   1   8   8   0   S D-Day
+Hetzer        12   T   5   1  43   8  10   0   11   15  [1]   1  14   8   1   H D-Day
+JadgPanther   22   T   6   1  37   8  12   0   13   25    0   1  18  11   4   H D-Day
+JadgTiger     26   T   3   1  28   8  11   0   17   31  [1]   1  22  14   4   H Ardennes
+Jadgpanzer38  16   T   5   1  47   8  11   0   11   21  [1]   1  15   8   1   H Budapest
+Jagdpz-IV/48  13   T   5   1  46   9  10   0   11   15    0   1  13   9   3   H Anzio
+Jagspz-IV/70  17   T   5   1  46   7  11   0   11   21    0   1  15   9   3   H Anvil
+Jp-Elefant    19   T   3   1  24   7  12   0   13   25    0   1  18  12   1   H Kursk
+Marder-II      7   T   5   1  44   5  10   0   11   15  [1]   1   6   6   0   H El_Alamein
+Marder-IIIH    7   T   5   1  49   5  10   0   11   15    0   1   7   6   0   H El_Alamein
+Marder-IIIM    8   T   5   1  44   5  10   0   11   15    0   1   7   6   0   H Sealion_43
+Nashorn       14   T   5   1  47   5  12   0   13   25  [1]   1   7   6   0   H Kharkov
+PzJager-IB     2   T   5   1  39   9   8   0    5    9    0   1   6   6   0   H Norway
+StuGIIIF      10   T   5   1  39   7  10   0   11   14  [1]   1  10   8   1   H El_Alamein
+StuGIIIF/8    11   T   5   1  41   7  10   0   11   15  [1]   1  11   9   1   H Moscow_42
+StuGIIIG      12   T   5   1  40   8  10   0   11   15  [1]   1  11   9   4   H Kharkov
+
+Anti-aircraft
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+37-FlakPz-IV  13   T   5   2  45   8   6   0    4    7    9   1   9  14   0   H D-Day
+FlakPz-38(t)   8   T   5   2  46   7   6   0    2    3    7   1   6  12   0   H Anzio
+SdKfz-10/4     7  HT   6   2  40  12   5   0    3    2    8   0   2  12   1   S Warsaw
+SdKfz-7/1     14  HT   6   2  45  16   6   0    6    4   11   1   2  16   1   S El_Alamein
+Wirblewind    16   T   5   2  45  19   6   0    6    4   11   1   7  14   1   H Market_Garden
+
+Artillery
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+10.5-leFH     15   G   1   1   0   8   2   3   15    8    0   1   2   6   0   S Norway
+15-sFH        19   G   1   1   0   7   2   3   19   14    0   1   2   6   0   S Norway
+17-K18        20   G   1   1   0   6   2   3   19   14    0   2   2   6   0   S El_Alamein
+7.5-leFK       7   G   1   1   0   9   2   2   11    5    0   1   2   6   0   S Poland
+Hummel        24   T   5   1  47   4   5   3   19   14    0   1   7   6   0   H Kursk
+Nebelwerfer   25  HT   6   2  55   4   2   2   23   11  [1]   1   7   1   1   H North_Africa
+StuGIIIb       9   T   5   1  41   6   5   1   11    8    0   1  10   8   0   H Norway
+StuGIV        19   T   5   1  46   8  10   1   14   15  [1]   1  11   8   2   H Anzio
+StuH42        20   T   5   1  40   7   5   2   15    8  [1]   1  11   9   4   H Moscow_42
+Wespe         21   T   5   1  39   6   5   3   15    8  [1]   1   6   6   0   H Kursk
+sIG-38(t)     26   T   4   1  38   5   4   3   19   14  [1]   1  13   6   0   H Sealion_43
+sIG-IB        22   T   5   1  35   3   4   3   19   14    0   1   5   6   0   H Low_Countries
+sIG-II        23   T   5   1  41   3   4   3   19   14    0   1   8   6   0   H El_Alamein
+
+Fighter
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+BF109e        28   A  13   3  42   7   5   0    2    2   14   1   7  10   0   P Warsaw
+BF109f        30   A  14   3  72   7   6   0    1    2   12   1   7  12   0   P Sealion_40
+BF109g        31   A  14   3  81   8   5   0    2    2   14   1   7  12   0   P El_Alamein
+BF109k        32   A  14   3  81   6   6   0    2    3   16   1   8  14   0   P Budapest
+DO335         40   A  14   3  90   8   7   0    1    2   28   1   8  17   0   P Berlin
+FW190a        37   A  14   3 117   8   6   0    2    3   20   1   8  14   0   P Sealion_40
+FW190d9       40   A  14   3  90  13   6   0    2    3   24   1   8  15   0   P Anzio
+HE162         44   A  14   3  99   6   8   0    3    3   36   2   8  16   0   P Berlin
+HE219         39   A  14   6 128  10   5   0    3    3   18   2  11  12   0   P Anzio
+ME163B        32   A  14   3  34   4   8   0    1    3   24   2  11   6   0   P Berlin
+ME262A1       43   A  14   3 108   6   7   0    3    3   32   2   9  17   0   P Berlin
+
+Infantry
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+39-Wehr-Inf    5   L   3   2   0   7   1   0    6    2    0   1   6   7   0   S Poland
+40-LuftW-FJ   11   L   3   2   0   8   0   0    8    2    0   1   8   7   0   S Norway
+40-Wehr-HW     7   L   2   2   0   7   2   0    8    3  [1]   1   8   8   0   S Norway
+43-LuftW-FJ   13   L   3   2   0   8   0   0    8    6    0   1   8   7   0   S Kharkov
+43-Wehr-HW    10   L   2   2   0   7   2   0    8    8  [1]   1   8   8   0   S Kharkov
+43-Wehr-Inf    7   L   3   2   0   7   1   0    7    8    0   1   6   7   0   S Kharkov
+Bridge-Eng    14   L   2   2   0   7   2   0    8    5  [1]   1   8   8   0   S Poland
+Pioniere-Inf  14   L   2   2   0   7   2   0    8    5  [1]   1   8   8   0   S Poland
+
+Land-Transport
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+Opel-6700      2   W   8   1  55   4   1   0    1    0    0   1   1   0   0   S Poland
+SPW-250/1      6  HT   7   2  45   6   2   0    1    1  [1]   1   8   0   1   H Middle_East
+SPW-251/1      5  HT   6   2  55   7   2   0    1    1  [1]   1   7   0   1   H Poland
+
+Level-Bomber
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+DO17z         29   A  12   2 144   5   1   0    1    4  [8]   3   9   8   0   P Norway
+DO217e        34   A  13   2 138   6   3   0    1    4 [10]   3  11  10   0   P North_Africa
+HE177a        45   A  13   2 216   9   4   0    1    4 [12]  16  15  12   0   P El_Alamein
+HE111-H2      34   A  12   2 132   6   2   0    1    4  [8]  14  11   8   0   P Norway
+JU188A        39   A  13   2 126   7   3   0    1    4 [12]  14  14  10   0   P Sealion_43
+JU88A         37   A  12   2 192   7   2   1    1    4 [11]  14  11   9   0   P Warsaw
+
+Recon
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+Lynx           8   T   8   4  54  12   6   0    3    6    0   1   8   9   3   H Moscow_43
+PSW-222/4r     5   W   8   4  55   8   6   0    2    3  [2]   1   7   6   1   H Poland
+PSW-231/6r     5   W   8   4  55   9   6   0    3    3    0   1   6   7   1   H Poland
+PSW-232/8r     6  AT   8   4  55  10   6   0    2    3    0   1   7   7   2   H Moscow_42
+PSW-233/8r     7  AT   8   4  55   3   5   0   11   12    0   1   7   6   0   H Sealion_43
+PSW-234/1-8r  11  AT   8   4 115  16   6   0    2    3  [2]   1   8   6   1   H Moscow_43
+PSW-234/2-8r  16  AT   8   4 115  10   9   0    7   11    0   1   8   8   2   H Cobra
+
+Tactical-Bomber
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+BF110c        29   A  13   5  96   6   4   0    5    5    8   2   8   8   0   P Norway
+BF110d        29   A  13   5  90   8   4   0    5    5    8   2   8   8   0   P North_Africa
+BF110e        32   A  13   5 108   8   4   0    7    7    8   3   8   8   0   P El_Alamein
+BF110g        32   A  13   5  72  10   4   0    7    7   10   3   8   8   0   P Kursk
+FW190f        37   A  14   4  90   7   6   0    5    5   18   2   8  15   0   P Kharkov
+FW190g        38   A  14   4  99   7   6   0    7    7   16   3   7  14   0   P Kharkov
+JU87B         21   A  11   2  54   5   2   0    9    8  [4]   5   6   4   0   P Warsaw
+JU87D         30   A  12   2  99   7   2   0   11   10  [6]   6   8   6   0   P North_Africa
+JU87R         23   A  11   2  96   5   2   0    9    8  [4]   5   6   4   0   P North_Africa
+ME210c        39   A  14   5 153   8   5   0    7    7   10   3   9  10   0   P El_Alamein
+ME410a        39   A  14   5 153   8   5   0    7    7   12   3   9  10   0   P Kharkov
+
+Tank
+
+Name          Va  Tr  Mv  Sp  Fu  Am  In  Rn   SA   HA   AA  NA  GD  AD  CD  TT Scenario
+Panther-A     26   T   6   2  34  11  11   0   11   21  [1]   1  17   9   5   H Moscow_43
+Panther-D     24   T   6   2  28  10  11   0   11   21    0   1  16   9   2   H Kursk
+Panther-G     28   T   6   2  40  11  12   0   11   21  [1]   1  18  10   5   H D-Day
+Pz35(t)        7   T   5   3  50   8   3   0    3    6    0   1   8   8   2   H Poland
+Pz38(t)A      10   T   5   3  50   9   6   0    3    7    0   1   8   8   2   H Poland
+Pz38(t)F      11   T   5   3  50  11   6   0    3    7    0   1   9   9   2   H North_Africa
+Pz38(t)G      11   T   5   3  50  11   6   0    3    7    0   1   9   8   2   H Moscow_41
+PzIA           1   T   5   3  40   4   2   0    2    1    0   1   6   7   2   H Poland
+PzIB           2   T   5   3  39   5   2   0    2    1    0   1   7   7   2   H Poland
+PzIIA          7   T   5   3  44   8   6   0    2    3    0   1   7   8   3   H Poland
+PzIID          8   T   6   3  45   8   6   0    2    3    0   1   7   9   3   H Poland
+PzIIF          9   T   5   3  45  10   6   0    2    3    0   1   8   8   3   H Norway
+PzIIIE        10   T   5   2  42  14   6   0    3    7    0   1   8   9   2   H Poland
+PzIIIG        14   T   5   2  42  13   7   0    5    7    0   1   9   9   2   H Norway
+PzIIIH        14   T   5   2  42  13   8   0    7    9    0   1  10   9   2   H North_Africa
+PzIIIJ        16   T   5   2  41  11   9   0    7   11    0   1  10   9   2   H Kiev
+PzIIIN        14   T   5   2  41   8   5   0   11   12  [1]   1  10   9   3   H Moscow_42
+PzIVD         11   T   5   2  46  11   5   0   11    8    0   1   8   8   2   H Norway
+PzIVF2        19   T   5   2  45  12  10   0   11   14    0   1  10   8   2   H Sevastopol
+PzIVG         19   T   5   2  46  11  10   0   11   14    0   1  10   8   2   H Moscow_42
+PzIVH         19   T   5   2  46  11  10   0   11   14    0   1  10   8   2   H Sealion_43
+PzIVJ         22   T   5   2  57  11  10   0   11   15  [1]   1  11   9   5   H Anvil
+Tiger-I       25   T   5   2  28  13  11   0   13   18    0   1  15  11   4   H Moscow_42
+Tiger-II      32   T   4   2  29  11  12   0   13   25  [1]   1  21  14   5   H D-Day
+
+
+-----------------------------------------------------------------------------
+* 5.5 *      Campaign Paths from SSI programmers
+             ===================================
+
+***NOTE: Thanks to "nwang@black.clarku.edu" for pointing out the omission
+of the Anvil scenario and errors concerning the D-Day scenario. I also
+noticed that I omitted the Kursk scenario.***
+***NOTE: Thanks to "ccdavis@ingr.com" for pointing out the omission of the
+Poland scenario.***
+
+
+POLAND:         LOSE                    game over
+                        MINOR/MAJOR             Warsaw
+
+WARSAW:         LOSE            game over
+                        MINOR           Low Countries
+                        MAJOR           Norway
+
+NORWAY:         LOSE/MINOR/MAJOR        Low Countries
+
+LOW COUNTRIES:  LOSE/MINOR      France (Sealion impossible)
+                        MAJOR           France (Sealion possible)
+
+FRANCE:         LOSE            game over
+                        MINOR           North Africa or Balkans
+                        MAJOR           North Africa or Balkans
+                                        SEALION 40 (only a major is won in
+the Low Countries)
+
+SEALION 40/PLUS:        LOSE            game over
+                        MINOR           North Africa or Balkans
+                        MAJOR           Barbarossa
+
+NORTH AFRICA:                 LOSE              Torch
+                        MINOR           El Alamein or Kiev
+                        MAJOR           Middle East
+
+MIDDLE EAST:            LOSE            El Alamein
+                        MINOR           Caucasus
+                        MAJOR           Sealion 43 or Caucasus
+
+CAUCASUS:               LOSE/MINOR      Kharkov
+                        MAJOR           Moscow 42
+
+EL ALAMEIN:             LOSE/MINOR      Torch
+                        MAJOR           Sealion 43
+
+TORCH:                        LOSE/MINOR        Husky
+                        MAJOR           Husky or Kursk
+                                        (if Russia is beaten -> Husky
+only)
+
+HUSKY:                        LOSE/MINOR        Anzio
+                        MAJOR           Anzio or Moscow 43
+
+ANZIO:                  LOSE            Minor Defeat (if Russia is beaten)
+                                        Major Defeat
+                        MINOR           D-Day
+                        MAJOR           D-Day or Byelorussia
+                                        (if Russia is beaten -> D-Day
+only)
+
+D-DAY:                  LOSE/MINOR      Cobra
+                        MAJOR           Anvil
+
+ANVIL:                  LOSE/MINOR      Market Garden
+                        MAJOR           Ardennes
+
+COBRA:                        LOSE/MINOR        Market Garden
+                        MAJOR           Ardennes
+
+MARKET GARDEN:  LOSE                    Berlin West (only if Russia is
+beaten)
+                                                Berlin
+                        MINOR/MAJOR             Ardennes
+
+ARDENNES:               LOSE/MINOR      Berlin West (only if Russia is
+beaten)
+                                        Berlin
+                        MAJOR           Minor Victory (only if Russia is
+beaten)
+                                        Budapest
+
+BERLIN:                       LOSE              Major Defeat
+                        MINOR           Minor Defeat
+                        MAJOR                 Draw
+
+BERLIN WEST:            LOSE            Major Defeat
+                        MINOR           Draw
+                        MAJOR           Minor Victory
+
+BALKANS:                LOSE/MINOR      Barbarossa
+                        MAJOR           Crete
+
+CRETE:          LOSE/MINOR/MAJOR        Barbarossa
+
+BARBAROSSA:                   LOSE              game over
+                        MINOR           Kiev
+                        MAJOR           Kiev
+                                        Early Moscow (if you spend 1000
+prestige)
+
+EARLY MOSCOW:   LOSE            Sevastopol
+                        MINOR           El Alamein or Sevastopol
+                        MAJOR           Sealion 43
+                                        Washington (only if England is
+beaten)
+
+KIEV:                   LOSE                    Sevastopol
+                        MINOR/MAJOR             Moscow 41
+
+MOSCOW 41:              LOSE            Sevastopol
+                        MINOR           El Alamein or Sevastopol
+                        MAJOR           SEALION 43
+                                        Washington (only if England is
+beaten
+
+SEALION 43:             LOSE            Anzio
+                        MINOR           Moscow 43
+                        MAJOR           Moscow 43
+                                        Washington (only if Russia is
+beaten)
+
+SEVASTOPOL:             LOSE                    game over
+                                                Minor Defeat (only if
+England is beaten)
+                        MINOR/MAJOR             Stalingrad
+
+STALINGRAD:             LOSE/MINOR      Kharkov
+                        MAJOR           Moscow 42
+
+MOSCOW 42:              LOSE/MINOR      Kharkov
+                        MAJOR           Washington (only if England is
+beaten)
+                                        Sealion 43
+
+WASHINGTON:                   LOSE              Minor Defeat
+                        MINOR           Minor Victory
+                        MAJOR           Major Victory
+
+KHARKOV:                LOSE            Byelorussia
+                        MINOR           Kursk
+                        MAJOR           Moscow 43
+
+KURSK:                        LOSE              Byelorussia
+                        MINOR           Byelorussia or Anzio
+                                        (if the West is beaten ->
+Byelorussia only)
+                        MAJOR           Moscow 43
+
+MOSCOW 43:              LOSE            Byelorussia
+                        MINOR           D-Day or Byelorussia
+                                        (if the West is beaten ->
+Byelorussia only)
+                        MAJOR           D-Day
+
+BYELORUSSIA:                  LOSE                      Berlin East (only
+if the West is beaten)
+                                                Berlin
+                        MINOR/MAJOR             Budapest (only if the West
+is beaten)
+                                                Ardennes
+
+BUDAPEST:               LOSE/MINOR      Berlin
+                        MAJOR           Berlin West
+                                        Minor Victory (only if the West is
+beaten)
+
+BERLIN EAST:            LOSE            Major Defeat
+                        MINOR           Draw
+                        MAJOR           Minor Victory
+
+
+
+-----------------------------------------------------------------------------
+* 5.6 *   INFO FOR THE DESIGNATED TURNS FOR MAJOR/MINOR VICTORIES.
+          ========================================================
+
+Questions and Comments are welcomed. If you see any errors or omissions,
+do not hesitate to
+point them out. These scenarios are ones in which the Germans are on the
+offensive.
+
+POLAND                Decisive Victory: before Turn 8.
+                Minor Victory:     Turn 8 or 9.
+
+WARSAW  DV:     before Turn 14.
+                MV:     turns 14-20
+
+NORWAY  DV:     before Turn 21
+                MV:     turns 21-25
+
+LOW COUNT.      DV:     before Turn 25
+                MV:     turns 26-30
+
+FRANCE          DV:     around Turn 13 (bug has prevented major by Turn
+25)
+                MV:     turns 25-30
+
+SEALION DV:     before Turn 13
+                MV:     turns 13-14
+
+N. AFRICA       DV:     before Turn 20
+                MV:     turns 20-23
+
+MIDDLE EAST     DV:     before Turn 22
+                MV:     turns 22-26
+
+EL ALAMEIN      DV:     before Turn 24
+                MV:     turns 24-26
+
+CAUCASUS        DV:     before Turn 19
+                MV:     turns 19-30
+
+BALKANS DV:     before Turn 23
+                MV:     turns 23-25
+
+CRETE           DV:     before Turn 12
+                MV:     turns 12-13
+
+BARBAROSS.      DV:     before Turn 19
+                MV:     turns 19-23
+
+KIEV            DV:     before Turn 21
+                MV:     turns 21-28
+
+MOSCOW  DV:     before Turn 20
+(EARLY)               MV:       turns 20-24
+
+MOSCOW 41       DV:     before Turn 19
+                MV:     turns 19-22
+
+MOSCOW 42       DV:     before Turn 18
+                MV:     turns 18-23
+
+MOSCOW 43       DV:     before Turn 17
+                MV:     turns 17-21
+
+SEVASTOP.       DV:     before Turn 15
+                MV:     turns 15-17
+
+STALINGRAD      DV:     before Turn 19
+                MV:     turns 19-31
+
+KHARKOV DV:     before Turn 19
+                MV:     turns 19-22
+
+BUDAPEST        DV:     before Turn 16
+                MV:     turns 16-20
+
+WASHINGT.       DV:     before Turn 16
+                MV:     turns 16-22
+
+
+
+-----------------------------------------------------------------------------
+* 5.7 *     INFO FOR PRESTIGE POINTS OF EACH SCENARIOS.
+            ===========================================
+
+                        AXIS    ALLIES
+
+ANVIL                    964    2014
+ANZIO                    480    1064
+ARDENNES                1106    1138
+BALKANS                  755     500
+BARBORAROSSA             777     778
+BERLIN                   736    1118
+BERLIN (EAST)            380    1133
+BERLIN (WEST)            942    1020
+BYELORUSSIA              758    1521
+BUDAPEST                 500     717
+CAUCASUS                 800    2322
+COBRA                    720    1314
+CRETE                    524     968
+EL ALAMEIN               558    1050
+D-DAY                    956    2042
+FRANCE                   375    1504
+HUSKY                   1390     533
+KHARKOV                  500     500
+KIEV                    1035    1242
+KURSK                    558     942
+LOW COUNTRIES            625    1054
+MARKET-GARDEN           1890     564
+MIDDLE EAST              500     750
+MOSCOW (EARLY)           614     500
+MOSCOW (41)              524     974
+MOSCOW (42)              620     919
+MOSCOW (43)              520    1248
+NORTH AFRICA            1006     932
+NORWAY                  1014    1196
+POLAND                   228     200
+SEALION (40)             675    1152
+SEALION (43)            1800    4112
+SEALION PLUS             545     684
+SEVASTOPOL              1232    1365
+STALINGRAD               606    2260
+TORCH                    835    1528
+WARSAW                   600     200
+WASHINGTON              1277    2698
+
+
+-----------------------------------------------------------------------------
+* 5.8 *         Campaign Win/Lose Tree-Diagram
+                ==============================
+
+How to read the map:
+-the direction of horizontal movement along the paths is
+indicated by arrows.
+-you can only move down the paths, never back up.
+-scenario names are abbreviated to 4 letters.
+-in general, losing paths go to the left, minor's go down, and
+major's go to the right.
+
+The notation is as follows:
+-'L' - the path you take if you lose the given scenario.
+-'#' - the turn that you have to complete the scenario by to go
+down the given path.
+-'min' - minor
+-'maj' - major
+-'mid' - minor defeat (game over)
+-'mad' - major defeat (game over)
+-'miv' - minor victory (game over)
+-'over' - game over
+-'(W)'/'(R)' - the West or Russia has to exist to take that path
+or get the result (ie. in Torch if you win a major and Russia
+still exists, you may go to Kursk. in Sevastopol, if you lose and
+the West still exists, the game is over).
+-'sl43(wash)' - sl43 (Sealion 43) is the scenario you go to
+unless the UK has been defeated in which case you go to wash
+(Washington).
+
+BTW, I don't think there's any campaign path consequences for
+Sealion 40 or Sealion 40 Plus.  Whether you buy the Italian
+Fleet's assistance or not doesn't affect the victory conditions
+also.  If anyone knows otherwise, please post it.
+
+                     over <-L- POLA
+                                |
+                               9,7
+                                |
+                     over <-L- WARS -13-> NORW
+                                |          |
+                               20       L,25,20
+                                |          |
+                                |<---------|
+                                |
+     (sl40 impossible) <-L,30- L.CO -24-> (sl40 possible)
+                |                               |
+                |-------------->|<--------------|
+                                |
+                     over <-L- FRAN
+                                |
+                               30
+                |<--------------|------------------->|
+                |        13 & maj in l.co            |
+                |               |                    |
+                |    over <-L- SL40                  |
+                |               |                    |
+                |              14                    |
+                |<--------------|------------------->|
+                |              12                    |
+               BALK -22-> CRET  |         torc <-L- N.AF -19->|
+                |          |    |                    |        |
+                L,25    L,13,11 |                   23        |
+                |          |    |                    |        |
+                |--------->|--->|                    |        |
+                                |                    |        |
+                     over <-L- BARB                  |        |
+                                |                    |        |
+                               23                    |        |
+           |<--spend 1000 & 18--|                    |        |
+           |                    |                    |        |
+seva <-L- E.MO -19-> sl43(wash) |<-------------------|        |
+           |                    |                    |        |
+          24         seva <-L- KIEV                  |        |
+           |                    |                    |        |
+           |                   28,20                 |        |
+           |                    |                    |        |
+           |         seva <-L- MO41 -18-> sl43(wash) |<---L- M.EA
+           |                    |                    |        |
+           |                   22                    |       26
+           |----------->|<------|                    |        |-21-> sl43
+                        |                            |        |
+                  |<----|------------>|<-------------|        |
+                  |                   |                       |
+over(W)/mid <-L- SEVA   torc <-L,26- E.AL -23-> sl43(wash)   CAUC -18-> mo42
+                  |                                           |
+                 17,14                                       L,30
+                  |                                           |
+                 STAL -18----------->MO42 -17-> sl43(wash)    |
+                  |                   |                       |
+                 L,31                L,23                     |
+                  |------------------>|<----------------------|
+                                      |
+                     TOR   byel <-L- KHAR -18-> mo43
+                      |               |
+                     L,min           22
+                      |-maj(R)------->|
+                      |               |
+                     HUSK            KURS -maj-> mo43
+                      |               |
+                     L,min           L,min  anzi <-L- SL43 -maj-> mo43(wash)
+                      |-maj(R)-> mo43 |                |
+                      |               |               min
+                      |<-------min(W)-|                |
+     mad(R)/mid <-L- ANZI             |               MO43 -16-> dday
+                      |               |                |
+                     min              |               L,21
+                      |-maj(R)------->|--------------->|
+                      |                                |
+                      |         berl(W) or e.ber <-L- BYEL
+                      |                                |
+                     DDAY -maj------->|                |
+                      |               |                |
+                     L,min            |             min,maj
+                      |               |                |
+                     COBR -maj->arde ANVI -maj->|      |
+                      |               |         |      |
+                     L,min           L,min      |      |
+                      |               |         |      |
+                      |<--------------|         |      |
+                      |                         |      |
+berl(R) or w.be <-L- M.GA                       |      |
+                      |-maj,min---------------->|<-(W)-|
+                                                |      |
+                      berl(R) or w.be <-L,min- ARDE    |
+                                                |      |
+                                               maj     |
+                                          miv<--|      |
+                                               (R)     |
+                                                |<-----|
+                                                |
+                                  berl <-L,20- BUDA -15-> w.be(W) or miv
+
+
+BERL            W.BE            E.BE            WASH
+Major Defeat    Major Defeat    Major Defeat    (L) Minor Defeat
+Minor Defeat    Draw            Draw            (22)Minor Victory
+Draw            Minor Victory   Minor Victory   (15)Major Victory
+
+   Credits go to:  Andre <amin@acs.ucalgary.ca>
+
+
+-----------------------------------------------------------------------------
+* 6   *      Cheating
+             --------
+
+                There is a save-game editor available.
+                coded by Steven C. Schultz <sschultz@crl.com>
+                It allows u nearly anything: bringing dead units back to
+                life, kill enemy units, replace units, add exp. points.....
+                Email-games cant be cheated! I hope that stays that way.
+                After all, anybody with sum knowledge can disassemble, or
+                hex-edit, but i dont think that winning against a human
+                opponent by cheating is very funny.(except he is a dumbass)
+                :)))
+                Available in the various AVATARX mirrors, one is:
+                ftp site: flinux.tu-graz.ac.at/pub/msdos/avatarx/cheats/
+
+-----------------------------------------------------------------------------
+* 7   *      A Note from the author of this FAQ
+
+                   Seas!
+                   der grossteil der faq ist von mir unbekannten personen
+                   verfasst, folgedessen kann ich leider keine credits
+                   fuer die armen leute geben. :)
+                   Ich hab diese FAQ zusammengestellt, da ich selbst fuer
+                   PzG Tips suchte, aber kaum welche fand.
+                   Ich hoffe sie wird auch anderen Leuten nuetzlich sein.
+
+                              Golden Lightnings,      Guru_
+
+* 8   *       ...
+
+-----------------------------------------------------------------------------
+
+And always remember:
+
+                              ----------------
+                             /  INTEL INSIDE  \
+                            |  IDIOT OUTSIDE!  |
+                             \________________/
+
+-----------------------------------------------------------------------------

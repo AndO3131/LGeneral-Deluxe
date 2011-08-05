@@ -1,0 +1,53 @@
+**** Gameplay
+
+- ingame help screen with all shortcuts and interface explanation
+- allow destruction of airfields/towns by level bombers
+  or give suppression on the supply rate
+- France with 25/30 turns instead of 13/26 ???
+- when is the west beaten ???
+- 100% supply to hexes and 20% min ???
+- reinforcements
+- campaign: support debriefing depending on scenario outcome
+- allow adjacent initial deploy hexes only within the convex hull
+  of allied units to prevent moving the whole front line one step
+  forward
+
+**** Display
+
+- unit list window (with picture) to select a unit (goto unit)
+- message when reinforcements have arrived
+- victory hexes are bad to see many units are arround
+- scenario briefings for the campaign
+- edit sometimes broken? (string too long, many blanks)
+- add a video mode of 800x480 for Nokia devices
+
+**** AI 
+
+- whether enemy may attack a truck position must be checked not only
+  by getting the plain distance but by computing the required path 
+  to allow placement behind a closed front line
+- aricrafts out of action do not return to game
+
+- during AI move view is not toggled (can't see airplan damage)
+- check bug: paratroops do not attack in crete and south france
+- airplanes do not return though out of fuel and in reach
+  of an airfield (warsaw)
+- trucks cannot pass rivers in bad weather and they don't try to take
+  the longer way around
+- in Barbarossa scenario I tried to kill
+  enemy artillery - I didn't make it, it was left with 2 poits of
+  strength. Next round I attacked it with my tank, something
+  strange happened - enemy Art dissapeared, then it showed with str
+  15, and then my own tank was considered as enemy for my other
+  troops (it stopped movement, and its strength increased to 15) -
+  I think that somehow enemy artillery has swapped with him (but
+  graphics remained the same) - like in SF movies ;)
+  Could not reproduce this bug later.
+- AI must protect own cities with units
+- AI groups: implement execution order (artillery fire, bombers, 
+  fighters, ground units, artillery movement)
+- loop execution several times to move when a unit which is 
+  handled later blocked the destination position
+- tweak tactical action scores (are quite good already though)
+- AI does not protect airborne units
+- AI does not go for U-boots

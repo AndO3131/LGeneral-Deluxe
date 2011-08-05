@@ -1,0 +1,74 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH LGC-PG 1 "November  13, 2002"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+lgc-pg \- Converter Tool  for original Panzer General\*R Data Files
+.SH SYNOPSIS
+.B lgc-pg
+[-s SOURCE] [-d DEST] [--defpal] [--custom] [-n NAME] [-i ID] [-t TACICONS]
+.br
+.SH DESCRIPTION
+LGC-PG is a simple tool to convert the original Panzer General\*R Data into LGeneral Data Files. 
+
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+
+.SH OPTIONS
+.TP
+.B \-s
+You always need to specify the source directory (which contains
+the original data or a custom scenario).
+.TP
+.B \-d
+This specify's the destination path that contains the LGeneral data struct. (usually /usr/share/games/lgeneral)
+.TP
+.B \-\-defpal
+This one is optional and forces all PG graphics to use the default
+palette. Usually you won't need this but if a custom scenario you
+converted offers some strange graphics it might be due to a corrupted
+palette and the default one may provide better results.
+.TP
+.B \-\-custom
+If you convert a custom scenario you should add this and the following options.
+.TP
+.B \-n
+This is the scenario's file name and default title.
+.TP
+.B \-i <ID>
+This is the <ID> in the source file name (game<ID>.scn). If you do not specify an ID the default is O.
+.TP
+.B \-t <TACICONS>
+If custom tactical icons are involved (scenario offers a TACICONS.SHP)this is the name of the graphical file. 
+If this option is not provided it defaults to <NAME>.bmp.
+. TP
+.SH EXAMPLES
+.TP
+1) Converts all data from CD-ROM
+.TP
+  > lgc-pg -s /mnt/windows/DAT -d /usr/share/games/lgeneral
+.TP
+.TP
+2) Converts a custom scenario
+.TP
+  > lgc-pg -s /home/jones/newstuff/dunk -d /usr/share/games/lgeneral --custom -n Dunkirk -i 44
+.TP
+
+.SH AUTHOR
+.TP
+This manual page was written by Gernot Galli <gernot_galli@onlinehome.de>,
+for the Debian GNU/Linux system (but may be used by others).

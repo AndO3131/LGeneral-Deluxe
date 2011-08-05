@@ -1,0 +1,793 @@
+# translation of de.po to Deutsch
+# Deutsche Übersetzung von LGeneral.
+# Copyright (C) 2005 Leo Savernik
+#
+#
+# Leo Savernik <l.savernik@aon.at>, 2005, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: de\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-01-15 20:58+0100\n"
+"PO-Revision-Date: 2006-01-15 21:05+GMT\n"
+"Last-Translator: Leo Savernik <l.savernik@aon.at>\n"
+"Language-Team: Deutsch <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11\n"
+
+#~ msgid "Out of memory\n"
+#~ msgstr "Kein Speicher\n"
+
+#~ msgid "This group has reached it's maximum number of buttons.\n"
+#~ msgstr "Diese Gruppe hat die Maximalanzahl an Knöpfen erreicht.\n"
+
+#~ msgid "Up"
+#~ msgstr "Aufwärts"
+
+#~ msgid "Down"
+#~ msgstr "Abwärts"
+
+#~ msgid "Ok"
+#~ msgstr "Annehmen"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Switch Control"
+#~ msgstr "Steuerung ändern"
+
+#~ msgid "Select AI Module"
+#~ msgstr "KI-Modul auswählen"
+
+#~ msgid "Fog Of War"
+#~ msgstr "Sichtbegrenzung"
+
+#~ msgid "Unit Supply"
+#~ msgstr "Nachschub"
+
+#~ msgid "Weather Influence"
+#~ msgstr "Wettereinfluss"
+
+#~ msgid "Accept"
+#~ msgstr "Annehmen"
+
+#~ msgid "Undo Turn [u]"
+#~ msgstr "Zug rückgängig [u]"
+
+#~ msgid "Supply Unit [s]"
+#~ msgstr "Nachschub [s]"
+
+#~ msgid "Air Embark"
+#~ msgstr "Lufttransport beladen"
+
+#~ msgid "Merge Unit [j]"
+#~ msgstr "Einheit zusammenführen [j]"
+
+#~ msgid "Split Unit [x+1..9]"
+#~ msgstr "Einheit abspalten [x+1..9]"
+
+#~ msgid "Rename Unit"
+#~ msgstr "Einheit umbenennen"
+
+#~ msgid "Disband Unit"
+#~ msgstr "Einheit auflösen"
+
+#~ msgid "Split Up %d Strength"
+#~ msgstr "Stärke %d abspalten"
+
+#~ msgid "Scroll Up"
+#~ msgstr "Aufwärts"
+
+#~ msgid "Scroll Down"
+#~ msgstr "Abwärts"
+
+#~ msgid "Apply Deployment"
+#~ msgstr "Aufstellung annehmen"
+
+#~ msgid "Cancel Deployment"
+#~ msgstr "Aufstellung abbrechen"
+
+#~ msgid "Switch Air/Ground [t]"
+#~ msgstr "Luft/Boden umschalten [t]"
+
+#~ msgid "Strategic Map [o]"
+#~ msgstr "Strategische Karte [o]"
+
+#~ msgid "Deploy Reinforcements [d]"
+#~ msgstr "Verstärkung aufstellen [d]"
+
+#~ msgid "Scenario Info [i]"
+#~ msgstr "Szenarieninfo [i]"
+
+#~ msgid "Victory Conditions"
+#~ msgstr "Siegesbedingungen"
+
+#~ msgid "End Turn [e]"
+#~ msgstr "Zug beenden [e]"
+
+#~ msgid "Main Menu"
+#~ msgstr "Hauptmenü"
+
+#~ msgid "Save Game"
+#~ msgstr "Spiel speichern"
+
+#~ msgid "Load Game"
+#~ msgstr "Spiel laden"
+
+#~ msgid "Restart Scenario"
+#~ msgstr "Szenario neu starten"
+
+#~ msgid "Load Campaign"
+#~ msgstr "Feldzug laden"
+
+#~ msgid "Load Scenario"
+#~ msgstr "Szenario laden"
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid "Quit Game"
+#~ msgstr "Spiel beenden"
+
+#~ msgid "Load: %s"
+#~ msgstr "Laden: %s"
+
+#~ msgid "Save: %s"
+#~ msgstr "Speichern: %s"
+
+#~ msgid "Hex Grid [g]"
+#~ msgstr "Hexgitter [g]"
+
+#~ msgid "Show CPU Turn"
+#~ msgstr "Rechnerzug anzeigen"
+
+#~ msgid "Show Unit Strength [.]"
+#~ msgstr "Einheitenstärke anzeigen [.]"
+
+#~ msgid "Sound"
+#~ msgstr "Ton"
+
+#~ msgid "Sound Volume Up"
+#~ msgstr "Ton lauter"
+
+#~ msgid "Sound Volume Down"
+#~ msgstr "Ton leiser"
+
+#~ msgid "Music"
+#~ msgstr "Musik"
+
+#~ msgid "Video Mode [v]"
+#~ msgstr "Videomodus [v]"
+
+#~ msgid "640x480"
+#~ msgstr "640x480"
+
+#~ msgid "800x600"
+#~ msgstr "800x600"
+
+#~ msgid "1024x768"
+#~ msgstr "1024x768"
+
+#~ msgid "1280x1024"
+#~ msgstr "1280x1024"
+
+#~ msgid "1600x1200"
+#~ msgstr "1600x1200"
+
+#~ msgid "Fullscreen/Window"
+#~ msgstr "Vollbild/Fenster"
+
+#~ msgid "Apply Videmode"
+#~ msgstr "Videomodus setzen"
+
+#~ msgid "Player Setup"
+#~ msgstr "Spielereinstellungen"
+
+#~ msgid "%i   CASUALTIES   %i"
+#~ msgstr "%i    VERLUSTE    %i"
+
+#~ msgid "%i   SURPRESSED   %i"
+#~ msgstr "%i  UNTERDRÜCKT   %i"
+
+#~ msgid "%s Movement"
+#~ msgstr "Bewg: %s"
+
+#~ msgid "%s Target"
+#~ msgstr "Ziel: %s"
+
+#~ msgid "Ammo:       N.A."
+#~ msgstr "Muni:       n.v."
+
+#~ msgid "Ammo:     %02i/%02i"
+#~ msgstr "Muni:     %02i/%02i"
+
+#~ msgid "Ammo:        %02i"
+#~ msgstr "Ammo:        %02i"
+
+#~ msgid "Fuel:       N.A."
+#~ msgstr "Sprit:      n.v."
+
+#~ msgid "Fuel:     %2i/%2i"
+#~ msgstr "Sprit:    %2i/%2i"
+
+#~ msgid "Fuel:        %2i"
+#~ msgstr "Sprit:       %2i"
+
+#~ msgid "Spotting:    %2i"
+#~ msgstr "Sicht:       %2i"
+
+#~ msgid "Movement:    %2i"
+#~ msgstr "Bewegung:    %2i"
+
+#~ msgid "Initiative:  %2i"
+#~ msgstr "Initiative:  %2i"
+
+#~ msgid "Range:       %2i"
+#~ msgstr "Reichweite:  %2i"
+
+#~ msgid "Experience: %3i"
+#~ msgstr "Erfahrung:  %3i"
+
+#~ msgid "Entrenchment: %i"
+#~ msgstr "Verschanzung: %i"
+
+#~ msgid "%6s Attack:[%2i]"
+#~ msgstr "%6sangriff:[%2i]"
+
+#~ msgid "%6s Attack:  %2i"
+#~ msgstr "%6sangriff:  %2i"
+
+#~ msgid "Ground Defense: %2i"
+#~ msgstr "Bodenabwehr:    %2i"
+
+#~ msgid "Air Defense:    %2i"
+#~ msgstr "Luftabwehr:     %2i"
+
+#~ msgid "Close Defense:  %2i"
+#~ msgstr "Nahabwehr:      %2i"
+
+#~ msgid "Suppression:    %2i"
+#~ msgstr "Unterdrückung:  %2i"
+
+#~ msgid "Turns Left: %i"
+#~ msgstr "Züge übrig: %i"
+
+#~ msgid "Turns Left: Last Turn"
+#~ msgstr "Züge übrig: Letzter Zug"
+
+#~ msgid "Result: "
+#~ msgstr "Ergebnis: "
+
+#~ msgid "Current Player:  %s"
+#~ msgstr "Aktueller Spieler: %s"
+
+#~ msgid "Next Player:     %s"
+#~ msgstr "Nächster Spieler:  %s"
+
+#~ msgid "Weather:  %s"
+#~ msgstr "Wetter:     %s"
+
+#~ msgid "n/a"
+#~ msgstr "n. v."
+
+#~ msgid "Forecast: %s"
+#~ msgstr "Vorhersage: %s"
+
+#~ msgid "%i turns remaining"
+#~ msgstr "%d Züge übrig"
+
+#~ msgid "control all victory hexes"
+#~ msgstr "Alle Zielfelder beherrschen"
+
+#~ msgid "control hex %i,%i"
+#~ msgstr "Hex %i,%i beherrschen"
+
+#~ msgid "control at least %i vic hexes"
+#~ msgstr "Mindestens %i Zielfelder beherrschen"
+
+#~ msgid "kill units with tag '%s'"
+#~ msgstr "Einheiten mit Kennung »%s« vernichten"
+
+#~ msgid "save units with tag '%s'"
+#~ msgstr "Einheiten mit Kennung »%s« retten"
+
+#~ msgid "Explicit VicConds (%s)"
+#~ msgstr "Ausdrückliche Siegesbedingungen (%s)"
+
+#~ msgid "every turn"
+#~ msgstr "jeder Zug"
+
+#~ msgid "last turn"
+#~ msgstr "letzter Zug"
+
+#~ msgid "AND %.2s "
+#~ msgstr "UND %.2s "
+
+#~ msgid "AND -- "
+#~ msgstr "UND -- "
+
+#~ msgid "OR %.2s "
+#~ msgstr "ODER %.2s "
+
+#~ msgid "OR -- "
+#~ msgstr "ODER -- "
+
+#~ msgid "else: '%s'"
+#~ msgstr "sonst: »%s«"
+
+#~ msgid "Control: Human"
+#~ msgstr "Steuerung: Mensch"
+
+#~ msgid "Control: CPU"
+#~ msgstr "Steuerung: Rechner"
+
+#~ msgid "AI Module: %s"
+#~ msgstr "KI-Modul:  %s"
+
+#~ msgid "Cannot load new glyphs surface: %s\n"
+#~ msgstr "Kann Oberfläche mit neuen Grafemen nicht laden: %s\n"
+
+#~ msgid "Invalid font file: %d, %d\n"
+#~ msgstr "Ungültige Schriftdatei: %d, %d\n"
+
+#~ msgid "font '%s' contains too many glyphs\n"
+#~ msgstr "Schrift '%s' enthält zu viele Grafeme\n"
+
+#~ msgid "could not create font surface: %s\n"
+#~ msgstr "Konnte Schriftoberfläche nicht erzeugen: %s\n"
+
+#~ msgid "ERR: %s: not enough memory\n"
+#~ msgstr "FEHL: %s: nicht genug Speicher\n"
+
+#~ msgid "Requested mode %ix%i, Fullscreen: %i unavailable\n"
+#~ msgstr "Geforderter Modus %ix%i, Vollbild: %i nicht verfügbar\n"
+
+#~ msgid "%s: %d: warning: entry '%s' not found in '%s/%s'\n"
+#~ msgstr "%s: %d: Warnung: Eintrag '%s' in '%s/%s' nicht gefunden\n"
+
+#~ msgid "Campaign entry '%s' not found in campaign '%s'\n"
+#~ msgstr "Feldzugeintrag »%s« nicht in Feldzug »%s« gefunden\n"
+
+#~ msgid ""
+#~ "%s: can't load as main unit library (which is already loaded): loading as "
+#~ "'additional' instead\n"
+#~ msgstr ""
+#~ "%s: kann nicht als Einheitenhauptbibliothek geladen werden (nämlich "
+#~ "bereitsgeladen):Lade stattdessen als Zusatz\n"
+
+#~ msgid "  Parsing '%s'"
+#~ msgstr "  »%s« analysieren"
+
+#~ msgid "  Loading Main Definitions"
+#~ msgstr "  Hauptdefinitionen laden"
+
+#~ msgid "%i target types is the limit!\n"
+#~ msgstr "%i Zieltypen sind die Obergrenze!\n"
+
+#~ msgid "  Loading Tactical Icons"
+#~ msgstr "  Taktische Symbole laden"
+
+#~ msgid "*** Loading scenario '%s' ***"
+#~ msgstr "*** Szenario »%s« laden ***"
+
+#~ msgid "Loading Scenario Info"
+#~ msgstr "Szenarieninfo laden"
+
+#~ msgid "Loading Nations"
+#~ msgstr "Nationen laden"
+
+#~ msgid "Loading Main Unit Library '%s'"
+#~ msgstr "Einheitenhauptbibliothek »%s« laden"
+
+#~ msgid "Loading Additional Unit Library '%s'"
+#~ msgstr "Einheitenzusatzbibliothek »%s« laden"
+
+#~ msgid "Loading Map '%s'"
+#~ msgstr "Karte »%s« laden"
+
+#~ msgid "Loading Players"
+#~ msgstr "Spieler laden"
+
+#~ msgid "Loading Flags"
+#~ msgstr "Fahnen laden"
+
+#~ msgid "Loading Victory Conditions"
+#~ msgstr "Siegesbedingungen laden"
+
+#~ msgid "No subconditions specified!\n"
+#~ msgstr "Keine Unterbedingungen angegeben!\n"
+
+#~ msgid "Defeat"
+#~ msgstr "Niederlage"
+
+#~ msgid "Loading Units"
+#~ msgstr "Einheiten laden"
+
+#~ msgid "%s: unit entry not found\n"
+#~ msgstr "%s: Einheiteneintrag nicht gefunden\n"
+
+#~ msgid "%s: not a nation\n"
+#~ msgstr "%s: keine Nation\n"
+
+#~ msgid "%s: no player controls this nation\n"
+#~ msgstr "%s: kein Spieler steuert diese Nation\n"
+
+#~ msgid "%s: out of map: ignored\n"
+#~ msgstr "%s: außerhalb der Karte: ignoriert\n"
+
+#~ msgid "%s##%s##%s Turns#%s Players"
+#~ msgstr "%s##%s##%s Züge#%s Spieler"
+
+#~ msgid "warning: %s\n"
+#~ msgstr "Warnung: %s\n"
+
+#~ msgid "<EndOfInput>"
+#~ msgstr "<EndeDerEingabe>"
+
+#~ msgid "Unterminated string constant"
+#~ msgstr "Nichtterminierte Zeichenkettenkonstante"
+
+#~ msgid "token exceeds limit"
+#~ msgstr "Symbol überschreitet Grenze"
+
+#~ msgid "Invalid character '%c'"
+#~ msgstr "Ungültiges Zeichen '%c'"
+
+#~ msgid "parse error before '%s'"
+#~ msgstr "Syntaxfehler vor »%s«"
+
+#~ msgid "parse error: use '%c' for assignment or '<' for section"
+#~ msgstr "Syntaxfehler: '%c' für Zuweisung oder '<' für Abschnitt benützen"
+
+#~ msgid "%s: file not found"
+#~ msgstr "%s: Datei nicht gefunden"
+
+#~ msgid "%s: file's too big to fit the compact buffer (%dKB)\n"
+#~ msgstr "%s: Datei für den Kompaktpuffer zu groß (%dKB)\n"
+
+#~ msgid "%s: no subtrees"
+#~ msgstr "%s: keine Teilbäume"
+
+#~ msgid "%s: subtree '%s' not found"
+#~ msgstr "%s: Teilbaum: »%s« nicht gefunden"
+
+#~ msgid "parser_get_entries: %s/%s: no subtrees"
+#~ msgstr "parser_get_entries: %s/%s: keine Teilbäume"
+
+#~ msgid "parser_get_values: %s/%s: no values"
+#~ msgstr "parser_get_values: %s/%s: keine Werte"
+
+#~ msgid "parser_get_value: %s/%s: index %i out of range (%i elements)"
+#~ msgstr "parser_get_value: %s/%s: Index %i außerhalb (%i Elemente)"
+
+#~ msgid "Supply Unit [s] (Rate:%3i%%)"
+#~ msgstr "Nachschub [s] (Rate:%3i%%)"
+
+#~ msgid "Next Player: %s"
+#~ msgstr "Nächster Spieler: %s"
+
+#~ msgid "Deploy your troops"
+#~ msgstr "Truppenaufstellung"
+
+#~ msgid "Remaining Turns: %i"
+#~ msgstr "Übrige Züge: %d"
+
+#~ msgid "Weather: %s"
+#~ msgstr "Wetter: %s"
+
+#~ msgid "Turn: %d"
+#~ msgstr "Zug: %d"
+
+#~ msgid "Last Turn"
+#~ msgstr "Letzter Zug"
+
+#~ msgid "CPU thinks..."
+#~ msgstr "Rechner überlegt..."
+
+#~ msgid ""
+#~ "( Enable option 'Show Cpu Turn' if you want to see what it is doing. )"
+#~ msgstr ""
+#~ "(Option »Rechnerzug anzeigen« einschalten, wenn Sie den Rechner arbeiten "
+#~ "sehen wollen.)"
+
+#~ msgid "Select Drop Zone"
+#~ msgstr "Absprungzone auswählen"
+
+#~ msgid "Load Game '%s'"
+#~ msgstr "Spiel »%s« laden"
+
+#~ msgid "Overwrite saved game?"
+#~ msgstr "Gespeichertes Spiel überschreiben?"
+
+#~ msgid "Apply %ix%i, "
+#~ msgstr "%dx%d anwenden"
+
+#~ msgid "Fullscreen?"
+#~ msgstr "Vollbild?"
+
+#~ msgid "Window?"
+#~ msgstr "Fenster?"
+
+#~ msgid "Do you really want to restart this scenario?"
+#~ msgstr "Wollen Sie das Szenario wirklich neu starten?"
+
+#~ msgid "Do you really want to quit?"
+#~ msgstr "Wollen Sie wirklich aussteigen?"
+
+#~ msgid "Do you really want to end your turn?"
+#~ msgstr "Wollen Sie wirklich den Zug beenden?"
+
+#~ msgid "Abandon the ground transporter?"
+#~ msgstr "Landtransporter aufgeben?"
+
+#~ msgid "Do you really want to disband this unit?"
+#~ msgstr "Einheit wirklich auflösen?"
+
+#~ msgid "End deployment?"
+#~ msgstr "Aufstellung beenden?"
+
+#~ msgid "Game saved to slot '%i' as '%s'.\n"
+#~ msgstr "Spiel unter Fach »%d« als »%s« gespeichert.\n"
+
+#~ msgid "Defensive Fire"
+#~ msgstr "Feuerunterstützung"
+
+#~ msgid "Air-Defense"
+#~ msgstr "Luftabwehr"
+
+#~ msgid "Interceptors"
+#~ msgstr "Abfangjäger"
+
+#~ msgid "Video Mode: %ix%i, Fullscreen: %i not available\n"
+#~ msgstr "Videomodus: %dx%d, Vollbild: %d nicht verfügbar\n"
+
+#~ msgid "'%s' has no move points remaining\n"
+#~ msgstr "%s: keine Bewegungspunkte übrig\n"
+
+#~ msgid "'%s' (%i,%i) can not attack '%s' (%i,%i)\n"
+#~ msgstr "»%s« (%d,%d) kann »%s« (%d,%d) nicht angreifen\n"
+
+#~ msgid "'%s' may not attack unit '%s' (not visible)\n"
+#~ msgstr "»%s« kann Einheit »%s« nicht angreifen (nicht sichtbar)\n"
+
+#~ msgid "%i,%i out of reach for '%s'\n"
+#~ msgstr "%d,%d nicht erreichbar für »%s«\n"
+
+#~ msgid "%i,%i is blocked ('%s' wants to move there)\n"
+#~ msgstr "%d,%d ist blockiert (»%s« möchte hier her fahren)\n"
+
+#~ msgid "There is no way for unit '%s' to move to %i,%i\n"
+#~ msgstr "Keine Möglichkeit für Einheit »%s«, %d,%d zu erreichen\n"
+
+#~ msgid "Out Of The Sun!"
+#~ msgstr "Aus der Sonne!"
+
+#~ msgid "Surprise Contact!"
+#~ msgstr "Hinterhalt!"
+
+#~ msgid "Rugged Defense!"
+#~ msgstr "Zähe Abwehr!"
+
+#~ msgid "Submarine evades!"
+#~ msgstr "U-Boot weicht aus!"
+
+#~ msgid ""
+#~ "Deadlock! No remaining combatants but supposed to continue fighting? How "
+#~ "is this supposed to work????\n"
+#~ msgstr ""
+#~ "Verklemmung! Keine Kämpfer übrig trotz des Befehls zum Weiterkämpfen? Wie "
+#~ "soll das gehen????\n"
+
+#~ msgid "Attack Broken Up!"
+#~ msgstr "Angriff abgebrochen!"
+
+#~ msgid "Ship is scuttled!"
+#~ msgstr "Selbstversenkung!"
+
+#~ msgid "Surrenders!"
+#~ msgstr "Kapituliert!"
+
+#~ msgid "%s: AI module '%s' invalid. Use built-in AI.\n"
+#~ msgstr "%s: KI-Modul »%s« ungültig. Verwende eingebaute KI.\n"
+
+#~ msgid "January"
+#~ msgstr "Jänner"
+
+#~ msgid "February"
+#~ msgstr "Februar"
+
+#~ msgid "March"
+#~ msgstr "März"
+
+#~ msgid "April"
+#~ msgstr "April"
+
+#~ msgid "May_long"
+#~ msgstr "Mai"
+
+#~ msgid "June"
+#~ msgstr "Juni"
+
+#~ msgid "July"
+#~ msgstr "Juli"
+
+#~ msgid "August"
+#~ msgstr "August"
+
+#~ msgid "September"
+#~ msgstr "September"
+
+#~ msgid "October"
+#~ msgstr "Oktober"
+
+#~ msgid "November"
+#~ msgstr "November"
+
+#~ msgid "December"
+#~ msgstr "Dezember"
+
+#~ msgid "Jan"
+#~ msgstr "Jan"
+
+#~ msgid "Feb"
+#~ msgstr "Feb"
+
+#~ msgid "Mar"
+#~ msgstr "Mär"
+
+#~ msgid "Apr"
+#~ msgstr "Apr"
+
+#~ msgid "May"
+#~ msgstr "Mai"
+
+#~ msgid "Jun"
+#~ msgstr "Jun"
+
+#~ msgid "Jul"
+#~ msgstr "Jul"
+
+#~ msgid "Aug"
+#~ msgstr "Aug"
+
+#~ msgid "Sep"
+#~ msgstr "Sep"
+
+#~ msgid "Oct"
+#~ msgstr "Okt"
+
+#~ msgid "Nov"
+#~ msgstr "Nov"
+
+#~ msgid "Dec"
+#~ msgstr "Dez"
+
+#~ msgid ""
+#~ "Couldn't find/open config directory '%s'\n"
+#~ "Attempting to create it... "
+#~ msgstr ""
+#~ "Konnte Verzeichnis »%s« nicht finden/öffnen\n"
+#~ "Versuche es zu erzeugen... "
+
+#~ msgid "failed\n"
+#~ msgstr "fehlgeschlagen\n"
+
+#~ msgid "ok\n"
+#~ msgstr "ok\n"
+
+#~ msgid "Cannot access config file '%s' to save settings\n"
+#~ msgstr ""
+#~ "Kein Zugriff auf Konfigurationdatei »%s« zum Speichern der Einstellungen\n"
+
+#~ msgid "%s cannot be opened\n"
+#~ msgstr "%s kann nicht geöffnet werden\n"
+
+#~ msgid "get_file_list: can't open parent directory '%s'\n"
+#~ msgstr "get_file_list: kann Elternverzeichnis »%s« nicht öffnen\n"
+
+#~ msgid "(C) 2001-2005 Michael Speck"
+#~ msgstr "©‚ 2001-2005 Michael Speck"
+
+#~ msgid "http://lgames.sf.net"
+#~ msgstr "http://lgames.sf.net"
+
+#~ msgid "Syntax: %s [options] [resource-file]\n"
+#~ msgstr "Syntax: %s [optionen] [resourcendatei]\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Options:\n"
+#~ "    --campaign-start=<state>\n"
+#~ "\t\tInitial state to start campaign with (debug only)\n"
+#~ "    --control=<who>\n"
+#~ "\t\tentity who controls the current side. <who> is either human,\n"
+#~ "\t\tor cpu (short: h, or c). Multiple options can be specified.\n"
+#~ "\t\tIn this case the first option refers to the first side, the\n"
+#~ "\t\tsecond option to the second side, etc.\n"
+#~ "    --(no-)deploy-turn\n"
+#~ "\t\tAllow/Disallow deployment of troops before scenario starts.\n"
+#~ "    --notitle\tInhibit title screen\n"
+#~ "    --speed=<n>\tAccelerate animation speed by <n>\n"
+#~ "    --version\tDisplay version information and quit\n"
+#~ "\n"
+#~ "<resource-file>\tscenario file relative to scenarios-directory,\n"
+#~ "\t\tor campaign file relative to campaigns-directory\n"
+#~ "\t\tunder %s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Optionen:\n"
+#~ "    --campaign-start=<zustand>\n"
+#~ "\t\tAnfangszustand zum Starten des Feldzugs (nur für Fehlersuche)\n"
+#~ "    --control=<wer>\n"
+#~ "\t\tBestimmt Steuerung der aktuellen Seite. <wer> ist entweder human\n"
+#~ "\t\toder cpu (kurz: h, oder c). Mehrere Optionen können angegeben\n"
+#~ "\t\twerden. In dem Fall korrespondiert die erste Option mit der\n"
+#~ "\t\tersten Seite, die zweite mit der zweiten Seite usw.\n"
+#~ "    --(no-)deploy-turn\n"
+#~ "\t\tTruppenaufstellung vor Szenariostart erlauben/unterbinden\n"
+#~ "    --notitle\tTitelbildschirm unterdrücken\n"
+#~ "    --speed=<n>\tAnimationsgeschwindigkeit um Faktor <n> erhöhen\n"
+#~ "    --version\tVersionsinformation anzeigen und beenden\n"
+#~ "\n"
+#~ "<szenariodatei>\tSzenariodatei relativ zum Szenarioverzeichnis\n"
+#~ "\t\tunter %s\n"
+
+#~ msgid ""
+#~ "LGeneral %s\n"
+#~ "Copyright 2001-2005 Michael Speck\n"
+#~ "Published under GNU GPL\n"
+#~ "---\n"
+#~ msgstr ""
+#~ "LGeneral %s\n"
+#~ "Copyright 2001-2005 Michael Speck\n"
+#~ "Veröffentlicht unter der GNU GPL\n"
+#~ "---\n"
+
+#~ msgid "Looking up data in: %s\n"
+#~ msgstr "Daten suchen unter: %s\n"
+
+#~ msgid "Compiled without sound and music\n"
+#~ msgstr "Übersetzt ohne Ton und Musik\n"
+
+#~ msgid "Invalid player control: %s\n"
+#~ msgstr "Ungültige Spielersteuerung: %s\n"
+
+#~ msgid "Animation speed up: x%d\n"
+#~ msgstr "Animationsgeschwindigkeit erhöht: x%d\n"
+
+#~ msgid "Error loading scenario %s\n"
+#~ msgstr "Fehler beim Laden von Szenario %s\n"
+
+#~ msgid "LGeneral %s"
+#~ msgstr "LGeneral %s"
+
+#~ msgid "get_coord: no comma found in pair of coordinates '%s'\n"
+#~ msgstr "get_coord: Beistrich fehlt in Koordinatenpaar »%s«\n"
+
+#~ msgid ""
+#~ "get_coord: warning: y-coordinate is empty (maybe you left a space between "
+#~ "x and comma?)\n"
+#~ msgstr ""
+#~ "get_coord: Warnung: Y-Koordinate ist leer (vielleicht haben Sie ein "
+#~ "Leerzeichen zwischen x und dem Komma gelassen?)\n"
+
+#~ msgid "%s: unknown flag\n"
+#~ msgstr "%s: Unbekanntes Bit\n"
+
+#~ msgid "init_slots: can't open directory '%s' to read saved games\n"
+#~ msgstr ""
+#~ "init_slots: Öffnen von Verzeichnis »%s« zum Lesen der Spielstände "
+#~ "fehlgeschlagen\n"
+
+#~ msgid "'%s': file not found\n"
+#~ msgstr "%s: Datei nicht gefunden\n"
+
+#~ msgid "%s: not found\n"
+#~ msgstr "%s: nicht gefunden\n"
+
+#~ msgid "If data seems to be missing, please re-run the converter lgc-pg.\n"
+#~ msgstr ""
+#~ "Falls Daten fehlen, lassen Sie bitte den Konverter lgc-pg nochmal "
+#~ "laufen.\n"
