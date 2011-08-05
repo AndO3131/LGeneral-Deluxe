@@ -1,0 +1,349 @@
+ Guide to Localisation
+=======================
+
+This document contains hints for the end-user on current issues with
+localisation. It furthermore provides a guideline for translators and
+explains the process as well as the mindset behind performing translations
+for one's native language.
+
+
+1. User Issues
+2. List of Currently Supported Languages
+3. Becoming a Translator
+4. Translation Process
+A. Contacts
+References
+
+1. User Issues
+---------------
+
+lgeneral supports localisation through GNU gettext[1]. When you run configure,
+it will automatically detect a GNU gettext-installation and use it properly.
+
+Localisation will only work if you install lgeneral under its own prefix
+(namely, do not specify --disable-install for configure). Then at least one
+of the following environment variables have to be set to your preferred
+language: LANGUAGE, LC_MESSAGES, or LANG (where the former ones take precedence
+over later ones).
+
+If lgeneral will not come up localised, call it this way:
+
+LANGUAGE=<iso-code> <path-to-installed-lgeneral>/lgeneral
+
+I have noticed that glibc's built-in version of gettext tends to coerce
+characters into 7-bit equivalents. Hence, if you experience that umlauts or
+accents are not displayed properly, you should consider using
+--with-included-gettext for configure.
+
+
+2. List of Currently Supported Languages
+----------------------------------------
+
+Iso-Code[2]     Language    Coverage  Maintainer
+de              German      full      Leo Savernik <l.savernik%aon at>
+en              US-English  as needed Leo Savernik <l.savernik%aon at>
+
+If you specify one of the iso-codes for the environment LANGUAGE, LC_MESSAGES,
+or LANG prior to starting lgeneral, lgeneral will be localised to this
+language.
+
+
+3. Becoming a Translator
+------------------------
+
+Do you want lgeneral to "speak" with you in your native language? Is your
+language not yet supported by lgeneral? Do you have some spare time at your
+hands?
+
+If your answer to these questions is yes, you are invited to become a
+translator for lgeneral. Don't worry, you don't have to be a programmer, you
+don't have to understand C-code at all.
+
+Note that lgeneral is currently restricted to iso-8859-1 charsets (which
+encompasses most languages of Central Europe[3]). lgeneral is generally
+restricted to 8-bit characters, so it cannot support locales needing more than
+256 characters, like Chinese.
+
+To initiate localisation for a new language, follow these steps:
+1. Open a terminal window and change into the top directory of lgeneral's
+   source package. Example:
+
+        cd $HOME/lgeneral-1.2rc2
+
+   and then clean the project.
+
+        make clean
+
+2. Open <top_srcdir>/configure.in
+3. Seek for the line containing ALL_LINGUAS and append the iso-code[2] of your
+   language to the end of the list. For example:
+
+        ALL_LINGUAS="en de fr"
+
+4. Switch to the terminal window and enter the po-subdirectory:
+
+        cd po
+
+   This directory contains subdirectories which in turn contain the
+   translations for different parts (called domains) of the game.
+
+5. For every subdirectory under po, do the following steps:
+   Copy the pot-file, which always is called <domain>.pot to a new po-file
+   called <iso-code>.po. For example (assuming your iso-code is fr),
+   for the lgeneral subdirectory, you would issue the following commands:
+
+        cd lgeneral
+        cp lgeneral.pot fr.po
+        cd ..
+
+
+   For pg, the commands would look like
+
+        cd pg
+        cp pg.pot fo.po
+        cd ..
+
+   You get the idea.
+
+6. Change back into the top source directory 
+
+        cd ..
+
+   and issue
+
+        ./autogen.sh
+        ./configure
+
+   While configure is running, you should notice a line like this:
+
+        checking for catalogs to be installed...  en de
+
+   If it contains your iso-code, pat yourself on your shoulders. You've made
+   lgeneral ready for supporting your language.
+
+7. Rebuild the project:
+
+        make
+
+   It should build without errors. If it doesn't, you probably got some prior
+   step wrong. Simply recheck.
+
+   Now all that is left is the actual translation. Read the next section
+   for an explanation of the translation process.
+
+
+4. Translation Process
+----------------------
+
+Whether you are a first-time translator, or routinely doing translations for
+lgeneral at regular intervals, the translation process is virtually always the
+same.
+
+We assume for this section that you have an open terminal window, with the
+current working directory being the topmost directory of your lgeneral sources.
+
+Following these steps will guide you through a complete translation cycle:
+
+1. Change into the first subdirectory under po. For example:
+
+      cd po/lgeneral
+
+2a Merge changes within lgeneral with your existing translations.
+   (Skip this step if you are doing your first translation.)
+
+      make update-po CATALOGS=<iso-code>.gmo
+
+   This command will merge any new entries found within the <domain>.pot
+   into the <iso-code>.po file in the directory. It will try to map existing
+   translations to new messages and comment out old translations for messages
+   that have disappeared in lgeneral since you last ran make update-po.
+
+   Note that this invocation will *never* delete any messages from any
+   <iso-code>.po. We suggest that you leave them in, because old messages
+   may reappear in newer versions of lgeneral.
+
+2b Customize the newly created po-file. (Skip this step if this is not a
+   new po-file.)
+
+   Each po-files contains a data-section at its top, which you have to adapt
+   to reflect reality.
+
+   At the top, there's a line
+
+        # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+
+   Fill in your name, email-address and the year.
+
+   For a new po-file, the first msgstr looks like this:
+
+        msgstr ""
+        "Project-Id-Version: PACKAGE VERSION\n"
+        "POT-Creation-Date: 2005-12-02 21:31+0100\n"
+        "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+        "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+        "Language-Team: LANGUAGE <LL@li.org>\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=CHARSET\n"
+        "Content-Transfer-Encoding: ENCODING\n"
+
+   Simply fill in your data. PACKAGE is the current domain (the same name as
+   the directory this file is located in). VERSION is the version of the
+   package or tool. If there is no version, omit it. If in doubt, look at
+   de.po in the same directory.
+
+   For PO-Revision-Date, fill in the current date and time.
+   For Last-Translator, fill in your name, email-address.
+   For Language-Team, fill in your name, email-address, or leave it unaltered.
+   We don't have language-teams yet.
+   Content-Type: fill in the character set of the translated language. Note that
+   lgeneral mandates this character set to be an 8-bit character set
+   (iso-8859-*).
+   Content-Transfer-Encoding: set ENCODING to 8-bit.
+
+   lgeneral's fonts currently *only* support iso-8859-1. While this is sufficient
+   for most Central European languages, it may not cover your concerns.
+
+   While it is easy to make lgeneral support more iso-8859-* codepages, we
+   don't have the necessary time to provide those fonts for you. If you are
+   gimp-savvy, you can provide additional fonts by yourself. Please contact us
+   (<l.savernik%aon at>, that is) for assistance *before* you start messing
+   around.
+
+3. Do the translation. Open <iso-code>.po with an text-editor of your choice,
+   and translate all the missing msgstr-lines. Never edit the msgid-lines.
+   Changing them will keep the translation from being displayed when lgeneral
+   is running.
+
+   If you are using a plain-text editor, you *must* take care that the file
+   is loaded and saved under an 8-bit character set. Otherwise, lgeneral will
+   exhibit strange behaviour.
+
+   Change the line "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n" to the current
+   date and time (I promise you'll routinely forget, just as I do ;-) ).
+
+   If this is your first-time translation, you simply wade through all msgstr-
+   lines until you're done (or exhausted ;-) ).
+
+   If you have updated this po-file, most of its translations probably still
+   are valid. In this case, you have only to translate those which have no
+   translation yet, or which are "fuzzy".
+
+   "Fuzzy" means that gettext's msgmerge tool tried to guess for a new
+   message which of your existing translations would match best. If it finds
+   one, it will put it in the msgstr-line, and mark it "fuzzy". Such an entry
+   looks like this:
+
+        #. maps/pg/map17:7
+        #, fuzzy
+        msgid "Ardenne"
+        msgstr "Ardennen"
+
+   Fuzzy-entries *have* to be examined as they are mostly wrong, albeit useful
+   in aiding translation.
+
+   When you have provided the proper translation, delete the ", fuzzy" part
+   from that line. Otherwise, your po-file will be rejected further down the
+   process.
+
+4. If you have done all translation, switch back to the terminal window, and
+   simply run
+
+        make
+
+   It will compile all po-files into machine-readable gmo-files. While running,
+   the command prints some status information about the count of translated/
+   untranslated strings and more for each file it processes.
+
+   If your po-file is rejected (make will quit with an error), there is
+   either a syntactical mistake, or some fuzzy translation left. Fix the
+   bug and repeat this step.
+
+4a It may happen that *other* po-files are rejected which do not belong to your
+   scope. This is usually caused by the merging done in step 2a when you have
+   forgotten to specify the CATALOGS-variable, which may have produced new
+   fuzzy entries. In this case, invoke make as
+
+        make CATALOGS=<iso-code>.gmo
+
+   where <iso-code> is the code of your language. Doing so will only compile
+   <iso-code>.po and ignore all other po-files.
+
+5. Change into the next po-subdirectory like
+
+        cd ../pg
+
+   and repeat steps 2 to 4 until there are no more subdirectories left.
+
+6. Install lgeneral and test your changes. Change to the top-source directory
+
+        cd ../..
+
+   run
+
+        su
+        <Enter root password>
+        make install
+        exit
+
+   and run lgeneral. If it doesn't show up in your language, try first
+   running it with
+
+        LANGUAGE=<iso-code> lgeneral
+
+   LANGUAGE will take precedence over all other language-settings. Also don't
+   forget that you have to execute the lgeneral-binary under the installed
+   prefix (usually /usr/local/bin), *not* the binary under src/.
+
+   If you notice mistakes, repeat steps 3 to 5 as applicable. Otherwise, you
+   are ready to contribute your changes back to lgeneral.
+
+7. In the last step, you can contribute back your changes to lgeneral. That
+   way, add value to the lgeneral-package and make it more useful for other
+   people which in turn leads to more widespread use of lgeneral.
+
+   From the topmost directory of lgeneral's sources, issue the following
+   command:
+
+        make package-translations LINGUAS=<iso-code>
+
+   This will create a package of all <iso-code>.po files in your topmost
+   source directory called
+
+        lgeneral.<iso-code>.YYYY-mm-dd.tar.bz2
+
+   which in turn you send to the translation-coordinator (<l.savernik%aon at>).
+   He will contact you on are any further issues with the translations.
+
+   When releasing your translations to the public (that's what you indirectly
+   do by contributing back), you implicitly agree with the GNU General Public
+   Licence[5] as described under COPYING in the top source directory of
+   lgeneral.
+
+   Summarising, the GPL demands that you have to grant anybody using the
+   software the same rights you was granted. Thus the GPL ensures that
+   free software stays free software.
+
+As editing po-files is prone to error, I suggest using a dedicated tool like
+Emacs po-mode or KBabel[4]. Both tools relief you from syntactical and charset
+issues, make it easy finding untranslated/fuzzy items and do some sanity checks
+for you.
+
+
+A. Contacts
+-----------
+
+Release-Coordinator
+Michael Speck <michael.speck%gmail com>
+
+Translation-Coordinator
+Leo Savernik <l.savernik%aon at>
+
+
+References
+-----------
+
+[1] gettext, http://www.gnu.org/software/gettext/
+[2] ISO639, http://www.ics.uci.edu/pub/ietf/http/related/iso639.txt
+[3] The ISO 8859 Alphabet Soup, http://czyborra.com/charsets/iso8859.html
+[4] KBabel Homepage, http://i18n.kde.org/tools/kbabel/
+[5] GNU General Public License, http://www.gnu.org/copyleft/gpl.html

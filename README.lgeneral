@@ -1,0 +1,255 @@
+
+                         ==========================
+                                  LGeneral
+                         ==========================
+			       
+                         a turn-based strategy game
+                           released under GNU GPL
+
+
+Table of Contents
+-----------------
+
+1. About
+2. Installation
+3. Troubleshooting
+4. Main Menu
+5. Interface
+6. Unit Menu
+7. Differences between LGeneral and Panzer General
+8. Bugs
+9. Feedback
+
+
+1. About
+--------
+
+LGeneral is a turn-based strategy engine heavily inspired by Panzer General.
+The engine itself does not provide playable data. However, the program lgc-pg 
+(included to this package in subdirectory lgc-pg) allows conversion of the 
+original PG data. If you do not own a copy of the game, there is a package at
+http://lgames.sf.net which contains this data. It is copyrighted by SSI, now
+part of UBI Soft, but made available in the sense of abandonware. Please see
+the README in the data package for more information. If you have gotten the
+PG data, one way or the other, see README.lgc-pg to learn how to convert the 
+data, after you have installed LGeneral itself as described below.
+
+2. Installation
+---------------
+
+LGeneral runs in X and uses SDL (>= 1.1.4) and SDL_mixer (optional, any 
+version). Both libraries can be found at http://libsdl.org.
+Now enter your favorite shell and type in the following stuff (in the
+directory you extracted the LGeneral source)
+  > ./configure [--disable-sound] [--disable-install] [--disable-dl]
+      --disable-sound:       no sound
+      --disable-install:     no installation; play from source directory
+      --disable-dl:          disable use of AI modules and stick to the
+                             built-in AI
+  > make
+  > su (become root)
+  > make install (if install wasn't disabled)
+The LGeneral engine and the converter lgc-pg are now installed. Please download
+the data package or use your copy of PG (DOS version) and feed the engine 
+according to the instructions in README.lgc-pg.
+
+3. Troubleshooting
+------------------
+
+  1) If SDL is not found remember that you'll additionally need the development
+package for compiling though not for running. (a popular Mandrake user mistake)
+  CY reported a hint for Mandrake: It seems that their SDL package scheme is
+somewhat broken. When you try to install the latest devel package, it might fail
+because some files have to be replaced. Easier than re-installing SDL is to use
+the rpm option --replacefiles for installing the devel package.
+  2) The same applies to SDL_mixer!
+  3) If your sound is out of sync change the last argument for Mix_OpenAudio()
+in audio_open() in audio.c from 256 to 2048. This might help.
+
+4. Main Menu
+------------
+
+When the LGeneral title screen is displayed click any mouse button to move
+on and you'll see the themes background without anything on it. Now click the 
+*right* mouse button to popup the menu. Each menu item has a tooltip displayed
+at the top of the screen and I consider them quite self-explaining for most
+of the time. ;-)
+  1) Resolution:
+Modifications to the resolution settings are not applied
+immediately but must be confirmed with the apply button.
+  2) Start Scenario:
+Clicking on 'Load Scenario' will bring up the selection dialogue. If you did 
+not install any scenarios this is a dead end (get lgc-pg!) else there should
+be a 'pg' directory. Open it and select a scenario. If the selected scenario
+is valid some information is shown and you may now run it or modify its 
+settings (control and ai module for each player).
+  3) Start Campaign:
+Works analogously to 'Load Scenario'. The only campaign so far is 'PG'
+which is a full WW2 campaign starting in Poland and ending up in
+Washington if you are good enough. There are some modifications compared
+to the original PG campaign. Please check src/campaigns/PG for more
+information.
+
+5. Interface
+------------
+
+If you start a scenario or load a game you'll be at the tactical map. Moving
+the cursor above a unit displays a quick info about the unit(s) and the
+hex tile.
+  1) Select A Unit:
+A unit is selected by left-click on it where a hex tile is split into two 
+regions. The upper one contains the air unit and the lower one the ground unit.
+For example if there is no air unit and you click into the air region the
+ground unit will be selected if there is one.
+  2) Unselect Unit:
+A simple right-click anywhere will unselect the unit.
+  3) Move Unit:
+When selecting a unit the fog mask will change to show where the unit may move
+or em/debark. Left-click on any of the highlighted hex tiles to execute the 
+movement. 
+  For aircrafts there is a danger mask. If a hex tile is potentially out of 
+range, it is covered with red color. This means the aircraft is unlikely (well
+this is almost sure) to reach an allied airfield to supply in time. (If there is
+not at least one fuel remaining, by the end of the turn, the aircraft will crash
+inevitably!) Also, even if a tile is not marked, it may happen that (due to 
+enemy aircrafts in the way) the fuel does not suffice. So this is really more of
+a warning. E.g., if you are close to an airfield and sure that you will conquer
+it the next turn, you can ignore any warnings of being out of reach for your 
+aircrafts, because as soon as you have the airfield they can supply.
+  4) Attack An Enemy:
+If the unit within the hextile and region the pointer is on is a valid target
+it will change into a crosshair. A left-click initiates the attack. To decide
+whether an attack is useful or not have a look at the expected losses displayed
+at the top of the screen. (very useful!)
+  5) Unit Menu:
+If you left-click on a selected unit the unit menu will popup. (is explained 
+below)
+  6) Full Unit Info:
+If you have no unit selected and you right-click on one a full unit info will
+be displayed. Note: It is still possible (though a bit slow) to move the
+pointer above other units to compare properties. A right-click will close
+the unit info.
+  7) Main Menu:
+If you have no unit selected and you right-click into an empty hextile the main
+menu (as described in the section above) will popup.
+  8) Scrolling:
+To scroll the tactical map either use the cursor keys or move the pointer to
+the border of the screen.
+  9) Shortcuts:
+You may use the keys 'n' and 'p' to cycle through all your units that may still
+either fire or move. 'f' and 'F' allow to cycle through only those units that 
+may still fire. 'm'/'M' will give you the moving units list. 
+  With '-' you can toggle whether a unit is included to any of these cycles. If 
+it is not, a purple bar is shown above the strength label. This is useful if 
+you have a number of units in, e.g. towns, that are supposed to simply stay 
+there. As soon as you move a unit or attack with it, the 'guard' label is 
+removed. Same applies if the unit is attacked.
+  Besides, there are many short cuts for the most important menu options. Check
+the menu, the key is shown in brackets behind the description, e.g., 'u' for
+undo a unit's move.
+  'TAB' allows you to flip the layout of asymmetrically positioned windows (like
+the unit quick infos or the deploy window) to see clearly what lies behind.
+
+6. Unit Menu
+------------
+
+These are the options in the unit menu:
+  1) Supply:
+Ships and aircraft must be close to their supply point (harbor, airfield) and
+receive a supply level of 100 (full supply) there. Ground units receive 100 if 
+close to an allied town and airfield and lose 10 for each hex tile away 
+from the nearest supply point. As soon as an enemy is close the ground units 
+supply at 75% of the actual supply level and aircrafts at 50%. If more than one 
+enemy is close, the rate drops to 50% for ground units and 0% for aircrafts.
+So be aware that long sieges with no town near in the back may cause trouble if 
+you take too long or move too fast!
+  As a help, the unit strength is displayed in red color if the unit is either
+low in fuel (aircrafts <= 20, other units <= 10) or low in ammo (<=2).
+  2) Air Embark/Debark:
+If your unit is on an allied airfield and can use an air transport it may 
+embark. If your unit is using an air transport and uses parachutes it
+may debark anywhere on the map (if the embarked unit is able to enter this
+tile, of course) else it is only allowed to debark at an allied airfield.
+It may not have moved yet, when trying to embark/debark (so it must come to
+a halt on or above the airfield before actually em-/debarking) but can move 
+directly on the ground after debark.
+  3) Merge Units:
+LGeneral's way of reinforcements differs from PG's. Instead of purchasing 
+replacement or elite replacement a unit may merge with another of the same 
+class to compensate damage as long as the total strength is less or equal to
+13.
+  The unit, marked by the red up arrow, is merged into the selected unit. The 
+new entrenchment is then the weighted sum, assuming entrenchment 0 for the 
+marked unit (since it had to move). So to keep entrenchment you must select 
+the unit with the high entrenchment first and merge the other into it.
+  4) Split Units:
+This allows splitting up some strength and either direct it to another close 
+unit (which makes it an inverse merge) or put it as a new standalone unit. The
+unit doing the split must keep at least 4 strength. When transfering to another
+unit, any strength from 1 to maximum (this unit needs 4 remaining, target may 
+not go above 13) may be selected. But if the unit is supposed to be standalone
+it must again have at least 4 strength. So you can only split to a new unit if
+the splitting unit itself has more than 7 strength.
+  4) Undo Turn:
+A unit may undo it's movement if no enemy was spotted.
+  5) Rename Unit:
+Change the name of the unit.
+  6) Disband Unit:
+  If the unit did not yet act in the current turn, it may be disbanded. The unit
+is than permanently (after confirmation) removed from the game.
+  
+7. Differences between LGeneral and Panzer General
+--------------------------------------------------
+
+As LGeneral is heavily inspired by Panzer General Werner Archan's FAQ
+'PanzerGeneral-Guru.txt' is included to this package since it provides many 
+helpful hints to master the game.
+
+However, LGeneral and PG differ in two main aspects:
+  1) Reinforcements: Initially I wanted to have fixed reinforcements arriving
+in later turns but to define these in a balanced and accurate manner proved to
+be quite difficult. Only a handful of scenarios feature such reinforcements. 
+Therefore LGeneral now provides a purchase option and means to acquire prestige
+as in Panzer General.
+  There will be no option for replacement though. Units may be merged and split
+as described in section 6.
+  Requested units will arrive next turn for deployment. Unit orders may be
+cancelled any time in the same turn (prestige gets refunded). Once a unit has
+arrived and is ready for deployment it can no longer be refunded.
+  The reinforcements editor lgeneral-redit (a subpackage of this package) and 
+already defined reinforcements are still present but deactivated by default. To
+re-enable these and to disable the purchase option run LGeneral with command
+line option --no-purchase. But as I said already only a few scenarios have 
+reinforcements defined yet so most of the time this means you just play without
+reinforcements. Any submissions for predefined reinforcements are still very
+welcome!
+  2) Core Units:
+There will be none. It is nice to have a fully experienced killer troop you
+brought all the way from Poland to Washington but how did you manage that? You
+loaded and saved to get good combat results with this unit at a low damage 
+rate. Anyone must admit that this is a very untactical way of using a unit.
+Much better going with the auxiliaries: If there was a town to be taken they
+had to go for it at any cost thus they were used to their full tactical extent.
+And that is what should be done with all units on the battle field. With core
+units that are treated like being on holidays this can't be done, so there 
+simply will be no way to re-use units in the next scenario of a campaign.
+
+8. Bugs
+-------
+We tested as much as we could and already removed a lot of funny and mysterious
+bugs but this game is still under development so report any suspicious
+behaviour to http://lgames.sf.net/contact.php.
+Known bugs:
+  1) Loading the dynamic AI now works but it seems to screw some pointers which
+results in no unit movement. However on some machines it does work. I wasn't
+able to spot the reason so if you do please tell me!
+
+9. Feedback
+-----------
+Any comments and bugreports are welcome. Please use the contact form at
+  http://lgames.sf.net/contact.php.
+And don't forget to look at http://lgames.sf.net for updates sometimes!
+  
+
+     Enjoy the game!
+       Michael Speck

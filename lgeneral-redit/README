@@ -1,0 +1,106 @@
+
+    GTK-based Reinforcements Editor for LGC-PG.
+      by Michael Speck
+      released under GNU GPL
+
+
+To use this editor you will need the original Panzer General (DOS)
+data as this program does not modify the scenarios but the input 
+for converting the scenarios when using lgc-pg.
+
+For the following I assume that you have copied either the contents of 
+the pg-data package (from http://lgames.sf.net) or the contents of the 
+dat directory (from your PG CD) to ~/tmp/dat and that you have put the 
+lgeneral source to a directory ~/sources/lgeneral-X.X.X and that you 
+are now in ~/sources/lgeneral-X.X.X/lgeneral-redit
+
+Starting from the this very directory do:
+
+  > configure; make;
+  > cd ..
+  > configure --disable-install; make clean; make
+
+First we have to compile lgeneral-redit, lgeneral and lgc-pg so, that 
+it runs from the source directory. While lgeneral-redit always runs 
+from the source directory lgeneral and lgc-pg require --disable-install 
+for this. The make process of lgeneral-redit is separate as it requires
+GTK which is an unnescessary dependancy for LGeneral itself.
+
+> cd lgc-pg
+> lgc-pg -s ~/tmp/dat -d ~/sources/lgeneral-X.X.X/src
+
+lgeneral-redit requires pg.udb, thus we have to run the converter
+a first time. lgeneral-redit looks for pg.udb in ../../src/units
+which is a relative path. Don't rename or move anything! BTW
+doing this without 'make install' saves us trouble with the
+permissions in /usr.
+
+> cd ../lgeneral-redit/src
+> lgeneral-redit
+
+Now, whatever you change will be saved in reinf.rc from which
+you can load again. Some information on the interface is given 
+further below. Let's assume you defined some nice reinforcements,
+then hit the Build button from the menu. This will modify the file
+../../lgc-pg/convdata/reinf which is again a relative path, so don't
+rename or move anything!
+
+> cd ../../lgc-pg
+> lgc-pg -s ~/tmp/dat -d ~/sources/lgeneral-X.X.X/src
+
+Every time the converter is run, the delayed units for all scenarios 
+are added according to the information in data/reinf.
+
+> cd ../src
+> lgeneral
+
+Now, you can test the scenario. If something is not okay, you can
+re-run lgeneral-redit, do a Build in it, run lgc-pg and then lgeneral
+again. It sounds more complicated than it actually is. It is best to
+use a multiterminal to be present in all three directories: src, 
+lgc-pg and lgeneral-redit/src.
+
+
+*** INTERFACE HINTS ***
+
+The layout is very simple and quite self-explanatory. If you select a 
+scenario SCENARIO, the label at the top right will change to 'Add Unit
+For SCENARIO'. This way you always know, for which scenario you 
+currently edit the reinforcements. 
+
+Then you select the side (Axis,Allies), the unit category (Infantry, 
+Tank ...) and the unit itself. Note, that all units from this category 
+will be displayed, no matter of the time of the scenario! Thus it is 
+possible to deploy a Tiger for the Axis in Poland and equip it with an 
+Opel transporter. Which you should not do, of course.
+
+'Delay' is the number of turns after which the unit will be available 
+for deployment. 'Strength' is the unit strength which may range from 
+5-15 and 'Experience' is the experience ranging from 0 to 5 stars.
+
+If you select a unit from the lower right-hand side box you can either
+remove it or replace it with the current settings you have made. 
+Replacing is the same as simply removing the old unit and then adding 
+the new one. This is useful when changing a property for a delayed
+unit: for instance, if you added a tank that should appear after 2 
+turns but that should appear now after 4 turns. Then you select the
+unit, simply change the delay from 2 to 4 and hit replace. 
+
+There is no undo function, so save and load on a regular base. When you
+feel like the reinforcements for a scenario are ready to be tested, hit 
+the 'Build' button in the menu. This will, as explained above, generate
+the reinf file in lgc-pg. Then re-running lgc-pg allows to test the
+reinforcements in LGeneral.
+
+
+*** CONTRIBUTIONS ***
+
+If you want to contribute to LGeneral please create reasonable 
+reinforcements for a scenario of your choice. (thus no Tiger2 in Poland
+or stuff!) The reinforcements should be roughly within the historical 
+contexts of the scenario and not to excessive. 
+
+Please, tell me in advance if you want to build reinforcements. Just
+to prevent unnescessary work, in case someone else is already going for 
+it. Reinforcements contributions will be listed in the AUTHORS file.
+

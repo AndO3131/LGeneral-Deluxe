@@ -1,0 +1,3 @@
+This tools extracts from any lgeneral-related resource file the list of
+translateable strings and writes them out in a format suitable for xgettext
+processing.

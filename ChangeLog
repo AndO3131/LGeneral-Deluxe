@@ -1,0 +1,568 @@
+1.2.1:
+- video mode selection dialog with all available dimensions (2011/06/13 MS)
+
+1.2:
+- allow disable/enable of purchase and deploy turn in GUI (10/09/29 MS)
+- disable purchase when loading old saved games (10/09/29 MS)
+- tweaked initiative bonus for russian tanks (10/09/28 MS)
+- use installation path as default for lgc-pg (10/09/28 MS)
+- use secure snprintf instead of sprintf in lgc-pg (10/09/28 MS)
+- try to open PG files with lowercase and uppercase name (10/09/28 MS)
+- added splash screen for lgc-pg (10/09/27 MS)
+- added config option for AI debug messages (10/09/27 MS)
+- added unit purchase phase for AI (10/09/27 MS)
+- gain prestige for capturing flags and damaging units (10/09/26 MS)
+- added purchase dialogue (10/09 MS)
+- lgc-pg builds prestige data based on original PG data (10/09 MS)
+- fixed wrong deploy center block update on loading scenario (10/09/22 MS)
+- fixed compilation on 64 bit Linux systems (10/09/20 Pavol Rusnak)
+- fixed buffer overflows during campaign loading (10/09/20 Frank Schaefer)
+
+1.2beta-14:
+- fixed configure warning (09/10/26 MS)
+- added XDG support (09/10/26 MS)
+- fixed some errors in READMEs (09/01/09 BH)
+
+1.2beta-13:
+- fixed bad color key in font bitmaps (07/09/26 MS)
+- added original pg font for campaign briefings (07/09/24 Pamashoid)
+- ignore return value in po/lgeneral Makefile (07/09/24 MS)
+- bugfix: using transporter crashed if not enough fuel (07/09/24 Triple
+Entendre)
+
+1.2beta-12:
+- fixed bug in gettext that caused 'make uninstall' to fail (06/05/29 LS)
+- fixed a bug that caused end_turn to lock if NUMLOCK was active (06/05/27 MS)
+- make it compile under mingw. Thanks to Victor Sergienko. (06/04/10 LS)
+
+1.2beta-11:
+- no initial deploy allowed for allied player in MarketGarden (06/01/14 MS)
+- fixed translation-encoding by invoking msgconv as necessary (05/12/30 LS)
+- updated German translation (05/12/29 LS)
+- added option --campaign-start (05/12/29 LS)
+- campaign can now be loaded from command-line (05/12/29 LS)
+- added full descriptions for PG-campaign (05/12/28 LS)
+- brought danger zones in sync with new fuel-usage rules (05/12/28 LS)
+- adapted ltrextract to cope with new campaign entries and references
+  (05/12/27 LS)
+- start campaign with first scenario, not with scenario called "first"
+  (05/12/27 LS)
+- long-format parser is now more accurate, and stricter (05/12/26 LS)
+- added support for title-entry per campaign scenario (05/12/24 LS)
+- added support for references in campaign description (05/12/24 LS)
+- fixed massive (>30MB per scenario) memory leaks and some smaller ones
+  (05/12/21 LS)
+- better (and faster) line wrapping algorithm (05/12/20 LS)
+- new briefing font (05/12/18 LS)
+- allow debriefings in campaigns (05/12/18 LS)
+- provide path selection in campaigns (05/12/18 LS)
+- explicitly create POFILES and GMOFILES if not defined by gettext.m4
+  (05/12/12 LS)
+
+1.2beta-10:
+- let some AI units (in town, artillery, close to artillery etc) hold position
+  (05/12/09 MS)
+- parachutists over an empty allied airfield debark like a normal unit, thus 
+  may move on the ground in the same turn (05/12/09 MS)
+- on Linux lgeneral is now relocateable (i. e. installation directory
+  is not hardcoded anymore) (05/12/07 LS)
+- bugfix: don't crash on a savegame called lg_save_11 (05/12/05 LS)
+- made savegames interchangeable between big-/little-endian systems
+  (05/12/05 LS)
+- introduced global versioning for savegames (05/12/05 LS)
+- bugfix: make font_credit adhere to new font format (05/12/04 LS)
+- bugfix: hardcoded output charset for all known translations (05/12/04 LS)
+- added README.i18n to provides guidance for translators (05/12/04 LS)
+- added target package-translations to Makefile.am to make it easier for
+  translators to package their changes (05/12/04 LS)
+- updated German translation for pg-domain (05/12/04 LS)
+- added a German translation for the whole pg-domain (05/12/02 LS)
+- i18n part II: added provisions for translating lgeneral-resources
+  (05/12/02 LS)
+- new tool ltrextract for extracting translateable strings from
+  lgeneral-resources (05/12/02 LS)
+- fixed bug in casualties estimation (05/12/1 MS)
+- parachutists may drift away, have casualties and may not act on the ground 
+  within the same turn (05/12/1 MS)
+- parser now saves context information per node (05/11/30 LS)
+- added a German translation for hardcoded strings (05/11/27 LS)
+- i18n part I: added provisions for translating hardcoded strings (05/11/27 LS)
+- show move cost instead of mere distance when unit is selected (05/11/22 M.S.)
+- forecast is written to new line since string became too long for new weather 
+  types (05/11/22 M.S.)
+- deploy turn is now default (05/11/22 M.S.)
+- conquered towns become deploy centers after one turn delay (05/11/20 M.S.)
+- allow deployment of a unit, that may use an air transporter, as air-embarked 
+  directly above an airfield in the initial deploy turn (05/11/20 M.S.)
+- no auto-save in deploy turn (05/11/18 M.S.)
+- changed font format to encompass full iso-8859-1 charset (05/11/20 LS)
+- new command-line utility shptool for converting PG-shps into bmps
+  (05/11/20 LS)
+- bugfix: artilleries in kiev get Opel not Air-Defense as transporter 
+  (05/11/15 M.S.)
+- allow initial entrenchment to be higher than the maximum of the terrain
+  (05/11/15 M.S.)
+- adjusted weather for all scenarios (05/11/15 M.S.)
+- added new weather types to differ between air and ground conditions
+  (05/11/15 M.S.)
+- usability: allow status screens to be dismissed by Space, Enter, or Esc
+  (05/11/14 LS)
+- bugfix: make harbours accessible by vessels (05/11/14 LS)
+- restore compatibility with third-party scenarios broken since beta-8
+  (05/11/14 LS)
+- don't unduely penalise units with an inherently low ammo supply (05/11/13 LS)
+- terrain 'fortification' now requires tanks to use their close defense value 
+  (05/11/10 MS)
+- units do not take shortcuts but use the proper move path (05/11/10 MS)
+- improved computation of movement mask (a unit entering a hex influenced by an 
+  enemy looses all remaining movement points; this allows the defender to 
+  better slow down the attacker) (05/11/10 MS)
+- for defensive fire artillery causes suppression for roll <=20 (not <=18) 
+  (05/11/06 MS)
+- removed 'cut_strength' flag from the weather types (05/11/06 MS)
+
+1.2beta-9:
+- fixed bug in range check of turn suppression (05/11/06 MS)
+- bugfix: corrected casualties estimation (05/11/06 MS)
+- strength is never cut (05/11/06 MS)
+- no fuel of fuel using attacker gives defender a +4 bonus (05/11/06 MS)
+- artillery may do rugged defense again (05/11/06 MS)
+- units that have 'ignore_entr' can't get a rugged defense (05/11/06 MS)
+- re-activated intiative rule: aircraft gets intiative of target if it's an
+  air defense (05/11/06 MS)
+- deployment fields are implicitly spotted (05/11/04 LS)
+- undeployable units don't contribute to the deploy mask (05/11/04 LS)
+- allow flipping asymmetric windows by TAB to see what's behind (05/11/04 MS)
+- unit info pops up by right-click in deploy mode (05/11/04 MS)
+- bugfix: undeploy has higher priority than deploy if cursor is explicitly over
+  an undeployable unit (05/11/04 MS)
+- no units may remain undeployed when ending the deploy turn (05/11/03 MS)
+- added default deploy mask for allied player, axis gets it in addition, too 
+  (05/11/03 MS)
+- made savegames robust against structural changes. Hence, you can
+  consider them being broken again, but this was the last time (05/11/02 LS)
+- fuel is reduced by the number of hex tiles the unit did actually cross not
+  by the distance to the intended destination (otherwise too much fuel is 
+  consumed on, e.g., surprise contact) (05/11/01 MS)
+- crashed aircrafts are removed at the end of a turn not at beginning of next 
+  own turn (this prevents that other players attack an aircraft that is going
+  down anyway) (05/11/01 MS)
+- aircrafts with fuel 0 but close to an allied airfield in the end of a turn
+  will survive (05/11/01 MS)
+- unused units get supplied in the end of a turn and not in the beginning of
+  the next one (05/11/01 MS)
+- tweaked reinforcements for Barbarossa (05/10/30 MS)
+- added reinforcements for Kiev (05/10/30 MS)
+- german artilleries in Kiev get missing transporter (05/10/30 MS)
+- added strength labels with red numbers to lgc-pg (05/10/30 MS)
+
+1.2beta-8:
+- unit strength is displayed in red color if either ammo or supply is low
+  (05/10/29 MS)
+- shortcut '-' lets you ignore a unit for cycling by keys (05/10/29 MS)
+- bugfix: fixed inadvertent switch to deployment-turn on loading saved games
+  (05/10/28 LS)
+- short cuts for most important menu entries (05/10/27 M.S.)
+- bugfix: reinforcements have proper nationality (05/10/27 M.S.)
+- ground units have 75% supply level with one close enemy and 50% with more
+  (05/10/26 M.S.)
+- bugfix: give newly split unit a new ordinal number (05/10/25 LS)
+- bugfix: also display tiles as dangerous if they are influenced by
+  enemy units (05/10/25 LS)
+- an attacked unit must have ammo to defend (05/10/25 M.S.)
+- units may split up (new units must have at least 4 strength as well as the 
+  unit itself) (05/10/25 M.S.)
+- units may be disbanded (05/10/23 M.S.)
+- introduced deployment-turn for all scenarios and all players (05/10/23 LS)
+- new commandline options: --(no-)deploy-turn (05/10/23 LS)
+- new config option: toggle deployment-turn (05/10/23 LS)
+- rearranged buttons of unit menu, added buttons for disband and split 
+  (05/10/23 M.S.)
+- memory cleanups (05/10/23 M.S.)
+- tweaked norway reinforcements (05/10/22 M.S.)
+- declared string parameters as constant where possible (05/10/22 L.S.)
+
+1.2beta-7:
+- show main menu on title screen without right-click (05/10/17 M.S.)
+- fix: converter now works on big-endian machines too (05/10/05 J.N)
+- bugfix: don't allow ground units to be deployed on the ocean (05/10/17 LS)
+- PG-compat: allow deployment only around deployment centers belonging to the
+  same nationality as the unit (05/10/17 LS)
+- bugfix: fix english ordinals between 10 and 19 (05/10/17 LS)
+- make jets actually sound like jets (05/10/17 LS)
+- bugfix: bridge engineers and us engineers now properly ignore entrenchment
+  (05/10/17 LS)
+- new command line option: --version (05/10/16 LS)
+- bugfix: fix savegames broken by introduction of command line support
+  (05/10/15 LS)
+- bugfix: fix switching of player control in scenario setup (05/10/15 LS)
+- bugfix: remove attacker from ai_group if it was killed in action (05/10/15 LS)
+- message if submarine evades (05/10/16 M.S.)
+- using high-order bits to get more evenly distributed pseudo-random numbers
+  (05/10/16 M.S.)
+- added internal config option 'anim_speed' (may be addressed by command line)
+  which allows to speed up animations by this factor (05/10/14 M.S.)
+
+1.2beta-6:
+- command line options support: for now we have --notitle, --control, --help
+  (05/10/14 LS)
+- support starting a scenario from the commandline (05/10/14 LS)
+- total suppression can only have consequences (e.g., surrender) if both units
+  are ground units and if the suppression causing unit has range 0 (thus 
+  artillery cannot cause a unit to flee) (05/10/14 M.S.)
+- bugfix: don't consume fuel on airplanes when supplies are turned off
+  (05/10/13 LS)
+- bugfix: don't consider units delayed by unit.delay != 0,
+  but by inspecting the parse tree (05/10/07 LS)
+- converter renames incorrect spelling of Germain units: Jadg -> Jagd
+  (05/10/07 LS)
+- make input boxes behave sensibly by introducing keypress delay/repeat rate
+  (05/10/07 LS)
+- allow modifiers in input boxes.  (05/10/07 LS)
+- Ctrl+U clears input box (05/10/07 LS)
+- lgc-pg exports .order file for scenario directory (05/10/07 LS)
+- deleting of items from linked lists optimized for the common case
+  (05/10/07 LS)
+- support .order files describing a predefined file order in the file picker
+  (05/10/07 LS)
+- lged: command line tool for manipulating resources and querying
+  game databases (05/10/07 LS)
+- units debarking from air transport may directly move (05/10/13 M.S.)
+- only one (randomly chosen) unit will give defensive fire (05/10/13 M.S.)
+- if artillery attacks there is no support for the target (05/10/13 M.S.)
+- artilleries with different ranges may not merge (05/10/13 M.S.)
+- artillery and air-defense do only help adjacent units with defensive fire
+  (05/10/13 M.S.)
+- artillery cannot do rugged defense (05/10/13 M.S.)
+- bugfix: slot number now correctly extracted from file name (05/10/13 M.S.)
+- use target's terrain for attacker to adjust initiative since fight takes
+  place there (05/10/13 M.S.)
+- limit to terrain initiative, only if both units are on ground (05/10/13 M.S.)
+- use unmodified initiative if an aircraft attacks an air-defense 
+  (05/10/13 M.S.)
+- if artillery attacks a close by unit, the target may not do rugged defense  
+  (05/10/13 M.S.)
+- added missing include (05/10/13 M.S.)
+- artillery with range 1 may move first and attack then but no longer does so 
+  with full strength (05/10/13 M.S.)
+- round up if unit strength is cut in half (05/10/13 M.S.)
+- on merge, entrenchment is calculated as the weighted sum of both units, 
+  assuming entrenchment 0 for the unit that is removed (05/10/13 M.S.)
+- an attacker looses one entrenchment point if there were casualties 
+  (05/10/13 M.S.)
+- a defender looses one entrenchment point if there were casualties or with an
+  "attacker strength"*10% chance otherwise (05/10/13 M.S.)
+- second info label is always shown centered below first one (05/10/12 M.S.)
+
+1.2beta-5:
+- added autosave at end of human player turn (05/10/06 M.S.)
+- bugfix: update unit quick info if cycling unit list by keys (05/10/05 M.S.)
+- reinforcements for Norway (05/10/05 L.S.)
+- mark (by a red layer) any tile that may be reached by the aircraft within 
+  the current turn but that is too far away to fly back to an allied airfield
+  again, thus actually dooms the unit to crash (05/10/05 L.S.)
+- doubled fuel costs in bad weather only for ground/naval units (05/10/05 L.S.)
+- added a note in the README about the shortcuts (05/09/28 M.S.)
+- allow keys f and F to cycle forward and backward through all units that may
+  still fire and analogously m and M to cycle through all units that may still 
+  move (05/09/28 M.S.)
+
+1.2beta-4:
+- message time increased to 1.5 secs (05/09/24 M.S.)
+- aircrafts close to an airfield are automatically supplied at the beginning 
+  of a turn (05/09/24 L.S.)
+- show distance to selected unit if the mouse is on a hex tile within the
+  moving range (05/09/24 L.S.)
+
+1.2beta-3:
+- Werner Archan's Panzer General guide included (05/09/17 M.S.)
+- bugfix: level bombers (instead of tactical bombers) will give turn 
+  suppression, i.e, suppression that last not only for one fight but a whole
+  turn (05/09/16 M.S.)
+- enhancement of flag capturing rules (05/09/16 L.S.)
+- bugfixes for displaying units (05/09/16 L.S.)
+- suppression and casualty info while attacking (05/09/16 L.S.)
+- display fuel cost for current unit (05/09/16 L.S.)
+- FlaK doesn't give supportive fire for airplanes being attacked by other
+  airplanes (05/09/16 L.S.)
+- aircrafts are supplied immediately at beginning of turn (05/09/16 L.S.)
+- several AI bugfixes (05/09/16 L.S.)
+- fixing weather in lgc-pg for Poland, Warsaw, Ardennes (05/09/16 L.S.)
+- bugfix: units do only mount if nescessary (05/09/16 L.S.)
+- reinforcements for Warsaw, Low Countries, France, Barbarossa, Ardennes 
+  (05/09/16 L.S.)
+- removed unnescessary semicolons in reinf file (05/09/16 M.S.)
+- bug fixed to allow AI vs AI games (05/09/16 ???)
+- AI units try to avoid swamps (05/03/24 M.S.)
+- fortresses may not merge (05/03/22 U.F.)
+- tac-bombers have active air-attack while level bombers have
+  passive air-attack (was the other way around before) (05/03/17 U.F.)
+- forts and carriers have passive air-attack (05/03/17 U.F.)
+- bugfix: changed SDL include in lgc-pg/shp.h from SDL/SDL.h
+  to SDL.h (04/12/24 M.S.)
+- bugfix: AI routine crashed when started with no units at all
+  (04/07/08 M.S.)
+- when a unit attacks out of a swamp the attacked unit gets a defense 
+  bonus of +4, also the entrenchment now ranges from 0-3 
+  (04/02/27 CY)
+- mountains now have INF_CLOSE_DEF, which forces vehicles to use their
+  close defense value (04/02/27 CY)
+
+1.2beta-2:
+- bugfix: campaign broke up after first scenario (04/02/23 Carlo)
+
+1.2beta:
+- modified scenario results of allied offensives and ardennes to fit the
+  campaign (04/02/13 M.S.)
+- added full campaign with some restrictions: player may not choose branch;
+  this decision is made by the scenario outcome solely and the west cannot
+  be beaten at the moment (england and russia can) (04/02/12 M.S.)
+- bugfix: torch did not load since a newline was missing (04/02/12 M.S.)
+- implemented unit order for AI group: artillery fires first, then bombers
+  move, then ground units, then fighters and then artillery (04/02/10 M.S.)
+- no matter how advanced the defense of a target is, there is now always
+  a five percent chance to get damaged by a weaker attacker (04/02/10 M.S.)
+- the close defense for vehicles kicks in when a) an infantry attacks
+  a non-infantry which is on a inf_close_def tile (forest, mountains,
+  town) b) a non-infantry attacks an infantry which is on a inf_close_def
+  tile; otherwise the normal defense of the non-infantry is used 
+  (04/02/10 M.S.)
+- russian tanks get a +3 initiative bonus to indicate that although
+  they were weaker than german tanks, they simply outnumbered them 
+  (04/02/09 M.S.)
+- bugfix: marketgarden did not load since a newline was missing
+  (04/01/22 M.S.)
+- lgc-pg integrated into the lgeneral package (04/01/22 M.S.)
+- compilation issues settled for FreeBSD 5.x (04/01/22 L.C.)
+- when ending a turn weather is changed before spot mask is built
+  (03/10/10 M.S.)
+- AI attacks more aggressive (03/10/09 M.S.)
+- AI is careful with mounting of units (03/10/09 M.S.)
+- AI covers bombers with interceptors (03/10/08 M.S.)
+- fixed a bug in supply level calculation: enemy's supply mask was
+  used (03/10/08 M.S.)
+- if unit is in supply at least one fuel and one ammo are supplied
+  no matter how low the suppy level is (03/10/08 M.S.)
+- window manager's close button works (03/10/06 M.S.)
+- added manual page (02/12/10 G.G.)
+- bug fixed that caused SegFault when too close to the border of the 
+  europe map after returning from a scenario (02/10/03 M.S.)
+- added missing cleanup in strategic map that caused random
+  crashes (02/10/03 M.S.)
+- missing checks for 'audio_ok' added (02/09/19 T.K.)
+- removed configure check for libdl (02/09/19 M.S.)
+- 'KILLS' was renamed to 'CASUALTIES' in the loss expectations
+  (02/09/19 M.S.)
+- after unit merge "vis_units" should be updated,
+  this caused Segmentation faults, fixed (02/08/24 P.I)
+
+1.1.1:
+- improved tactical component of AI (02/08/15 M.S.)
+- players can switch between their units with remaining movement or attacks
+  by pressing 'n' for next and 'p' for previous (02/08/01 M.S.)
+- screen resolutions 1280x1024 and 1600x1200 added (02/08/01 M.S.)
+- terrains/maps are loaded 25% faster (02/07/29 M.S.)
+- 'fog of war' previously a setup option became config option (02/07/29 M.S.)
+- crossing a river takes two turns (02/07/27 M.S.)
+- units may only embark to landing boats when near to a harbor
+  or town (02/07/27 M.S.)
+- non-moved units blink on strategic map (02/07/26 M.S.)
+- full info is not shown for unseen units (02/07/25 M.S.)
+- naval units and aircrafts may also merge now (02/07/19 M.S.)
+- when changing from strategic map to tactical map
+  the screen must be cleared, otherwise on large screen the update
+  is not correct (02/07/16 P.I.)
+  
+1.1
+- built-in AI became default (02/07/12 M.S.)
+- config file is now plain text (02/07/12 M.S.)
+- moved 'unit supply' and 'weather influence' options to
+  scenario setup to prevent cheating (02/07/12 M.S.)
+- 'compact' format for text files implemented which increases parsing by factor 
+  10 and the overall loading process by 40% (02/07/12 M.S.)
+- mouse wheel may be used to scroll up/down (09/07/02 patch by
+  Andras Salamon)
+- implemented CARRIER/CARRIER_OK flags (allows refuel of aircrafts
+  at aircraft carriers) (06/07/02 M.S.)
+- different tile sets for different weather types (06/07/02 M.S.)
+- explicit listing of scenario objectives added (05/07/02 M.S.)
+- when a unit captures an objective by debarking it's now checked if the
+  scenario is finished (02/07/02 M.S.)
+
+1.0.3:
+- resource path for 'map' and 'unit_db' of custom scenarios (which
+  is the scenario file) is no longer hardcoded (02/06/14 M.S. with 
+  thanks to Andras Salamon)
+- bug fixed that caused a crash when focusing last hex tile of 
+  a movement (02/06/08 M.S.)
+
+1.0.2:
+- configure option --disable-dl implemented for portability with BeOS
+  (02/06/05 M.S.)
+- enclosed units now properly surrender if completely surpressed (02/06/01 M.S.)
+- ships and aircrafts now use their ground defense when fighting infantry
+  instead of their close defense (02/06/01 M.S.)
+- bug in move undo fixed (02/06/01 M.S.)
+- Sturmgeschuetze (assault tanks?) will support close allied
+  units with full strength in opposite to normal artillery which
+  only operates at half strength if giving defensive fire (02/06/01 M.S.)
+- Crashing with strategic map is fixed (02/05/31 P.I)
+
+1.0.1:
+- fixed a bug in map geometry (02/05/31 M.S.)
+- fog of war is now optional (02/05/31 M.S.)
+- when a unit has attacked it may not undo it's turn (02/05/31 M.S.)
+- rugged defense and river modifications corrected (02/05/31 M.S.)
+- bug fixed which caused a second final view when second player won
+  (02/05/31 M.S.)
+- submarines are easier to catch now (02/05/31 M.S.)
+- new victory conditions UNITS_KILLED and UNITS_SAVED implemented to allow
+  hunting units (02/05/31 M.S.)
+- +8 defense bonus for naval unit instead of ground unit (02/05/30 M.S.)
+- slight format modification to allow use of converted custom scenarios
+  (02/05/30 M.S.)
+- ground units with range 0 may only attack an aircraft when it is on the same
+  tile (02/05/30 M.S.)
+
+1.0:
+- bug in date computing corrected (02/05/29 M.S. with thanks 
+  to Andras Salamon)
+- damage is now computed by the original Panzer General rules (02/05/29 M.S.)
+- modified map geometry to display troops at the outer border of the tactical
+  map better (02/05/29 M.S. with thanks to Andras Salamon)
+- function group_add_button() simplified (02/05/29 M.S. with thanks to
+  Andras Salamon)
+- victory conditions adjusted so that an objective may also be hold by 
+  an allied player (02/05/28 M.S.)
+- VSUBCOND_CTRL_HEX_NUM has been implemented, this victory condition checks
+  if enough objectives are controlled by player (02/05/28 M.S.)
+- IGNORE_ENTR flag has been implemented (02/05/28 M.S.)
+- return value of engine_init is checked now, if engine cannot be initialised
+  the title screen is kept, error message goes to standrad output
+- second unit info is hidden as well when returning to title screen
+- weather request after last turn is corrected
+- after last turn info page also shows the result
+
+1.0beta:
+-CVS'd the project
+-fixed a bug in movement (Peter Ivanyi)
+-fixed a crash that occured when the computer did its turn first
+-fixed a bug in the deploy gui handling (Peter Ivanyi)
+-dynamic ai modules loaded properly (Peter Ivanyi)
+
+1.0alpha:
+-engine rebuilt from scratch
+-all missing features implemented
+
+0.5.0:
+-reinforcements implemented
+-removed all 'SDL/' when including SDL
+-shrinked unit pictures now have proper color key , too
+-taken some unit graphics from PG ;-) (thanks to Eugene Kirilenko)
+-savings improved:
+    -instead of ~1MB for each slot size now depends on
+    scenario (much smaller)
+    -campaign information to resume a campaign is saved too
+    (saving only worked for a single scenario so far)
+-merging of units (to 'heal/repair' damage) implemented
+-slightly changed structure of unit resource files:
+    -moved entry 'flags' above 'picture' entries
+    -added 'sounds' entry
+-added audio options (sound, music) and some basic sounds
+-text string of an edit is properly resized (doesn't crash now)
+-support for various screen resolutions added
+-strategic map implemented
+-fixed a bug that caused a crash when trying to look at the package info
+-other minor bug fixes:
+    -save not allowed while final viewing of map (scenario finished)
+    -unit unselected before final view
+    -unit unselected before end_turn to prevent some strange effects
+
+0.4.0:
+-fixed a bug in the fog update occuring when fighting
+-possible to query unit info if scenario is over
+-improved the AI interface (comments, more structured)
+-track button of scrollbar is updated correctly
+-mouse wheel is supported (once you get used to it you don't want to miss
+it ;-)
+-improved unit info (now includes info about transporter and experience)
+-defensive fire causes suppression for the attacker which stops the attack
+if all of the unit has been suppressed
+-unit may undo its move as long as it didn't spot an enemy
+-fixed some bugs occuring when display depth is >16bits:
+    (thanks to Eugenia Loli-Queru and Lodewijk)
+    -crash in determination of unit size
+    -wrong transparency key
+-weather influence:
+    -snow and rain:
+        -cut spotting in half
+        -flying units can't attack
+        -air attack of ground units cut in half
+        -wheeled or legged ground units have doubled moving costs
+    -clouds:
+        -flying units attack with half intensity
+-implemented harbor flag for map tiles (allow ships to move and supply there)
+-different supply levels:
+    -flying units must be close to an airfield
+    -swimming units must be close to a harbor
+    -ground units lose 10% supply level for each tile they get away
+    from a flag (100% on a flag)
+-units that take no action supply automatically
+-fixed a bug that caused a wrong update of the unit action buttons
+-added bridge engineering flag for units
+-fixed a bug that accidently revealed the position of hostile artillery
+doing defensive fire
+-added in-game scenario info:
+    -current/next player
+    -turn limits
+    -weather
+    -forecast
+    -description
+    -explicit scenario objectives
+-adjusted major victory limit
+
+0.3.0:
+-implemented a complete title menu to run a scenario or campaign, load a game
+or see credits about packages
+-implemented a small gimmick into the title screen (let's see who finds it ;-)
+-info (author, description, filelist) about installed packages implemented
+-improved the theme
+-added a scrollbar to the briefing window so oversized messages may be
+displayed, too
+-added an 'authors' entry to campaign and scenario files
+-fixed a bug in the gui causing a crash when using a listbox with a scrollbar
+-minor bugfixes
+
+0.2.0:
+-combat system improved:
+    -rugged defence
+    -defensive fire by artillery, air-defence and interceptors
+    -units stop when spotting an enemy
+    -ambushs
+    -hostile units control their surrounding (you can't simply move through
+    enemy frontline)
+-campaign mode implemented ( and therefore scenario victory conditions
+implemented )
+-in-game menu implemented (load, save, options, restart, quit)
+-HOWTO explaining structure of resource files (graphics, scenarios, campaigns,
+units, etc)
+-better parsing of resource files (warning/error messages; order of entries
+doesn't matter)
+-basic cpu strategy determined automatically (either aggressive or defensive)
+-single CPU opponent plays with fog of human player
+-map tile flags influence movement
+-map tile definitions read in map file instead of scenario file
+-unit icons (attack, move) now belong to theme instead of map tile graphics
+-status bar graphics improved
+-engine improved:
+    -implemented 'rename unit'
+    -you don't have to switch to air mode to attack an enemy flying above
+    a ground unit (and vice versa)
+    -units can move over tiles with an allied unit
+-various bug fixes:
+    -much better pathfinding and unit movement
+    -unit does not lose ammo in a fight if it can't fire
+-removed some hacks (only those that were too bad to keep them ;-)
+
+0.1.0:
+-initial public release

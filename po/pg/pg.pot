@@ -1,0 +1,7894 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2005-12-28 20:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#. campaigns/PG:251
+msgid ""
+"Although you managed to capture and destroy Stalingrad, shortages in "
+"supplies, and winter weather have exhausted our troops. This allowed the "
+"Russians to cut off large parts of the 6th Army in Stalingrad and annihilate "
+"them, and drive back the Eastern front."
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Conde-sur-Noireau"
+msgstr ""
+
+#. campaigns/PG:285
+msgid "1st October 1942"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Makarska"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Mirgorod"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Namsos"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Trois-Ponts"
+msgstr ""
+
+#. units/pg.udb:2248
+msgid "sIG II"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Thorin"
+msgstr ""
+
+#. maps/pg/map03:7 maps/pg/map06:7 maps/pg/map07:7 maps/pg/map08:7 maps/pg/map09:7 maps/pg/map10:7 ...
+msgid "Mountain"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Elbeuf"
+msgstr ""
+
+#. units/pg.udb:11433
+msgid "FFR 57mm ATG"
+msgstr ""
+
+#. campaigns/PG:47
+msgid ""
+"Despite your heroic efforts, Norwegian and English resistence was too strong "
+"to clean the territory from enemy influence. As the state of affairs is "
+"heating up on the Western border, we had to retract all forces from Noway, "
+"and divert you there."
+msgstr ""
+
+#. campaigns/PG:649
+msgid ""
+"You have achieved a minor victory for the german Reich, Commander! Well done."
+msgstr ""
+
+#. campaigns/PG:504
+msgid ""
+"Congratulations on your outstanding and brave counter-attack. Yet, bombing "
+"raids against our supply lines, and Allied reinforcements forced us to "
+"eventually abandon the Arnhem area, and to pull back behind the Rhine."
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Catanzaro"
+msgstr ""
+
+#. campaigns/PG:233
+msgid ""
+"Excellent! By taking Sevastopol and the Krim peninsula early, we could "
+"annihilate the Russian Black Sea fleet. There will be no more interference "
+"on our ongoing advance to the East."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Essen"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Spoleto"
+msgstr ""
+
+#. units/pg.udb:94
+msgid "Submarine"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Honefoss"
+msgstr ""
+
+#. units/pg.udb:4432
+msgid "AD Mk II Fort"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Salzburg"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Berezna"
+msgstr ""
+
+#. units/pg.udb:5945
+msgid "GB AEC III"
+msgstr ""
+
+#. campaigns/PG:368
+msgid ""
+"Herr General, you fared excellent! Russia has signed a peace treaty, and we "
+"can fully throw our forces against the Allied."
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Alma River"
+msgstr ""
+
+#. campaigns/PG:2
+msgid "Nazi Germany starts World War II, attempting to seize the world."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Rostock"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7
+msgid "Ozorkow"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Trouville"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Rhone River"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Best"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Chartres"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Newbury"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Vichy"
+msgstr ""
+
+#. units/pg.udb:7849
+msgid "ST 45mm ATG"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Caserta"
+msgstr ""
+
+#. units/pg.udb:3452
+msgid "PO Cavalry"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Chateaudun"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Konstantinovka"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Brandywine"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Smela"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Wyler"
+msgstr ""
+
+#. units/pg.udb:9389
+msgid "Bulgarian Inf"
+msgstr ""
+
+#. scenarios/pg/Barbarossa:3
+msgid ""
+"June 22, 1941: Germany launches a surprise attack on its ally, the Soviet "
+"Union."
+msgstr ""
+
+#. nations/pg.ndb:20
+msgid "Luxemburg"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Saar River"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Gembloux"
+msgstr ""
+
+#. units/pg.udb:9977
+msgid "US B32 Dom"
+msgstr ""
+
+#. units/pg.udb:4544
+msgid "LC Infantry"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Liri River"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Cosenza"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Valuyki"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Elsenborn"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Belaya Tserkov"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Lyubimuka"
+msgstr ""
+
+#. maps/pg/map03:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 maps/pg/map07:7 maps/pg/map08:7 ...
+msgid "Ocean"
+msgstr ""
+
+#. scenarios/pg/Torch:3
+msgid "Nov 8, 1942: Americans face the veterans of the Afrika Korps."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Kupyansk"
+msgstr ""
+
+#. units/pg.udb:8157
+msgid "AF Destroyer"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Djidjelli"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "St. Trond"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Gomel"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Ciney"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Dyle River"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kutina"
+msgstr ""
+
+#. units/pg.udb:9081
+msgid "IT 75mm SPAD"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Al Maffraq"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Dasburg"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Gusnie"
+msgstr ""
+
+#. campaigns/PG:650
+msgid ""
+"You have achieved a major victory for the german Reich, Commander! Excellent!"
+msgstr ""
+
+#. campaigns/PG:45
+msgid ""
+"Excellent, Herr General! Your quick taking of Norway has enabled us to expel "
+"the English forces from Norway and station our fleet there. Our supply lines "
+"should be safe. You have been awarded command over troops at the Western "
+"border."
+msgstr ""
+
+#. units/pg.udb:5021
+msgid "GB Stir MkI"
+msgstr ""
+
+#. units/pg.udb:1380
+msgid "PzIIIJ"
+msgstr ""
+
+#. campaigns/PG:24
+msgid ""
+"You managed to break resistence in time before the Allies could react. The "
+"gates to Warsaw are now wide open."
+msgstr ""
+
+#. units/pg.udb:6813
+msgid "ST Il-2"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Kattowitz"
+msgstr ""
+
+#. units/pg.udb:3732
+msgid "FFR M5"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map14:7
+msgid "Cassino"
+msgstr ""
+
+#. scenarios/pg/Kiev:3
+msgid ""
+"August 23, 1941: The Wehrmacht attempts to pocket and destroy Soviet forces "
+"defending Kiev."
+msgstr ""
+
+#. units/pg.udb:5357
+msgid "GB Crom VI"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Monaco"
+msgstr ""
+
+#. campaigns/PG:95
+msgid ""
+"Your failure to conquer England had given the enemy a chance to build up "
+"resistence and assemble a naval fleet of formidable strength crippling our "
+"supply lines. Thus, our expeditionary forces were severely decimated, "
+"forcing us to sign an unfavorable peace treaty."
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Cannes"
+msgstr ""
+
+#. campaigns/PG:402
+msgid ""
+"The mission was a disaster. Not sustaining allowed the Allies to invade "
+"Germany from the South. Thanks to your earlier victory over Russia, quickly "
+"established war industries allowed us to fend off the capturing of Germany, "
+"allowing us to negotiate a peace treaty at minor disadvantages."
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Belbok"
+msgstr ""
+
+#. units/pg.udb:5133
+msgid "GB Matilda II"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Trostyanets"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7 maps/pg/map03:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 ...
+msgid "Forest"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Dniepr River"
+msgstr ""
+
+#. campaigns/PG:488
+msgid ""
+"Despite your initial success in the Ardennes, the Allies denied our peace "
+"offering. With reinforcements arrived, they managed to drive us back to the "
+"limits of the Reich."
+msgstr ""
+
+#. maps/pg/map29:7 maps/pg/map30:7
+msgid "Belgorod"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Voroshilovgrad"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Nelidova"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7
+msgid "Brussels"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Aix-en-Provence"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Grand Rhone River"
+msgstr ""
+
+#. campaigns/PG:275 campaigns/PG:331 campaigns/PG:418
+msgid "Byelorussia"
+msgstr ""
+
+#. units/pg.udb:3284
+msgid "PO PZL P24g"
+msgstr ""
+
+#. units/pg.udb:2696
+msgid "3.7 PaK35/36"
+msgstr ""
+
+#. units/pg.udb:103
+msgid "Aircraft Carrier"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Petrikov"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "El Agheila"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Nikoaevka"
+msgstr ""
+
+#. units/pg.udb:106
+msgid "Land Transport"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Grave"
+msgstr ""
+
+#. units/pg.udb:1660
+msgid "Tiger I"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Cholet"
+msgstr ""
+
+#. units/pg.udb:9361
+msgid "AF Partisans"
+msgstr ""
+
+#. units/pg.udb:5973
+msgid "GB Ram Kg"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Kalinkovich"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map05:7 maps/pg/map18:7
+msgid "Abbeville"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Enna"
+msgstr ""
+
+#. campaigns/PG:514
+msgid ""
+"You are now in charge of the Africa Corps to aid Italian troops in their "
+"battle against English mediterranean dependencies in North Africa. "
+"Strategically, High Commands attempts to take Egypt, and then to proceed "
+"towards Persia to open up a new Southern front into Russia. You have to take "
+"all objectives until the 27th of June at the latest, but to allow us to "
+"garrison sufficiently against counter-attacks, you should finish the mission "
+"earlier."
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Caltagirone"
+msgstr ""
+
+#. units/pg.udb:7037
+msgid "ST BT-5"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Izyum"
+msgstr ""
+
+#. units/pg.udb:10817
+msgid "US Para 41"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Korocha"
+msgstr ""
+
+#. campaigns/PG:628
+msgid ""
+"You bravely fended off the Russian onslaught from the Reich's limits. "
+"Combined with your earlier victory over England allowed us to return to the "
+"pre-war status-quo in the East."
+msgstr ""
+
+#. campaigns/PG:522
+msgid ""
+"General staff is pleased with your success, and offers you the opportunity "
+"to lead the pocket operations around Kiev.##Herr General, would you like to "
+"stay in the desert, or participate in the Eastern theater?"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Salsk"
+msgstr ""
+
+#. units/pg.udb:2836
+msgid "7.5 leFk 16nA"
+msgstr ""
+
+#. units/pg.udb:1800
+msgid "StuGIIIG"
+msgstr ""
+
+#. campaigns/PG:528
+msgid "26th May 1942"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Mor"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Evreux"
+msgstr ""
+
+#. scenarios/pg/Crete:2
+msgid "CRETE"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Capitol Heights"
+msgstr ""
+
+#. units/pg.udb:9165
+msgid "IT Fiat Truck"
+msgstr ""
+
+#. scenarios/pg/Washington:3
+msgid "June 1, 1945: Yesterday Europe. Today America?"
+msgstr ""
+
+#. scenarios/pg/Kharkov:2
+msgid "KHARKOV"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Arles"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Ijssel River"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Zwickau"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "An Nabk"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Avignon"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Warta River"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Rouen"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Hirshon"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Maubege"
+msgstr ""
+
+#. units/pg.udb:9641
+msgid "US P51H Mustg"
+msgstr ""
+
+#. campaigns/PG:153
+msgid "Let us battle the Soviet forces around Kiev."
+msgstr ""
+
+#. units/pg.udb:10257
+msgid "US M4A3 (105)"
+msgstr ""
+
+#. units/pg.udb:4264
+msgid "NOR F-DXXIII"
+msgstr ""
+
+#. campaigns/PG:624
+msgid ""
+"We are now facing a massive force in the East invading German soil. Your "
+"order is to hold Berlin and at least five other objectives to prevent "
+"further detriment to the Reich."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Samara River"
+msgstr ""
+
+#. campaigns/PG:206
+msgid ""
+"Moscow, capital and industrial, and logistical center of Russia, is the "
+"ultimate objective you have to strive for on the Eastern front. You have to "
+"capture Moscow and all other objectives by the 4th of December at the "
+"latest. Yet to prevent autumn weather to slow down our advance, you should "
+"finish your mission several weeks earlier."
+msgstr ""
+
+#. maps/pg.tdb:32
+msgid "Snowing(Mud)"
+msgstr ""
+
+#. campaigns/PG:179
+msgid ""
+"Moscow has fallen, and the Soviet Union surrendered to the Reich! You have "
+"achieved what Napoleon only dreamed of. All of Russia has been put under "
+"German administration, and we have already begun exploiting its vast "
+"resources. Your decision to take the early route towards Moscow was right, "
+"and therefore you get awarded the highest order medal of the Reich, the "
+"Knight's Cross with Oak Leaves and Swords."
+msgstr ""
+
+#. units/pg.udb:9529
+msgid "US P38 Ltng"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Ulm"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Novozybkov"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Saarburg"
+msgstr ""
+
+#. units/pg.udb:1352
+msgid "PzIIIH"
+msgstr ""
+
+#. units/pg.udb:2808
+msgid "PzIVF2"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Saint Lo"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Semenovka"
+msgstr ""
+
+#. campaigns/PG:569
+msgid "10th July 1943"
+msgstr ""
+
+#. units/pg.udb:9417
+msgid "Hungarian Inf"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Centreville"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Kromy"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Constantine"
+msgstr ""
+
+#. campaigns/PG:563
+msgid ""
+"Your leadership skills are currently asked for at two places. You may choose "
+"to lead the upcoming Summer offensive in Russia against the pocket of Kursk, "
+"or to defend Italy against the expected invasion of allied troops.##Which "
+"battle do you want to participate in?"
+msgstr ""
+
+#. campaigns/PG:109
+msgid ""
+"The quick and decisive blow you delivered to both Yugoslavia and Greece "
+"enabled High Command to prepare an airborne invasion of Crete. You have "
+"served the country well, and are awarded command over the operation."
+msgstr ""
+
+#. units/pg.udb:708
+msgid "JU87D"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Kamyshly"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Gradizhisk"
+msgstr ""
+
+#. units/pg.udb:2500
+msgid "Opel 6700"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Chester River"
+msgstr ""
+
+#. campaigns/PG:111
+msgid ""
+"With Yugoslavia and Greece partially undefeated, we had to spare additional "
+"troops for the defence lines that will be missing on the Russian front."
+msgstr ""
+
+#. units/pg.udb:11293
+msgid "US M20 LAC"
+msgstr ""
+
+#. scenarios/pg/LowCountries:3
+msgid ""
+"May 10, 1940: Flanking the heavy fortifications of the Maginot Line, the "
+"Germans invade France through Belgium, Luxembourg, and the Netherlands."
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "St. Pierre"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Mortain"
+msgstr ""
+
+#. campaigns/PG:210
+msgid ""
+"Your initial capture of Moscow let arise hope that Russia would surrender. "
+"Unfortunately, fresh Siberian reserves started a counter-attack and expelled "
+"our exhausted and worn down spearheads out of the capital. While we managed "
+"to establish a stable front line again, we could not attempt another advance "
+"in 1941."
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Gol"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "La Ferte-Mace"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Arlington"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Berdichev"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Roslavl"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Saratov"
+msgstr ""
+
+#. scenarios/pg/ElAlamein:3
+msgid "May 26, 1942: Axis attempts to crush the Allied forces in North Africa."
+msgstr ""
+
+#. campaigns/PG:302
+msgid "11th February 1943"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Vladimirovka"
+msgstr ""
+
+#. units/pg.udb:4348
+msgid "AD Mk I SP"
+msgstr ""
+
+#. units/pg.udb:512
+msgid "BF110g"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Nottingham"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Baghdad"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Dubrovnik"
+msgstr ""
+
+#. units/pg.udb:8129
+msgid "AF LtCruiser"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7 maps/pg/map03:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 ...
+msgid "Clear"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Isigny"
+msgstr ""
+
+#. units/pg.udb:8045
+msgid "AF Battleship"
+msgstr ""
+
+#. campaigns/PG:120
+msgid ""
+"Excellent! Despite heavy resistence, the suppremacy over the Mediterranean "
+"Sea is ours. Nothing can stop our operations in Russia now."
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Bierut"
+msgstr ""
+
+#. units/pg.udb:3116
+msgid "43 Wehr HW"
+msgstr ""
+
+#. campaigns/PG:257 campaigns/PG:263
+msgid "9th October 1943"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Oder River"
+msgstr ""
+
+#. units/pg.udb:117
+msgid "BF109e"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Waavre"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Chevy Chase"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "College Park"
+msgstr ""
+
+#. units/pg.udb:764
+msgid "DO17z"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Gleiwitz"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Stralsund"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Ede"
+msgstr ""
+
+#. units/pg.udb:6281
+msgid "GB 5.5 Inches Gun"
+msgstr ""
+
+#. nations/pg.ndb:12
+msgid "Belgia"
+msgstr ""
+
+#. units/pg.udb:4937
+msgid "GB Blen MkIV"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Reims"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Thierry"
+msgstr ""
+
+#. units/pg.udb:10761
+msgid "US Inf HW 41"
+msgstr ""
+
+#. scenarios/pg/Anvil:299 scenarios/pg/Anzio:329 scenarios/pg/Ardennes:491 scenarios/pg/Balkans:557 ...
+msgid "Allies"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Cracow"
+msgstr ""
+
+#. units/pg.udb:1072
+msgid "PzIIF"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Frankfurt AO"
+msgstr ""
+
+#. nations/pg.ndb:76
+msgid "Rumania"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Verviers"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Dinont"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Peterborough"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Elverum"
+msgstr ""
+
+#. scenarios/pg/France:3
+msgid ""
+"June 5, 1940: With the French outflanked the Germans drive into France and "
+"attempt to capture Paris."
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Sacco River"
+msgstr ""
+
+#. units/pg.udb:3816
+msgid "FR Amiot 143"
+msgstr ""
+
+#. units/pg.udb:3200
+msgid "PSW 234/2-8r"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Valence"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Saarbrucken"
+msgstr ""
+
+#. units/pg.udb:9613
+msgid "US P51D Mustg"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Termini"
+msgstr ""
+
+#. units/pg.udb:7653
+msgid "ST ISU-152 AT"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Elbassen"
+msgstr ""
+
+#. units/pg.udb:6561
+msgid "ST La-3"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Okehampton"
+msgstr ""
+
+#. units/pg.udb:3564
+msgid "AF 37mm ATG"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Maikop"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Vienna"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Simontornya"
+msgstr ""
+
+#. scenarios/pg/Norway:2
+msgid "NORWAY"
+msgstr ""
+
+#. units/pg.udb:7177
+msgid "ST T-34/43"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Donets"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "City"
+msgstr ""
+
+#. units/pg.udb:10649
+msgid "US M26 "
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Thiberville"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7
+msgid "Bzura River"
+msgstr ""
+
+#. campaigns/PG:217 maps/pg/map07:7 maps/pg/map09:7
+msgid "El Alamein"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "British Camp"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Athens"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Aarshot"
+msgstr ""
+
+#. nations/pg.ndb:28
+msgid "Finnland"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Taranto"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Monschau"
+msgstr ""
+
+#. units/pg.udb:5441
+msgid "GB Comet"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7
+msgid "Namur"
+msgstr ""
+
+#. units/pg.udb:4712
+msgid "GB Hur IID"
+msgstr ""
+
+#. units/pg.udb:540
+msgid "ME210c"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Rzhev"
+msgstr ""
+
+#. scenarios/pg/Sealion43:2
+msgid "SEALION (43)"
+msgstr ""
+
+#. units/pg.udb:3340
+msgid "PO PZL P37b"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Sapry"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Wheaton"
+msgstr ""
+
+#. units/pg.udb:8773
+msgid "IT AB-40"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Prokhorovka"
+msgstr ""
+
+#. units/pg.udb:736
+msgid "Ju188a"
+msgstr ""
+
+#. maps/pg.tdb:12
+msgid "Raining(Dry)"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Carpentras"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kirov"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Arendal"
+msgstr ""
+
+#. units/pg.udb:11153
+msgid "US 8 Inches Gun"
+msgstr ""
+
+#. units/pg.udb:6001
+msgid "GB Bren Ca"
+msgstr ""
+
+#. campaigns/PG:648
+msgid "We have only achieved a draw with the Allies."
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kaluga"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Crestwood"
+msgstr ""
+
+#. units/pg.udb:22 units/pg.udb:51
+msgid "Naval"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Sarajevo"
+msgstr ""
+
+#. units/pg.udb:1296
+msgid "PzIIIE"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Cardigan"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Civitavecchia"
+msgstr ""
+
+#. units/pg.udb:652
+msgid "JU87B"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Yukharina"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Ilinka"
+msgstr ""
+
+#. units/pg.udb:904
+msgid "Ju52g5e"
+msgstr ""
+
+#. nations/pg.ndb:80
+msgid "Spain"
+msgstr ""
+
+#. campaigns/PG:370
+msgid ""
+"The russian offensive was too strong to overcome which forced us to retreat "
+"to the limits of the Reich."
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Clervaux"
+msgstr ""
+
+#. units/pg.udb:61
+msgid "Infantry"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Lida"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Baskunchak"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Carentan"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Norwich"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Svatovo"
+msgstr ""
+
+#. units/pg.udb:5721
+msgid "GB Archer"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Avezzano"
+msgstr ""
+
+#. units/pg.udb:5553
+msgid "GB M5 Stuart"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Livarot"
+msgstr ""
+
+#. units/pg.udb:6085
+msgid "GB HW Inf 39"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Chateauroux"
+msgstr ""
+
+#. campaigns/PG:467
+msgid ""
+"You sustained long enough to allow High Command to build up defenses in the "
+"rear."
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Gela"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Konigsberg"
+msgstr ""
+
+#. units/pg.udb:8941
+msgid "IT Sem M-42M"
+msgstr ""
+
+#. units/pg.udb:11517
+msgid "FFR M8 LAC"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Brest"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Benghazi"
+msgstr ""
+
+#. units/pg.udb:10369
+msgid "US M4A3(76)W"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Pachwo"
+msgstr ""
+
+#. units/pg.udb:10929
+msgid "US Eng 43"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map15:7 maps/pg/map18:7
+msgid "Argentan"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Debaltsevo"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Bitburg"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Sedan"
+msgstr ""
+
+#. units/pg.udb:4488
+msgid "LC PZLP24"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Trondheim"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Augsburg"
+msgstr ""
+
+#. units/pg.udb:5525
+msgid "GB Sh Firefly"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Terracina"
+msgstr ""
+
+#. maps/pg/map08:7 maps/pg/map16:7
+msgid "German Camp"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Krasnopavlovka"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Isernia"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Derbent"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map23:7 maps/pg/map32:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Radom"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Brandenburg"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Port Facility"
+msgstr ""
+
+#. units/pg.udb:10117
+msgid "US M3 "
+msgstr ""
+
+#. units/pg.udb:9249
+msgid "IT 75mm Gun"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Vorskla River"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Weiland"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Puttusk"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Jerusalem"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Chateau Gontier"
+msgstr ""
+
+#. units/pg.udb:4068
+msgid "FR 25mm ATG"
+msgstr ""
+
+#. campaigns/PG:406
+msgid "22nd January 1944"
+msgstr ""
+
+#. units/pg.udb:11237
+msgid "US 90mm AD"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Fontainebleau"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Munster"
+msgstr ""
+
+#. nations/pg.ndb:32
+msgid "France"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Sisak"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Astrakhan"
+msgstr ""
+
+#. nations/pg.ndb:88
+msgid "Sweden"
+msgstr ""
+
+#. units/pg.udb:43
+msgid "Towed"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Turdino River"
+msgstr ""
+
+#. units/pg.udb:8017
+msgid "AF Carrier"
+msgstr ""
+
+#. campaigns/PG:477
+msgid ""
+"Herr General, your outstanding performance left a lasting impression to the "
+"Allied leader, enabling our Administration to sign a favourable peace "
+"treaty. Combined with your earlier victory over the Soviet Union, you have "
+"ended the war, and are herewith promoted to Generalfeldmarschall."
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Pontoise"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Reggio"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Oosterbeek"
+msgstr ""
+
+#. units/pg.udb:7317
+msgid "ST SU-85"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Stargar"
+msgstr ""
+
+#. units/pg.udb:1716
+msgid "StuGIIIb"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Slavyansk"
+msgstr ""
+
+#. units/pg.udb:79
+msgid "Air-Defense"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Halden"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "St. Quentin"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Uden"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Nijmegen"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Neapolis"
+msgstr ""
+
+#. campaigns/PG:329
+msgid ""
+"In this situation, High Command offers you to contribute your experience in "
+"another theater, Italy.##Herr General, do you want to continue fighting in "
+"Russia, or do you like to be transferred to Anzio?"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Belice River"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Marsala"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Biskra"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Amman"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Pula"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Laroche"
+msgstr ""
+
+#. campaigns/PG:85
+msgid "Balkans"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Touques River"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Asse River"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Aflou"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Pehcevo"
+msgstr ""
+
+#. units/pg.udb:4600
+msgid "FR HFII"
+msgstr ""
+
+#. scenarios/pg/Anvil:365 scenarios/pg/Anzio:378 scenarios/pg/Ardennes:549 scenarios/pg/Balkans:599 ...
+msgid "Axis Minor Victory"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Anacostia River"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Kisber"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Kharkov"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "King George"
+msgstr ""
+
+#. units/pg.udb:6841
+msgid "ST Il-2M3"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Marjupol"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Chalons"
+msgstr ""
+
+#. campaigns/PG:168
+msgid ""
+"After your stunning victory over Soviet resistence, we expect Russia's "
+"reserves of men an material to be depleted."
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Sumy"
+msgstr ""
+
+#. units/pg.udb:4124
+msgid "FR 75mm ATG"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Talnoye"
+msgstr ""
+
+#. scenarios/pg/Cobra:2
+msgid "COBRA"
+msgstr ""
+
+#. scenarios/pg/Kharkov:3
+msgid ""
+"February 11, 1943: The Germans race to capture Kharkov and crush the Soviet "
+"winter offensive."
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Arromanches"
+msgstr ""
+
+#. units/pg.udb:9445
+msgid "Rumanian Inf"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Volga River"
+msgstr ""
+
+#. scenarios/pg/Byelorussia:3
+msgid "June 22, 1944: The Soviet thrust to destroy Army Group Center."
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Leie"
+msgstr ""
+
+#. campaigns/PG:429
+msgid ""
+"In Normandy, the expected landings of Allied forces have commenced. The is "
+"the biggest invasion even seen by man, and you must stop it. You have to "
+"hold all your objectives to inflict a defeat to the Allied operations."
+msgstr ""
+
+#. units/pg.udb:3844
+msgid "FR Ch Lr H35"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Trun"
+msgstr ""
+
+#. campaigns/PG:169
+msgid ""
+"After your victory over Soviet resistence, we expect Russia's reserves of "
+"men an material to be depleted."
+msgstr ""
+
+#. campaigns/PG:78
+msgid ""
+"Congratulations for conquering France and for bringing an overwhelming "
+"victory to the Reich. France has surrendered, and its dependencies will be "
+"put under German protectorate."
+msgstr ""
+
+#. units/pg.udb:7905
+msgid "ST 76mm ATG"
+msgstr ""
+
+#. campaigns/PG:105
+msgid "6th April 1941"
+msgstr ""
+
+#. units/pg.udb:960
+msgid "PzIA"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Neufchateau"
+msgstr ""
+
+#. units/pg.udb:6953
+msgid "ST Z25mm SPAA"
+msgstr ""
+
+#. units/pg.udb:6365
+msgid "GB 20mm SPAA"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Liverpool"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Arlon"
+msgstr ""
+
+#. campaigns/PG:35
+msgid ""
+"Congratulations, you have won the war against Poland, Herr General! You "
+"besieged and captured all objectives before the Soviet Union was able to "
+"catch up. Your forces have been diverted to the Western border to guard "
+"against French and English aggressions."
+msgstr ""
+
+#. units/pg.udb:3788
+msgid "FR Bloch 174"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Szentendre"
+msgstr ""
+
+#. units/pg.udb:2556
+msgid "SPW 251/1"
+msgstr ""
+
+#. maps/pg.tdb:2336
+msgid "Harbor"
+msgstr ""
+
+#. units/pg.udb:31
+msgid "Halftracked"
+msgstr ""
+
+#. units/pg.udb:9221
+msgid "IT Bersglri "
+msgstr ""
+
+#. units/pg.udb:7065
+msgid "ST BT-7"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map14:7
+msgid "Garigliano River"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Podolsk"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Levadnia"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Terni"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Kadykovka"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Hussen"
+msgstr ""
+
+#. units/pg.udb:9277
+msgid "IT 105mm Gun"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Turano River"
+msgstr ""
+
+#. units/pg.udb:64
+msgid "Tank"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Weser River"
+msgstr ""
+
+#. units/pg.udb:7709
+msgid "ST Truck"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Leipzig"
+msgstr ""
+
+#. scenarios/pg/Kursk:2
+msgid "KURSK"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Zekiah Swamp Run"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Armavir"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Vitebsk"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7 maps/pg/map22:7 maps/pg/map36:7
+msgid "Alexandria"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Granville"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Cherkez Kermen"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Sambre"
+msgstr ""
+
+#. scenarios/pg/LowCountries:2
+msgid "LOW COUNTRIES"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Avranches"
+msgstr ""
+
+#. campaigns/PG:614
+msgid ""
+"This is the last stand. You have to fight against tremendous odds at either "
+"side of the front. Hold Berlin at any rate. Losing is not an option."
+msgstr ""
+
+#. units/pg.udb:91
+msgid "Level Bomber"
+msgstr ""
+
+#. units/pg.udb:6309
+msgid "GB 6 Inches Gun"
+msgstr ""
+
+#. units/pg.udb:371
+msgid "HE162"
+msgstr ""
+
+#. units/pg.udb:6337
+msgid "GB 7.2 Inches Gun"
+msgstr ""
+
+#. units/pg.udb:2976
+msgid "3.7 FlaK36"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Agrinion"
+msgstr ""
+
+#. units/pg.udb:4516
+msgid "LC F-DXX1"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Driel"
+msgstr ""
+
+#. units/pg.udb:8549
+msgid "IT Re2005/S"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bar"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Mozhaysk"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Budaors"
+msgstr ""
+
+#. campaigns/PG:306
+msgid ""
+"With Kharkov retaken, and the Soviet strike force terminally beaten, we were "
+"able to thrust into the steppe directly towards Moscow."
+msgstr ""
+
+#. units/pg.udb:4740
+msgid "GB Spit VB"
+msgstr ""
+
+#. units/pg.udb:9193
+msgid "IT Infantry"
+msgstr ""
+
+#. units/pg.udb:7681
+msgid "ST Para"
+msgstr ""
+
+#. units/pg.udb:1492
+msgid "PzIVG"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Cardiff"
+msgstr ""
+
+#. campaigns/PG:325
+msgid ""
+"While you were running against stiff resistence, the Soviets launched a "
+"counter-attack against the Germain pocket around Orel. Therefore, we had to "
+"retreat and divert divisions to aid against this massive attack. We have "
+"lost the initiative on the Eastern front and cannot allow for another attack "
+"in this year."
+msgstr ""
+
+#. units/pg.udb:5217
+msgid "GB Crdr I"
+msgstr ""
+
+#. units/pg.udb:5273
+msgid "GB Crdr III"
+msgstr ""
+
+#. campaigns/PG:647
+msgid ""
+"You have totally failed us, Commander! The german reich suffered a major "
+"defeat!"
+msgstr ""
+
+#. units/pg.udb:1128
+msgid "Lynx"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Prince Frederick"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Sambre River"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kragujevac"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Aleksin"
+msgstr ""
+
+#. units/pg.udb:2584
+msgid "PSW 222/4r"
+msgstr ""
+
+#. maps/pg/map07:7
+msgid "Mersa Matruh"
+msgstr ""
+
+#. units/pg.udb:1324
+msgid "PzIIIG"
+msgstr ""
+
+#. maps/pg/map19:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Rhine River"
+msgstr ""
+
+#. units/pg.udb:70
+msgid "Anti-Tank"
+msgstr ""
+
+#. campaigns/PG:246
+msgid "25th June 1942"
+msgstr ""
+
+#. nations/pg.ndb:16
+msgid "Bulgaria"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Arc River"
+msgstr ""
+
+#. units/pg.udb:100
+msgid "Capital Ship"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Oss"
+msgstr ""
+
+#. units/pg.udb:8689
+msgid "IT CA309"
+msgstr ""
+
+#. campaigns/PG:164
+msgid "23rd August 1941"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Selune River"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Pereshchepino"
+msgstr ""
+
+#. units/pg.udb:484
+msgid "BF110e"
+msgstr ""
+
+#. scenarios/pg/D-Day:3
+msgid "June 6, 1944: Allies launch Operation Overlord... the Second Front."
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Medjerda River"
+msgstr ""
+
+#. scenarios/pg/Berlin:2
+msgid "BERLIN"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Chillum"
+msgstr ""
+
+#. campaigns/PG:165
+msgid ""
+"There has risen an opportunity to terminally cripple Russian forces. Around "
+"Kiev we have encountered a large amount of Russian troops. Using blitzkrieg "
+"tactics to their fullest extent, you are ordered to pocket and annihilate "
+"Soviet resistence in Kiev and surrounding towns. In order to continue our "
+"advance towards moscow, it is imperative that you capture all of your "
+"objective by no later than the 20th of September."
+msgstr ""
+
+#. campaigns/PG:211
+msgid ""
+"Not capturing Moscow in time gave the Russian adversaries plenty of "
+"opportunity to mobilise troops from Siberia and perform a counterattack. "
+"While we managed to establish a stable front line again, we could not "
+"attempt another advance in 1941."
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Mechili"
+msgstr ""
+
+#. campaigns/PG:570
+msgid ""
+"The British and American forces have begun invading Sicily, our ill-defended "
+"entrance gate to Southern Europe. Your orders are to hold all objectives. If "
+"this is not feasible, hold at least two objectives to slow down the Allied "
+"advance."
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Chaumont"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Andalsnes"
+msgstr ""
+
+#. units/pg.udb:9025
+msgid "IT M14/41"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Ourthe River"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Barcellonette"
+msgstr ""
+
+#. scenarios/pg/Ardennes:2
+msgid "ARDENNES"
+msgstr ""
+
+#. units/pg.udb:6169
+msgid "GB 2 Pdr ATG"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Birmingham"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Stoke"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Amsterdam"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Djelfa"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Merthyr"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Buelgorod"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map30:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Orel"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Corigliano"
+msgstr ""
+
+#. campaigns/PG:320
+msgid ""
+"Since the front lines have stabilised, there is a pocket of Russian "
+"defenders around Kursk. Our strategy is to break through Soviet defenses "
+"from the North and South, and cut off and terminate all adversaries. Be "
+"aware that the Soviets have no doubt about our intentions, and have prepared "
+"their defenses well. You must take Kursk at any rate. Taking all other "
+"objectives by no later than the 24th of July will enable High Command to "
+"prepare for another assault on Moscow in 1943."
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Pusztaszabolcs"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Orne River"
+msgstr ""
+
+#. campaigns/PG:532
+msgid ""
+"Excellent performance, Herr General! With the English expelled from Egypt, "
+"we could successfully prepare an invasion of England."
+msgstr ""
+
+#. units/pg.udb:11573
+msgid "FPO M5 Stuart"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Nuremberg"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Larissa"
+msgstr ""
+
+#. units/pg.udb:5301
+msgid "GB Crom IV"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Escarpment"
+msgstr ""
+
+#. campaigns/PG:627
+msgid ""
+"Pushing back the Russian onslaught to the pre-war borders of the Reich gave "
+"us, combined with your earlier victory over England, a strong position to "
+"negotiate a favourable peace treaty."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bremerhaven"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map08:7 maps/pg/map09:7 maps/pg/map10:7 maps/pg/map28:7 maps/pg.tdb:2012 ...
+msgid "Desert"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Escout"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Mannheim"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Our River"
+msgstr ""
+
+#. units/pg.udb:3144
+msgid "40 LuftW FJ"
+msgstr ""
+
+#. units/pg.udb:6141
+msgid "GB Para 39"
+msgstr ""
+
+#. units/pg.udb:400
+msgid "DO335"
+msgstr ""
+
+#. units/pg.udb:6113
+msgid "GB Bridge Eng"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Mersa Brega"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Ryazan"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Al Kuwait"
+msgstr ""
+
+#. campaigns/PG:553
+msgid "8th November 1942"
+msgstr ""
+
+#. campaigns/PG:152
+msgid "We take the early route towards Moscow."
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Alcamo"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Dnepropetrovsk"
+msgstr ""
+
+#. campaigns/PG:303
+msgid ""
+"As a result of their winter offensive, Russian troops are spread thin in the "
+"area of Kharkov. This is an excellent opportunity to start a counter-attack, "
+"annihilate the Soviet strike forces, and retake Kharkov. If you take Kharkov "
+"and all other objectives by at least the 4th of March, we may continue our "
+"advance in 1943. To undertake the necessary preparations for an attack of "
+"Moscow, it is imperative that you finish your mission much earlier."
+msgstr ""
+
+#. units/pg.udb:11097
+msgid "US 105mm Gun"
+msgstr ""
+
+#. units/pg.udb:10229
+msgid "US M4A3"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Tacoma Park"
+msgstr ""
+
+#. scenarios/pg/Sealion43:3
+msgid "June 15, 1943: Germany attempts to finish off England."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Bristol"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Aba"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Vilna"
+msgstr ""
+
+#. scenarios/pg/Washington:2
+msgid "WASHINGTON"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Voronezh"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Bolbec"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Alekseyevka"
+msgstr ""
+
+#. units/pg.udb:6449
+msgid "GB Para 43"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Ypres"
+msgstr ""
+
+#. units/pg.udb:6533
+msgid "ST MiG-3"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Psel"
+msgstr ""
+
+#. scenarios/pg/Kiev:2
+msgid "KIEV"
+msgstr ""
+
+#. units/pg.udb:7345
+msgid "ST SU-122"
+msgstr ""
+
+#. units/pg.udb:3536
+msgid "GB HW Inf 43"
+msgstr ""
+
+#. units/pg.udb:2948
+msgid "2 FlaK38 (4)"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Sidi Barrani"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Marche-en-Famenne"
+msgstr ""
+
+#. nations/pg.ndb:52
+msgid "Turkey"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Chernigov"
+msgstr ""
+
+#. maps/pg.tdb:36
+msgid "Fair(Ice)"
+msgstr ""
+
+#. campaigns/PG:619
+msgid ""
+"The former mighty Reich is reduced to rubbles. No authority is left to even "
+"sign a peace treaty. Germany has ceased to exist."
+msgstr ""
+
+#. campaigns/PG:574
+msgid ""
+"The total defeat on the Southern front made Italy surrender to the Allies."
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Omega"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Messina"
+msgstr ""
+
+#. campaigns/PG:275 campaigns/PG:418
+msgid "D-Day"
+msgstr ""
+
+#. units/pg.udb:6785
+msgid "ST PE-2"
+msgstr ""
+
+#. units/pg.udb:11853
+msgid "Strongpoint"
+msgstr ""
+
+#. campaigns/PG:407
+msgid ""
+"The Allies have fought up all their way from Sicily to the center of Italy. "
+"While we halted their advance at the Gustav line, the Allies performed a "
+"massive landing operation at the beachhead of Anzio-Nettuno. To prevent "
+"detriment to the Reich, it is imperative that you fend off this massive "
+"onslaught at all costs. You have to hold at least Rome and two other "
+"objectives to turn the battle into a more favourable direction."
+msgstr ""
+
+#. units/pg.udb:1044
+msgid "PzIID"
+msgstr ""
+
+#. units/pg.udb:8801
+msgid "IT AB-41"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "San Stefano"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Viterbo"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map21:7 maps/pg/map33:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Danube River"
+msgstr ""
+
+#. campaigns/PG:83
+msgid ""
+"Now there are two front lines to take care of. Herr General, which theater "
+"do you want to participate in?"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map20:7 maps/pg/map23:7 maps/pg/map32:7 maps/pg/map34:7 maps/pg/map35:7 ...
+msgid "Bug River"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Orvieto"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Sofia"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Tours"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "St. Mere Eglise"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Courselles"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Pavlograd"
+msgstr ""
+
+#. maps/pg.tdb:24
+msgid "Overcast(Mud)"
+msgstr ""
+
+#. units/pg.udb:13
+msgid "Soft"
+msgstr ""
+
+#. units/pg.udb:112
+msgid "Sea Transport"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map03:7 maps/pg/map07:7 maps/pg/map09:7 maps/pg/map14:7 maps/pg/map16:7 ...
+msgid "River"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Vasilovka"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Bjerkvik"
+msgstr ""
+
+#. campaigns/PG:247
+msgid ""
+"Your next order is to lead the advance towards the industrial center of "
+"Stalingrad. Taking Stalingrad will cripple Russia's war industry, and cut "
+"supply lines over the Volga river. Thus, you must capture Stalingrad and all "
+"other objectives by the 22nd of November at the latest. Keep in mind that if "
+"we want to get another chance to advance towards Moscow this year, you have "
+"to finish your mission before October. Do not underestimate the vast "
+"distances of the steppe, and the supply shortage resulting thereof."
+msgstr ""
+
+#. campaigns/PG:230
+msgid ""
+"We now set our sights on Army Group South which has besieged the Black Sea "
+"port of Sevastopol for nearly one year. The time is ripe for an eventual "
+"assault on Sevastopol, and you are ordered to conduct it. You have to force "
+"your way through the town of Sevastopol and capture all objectives by no "
+"later than the 23rd of June. After the Moscow desaster last year, we cannot "
+"allow for another defeat."
+msgstr ""
+
+#. scenarios/pg/Husky:2
+msgid "HUSKY"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Huy"
+msgstr ""
+
+#. scenarios/pg/Berlin:3
+msgid "April 1, 1945: The Last Stand."
+msgstr ""
+
+#. campaigns/PG:638
+msgid ""
+"You bravely fended off the Allied onslaught from the Reich's limits. "
+"Combined with your earlier victory over Russia allowed us to return to the "
+"pre-war status-quo in the West."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Merla River"
+msgstr ""
+
+#. units/pg.udb:11013
+msgid "US 57mm ATG"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Brookland"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Taunton"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Blagdernoe"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Berta"
+msgstr ""
+
+#. units/pg.udb:6757
+msgid "ST Il-4"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Budweis"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map14:7
+msgid "Benevento"
+msgstr ""
+
+#. units/pg.udb:6393
+msgid "GB 40mm AD"
+msgstr ""
+
+#. units/pg.udb:4236
+msgid "FR 40mm AD"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Mersey"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kimry"
+msgstr ""
+
+#. units/pg.udb:1772
+msgid "StuGIIIF/8"
+msgstr ""
+
+#. units/pg.udb:2024
+msgid "JagdPanther"
+msgstr ""
+
+#. units/pg.udb:5833
+msgid "GB AEC I"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Piscataway Creek"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Vire"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kislovolsk"
+msgstr ""
+
+#. units/pg.udb:11909
+msgid "Nebelwerfer"
+msgstr ""
+
+#. campaigns/PG:517
+msgid ""
+"Your glorious advance along the North African coast has expelled the English "
+"forces out of Egypt, and allowed our troops to cross the Suez canal."
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Mastricht"
+msgstr ""
+
+#. campaigns/PG:573
+msgid ""
+"You managed to score a victory. Yet, our former Ally, the Italians have "
+"surrendered, thus making your efforts crumble in vain."
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Vernon"
+msgstr ""
+
+#. nations/pg.ndb:24
+msgid "Denmark"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Vianden"
+msgstr ""
+
+#. units/pg.udb:2192
+msgid "Nashorn"
+msgstr ""
+
+#. campaigns/PG:94
+msgid ""
+"Your brave efforts lead to the capturing of all Southern England. "
+"Unfortunately, bad weather and interference by the strong British fleet from "
+"the unattacked North have wreaked havoc on our supply lines. Thus, we were "
+"forced to retract all troops back to the continent."
+msgstr ""
+
+#. scenarios/pg/Warsaw:3
+msgid ""
+"September 10, 1939: The Germans must capture Warsaw and end Polish "
+"resistance before the Allies react. "
+msgstr ""
+
+#. scenarios/pg/Budapest:3
+msgid "March 6, 1945: Germany's last offensive."
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Lexington Park"
+msgstr ""
+
+#. units/pg.udb:10481
+msgid "US M10 "
+msgstr ""
+
+#. nations/pg.ndb:92
+msgid "Switzerland"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Reichenbach"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Vitre"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Saumur"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Rapido River"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Mantes"
+msgstr ""
+
+#. campaigns/PG:580
+msgid "Staying in Italy"
+msgstr ""
+
+#. units/pg.udb:9109
+msgid "IT 90mm Breda"
+msgstr ""
+
+#. units/pg.udb:7513
+msgid "ST KV-85"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Gorlovka"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Florina"
+msgstr ""
+
+#. units/pg.udb:6589
+msgid "ST YaK-9M"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Posen"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Thury Harcourt"
+msgstr ""
+
+#. units/pg.udb:1520
+msgid "PzIVH"
+msgstr ""
+
+#. units/pg.udb:10509
+msgid "US M12 GMC"
+msgstr ""
+
+#. scenarios/pg/SealionPlus:3
+msgid ""
+"September 1, 1940: With Gibraltar taken the Italian Fleet aids the invasion "
+"of England."
+msgstr ""
+
+#. campaigns/PG:580 maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Moscow"
+msgstr ""
+
+#. campaigns/PG:558
+msgid ""
+"Holding the key towns of Tunesia slowed down the advance of the Americans. "
+"However, we could not sustain the pressure, and thus were forced to rectract "
+"the Africa Corps back to Europe."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Wiesbaden"
+msgstr ""
+
+#. units/pg.udb:6617
+msgid "ST YaK-1M"
+msgstr ""
+
+#. maps/pg/map01:7
+msgid "Rodomsko"
+msgstr ""
+
+#. scenarios/pg/BerlinWest:3
+msgid "April 1, 1945: Western Allies invade Germany."
+msgstr ""
+
+#. nations/pg.ndb:64
+msgid "Norway"
+msgstr ""
+
+#. units/pg.udb:1884
+msgid "Jagdpanzer 38"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map32:7 maps/pg/map37:7 ...
+msgid "Smolensk"
+msgstr ""
+
+#. units/pg.udb:1968
+msgid "Jagdpz IV/48"
+msgstr ""
+
+#. nations/pg.ndb:100
+msgid "Yugoslavia"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Volchansk"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Lessay"
+msgstr ""
+
+#. units/pg.udb:10565
+msgid "US M16 MGMC"
+msgstr ""
+
+#. units/pg.udb:8829
+msgid "IT Sem L-47"
+msgstr ""
+
+#. units/pg.udb:2444
+msgid "Ostwind I"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Coutances"
+msgstr ""
+
+#. units/pg.udb:2108
+msgid "Marder II"
+msgstr ""
+
+#. campaigns/PG:3
+msgid "Michael Speck, Leo Savernik"
+msgstr ""
+
+#. campaigns/PG:449
+msgid ""
+"Contrary to what the odds have made us expect, you drove the Allied attack "
+"back into the sea. Whereas you freed France again from enemy influence, the "
+"Allied increased their bombing raids against vital German war industries as "
+"well as our supply lines in France. Not being able to reliably deliver "
+"reinforcements and material to France, the Allies established another "
+"beachhead, and drove our forces back to the Rhine."
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Herakleion"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Bethesda"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Lubeck"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Sangro River"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Avellino"
+msgstr ""
+
+#. units/pg.udb:4096
+msgid "FR 47mm ATG"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Sousse"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map05:7 maps/pg/map18:7
+msgid "Amiens"
+msgstr ""
+
+#. scenarios/pg/Moscow43:3
+msgid "October 9, 1943: Germany's final chance to end the war in the east."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Hamburg"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Aspres"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Valognes"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Capitol Hill"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Postavy"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Etretat"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Beauvais"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Trapani"
+msgstr ""
+
+#. campaigns/PG:331 maps/pg/map13:7
+msgid "Anzio"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map14:7
+msgid "Salerno"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 maps/pg/map07:7 maps/pg/map09:7 ...
+msgid "Fortification"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Aalborg"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Rome"
+msgstr ""
+
+#. campaigns/PG:387
+msgid "15th June 1943"
+msgstr ""
+
+#. campaigns/PG:149
+msgid ""
+"High Command was impressed to such an extent by your excellent skills that "
+"we decided to delegate the decision of a critical strategic question to "
+"you.##General staff is divided into two camps. The first is proposing the "
+"opportunity to pocket and destroy a large amount of Soviet forces near Kiev "
+"before we proceed on our march towards Moscow. The second is proposing to "
+"leave aside Kiev and directly head towards Moscow before Autumn weather will "
+"slow down our advance.##Herr General, which strategy shall we pursue?"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Malin"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Annapolis"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Orange"
+msgstr ""
+
+#. scenarios/pg/Sealion40:3
+msgid "September 1, 1940: Germany now sets its sights on England"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Borisoglebsk"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Montargis"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "St. Sauveur-le-V."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Yeisk"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Pontorson"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Teramo"
+msgstr ""
+
+#. campaigns/PG:324
+msgid ""
+"You were able to take Kursk, but the Soviets launched a counter-attack "
+"against the Germain pocket around Orel. Therefore, we had to retreat and "
+"divert divisions to aid against this massive attack. We have lost the "
+"initiative on the Eastern front and cannot allow for another attack in this "
+"year."
+msgstr ""
+
+#. campaigns/PG:308
+msgid ""
+"Your failure at this mission forced the Reich to take back the front lines "
+"to compensate for German casualties faced in the battle."
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Tebessa"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Trigno River"
+msgstr ""
+
+#. maps/pg/map01:7
+msgid "Kutno"
+msgstr ""
+
+#. units/pg.udb:3424
+msgid "PO Infantry"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Bodo"
+msgstr ""
+
+#. scenarios/pg/BerlinEast:3
+msgid "April 1, 1945: Battle for survival against the Soviet Union."
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "An Najaf"
+msgstr ""
+
+#. units/pg.udb:2640
+msgid "PSW 233/8r"
+msgstr ""
+
+#. units/pg.udb:11629
+msgid "FPO M8 LAC"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Wiltz"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Benedict"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Coblenz"
+msgstr ""
+
+#. scenarios/pg/Anvil:3
+msgid ""
+"Aug 6, 1944: Allies attempt to cut off Wehrmacht forces in Southern France."
+msgstr ""
+
+#. scenarios/pg/EarlyMoscow:3
+msgid ""
+"September 8, 1941: Panzergruppe Guderian ignores Kiev and drives on Moscow."
+msgstr ""
+
+#. units/pg.udb:145
+msgid "BF109f"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Isere River"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Upper Marlboro"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Blankenheim"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Anacostia"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Starodub"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Utrecht"
+msgstr ""
+
+#. units/pg.udb:11825
+msgid "FPO 6 Inches Gun"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "St. Hubert"
+msgstr ""
+
+#. maps/pg.tdb:20
+msgid "Fair(Mud)"
+msgstr ""
+
+#. campaigns/PG:645
+msgid ""
+"The german Reich has no need for incompetent untermenschen, Commander! "
+"Dismissed."
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Helmond"
+msgstr ""
+
+#. campaigns/PG:524 maps/pg/map24:7
+msgid "Kiev"
+msgstr ""
+
+#. units/pg.udb:8297
+msgid "Battleship Dl"
+msgstr ""
+
+#. units/pg.udb:3900
+msgid "FR AMC 35"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Ettelbruck"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Brignoles"
+msgstr ""
+
+#. scenarios/pg/Stalingrad:2
+msgid "STALINGRAD"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kalamai"
+msgstr ""
+
+#. scenarios/pg/Sevastapol:2
+msgid "SEVASTOPOL"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Fonyod"
+msgstr ""
+
+#. scenarios/pg/Anzio:2
+msgid "ANZIO"
+msgstr ""
+
+#. maps/pg/map02:7
+msgid "Siedice"
+msgstr ""
+
+#. campaigns/PG:205
+msgid "2nd October 1941"
+msgstr ""
+
+#. units/pg.udb:8913
+msgid "IT Sem M-42"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Troarn"
+msgstr ""
+
+#. units/pg.udb:5693
+msgid "GB Achilles"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Safonovo"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Opheusten"
+msgstr ""
+
+#. units/pg.udb:7597
+msgid "ST ISU-122"
+msgstr ""
+
+#. units/pg.udb:10341
+msgid "US M4A1(76)W"
+msgstr ""
+
+#. units/pg.udb:10621
+msgid "US M24"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Komary"
+msgstr ""
+
+#. campaigns/PG:613 campaigns/PG:623 campaigns/PG:633
+msgid "1st April 1945"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Rechitsa"
+msgstr ""
+
+#. campaigns/PG:364
+msgid "6th March 1945"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Blackwater River"
+msgstr ""
+
+#. units/pg.udb:7933
+msgid "ST 12.2cm Gun"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Hunting Creek"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Vyazma"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map36:7 maps/pg/map38:7
+msgid "Cambridge"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kachalinsk"
+msgstr ""
+
+#. scenarios/pg/Budapest:2
+msgid "BUDAPEST"
+msgstr ""
+
+#. maps/pg/map12:7 maps/pg/map13:7
+msgid "Bizerta"
+msgstr ""
+
+#. units/pg.udb:9753
+msgid "US B25B Mitch"
+msgstr ""
+
+#. units/pg.udb:1744
+msgid "StuGIIIF"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Euphrates River"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Vistula River"
+msgstr ""
+
+#. units/pg.udb:5889
+msgid "GB Humber SC"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Skopje"
+msgstr ""
+
+#. units/pg.udb:624
+msgid "FW190f"
+msgstr ""
+
+#. units/pg.udb:7205
+msgid "ST T-34/85"
+msgstr ""
+
+#. maps/pg.tdb:48
+msgid "Snowing(Ice)"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "St. Vaast-la-Haugue"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Vire River"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Rockville"
+msgstr ""
+
+#. units/pg.udb:9137
+msgid "IT 47mm ATG"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Babyak"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Schneidemuhl"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bihal"
+msgstr ""
+
+#. nations/pg.ndb:68
+msgid "Poland"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7 maps/pg/map30:7
+msgid "Don"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Bryanskoe"
+msgstr ""
+
+#. units/pg.udb:8605
+msgid "IT Ma C202/F"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Riverdale"
+msgstr ""
+
+#. campaigns/PG:388
+msgid ""
+"High Command has prepared an invasion of England this summer, and you are to "
+"lead the forces. This is the ultimate chance to knock England out of the "
+"war, and we have to succeed this time. As the English have established an "
+"alliance with the Americans, expect some US expeditionary forces aiding in "
+"the defense of England. You are ordered to take London and all other "
+"objectives by 13th of July at the latest, when strong American "
+"reinforcements are expected to arrive. In order to consolidate our defenses, "
+"you should finish your mission earlier."
+msgstr ""
+
+#. units/pg.udb:8857
+msgid "IT Sem M-40"
+msgstr ""
+
+#. campaigns/PG:56
+msgid ""
+"You passed with ease the battlefields our troops bravely but fruitlessly "
+"attacked in the World War. We reassembled the troops for the final assault "
+"on France, and we utilised the additional time to start preparations for the "
+"invasion of England."
+msgstr ""
+
+#. campaigns/PG:215
+msgid ""
+"To prove your skills in another theater, High Command offers to you "
+"leadership over the Africa Corps fighting at El Alamein.##Herr General, do "
+"you wish to be transferred to Africa, or do you want to stay on the Eastern "
+"front?"
+msgstr ""
+
+#. scenarios/pg/France:2
+msgid "FRANCE"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Sora"
+msgstr ""
+
+#. units/pg.udb:10145
+msgid "US M4"
+msgstr ""
+
+#. scenarios/pg/Anvil:2
+msgid "ANVIL"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Baranovichi"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Savna River"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Totenza"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Mt. Pleasant"
+msgstr ""
+
+#. units/pg.udb:2668
+msgid "PSW 234/1-8r"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Elst"
+msgstr ""
+
+#. scenarios/pg/Warsaw:2
+msgid "WARSAW"
+msgstr ""
+
+#. campaigns/PG:500
+msgid "17th September 1944"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Draguigan"
+msgstr ""
+
+#. units/pg.udb:2864
+msgid "10.5 leFH 18"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Krasnograd"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Halle"
+msgstr ""
+
+#. campaigns/PG:68
+msgid ""
+"Congratulations for conquering France and for bringing an overwhelming "
+"victory to the Reich. France has surrendered, and its dependencies will be "
+"put under German protectorate. Yet it was too late to finish preparations "
+"for the invasion of England in time."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Batumi"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Landsberg"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Bladensburg"
+msgstr ""
+
+#. units/pg.udb:11181
+msgid "US 40mm AD"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Karak"
+msgstr ""
+
+#. campaigns/PG:136
+msgid ""
+"Eventually, time has come for operation Barbarossa, the long-term planned "
+"invasion of Soviet Russia. You are in charge of Army Group Center, and you "
+"have to conduct the main thrust through Soviet defences and keep them "
+"running. In order to prevent the enemy from establishing a front line and "
+"mobilise reserves from the rear, you have to capture Smolensk and all other "
+"objectives before the 7th of September."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Proletarskiy"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Argens River"
+msgstr ""
+
+#. units/pg.udb:7989
+msgid "ST 7.6cm AD"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Rubezhnoye"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "St. Valery"
+msgstr ""
+
+#. units/pg.udb:2304
+msgid "Wespe"
+msgstr ""
+
+#. campaigns/PG:290
+msgid ""
+"Your initial capture of Moscow let arise hope that Russia would surrender. "
+"Unfortunately, fresh Siberian reserves started a counter-attack and expelled "
+"our exhausted and worn down spearheads out of the capital. While we managed "
+"to establish a stable front line again, we could not attempt another advance "
+"in 1942."
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Cabourg"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Akhtyrica"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Bedford"
+msgstr ""
+
+#. campaigns/PG:637
+msgid ""
+"Pushing back the Allied onslaught to the pre-war borders of the Reich gave "
+"us, combined with your earlier victory over Russia, a strong position to "
+"negotiate a favourable peace treaty."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Wittenberg"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Demer River"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Boguchar"
+msgstr ""
+
+#. scenarios/pg/Balkans:2
+msgid "BALKANS"
+msgstr ""
+
+#. units/pg.udb:27
+msgid "Tracked"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Queenstown"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Lyubotin"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map15:7 maps/pg/map18:7
+msgid "Caen"
+msgstr ""
+
+#. units/pg.udb:1604
+msgid "Panther A"
+msgstr ""
+
+#. scenarios/pg/Moscow41:3
+msgid ""
+"October 2, 1941: Can the heroes of the Motherland hold the Panzers until the "
+"winter comes?"
+msgstr ""
+
+#. campaigns/PG:554
+msgid ""
+"Meanwhile, the Africa Corps is facing another threat from the West. This is "
+"the initial landing of US expeditionary forces in Tunesia after their "
+"declaration of war against Germany. Though unexperienced, they outnumber our "
+"troops by far, and must not be underestimated. Your order is to force the "
+"American troops from the continent, taking all objectives. As a last resort, "
+"you have to hold at least Tunis and two other objectives to make the outcome "
+"favourable to us."
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Rieti"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Laval"
+msgstr ""
+
+#. units/pg.udb:4628
+msgid "GB Hur I"
+msgstr ""
+
+#. units/pg.udb:5077
+msgid "GB C-47"
+msgstr ""
+
+#. campaigns/PG:348
+msgid ""
+"Thanks to your great achievements, the Soviet summer offensive has been "
+"halted. Unfortunately, much pressure has accumulated on the Western front, "
+"so High Command decided to transfer you there to relieve the situation."
+msgstr ""
+
+#. units/pg.udb:6505
+msgid "ST YaK-1"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Rappahannock River"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Seine"
+msgstr ""
+
+#. scenarios/pg/Anvil:278 scenarios/pg/Anzio:308 scenarios/pg/Ardennes:470 scenarios/pg/Balkans:536 ...
+msgid "Axis"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Wuppertal"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Turnu Severin"
+msgstr ""
+
+#. campaigns/PG:416
+msgid ""
+"Due to your exceptional leadership skills, you are offered command over Army "
+"Group Center in Russia.##Herr General, do you want to defend the Reich "
+"against Soviet forces in Byelorussia, or fight against the upcoming invasion "
+"of France?"
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Falaise"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Stakhanov"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Jutovo"
+msgstr ""
+
+#. campaigns/PG:264
+msgid ""
+"For this year, we have gained another chance to advance towards Moscow, the "
+"logistical and industrial center of Russia. It is imperative that you take "
+"Moscow and all other objectives by no later than the 28th of December before "
+"winter weather will bring our advance to a halt. However, to garrison the "
+"city against russian counterattacks, you should finish your mission several "
+"weeks earlier. This is the ultimate chance to end the war in the East."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Horsham"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Thessaloniki"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Mostar"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "St. Vith"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "St. Anthonis"
+msgstr ""
+
+#. units/pg.udb:2276
+msgid "sIG 38(t)M"
+msgstr ""
+
+#. scenarios/pg/Anzio:3
+msgid ""
+"Jan 22, 1944: German troops attack the Anzio Beachhead while attempting to "
+"maintain the Gustav Line."
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Anzio-Nettuno"
+msgstr ""
+
+#. campaigns/PG:286
+msgid ""
+"We have now another chance to advance towards Moscow and end the war in the "
+"East. However, the Soviet defenders are much better prepared this time. "
+"Therefore, it is imperative that you capture Moscow and a multitude of other "
+"objectives by the 28th of December at the latest. However, to make the "
+"Russians actually surrender, it is necessary to finish your mission several "
+"weeks earlier."
+msgstr ""
+
+#. scenarios/pg/Moscow43:2
+msgid "MOSCOW (43)"
+msgstr ""
+
+#. units/pg.udb:7261
+msgid "ST T-60"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Erteux River"
+msgstr ""
+
+#. units/pg.udb:10901
+msgid "US Eng 41"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Severn River"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "L'Aquila"
+msgstr ""
+
+#. nations/pg.ndb:96
+msgid "Great Britain"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Glen Burnie"
+msgstr ""
+
+#. units/pg.udb:8661
+msgid "IT BA65"
+msgstr ""
+
+#. units/pg.udb:11209
+msgid "US 3 Inches AD"
+msgstr ""
+
+#. units/pg.udb:10845
+msgid "US Para 43"
+msgstr ""
+
+#. campaigns/PG:484
+msgid ""
+"We have entrenched ourselves at the Siegfried line and have observed Allied "
+"spearheads to slow down considerably. Thus, we prepared a strike force for a "
+"counter-attack, called operation Wacht am Rhein, in an attempt to "
+"precipitate a decision in the West. If you capture all objectives until the "
+"31st of December, we are in a strong position to negotiate a peace treaty."
+msgstr ""
+
+#. scenarios/pg/NorthAfrica:3
+msgid ""
+"March 31, 1941: Axis attempts to seize Egypt and the Suez. Can the Desert "
+"Fox be stopped?"
+msgstr ""
+
+#. campaigns/PG:53
+msgid ""
+"Now it is the time to make the French and English forces pay for their "
+"declarations of war. In an audacious two-pronged attack, your Northern "
+"forces will break through Liege, Brussels, Maubeuge, while your Southern "
+"forces will force their way through the rough Ardennes forests and take by "
+"surprise the northernmost outpost of the Maginot-line, Sedan. Both forces "
+"are bound to pass the battlefields of the World War and capture all "
+"objectives by the 8th of June. If you capture your objectives much earlier, "
+"this could give us a chance to prepare an invasion of England this year."
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Briancon"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Worcester"
+msgstr ""
+
+#. campaigns/PG:434
+msgid ""
+"Your troops were outnumbered on any scale, enabling the Allies to establish "
+"and extend their beachheads in Normandy."
+msgstr ""
+
+#. campaigns/PG:565
+msgid "Husky"
+msgstr ""
+
+#. units/pg.udb:3480
+msgid "AF 75mm Gun"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Korosten"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Gard River"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Pescara"
+msgstr ""
+
+#. units/pg.udb:988
+msgid "PzIB"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Martelange"
+msgstr ""
+
+#. campaigns/PG:466
+msgid ""
+"This is impressing! While General Staff internally knew that the order was "
+"infeasible given the scarce resources available, you managed to achieve the "
+"impossible and drove the Allied army back into the sea. As a reaction, the "
+"Allied increased the bombing raids against vital German war industries and "
+"our supply lines in France, putting your victory at stake. Exploiting the "
+"resource shortage, the Allies performed another landing, and drove our "
+"forces back to the Rhine."
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kula"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Lagen River"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Tsymiank"
+msgstr ""
+
+#. units/pg.udb:11797
+msgid "FPO 25 Pdr"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Damascus"
+msgstr ""
+
+#. units/pg.udb:1268
+msgid "SdKfz 7/1"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Oslo"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Arras"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Dmitrovsk-Orlovskiy"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Mons"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Le Mans"
+msgstr ""
+
+#. maps/pg/map17:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Trier"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Colonial Beach"
+msgstr ""
+
+#. units/pg.udb:10173
+msgid "US M4A1"
+msgstr ""
+
+#. units/pg.udb:5497
+msgid "GB Sherman"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Winchester"
+msgstr ""
+
+#. campaigns/PG:506
+msgid ""
+"Your inability to sustain against paratroopers allowed the Allied to exploit "
+"the Rhine crossing, and to thrust against the German heartlands without "
+"delay."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Tikhoretsk"
+msgstr ""
+
+#. maps/pg/map19:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Eindhoven"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Stettin"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Falls Church"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Zagorsk"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Petralia"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Maubeuge"
+msgstr ""
+
+#. campaigns/PG:534
+msgid ""
+"Supply shortage and the ever increasing resistence of English troops enabled "
+"the English to take the initiative, and expel the Africa Corps from Egypt "
+"and Libya."
+msgstr ""
+
+#. units/pg.udb:11461
+msgid "FFR M2 Hftrk"
+msgstr ""
+
+#. campaigns/PG:543
+msgid ""
+"Adverse weather and supply conditions forced our troops out of Mesopotamia, "
+"while English couter-attacks forced us out of Egypt. We basically have to "
+"start at the beginning now."
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Lanciano"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Angers"
+msgstr ""
+
+#. campaigns/PG:392
+msgid ""
+"Your brave efforts lead to the capturing of all Southern England. "
+"Unfortunately, the landing of American reinforcements and their "
+"counter-attack forced High Command to retract all troops back to the "
+"continent. You have been called to the Eastern front to prove that you are a "
+"worthy Panzer General nonetheless."
+msgstr ""
+
+#. scenarios/pg/NorthAfrica:2
+msgid "NORTH AFRICA"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Cairo"
+msgstr ""
+
+#. units/pg.udb:7821
+msgid "ST Bridge Eng"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Haifa"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Trinidad"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Czestochowa"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Krasnoarmeyskoye"
+msgstr ""
+
+#. scenarios/pg/Poland:2
+msgid "POLAND"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Luxembourg"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Stary Oskol"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Groningen"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "South Arlington"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Nevel"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Berlin"
+msgstr ""
+
+#. units/pg.udb:8381
+msgid "Z-Destroyer"
+msgstr ""
+
+#. units/pg.udb:8101
+msgid "AF HvyCruiser"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Mesolongion"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Caltanissetta"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Cuneo"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Mablethorpe"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Frosinone"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Mikhaili"
+msgstr ""
+
+#. units/pg.udb:11545
+msgid "FFR M20 LAC"
+msgstr ""
+
+#. units/pg.udb:3592
+msgid "AF Truck"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Budennovsk"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Tobruk"
+msgstr ""
+
+#. campaigns/PG:79
+msgid ""
+"Making Germany face another disaster like in the World War has forced the "
+"Reich to surrender and sign an overly unfavourable peace treaty."
+msgstr ""
+
+#. units/pg.udb:4824
+msgid "GB Meteor III"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Chatham"
+msgstr ""
+
+#. units/pg.udb:7793
+msgid "ST Cavalry"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Berdansk"
+msgstr ""
+
+#. units/pg.udb:11769
+msgid "FPO 6 Pdr ATG"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Tet"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Erp"
+msgstr ""
+
+#. campaigns/PG:122
+msgid ""
+"Resistence was much heavier than anticipated from reconnaissance flights. "
+"Thus our troops faced heavy losses, and we had to retreat to the continent. "
+"Crete will pose a latent danger for the ongoing operations on the Eastern "
+"front."
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map08:7 maps/pg/map09:7 maps/pg.tdb:2174
+msgid "Rough Desert"
+msgstr ""
+
+#. units/pg.udb:6477
+msgid "ST I-16"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Gaeta"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Roer"
+msgstr ""
+
+#. maps/pg/map09:7
+msgid "Marsa Matruh"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "St. Hilaire"
+msgstr ""
+
+#. campaigns/PG:19
+msgid "1st September 1939"
+msgstr ""
+
+#. scenarios/pg/Barbarossa:2
+msgid "BARBAROSSA"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Melambes"
+msgstr ""
+
+#. scenarios/pg/Anvil:330 scenarios/pg/Anzio:365 scenarios/pg/Ardennes:562 scenarios/pg/Balkans:603 ...
+msgid "Axis Defeat"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Vimoutiers"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Basel"
+msgstr ""
+
+#. maps/pg.tdb:44
+msgid "Raining(Ice)"
+msgstr ""
+
+#. units/pg.udb:7429
+msgid "ST KV-1/41"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Lodz"
+msgstr ""
+
+#. campaigns/PG:184
+msgid "8th September 1941"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Georgetown"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Patuxent River"
+msgstr ""
+
+#. units/pg.udb:4684
+msgid "GB Spit II"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Miskolc"
+msgstr ""
+
+#. campaigns/PG:46
+msgid ""
+"Taking all objectives has enabled us to expel the English forces from Norway "
+"and station our fleet there. Our supply lines should be safe. You have been "
+"awarded command over troops at the Western border."
+msgstr ""
+
+#. campaigns/PG:30
+msgid "10th September 1939"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Danzig"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Linee River"
+msgstr ""
+
+#. campaigns/PG:229
+msgid "7th June 1942"
+msgstr ""
+
+#. units/pg.udb:7093
+msgid "ST T-28M1"
+msgstr ""
+
+#. units/pg.udb:2416
+msgid "Wirbelwind"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Tula"
+msgstr ""
+
+#. units/pg.udb:97
+msgid "Destroyer"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Vielsalm"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Debar"
+msgstr ""
+
+#. maps/pg/map12:7 maps/pg/map13:7
+msgid "Tunis"
+msgstr ""
+
+#. maps/pg.tdb:1364
+msgid "Town"
+msgstr ""
+
+#. units/pg.udb:6701
+msgid "ST YaK-9"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Tamar"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Timoshevskaya"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Harstad"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "West River"
+msgstr ""
+
+#. scenarios/pg/Moscow42:3
+msgid ""
+"October 1, 1942: Axis offensive to capture Moscow and end the war in the "
+"east."
+msgstr ""
+
+#. units/pg.udb:67
+msgid "Recon"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Volkovysk"
+msgstr ""
+
+#. units/pg.udb:2136
+msgid "Marder IIIH"
+msgstr ""
+
+#. units/pg.udb:2472
+msgid "SdKfz 10/4"
+msgstr ""
+
+#. units/pg.udb:3508
+msgid "GB Inf 43"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Moselle River"
+msgstr ""
+
+#. units/pg.udb:6029
+msgid "GB 3 Tn Lorry"
+msgstr ""
+
+#. units/pg.udb:7457
+msgid "ST KV-1/42"
+msgstr ""
+
+#. units/pg.udb:4012
+msgid "FR Truck"
+msgstr ""
+
+#. campaigns/PG:23
+msgid ""
+"Your quick breakthrough in Poland enabled High Command to make additional "
+"resources available to you."
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Vasto"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Bourges"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Grenoble"
+msgstr ""
+
+#. units/pg.udb:2892
+msgid "15 sFH 18"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Latina"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Obninsk"
+msgstr ""
+
+#. units/pg.udb:6645
+msgid "ST YaK-7B"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Bayeux"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Orel River"
+msgstr ""
+
+#. units/pg.udb:9865
+msgid "US B17F FF"
+msgstr ""
+
+#. campaigns/PG:609
+msgid ""
+"Fanatic resistence kept our troops from advancing fast enough before the "
+"Americans used their secret weapon, the Atomic Bomb. Thus, heavy losses "
+"forced us to retract our troops from the American continent. Your America "
+"adventure has been a disaster, but General Staff ows you acknowledgement for "
+"your earlier victories over Western and Eastern Europe."
+msgstr ""
+
+#. units/pg.udb:9809
+msgid "US B26C Mardr"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Kramatorsk"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Novosil"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Konstantinovsk"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Gazala"
+msgstr ""
+
+#. units/pg.udb:7765
+msgid "ST Infantry"
+msgstr ""
+
+#. nations/pg.ndb:56
+msgid "Italy"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Rylsk"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Phillippeville"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kalinin"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Radomyshi"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Sciacca"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kolomna"
+msgstr ""
+
+#. units/pg.udb:11321
+msgid "FFR Infantry"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Molde"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Teykovo"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Lubnyr"
+msgstr ""
+
+#. campaigns/PG:634
+msgid ""
+"We are now facing a massive force in the West invading German soil. Your "
+"order is to hold Berlin and at least five other objectives to prevent "
+"further detriment to the Reich."
+msgstr ""
+
+#. units/pg.udb:11601
+msgid "FPO Sherman"
+msgstr ""
+
+#. maps/pg/map17:7 maps/pg/map19:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Meuse River"
+msgstr ""
+
+#. units/pg.udb:85
+msgid "Fighter"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Bryansk"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Accotink Creek"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Dol"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Dmitriyev-Lgovskiy"
+msgstr ""
+
+#. units/pg.udb:73
+msgid "Artillery"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Sienner River"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Ham"
+msgstr ""
+
+#. units/pg.udb:4656
+msgid "GB Spit I"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Nancy"
+msgstr ""
+
+#. campaigns/PG:323
+msgid ""
+"Your performance was outstanding! Despite heavy resistence, you were able to "
+"crush the enemy and successfully secure the pocket of Kursk. Thanks to this "
+"masterpiece, we can attempt another assault on Moscow."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Great Vermouth"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Vienne"
+msgstr ""
+
+#. units/pg.udb:2612
+msgid "PSW 231/6r"
+msgstr ""
+
+#. units/pg.udb:1688
+msgid "Tiger II"
+msgstr ""
+
+#. campaigns/PG:382
+msgid ""
+"Your brave efforts lead to the capturing of all Southern England. "
+"Unfortunately, the landing of American reinforcements and their "
+"counter-attack forced High Command to retract all troops back to the "
+"continent."
+msgstr ""
+
+#. campaigns/PG:340
+msgid ""
+"Holding Warsaw temporarily relieved us from pressure on the Eastern front, "
+"and enabled us to prepare further operations."
+msgstr ""
+
+#. units/pg.udb:6981
+msgid "ST BA-10"
+msgstr ""
+
+#. campaigns/PG:451
+msgid "The Allied army easily drove our troops back to the Netherlands."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Stuttgart"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Breslau"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Waldenburg"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Karlovka"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Hyattsville"
+msgstr ""
+
+#. units/pg.udb:596
+msgid "FW190g"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Moires"
+msgstr ""
+
+#. units/pg.udb:6729
+msgid "ST La-7"
+msgstr ""
+
+#. campaigns/PG:412
+msgid ""
+"The mission was a disaster. Not sustaining allowed the Allies to invade "
+"Germany from the South, forces upon us an unfavourable peace treaty like the "
+"one in 1918."
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Ostend"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Temyryk"
+msgstr ""
+
+#. campaigns/PG:58
+msgid ""
+"Despite your initially slow advance, by an overwhelming array of men and "
+"material we eventually drove the French forces over the Somme river. Yet we "
+"cannot tolerate suboptimal performance like this any longer. Your deeds need "
+"to improve. Needlessly to say that our chance of invading England this year "
+"has been lost."
+msgstr ""
+
+#. units/pg.udb:792
+msgid "He111 H2"
+msgstr ""
+
+#. units/pg.udb:6897
+msgid "ST PE-8"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Freiburg"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Gabes"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Prizzi"
+msgstr ""
+
+#. scenarios/pg/Norway:3
+msgid ""
+"April 9, 1940: Wanting Norwegian iron, and northern air bases to deny "
+"British access to the Baltic Sea, the Germans launch a surprise attack on "
+"Norway."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Chester"
+msgstr ""
+
+#. campaigns/PG:344
+msgid "22nd June 1944"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Domfront"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Valjevo"
+msgstr ""
+
+#. campaigns/PG:188
+msgid ""
+"Moscow has fallen, and the Soviet Union surrendered to the Reich! You have "
+"achieved what Napoleon only dreamed of. All of Russia has been put under "
+"German administration, and we have already begun exploiting its vast "
+"resources. Your decision to take the early route towards Moscow was right, "
+"and therefore you get awarded one of the highest order medals of the Reich, "
+"the Iron Cross with Oak Leaves and Swords."
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Port Tobacco"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Lozovaya"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Volturno River"
+msgstr ""
+
+#. units/pg.udb:11069
+msgid "US 75mm Gun"
+msgstr ""
+
+#. units/pg.udb:1184
+msgid "Pz38(t)A"
+msgstr ""
+
+#. units/pg.udb:7289
+msgid "ST T-40"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Dover"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Berati"
+msgstr ""
+
+#. units/pg.udb:4768
+msgid "GB Hur IV"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Nivelles"
+msgstr ""
+
+#. units/pg.udb:5049
+msgid "GB Lancaster"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Neufchatel"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Noyon"
+msgstr ""
+
+#. nations/pg.ndb:48
+msgid "Hungary"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Braunschweig"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Bialstok"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Karbala"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Kasserine"
+msgstr ""
+
+#. scenarios/pg/D-Day:2
+msgid "D-DAY"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Cherkassi"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Al Hillah"
+msgstr ""
+
+#. units/pg.udb:6925
+msgid "ST SU-152 AT"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Bastogne"
+msgstr ""
+
+#. campaigns/PG:217
+msgid "Eastern front"
+msgstr ""
+
+#. units/pg.udb:5805
+msgid "GB 40mm SPAD"
+msgstr ""
+
+#. units/pg.udb:1576
+msgid "Panther D"
+msgstr ""
+
+#. scenarios/pg/Anvil:4 scenarios/pg/Anzio:4 scenarios/pg/Ardennes:4 scenarios/pg/Balkans:4 ...
+msgid "Strategic Simulation Inc."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bratislava"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Boxtel"
+msgstr ""
+
+#. units/pg.udb:3368
+msgid "PO TK3"
+msgstr ""
+
+#. units/pg.udb:5665
+msgid "GB Church VII"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Werbomont"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Monemvasia"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Petit Rhone River"
+msgstr ""
+
+#. units/pg.udb:3928
+msgid "FR Ch D1 IG"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Veghel"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Bolkhov"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Orbec"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Turin"
+msgstr ""
+
+#. units/pg.udb:5245
+msgid "GB Crdr II"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Port"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Bowie"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Mogilev"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Gembert"
+msgstr ""
+
+#. units/pg.udb:5637
+msgid "GB Church VI"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Devegcer"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kuban"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Otradny"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Melun"
+msgstr ""
+
+#. units/pg.udb:11125
+msgid "US 155mm Gun"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Tatabanya"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Sakakah"
+msgstr ""
+
+#. campaigns/PG:533
+msgid ""
+"Congratulations on your victory. Yet, supply shortages allowed the English "
+"to take the initiative, and expel the Africa Corps from Egypt and Libya."
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Beaumont"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Bergen"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Aire"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Mainz"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Pinios River"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Anah"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Odenton"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Agrigento"
+msgstr ""
+
+#. units/pg.udb:3228
+msgid "PSW 232/8r"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "North Arlington"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Osnabruck"
+msgstr ""
+
+#. scenarios/pg/BerlinWest:2
+msgid "BERLIN (WEST)"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Newhaven"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Mozdok"
+msgstr ""
+
+#. units/pg.udb:88
+msgid "Tactical Bomber"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Barneville"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Kongsberg"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Sitia"
+msgstr ""
+
+#. campaigns/PG:410
+msgid ""
+"High Command is stunned about your audacious counter-attack in Italy. With "
+"scarce resources, you managed not only to drive back the Anzio-beachhead "
+"into the sea, you also retook Italian towns of the South."
+msgstr ""
+
+#. campaigns/PG:524
+msgid "Staying in the desert"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Sudzha"
+msgstr ""
+
+#. units/pg.udb:257
+msgid "FW190d9"
+msgstr ""
+
+#. units/pg.udb:8577
+msgid "IT Centauro"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Frankfurt an Main"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Munich"
+msgstr ""
+
+#. units/pg.udb:8997
+msgid "IT M13/40"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Ocooquen Creek"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Rijeka"
+msgstr ""
+
+#. units/pg.udb:8185
+msgid "AF T-Boat"
+msgstr ""
+
+#. units/pg.udb:5105
+msgid "GB Matilda I"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Novorossik"
+msgstr ""
+
+#. scenarios/pg/Balkans:3
+msgid ""
+"April 6, 1941: German troops aid the bogged down Italians in Yugoslavia and "
+"Greece."
+msgstr ""
+
+#. units/pg.udb:4881
+msgid "GB Spit XVII"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "St. Vallier"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Cyrene"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Sezze"
+msgstr ""
+
+#. scenarios/pg/Ardennes:3
+msgid "Dec 16, 1944: Wacht Am Rhein... Germany's last gamble in the West."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Proletarsk"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Verkhne Chogan"
+msgstr ""
+
+#. campaigns/PG:106
+msgid ""
+"Negotiations with Yugoslavia have failed which in order made them turn "
+"against us. Italian forces are fighting a stiff battle at the Metaxas line "
+"in Greece and have not been able to gain substancial advantages for over a "
+"year, and they may not sustain any longer. For our upcoming invasion of "
+"Russia we cannot tolerate an undefeated enemy in our back. Thus it is your "
+"mission to capture key Yugoslav towns to make them surrender, and "
+"additionally aid Italian troops in their hapless fight against Greek and "
+"English adversaries."
+msgstr ""
+
+#. campaigns/PG:432
+msgid ""
+"Congratulations on your effective victory over the Allied invasion of "
+"Normandy. The enemy has been driven back into the sea."
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Morlava River"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Patrai"
+msgstr ""
+
+#. units/pg.udb:6869
+msgid "ST Il-10"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Magdeburg"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Komarno"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Inkerman"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Gap"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Laurel"
+msgstr ""
+
+#. units/pg.udb:2164
+msgid "Marder IIIM"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Waal River"
+msgstr ""
+
+#. units/pg.udb:8885
+msgid "IT Sem M-41M"
+msgstr ""
+
+#. units/pg.udb:314
+msgid "ME163B/Komet"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Digne"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Tirlemont"
+msgstr ""
+
+#. units/pg.udb:8325
+msgid "Heavy Cruiser"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Rackeve"
+msgstr ""
+
+#. units/pg.udb:10089
+msgid "US M3 GMC"
+msgstr ""
+
+#. units/pg.udb:8353
+msgid "Light Cruiser"
+msgstr ""
+
+#. units/pg.udb:4993
+msgid "GB Typhoon IB"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Tivoli"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Hit"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Khoro"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Montelimar"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bern"
+msgstr ""
+
+#. units/pg.udb:3620
+msgid "FR Potez 63"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Menai Strait"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Nile"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Aterno River"
+msgstr ""
+
+#. units/pg.udb:7149
+msgid "ST T-34/41"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Tunbridge Wells"
+msgstr ""
+
+#. units/pg.udb:8409
+msgid "T-Destroyer"
+msgstr ""
+
+#. campaigns/PG:501
+msgid ""
+"The Allies have launched a surprise airborne attack at Arnhem to capture a "
+"bridge across the Rhine. Yet, their slow outbreak from Normandy gave us "
+"plenty of time to establish potent defenses. Your order is to capture and "
+"hold the city of Arnhem until the 25th of September, and clean the area from "
+"paratroop landings before Allied reinforcements arrive."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Brunn"
+msgstr ""
+
+#. campaigns/PG:268
+msgid ""
+"Your initial capture of Moscow let arise hope that Russia would surrender. "
+"Unfortunately, the combination of bad weather and Russian reserves did not "
+"enable our exhausted troops to sustain any longer. While we managed to "
+"establish a stable front line again, the possibility for another advance "
+"towards Moscow has gone for good."
+msgstr ""
+
+#. units/pg.udb:9585
+msgid "US P51B Mustg"
+msgstr ""
+
+#. units/pg.udb:1856
+msgid "Hetzer"
+msgstr ""
+
+#. units/pg.udb:680
+msgid "JU87R"
+msgstr ""
+
+#. scenarios/pg/Torch:2
+msgid "TORCH"
+msgstr ""
+
+#. units/pg.udb:8437
+msgid "U-Boat"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Menfi"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Bari"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Paris"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Dombas"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map06:7 maps/pg/map11:7 maps/pg/map18:7 maps/pg/map38:7
+msgid "Calais"
+msgstr ""
+
+#. units/pg.udb:2360
+msgid "FlaKPz 38(t)"
+msgstr ""
+
+#. units/pg.udb:6673
+msgid "ST La-5"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Dzhanshley"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Mekenziya"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Campobasso"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Terek"
+msgstr ""
+
+#. campaigns/PG:199
+msgid ""
+"Moscow has fallen, and the Soviet Union surrendered to the Reich! You have "
+"achieved what Napoleon only dreamed of. All of Russia has been put under "
+"German administration, and we have already begun exploiting its vast "
+"resources. For your leadership skills, you get awarded the highest order "
+"medal of the Reich, the Knight's Cross with Oak Leaves and Swords."
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Mosjoen"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Ardenne"
+msgstr ""
+
+#. units/pg.udb:201
+msgid "BF109k"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Sees"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Strasburg"
+msgstr ""
+
+#. units/pg.udb:6057
+msgid "GB Inf 39"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Ahvaz"
+msgstr ""
+
+#. units/pg.udb:3956
+msgid "FR Ch S35"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Sarande"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Kiel"
+msgstr ""
+
+#. units/pg.udb:11685
+msgid "FPO Truck"
+msgstr ""
+
+#. units/pg.udb:10593
+msgid "US M18 "
+msgstr ""
+
+#. units/pg.udb:11713
+msgid "FPO Infantry"
+msgstr ""
+
+#. units/pg.udb:7009
+msgid "ST BA-64"
+msgstr ""
+
+#. campaigns/PG:74
+msgid ""
+"France is weakened and open to attack. Since 1871, this is the first chance "
+"to battle down the mightiest army of Europe and face total victory on the "
+"Western continent. You are ordered to take Paris and various strategic "
+"coastal towns as well as towns of the hinterland."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Grozny"
+msgstr ""
+
+#. campaigns/PG:433
+msgid ""
+"While fighting bravely against tremendous odds, the Allies could establish a "
+"beachhead on the Norman coast."
+msgstr ""
+
+#. units/pg.udb:10313
+msgid "US M4A3E2(76)"
+msgstr ""
+
+#. campaigns/PG:345
+msgid ""
+"Soviet Russia has eventually launched its long expected summer offensive of "
+"1944, ironically on the self same day we initiated operation Barbarossa "
+"three years ago. You are in charge of Army Group Center, and you must stop "
+"the Russian attack at any rate, and retake all objectives to turn the tides. "
+"If the odds are too strong, hold at least Warsaw until the 27th of August."
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Konotop"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Hamar"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Lesh"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Jordan River"
+msgstr ""
+
+#. units/pg.udb:4376
+msgid "AD Mk II SP"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Potomac River"
+msgstr ""
+
+#. units/pg.udb:11741
+msgid "FPO Para"
+msgstr ""
+
+#. scenarios/pg/Crete:3
+msgid ""
+"May 20, 1941: Germany attempts to capture the strategic island of Crete."
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map05:7
+msgid "Somme"
+msgstr ""
+
+#. scenarios/pg/Anvil:361 scenarios/pg/Anzio:374 scenarios/pg/Ardennes:558 scenarios/pg/Balkans:590 ...
+msgid "Axis Major Victory"
+msgstr ""
+
+#. units/pg.udb:5329
+msgid "GB Crom VII"
+msgstr ""
+
+#. campaigns/PG:468
+msgid ""
+"The Allied landings have been outright successful, and France is now "
+"definitely lost."
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Lisieux"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Renkum"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Elista"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Narvik"
+msgstr ""
+
+#. maps/pg.tdb:8
+msgid "Overcast(Dry)"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Volga"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Lillehammer"
+msgstr ""
+
+#. units/pg.udb:7121
+msgid "ST T-34/40"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Nevers"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bromberg"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Polgardi"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Regensburg"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Stour"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "London"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Nehzin"
+msgstr ""
+
+#. units/pg.udb:3060
+msgid "43 Wehr Inf"
+msgstr ""
+
+#. units/pg.udb:1828
+msgid "StuH42"
+msgstr ""
+
+#. units/pg.udb:2388
+msgid "37 FlaKPz IV"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Sosyka"
+msgstr ""
+
+#. campaigns/PG:584
+msgid "30th June 1942"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Indian Creek"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Graz"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Rennes"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Hull"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Libramit"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Koslin"
+msgstr ""
+
+#. campaigns/PG:349
+msgid ""
+"Holding Warsaw temporarily relieves us from pressure on the Eastern front, "
+"thus allowing High Command to transfer you to the Western Front."
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Toulon"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Maloarkhangelsk"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Cleveland Park"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bosna River"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Owings"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Palermo"
+msgstr ""
+
+#. units/pg.udb:1212
+msgid "Pz38(t)F"
+msgstr ""
+
+#. units/pg.udb:10033
+msgid "US M2 Halftrk"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map08:7 maps/pg/map09:7
+msgid "Italian Camp"
+msgstr ""
+
+#. campaigns/PG:339
+msgid ""
+"Thanks to your great achievements, the Soviet summer offensive has been "
+"halted, and enabled us to prepare further operations."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Main River"
+msgstr ""
+
+#. campaigns/PG:273
+msgid ""
+"Now there are two opportunities to prove your skills against mighty odds. In "
+"the east, the Russians prepare their first summer offensive against Army "
+"Group Center, while in the west, the Allied prepare their invasion of "
+"france.##Which theater do you want to take leadership of?"
+msgstr ""
+
+#. units/pg.udb:8269
+msgid "Battleship Bk"
+msgstr ""
+
+#. maps/pg.tdb:28
+msgid "Raining(Mud)"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Sulmona"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Plymouth"
+msgstr ""
+
+#. units/pg.udb:9921
+msgid "US B24D Lib"
+msgstr ""
+
+#. units/pg.udb:9837
+msgid "US A26 Inv"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Pescara River"
+msgstr ""
+
+#. units/pg.udb:285
+msgid "ME262A1"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Otranto"
+msgstr ""
+
+#. units/pg.udb:5581
+msgid "GB Church III"
+msgstr ""
+
+#. campaigns/PG:529
+msgid ""
+"We were eventually able to halt the English counter offensive, and are now "
+"ready to perform another attack. While we do not have to gain as much ground "
+"as last year, English restistence is expected to be much stronger. While the "
+"chance for invading the Middle East has been lost, we may be able to prepare "
+"another invasion of England if the North African chapter is closed in time. "
+"You have to take all objectives by no later than the 28th of September. Yet, "
+"in order to finish preparations for an invasion of England this year, you "
+"have to finish you mission several weeks earlier."
+msgstr ""
+
+#. units/pg.udb:6421
+msgid "GB 3 Inches AD"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bobov"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Nice"
+msgstr ""
+
+#. units/pg.udb:7233
+msgid "ST T-70"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map21:7
+msgid "Foggia"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Shrewbury"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Echlemach"
+msgstr ""
+
+#. units/pg.udb:1632
+msgid "Panther G"
+msgstr ""
+
+#. units/pg.udb:7373
+msgid "ST SU-152"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Durance River"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Potomac Heights"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Novocherkassk"
+msgstr ""
+
+#. campaigns/PG:1
+msgid "World War II"
+msgstr ""
+
+#. units/pg.udb:4460
+msgid "LC CR42"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Starobelsk"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Castellane"
+msgstr ""
+
+#. scenarios/pg/MiddleEast:3
+msgid "Septempter 1, 1941: Axis attempts to seize the oil fields of Persia."
+msgstr ""
+
+#. campaigns/PG:36
+msgid ""
+"Losing on the Polish front was an utter disaster. Your scandalous leadership "
+"has enabled the English and French to build up an formidable army which has "
+"begun invading Germany."
+msgstr ""
+
+#. units/pg.udb:10061
+msgid "US M2A4"
+msgstr ""
+
+#. campaigns/PG:291
+msgid ""
+"Not capturing Moscow in time gave the Russian adversaries plenty of "
+"opportunity to mobilise troops from Siberia and perform a counterattack. "
+"While we managed to establish a stable front line again, we could not "
+"attempt another advance in 1942."
+msgstr ""
+
+#. units/pg.udb:4040
+msgid "FR Infantry"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Marseilles"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Makhach Kala"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Shkoder"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Thames"
+msgstr ""
+
+#. campaigns/PG:617
+msgid ""
+"Not only halting the enemy onslaught at two front, but drive them back to "
+"the pre-war borders of the Reich is impressive. Therefore, we could achieve "
+"to sign a peace treaty that restored the status-quo from the 1st September "
+"1939."
+msgstr ""
+
+#. maps/pg/map15:7 maps/pg/map18:7
+msgid "Honfleur"
+msgstr ""
+
+#. units/pg.udb:11265
+msgid "US M8 Ghd LAC"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Serrai"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Annandale"
+msgstr ""
+
+#. campaigns/PG:608
+msgid ""
+"Your taking of Washington was a masterpiece. However, the Americans revealed "
+"their secret weapon, called the Atomic Bomb, and inflicted heavy losses on "
+"our expeditionary forces. In order to reduce further casualties, we "
+"retreated from America, and signed a piece treaty. Though the America "
+"adventure did not work out, Germany rules all of Europe, Africa, and most "
+"parts of Asia. This overwhelming economical weight will enable us to carry "
+"on the war against America on another level. Now, the war is over, and for "
+"your heroic encouragement you are promoted to Generalfeldmarschall."
+msgstr ""
+
+#. units/pg.udb:9557
+msgid "US P40 Whwk"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Tongres"
+msgstr ""
+
+#. units/pg.udb:428
+msgid "BF110c"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Bartenevka"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Kristiansand"
+msgstr ""
+
+#. units/pg.udb:39
+msgid "Leg"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Poti"
+msgstr ""
+
+#. units/pg.udb:2780
+msgid "8.8 PaK43/41"
+msgstr ""
+
+#. campaigns/PG:235
+msgid "Losing two battles in a row cannot be accepted."
+msgstr ""
+
+#. scenarios/pg/Byelorussia:2
+msgid "BYELORUSSIA"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Parga"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "St. Malo"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Dunafoldvar"
+msgstr ""
+
+#. units/pg.udb:8745
+msgid "IT SM 82"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Langley Park"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map29:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Dnieper River"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Divnoe"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map20:7 maps/pg/map23:7 maps/pg/map32:7 maps/pg/map34:7 maps/pg/map35:7 ...
+msgid "Warsaw"
+msgstr ""
+
+#. units/pg.udb:2920
+msgid "17 K18"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Serpukhov"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Rostov"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Mekenziery"
+msgstr ""
+
+#. units/pg.udb:10397
+msgid "US M7"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Uman"
+msgstr ""
+
+#. maps/pg/map24:7 maps/pg/map30:7
+msgid "Seym"
+msgstr ""
+
+#. scenarios/pg/EarlyMoscow:2
+msgid "EARLY MOSCOW"
+msgstr ""
+
+#. campaigns/PG:646
+msgid ""
+"You have failed us, Commander! The german reich suffered a minor defeat!"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Esztergom"
+msgstr ""
+
+#. nations/pg.ndb:40
+msgid "Greece"
+msgstr ""
+
+#. units/pg.udb:5161
+msgid "GB Mk I A9"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Papa"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Var River"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Mondragone"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Ichnaya"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Biferno River"
+msgstr ""
+
+#. units/pg.udb:1016
+msgid "PzIIA"
+msgstr ""
+
+#. units/pg.udb:3704
+msgid "FR D520S"
+msgstr ""
+
+#. units/pg.udb:8969
+msgid "IT L6/40"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Darmstadt"
+msgstr ""
+
+#. units/pg.udb:4965
+msgid "GB Mosq VI"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Valuiki"
+msgstr ""
+
+#. units/pg.udb:10453
+msgid "US GM Truck"
+msgstr ""
+
+#. units/pg.udb:7737
+msgid "ST SMG Inf"
+msgstr ""
+
+#. units/pg.udb:5189
+msgid "GB Mk III A13"
+msgstr ""
+
+#. units/pg.udb:76
+msgid "Anti-Aircraft"
+msgstr ""
+
+#. campaigns/PG:64
+msgid ""
+"France is weakened and open to attack. Since 1871, this is the first chance "
+"to battle down the mightiest army of Europe and face total victory on the "
+"Western continent. You are ordered to take Paris and various strategic "
+"coastal towns as well as towns of the hinterland. Timing is important, as "
+"only an early completion of your mission enables us to finish preparations "
+"in time for the invasion of England."
+msgstr ""
+
+#. units/pg.udb:343
+msgid "HE219"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Fougeres"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Beuthen"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Nera River"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Pinsk"
+msgstr ""
+
+#. units/pg.udb:1100
+msgid "8.8 FK18 ATG"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Drome River"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Dusseldorf"
+msgstr ""
+
+#. maps/pg/map08:7 maps/pg/map14:7 maps/pg/map20:7 maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 ...
+msgid "Lake"
+msgstr ""
+
+#. campaigns/PG:252
+msgid ""
+"Your inability to reach Stalingrad as well as shortages in supplies allowed "
+"the Russians to break through the thin defense lines of our exhausted "
+"troops, and to cut off large parts of the 6th Army in Stalingrad and "
+"annihilate them, and drive back the Eastern front."
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Dvina River"
+msgstr ""
+
+#. units/pg.udb:9697
+msgid "US P47D Tbolt"
+msgstr ""
+
+#. campaigns/PG:428
+msgid "6th June 1944"
+msgstr ""
+
+#. units/pg.udb:109
+msgid "Air Transport"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Dresden"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Liege"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Abadan"
+msgstr ""
+
+#. units/pg.udb:1940
+msgid "StuG IV"
+msgstr ""
+
+#. campaigns/PG:73
+msgid "5th June 1940"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Gorodnya"
+msgstr ""
+
+#. campaigns/PG:369
+msgid ""
+"While you managed to capture all objectives, the Russian offensive gained "
+"momentum too fast and drove us back to the Eastern limits of the Reich."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Innsbruck"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Manhay"
+msgstr ""
+
+#. campaigns/PG:117
+msgid ""
+"Crete has been captured by the English in 1940 as a reaction on Italy's "
+"invasion of Albania. Since then, the English have erected air and naval "
+"bases which are likely to interfere with our upcoming operations against "
+"Soviet Russia. It is your order to take the island, capture the strategic "
+"bases, and drive the English troops into the sea. This is the largest "
+"airborne operation seen in this war."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Artemovsk"
+msgstr ""
+
+#. units/pg.udb:173
+msgid "BF109g"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Stavanger"
+msgstr ""
+
+#. campaigns/PG:549
+msgid "Caucasus"
+msgstr ""
+
+#. campaigns/PG:557
+msgid ""
+"With all objectives taken, and the Americans expelled from Africa, you have "
+"proven your excellent leadership skills."
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kevalla"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Boulogne"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Silver Spring"
+msgstr ""
+
+#. campaigns/PG:618
+msgid ""
+"You held Berlin, but that has put us into an uncomfortable situation. We had "
+"to accept a peace treaty that was even harsher than the hated one of 1918."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Guren"
+msgstr ""
+
+#. campaigns/PG:539
+msgid "1st September 1941"
+msgstr ""
+
+#. maps/pg/map13:7 maps/pg/map14:7 maps/pg/map21:7
+msgid "Naples"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Mo-i-rana"
+msgstr ""
+
+#. units/pg.udb:1156
+msgid "Pz 35(t)"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Formia"
+msgstr ""
+
+#. maps/pg.tdb:40
+msgid "Overcast(Ice)"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Leshelm"
+msgstr ""
+
+#. units/pg.udb:11405
+msgid "FFR 105mm Gun"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Schaarbergen"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Ivangrad"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Bicske"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Ribera"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Rumnyr"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Oka"
+msgstr ""
+
+#. nations/pg.ndb:36
+msgid "Germany"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Krasnodar"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Retimo"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Boguslav"
+msgstr ""
+
+#. units/pg.udb:2052
+msgid "JagdTiger"
+msgstr ""
+
+#. maps/pg.tdb:230
+msgid "Road"
+msgstr ""
+
+#. units/pg.udb:456
+msgid "BF110d"
+msgstr ""
+
+#. units/pg.udb:2080
+msgid "PzJager IB"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Stalingrad"
+msgstr ""
+
+#. units/pg.udb:4320
+msgid "NOR 75mm Gun"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Hannover"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Val"
+msgstr ""
+
+#. campaigns/PG:209
+msgid ""
+"Moscow has fallen, and the Soviet Union surrendered to the Reich! You have "
+"achieved what Napoleon only dreamed of. All of Russia has been put under "
+"German administration, and we have already begun exploiting its vast "
+"resources. For your leadership skills, you get awarded one of the highest "
+"order medals of the Reich, the Iron Cross with Oak Leaves and Swords."
+msgstr ""
+
+#. units/pg.udb:4572
+msgid "SdKfz 6/2"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Pripet"
+msgstr ""
+
+#. units/pg.udb:5469
+msgid "GB M3 Stuart"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Rossosh"
+msgstr ""
+
+#. campaigns/PG:85
+msgid "North Africa"
+msgstr ""
+
+#. units/pg.udb:10005
+msgid "US C47"
+msgstr ""
+
+#. maps/pg/map02:7
+msgid "Tomaszow"
+msgstr ""
+
+#. units/pg.udb:3256
+msgid "PO PZL P11c"
+msgstr ""
+
+#. campaigns/PG:34
+msgid ""
+"Your performance in Poland has been outstanding, Herr General! You besieged "
+"and captured all objectives before the Soviet Union was able to catch up. "
+"Your forces have been diverted to the Western border to guard against French "
+"and English aggressions."
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Argos"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Merefa"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Gavray"
+msgstr ""
+
+#. maps/pg.tdb:16
+msgid "Snowing(Dry)"
+msgstr ""
+
+#. scenarios/pg/Moscow42:2
+msgid "MOSCOW (42)"
+msgstr ""
+
+#. scenarios/pg/Poland:3
+msgid ""
+"September 1, 1939: The German army crosses the Polish border with their "
+"famous blitzkrieg. In 10 days they must capture Lodz and Kutno... the gates "
+"to Warsaw."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Chirskaya"
+msgstr ""
+
+#. campaigns/PG:513
+msgid "31st March 1941"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Katerim"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Brindisi"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Portsmouth"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Olmutz"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Oxford"
+msgstr ""
+
+#. units/pg.udb:9501
+msgid "Yugoslav Inf"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Orleans"
+msgstr ""
+
+#. units/pg.udb:1240
+msgid "Pz38(t)G"
+msgstr ""
+
+#. campaigns/PG:170
+msgid ""
+"Your failure to decimate Russian troops in time enabled them to assemble and "
+"perform a counter-strike against our lines. Thus for 1941, all of our "
+"operations on the Eastern front had to cease."
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "La Leuviere"
+msgstr ""
+
+#. units/pg.udb:3032
+msgid "39 Wehr Inf"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Sevastopol"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Devin"
+msgstr ""
+
+#. campaigns/PG:250
+msgid ""
+"Stalin's town lies down in ruins, and German troops control the traffic on "
+"the Volga river, preventing the Russians to build up a force for a "
+"counter-attack. Thus, you can lead the advance towards Moscow without "
+"interference from the rear."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Hastings"
+msgstr ""
+
+#. units/pg.udb:4208
+msgid "FR 155mm Gun"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7
+msgid "Charleroi"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Zhitomir"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Samarra"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Schwerin"
+msgstr ""
+
+#. units/pg.udb:7569
+msgid "ST SU-100"
+msgstr ""
+
+#. units/pg.udb:1408
+msgid "PzIIIN"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Aubenas"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kropotkin"
+msgstr ""
+
+#. units/pg.udb:932
+msgid "ME323d"
+msgstr ""
+
+#. units/pg.udb:6225
+msgid "GB 17 Pdr ATG"
+msgstr ""
+
+#. units/pg.udb:4152
+msgid "FR 75mm Gun"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Aygues River"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map06:7 maps/pg/map11:7 maps/pg/map18:7 maps/pg/map38:7
+msgid "Dieppe"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Flers"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bosanska"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Alesund"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Villedieu-LP"
+msgstr ""
+
+#. units/pg.udb:9473
+msgid "Greek Inf"
+msgstr ""
+
+#. units/pg.udb:11657
+msgid "FPO Bren Ca"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Zirc"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Glomma River"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Mozyr"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Bone"
+msgstr ""
+
+#. units/pg.udb:5917
+msgid "GB Daimler SC"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Sfakia"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Easton"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Seine River"
+msgstr ""
+
+#. units/pg.udb:5777
+msgid "GB Sexton"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Slofok"
+msgstr ""
+
+#. campaigns/PG:483
+msgid "16th December 1944"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Castrovillari"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map33:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Budapest"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Manchester"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Wolfheze"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Compiegne"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Suwalki"
+msgstr ""
+
+#. units/pg.udb:7401
+msgid "ST KV-1/39"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Maleme"
+msgstr ""
+
+#. campaigns/PG:269
+msgid ""
+"Not capturing Moscow in time gave the Russian adversaries plenty of "
+"opportunity to mobilise troops from Siberia and perform a counterattack. "
+"While we managed to establish a stable front line again, our hopes to "
+"capture Moscow are now gone for good."
+msgstr ""
+
+#. units/pg.udb:11041
+msgid "US 3 Inches ATG"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Shchekino"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Monosterace"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Balaklava"
+msgstr ""
+
+#. campaigns/PG:234
+msgid ""
+"By your taking of Sevastopol and the Krim peninsula in time, we could "
+"annihilate the Russian Black Sea fleet. There will be no more interference "
+"on our ongoing advance to the East."
+msgstr ""
+
+#. units/pg.udb:9949
+msgid "US B29 SF"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Kaf"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Mattawoman Creek"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Karlovac"
+msgstr ""
+
+#. units/pg.udb:2528
+msgid "SPW 250/1"
+msgstr ""
+
+#. units/pg.udb:16
+msgid "Hard"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Nyons"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Alencon"
+msgstr ""
+
+#. units/pg.udb:4404
+msgid "AD Mk I Fort"
+msgstr ""
+
+#. campaigns/PG:185
+msgid ""
+"Moscow, capital and industrial, and logistical center of Russia, is the "
+"ultimate objective you have to strive for on the Eastern front. You have to "
+"capture Moscow and all other objectives by the 16th of November at the "
+"latest. Yet to prevent autumn weather to halt our advance, you should finish "
+"your mission several weeks earlier."
+msgstr ""
+
+#. units/pg.udb:7541
+msgid "ST IS-2"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Dunkirk"
+msgstr ""
+
+#. units/pg.udb:9305
+msgid "IT 155mm Gun"
+msgstr ""
+
+#. units/pg.udb:6197
+msgid "GB 6 Pdr ATG"
+msgstr ""
+
+#. campaigns/PG:383 campaigns/PG:393
+msgid ""
+"Your failure to conquer England in time before American reinforcements "
+"arrived has given the enemy the strength to strike back, and force our "
+"troops back to the continent."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Tiblisi"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Suda"
+msgstr ""
+
+#. scenarios/pg/MarketGarden:3
+msgid ""
+"September 17, 1944: Daring airborne assault to capture a Rhine River "
+"crossing. A bridge too far?"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Novomoskovsk"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Erfuhrt"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Mayenne"
+msgstr ""
+
+#. units/pg.udb:11489
+msgid "FFR GM Truck"
+msgstr ""
+
+#. units/pg.udb:7625
+msgid "ST ISU-152 "
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Bardia"
+msgstr ""
+
+#. units/pg.udb:11377
+msgid "FFR 75mm Gun"
+msgstr ""
+
+#. units/pg.udb:11965
+msgid "Katyusha BM31"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Cameron Run"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Louviers"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Loire River"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Pilsen"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Pripyat River"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Crotone"
+msgstr ""
+
+#. scenarios/pg/Kursk:3
+msgid ""
+"July 5, 1943: Operation Citadel launches a huge attack into well prepared "
+"Soviet defenses."
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Algiers"
+msgstr ""
+
+#. campaigns/PG:365
+msgid ""
+"We have gathered all strike forces for the ultimate offensive on the Eastern "
+"front. You have to take Budapest and all other objectives by no later than "
+"the 25th of March. To ensure that the Russians will not recover from the "
+"offensive, and sign a favourable peace treaty, you should capture all "
+"objectives several days earlier."
+msgstr ""
+
+#. units/pg.udb:1912
+msgid "Jp Elefant"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Villers-Bocage"
+msgstr ""
+
+#. campaigns/PG:20
+msgid ""
+"Fall Weiß, the conquest of Poland has commenced. Your order is to make an "
+"inroad breach through the main Polish defenses and take the towns of Kutno "
+"and Lodz by no later than the 10th of September. Failing to do so could "
+"cause England and France to declare war against Germany. An earlier "
+"completion may make available more resources to your for the assault of "
+"Warsaw."
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Kohlfurt"
+msgstr ""
+
+#. campaigns/PG:559
+msgid "The American army made piecemeal out of the Africa Corps."
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Oka River"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Harwich"
+msgstr ""
+
+#. units/pg.udb:3648
+msgid "FR CHk 75A-1"
+msgstr ""
+
+#. scenarios/pg/Sevastapol:3
+msgid "June 7, 1942: The final assault on the Black Sea port of Sevastopol."
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Catania"
+msgstr ""
+
+#. units/pg.udb:5609
+msgid "GB Church IV"
+msgstr ""
+
+#. units/pg.udb:4796
+msgid "GB Spit IX"
+msgstr ""
+
+#. units/pg.udb:229
+msgid "FW190a"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Solt"
+msgstr ""
+
+#. campaigns/PG:391
+msgid ""
+"Your early capturing of Southern England enabled us to prepare defenses "
+"against the landing of the American reinforcements, and to decisively beat "
+"them. Consequentially, England has surrendered! It is to be attributed to "
+"your talent and to the high morale of your troops that you achieved an "
+"unprecedented victory over the British Empire. England, Scotland, Ireland, "
+"and the oversea dependencies are now governed by German administration. You "
+"are herewith awarded one of the highest order medals of the Reich, the Iron "
+"Cross with Oak Leaves, and Swords."
+msgstr ""
+
+#. campaigns/PG:604
+msgid ""
+"With African and Russian resources, we heavily increased the output of our "
+"war industries, consequentially enabling us to gain hold onto American soil. "
+"Our troops have advanced to the gates of Washington, and your order is to "
+"capture it. Take Washington and all other objectives by the 3rd of August at "
+"the latest. Intelligence reports that the Americans are testing a secret "
+"weapon, which will be ready for mid-July. Hence, to reduce German casualties "
+"and to emphasise our strong position, you should finish your mission by then."
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Sfax"
+msgstr ""
+
+#. units/pg.udb:6253
+msgid "GB 25 Pdr Gun"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Belgrade"
+msgstr ""
+
+#. units/pg.udb:3872
+msgid "FR CL AMX R40"
+msgstr ""
+
+#. units/pg.udb:3396
+msgid "PO 7TP"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Troyes"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Gace"
+msgstr ""
+
+#. campaigns/PG:549
+msgid "Sealion43"
+msgstr ""
+
+#. campaigns/PG:41
+msgid "9th April 1940"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Dortmund"
+msgstr ""
+
+#. units/pg.udb:820
+msgid "Ju88A"
+msgstr ""
+
+#. campaigns/PG:90
+msgid ""
+"Your decisive and early success in France gave us plenty of time to prepare "
+"operation Sealion, the invasion of England. You have to capture London and "
+"various key towns in the vicinity before Autumn weather sets in, causing "
+"rough sea and putting our supply lines at stake. This is a unique chance to "
+"force England to surrender and end the war."
+msgstr ""
+
+#. units/pg.udb:8633
+msgid "IT Ma C205/O"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Stalino"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Kimovsk"
+msgstr ""
+
+#. units/pg.udb:3004
+msgid "8.8 FlaK 18"
+msgstr ""
+
+#. campaigns/PG:450
+msgid ""
+"You fighted bravely against odds, but in vain. The Allied army drove our "
+"troops back to the Netherlands."
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Nimes"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "See River"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bidefeld"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Tigris River"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map20:7 maps/pg/map23:7 maps/pg/map32:7 maps/pg/map34:7 maps/pg/map35:7 ...
+msgid "Narew River"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "St. Oedenrode"
+msgstr ""
+
+#. campaigns/PG:489
+msgid ""
+"Wacht am Rhein was an utter failure. Massive Allied reinforcements drove our "
+"troops back to the limits of the Reich."
+msgstr ""
+
+#. units/pg.udb:8241
+msgid "AF Transport"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Sollum"
+msgstr ""
+
+#. maps/pg/map02:7
+msgid "Pilica River"
+msgstr ""
+
+#. maps/pg/map02:7 maps/pg/map03:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 maps/pg/map07:7 ...
+msgid "Airfield"
+msgstr ""
+
+#. units/pg.udb:10285
+msgid "US M4A3E2"
+msgstr ""
+
+#. units/pg.udb:35
+msgid "Wheeled"
+msgstr ""
+
+#. units/pg.udb:3088
+msgid "40 Wehr HW"
+msgstr ""
+
+#. units/pg.udb:3760
+msgid "FFR M4A1"
+msgstr ""
+
+#. maps/pg.tdb:4
+msgid "Fair(Dry)"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Szekesfehervar"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Dinther"
+msgstr ""
+
+#. campaigns/PG:121
+msgid ""
+"You have done well. Despite heavy resistence, the suppremacy over the "
+"Mediterranean Sea is ours. Nothing can stop our operations in Russia now."
+msgstr ""
+
+#. nations/pg.ndb:72
+msgid "Portugal"
+msgstr ""
+
+#. campaigns/PG:42
+msgid ""
+"High Command has got a special order for you. In order to secure supply "
+"lines of Swedish ore, we prepared operation Weserübung, the invasion of "
+"Norway before the English will do so. You have to take Oslo, "
+"Stavanger-airport, and a number of Northern towns before the 3rd of May."
+msgstr ""
+
+#. scenarios/pg/Caucasus:2
+msgid "CAUCASUS"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Passau"
+msgstr ""
+
+#. units/pg.udb:5385
+msgid "GB Grant"
+msgstr ""
+
+#. units/pg.udb:848
+msgid "DO217e"
+msgstr ""
+
+#. units/pg.udb:11937
+msgid "Katyusha BM13"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Bosanki Petrovac"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Rochefort"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Phillipeville"
+msgstr ""
+
+#. campaigns/PG:565 maps/pg/map30:7
+msgid "Kursk"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7
+msgid "Brzeziny"
+msgstr ""
+
+#. maps/pg/map02:7
+msgid "Modlin"
+msgstr ""
+
+#. units/pg.udb:9893
+msgid "US B17G FF"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Vratsa"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Drin River"
+msgstr ""
+
+#. campaigns/PG:31
+msgid ""
+"Despite of your efforts England and France have entered the war against "
+"Germany. Additionally, our Eastern ally the Soviet Union has begun invading "
+"Poland to take its share of the cake. Thus it is imperative that you advance "
+"to the Vistula river and take the key city of Warsaw and surrounding "
+"objectives by no later than the 30th of September."
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Kremench"
+msgstr ""
+
+#. campaigns/PG:77
+msgid ""
+"Your performance was outstanding and has brought an overwhelming victory to "
+"the Reich. My humiliation of 1918 is revenged. France has surrendered, and "
+"its dependencies will be put under German protectorate."
+msgstr ""
+
+#. campaigns/PG:307
+msgid ""
+"You bravely haltet the Russian winter offensive and managed to establish a "
+"stable front line."
+msgstr ""
+
+#. units/pg.udb:2752
+msgid "7.5 PaK40"
+msgstr ""
+
+#. units/pg.udb:9669
+msgid "US P47B Tbolt"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Prum"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Dessau"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Ghent"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Neubrandenburg"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Borisov"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Al Kazimayah"
+msgstr ""
+
+#. campaigns/PG:446
+msgid ""
+"After their bloody repulse in Normandy, the Allies attempt a second invasion "
+"in Southern France. Hold all objectives until the 28th of August to make "
+"this invasion a disaster to the Allies again. Otherwise, hold at least two "
+"objectives to slow down the Allied advance."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map15:7 maps/pg/map18:7 maps/pg/map38:7
+msgid "Cherbourg"
+msgstr ""
+
+#.
+msgid "Defeat"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Zakepae"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Basra"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Elbe River"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Meuse"
+msgstr ""
+
+#. campaigns/PG:547
+msgid ""
+"Your decisive victory in Mesopotamia has terminally weakened the English "
+"forces. Thus, there is a big opportunity to prepare an invasion of England, "
+"and end the war in the West. On the other hand, you may choose to continue "
+"advancing towards the Caucasus.##Herr General, which operation do you want "
+"to take command of?"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Millerovo"
+msgstr ""
+
+#. campaigns/PG:607
+msgid ""
+"America has surrendered to the overwhelming might of the Wehrmacht, "
+"Luftwaffe, and Marine! The United States had to sign a peace treaty which "
+"grants German occupation of the most resourceful, and strategically most "
+"valuable American territories. You are heralded to be the greatest general "
+"on Earth without whom such a success would have never been achievable. "
+"Therefore, you are awarded the highest order medal, specially crafted for "
+"you, the Knight's Cross with Oak Leaves, Swords, and Brilliants, and you are "
+"promoted to Generalfeldmarschall. The war is over. Germany is the world, the "
+"world is Germany."
+msgstr ""
+
+#. units/pg.udb:3312
+msgid "PO PZL P23b"
+msgstr ""
+
+#. units/pg.udb:5749
+msgid "GB M7 Priest"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Cottbus"
+msgstr ""
+
+#. units/pg.udb:10985
+msgid "US 37mm ATG"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Sisteron"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Lille"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Dnepr"
+msgstr ""
+
+#. units/pg.udb:8465
+msgid "Transport"
+msgstr ""
+
+#. campaigns/PG:52
+msgid "10th May 1940"
+msgstr ""
+
+#. units/pg.udb:1996
+msgid "Jagdpz IV/70"
+msgstr ""
+
+#. nations/pg.ndb:44
+msgid "USA"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Periers"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Tapolca"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Syracuse"
+msgstr ""
+
+#. campaigns/PG:462
+msgid "25th July 1944"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Oskal River"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7 maps/pg/map03:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map06:7 ...
+msgid "Rough"
+msgstr ""
+
+#. campaigns/PG:381
+msgid ""
+"Your early capturing of Southern England enabled us to prepare defenses "
+"against the landing of the American reinforcements, and to decisively beat "
+"them. Consequentially, England has surrendered! It is to be attributed to "
+"your talent and to the high morale of your troops that you achieved an "
+"unprecedented victory over the British Empire. England, Scotland, Ireland, "
+"and the oversea dependencies are now governed by German administration. You "
+"are herewith awarded the highest order medal of the Reich, the Knight's "
+"Cross with Oak Leaves, and Swords."
+msgstr ""
+
+#. campaigns/PG:463
+msgid ""
+"The Allies extended their beachheads in Normandy and have built up "
+"considerable strength. With our troops scattered and exhausted, you face a "
+"hopeless battle against overwhelming forces. Your order is to hold all "
+"objectives as well as to retake Cherbourg, Carentan, and Caen. If not "
+"feasible, hold at least three objectives until the 18th of August."
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Palaiokhora"
+msgstr ""
+
+#. nations/pg.ndb:8
+msgid "Austria"
+msgstr ""
+
+#. units/pg.udb:10957
+msgid "US Bridge Eng"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Mtsensk"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Wurzburg"
+msgstr ""
+
+#. campaigns/PG:603
+msgid "1st June 1945"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "White House"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Saluzzo"
+msgstr ""
+
+#. units/pg.udb:3676
+msgid "FR MS 406"
+msgstr ""
+
+#. scenarios/pg/Stalingrad:3
+msgid ""
+"June 25, 1942: Axis all out drive on the major industrial center of "
+"Stalingrad."
+msgstr ""
+
+#. units/pg.udb:9781
+msgid "US B25H Mitch"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Gallipoli"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Bournemouth"
+msgstr ""
+
+#. units/pg.udb:9053
+msgid "IT M15/42"
+msgstr ""
+
+#. campaigns/PG:116
+msgid "20th May 1941"
+msgstr ""
+
+#. maps/pg.tdb:392
+msgid "Fields"
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Po River"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Lisichansk"
+msgstr ""
+
+#. units/pg.udb:4180
+msgid "FR 105mm Gun"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Karlsruhe"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Lanham"
+msgstr ""
+
+#. units/pg.udb:4853
+msgid "GB Spit XIV"
+msgstr ""
+
+#. campaigns/PG:25
+msgid ""
+"Your failure to make an inroad success has lead to the Allies making an "
+"attack on Germany."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Sukhum"
+msgstr ""
+
+#. maps/pg/map08:7
+msgid "Dead Sea"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Fecamp"
+msgstr ""
+
+#. scenarios/pg/ElAlamein:2
+msgid "EL ALAMEIN"
+msgstr ""
+
+#. campaigns/PG:505
+msgid ""
+"You managed to take and hold Arnhem. Yet, bombing raids against our supply "
+"lines, and Allied reinforcements forced us to eventually abandon the Arnhem "
+"area, and to pull back behind the Rhine."
+msgstr ""
+
+#. units/pg.udb:7877
+msgid "ST 57mm ATG"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Matera"
+msgstr ""
+
+#. maps/pg/map26:7
+msgid "Novyi Shuli"
+msgstr ""
+
+#. units/pg.udb:1464
+msgid "PzIVD"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Baku"
+msgstr ""
+
+#. units/pg.udb:10201
+msgid "US M5"
+msgstr ""
+
+#. maps/pg/map01:7 maps/pg/map02:7 maps/pg/map04:7 maps/pg/map05:7 maps/pg/map07:7 maps/pg/map08:7 ...
+msgid "Swamp"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Zurich"
+msgstr ""
+
+#. nations/pg.ndb:60
+msgid "Netherlands"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Anglesey"
+msgstr ""
+
+#. campaigns/PG:518
+msgid "Putting you in charge of the Africa Corps was an utter failure."
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Andreyevka"
+msgstr ""
+
+#. campaigns/PG:135
+msgid "22nd June 1941"
+msgstr ""
+
+#. maps/pg/map13:7
+msgid "Pizzo"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Kielce"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Dreux"
+msgstr ""
+
+#. units/pg.udb:8521
+msgid "IT Re2000/F1"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Deurne"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Teschen"
+msgstr ""
+
+#. units/pg.udb:10677
+msgid "US M36"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Wilhelmshaven"
+msgstr ""
+
+#. scenarios/pg/BerlinEast:2
+msgid "BERLIN (EAST)"
+msgstr ""
+
+#. campaigns/PG:540
+msgid ""
+"Your next order is to secure the Middle East and Mesopotamia in order to "
+"allow for a new Southern front into the Caucasus. Take all objectives by the "
+"15th of November at the latest before autumn rainfalls will stop our advance "
+"in the mud."
+msgstr ""
+
+#. units/pg.udb:8073
+msgid "AF BtCruiser"
+msgstr ""
+
+#. campaigns/PG:110
+msgid ""
+"With Yugoslavia and Greece having surrendered, nothing can stop our upcoming "
+"invasion of Russia."
+msgstr ""
+
+#. maps/pg/map16:7
+msgid "Ales"
+msgstr ""
+
+#. units/pg.udb:19 units/pg.udb:47
+msgid "Air"
+msgstr ""
+
+#. maps/pg/map19:7
+msgid "Volkel"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Vellitri"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Oppeln"
+msgstr ""
+
+#. maps/pg/map03:7
+msgid "Steinkjer"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Petropavlovka"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Krefeld"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Sheffield"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Minsk"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map30:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Karachev"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Exeter"
+msgstr ""
+
+#. scenarios/pg/Moscow41:2
+msgid "MOSCOW (41)"
+msgstr ""
+
+#. units/pg.udb:9333
+msgid "Bridge Eng"
+msgstr ""
+
+#. campaigns/PG:319
+msgid "5th July 1943"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Tirana"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Priluki"
+msgstr ""
+
+#. units/pg.udb:2724
+msgid "5 PaK38"
+msgstr ""
+
+#. maps/pg/map14:7
+msgid "Tiber River"
+msgstr ""
+
+#. maps/pg/map30:7
+msgid "Lgov"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Duisburg"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Tab"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Bremen"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Kassel"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Canea"
+msgstr ""
+
+#. units/pg.udb:10733
+msgid "US Inf 43"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Brightwood"
+msgstr ""
+
+#. units/pg.udb:10425
+msgid "US M8 HMC"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Riva-Bella"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Houffalize"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map33:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Gyor"
+msgstr ""
+
+#. units/pg.udb:8213
+msgid "AF Submarine"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Malmedy"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Veszprem"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Quantico"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Kirovi River"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Mezoszilas"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Prague"
+msgstr ""
+
+#. campaigns/PG:139
+msgid ""
+"Russian reserves eventually stopped our slow advance and built up momentum "
+"to drive our troops back into the Reich."
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Canterbury"
+msgstr ""
+
+#. maps/pg/map01:7
+msgid "Kalisz"
+msgstr ""
+
+#. scenarios/pg/Caucasus:3
+msgid ""
+"June 30, 1942: Axis strikes into Russia's oil rich territory from a new "
+"southern front."
+msgstr ""
+
+#. campaigns/PG:411
+msgid ""
+"Holding Rome has kept the Allied from invading our heartlands from the South."
+msgstr ""
+
+#. nations/pg.ndb:84
+msgid "Sovjetunion"
+msgstr ""
+
+#. maps/pg/map05:7
+msgid "Loire"
+msgstr ""
+
+#. scenarios/pg/Husky:3
+msgid "July 10, 1943: The Allies invade the Soft Underbelly of Europe."
+msgstr ""
+
+#. units/pg.udb:55
+msgid "All Terrain"
+msgstr ""
+
+#. campaigns/PG:445
+msgid "6th August 1944"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Szczytno"
+msgstr ""
+
+#. scenarios/pg/Cobra:3
+msgid "July 25, 1944: The Allied breakout from Normandy."
+msgstr ""
+
+#. units/pg.udb:5861
+msgid "GB AEC II"
+msgstr ""
+
+#. campaigns/PG:578
+msgid ""
+"Your exemplary victory in Sicily has considerably impressed General staff. "
+"Therefore, you are offered command over the strike force against "
+"Moscow.##Herr General, do you want to stay in Italy, or do you want to be "
+"transferred to the Eastern front?"
+msgstr ""
+
+#. maps/pg/map06:7 maps/pg/map11:7 maps/pg/map38:7
+msgid "Avon"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map06:7 maps/pg/map11:7 maps/pg/map15:7 maps/pg/map18:7 maps/pg/map38:7 ...
+msgid "Le Havre"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "University"
+msgstr ""
+
+#. maps/pg/map29:7
+msgid "Chuguyev"
+msgstr ""
+
+#. units/pg.udb:11349
+msgid "FFR Mtn Inf"
+msgstr ""
+
+#. units/pg.udb:2220
+msgid "sIG IB"
+msgstr ""
+
+#. maps/pg/map12:7
+msgid "Gafsa"
+msgstr ""
+
+#. campaigns/PG:89
+msgid "1st September 1940"
+msgstr ""
+
+#. units/pg.udb:9725
+msgid "US P47N Tbolt"
+msgstr ""
+
+#. maps/pg/map22:7
+msgid "Kastelli"
+msgstr ""
+
+#. units/pg.udb:3172
+msgid "43 LuftW FJ"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Fairfax"
+msgstr ""
+
+#. campaigns/PG:358
+msgid ""
+"Your decisive victory in the battle of Budapest has made the Russians sign a "
+"favourable peace treaty. Combined with your earlier victory over England, we "
+"have won the war on both fronts. You are herewith promoted to "
+"Generalfeldmarschall as an acknowledgement of your brave achievements for "
+"the Reich during the war."
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Aachen"
+msgstr ""
+
+#. units/pg.udb:8493
+msgid "S-Boat"
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Lokhvitsa"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Grodno"
+msgstr ""
+
+#. units/pg.udb:1548
+msgid "PzIVJ"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Zvornik"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map18:7
+msgid "Nantes"
+msgstr ""
+
+#. units/pg.udb:10705
+msgid "US Inf 41"
+msgstr ""
+
+#. maps/pg/map04:7 maps/pg/map17:7
+msgid "Givet"
+msgstr ""
+
+#. campaigns/PG:487
+msgid ""
+"Herr General, your outstanding performance left a lasting impression to the "
+"Allied leader, enabling our Administration to sign a favourable peace "
+"treaty. The war in the West is now over."
+msgstr ""
+
+#. units/pg.udb:7961
+msgid "ST 15.2cm Gun"
+msgstr ""
+
+#. units/pg.udb:11881
+msgid "Fort"
+msgstr ""
+
+#. scenarios/pg/Sealion40:2
+msgid "SEALION (40)"
+msgstr ""
+
+#. maps/pg/map23:7 maps/pg/map32:7
+msgid "Nieman River"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Metz"
+msgstr ""
+
+#. units/pg.udb:8717
+msgid "IT P108 Bi"
+msgstr ""
+
+#. scenarios/pg/MarketGarden:2
+msgid "MARKET-GARDEN"
+msgstr ""
+
+#. units/pg.udb:5413
+msgid "GB Chal A30"
+msgstr ""
+
+#. maps/pg/map05:7 maps/pg/map15:7 maps/pg/map18:7
+msgid "Bocage"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Linz"
+msgstr ""
+
+#. units/pg.udb:4292
+msgid "NOR Infantry"
+msgstr ""
+
+#. scenarios/pg/SealionPlus:2
+msgid "SEALION PLUS"
+msgstr ""
+
+#. units/pg.udb:1436
+msgid "Pioniere Inf"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kletskavka"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Trikkala"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Allenstein"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Eupen"
+msgstr ""
+
+#. units/pg.udb:2332
+msgid "Hummel"
+msgstr ""
+
+#. maps/pg/map18:7
+msgid "Yvetot"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Kukes"
+msgstr ""
+
+#. campaigns/PG:57
+msgid ""
+"You have proven to be a worthy Panzer General and secured the lowlands "
+"separating Germany from the heart of France. Now, the final assault on "
+"France is ready to commence. Unfortunately, time did not permit preparations "
+"of an invasion of England."
+msgstr ""
+
+#. maps/pg/map24:7
+msgid "Chernobay"
+msgstr ""
+
+#. maps/pg/map07:7 maps/pg/map09:7
+msgid "Bir Hacheim"
+msgstr ""
+
+#. maps/pg/map04:7
+msgid "Bittem"
+msgstr ""
+
+#. maps/pg/map33:7
+msgid "Dunaujvaros"
+msgstr ""
+
+#. units/pg.udb:10789
+msgid "US Inf HW 43"
+msgstr ""
+
+#. scenarios/pg/MiddleEast:2
+msgid "MIDDLE EAST"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Banja Luka"
+msgstr ""
+
+#. maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Cologne"
+msgstr ""
+
+#. units/pg.udb:876
+msgid "HE177a"
+msgstr ""
+
+#. units/pg.udb:7485
+msgid "ST KV-2"
+msgstr ""
+
+#. maps/pg/map21:7
+msgid "Novigrad"
+msgstr ""
+
+#. maps/pg/map25:7 maps/pg/map27:7 maps/pg/map31:7 maps/pg/map37:7
+msgid "Mezol River"
+msgstr ""
+
+#. units/pg.udb:10537
+msgid "US M15A1 MGMC"
+msgstr ""
+
+#. campaigns/PG:93
+msgid ""
+"England has surrendered! It is to be attributed to your talent and to the "
+"high morale of your troops that you achieved an unprecedented victory over "
+"the British Empire. England, Scotland, Ireland, and the oversea dependencies "
+"are now governed by German administration. You are herewith awarded one of "
+"the highest order medals of the Reich, the Iron Cross with Oak Leaves, and "
+"Swords."
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Ural"
+msgstr ""
+
+#. units/pg.udb:4909
+msgid "GB Blen MkI"
+msgstr ""
+
+#. maps/pg/map36:7
+msgid "Gaithersburg"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Spa"
+msgstr ""
+
+#. units/pg.udb:568
+msgid "ME410a"
+msgstr ""
+
+#. units/pg.udb:3984
+msgid "FR Ch B1-bis"
+msgstr ""
+
+#. maps/pg/map19:7 maps/pg/map20:7 maps/pg/map34:7 maps/pg/map35:7
+msgid "Arnhem"
+msgstr ""
+
+#. units/pg.udb:10873
+msgid "US Rangers 43"
+msgstr ""
+
+#. maps/pg/map17:7
+msgid "Leuvein"
+msgstr ""
+
+#. maps/pg/map15:7
+msgid "Deauville"
+msgstr ""
+
+#. maps/pg/map10:7 maps/pg/map28:7
+msgid "Kotelnikovo"
+msgstr ""

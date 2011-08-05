@@ -1,0 +1,246 @@
+# Makefile for program source directory in GNU NLS utilities package.
+# Copyright (C) 1995, 1996, 1997 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
+# Copyright (C) 2005 by Leo Savernik
+#
+# This file file be copied and used freely without restrictions.  It can
+# be used in projects which are not available under the GNU Public License
+# but which still want to provide support for the GNU gettext functionality.
+# Please note that the actual code is *not* freely available.
+
+PACKAGE = pg
+VERSION = 
+
+SHELL = /bin/sh
+@SET_MAKE@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = @top_builddir@
+abs_srcdir = @abs_srcdir@
+abs_top_builddir = @abs_top_builddir@
+VPATH = @srcdir@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+datadir = $(prefix)/@DATADIRNAME@
+localedir = $(datadir)/locale
+gnulocaledir = $(prefix)/share/locale
+gettextsrcdir = $(prefix)/share/gettext/po
+subdir = po/pg
+inst_dir = @inst_dir@
+
+INSTALL = @INSTALL@
+INSTALL_DATA = @INSTALL_DATA@
+MKINSTALLDIRS = $(top_srcdir)/@MKINSTALLDIRS@
+
+CC = @CC@
+GENCAT = @GENCAT@
+GMSGFMT = PATH=../src:$$PATH @GMSGFMT@
+MSGFMT = @MSGFMT@
+XGETTEXT = PATH=../src:$$PATH @XGETTEXT@
+MSGMERGE = PATH=../src:$$PATH msgmerge
+MSGCONV = @MSGCONV@
+LTREXTRACT = $(abs_top_builddir)/tools/ltrextract/ltrextract
+
+DEFS = @DEFS@
+CFLAGS = @CFLAGS@
+CPPFLAGS = @CPPFLAGS@
+XGETTEXTFLAGS = @XGETTEXTFLAGS@
+MSGFMTFLAGS = @MSGFMTFLAGS@
+MSGMERGEFLAGS = @MSGMERGEFLAGS@
+MSGCONVFLAGS = @MSGCONVFLAGS@
+
+INCLUDES = -I.. -I$(top_srcdir)/intl
+
+COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
+
+SOURCES = cat-id-tbl.c
+POFILES = @POFILES@
+GMOFILES = @GMOFILES@
+DISTFILES = pg-translations.c Makefile.in.in $(PACKAGE).pot \
+stamp-cat-id $(POFILES) $(GMOFILES) $(SOURCES)
+
+RESOURCES = campaigns/PG maps/pg/* maps/pg.tdb scenarios/pg/* units/pg.udb nations/pg.ndb
+POTFILES = $(abs_srcdir)/pg-translations.c
+
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+INSTOBJEXT = @INSTOBJEXT@
+
+.SUFFIXES:
+.SUFFIXES: .c .o .po .pox .gmo .mo .msg .cat
+
+.c.o:
+	$(COMPILE) $<
+
+.po.pox:
+	$(MAKE) $(srcdir)/$(PACKAGE).pot
+	$(MSGMERGE) $(MSGMERGEFLAGS) $< $(srcdir)/$(PACKAGE).pot -o $*.pox
+
+.po.mo:
+	$(MSGFMT) $(MSGFMTFLAGS) -o $@ $<
+
+.po.gmo:
+	$(GMSGFMT) $(MSGFMTFLAGS) -o $@ $<
+
+#	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
+#	  && rm -f $$file && \
+#	 $(GMSGFMT) $(MSGFMTFLAGS) -o $$file $<
+
+.po.cat:
+	sed -f $(top_srcdir)/intl/po2msg.sed < $< > $*.msg \
+	  && rm -f $@ && $(GENCAT) $@ $*.msg
+
+
+all: all-@USE_NLS@
+
+all-yes: $(srcdir)/cat-id-tbl.c $(CATALOGS)
+all-no:
+
+collect-translateables:
+	$(MAKE) -C$(top_builddir)/tools/ltrextract
+	cd $(inst_dir) && $(LTREXTRACT) -d$(PACKAGE) -o$(POTFILES) $(RESOURCES)
+
+$(srcdir)/$(PACKAGE).pot: $(POTFILES)
+	$(XGETTEXT) $(XGETTEXTFLAGS) --default-domain=$(PACKAGE) \
+	  --directory=$(top_srcdir) --no-location --add-comments \
+	  --keyword=tr --keyword=TR_NOOP $(POTFILES) \
+	&& test ! -f $(PACKAGE).po \
+	   || ( rm -f $(srcdir)/$(PACKAGE).pot \
+		&& $(MSGCONV) $(MSGCONVFLAGS) $(PACKAGE).po > $(srcdir)/$(PACKAGE).pot 2> /dev/null \
+		&& rm -f $(PACKAGE).po )
+
+$(srcdir)/cat-id-tbl.c: $(srcdir)/stamp-cat-id; @:
+$(srcdir)/stamp-cat-id: $(srcdir)/$(PACKAGE).pot
+	rm -f cat-id-tbl.tmp
+	sed -f $(top_builddir)/intl/po2tbl.sed $(srcdir)/$(PACKAGE).pot \
+		| sed -e "s/@PACKAGE NAME@/$(PACKAGE)/" > cat-id-tbl.tmp
+	if cmp -s cat-id-tbl.tmp $(srcdir)/cat-id-tbl.c; then \
+	  rm cat-id-tbl.tmp; \
+	else \
+	  echo cat-id-tbl.c changed; \
+	  rm -f $(srcdir)/cat-id-tbl.c; \
+	  mv cat-id-tbl.tmp $(srcdir)/cat-id-tbl.c; \
+	fi
+	cd $(srcdir) && rm -f stamp-cat-id && echo timestamp > stamp-cat-id
+
+
+install: install-exec install-data
+install-strip: install
+install-exec:
+install-data: install-data-@USE_NLS@
+install-data-no: all
+install-data-yes: all
+	if test -r "$(MKINSTALLDIRS)"; then \
+	  $(MKINSTALLDIRS) $(DESTDIR)$(datadir); \
+	else \
+	  $(SHELL) $(top_srcdir)/mkinstalldirs $(DESTDIR)$(datadir); \
+	fi
+	@catalogs='$(CATALOGS)'; \
+	for cat in $$catalogs; do \
+	  cat=`basename $$cat`; \
+	  case "$$cat" in \
+	    *.gmo) destdir=$(gnulocaledir);; \
+	    *)     destdir=$(localedir);; \
+	  esac; \
+	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+	  dir=$$destdir/$$lang/LC_MESSAGES; \
+	  if test -r "$(MKINSTALLDIRS)"; then \
+	    $(MKINSTALLDIRS) $(DESTDIR)$$dir; \
+	  else \
+	    $(SHELL) $(top_srcdir)/mkinstalldirs $(DESTDIR)$$dir; \
+	  fi; \
+	  if test -r $$cat; then \
+	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
+	    echo "installing $$cat as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+	  else \
+	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
+	    echo "installing $(srcdir)/$$cat as" \
+		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+	  fi; \
+	  if test -r $$cat.m; then \
+	    $(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+	    echo "installing $$cat.m as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+	  else \
+	    if test -r $(srcdir)/$$cat.m ; then \
+	      $(INSTALL_DATA) $(srcdir)/$$cat.m \
+		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+	      echo "installing $(srcdir)/$$cat as" \
+		   "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+	    else \
+	      true; \
+	    fi; \
+	  fi; \
+	done
+
+# Define this as empty until I found a useful application.
+installcheck:
+
+uninstall:
+	catalogs='$(CATALOGS)'; \
+	for cat in $$catalogs; do \
+	  cat=`basename $$cat`; \
+	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	  rm -f $(DESTDIR)$(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
+	  rm -f $(DESTDIR)$(gnulocaledir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	done
+	rm -f $(DESTDIR)$(gettextsrcdir)/po-Makefile.in.in
+
+check: all
+
+cat-id-tbl.o: $(srcdir)/cat-id-tbl.c $(top_srcdir)/intl/libgettext.h
+	$(COMPILE) $(srcdir)/cat-id-tbl.c
+
+dvi info tags TAGS ID:
+
+mostlyclean:
+	rm -f core core.* *.pox $(PACKAGE).po *.old.po cat-id-tbl.tmp
+	rm -f *.o $(GMOFILES)
+
+clean: mostlyclean
+
+distclean: clean
+	rm -f Makefile Makefile.in POTFILES *.mo *.msg *.cat *.cat.m
+
+maintainer-clean: distclean
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+	rm -f $(GMOFILES) cat-id-tbl.c stamp-cat-id
+
+distdir = $(top_srcdir)/$(PACKAGE)-$(VERSION)/$(subdir)
+dist distdir: update-po $(DISTFILES)
+	dists="$(DISTFILES)"; \
+	for file in $$dists; do \
+	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
+	    || cp -p $(srcdir)/$$file $(distdir); \
+	done
+
+update-po: Makefile
+	$(MAKE) $(srcdir)/$(PACKAGE).pot
+	PATH=`pwd`/../src:$$PATH; \
+	cd $(srcdir); \
+	catalogs='$(CATALOGS)'; \
+	for cat in $$catalogs; do \
+	  cat=`basename $$cat`; \
+	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+	  mv $$lang.po $$lang.old.po; \
+	  echo "$$lang:"; \
+	  if $(MSGMERGE) $$lang.old.po $(PACKAGE).pot -o $$lang.po; then \
+	    rm -f $$lang.old.po; \
+	  else \
+	    echo "msgmerge for $$cat failed!"; \
+	    rm -f $$lang.po; \
+	    mv $$lang.old.po $$lang.po; \
+	  fi; \
+	done
+
+Makefile: Makefile.in.in $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@.in CONFIG_HEADERS= \
+	       $(SHELL) ./config.status
+
+# Tell versions [3.59,3.63) of GNU make not to export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:
