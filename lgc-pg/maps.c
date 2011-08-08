@@ -32,7 +32,7 @@ Externals
 */
 extern char *source_path;
 extern char *dest_path;
-extern char *custom_name;
+extern char target_name[128];
 extern int terrain_tile_count;
 extern char tile_type[];
 
@@ -86,13 +86,11 @@ Publics
 If map_id is -1 convert all maps found in 'source_path'.
 If map_id is >= 0 this is a single custom map with the data in
 the current directory.
-If MAPNAMES.STR is not provided in the current working directory
-it is looked up in 'source_path' thus the defaults are used.
 ====================================================================
 */
 int maps_convert( int map_id )
 {
-    int i;
+    int i, start, end;
     char path[MAXPATHLEN];
     FILE *dest_file, *source_file, *name_file;
     int width, height;
@@ -101,7 +99,7 @@ int maps_convert( int map_id )
     char name_buf[24];
     int x, y, ibuf;
 
-    snprintf( path, MAXPATHLEN, "%s/maps/pg", dest_path );
+    snprintf( path, MAXPATHLEN, "%s/maps/%s", dest_path, target_name );
     mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     printf( "  maps...\n" );
     /* name file (try the one in lgc-pg as fallback) */
@@ -113,25 +111,28 @@ int maps_convert( int map_id )
             return 0;
         }
     }
-    for ( i = (( map_id == -1 ) ? 1 : map_id); 
-          i < (( map_id == -1 ) ? 38 : map_id) + 1; i++ ) {
+    
+    /* set loop range */
+    if ( map_id == -1 ) {
+        start = 1;
+        end = 38;
+    } else {
+        start = end = map_id;
+    }
+    
+    for ( i = start; i <=end; i++ ) {
         /* open dest file */
         if ( map_id == -1 )
-            snprintf( path, MAXPATHLEN, "%s/maps/pg/map%02i", dest_path, i );
+            snprintf( path, MAXPATHLEN, "%s/maps/%s/map%02i", 
+                                                dest_path, target_name, i );
         else
-            snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s", dest_path, custom_name );
-        if ( map_id == -1 ) {
-            if ( ( dest_file = fopen( path, "w" ) ) == 0 ) {
-                fprintf( stderr, "%s: access denied\n", path );
-                return 0;
-            }
+            snprintf( path, MAXPATHLEN, "%s/scenarios/%s",
+                                                dest_path, target_name );
+        if ( ( dest_file = fopen( path, (map_id==-1)?"w":"a" ) ) == NULL ) {
+            fprintf( stderr, "%s: access denied\n", path );
+            return 0;
         }
-        else {
-            if ( ( dest_file = fopen( path, "a" ) ) == 0 ) {
-                fprintf( stderr, "%s: access denied\n", path );
-                return 0;
-            }
-        }
+        
         /* open set file */
         snprintf( path, MAXPATHLEN, "%s/map%02i.set", source_path, i );
         if (( source_file = fopen_ic( path, "r" ) ) == NULL) {
@@ -139,10 +140,15 @@ int maps_convert( int map_id )
             fclose( dest_file );
             return 0;
         }
-        if ( map_id == -1 ) /* only a new file needs this magic */
+        
+        /* magic for new file */
+        if ( map_id == -1 )
             fprintf( dest_file, "@\n" );
         /* terrain types */
-        fprintf( dest_file, "terrain_db»pg.tdb\n" );
+        if (map_id == -1)
+            fprintf( dest_file, "terrain_db»%s.tdb\n", target_name );
+        else
+            fprintf( dest_file, "terrain_db»pg.tdb\n" );
         /* domain */
         fprintf( dest_file, "domain»pg\n" );
         /* read/write map size */

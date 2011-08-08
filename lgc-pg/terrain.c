@@ -31,6 +31,7 @@ Externals
 */
 extern char *source_path;
 extern char *dest_path;
+extern char target_name[128];
 extern char *move_types[];
 extern int   move_type_count;
 
@@ -187,10 +188,12 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
     int count = 0;
     SDL_Surface *fixed_road;
     int is_road = !strcmp( fname, "road" );
+    
     /* count occurence */
     for ( i = 0; i < terrain_tile_count; i++ )
         if ( tile_type[i] == id )
             count++;
+
     /* create surface */
     surf = SDL_CreateRGBSurface( SDL_SWSURFACE, 60 * count, 50, shp->surf->format->BitsPerPixel,
                                  shp->surf->format->Rmask, shp->surf->format->Gmask, shp->surf->format->Bmask,
@@ -199,10 +202,12 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
         fprintf( stderr, "error creating surface: %s\n", SDL_GetError() );
         goto failure;
     }
+
     /* modified colors */
     grass_pixel = SDL_MapRGB( surf->format, 192, 192, 112 );
     snow_pixel = SDL_MapRGB( surf->format, 229, 229, 229 );
     mud_pixel = SDL_MapRGB( surf->format, 206, 176, 101 );
+
     /* copy pics */
     srect.w = drect.w = 60;
     srect.h = drect.h = 50;
@@ -228,28 +233,34 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
             pos += 60;
             count++;
         }
+
     /* default terrain */
-    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/pg/%s.bmp", dest_path, fname );
+    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/%s/%s.bmp", 
+                                            dest_path, target_name, fname );
     if ( SDL_SaveBMP( surf, path ) != 0 ) {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;
     }
+
     /* snow terrain */
     for ( j = 0; j < surf->h; j++ )
             for ( i = 0; i < surf->w; i++ )
                 if ( grass_pixel == get_pixel( surf, i, j ) )
                     set_pixel( surf, i, j, snow_pixel );
-    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/pg/%s_snow.bmp", dest_path, fname );
+    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/%s/%s_snow.bmp", 
+                                            dest_path, target_name, fname );
     if ( SDL_SaveBMP( surf, path ) != 0 ) {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;
     }
+    
     /* rain terrain */
     for ( j = 0; j < surf->h; j++ )
             for ( i = 0; i < surf->w; i++ )
                 if ( snow_pixel == get_pixel( surf, i, j ) )
                     set_pixel( surf, i, j, mud_pixel );
-    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/pg/%s_rain.bmp", dest_path, fname );
+    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/%s/%s_rain.bmp", 
+                                            dest_path, target_name, fname );
     if ( SDL_SaveBMP( surf, path ) != 0 ) {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;
@@ -278,12 +289,15 @@ int terrain_convert_database( void )
     int i, j, k;
     FILE *file = 0;
     char path[MAXPATHLEN];
+    
     printf( "  terrain database...\n" );
-    snprintf( path, MAXPATHLEN, "%s/maps/pg.tdb", dest_path );
+    
+    snprintf( path, MAXPATHLEN, "%s/maps/%s.tdb", dest_path, target_name );
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, "%s: access denied\n", path );
         return 0;
     }
+    
     /* weather types */
     fprintf( file, "@\n" );
     fprintf( file, "<weather\n" );
@@ -305,7 +319,9 @@ int terrain_convert_database( void )
         fprintf( file, "name»%s\n", terrainTypes[i].name );
         fprintf( file, "<image\n" );
         for ( j = 0; j < NUM_WEATHER_TYPES; j++ )
-            fprintf( file, "%s»pg/%s%s.bmp\n", weatherTypes[j].id, terrainTypes[i].set_name, weatherTypes[j].set_ext );
+            fprintf( file, "%s»%s/%s%s.bmp\n", weatherTypes[j].id, 
+                                    target_name, terrainTypes[i].set_name, 
+                                    weatherTypes[j].set_ext );
         fprintf( file, ">\n" );
         fprintf( file, "<spot_cost\n" );
         for ( j = 0; j < NUM_WEATHER_TYPES; j++ )
@@ -348,9 +364,19 @@ int terrain_convert_graphics( void )
     PG_Shp *shp;
     char path[MAXPATHLEN], path2[MAXPATHLEN];
     SDL_Surface *surf;
-    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/pg", dest_path );
+    
+    /* if target name differs from create pg directory as well; the standard
+     * images just copy from converter are the same for all campaigns and not
+     * duplicated. */
+    snprintf( path, MAXPATHLEN, "%s/gfx/terrain/%s", dest_path, target_name );
     mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    if (strcmp(target_name, "pg")) {
+        snprintf( path, MAXPATHLEN, "%s/gfx/terrain/pg", dest_path );
+        mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    }
+    
     printf( "  terrain graphics...\n" );
+    
     /* explosion */
     if ( ( shp = shp_load( "EXPLODE.SHP" ) ) == 0 ) return 0;
     surf = SDL_CreateRGBSurface( SDL_SWSURFACE, 60 * 5, 50, shp->surf->format->BitsPerPixel,
