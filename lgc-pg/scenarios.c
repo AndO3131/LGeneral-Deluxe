@@ -33,7 +33,7 @@ Externals
 */
 extern char *source_path;
 extern char *dest_path;
-extern char *custom_name;
+extern char target_name[128];
 extern int  nation_count;
 extern char *nations[];
 
@@ -836,7 +836,7 @@ directory.
 */
 int scenarios_convert( int scen_id )
 {
-    int i, j;
+    int i, j, start, end;
     char dummy[256];
     int  day, month, year, turns, turns_per_day, days_per_turn, ibuf;
     int  unit_offset, unit_count;
@@ -851,18 +851,21 @@ int scenarios_convert( int scen_id )
     int axis_ulimit = 0, allies_ulimit = 0;
 	
     printf( "  scenarios...\n" );
-    snprintf( path, MAXPATHLEN, "%s/scenarios/pg", dest_path );
+    
+    snprintf( path, MAXPATHLEN, "%s/scenarios/%s", dest_path, target_name );
     mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     if ( scen_id == -1 ) {
-	/* write out order of preferred listing */
-	snprintf( path, MAXPATHLEN, "%s/scenarios/pg/.order", dest_path );
-	aux_file = fopen( path, "w" );
-	if ( aux_file ) {
-	    for (i = 0; i < sizeof fnames/sizeof fnames[0]; i++)
-	        fprintf( aux_file, "%s\n", fnames[i] );
-	    fclose( aux_file );
-	} else
-	    fprintf( stderr, "Could not write sort order to %s\n", path );
+        if (strcmp(target_name, "pg") == 0) {
+            /* write out order of preferred listing */
+            snprintf( path, MAXPATHLEN, "%s/scenarios/pg/.order", dest_path );
+            aux_file = fopen( path, "w" );
+            if ( aux_file ) {
+                for (i = 0; i < sizeof fnames/sizeof fnames[0]; i++)
+                    fprintf( aux_file, "%s\n", fnames[i] );
+                fclose( aux_file );
+            } else
+                fprintf( stderr, "Could not write sort order to %s\n", path );
+        }
 	
         /* get the reinforcements which are used later */
         snprintf( path, MAXPATHLEN, "%s/convdata/reinf", get_gamedir() );
@@ -872,18 +875,33 @@ int scenarios_convert( int scen_id )
         }
 	
     }
+    
+    /* set loop range */
+    if ( scen_id == -1 ) {
+        start = 1;
+        end = 38;
+    } else {
+        start = end = scen_id;
+    }
+    
     /* go */
-    for ( i = (( scen_id == -1 ) ? 1 : scen_id); 
-          i < (( scen_id == -1 ) ? 38 : scen_id) + 1; i++ ) {
+    for ( i = start; i <=end; i++ ) {
         /* open dest file */
-        if ( scen_id == -1 )
-            snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s", dest_path, fnames[i - 1] );
-        else
-            snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s", dest_path, custom_name );
+        if ( scen_id == -1 ) {
+            if (strcmp(target_name,"pg") == 0)
+                snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s",
+                                                dest_path, fnames[i - 1] );
+            else
+                snprintf( path, MAXPATHLEN, "%s/scenarios/%s/scn%02d",
+                                                dest_path, target_name, i );
+        } else
+            snprintf( path, MAXPATHLEN, "%s/scenarios/%s", 
+                                                    dest_path, target_name );
         if ( ( dest_file = fopen( path, "w" ) ) == 0 ) {
             fprintf( stderr, "%s: access denied\n", path );
             goto failure;
         }
+        
         /* scenario name and description */
         fprintf( dest_file, "@\n" );
         if ( scen_id == -1 ) {
@@ -896,24 +914,29 @@ int scenarios_convert( int scen_id )
             fseek( aux_file, 600 + (i - 1) * 160 , SEEK_SET );
             fread( dummy, 160, 1, aux_file );
             fprintf( dest_file, "desc»%s\n", dummy );
-            fprintf( dest_file, "authors»Strategic Simulation Inc.\n" );
+            if (strcmp(target_name,"pg") == 0)
+                fprintf( dest_file, "authors»Strategic Simulation Inc.\n" );
+            else
+                fprintf( dest_file, "authors»unknown\n" );
             fclose( aux_file );
-        }
-        else {
-            fprintf( dest_file, "name»%s\n", custom_name );
+        } else {
+            fprintf( dest_file, "name»%s\n", target_name );
             fprintf( dest_file, "desc»none\n" );
             fprintf( dest_file, "authors»nobody\n" );
         }
+        
         /* open scenario file */
         snprintf( path, MAXPATHLEN, "%s/game%03d.scn", source_path, i );
         if ((scen_file = fopen_ic(path, "r")) == NULL)
             goto failure;
+        
         /* date */
         fseek( scen_file, 22, SEEK_SET );
         day = 0; fread( &day, 1, 1, scen_file );
         month = 0; fread( &month, 1, 1, scen_file );
         year = 0; fread( &year, 1, 1, scen_file );
         fprintf( dest_file, "date»%02i.%02i.19%i\n", day, month, year );
+        
         /* turn limit */
         fseek( scen_file, 21, SEEK_SET );
         turns = 0; fread( &turns, 1, 1, scen_file );
@@ -925,13 +948,16 @@ int scenarios_convert( int scen_id )
         if ( turns_per_day == 0 && days_per_turn == 0 )
             days_per_turn = 1;
         fprintf( dest_file, "days_per_turn»%i\n", days_per_turn );
+        
         /* domain */
         fprintf( dest_file, "domain»pg\n" );
         /* nations */
         fprintf( dest_file, "nation_db»pg.ndb\n" );
         /* units */
-        if ( scen_id == -1 || !units_find_panzequp() )
-            fprintf( dest_file, "<unit_db\nmain»pg.udb\n>\n" );
+        if ( scen_id == -1 )
+            fprintf( dest_file, "<unit_db\nmain»%s.udb\n>\n", target_name );
+        else if (!units_find_panzequp())
+            fprintf( dest_file, "<unit_db\nmain»pg.udb\n>\n");
         /* if there modified units they are added to the 
            scenario file. lgeneral loads from the scenario file
            if no unit_db was specified. */
@@ -940,9 +966,9 @@ int scenarios_convert( int scen_id )
            will be checked when no map was specified.
            */
         if ( scen_id == -1 )
-            fprintf( dest_file, "map»pg/map%02i\n", i );
+            fprintf( dest_file, "map»%s/map%02d\n", target_name, i );
         /* weather */
-        if (scen_id==-1)
+        if (scen_id == -1 && strcmp(target_name,"pg") == 0)
             scen_create_pg_weather( dest_file, i-1, scen_file, turns );
         else
             scen_create_random_weather( dest_file, scen_file, month, turns );
@@ -979,7 +1005,7 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, "<axis\nname»Axis\n" );
         fprintf( dest_file, "nations»ger°aus°it°hun°bul°rum°fin°esp\n" );
         fprintf( dest_file, "allied_players»\n" );
-	fprintf( dest_file, "unit_limit»%d\n", axis_ulimit );
+        fprintf( dest_file, "unit_limit»%d\n", axis_ulimit );
         fprintf( dest_file, "orientation»%s\ncontrol»human\nstrategy»%i\n", dummy, axis_strat );
 	{
 		int ppt[turns]; /* prestige per turn with dynamic size */
@@ -987,7 +1013,7 @@ int scenarios_convert( int scen_id )
 							axis_strat, turns, ppt);
 		write_prestige_info( dest_file, turns, ppt );
 	}
-        if ( scen_id == -1 )
+        if ( scen_id == -1 && strcmp(target_name,"pg") == 0 )
             fprintf( dest_file, "ai_module»%s\n", ai_modules[i*2] );
         else
             fprintf( dest_file, "ai_module»default\n" );
@@ -1019,7 +1045,7 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, "<allies\nname»Allies\n" );
         fprintf( dest_file, "nations»bel°lux°den°fra°gre°usa°tur°net°nor°pol°por°so°swe°swi°eng°yug\n" );
         fprintf( dest_file, "allied_players»\n" );
-	fprintf( dest_file, "unit_limit»%d\n", allies_ulimit );
+        fprintf( dest_file, "unit_limit»%d\n", allies_ulimit );
         fprintf( dest_file, "orientation»%s\ncontrol»cpu\nstrategy»%i\n", dummy, allied_strat );
 	{
 		int ppt[turns]; /* prestige per turn with dynamic size */
@@ -1027,7 +1053,7 @@ int scenarios_convert( int scen_id )
 						allied_strat, turns, ppt);
 		write_prestige_info( dest_file, turns, ppt );
 	}
-        if ( scen_id == -1 )
+        if ( scen_id == -1 && strcmp(target_name,"pg") == 0 )
             fprintf( dest_file, "ai_module»%s\n", ai_modules[i*2 + 1] );
         else
             fprintf( dest_file, "ai_module»default\n" );
@@ -1049,7 +1075,7 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, ">\n" );
         fprintf( dest_file, ">\n" );
         /* victory conditions */
-        if ( scen_id == -1 )
+        if ( scen_id == -1 && strcmp(target_name,"pg") == 0 )
             scen_add_vic_conds( dest_file, i );
         else {
             /* and the default is that the attacker must capture
@@ -1084,7 +1110,8 @@ int scenarios_convert( int scen_id )
             fprintf( dest_file, "%s%d,%d", j ? "°" : "", x, y );
         }
         fprintf( dest_file, "\n>\n" );
-        if (scen_id==-1&&i==19) /* MarketGarden's Allies may not deploy freely */
+        if (scen_id == -1 && strcmp(target_name,"pg") == 0 && i == 19)
+            /* MarketGarden's Allies may not deploy freely */
             fprintf( dest_file, "<player\nid»allies\ncoordinates»none\n>\n" );
         else
             fprintf( dest_file, "<player\nid»allies\ncoordinates»default\n>\n" );
@@ -1107,7 +1134,7 @@ int scenarios_convert( int scen_id )
         for ( j = 0; j < unit_count; j++ )
             scen_create_unit( (scen_id!=-1)?(-1):(i-1), dest_file, scen_file );
         /* reinforcements -- only for original PG scenarios */
-        if ( scen_id == -1 ) {
+        if ( scen_id == -1 && strcmp(target_name,"pg") == 0 ) {
             if ( parser_get_pdata( pd, fnames[i - 1], &reinf ) ) {
                 /* units come unsorted with the proper nation stored for each
                    unit */

@@ -32,7 +32,8 @@ Externals
 */
 extern char *source_path;
 extern char *dest_path;
-extern char *custom_name;
+extern char target_name[128];
+extern int single_scen;
 extern int unit_entry_used[UDB_LIMIT];
 extern int nation_count;
 extern char *nations[];
@@ -442,8 +443,9 @@ void units_write_classes( FILE *file )
 
 /*
 ====================================================================
-Convert unit database.
-'tac_icons' is file name of the tactical icons.
+Convert unit database either as a new file for a campaign or 
+appended to single scenario.
+'tac_icons' is the file name of the tactical icons.
 ====================================================================
 */
 int units_convert_database( char *tac_icons )
@@ -453,38 +455,36 @@ int units_convert_database( char *tac_icons )
     char path[MAXPATHLEN];
     char flags[512];
     char buf[256];
-    char mode[2];
     int i;
     PG_UnitEntry entry;
     FILE *source_file = 0, *dest_file = 0;
     
     printf( "  unit data base...\n" );
+    
     /* open dest file */
-    if ( custom_name )
-        snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s", dest_path, custom_name );
+    if ( single_scen )
+        snprintf( path, MAXPATHLEN, "%s/scenarios/%s", dest_path, target_name );
     else
-        snprintf( path, MAXPATHLEN, "%s/units/pg.udb", dest_path );
-    if ( custom_name )
-        strcpy( mode, "a" );
-    else
-        strcpy( mode, "w" );
-    if ( ( dest_file = fopen( path, mode ) ) == 0 ) {
+        snprintf( path, MAXPATHLEN, "%s/units/%s.udb", dest_path, target_name );
+    if ( ( dest_file = fopen( path, single_scen?"a":"w" ) ) == 0 ) {
         fprintf( stderr, "%s: write access denied\n", path );
         goto failure;
     }
+    
     /* open file 'panzequp.eqp' */
     snprintf( path, MAXPATHLEN, "%s/panzequp.eqp", source_path );
     if ( ( source_file = fopen_ic( path, "r" ) ) == NULL ) {
         fprintf( stderr, "%s: can't open file\n", path );
         goto failure;
     }
+    
     /* DOS format:
      * count ( 2 bytes )
      * entries ( 50 bytes each ) 
      */
     fread( &entry_count, 2, 1, source_file );
     entry_count = SDL_SwapLE16(entry_count);
-    if ( custom_name == 0 )
+    if ( !single_scen )
         fprintf( dest_file, "@\n" ); /* only a new file needs this magic */
     /* domain */
     fprintf( dest_file, "domain»pg\n" );
@@ -505,12 +505,6 @@ int units_convert_database( char *tac_icons )
         if ( !units_read_entry( source_file, &entry ) ) {
             fprintf( stderr, "%s: unexpected end of file\n", path );
             goto failure;
-        }
-        /* if this is a custom PANZEQUP skip all entries
-           that are not used */
-        if ( custom_name && !unit_entry_used[id] ) {
-            id++;
-            continue;
         }
         /* sometimes a unit class seems to be screwed */
         if ( entry.class >= UNIT_CLASS_COUNT )
@@ -571,9 +565,9 @@ int units_convert_database( char *tac_icons )
         /* write entry */
         fprintf( dest_file, "<%i\n", id++ );
         string_replace_quote( entry.name, buf );
-	fix_spelling_mistakes( buf );
+        fix_spelling_mistakes( buf );
         fprintf( dest_file, "name»%s\n", buf );
-	fprintf( dest_file, "nation»%s\n", (entry.nation==-1)?"none":
+        fprintf( dest_file, "nation»%s\n", (entry.nation==-1)?"none":
 						nations[entry.nation * 3] );
         fprintf( dest_file, "class»%s\n", unit_classes[entry.class * 3] );
         fprintf( dest_file, "target_type»%s\n", target_types[entry.target_type * 2] );

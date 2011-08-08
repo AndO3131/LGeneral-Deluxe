@@ -40,7 +40,7 @@ Usage
 lgc-pg -s <PG DATA DIR> 
        -d <LGENERAL DIR> 
        [--defpal] 
-       [--custom -n <NAME> [-i <ID>] [-t <TACICONS>]]
+       [-n <NAME> [-i <ID>] [-t <TACICONS>]]
 
 -s <SOURCE PATH>
 You always need to specify the source directory which contains the original 
@@ -54,18 +54,16 @@ This is optional and forces all PG images to use the default palette.
 Usually you won't need this but if a custom scenario provides some strange 
 graphics it might be due to a corrupted palette. Using the default one for
 conversion might fix this.
---custom
-Add this option if you want to convert a custom scenario. If you do so
-you must also provide the next options:
--n <NAME>
-This is the scenario's file name and default title.
 -i <ID>
-This is the XXX in the source gameXXX.scn. If you do not specify this it 
-defaults to 000.
+If set it signals that a single scenario should be converted instead of
+full campaign. This is the XXX in the source gameXXX.scn.
+-n <NAME>
+This is the scenario's file name and default title. This option can also be
+used when converting a campaign to change the default name (pg).
 -t <TACICONS>
 If custom tactical icons are involved (scenario offers a TACICONS.SHP) this 
-is the name of the image file. If this option is not provided it defaults to 
-<NAME>.bmp.
+is the name of the target image file. If this option is not provided it 
+defaults to <NAME>.bmp.
 
 Note that the conversion of a single scenario might be incomplete. You'll
 have to modify the title, description, authors, victory conditions (default:
@@ -83,7 +81,7 @@ Examples
 2) Converts a custom scenario:
 
     lgc-pg -s /home/michael/newstuff/dunk -d /usr/local/share/games/lgeneral
-           --custom -n Dunkirk -i 44
+           -n Dunkirk -i 44
 
 
 Troubleshooting
