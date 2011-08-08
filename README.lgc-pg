@@ -65,10 +65,16 @@ If custom tactical icons are involved (scenario offers a TACICONS.SHP) this
 is the name of the target image file. If this option is not provided it 
 defaults to <NAME>.bmp.
 
-Note that the conversion of a single scenario might be incomplete. You'll
+Note, that the conversion of a single scenario might be incomplete. You'll
 have to modify the title, description, authors, victory conditions (default:
 attacker must capture all victory hexes) and reinforcements (default: none). 
-The single scenario file does also includes the map and modified units.
+The single scenario file also includes the map and modified units.
+
+Furthermore, if a user-made campaign is converted the campaign file must be
+created manually. The nations, terrain types, unit types and sounds are 
+hardcoded in lgc-pg and must match! Actually some data like nations, sounds
+and certain terrain graphics are copied to the pg-directories regardless of
+the used campaign name to clarify this important point.
 
 
 Examples
