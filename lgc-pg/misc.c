@@ -420,25 +420,27 @@ FILE *fopen_ic( const char *_path, const char *mode )
 	
 	strcpy(path,_path); /* we need to copy since we modify it */
 	
-	/* try to find file separator for Linux and Windows; there must be one
-	 * because a pure file name does not make sense so return error if
-	 * none found */
-	if ((start = strrchr(path,'/')) == NULL)
-		if ((start = strrchr(path,'\\')) == NULL) {
-			fprintf(stderr, "Could not open %s: no file "
-							"separator\n",path);
-			return NULL;
-		}
-	start++;
+	/* start behind file separator */
+	if ((start = strrchr(path,'/')) == NULL) /* Linux */
+		start = strrchr(path,'\\'); /* Windows */
+	if (start)
+		start++;
+	else	
+		start = path; /* only a file name */
 	
-	/* try lower case */
+	/* try all lower case */
 	for (ptr = start; *ptr != 0; ptr++)
 		*ptr = tolower(*ptr);
 	if ((file = fopen(path,mode)))
 		return file;
 	
-	/* try upper case */
-	for (ptr = start; *ptr != 0; ptr++)
+	/* try first upper case */
+	start[0] = toupper(start[0]);
+	if ((file = fopen(path,mode)))
+		return file;
+	
+	/* try all upper case */
+	for (ptr = start + 1; *ptr != 0; ptr++)
 		*ptr = toupper(*ptr);
 	if ((file = fopen(path,mode)))
 		return file;
