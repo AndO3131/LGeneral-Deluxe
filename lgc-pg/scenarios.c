@@ -952,7 +952,10 @@ int scenarios_convert( int scen_id )
         /* domain */
         fprintf( dest_file, "domain»pg\n" );
         /* nations */
-        fprintf( dest_file, "nation_db»pg.ndb\n" );
+        if ( scen_id == -1 )
+            fprintf( dest_file, "nation_db»%s.ndb\n", target_name );
+        else
+            fprintf( dest_file, "nation_db»pg.ndb\n" );
         /* units */
         if ( scen_id == -1 )
             fprintf( dest_file, "<unit_db\nmain»%s.udb\n>\n", target_name );
