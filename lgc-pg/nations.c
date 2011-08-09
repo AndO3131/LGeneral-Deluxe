@@ -29,6 +29,7 @@ Externals
 */
 extern char *source_path;
 extern char *dest_path;
+extern char target_name[128];
 
 /*
 ====================================================================
@@ -66,6 +67,9 @@ char *nations[] = {
 /*
 ====================================================================
 Create nations database and convert graphics.
+Only called when converting full campaign. For custom campaigns only
+flags may differ as nation definitions are hardcoded in converter to
+PG nations.
 ====================================================================
 */
 int nations_convert( void )
@@ -77,15 +81,16 @@ int nations_convert( void )
     PG_Shp *shp =0;
     SDL_Surface *surf = 0;
     Uint32 ckey = MAPRGB( CKEY_RED, CKEY_GREEN, CKEY_BLUE ); /* transparency key */
+    
     /* nation database */
     printf( "  nation database...\n" );
-    snprintf( path, MAXPATHLEN, "%s/nations/pg.ndb", dest_path );
+    snprintf( path, MAXPATHLEN, "%s/nations/%s.ndb", dest_path, target_name );
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, "%s: access denied\n", path );
         return 0;
     }
     fprintf( file, "@\n" );
-    fprintf( file, "icons»pg.bmp\n" );
+    fprintf( file, "icons»%s.bmp\n", target_name );
     fprintf( file, "icon_width»20\nicon_height»13\n" );
     /* domain */
     fprintf( file, "domain»pg\n" );
@@ -94,10 +99,12 @@ int nations_convert( void )
         fprintf( file, "<%s\nname»%s\nicon_id»%s\n>\n", nations[i * 3], nations[i * 3 + 1], nations[i * 3 + 2] );
     fprintf( file, ">\n" );
     fclose( file );
+    
     /* nation graphics */
     printf( "  nation flag graphics...\n" );
     /* create new surface */
-    if ( ( shp = shp_load( "FLAGS.SHP" ) ) == 0 ) return 0;
+    if ( ( shp = shp_load( "FLAGS.SHP" ) ) == 0 )
+        return 0;
     for ( i = 0; i < nation_count; i++ )
         if ( shp->headers[i].valid )
             height += shp->headers[i].actual_height;
@@ -121,7 +128,7 @@ int nations_convert( void )
         SDL_BlitSurface( shp->surf, &srect, surf, &drect );
         height += shp->headers[i].actual_height;
     }
-    snprintf( path, MAXPATHLEN, "%s/gfx/flags/pg.bmp", dest_path );
+    snprintf( path, MAXPATHLEN, "%s/gfx/flags/%s.bmp", dest_path, target_name );
     if ( SDL_SaveBMP( surf, path ) ) {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;
