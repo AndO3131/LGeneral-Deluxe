@@ -327,11 +327,11 @@ PG_Shp *shp_load( const char *fname )
         fseek( file, old_pos, SEEK_SET );
     }
     shp->surf = SDL_CreateRGBSurface( SDL_SWSURFACE, width, height, pf->BitsPerPixel, pf->Rmask, pf->Gmask, pf->Bmask, pf->Amask );
-    SDL_FillRect( shp->surf, 0, ckey );
     if ( shp->surf == 0 ) {
         fprintf( stderr, "error creating surface: %s\n", SDL_GetError() );
         goto failure;
     }
+    SDL_FillRect( shp->surf, 0, ckey );
     /* read icons */
     shp->offsets = calloc( shp->count, sizeof( int ) );
     shp->headers = calloc( shp->count, sizeof( Icon_Header ) );
