@@ -229,6 +229,10 @@ static int get_nation_from_unit_name( const char *uname )
 	int nation_idx = 7; /* germany */
 	int i = 0;
 	
+    /* no guessing for custom stuff */
+    if ( single_scen || strcmp(target_name,"pg") )
+        return -1;
+    
 	while (id_map[i].id[0] != 'x') {
 		if (strncmp(id_map[i].id, uname, strlen(id_map[i].id)) == 0) {
 			nation_idx = id_map[i].idx;
@@ -535,22 +539,27 @@ int units_convert_database( char *tac_icons )
                 break;
         }
         /* all russian tanks get an initiative bonus */
-        ini_bonus = 2;
-        if ( entry.class == 1 && strncmp( entry.name, "ST ", 3 ) == 0 ) 
-        {
-            entry.init += ini_bonus;
-            printf( "    %s: initiative bonus +%i\n", entry.name, ini_bonus );
+        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+            ini_bonus = 2;
+            if ( entry.class == 1 && strncmp( entry.name, "ST ", 3 ) == 0 ) 
+            {
+                entry.init += ini_bonus;
+                printf( "    %s: initiative bonus +%i\n", entry.name, ini_bonus );
+            }
         }
         /* get flags */
-        i = 0;
         sprintf( flags, unit_classes[entry.class * 3 + 2] );
-        while ( add_flags[i*2][0] != 'X' ) {
-            if ( atoi( add_flags[i * 2] ) == id ) {
-                strcat( flags, "°" );
-                strcat( flags, add_flags[i * 2 + 1] );
-                i = -1; break;
+        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+            i = 0;
+            while ( add_flags[i*2][0] != 'X' ) {
+                if ( atoi( add_flags[i * 2] ) == id ) {
+                    strcat( flags, "°" );
+                    strcat( flags, add_flags[i * 2 + 1] );
+                    i = -1;
+                    break;
+                }
+                i++;
             }
-            i++;
         }
 	/* whatever is legged or towed may use ground/air transporter */
         if ( entry.move > 0 && (entry.move_type == 3 || entry.move_type == 4) )
@@ -565,7 +574,8 @@ int units_convert_database( char *tac_icons )
         /* write entry */
         fprintf( dest_file, "<%i\n", id++ );
         string_replace_quote( entry.name, buf );
-        fix_spelling_mistakes( buf );
+        if ( !single_scen && strcmp(target_name,"pg") == 0 )
+            fix_spelling_mistakes( buf );
         fprintf( dest_file, "name»%s\n", buf );
         fprintf( dest_file, "nation»%s\n", (entry.nation==-1)?"none":
 						nations[entry.nation * 3] );
@@ -619,6 +629,7 @@ int units_convert_graphics( char *tac_icons )
     SDL_Surface *surf = 0;
     Uint32 ckey = MAPRGB( CKEY_RED, CKEY_GREEN, CKEY_BLUE ); /* transparency key */
     Uint32 mkey = MAPRGB( 0x0, 0xc3, 0xff ); /* size measurement key */
+    
     printf( "  unit graphics...\n" );
     /* load tac icons */
     if ( ( shp = shp_load( "TACICONS.SHP" ) ) == 0 ) return 0;
@@ -653,11 +664,14 @@ int units_convert_graphics( char *tac_icons )
         drect.w = shp->headers[i].actual_width;
         drect.y = height + 1;
         drect.h = shp->headers[i].actual_height;
-        j = 0; mirror = 0;
-        while ( mirror_ids[j] != -1 ) {
-            if ( mirror_ids[j] == i )
-                mirror = 1;
-            j++;
+        mirror = 0;
+        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+            j = 0;
+            while ( mirror_ids[j] != -1 ) {
+                if ( mirror_ids[j] == i )
+                    mirror = 1;
+                j++;
+            }
         }
         if ( mirror )
             copy_surf_mirrored( shp->surf, &srect, surf, &drect );
