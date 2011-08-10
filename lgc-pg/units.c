@@ -34,6 +34,7 @@ extern char *source_path;
 extern char *dest_path;
 extern char target_name[128];
 extern int single_scen;
+extern int apply_unit_mods;
 extern int unit_entry_used[UDB_LIMIT];
 extern int nation_count;
 extern char *nations[];
@@ -229,8 +230,8 @@ static int get_nation_from_unit_name( const char *uname )
 	int nation_idx = 7; /* germany */
 	int i = 0;
 	
-    /* no guessing for custom stuff */
-    if ( single_scen || strcmp(target_name,"pg") )
+    /* only guess for PG unit database */
+    if ( !apply_unit_mods )
         return -1;
     
 	while (id_map[i].id[0] != 'x') {
@@ -492,7 +493,8 @@ int units_convert_database( char *tac_icons )
         fprintf( dest_file, "@\n" ); /* only a new file needs this magic */
     /* domain */
     fprintf( dest_file, "domain»pg\n" );
-    fprintf( dest_file, "icons»%s\nicon_type»single\n", tac_icons );
+    fprintf( dest_file, "icons»%s\nicon_type»%s\n", tac_icons,
+                                        apply_unit_mods?"single":"fixed");
     fprintf( dest_file, "strength_icons»pg_strength.bmp\n" );
     fprintf( dest_file, "strength_icon_width»16\nstrength_icon_height»12\n" );
     fprintf( dest_file, "attack_icon»pg_attack.bmp\n" );
@@ -539,7 +541,7 @@ int units_convert_database( char *tac_icons )
                 break;
         }
         /* all russian tanks get an initiative bonus */
-        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+        if ( apply_unit_mods ) {
             ini_bonus = 2;
             if ( entry.class == 1 && strncmp( entry.name, "ST ", 3 ) == 0 ) 
             {
@@ -549,7 +551,7 @@ int units_convert_database( char *tac_icons )
         }
         /* get flags */
         sprintf( flags, unit_classes[entry.class * 3 + 2] );
-        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+        if ( apply_unit_mods ) {
             i = 0;
             while ( add_flags[i*2][0] != 'X' ) {
                 if ( atoi( add_flags[i * 2] ) == id ) {
@@ -574,7 +576,7 @@ int units_convert_database( char *tac_icons )
         /* write entry */
         fprintf( dest_file, "<%i\n", id++ );
         string_replace_quote( entry.name, buf );
-        if ( !single_scen && strcmp(target_name,"pg") == 0 )
+        if ( apply_unit_mods )
             fix_spelling_mistakes( buf );
         fprintf( dest_file, "name»%s\n", buf );
         fprintf( dest_file, "nation»%s\n", (entry.nation==-1)?"none":
@@ -665,7 +667,7 @@ int units_convert_graphics( char *tac_icons )
         drect.y = height + 1;
         drect.h = shp->headers[i].actual_height;
         mirror = 0;
-        if ( !single_scen && strcmp(target_name,"pg") == 0 ) {
+        if ( apply_unit_mods ) {
             j = 0;
             while ( mirror_ids[j] != -1 ) {
                 if ( mirror_ids[j] == i )

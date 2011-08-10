@@ -332,7 +332,9 @@ int unit_lib_load( char *fname, int main )
     }
     /* icons */
     if ( !parser_get_value( pd, "icon_type", &str, 0 ) ) goto parser_failure;
-    if ( STRCMP( str, "single" ) )
+    if (STRCMP( str, "fixed" ) )
+        icon_type = UNIT_ICON_FIXED;
+    else if ( STRCMP( str, "single" ) )
         icon_type = UNIT_ICON_SINGLE;
     else
         icon_type = UNIT_ICON_ALL_DIRS;

@@ -39,6 +39,8 @@ int single_scen_id = 0; /* id of single scenario which is converted */
 int use_def_pal = 0; /* always use default PG palette regardless of whether
                         SHP icon is associated with another one */
 int map_or_scen_files_missing = 0; /* some map/scenario files were missing */
+int apply_unit_mods = 0; /* apply PG specific modifications (e.g., determine 
+                            nation by name, mirror images, correct spelling) */
 
 void print_help()
 {
@@ -53,7 +55,10 @@ void print_help()
     "    -t <TACICONS>    name of tactical icons destination file (default:\n"\
     "                     TARGETNAME.bmp)\n"\
     "    --defpal         overwrite any individual palette with default PG palette\n"\
-    "    -h               this help\n"\
+    "    --applyunitmods  apply PG specific unit modifications for a single scenario\n"\
+    "                     or custom campaign assuming it uses the PG unit database\n"\
+    "                     (maybe slightly changed) \n"\
+    "    --help           this help\n"\
     "Example:\n   lgc-pg -s /mnt/cdrom/DAT\n"\
     "See README.lgc-pg for more information.\n" );
     exit( 0 );
@@ -79,7 +84,9 @@ int parse_args( int argc, char **argv )
             snprintf(tacicons_name, 128, "%s", argv[i + 1]);
         if ( !strcmp( "--defpal", argv[i] ) )
             use_def_pal = 1;
-        if ( !strcmp( "-h", argv[i] ) )
+        if ( !strcmp( "--applyunitmods", argv[i] ) )
+            apply_unit_mods = 1;
+        if ( !strcmp( "-h", argv[i] ) || !strcmp( "--help", argv[i] ) )
             print_help(); /* will exit */
     }
     
@@ -108,6 +115,8 @@ int parse_args( int argc, char **argv )
         }
     } else if (target_name[0] == 0)
         strcpy(target_name, "pg"); /* default campaign to be converted */
+    if ( !single_scen && strcmp(target_name,"pg") == 0 )
+        apply_unit_mods = 1; /* always for PG campaign of course */
     if (tacicons_name[0] == 0)
         sprintf( tacicons_name, "%s.bmp", target_name );
 
@@ -125,6 +134,8 @@ int parse_args( int argc, char **argv )
         printf( "  Use Default Palette\n" );
     else
         printf( "  Use Individual Palettes\n" );
+    if ( apply_unit_mods )
+        printf( "  Apply PG unit modifications\n" );
     return 1;
 }
 
