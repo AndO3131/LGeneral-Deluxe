@@ -93,12 +93,14 @@ typedef struct {
 ====================================================================
 Unit icon styles.
   SINGLE:   unit looks left and is mirrored to look right
+  FIXED:    unit has fixed looking direction
   ALL_DIRS: unit provides an icon (horizontal arranged) for each
             looking direction.
 ====================================================================
 */
 enum {
     UNIT_ICON_SINGLE = 0,
+    UNIT_ICON_FIXED,
     UNIT_ICON_ALL_DIRS
 };
 
