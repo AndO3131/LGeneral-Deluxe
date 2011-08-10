@@ -127,7 +127,7 @@ int parse_args( int argc, char **argv )
     if (single_scen) {
         printf( "  Single Scenario (from game%03i.scn)\n", single_scen_id );
         if (units_find_tacicons())
-            printf( "  Target TacticalIcons: %s\n", tacicons_name );
+            printf( "  Target Tactical Icons: %s\n", tacicons_name );
     } else
         printf("  Full Campaign\n");
     if ( use_def_pal )

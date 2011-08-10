@@ -349,7 +349,7 @@ static void fix_spelling_mistakes( char *name )
        Btw, this reminds me of a "Schinzel Wiener" in some Greek menu ;-) */
     char *pos = strstr( name, "Jadg" );
     if ( pos ) {
-      printf("    %s: ", name);
+      printf("%s: ", name);
       memcpy( pos, "Jagd", 4 );
       printf("correct spelling to %s\n", name);
     }
@@ -464,7 +464,7 @@ int units_convert_database( char *tac_icons )
     PG_UnitEntry entry;
     FILE *source_file = 0, *dest_file = 0;
     
-    printf( "  unit data base...\n" );
+    printf( "Unit data base...\n" );
     
     /* open dest file */
     if ( single_scen )
@@ -546,7 +546,7 @@ int units_convert_database( char *tac_icons )
             if ( entry.class == 1 && strncmp( entry.name, "ST ", 3 ) == 0 ) 
             {
                 entry.init += ini_bonus;
-                printf( "    %s: initiative bonus +%i\n", entry.name, ini_bonus );
+                printf( "%s: initiative bonus +%i\n", entry.name, ini_bonus );
             }
         }
         /* get flags */
@@ -570,7 +570,7 @@ int units_convert_database( char *tac_icons )
         if (entry.class==4&&entry.range==1)
         {
             sprintf( flags, "artillery°suppr_fire" );
-            printf( "    %s: overwrite flags to: artillery,suppr_fire\n",
+            printf( "%s: overwrite flags to: artillery,suppr_fire\n",
                                                                 entry.name);
         }
         /* write entry */
@@ -632,7 +632,7 @@ int units_convert_graphics( char *tac_icons )
     Uint32 ckey = MAPRGB( CKEY_RED, CKEY_GREEN, CKEY_BLUE ); /* transparency key */
     Uint32 mkey = MAPRGB( 0x0, 0xc3, 0xff ); /* size measurement key */
     
-    printf( "  unit graphics...\n" );
+    printf( "Unit graphics...\n" );
     /* load tac icons */
     if ( ( shp = shp_load( "TACICONS.SHP" ) ) == 0 ) return 0;
     /* create new surface */

@@ -105,7 +105,7 @@ int maps_convert( int map_id )
         mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     }
 
-    printf( "  maps...\n" );
+    printf( "Maps...\n" );
     /* name file (try the one in lgc-pg as fallback) */
     snprintf( path, MAXPATHLEN, "%s/mapnames.str", source_path );
     if ( (name_file = fopen_ic( path, "r" )) == NULL ) {

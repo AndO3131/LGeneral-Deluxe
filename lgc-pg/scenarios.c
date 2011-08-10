@@ -851,7 +851,7 @@ int scenarios_convert( int scen_id )
     char *str;
     int axis_ulimit = 0, allies_ulimit = 0;
 	
-    printf( "  scenarios...\n" );
+    printf( "Scenarios...\n" );
     
     if ( scen_id == -1 ) {
         snprintf( path, MAXPATHLEN, "%s/scenarios/%s", dest_path, target_name );

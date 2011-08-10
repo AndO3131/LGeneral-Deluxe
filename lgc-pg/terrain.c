@@ -290,7 +290,7 @@ int terrain_convert_database( void )
     FILE *file = 0;
     char path[MAXPATHLEN];
     
-    printf( "  terrain database...\n" );
+    printf( "Terrain database...\n" );
     
     snprintf( path, MAXPATHLEN, "%s/maps/%s.tdb", dest_path, target_name );
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
@@ -375,7 +375,7 @@ int terrain_convert_graphics( void )
         mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     }
     
-    printf( "  terrain graphics...\n" );
+    printf( "Terrain graphics...\n" );
     
     /* explosion */
     if ( ( shp = shp_load( "EXPLODE.SHP" ) ) == 0 ) return 0;
