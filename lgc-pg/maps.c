@@ -100,8 +100,11 @@ int maps_convert( int map_id )
     char name_buf[24];
     int x, y, ibuf;
 
-    snprintf( path, MAXPATHLEN, "%s/maps/%s", dest_path, target_name );
-    mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    if (map_id == -1) {
+        snprintf( path, MAXPATHLEN, "%s/maps/%s", dest_path, target_name );
+        mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+    }
+
     printf( "  maps...\n" );
     /* name file (try the one in lgc-pg as fallback) */
     snprintf( path, MAXPATHLEN, "%s/mapnames.str", source_path );
