@@ -83,7 +83,7 @@ int nations_convert( void )
     Uint32 ckey = MAPRGB( CKEY_RED, CKEY_GREEN, CKEY_BLUE ); /* transparency key */
     
     /* nation database */
-    printf( "  nation database...\n" );
+    printf( "Nation database...\n" );
     snprintf( path, MAXPATHLEN, "%s/nations/%s.ndb", dest_path, target_name );
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, "%s: access denied\n", path );
@@ -101,7 +101,7 @@ int nations_convert( void )
     fclose( file );
     
     /* nation graphics */
-    printf( "  nation flag graphics...\n" );
+    printf( "Nation flag graphics...\n" );
     /* create new surface */
     if ( ( shp = shp_load( "FLAGS.SHP" ) ) == 0 )
         return 0;
