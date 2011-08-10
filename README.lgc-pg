@@ -1,5 +1,5 @@
               
-	      ===================================================
+              ===================================================
               LGeneral Converter for Panzer General (DOS Version)
               ===================================================
 
@@ -41,6 +41,7 @@ lgc-pg -s <PG DATA DIR>
        -d <LGENERAL DIR> 
        [--defpal] 
        [-n <NAME> [-i <ID>] [-t <TACICONS>]]
+       [--applyunitmods]
 
 -s <SOURCE PATH>
 You always need to specify the source directory which contains the original 
@@ -64,17 +65,11 @@ used when converting a campaign to change the default name (pg).
 If custom tactical icons are involved (scenario offers a TACICONS.SHP) this 
 is the name of the target image file. If this option is not provided it 
 defaults to <NAME>.bmp.
-
-Note, that the conversion of a single scenario might be incomplete. You'll
-have to modify the title, description, authors, victory conditions (default:
-attacker must capture all victory hexes) and reinforcements (default: none). 
-The single scenario file also includes the map and modified units.
-
-Furthermore, if a user-made campaign is converted the campaign file must be
-created manually. The nations, terrain types, unit types and sounds are 
-hardcoded in lgc-pg and must match! Actually some data like nations, sounds
-and certain terrain graphics are copied to the pg-directories regardless of
-the used campaign name to clarify this important point.
+--applyunitmods
+Certain unit modifications are hardcoded to lgc-pg. Usually these are only
+applied for the original PG campaign. But if a single scenario uses a modified
+PG unit database these changes should be applied as well which is done with
+this option.
 
 
 Examples
@@ -88,6 +83,62 @@ Examples
 
     lgc-pg -s /home/michael/newstuff/dunk -d /usr/local/share/games/lgeneral
            -n Dunkirk -i 44
+
+
+Limitations for single scenarios and custom campaigns
+-----------------------------------------------------
+
+Certain things cannot be converted from original data by lgc-pg and are thus 
+hardcoded for the original PG campaign. Therefore if a single scenario or a 
+custom campaign is converted, these things have to be adjusted *manually* after
+conversion.
+
+Hardcoded and necessarily the same for everything converted by lgc-pg are:
+  - weather types (e.g., fair)
+  - terrain types (e.g., clear)
+  - target types (e.g., soft)
+  - movement types (e.g., tracked)
+  - unit classes (e.g., infantry)
+  - nations (e.g., Germany)
+
+Of course, names and to some extend attributes can be changed directly in the 
+output files after conversion (e.g., renaming a nation).
+
+lgc-pg converts the following with some limitations:
+  - nation flags
+  - unit database
+  - unit icons
+  - terrain icons
+  - maps
+  - scenario names and descriptions
+  - scenarios
+  
+The following limitations apply:
+  - a single scenario (not converted as part of a campaign) will lack title, 
+    description and author 
+  - scenario files of a custom campaign to not have proper file name but are 
+    just indexed (e.g., scn01)
+  - .order file with all scenario file names in chronological order (used for 
+    sorted list in LGeneral) is only generated for PG campaign
+  - campaign tree file is hardcoded for PG only
+  - victory conditions are hardcoded for PG only; for custom scenarios the 
+    default is that attacker has to capture all major objectives for victory
+  - prestige per turn is hardcoded for PG and guessed for custom scenarios
+  - weather is hardcoded for PG and randomly generated (but then fixed) for 
+    custom scenarios
+  - nation of a unit database entry is determined by name for PG only; in 
+    custom scenarios it defaults to none which means it is not possible to buy
+    any units unless one manually sets nations after conversion
+  - special corrections like certain unit flags (e.g., bridgeeng), spelling 
+    corrections, attribute balancing and mirroring of tactical icons are only
+    applied for PG
+
+If a single scenario uses its own unit database and it is more or less the same
+as the original database the last two items of the above list can be forced by
+option --applyunitmods. However, this may lead to corruptions, e.g., when a unit
+was totally changed and certain flags no longer apply to it. Nevertheless, in 
+general it is a good guess to run this option. A single scenario file directly 
+includes the map and modified units (but not their icons).
 
 
 Troubleshooting

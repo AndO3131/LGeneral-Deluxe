@@ -183,9 +183,8 @@ int main( int argc, char **argv )
             } else if ( !units_convert_database( "pg.bmp" ) ) 
                 return 1;
         }
-        printf( "Note: You must setup description, authors, victory conditions and\n"\
-                "reinforcements manually. (default victory condition: attacker must\n"\
-                "capture all victory hexes; default reinforcements: none)\n" );
+        printf( "\nNOTE: You must set various things manually (e.g., victory "
+                "conditions). Please\nsee README.lgc-pg for more details.\n" );
     } else {
         /* convert all data */
         if ( !nations_convert() )
@@ -205,15 +204,14 @@ int main( int argc, char **argv )
         /* for unofficial campaigns there are no victory conditions and campaign
          * tree is unknown; only databases and scenarios were converted */
         if (strcmp(target_name, "pg"))
-            printf( "NOTE: You must set victory conditions in all scenarios and "
-                    "define campaign file manually! Default victory condition: "
-                    "attacker must capture all victory hexes.\n");
+            printf( "\nNOTE: You must set various things manually (e.g., victory "
+                    "conditions). Please\nsee README.lgc-pg for more details.\n" );
         if (map_or_scen_files_missing)
-            printf("WARNING: Some scenario or map files were missing! As this is a custom campaign "
-                    "it may be that not all scenarios are used. In that case ids of missing map and "
+            printf("\nWARNING: Some scenario or map files were missing! As this is a custom campaign\n"
+                    "it may be that not all scenarios are used. In that case ids of missing map and\n"
                     "scenario files should match. If they don't this might be an error.\n");
     }
-    printf( "Done!\n" );
+    printf( "\nDone!\n" );
     if (title_image)
 	    SDL_FreeSurface(title_image);
     return 0;
