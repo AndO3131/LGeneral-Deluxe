@@ -853,9 +853,10 @@ int scenarios_convert( int scen_id )
 	
     printf( "  scenarios...\n" );
     
-    snprintf( path, MAXPATHLEN, "%s/scenarios/%s", dest_path, target_name );
-    mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     if ( scen_id == -1 ) {
+        snprintf( path, MAXPATHLEN, "%s/scenarios/%s", dest_path, target_name );
+        mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+
         if (strcmp(target_name, "pg") == 0) {
             /* write out order of preferred listing */
             snprintf( path, MAXPATHLEN, "%s/scenarios/pg/.order", dest_path );
