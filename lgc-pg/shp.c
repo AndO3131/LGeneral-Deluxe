@@ -296,6 +296,7 @@ PG_Shp *shp_load( const char *fname )
     Icon_Header header;
     RGB_Entry pal[256];
     RGB_Entry *actual_pal = 0;
+    int icon_maxw = 60, icon_maxh = 50;
     
     snprintf( path, MAXPATHLEN, "%s/%s", source_path, fname );
     if ( ( file = fopen_ic( path, "r" ) ) == NULL ) {
@@ -316,13 +317,28 @@ PG_Shp *shp_load( const char *fname )
     }
     /* create surface (measure size first) */
     for ( i = 0; i < shp->count; i++ ) {
+        /* read file position of actual data and palette */
         fread( &pos, 4, 1, file );
         pos = SDL_SwapLE32(pos);
         fread( &dummy, 4, 1, file );
         old_pos = ftell( file );
+        /* read header */
         fseek( file, pos, SEEK_SET );
         shp_read_icon_header( file, &header );
-        if ( header.width > width ) width = header.width;
+        /* XXX if icon is too large, ignore it and replace with an empty
+         * icon of maximum size; use hardcoded limit which is basically okay
+         * as we convert PG data and can assume the icons have size of map
+         * tile at maximum. */
+        if ( header.width > icon_maxw || header.height > icon_maxh ) {
+            fprintf( stderr, "Icon %d in %s is too large (%dx%d), replacing "
+                                        "with empty icon\n", i, fname, 
+                                        header.width,header.height  );
+            header.width = icon_maxw;
+            header.height = icon_maxh;
+            header.valid = 0;
+        }
+        if ( header.width > width )
+            width = header.width;
         height += header.height;
         fseek( file, old_pos, SEEK_SET );
     }
@@ -337,12 +353,14 @@ PG_Shp *shp_load( const char *fname )
     shp->headers = calloc( shp->count, sizeof( Icon_Header ) );
     fseek( file, 8, SEEK_SET );
     for ( i = 0; i < shp->count; i++ ) {
+        /* read position of data and palette */
         pos = pal_pos = 0;
         fread( &pos, 4, 1, file );
         pos = SDL_SwapLE32(pos);
         fread( &pal_pos, 4, 1, file );
         pal_pos = SDL_SwapLE32(pal_pos);
         old_pos = ftell( file );
+        /* read palette */
         if ( !use_def_pal && pal_pos > 0 ) {
             fseek( file, pal_pos, SEEK_SET );
             shp_read_palette( file, pal );
@@ -350,8 +368,16 @@ PG_Shp *shp_load( const char *fname )
         }
         else
             actual_pal = def_pal;
+        /* read header */
         fseek( file, pos, SEEK_SET );
         shp_read_icon_header( file, &header );
+        /* see comment in measure loop above; have empty icon if too large */
+        if ( header.width > icon_maxw || header.height > icon_maxh ) {
+            /* error message already given in measure loop */
+            header.width = icon_maxw;
+            header.height = icon_maxh;
+            header.valid = 0;
+        }
         if ( header.valid )
             shp_read_icon( file, shp->surf, shp->offsets[i], actual_pal, &header );
         if ( i < shp->count - 1 )
