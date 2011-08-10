@@ -38,6 +38,7 @@ int single_scen = 0; /* convert a single scenario instead of full campaign */
 int single_scen_id = 0; /* id of single scenario which is converted */
 int use_def_pal = 0; /* always use default PG palette regardless of whether
                         SHP icon is associated with another one */
+int map_or_scen_files_missing = 0; /* some map/scenario files were missing */
 
 void print_help()
 {
@@ -193,9 +194,13 @@ int main( int argc, char **argv )
         /* for unofficial campaigns there are no victory conditions and campaign
          * tree is unknown; only databases and scenarios were converted */
         if (strcmp(target_name, "pg"))
-            printf( "Note: You must set victory conditions in all scenarios and "
+            printf( "NOTE: You must set victory conditions in all scenarios and "
                     "define campaign file manually! Default victory condition: "
                     "attacker must capture all victory hexes.\n");
+        if (map_or_scen_files_missing)
+            printf("WARNING: Some scenario or map files were missing! As this is a custom campaign "
+                    "it may be that not all scenarios are used. In that case ids of missing map and "
+                    "scenario files should match. If they don't this might be an error.\n");
     }
     printf( "Done!\n" );
     if (title_image)

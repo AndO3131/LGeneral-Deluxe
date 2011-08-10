@@ -34,6 +34,7 @@ Externals
 extern char *source_path;
 extern char *dest_path;
 extern char target_name[128];
+extern int map_or_scen_files_missing;
 extern int  nation_count;
 extern char *nations[];
 
@@ -886,6 +887,17 @@ int scenarios_convert( int scen_id )
     
     /* go */
     for ( i = start; i <=end; i++ ) {
+        /* open scenario file */
+        snprintf( path, MAXPATHLEN, "%s/game%03d.scn", source_path, i );
+        if ((scen_file = fopen_ic(path, "r")) == NULL) {
+            fprintf( stderr, "%s: file not found\n", path );
+            if (scen_id == -1 && strcmp(target_name,"pg")) {
+                map_or_scen_files_missing = 1;
+                continue;
+            } else
+                goto failure;
+        }
+        
         /* open dest file */
         if ( scen_id == -1 ) {
             if (strcmp(target_name,"pg") == 0)
@@ -924,11 +936,6 @@ int scenarios_convert( int scen_id )
             fprintf( dest_file, "desc»none\n" );
             fprintf( dest_file, "authors»nobody\n" );
         }
-        
-        /* open scenario file */
-        snprintf( path, MAXPATHLEN, "%s/game%03d.scn", source_path, i );
-        if ((scen_file = fopen_ic(path, "r")) == NULL)
-            goto failure;
         
         /* date */
         fseek( scen_file, 22, SEEK_SET );

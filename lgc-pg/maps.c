@@ -33,6 +33,7 @@ Externals
 extern char *source_path;
 extern char *dest_path;
 extern char target_name[128];
+extern int map_or_scen_files_missing;
 extern int terrain_tile_count;
 extern char tile_type[];
 
@@ -121,23 +122,29 @@ int maps_convert( int map_id )
     }
     
     for ( i = start; i <=end; i++ ) {
+        /* open set file */
+        snprintf( path, MAXPATHLEN, "%s/map%02d.set", source_path, i );
+        if (( source_file = fopen_ic( path, "r" ) ) == NULL) {
+            fprintf( stderr, "%s: file not found\n", path );
+            /* for custom campaign not all maps/scenarios may be present so 
+             * don't consider this fatal, just continue */
+            if (map_id == -1 && strcmp(target_name,"pg")) {
+                map_or_scen_files_missing = 1;
+                continue;
+            } else
+                return 0;
+        }
+        
         /* open dest file */
         if ( map_id == -1 )
-            snprintf( path, MAXPATHLEN, "%s/maps/%s/map%02i", 
+            snprintf( path, MAXPATHLEN, "%s/maps/%s/map%02d", 
                                                 dest_path, target_name, i );
         else
             snprintf( path, MAXPATHLEN, "%s/scenarios/%s",
                                                 dest_path, target_name );
         if ( ( dest_file = fopen( path, (map_id==-1)?"w":"a" ) ) == NULL ) {
             fprintf( stderr, "%s: access denied\n", path );
-            return 0;
-        }
-        
-        /* open set file */
-        snprintf( path, MAXPATHLEN, "%s/map%02i.set", source_path, i );
-        if (( source_file = fopen_ic( path, "r" ) ) == NULL) {
-            fprintf( stderr, "%s: file not found\n", path );
-            fclose( dest_file );
+            fclose( source_file );
             return 0;
         }
         
