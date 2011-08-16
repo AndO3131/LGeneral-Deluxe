@@ -11,9 +11,10 @@ AM_CONFIG_HEADER(config.h)
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_RANLIB
+AM_PROG_CC_C_O
 
 dnl various CFLAGS
-CFLAGS="$CFLAGS -g -Wall"
+CFLAGS="$CFLAGS -Wall"
 #CFLAGS="-O0 -g -Wall"
 
 dnl Checks for libraries.
@@ -36,6 +37,7 @@ AC_MSG_RESULT($ac_mkdir_perm_broken)
 dnl L10n support
 ALL_LINGUAS="en de"
 
+AC_GNU_SOURCE
 AM_GNU_GETTEXT
 
 XGETTEXTFLAGS=
@@ -106,13 +108,8 @@ AC_SUBST(INTLINCLUDES)
 
 dnl find out whether we can determine the path of the running executable
 ac_paths_determ=generic
-AC_MSG_CHECKING(if executable's path can be determined at runtime)
-readlink /proc/$$/exe >/dev/null 2>&1 && ac_paths_determ=linux
-ac_can_determ_paths=yes
-if test x$ac_paths_determ = xgeneric ; then
   ac_can_determ_paths=no
   AC_DEFINE_UNQUOTED(PATHS_GENERIC, 1, [Defined if detecting executable's path name is not supported at runtime.])
-fi
 AC_MSG_RESULT($ac_can_determ_paths)
 AC_MSG_RESULT(executable's path determination strategy... $ac_paths_determ)
 AM_CONDITIONAL(compile_paths_linux, test x$ac_paths_determ = xlinux)
@@ -150,7 +147,7 @@ AC_SUBST(export_flag)
 AC_SUBST(dl_lib_flag)
 
 dnl installation path
-inst_dir=$datadir/games/lgeneral
+inst_dir=$datadir/lgeneral
 inst_flag="-DINSTALLDIR=\\\"$inst_dir\\\""
 
 dis_flag=""
