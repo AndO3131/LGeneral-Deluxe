@@ -433,11 +433,10 @@ Give unit a generic name.
 */
 void unit_set_generic_name( Unit *unit, int number, const char *stem )
 {
-    unsigned len;
-    locale_write_ordinal_number(unit->name, sizeof unit->name, number);
-    len = strlen(unit->name);
-
-    snprintf(unit->name + len, sizeof unit->name - len + 1, " %s", stem);
+    char numbuf[8];
+    
+    locale_write_ordinal_number(numbuf, sizeof numbuf, number);
+    snprintf(unit->name, 24, "%s %s", numbuf, stem);
 }
 
 /*
