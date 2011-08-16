@@ -1,3 +1,8 @@
+1.2.2:
+- applied a number of Gentoo build patches (2011/08/16 MS)
+- fixed bug in move range calculation occurring when both, unit and 
+  transporter, did not use fuel (2011/08/16 MS)
+- fixed buffer overflow in unit name generation (2011/08/16 MS)
 - improved conversion of campaigns in lgc-pg (2011/08/09 MS)
 
 1.2.1:
