@@ -3,7 +3,6 @@ SUBDIRS = intl util lgc-pg lged src tools po
 EXTRA_DIST = AUTHORS COPYING ChangeLog README.lgeneral \
 README.lgc-pg README.redit TODO PanzerGeneral-Guru.txt \
 lgeneral48.png lgeneral32.png lgeneral16.png lgeneral.desktop.in \
-LGeneral.prj \
 lgeneral-redit
 
 desktopdir = $(datadir)/applications
