@@ -604,24 +604,26 @@ void map_get_unit_move_mask( Unit *unit )
            possible, the user'd have to explicitly mount/unmount before starting
            to move); so all units should move in one go */
 
-	//begin patch: we need to consider if our range is restricted by lack of fuel -trip
-	//map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->prop.mov,0);
-	//map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->trsp_prop.mov,1);
-	int maxpoints = unit->prop.mov;
-	if (unit->cur_fuel < maxpoints) {
-		maxpoints = unit->cur_fuel;
-		//printf("limiting movement because fuel = %d\n", unit->cur_fuel);
-	}
-	map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0);
-	/* fix for crashing when don't have enough fuel to use the land transport's full range -trip */
-	maxpoints = unit->trsp_prop.mov;
-	if (unit->cur_fuel < maxpoints) {
-		maxpoints = unit->cur_fuel;
-		//printf("limiting expansion of movement via transport because fuel = %d\n", unit->cur_fuel);
-	}
-	map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1);
-	//end of patch -trip
-
+        //begin patch: we need to consider if our range is restricted by lack of fuel -trip
+        //map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->prop.mov,0);
+        //map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->trsp_prop.mov,1);
+        int maxpoints = unit->prop.mov;
+        if ((unit->prop.fuel || unit->trsp_prop.fuel) && 
+                                                unit->cur_fuel < maxpoints) {
+            maxpoints = unit->cur_fuel;
+            //printf("limiting movement because fuel = %d\n", unit->cur_fuel);
+        }
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0);
+        /* fix for crashing when don't have enough fuel to use the land transport's full range -trip */
+        maxpoints = unit->trsp_prop.mov;
+        if ((unit->prop.fuel || unit->trsp_prop.fuel) && 
+                                                unit->cur_fuel < maxpoints) {
+            maxpoints = unit->cur_fuel;
+            //printf("limiting expansion of movement via transport because fuel = %d\n", unit->cur_fuel);
+        }
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1);
+        //end of patch -trip
+        
     }
     else
         map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->cur_mov,0);
