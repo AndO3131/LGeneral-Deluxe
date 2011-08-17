@@ -116,8 +116,6 @@ lgc-pg converts the following with some limitations:
 The following limitations apply:
   - a single scenario (not converted as part of a campaign) will lack title, 
     description and author 
-  - scenario files of a custom campaign to not have proper file name but are 
-    just indexed (e.g., scn01)
   - .order file with all scenario file names in chronological order (used for 
     sorted list in LGeneral) is only generated for PG campaign
   - campaign tree file is hardcoded for PG only
