@@ -822,6 +822,46 @@ int read_unit_limit( FILE *file, int *axis_ulimit, int *allies_ulimit )
 	return 0;
 }
 
+/** Get a decent file name from scenario title: Change to lower case,
+ * remove blanks and special characters. Return as pointer to static
+ * string. */
+static char *scentitle_to_filename( const char *title )
+{
+    static char fname[32];
+    int i, j;
+    
+    snprintf(fname, 32, "%s", title);
+    for (i = 0; i < strlen(fname); i++) {
+        /* adjust case (first character of word is upper case) */
+        if (i == 0 || fname[i - 1] == ' ')
+            fname[i] = toupper(fname[i]);
+        else
+            fname[i] = tolower(fname[i]);
+        /* only allow alphanumerical chars */
+        if ((fname[i] >= 'A' && fname[i] <= 'Z') ||
+            (fname[i] >= 'a' && fname[i] <= 'z') ||
+            (fname[i] >= '0' && fname[i] <= '9') ||
+            fname[i] == '-' || fname[i] == '_')
+            ; /* is okay, do nothing */
+        else 
+            fname[i] = ' ';
+    }
+    
+    /* remove all blanks */
+    for (i = 0; fname[i] != 0; i++) {
+        if (fname[i] != ' ')
+            continue;
+        for (j = i; fname[j] != 0; j++)
+            fname[j] = fname[j + 1];
+        i--; /* re-check if we just shifted a blank */
+    }
+    
+    return fname;
+}
+
+
+
+
 /*
 ====================================================================
 Publics
@@ -845,11 +885,12 @@ int scenarios_convert( int scen_id )
     int  deploy_fields_count;
     struct prestige_info pi_axis, pi_allies;
     char path[MAXPATHLEN];
-    FILE *dest_file = 0, *scen_file = 0, *aux_file = 0;
+    FILE *dest_file = 0, *scen_file = 0, *aux_file = 0, *scenstat_file = 0;
     PData *pd = 0, *reinf, *unit;
     int def_str, def_exp, def_entr;
     char *str;
     int axis_ulimit = 0, allies_ulimit = 0;
+    char scen_title[16], scen_desc[160], scen_author[32];
 	
     printf( "Scenarios...\n" );
     
@@ -886,6 +927,13 @@ int scenarios_convert( int scen_id )
         start = end = scen_id;
     }
     
+    /* open scen stat file containing scenario names and descriptions */
+    if ( scen_id == -1 ) {
+        snprintf( path, MAXPATHLEN, "%s/scenstat.bin", source_path );
+        if ((scenstat_file = fopen_ic(path, "r")) == NULL)
+            goto failure;
+    }
+    
     /* go */
     for ( i = start; i <=end; i++ ) {
         /* open scenario file */
@@ -899,14 +947,42 @@ int scenarios_convert( int scen_id )
                 goto failure;
         }
         
+        /* read title and description from scenstat file for campaign */
+        if ( scen_id == -1 ) {
+            fseek( scenstat_file, 40 + (i - 1) * 14, SEEK_SET );
+            fread( dummy, 14, 1, scenstat_file );
+            snprintf( scen_title, sizeof(scen_title), "%s", dummy);
+            fseek( scenstat_file, 600 + (i - 1) * 160 , SEEK_SET );
+            fread( dummy, 160, 1, scenstat_file );
+            snprintf( scen_desc, sizeof(scen_desc), "%s", dummy);
+            if (strcmp(target_name,"pg") == 0)
+                snprintf( scen_author, sizeof(scen_author), "SSI" );
+            else
+                snprintf( scen_author, sizeof(scen_author), "unknown" );
+        } else {
+            snprintf( scen_title, sizeof(scen_title), "%s", target_name );
+            snprintf( scen_desc, sizeof(scen_desc), "none" );
+            snprintf( scen_author, sizeof(scen_author), "unknown" );
+        }
+        
         /* open dest file */
         if ( scen_id == -1 ) {
             if (strcmp(target_name,"pg") == 0)
                 snprintf( path, MAXPATHLEN, "%s/scenarios/pg/%s",
                                                 dest_path, fnames[i - 1] );
-            else
-                snprintf( path, MAXPATHLEN, "%s/scenarios/%s/scn%02d",
-                                                dest_path, target_name, i );
+            else {
+                char fname[32];
+                snprintf(fname, 32, "%s", scentitle_to_filename(scen_title));
+                if (fname[0] == 0) {
+                    /* bad scenario name so use a default name */
+                    snprintf(fname, 32, "scn%02d", i);
+                    fprintf(stderr, "Using %s as filename for scenario %d as "
+                                    "title '%s' is not suitable\n", fname, i, 
+                                    scen_title);
+                }
+                snprintf( path, MAXPATHLEN, "%s/scenarios/%s/%s",
+                                            dest_path, target_name, fname);
+            }
         } else
             snprintf( path, MAXPATHLEN, "%s/scenarios/%s", 
                                                     dest_path, target_name );
@@ -915,28 +991,13 @@ int scenarios_convert( int scen_id )
             goto failure;
         }
         
-        /* scenario name and description */
+        /* file magic */
         fprintf( dest_file, "@\n" );
-        if ( scen_id == -1 ) {
-            snprintf( path, MAXPATHLEN, "%s/scenstat.bin", source_path );
-            if ((aux_file = fopen_ic(path, "r")) == NULL)
-                goto failure;
-            fseek( aux_file, 40 + (i - 1) * 14, SEEK_SET );
-            fread( dummy, 14, 1, aux_file );
-            fprintf( dest_file, "name»%s\n", dummy );
-            fseek( aux_file, 600 + (i - 1) * 160 , SEEK_SET );
-            fread( dummy, 160, 1, aux_file );
-            fprintf( dest_file, "desc»%s\n", dummy );
-            if (strcmp(target_name,"pg") == 0)
-                fprintf( dest_file, "authors»Strategic Simulation Inc.\n" );
-            else
-                fprintf( dest_file, "authors»unknown\n" );
-            fclose( aux_file );
-        } else {
-            fprintf( dest_file, "name»%s\n", target_name );
-            fprintf( dest_file, "desc»none\n" );
-            fprintf( dest_file, "authors»nobody\n" );
-        }
+        
+        /* scenario name and description */
+        fprintf( dest_file, "name»%s\n", scen_title );
+        fprintf( dest_file, "desc»%s\n", scen_desc );
+        fprintf( dest_file, "authors»%s\n", scen_author );
         
         /* date */
         fseek( scen_file, 22, SEEK_SET );
@@ -1179,10 +1240,13 @@ int scenarios_convert( int scen_id )
         fclose( scen_file );
         fclose( dest_file );
     }
+    if ( scenstat_file ) 
+        fclose( scenstat_file );
     parser_free( &pd );
     return 1;
 failure:
     parser_free( &pd );
+    if ( scenstat_file ) fclose( scenstat_file );
     if ( aux_file ) fclose( aux_file );
     if ( scen_file ) fclose( scen_file );
     if ( dest_file ) fclose( dest_file );

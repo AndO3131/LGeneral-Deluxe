@@ -1,3 +1,6 @@
+- generate scenario file names from its title for custom campaigns 
+  (2011/08/17 MS)
+
 1.2.2:
 - applied a number of Gentoo build patches (2011/08/16 MS)
 - fixed bug in move range calculation occurring when both, unit and 
