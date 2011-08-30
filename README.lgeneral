@@ -12,6 +12,7 @@ Table of Contents
 
 1. About
 2. Installation
+   2.1 Building LGeneral on Mac OS X
 3. Troubleshooting
 4. Main Menu
 5. Interface
@@ -52,6 +53,15 @@ directory you extracted the LGeneral source)
 The LGeneral engine and the converter lgc-pg are now installed. Please download
 the data package or use your copy of PG (DOS version) and feed the engine 
 according to the instructions in README.lgc-pg.
+
+2.1 Building LGeneral on Mac OS X
+---------------------------------
+
+Some hints about building LGeneral on Mac OS X:
+ * Build SDL from source.
+ * Build gettext from source.
+ * Compile LGeneral on a case-sensitive file system, otherwise sdl.h
+   and SDL.h conflict.
 
 3. Troubleshooting
 ------------------
