@@ -37,6 +37,9 @@ extern char target_name[128];
 extern int map_or_scen_files_missing;
 extern int  nation_count;
 extern char *nations[];
+/* unofficial options */
+extern const char *axis_name, *allies_name;
+extern const char *axis_nations, *allies_nations;
 
 int unit_entry_used[UDB_LIMIT];
 
@@ -1074,8 +1077,19 @@ int scenarios_convert( int scen_id )
         else
             axis_strat = -1;
         /* definition */
-        fprintf( dest_file, "<axis\nname»Axis\n" );
-        fprintf( dest_file, "nations»ger°aus°it°hun°bul°rum°fin°esp\n" );
+        if (axis_name)
+            fprintf( dest_file, "<axis\nname»%s\n", axis_name );
+        else 
+            fprintf( dest_file, "<axis\nname»Axis\n" );
+        if (axis_nations) {
+            char *ptr, auxstr[256]; /* commata need conversion */
+            snprintf(auxstr,256,"%s",axis_nations);
+            for (ptr = auxstr; *ptr != 0; ptr++)
+                if (ptr[0] == ',')
+                    ptr[0] = '°';
+            fprintf( dest_file, "nations»%s\n", auxstr );
+        } else
+            fprintf( dest_file, "nations»ger°aus°it°hun°bul°rum°fin°esp\n" );
         fprintf( dest_file, "allied_players»\n" );
         fprintf( dest_file, "unit_limit»%d\n", axis_ulimit );
         fprintf( dest_file, "orientation»%s\ncontrol»human\nstrategy»%i\n", dummy, axis_strat );
@@ -1114,8 +1128,19 @@ int scenarios_convert( int scen_id )
             allied_strat = -1;
         else
             allied_strat = 1;
-        fprintf( dest_file, "<allies\nname»Allies\n" );
-        fprintf( dest_file, "nations»bel°lux°den°fra°gre°usa°tur°net°nor°pol°por°so°swe°swi°eng°yug\n" );
+        if (allies_name)
+            fprintf( dest_file, "<allies\nname»%s\n", allies_name );
+        else 
+            fprintf( dest_file, "<allies\nname»Allies\n" );
+        if (allies_nations) {
+            char *ptr, auxstr[256]; /* commata need conversion */
+            snprintf(auxstr,256,"%s",allies_nations);
+            for (ptr = auxstr; *ptr != 0; ptr++)
+                if (ptr[0] == ',')
+                    ptr[0] = '°';
+            fprintf( dest_file, "nations»%s\n", auxstr );
+        } else
+            fprintf( dest_file, "nations»bel°lux°den°fra°gre°usa°tur°net°nor°pol°por°so°swe°swi°eng°yug\n" );
         fprintf( dest_file, "allied_players»\n" );
         fprintf( dest_file, "unit_limit»%d\n", allies_ulimit );
         fprintf( dest_file, "orientation»%s\ncontrol»cpu\nstrategy»%i\n", dummy, allied_strat );
