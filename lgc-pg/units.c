@@ -220,6 +220,8 @@ static int get_nation_from_unit_name( const char *uname )
 		{ "Greek ", 8 },
 		{ "Yugoslav ", 23 },
 		{ "US ", 9 },
+        { "Finn", 5}, /* codes for Finnland ... */
+        { "FIN", 5}, /* ... not used in pg but some other campaigns */
 		{ "AF ", -1 },
 		{ "AD ", -1 },
 		{ "FFR ", -1 },
