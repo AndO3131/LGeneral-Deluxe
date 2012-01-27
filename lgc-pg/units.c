@@ -680,7 +680,7 @@ int units_convert_graphics( char *tac_icons )
         else
             SDL_BlitSurface( shp->surf, &srect, surf, &drect );
         set_pixel( surf, drect.x, drect.y - 1, mkey );
-        set_pixel( surf, drect.x + ( drect.w - 1 ) + ( ( drect.w - 1 ) & 1 ), drect.y - 1, mkey );
+        set_pixel( surf, drect.x + ( drect.w - 1 ), drect.y - 1, mkey );
         set_pixel( surf, drect.x, drect.y + drect.h, mkey );
         height += shp->headers[i].actual_height + 2;
     }
