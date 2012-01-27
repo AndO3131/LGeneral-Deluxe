@@ -41,6 +41,9 @@ int use_def_pal = 0; /* always use default PG palette regardless of whether
 int map_or_scen_files_missing = 0; /* some map/scenario files were missing */
 int apply_unit_mods = 0; /* apply PG specific modifications (e.g., determine 
                             nation by name, mirror images, correct spelling) */
+/* unofficial options */
+const char *axis_name = 0, *allies_name =  0;
+const char *axis_nations = 0, *allies_nations = 0; /* comma-separated */
 
 void print_help()
 {
@@ -88,6 +91,15 @@ int parse_args( int argc, char **argv )
             apply_unit_mods = 1;
         if ( !strcmp( "-h", argv[i] ) || !strcmp( "--help", argv[i] ) )
             print_help(); /* will exit */
+        /* unoffical options */
+        if ( !strcmp( "--axis_name", argv[i] ) )
+            axis_name = argv[i + 1];
+        if ( !strcmp( "--allies_name", argv[i] ) )
+            allies_name = argv[i + 1];
+        if ( !strcmp( "--axis_nations", argv[i] ) )
+            axis_nations = argv[i + 1];
+        if ( !strcmp( "--allies_nations", argv[i] ) )
+            allies_nations = argv[i + 1];
     }
     
     if ( source_path == 0 ) {
@@ -146,7 +158,7 @@ int main( int argc, char **argv )
 
     /* info */
     printf( "LGeneral Converter for Panzer General (DOS version) v%s\n"
-            "Copyright 2002-2011 Michael Speck\n"
+            "Copyright 2002-2012 Michael Speck\n"
             "Released under GNU GPL\n---\n", VERSION );
     
     /* parse options */
