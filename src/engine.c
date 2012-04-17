@@ -475,7 +475,7 @@ static void engine_check_menu_buttons()
     else
         group_set_active( gui->base_menu, ID_SCEN_INFO, 1 );
     /* purchase */
-    if ( config.purchase && (!deploy_turn  && status == STATUS_NONE ) )
+    if ( config.purchase && cur_ctrl != PLAYER_CTRL_NOBODY && (!deploy_turn  && status == STATUS_NONE ) )
         group_set_active( gui->base_menu, ID_PURCHASE, 1 );
     else
         group_set_active( gui->base_menu, ID_PURCHASE, 0 );
