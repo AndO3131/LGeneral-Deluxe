@@ -536,14 +536,14 @@ void ai_run( void )
                 } else {
                     map_get_deploy_mask(cur_player,unit,0);
                     map_clear_mask( F_AUX );
-                    for ( i = 0; i < map_w; i++ )
-                        for ( j = 0; j < map_h; j++ )
+                    for ( i = 1; i < map_w - 1; i++ )
+                        for ( j = 1; j < map_h - 1; j++ )
                             if ( mask[i][j].deploy )
                                 if ( ai_get_dist( unit, i, j, AI_FIND_ENEMY_OBJ, &x, &y, &dist ) )
                                     mask[i][j].aux = dist + 1;
                     dist = 1000; found = 0;
-                    for ( i = 0; i < map_w; i++ )
-                        for ( j = 0; j < map_h; j++ )
+                    for ( i = 1; i < map_w - 1; i++ )
+                        for ( j = 1; j < map_h - 1; j++ )
                             if ( mask[i][j].aux > 0 && mask[i][j].aux < dist ) {
                                 dist = mask[i][j].aux;
                                 x = i; y = j;

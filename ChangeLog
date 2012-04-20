@@ -1,7 +1,9 @@
+1.2.3:
+- do not allow AI to place units on border of map (2012/04/20 TB)
 - assign nations to late-war units: FPO is Poland, FFR is France 
-  (2012/04/20 MS)
+  (2012/04/20 TB)
 - fixed bug in final view on scenario: properly disable purchase option
-  as no player is selected in this state (2012/04/17 MS)
+  as no player is selected in this state (2012/04/17 TB)
 - added Finnland ids to 'get nation from name' algorithm in lgc-pg:
   it is not used by PG but some additional campaigns (2012/01/27 MS)
 - added lgc-pg options to change player names and nations (2012/01/27 MS)
