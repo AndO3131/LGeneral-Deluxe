@@ -224,8 +224,8 @@ static int get_nation_from_unit_name( const char *uname )
         { "FIN", 5}, /* ... not used in pg but some other campaigns */
 		{ "AF ", -1 },
 		{ "AD ", -1 },
-		{ "FFR ", -1 },
-		{ "FPO ", -1 },
+		{ "FFR ", 6 },
+		{ "FPO ", 15 },
 		{ "Katyusha ", 19 }, /* here ST is missing */
 		{ "x", }
 	};

@@ -1,3 +1,5 @@
+- assign nations to late-war units: FPO is Poland, FFR is France 
+  (2012/04/20 MS)
 - fixed bug in final view on scenario: properly disable purchase option
   as no player is selected in this state (2012/04/17 MS)
 - added Finnland ids to 'get nation from name' algorithm in lgc-pg:
