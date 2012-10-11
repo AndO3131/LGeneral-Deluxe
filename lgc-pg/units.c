@@ -552,7 +552,7 @@ int units_convert_database( char *tac_icons )
             }
         }
         /* get flags */
-        sprintf( flags, unit_classes[entry.class * 3 + 2] );
+        sprintf( flags, "%s", unit_classes[entry.class * 3 + 2] );
         if ( apply_unit_mods ) {
             i = 0;
             while ( add_flags[i*2][0] != 'X' ) {

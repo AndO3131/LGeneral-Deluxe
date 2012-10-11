@@ -2311,7 +2311,7 @@ static void engine_handle_button( int id )
                 if ( gui->module_dlg->subdir[0] != 0 )
                     sprintf( path, "%s/%s", gui->module_dlg->subdir, (char*)gui->module_dlg->lbox->cur_item );
                 else
-                    sprintf( path, (char*)gui->module_dlg->lbox->cur_item );
+                    sprintf( path, "%s", (char*)gui->module_dlg->lbox->cur_item );
                 free( setup.modules[gui->setup->sel_id] );
                 setup.modules[gui->setup->sel_id] = strdup( path );
                 gui_handle_player_select( gui->setup->list->cur_item );
@@ -2756,7 +2756,7 @@ static void engine_check_events(int *reinit)
                      result = gui_get_message_pane_selection(camp_pane);
                      if (result && strcmp(result, "nextscen") == 0) {
                          /* start scenario */
-                         sprintf( setup.fname, camp_cur_scen->scen );
+                         sprintf( setup.fname, "%s", camp_cur_scen->scen );
                          setup.type = SETUP_DEFAULT_SCEN;
                          end_scen = 1;
                          *reinit = 1;
@@ -4243,7 +4243,7 @@ void engine_run()
                 }
                 else {
                     /* next scenario */
-                    sprintf( setup.fname, camp_cur_scen->scen );
+                    sprintf( setup.fname, "%s", camp_cur_scen->scen );
                     setup.type = SETUP_CAMP_BRIEFING;
                     reinit = 1;
                 }
