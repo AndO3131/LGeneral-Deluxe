@@ -1,3 +1,5 @@
+- applied hardened compile patch (2012/10/11 Markus Koschany)
+
 1.2.3:
 - do not allow AI to place units on border of map (2012/04/20 TB)
 - assign nations to late-war units: FPO is Poland, FFR is France 
