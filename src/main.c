@@ -151,7 +151,7 @@ static void syntax(int argc, char *argv[])
 static void print_version()
 {
     /* display some credits */
-    printf( tr("LGeneral %s\nCopyright 2001-2011 Michael Speck\nPublished under GNU GPL\n---\n"), VERSION );
+    printf( tr("LGeneral %s\nCopyright 2001-2012 Michael Speck\nPublished under GNU GPL\n---\n"), VERSION );
     printf( tr("Looking up data in: %s\n"), get_gamedir() );
 #ifndef WITH_SOUND
     printf( tr("Compiled without sound and music\n") );
