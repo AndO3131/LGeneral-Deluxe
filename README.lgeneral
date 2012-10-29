@@ -211,9 +211,9 @@ is than permanently (after confirmation) removed from the game.
 7. Differences between LGeneral and Panzer General
 --------------------------------------------------
 
-As LGeneral is heavily inspired by Panzer General Werner Archan's FAQ
-'PanzerGeneral-Guru.txt' is included to this package since it provides many 
-helpful hints to master the game.
+As LGeneral is heavily inspired by Panzer General you can find Werner Archan's
+FAQ at http://lgames.sf.net in Additional Resources for LGeneral. It 
+provides many helpful hints to master the game.
 
 However, LGeneral and PG differ in two main aspects:
   1) Reinforcements: Initially I wanted to have fixed reinforcements arriving
