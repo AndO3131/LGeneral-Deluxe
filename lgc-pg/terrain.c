@@ -186,7 +186,6 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
     SDL_Surface *surf;
     char path[MAXPATHLEN];
     int count = 0;
-    SDL_Surface *fixed_road;
     int is_road = !strcmp( fname, "road" );
     
     /* count occurence */
@@ -215,22 +214,19 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
     pos = 0; count = 0;
     for ( i = 0; i < terrain_tile_count; i++ )
         if ( tile_type[i] == id ) {
-            /* the third road tile is buggy so we need to copy the fixed one */
-            if ( is_road && count == 2 ) {
-                snprintf( path, MAXPATHLEN, "%s/convdata/road2.bmp", get_gamedir() );
-                if ( ( fixed_road = SDL_LoadBMP( path ) ) == 0 ) {
-                    fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
-                    return 0;
-                }
-                srect.y = 0; drect.x = pos;
-                SDL_BlitSurface( fixed_road, &srect, surf, &drect );
-            }
-            else {
+			/* road tile no 2 is buggy ... */
+			if (!is_road || count != 2) {
                 srect.y = i * 50;
                 drect.x = pos;
                 SDL_BlitSurface( shp->surf, &srect, surf, &drect );
-            }
-            pos += 60;
+			}
+			/* ... but can be repaired by mirroring tile no 7 */
+			if (is_road && count == 7) {
+				srect.y = i * 50;
+                drect.x = 2 * 60;
+				copy_surf_mirrored(shp->surf, &srect, surf, &drect);
+			}
+			pos += 60;
             count++;
         }
 
