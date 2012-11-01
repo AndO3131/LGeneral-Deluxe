@@ -105,13 +105,23 @@ int maps_convert( int map_id )
         mkdir( path, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
     }
 
+	/* if converting pg campaign, copy mapnames as fallback */
+	if (strcmp(target_name,"pg") == 0) {
+		char spath[MAXPATHLEN], dpath[MAXPATHLEN];
+		snprintf(spath,MAXPATHLEN,"%s/mapnames.str",source_path);
+		snprintf(dpath,MAXPATHLEN,"%s/convdata/mapnames", get_gamedir() );
+		copy_ic(spath,dpath);
+	}
+
     printf( "Maps...\n" );
     /* name file (try the one in lgc-pg as fallback) */
     snprintf( path, MAXPATHLEN, "%s/mapnames.str", source_path );
     if ( (name_file = fopen_ic( path, "r" )) == NULL ) {
         snprintf( path, MAXPATHLEN, "%s/convdata/mapnames", get_gamedir() );
         if ( ( name_file = fopen( path, "r" ) ) == NULL ) {
-            fprintf( stderr, "%s: file not found\n", path );
+            fprintf( stderr, "ERROR: mapnames neither found in %s nor in lgc-pg directory.\n" \
+                   		"Please convert original PG data with lgc-pg to create this file.\n",
+                    	source_path);
             return 0;
         }
     }

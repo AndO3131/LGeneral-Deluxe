@@ -349,9 +349,32 @@ char *strlower( const char *str ) {
 
 /*
 ====================================================================
-Copy file
+Copy file (copy_ic ignores case of @sname)
 ====================================================================
 */
+void copy_ic( char *sname, char *dname )
+{
+    int size;
+    char *buffer;
+    FILE *source, *dest;
+    if ( ( source = fopen_ic( sname, "r" ) ) == 0 ){
+        fprintf( stderr, "%s: file not found\n", sname );
+        return;
+    }
+    if ( ( dest = fopen( dname, "w" ) ) == 0 ) {
+        fprintf( stderr, "%s: write access denied\n", dname );
+        return;
+    }
+    fseek( source, 0, SEEK_END ); 
+    size = ftell( source );
+    fseek( source, 0, SEEK_SET );
+    buffer = calloc( size, sizeof( char ) );
+    fread( buffer, sizeof( char ), size, source );
+    fwrite( buffer, sizeof( char ), size, dest );
+    free( buffer );
+    fclose( source );
+    fclose( dest );
+}
 void copy( char *sname, char *dname )
 {
     int size;
