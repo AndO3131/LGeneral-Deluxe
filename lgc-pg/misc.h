@@ -19,6 +19,7 @@
 #define __MISC_H
 
 #include "config.h"
+#include <SDL.h> 
 
 /* check if number is odd or even */
 #define ODD( x ) ( x & 1 )
@@ -133,6 +134,7 @@ char *strlower( const char *str );
 Copy file
 ====================================================================
 */
+void copy_ic( char *sname, char *dname );
 void copy( char *sname, char *dname );
 int copy_pg_bmp( char *src, char *dest );
 
@@ -147,5 +149,12 @@ const char *get_gamedir(void);
  * If both fails return NULL. Path itself is considered to be in
  * correct case, only the name after last '/' is modified. */
 FILE *fopen_ic( const char *path, const char *mode );
- 
+
+/*
+====================================================================
+Copy to dest from source horizontally mirrored.
+====================================================================
+*/
+void copy_surf_mirrored( SDL_Surface *source, SDL_Rect *srect, SDL_Surface *dest, SDL_Rect *drect );
+
 #endif

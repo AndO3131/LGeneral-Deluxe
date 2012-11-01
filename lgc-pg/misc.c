@@ -470,3 +470,18 @@ FILE *fopen_ic( const char *_path, const char *mode )
 	
 	return NULL;
 }
+
+/*
+====================================================================
+Copy to dest from source horizontally mirrored.
+====================================================================
+*/
+void copy_surf_mirrored( SDL_Surface *source, SDL_Rect *srect, SDL_Surface *dest, SDL_Rect *drect )
+{
+    int mirror_i, i, j;
+    for ( j = 0; j < srect->h; j++ )
+        for ( i = 0, mirror_i = drect->x + drect->w - 1; i < srect->w; i++, mirror_i-- )
+            set_pixel( dest, mirror_i, j + drect->y, get_pixel( source, i + srect->x, j + srect->y ) );
+}
+
+
