@@ -2,7 +2,7 @@
 .\" First parameter, NAME, should be all caps
 .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
 .\" other parameters are allowed: see man(7), man(1)
-.TH LGC-PG 1 "November  13, 2002"
+.TH LGC-PG 1 "October  07, 2012"
 .\" Please adjust this date whenever revising the manpage.
 .\"
 .\" Some roff macros, for reference:
@@ -19,15 +19,10 @@
 lgc-pg \- Converter Tool  for original Panzer General\*R Data Files
 .SH SYNOPSIS
 .B lgc-pg
-[-s SOURCE] [-d DEST] [--defpal] [--custom] [-n NAME] [-i ID] [-t TACICONS]
+[\-s SOURCE] [\-d DEST] [\-\-defpal] [\-\-custom] [\-n NAME] [\-i ID] [\-t TACICONS]
 .br
 .SH DESCRIPTION
 LGC-PG is a simple tool to convert the original Panzer General\*R Data into LGeneral Data Files. 
-
-.\" TeX users may be more comfortable with the \fB<whatever>\fP and
-.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
-.\" respectively.
-
 .SH OPTIONS
 .TP
 .B \-s
@@ -35,7 +30,7 @@ You always need to specify the source directory (which contains
 the original data or a custom scenario).
 .TP
 .B \-d
-This specify's the destination path that contains the LGeneral data struct. (usually /usr/share/games/lgeneral)
+This specifies the destination path that contains the LGeneral data struct. (usually /usr/share/games/lgeneral)
 .TP
 .B \-\-defpal
 This one is optional and forces all PG graphics to use the default
@@ -55,20 +50,13 @@ This is the <ID> in the source file name (game<ID>.scn). If you do not specify a
 .B \-t <TACICONS>
 If custom tactical icons are involved (scenario offers a TACICONS.SHP)this is the name of the graphical file. 
 If this option is not provided it defaults to <NAME>.bmp.
-. TP
 .SH EXAMPLES
 .TP
 1) Converts all data from CD-ROM
 .TP
-  > lgc-pg -s /mnt/windows/DAT -d /usr/share/games/lgeneral
-.TP
+lgc-pg \-s /mnt/windows/DAT \-d /usr/share/games/lgeneral
 .TP
 2) Converts a custom scenario
 .TP
-  > lgc-pg -s /home/jones/newstuff/dunk -d /usr/share/games/lgeneral --custom -n Dunkirk -i 44
-.TP
+lgc-pg \-s /home/jones/newstuff/dunk \-d /usr/share/games/lgeneral \-\-custom \-n Dunkirk \-i 44
 
-.SH AUTHOR
-.TP
-This manual page was written by Gernot Galli <gernot_galli@onlinehome.de>,
-for the Debian GNU/Linux system (but may be used by others).
