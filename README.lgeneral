@@ -42,6 +42,7 @@ LGeneral runs in X and uses SDL (>= 1.1.4) and SDL_mixer (optional, any
 version). Both libraries can be found at http://libsdl.org.
 Now enter your favorite shell and type in the following stuff (in the
 directory you extracted the LGeneral source)
+  > ./autogen.sh
   > ./configure [--disable-sound] [--disable-install] [--disable-dl]
       --disable-sound:       no sound
       --disable-install:     no installation; play from source directory
