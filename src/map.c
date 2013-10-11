@@ -5,7 +5,10 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                          Modifications
+    Patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -729,8 +732,12 @@ Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit *
     /* same tile ? */
     if ( unit->x == x && unit->y == y ) return 0;
     /* allocate memory */
-    way = calloc( unit->cur_mov + 1, sizeof( Way_Point ) );
-    reverse = calloc( unit->cur_mov + 1, sizeof( Way_Point ) );
+    /* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
+    int maxpoints = unit->cur_mov;
+    if (mask[x][y].mount == 1) maxpoints = (unit->trsp_prop.mov>unit->prop.mov?unit->trsp_prop.mov:unit->prop.mov);
+    way = calloc( maxpoints + 1, sizeof( Way_Point ) );
+    reverse = calloc( maxpoints + 1, sizeof( Way_Point ) );
+    /* end patch */
     /* it's easiest to get positions in reverse order */
     next_x = x; next_y = y; *count = 0;
     while ( next_x != unit->x || next_y != unit->y ) {

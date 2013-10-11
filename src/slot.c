@@ -5,7 +5,10 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                          Modifications
+    Patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -606,6 +609,9 @@ Unit* load_unit( FILE *file )
     unit->nation = nation_find( str );
     free( str );
     /* recalculate members that aren't stored */
+    /* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
+    unit->terrain = map[unit->x][unit->y].terrain;
+    /* end patch */
     unit_adjust_icon( unit );
     unit->exp_level = unit->exp / 100;
     unit_update_bar( unit );
