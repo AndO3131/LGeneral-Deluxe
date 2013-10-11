@@ -1,0 +1,7 @@
+// check for functions
+#cmakedefine HAVE_SETENV
+#cmakedefine HAVE_PUTENV
+#cmakedefine HAVE_STPCPY
+#cmakedefine HAVE_NL_TYPES_H
+#cmakedefine STDC_HEADERS
+//#cmakedefine HAVE_LOCALE_H

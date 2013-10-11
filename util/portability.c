@@ -28,6 +28,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <../cmake_define.h>
 
 #ifndef HAVE_SETENV
 int setenv(const char *name, const char *value, int override) {
