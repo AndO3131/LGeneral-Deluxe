@@ -13,6 +13,7 @@ Table of Contents
 1. About
 2. Installation
    2.1 Building LGeneral on Mac OS X
+   2.2 Building LGeneral on Windows
 3. Troubleshooting
 4. Main Menu
 5. Interface
@@ -63,6 +64,14 @@ Some hints about building LGeneral on Mac OS X:
  * Build gettext from source.
  * Compile LGeneral on a case-sensitive file system, otherwise sdl.h
    and SDL.h conflict.
+
+2.2 Building LGeneral on Mac OS X
+---------------------------------
+
+LGeneral requires SDL (>= 1.1.4 ), SDL_mixer(optional any version) and Libintl 
+for Windows(developer files + dependencies + binaries). Both libraries can be found 
+at http://libsdl.org. Put header files inside \include directory. Put dll, lib, a, la 
+files inside \lib directory and compile Code::Blocks project.
 
 3. Troubleshooting
 ------------------

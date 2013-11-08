@@ -1,0 +1,636 @@
+# depslib dependency file v1.0
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\action.c
+	"lgeneral.h"
+	"unit.h"
+	"action.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\lgeneral.h
+	<SDL.h>
+	<SDL_mixer.h>
+	"audio.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	"sdl.h"
+	"image.h"
+	"misc.h"
+	"list.h"
+	"config.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1326110988 c:\users\uczeñ3\documents\lgeneral\include\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_dreamcast.h"
+	"SDL_config_macos.h"
+	"SDL_config_macosx.h"
+	"SDL_config_symbian.h"
+	"SDL_config_win32.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_platform.h
+
+1326110994 c:\users\uczeñ3\documents\lgeneral\include\sdl_config_win32.h
+	"SDL_platform.h"
+
+1326111000 c:\users\uczeñ3\documents\lgeneral\include\begin_code.h
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\close_code.h
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_keysym.h
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325789340 c:\users\uczeñ3\documents\lgeneral\include\sdl_mixer.h
+	"SDL_types.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738640 c:\users\uczeñ3\documents\lgeneral\include\sdl_types.h
+	"SDL_stdinc.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\audio.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\sdl.h
+	<SDL.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\image.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\misc.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\list.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\config.h
+	<../config.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\unit.h
+	"unit_lib.h"
+	"nation.h"
+	"player.h"
+	"terrain.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\unit_lib.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\nation.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\player.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\terrain.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\action.h
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\ai.c
+	"lgeneral.h"
+	"date.h"
+	"unit.h"
+	"action.h"
+	"map.h"
+	"ai_tools.h"
+	"ai_group.h"
+	"ai.h"
+	"scenario.h"
+	<assert.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\date.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\map.h
+	"terrain.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\ai_tools.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\ai_group.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\ai.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\scenario.h
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\ai_group.c
+	"lgeneral.h"
+	"unit.h"
+	"action.h"
+	"map.h"
+	"ai_tools.h"
+	"ai_group.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\ai_tools.c
+	"lgeneral.h"
+	"unit.h"
+	"map.h"
+	"ai_tools.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\audio.c
+	<SDL.h>
+	<SDL_mixer.h>
+	<stdio.h>
+	<stdlib.h>
+	"audio.h"
+	"misc.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\campaign.c
+	"lgeneral.h"
+	"parser.h"
+	"list.h"
+	"unit.h"
+	"date.h"
+	"scenario.h"
+	"campaign.h"
+	"localize.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\parser.h
+	"list.h"
+	<stdio.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\campaign.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\util\localize.h
+	<config.h>
+	<libintl.h>
+
+1115388916 c:\users\uczeñ3\documents\lgeneral\include\libintl.h
+	<locale.h>
+	<stdio.h>
+	<stddef.h>
+	<stdarg.h>
+	<varargs.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\config.c
+	<SDL.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<unistd.h>
+	"sdl.h"
+	"config.h"
+	"parser.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\date.c
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"date.h"
+	"misc.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\engine.c
+	<dlfcn.h>
+	<math.h>
+	"lgeneral.h"
+	"date.h"
+	"event.h"
+	"windows.h"
+	"nation.h"
+	"unit.h"
+	"purchase_dlg.h"
+	"gui.h"
+	"map.h"
+	"scenario.h"
+	"slot.h"
+	"action.h"
+	"strat_map.h"
+	"campaign.h"
+	"ai.h"
+	"engine.h"
+	"localize.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\event.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\windows.h
+	"image.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\purchase_dlg.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\gui.h
+	"unit.h"
+	"windows.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\slot.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\strat_map.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\engine.h
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\event.c
+	"lgeneral.h"
+	"event.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\file.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<dirent.h>
+	<sys/stat.h>
+	"misc.h"
+	"list.h"
+	"file.h"
+	"localize.h"
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\src\file.h
+	<stdio.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\gui.c
+	"lgeneral.h"
+	"event.h"
+	"parser.h"
+	"date.h"
+	"nation.h"
+	"unit.h"
+	"file.h"
+	"map.h"
+	"list.h"
+	"nation.h"
+	"unit_lib.h"
+	"player.h"
+	"slot.h"
+	"windows.h"
+	"purchase_dlg.h"
+	"gui.h"
+	"scenario.h"
+	"campaign.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\image.c
+	<SDL.h>
+	<stdlib.h>
+	"sdl.h"
+	"image.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\list.c
+	<stdlib.h>
+	"list.h"
+
+1383919744 source:c:\users\uczeñ3\documents\lgeneral\src\main.c
+	"../config.h"
+	<assert.h>
+	<stdarg.h>
+	<unistd.h>
+	"lgeneral.h"
+	"parser.h"
+	"event.h"
+	"date.h"
+	"nation.h"
+	"list.h"
+	"unit.h"
+	"file.h"
+	"map.h"
+	"scenario.h"
+	"campaign.h"
+	"engine.h"
+	"player.h"
+	"localize.h"
+	<getopt.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\map.c
+	"lgeneral.h"
+	"parser.h"
+	"file.h"
+	"nation.h"
+	"unit.h"
+	"map.h"
+	"misc.h"
+	"localize.h"
+	<assert.h>
+	<limits.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\misc.c
+	"misc.h"
+	"parser.h"
+	"localize.h"
+	"paths.h"
+	"sdl.h"
+	<time.h>
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\util\paths.h
+	<config.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\nation.c
+	<SDL.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"sdl.h"
+	"list.h"
+	"misc.h"
+	"file.h"
+	"nation.h"
+	"parser.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\parser.c
+	<stdlib.h>
+	<string.h>
+	"parser.h"
+	"misc.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\player.c
+	<dlfcn.h>
+	"lgeneral.h"
+	"list.h"
+	"nation.h"
+	"unit_lib.h"
+	"player.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\purchase_dlg.c
+	<SDL.h>
+	<stdlib.h>
+	"lgeneral.h"
+	"sdl.h"
+	"date.h"
+	"event.h"
+	"image.h"
+	"list.h"
+	"windows.h"
+	"unit.h"
+	"purchase_dlg.h"
+	"gui.h"
+	"localize.h"
+	"scenario.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\scenario.c
+	"lgeneral.h"
+	"parser.h"
+	"date.h"
+	"nation.h"
+	"unit.h"
+	"file.h"
+	"map.h"
+	"scenario.h"
+	"localize.h"
+	<stdio.h>
+	<stdlib.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\sdl.c
+	"sdl.h"
+	"misc.h"
+	<assert.h>
+	<stdlib.h>
+	<string.h>
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\slot.c
+	<assert.h>
+	<math.h>
+	<dirent.h>
+	"lgeneral.h"
+	"date.h"
+	"nation.h"
+	"unit.h"
+	"player.h"
+	"map.h"
+	"misc.h"
+	"scenario.h"
+	"slot.h"
+	"campaign.h"
+	"localize.h"
+	<SDL_endian.h>
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\strat_map.c
+	<dirent.h>
+	"lgeneral.h"
+	"windows.h"
+	"unit.h"
+	"purchase_dlg.h"
+	"gui.h"
+	"nation.h"
+	"player.h"
+	"date.h"
+	"map.h"
+	"scenario.h"
+	"engine.h"
+	"strat_map.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\terrain.c
+	"lgeneral.h"
+	"parser.h"
+	"unit_lib.h"
+	"terrain.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\unit.c
+	"lgeneral.h"
+	"list.h"
+	"unit.h"
+	"localize.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\unit_lib.c
+	"lgeneral.h"
+	"parser.h"
+	"unit_lib.h"
+	"localize.h"
+	"nation.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\src\windows.c
+	"lgeneral.h"
+	"file.h"
+	"event.h"
+	"unit.h"
+	"windows.h"
+	"localize.h"
+	"purchase_dlg.h"
+	"gui.h"
+
+1382096929 source:c:\users\uczeñ3\documents\lgeneral\util\hashtable.c
+	"hashtable.h"
+	"hashtable_private.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\util\hashtable.h
+
+1382096929 c:\users\uczeñ3\documents\lgeneral\util\hashtable_private.h
+	"hashtable.h"
+
+1383921261 source:c:\users\uczeñ3\documents\lgeneral\util\localize.c
+	"localize.h"
+	"hashtable.h"
+	"paths.h"
+	"intl/hash-string.h"
+	<assert.h>
+	<locale.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1382096928 c:\users\uczeñ3\documents\lgeneral\\intl\hash-string.h
+
+1342200374 source:c:\users\uczeñ3\documents\lgeneral\codeblocks\lgeneral.rc
+

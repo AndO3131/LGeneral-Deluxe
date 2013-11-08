@@ -201,9 +201,11 @@ void locale_init(const char *lang) {
   static const char *vars[] = { "LANGUAGE", "LC_ALL", "LC_MESSAGES", "LANG" };
   int i;
 
+#ifndef _WIN32
   if (lang) {
     setenv("LANGUAGE", lang, 1);
   }
+#endif
 
   /* traverse envvars in same order like gettext and use
    * the first one found.
@@ -221,10 +223,10 @@ void locale_init(const char *lang) {
 #endif
 
   setlocale(LC_MESSAGES, "");
-  
+#ifndef _WIN32
   /* for glibc, force the output charset */
   setenv("OUTPUT_CHARSET", lang_data[lang_code].charset, 1);
-  
+#endif
   locale_load_domain(PACKAGE, 0);
 #ifdef ENABLE_NLS
   textdomain(PACKAGE);
