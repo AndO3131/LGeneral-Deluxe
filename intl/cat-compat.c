@@ -20,7 +20,6 @@
 #endif
 
 #include <stdio.h>
-#include "../cmake_define.h"
 
 #ifdef STDC_HEADERS
 # include <stdlib.h>
