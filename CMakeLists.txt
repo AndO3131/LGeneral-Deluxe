@@ -75,10 +75,20 @@ include (CheckFunctionExists)
 check_function_exists (putenv HAVE_PUTENV)
 check_function_exists (setenv HAVE_SETENV)
 check_function_exists (stpcpy HAVE_STPCPY)
+check_function_exists (catgets HAVE_CATGETS)
+
+#check header files
 check_include_files (nl_types.h HAVE_NL_TYPES_H)
 check_include_files (stdlib.h STDC_HEADERS)
+check_include_files (malloc.h MALLOC_H)
+check_include_files (string.h STRING_H)
+check_include_files (libintl.h _LIBC)
+check_include_files (locale.h HAVE_LOCALE_H)
 
-#check_include_files (locale.h HAVE_LOCALE_H)
+#check symbols
+include (CheckSymbolExists)
+check_symbol_exists(LC_MESSAGES "locale.h" HAVE_LC_MESSAGES) 
+
 configure_file ( "${CMAKE_SOURCE_DIR}/cmake_config.h.in" "${CMAKE_SOURCE_DIR}/config.h" )
 
 add_definitions( -DPACKAGE="lgeneral" )
