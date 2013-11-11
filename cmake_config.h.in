@@ -1,0 +1,11 @@
+#cmakedefine HAVE_SETENV 1
+#cmakedefine HAVE_PUTENV 1
+#cmakedefine HAVE_STPCPY 1
+#cmakedefine HAVE_NL_TYPES_H 1
+#cmakedefine STDC_HEADERS 1
+#cmakedefine HAVE_MALLOC_H 1
+#cmakedefine HAVE_STRING_H 1
+#cmakedefine _LIBC 1
+#cmakedefine HAVE_LOCALE_H 1
+#cmakedefine HAVE_LC_MESSAGES 1
+#cmakedefine HAVE_CATGETS 1

@@ -12,7 +12,9 @@ Table of Contents
 
 1. About
 2. Installation
-   2.1 Building LGeneral on Mac OS X
+   2.1 Building LGeneral with autogen
+   2.2 Building LGeneral with cmake
+   2.3 Building LGeneral on Mac OS X
 3. Troubleshooting
 4. Main Menu
 5. Interface
@@ -40,6 +42,10 @@ data, after you have installed LGeneral itself as described below.
 
 LGeneral runs in X and uses SDL (>= 1.1.4) and SDL_mixer (optional, any 
 version). Both libraries can be found at http://libsdl.org.
+
+2.1 Building LGeneral with autogen
+----------------------------------
+
 Now enter your favorite shell and type in the following stuff (in the
 directory you extracted the LGeneral source)
   > ./autogen.sh
@@ -55,7 +61,19 @@ The LGeneral engine and the converter lgc-pg are now installed. Please download
 the data package or use your copy of PG (DOS version) and feed the engine 
 according to the instructions in README.lgc-pg.
 
-2.1 Building LGeneral on Mac OS X
+2.2 Building LGeneral with cmake
+----------------------------------
+
+To compile main program with cmake type in following commands in the
+directory you extracted the LGeneral source (tested in Linux Ubuntu)
+  > mkdir build
+  > cd build
+  > cmake ../
+  > make
+If compilation runs succesfully, program will be inside build/bin directory.
+It can be run without installation.
+
+2.3 Building LGeneral on Mac OS X
 ---------------------------------
 
 Some hints about building LGeneral on Mac OS X:
