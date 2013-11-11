@@ -15,8 +15,6 @@ set ( root_src
   ai_group.h
   ai_tools.c
   ai_tools.h
-  audio.c
-  audio.h
   campaign.c
   campaign.h
   config.c
@@ -64,6 +62,13 @@ set ( root_src
   windows.c
   windows.h
 )
+
+if (${WITH_SOUND})
+set ( audio_src
+  audio.c
+  audio.h
+)
+endif ()
 
 set ( util_src
   ../util/hashtable.c
@@ -135,7 +140,7 @@ if ( WIN32 )
   set ( application_type WIN32 )
 endif ()
 
-set ( lgeneral_src ${root_src} ${util_src} )#${intl_src} )
+set ( lgeneral_src ${root_src} ${audio_src} ${util_src} )#${intl_src} )
 
 set ( install_dest RUNTIME )
 set ( set_exec_path ON )
@@ -169,22 +174,22 @@ if ( WIN32 )
   endif ()
   set ( system_libs ${basic_windows_libs} SDLmain ${static_flags} )
 endif ()
-target_link_libraries ( lgeneral -lm ${system_libs} ${SDLIMAGE_LIBRARY} ${SDLMIXER_LIBRARY} ${SDL_LIBRARY} )
+target_link_libraries ( lgeneral -lm ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LIBRARY} )
 
 add_custom_command ( TARGET lgeneral
   POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/gfx ${EXECUTABLE_OUTPUT_PATH}/gfx
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes ${EXECUTABLE_OUTPUT_PATH}/themes
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes/default ${EXECUTABLE_OUTPUT_PATH}/themes/default
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/campaigns ${EXECUTABLE_OUTPUT_PATH}/campaigns
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/scenarios ${EXECUTABLE_OUTPUT_PATH}/scenarios
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${EXECUTABLE_OUTPUT_PATH}/scenarios
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/click.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/click.wav
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/edit.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/edit.wav
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/flags/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/terrain/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/units/Makefile*
-  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/themes/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/themes/default/Makefile*
-  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile*
-  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/scenarios/Makefile* )
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile* )
 #install ( DIRECTORY ${CMAKE_SOURCE_DIR}/bin/data DESTINATION ${data_install_dir} )
 
 # Copy Windows DLLs to bin folder

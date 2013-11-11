@@ -9,3 +9,4 @@
 #cmakedefine HAVE_LOCALE_H 1
 #cmakedefine HAVE_LC_MESSAGES 1
 #cmakedefine HAVE_CATGETS 1
+#cmakedefine WITH_SOUND 1

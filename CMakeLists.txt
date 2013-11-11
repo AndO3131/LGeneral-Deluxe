@@ -23,6 +23,8 @@ if ( NOT SDLMIXER_FOUND )
   message ( WARNING "Can't find SDL_mixer" )
 else ()
   include_directories ( ${SDLMIXER_INCLUDE_DIR} )
+  add_definitions ( -DWITH_SOUND=1 )
+  set ( WITH_SOUND 1 )
   message ( "found SDL_mixer ${SDL_MIXER_MAJOR}.${SDL_MIXER_MINOR}.${SDL_MIXER_MICRO} (${SDL_MIXER_LIBRARY_DIRS}:${SDLMIXER_INCLUDE_DIR})" )
 endif ()
 
