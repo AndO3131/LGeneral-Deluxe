@@ -1,3 +1,5 @@
+#WARNING: All non-linux commands need checking
+
 project ( LGeneral-Deluxe )
 
 cmake_minimum_required ( VERSION 2.8 )
@@ -25,32 +27,40 @@ else ()
 endif ()
 
 # Read version number
-find_package ( Git )
-if ( GIT_FOUND )
-  message("git found: ${GIT_EXECUTABLE}")
-  execute_process ( COMMAND ${GIT_EXECUTABLE} describe --dirty
+set ( CPACK_PACKAGE_VERSION_MAJOR "1" )
+set ( CPACK_PACKAGE_VERSION_MINOR "2" )
+set ( CPACK_PACKAGE_VERSION_PATCH "3a" )
+#find_package ( Git )
+#if ( GIT_FOUND )
+#  message("git found: ${GIT_EXECUTABLE}")
+# Get the latest abbreviated commit hash of the working branch
+  execute_process(
+    COMMAND git log -1 --format=%h
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE git_describe_out
-    ERROR_VARIABLE git_describe_error
-    RESULT_VARIABLE git_describe_result
-    )
-  string ( REGEX MATCH "([a-z|0-9|.]*)-([0-9]*)-([a-z|0-9]*)([-|a-z]*)" git_commit "${git_describe_out}" )
-  set ( git_tag ${CMAKE_MATCH_1} )
-  set ( git_nb_commit ${CMAKE_MATCH_2} )
-  set ( git_commit ${CMAKE_MATCH_3} )
-  set ( git_dirty ${CMAKE_MATCH_4} )
-endif()
+    OUTPUT_VARIABLE GIT_COMMIT_HASH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+#  execute_process ( COMMAND ${GIT_EXECUTABLE} describe --dirty
+#    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+#    OUTPUT_VARIABLE git_describe_out
+#    ERROR_VARIABLE git_describe_error
+#    RESULT_VARIABLE git_describe_result
+#    )
+#  string ( REGEX MATCH "([a-z|0-9|.]*)-([0-9]*)-([a-z|0-9]*)([-|a-z]*)" git_commit "${git_describe_out}" )
+#  set ( git_tag ${CMAKE_MATCH_1} )
+#  set ( git_nb_commit ${CMAKE_MATCH_2} )
+#  set ( git_commit ${CMAKE_MATCH_3} )
+#  set ( git_dirty ${CMAKE_MATCH_4} )
+#endif()
 
 if ( DEV_BUILD )
   # Append the commit to version number
-  set ( CPACK_PACKAGE_VERSION_PATCH "${git_commit}${git_dirty}" )
-  set ( CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}" )
-  add_definitions( -DVERSION="${CPACK_PACKAGE_VERSION}" )
+  set ( CPACK_PACKAGE_VERSION_PATCH "${GIT_COMMIT_HASH}" )
 else ()
   set ( CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_NSIS_PACKAGE_NAME}" )
-  set ( CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}" )
-  add_definitions( -DVERSION="${CPACK_PACKAGE_VERSION}" )
 endif ()
+set ( CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}" )
+add_definitions( -DVERSION="${CPACK_PACKAGE_VERSION}" )
 
 if ( BUILD_PACKAGE )
   if ( NOT DEV_BUILD )

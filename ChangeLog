@@ -1,3 +1,4 @@
+- basic cmake configuration for main program (2013/11/11 AndO3131)
 - improved man pages (2012/11/4 Markus Koschany)
 - fix broken pg road tile by mirroring counterpart (2012/11/01 MS)
 - removed non-free panzer general faq (2012/10/29 MS)

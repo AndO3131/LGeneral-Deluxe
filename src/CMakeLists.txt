@@ -1,3 +1,5 @@
+#WARNING: All non-linux commands need checking
+
 include_directories ( .. )
 include_directories ( ../util )
 include_directories ( . )
@@ -171,16 +173,18 @@ target_link_libraries ( lgeneral -lm ${system_libs} ${SDLIMAGE_LIBRARY} ${SDLMIX
 
 add_custom_command ( TARGET lgeneral
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/gfx ${EXECUTABLE_OUTPUT_PATH}/gfx )
-add_custom_command ( TARGET lgeneral
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes ${EXECUTABLE_OUTPUT_PATH}/themes )
-add_custom_command ( TARGET lgeneral
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/campaigns ${EXECUTABLE_OUTPUT_PATH}/campaigns )
-add_custom_command ( TARGET lgeneral
-  POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/scenarios ${EXECUTABLE_OUTPUT_PATH}/scenarios )
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/gfx ${EXECUTABLE_OUTPUT_PATH}/gfx
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes ${EXECUTABLE_OUTPUT_PATH}/themes
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/campaigns ${EXECUTABLE_OUTPUT_PATH}/campaigns
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/scenarios ${EXECUTABLE_OUTPUT_PATH}/scenarios
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/flags/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/terrain/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/units/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/themes/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/themes/default/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/scenarios/Makefile* )
 #install ( DIRECTORY ${CMAKE_SOURCE_DIR}/bin/data DESTINATION ${data_install_dir} )
 
 # Copy Windows DLLs to bin folder
