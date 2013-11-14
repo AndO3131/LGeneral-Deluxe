@@ -32,11 +32,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-DWITH_SOUND" />
-			<Add directory="..\include" />
+			<Add option='-DVERSION=\&quot;1.2.4\&quot;' />
+			<Add option='-DPACKAGE=\&quot;1.2.4\&quot;' />
+			<Add directory="..\dependencies" />
+			<Add directory="..\util" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lintl -MD -lSDLmain -lSDL -lSDL_mixer" />
-			<Add directory="..\lib" />
+			<Add directory="..\dependencies" />
 		</Linker>
 		<Unit filename="lgeneral.ico" />
 		<Unit filename="lgeneral.rc">
