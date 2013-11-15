@@ -1,1 +1,1 @@
-Put here all library files.
+Unpack here all library dependancies (include, bin and lib folders are sufficient).
