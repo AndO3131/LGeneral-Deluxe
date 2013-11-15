@@ -32,12 +32,12 @@ endif ()
 set ( CPACK_PACKAGE_VERSION_MAJOR "1" )
 set ( CPACK_PACKAGE_VERSION_MINOR "2" )
 set ( CPACK_PACKAGE_VERSION_PATCH "3a" )
-#find_package ( Git )
-#if ( GIT_FOUND )
-#  message("git found: ${GIT_EXECUTABLE}")
+find_package ( Git )
+if ( GIT_FOUND )
+  message("git found: ${GIT_EXECUTABLE}")
 # Get the latest abbreviated commit hash of the working branch
   execute_process(
-    COMMAND git log -1 --format=%h
+    COMMAND ${GIT_EXECUTABLE} log -1 --format=%h
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -53,7 +53,7 @@ set ( CPACK_PACKAGE_VERSION_PATCH "3a" )
 #  set ( git_nb_commit ${CMAKE_MATCH_2} )
 #  set ( git_commit ${CMAKE_MATCH_3} )
 #  set ( git_dirty ${CMAKE_MATCH_4} )
-#endif()
+endif()
 
 if ( DEV_BUILD )
   # Append the commit to version number
