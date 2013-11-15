@@ -46,8 +46,17 @@
 		</Linker>
 		<ExtraCommands>
 			<Add after="cmd /c copy ..\dependencies\bin .\" />
-			<Add after="cmd /c copy ..\src\campaigns\PG .\campaigns" />
-			<Add after="cmd /c xcopy ..\src\gfx .\gfx" />
+			<Add after="cmd /c xcopy ..\src\campaigns .\campaigns\ /e" />
+			<Add after="cmd /c xcopy ..\src\gfx .\gfx\ /e" />
+			<Add after="cmd /c xcopy ..\src\music .\music\ /e" />
+			<Add after="cmd /c xcopy ..\src\sounds .\sounds\ /e" />
+			<Add after="cmd /c xcopy ..\src\ai_modules .\ai_modules\ /e" />
+			<Add after="cmd /c xcopy ..\src\maps .\maps\ /e" />
+			<Add after="cmd /c xcopy ..\src\nations .\nations\ /e" />
+			<Add after="cmd /c xcopy ..\src\scenarios .\scenarios\ /e" />
+			<Add after="cmd /c xcopy ..\src\terrain .\terrain\ /e" />
+			<Add after="cmd /c xcopy ..\src\themes .\themes\ /e" />
+			<Add after="cmd /c xcopy ..\src\units .\units\ /e" />
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="lgeneral.ico" />
