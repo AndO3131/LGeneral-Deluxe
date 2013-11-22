@@ -1,0 +1,1 @@
+Unpack here all library dependancies (include, bin and lib folders are sufficient).

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="lgeneral" />
+		<Option platforms="Windows;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\lgeneral" prefix_auto="1" extension_auto="1" />
+				<Option object_output="bin\obj\Debug\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\lgeneral" prefix_auto="1" extension_auto="1" />
+				<Option object_output="bin\obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DWITH_SOUND" />
+			<Add option='-DVERSION=\&quot;1.2.4\&quot;' />
+			<Add option='-DPACKAGE=\&quot;1.2.4\&quot;' />
+			<Add directory="..\dependencies\include" />
+			<Add directory="..\util" />
+			<Add directory="..\dependencies\include\SDL" />
+			<Add directory="..\" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lintl -MD -lSDLmain -lSDL -lSDL_mixer" />
+			<Add directory="..\dependencies\lib" />
+			<Add directory="..\dependencies\lib\x86" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="cmd /c copy ..\dependencies\bin .\" />
+			<Add after="cmd /c xcopy ..\src\campaigns .\campaigns\ /e" />
+			<Add after="cmd /c xcopy ..\src\gfx .\gfx\ /e" />
+			<Add after="cmd /c xcopy ..\src\music .\music\ /e" />
+			<Add after="cmd /c xcopy ..\src\sounds .\sounds\ /e" />
+			<Add after="cmd /c xcopy ..\src\ai_modules .\ai_modules\ /e" />
+			<Add after="cmd /c xcopy ..\src\maps .\maps\ /e" />
+			<Add after="cmd /c xcopy ..\src\nations .\nations\ /e" />
+			<Add after="cmd /c xcopy ..\src\scenarios .\scenarios\ /e" />
+			<Add after="cmd /c xcopy ..\src\terrain .\terrain\ /e" />
+			<Add after="cmd /c xcopy ..\src\themes .\themes\ /e" />
+			<Add after="cmd /c xcopy ..\src\units .\units\ /e" />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="lgeneral.ico" />
+		<Unit filename="lgeneral.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="..\src\action.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\action.h" />
+		<Unit filename="..\src\ai.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\ai.h" />
+		<Unit filename="..\src\ai_group.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\ai_group.h" />
+		<Unit filename="..\src\ai_tools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\ai_tools.h" />
+		<Unit filename="..\src\audio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\audio.h" />
+		<Unit filename="..\src\campaign.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\campaign.h" />
+		<Unit filename="..\src\config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\config.h" />
+		<Unit filename="..\src\date.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\date.h" />
+		<Unit filename="..\src\engine.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\engine.h" />
+		<Unit filename="..\src\event.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\event.h" />
+		<Unit filename="..\src\file.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\file.h" />
+		<Unit filename="..\src\gui.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\gui.h" />
+		<Unit filename="..\src\image.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\image.h" />
+		<Unit filename="..\src\lgeneral.h" />
+		<Unit filename="..\src\list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\list.h" />
+		<Unit filename="..\src\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\map.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\map.h" />
+		<Unit filename="..\src\misc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\misc.h" />
+		<Unit filename="..\src\nation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\nation.h" />
+		<Unit filename="..\src\parser.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\parser.h" />
+		<Unit filename="..\src\player.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\player.h" />
+		<Unit filename="..\src\purchase_dlg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\purchase_dlg.h" />
+		<Unit filename="..\src\scenario.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\scenario.h" />
+		<Unit filename="..\src\sdl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\sdl.h" />
+		<Unit filename="..\src\slot.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\slot.h" />
+		<Unit filename="..\src\strat_map.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\strat_map.h" />
+		<Unit filename="..\src\terrain.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\terrain.h" />
+		<Unit filename="..\src\unit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\unit.h" />
+		<Unit filename="..\src\unit_lib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\unit_lib.h" />
+		<Unit filename="..\src\windows.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\windows.h" />
+		<Unit filename="..\util\hashtable.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\util\hashtable.h" />
+		<Unit filename="..\util\localize.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\util\localize.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

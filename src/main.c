@@ -194,8 +194,8 @@ static void eval_cmdline(int argc, char **argv)
             case OPT_HELP: syntax(argc, argv); break;
             case OPT_CAMPAIGN_START: camp_scen_state = optarg; break;
             case OPT_CONTROL: add_control(optarg); break;
-            case OPT_SPEED: 
-                config.anim_speed = atoi(optarg); 
+            case OPT_SPEED:
+                config.anim_speed = atoi(optarg);
                 printf(tr("Animation speed up: x%d\n"),config.anim_speed);
                 break;
             case OPT_AI_DEBUG:
@@ -239,27 +239,27 @@ int main(int argc, char *argv[])
     char window_name[32];
 
     locale_init(0);
-    
+
     /* set random seed */
     set_random_seed();
-    
+
     /* check config directory path and load config */
     check_config_dir_name();
     load_config();
 
     eval_cmdline(argc, argv);
     print_version();
-    
+
     /* init sdl */
     init_sdl( SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO );
     set_video_mode( 640, 480, 0 );
     sprintf( window_name, tr("LGeneral %s"), VERSION );
     SDL_WM_SetCaption( window_name, 0 );
     event_enable_filter();
-    
+
     /* show lgeneral title */
     if (!suppress_title) show_title();
-    
+
     /* switch to configs resolution */
     sdl.num_vmodes = get_video_modes( &sdl.vmodes ); /* always successful */
     set_video_mode( config.width, config.height, config.fullscreen );
