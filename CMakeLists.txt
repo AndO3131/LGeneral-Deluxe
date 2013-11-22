@@ -42,17 +42,6 @@ if ( GIT_FOUND )
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
   )
-#  execute_process ( COMMAND ${GIT_EXECUTABLE} describe --dirty
-#    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-#    OUTPUT_VARIABLE git_describe_out
-#    ERROR_VARIABLE git_describe_error
-#    RESULT_VARIABLE git_describe_result
-#    )
-#  string ( REGEX MATCH "([a-z|0-9|.]*)-([0-9]*)-([a-z|0-9]*)([-|a-z]*)" git_commit "${git_describe_out}" )
-#  set ( git_tag ${CMAKE_MATCH_1} )
-#  set ( git_nb_commit ${CMAKE_MATCH_2} )
-#  set ( git_commit ${CMAKE_MATCH_3} )
-#  set ( git_dirty ${CMAKE_MATCH_4} )
 endif()
 
 if ( DEV_BUILD )

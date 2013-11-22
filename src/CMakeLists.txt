@@ -178,18 +178,34 @@ target_link_libraries ( lgeneral -lm ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LI
 
 add_custom_command ( TARGET lgeneral
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/gfx ${EXECUTABLE_OUTPUT_PATH}/gfx
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes/default ${EXECUTABLE_OUTPUT_PATH}/themes/default
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/ai-modules ${EXECUTABLE_OUTPUT_PATH}/ai-modules
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/campaigns ${EXECUTABLE_OUTPUT_PATH}/campaigns
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${EXECUTABLE_OUTPUT_PATH}/scenarios
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/gfx ${EXECUTABLE_OUTPUT_PATH}/gfx
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/maps ${EXECUTABLE_OUTPUT_PATH}/maps
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/music ${EXECUTABLE_OUTPUT_PATH}/music
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/nations ${EXECUTABLE_OUTPUT_PATH}/nations
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/scenarios ${EXECUTABLE_OUTPUT_PATH}/scenarios
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/sounds ${EXECUTABLE_OUTPUT_PATH}/sounds
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/terrain ${EXECUTABLE_OUTPUT_PATH}/terrain
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes/default ${EXECUTABLE_OUTPUT_PATH}/themes/default
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/units ${EXECUTABLE_OUTPUT_PATH}/units
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/click.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/click.wav
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/edit.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/edit.wav
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/ai-modules/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile* 
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/flags/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/terrain/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/units/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/maps/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/music/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/nations/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/scenarios/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/sounds/Makefile*
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/terrain/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/themes/default/Makefile*
-  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile* )
+  COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/units/Makefile*
+)
 #install ( DIRECTORY ${CMAKE_SOURCE_DIR}/bin/data DESTINATION ${data_install_dir} )
 
 # Copy Windows DLLs to bin folder
