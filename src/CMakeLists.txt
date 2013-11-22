@@ -189,8 +189,6 @@ add_custom_command ( TARGET lgeneral
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/terrain ${EXECUTABLE_OUTPUT_PATH}/terrain
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/themes/default ${EXECUTABLE_OUTPUT_PATH}/themes/default
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/units ${EXECUTABLE_OUTPUT_PATH}/units
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/click.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/click.wav
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/src/themes/default/edit.wav ${EXECUTABLE_OUTPUT_PATH}/sounds/edit.wav
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/ai-modules/Makefile*
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/campaigns/Makefile* 
   COMMAND ${CMAKE_COMMAND} -E remove ${EXECUTABLE_OUTPUT_PATH}/gfx/Makefile*
