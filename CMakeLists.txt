@@ -31,13 +31,13 @@ endif ()
 # Read version number
 set ( CPACK_PACKAGE_VERSION_MAJOR "1" )
 set ( CPACK_PACKAGE_VERSION_MINOR "2" )
-set ( CPACK_PACKAGE_VERSION_PATCH "3a" )
+set ( CPACK_PACKAGE_VERSION_PATCH "4" )
 find_package ( Git )
 if ( GIT_FOUND )
   message("git found: ${GIT_EXECUTABLE}")
 # Get the latest abbreviated commit hash of the working branch
   execute_process(
-    COMMAND ${GIT_EXECUTABLE} log -1 --format=%ad
+    COMMAND ${GIT_EXECUTABLE} log -1 --format=%ad --date=iso
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE
