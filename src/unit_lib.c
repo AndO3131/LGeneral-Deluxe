@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,6 +22,7 @@
 #include "unit_lib.h"
 #include "localize.h"
 #include "nation.h"
+#include "file.h"
 
 /*
 ====================================================================
@@ -326,7 +329,10 @@ int unit_lib_load( char *fname, int main )
         if ( !parser_get_value( pd, "move_icon", &str, 0 ) ) goto parser_failure;
         sprintf( path, "units/%s", str );
         if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
-        if ( !parser_get_value( pd, "guard_icon", &str, 0 ) ) str = "pg_guard.bmp";
+        if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
+        {
+            str = search_file_name( "pg_guard", 'i' );
+        }
         sprintf( path, "units/%s", str );
         if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
     }

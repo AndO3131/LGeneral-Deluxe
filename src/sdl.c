@@ -5,7 +5,9 @@
     copyright            : (C) 2000 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,6 +18,7 @@
  ***************************************************************************/
 
 #include "sdl.h"
+#include "SDL_image.h"
 
 #include "misc.h"
 
@@ -52,7 +55,7 @@ SDL_Surface* load_surf(const char *fname, int f)
 
     get_full_bmp_path( path, fname );
 
-    buf = SDL_LoadBMP( path );
+    buf = IMG_Load( path );
 
     if ( buf == 0 ) {
         fprintf( stderr, "%s: %s\n", fname, SDL_GetError() );

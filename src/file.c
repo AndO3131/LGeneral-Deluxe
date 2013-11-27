@@ -6,7 +6,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -27,6 +29,8 @@
 #include "localize.h"
 
 //#define FILE_DEBUG
+const char *extension_image[] = { "bmp", "png", "jpg" };
+const char *extension_sound[] = { "wav", "ogg", "mp3" };
 
 /*
 ====================================================================
@@ -223,6 +227,67 @@ List* dir_get_entries( const char *path, const char *root, const char *ext )
     if ( order ) list_delete( order );
     list_delete( extracted );
     return list;
+}
+
+/*
+====================================================================
+Check if a file exist.
+====================================================================
+*/
+int file_exists( const char *path )
+{
+    char full_path[512];
+    get_full_bmp_path( full_path, path );
+    FILE *f;
+    if ( f = fopen( full_path, "r" ) )
+    {
+        fclose(f);
+        return 1;
+    }
+    return 0;
+}
+
+/*
+====================================================================
+Find full file name.
+Extensions are added according to type given.
+====================================================================
+*/
+char *search_file_name( const char *path, char type )
+{
+    int i = 0, found = 0;
+    char pathFinal[256];
+    switch (type)
+    {
+        case 'i':
+        {
+            while ( ( !found ) && ( i < 3 ) )
+            {
+                sprintf( pathFinal, "%s.%s", path, extension_image[i] );
+                if ( file_exists( pathFinal ) )
+                {
+                    found = 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 's':
+        {
+            while ( (!found) && i < 3 )
+            {
+                sprintf( pathFinal, "%s.%s", path, extension_sound[i] );
+                if ( file_exists( pathFinal ) )
+                {
+                    found = 1;
+                }
+                i++;
+            }
+            break;
+        }
+    }
+    char *path2 = &pathFinal[0];
+    return path2;
 }
 
 #ifdef TESTFILE

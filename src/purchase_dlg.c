@@ -1,4 +1,7 @@
 /***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
+/***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -21,6 +24,7 @@
 #include "gui.h"
 #include "localize.h"
 #include "scenario.h"
+#include "file.h"
 
 extern Sdl sdl;
 extern GUI *gui;
@@ -519,7 +523,7 @@ static void handle_purchase_button( PurchaseDlg *pdlg )
 PurchaseDlg *purchase_dlg_create( const char *theme_path )
 {
 	PurchaseDlg *pdlg = NULL;
-	char path[512];
+	char path[512], path2[512];
 	int sx, sy;
 	
 	pdlg = calloc( 1, sizeof(PurchaseDlg) );
@@ -527,9 +531,10 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 		return NULL;
 	
 	/* create main group (= main window) */
-	snprintf( path, 512, "%s/confirm_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/confirm_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->main_group = group_create( gui_create_frame( 300, 320 ), 160, 
-				load_surf( path, SDL_SWSURFACE ),
+				load_surf( path2, SDL_SWSURFACE ),
 				20, 20, 2, ID_PURCHASE_OK,
 				gui->label, sdl.screen, 0, 0 );
 	if (pdlg->main_group == NULL)
@@ -548,45 +553,50 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 		goto failure;
 	
 	/* create nation listbox */
-	snprintf( path, 512, "%s/scroll_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/scroll_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->nation_lbox = lbox_create( gui_create_frame( 112, 74 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
 			3, 1, 100, 12, 1, 0x0000ff,
 			render_lbox_nation, sdl.screen, 0, 0);
 	if (pdlg->nation_lbox == NULL)
 		goto failure;
 	
 	/* create class listbox */
-	snprintf( path, 512, "%s/scroll_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/scroll_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->uclass_lbox = lbox_create( gui_create_frame( 112, 166 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
 			10, 2, 100, 12, 1, 0x0000ff,
 			render_lbox_uclass, sdl.screen, 0, 0);
 	if (pdlg->uclass_lbox == NULL)
 		goto failure;
 	
 	/* create units listbox */
-	snprintf( path, 512, "%s/scroll_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/scroll_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->unit_lbox = lbox_create( gui_create_frame( 112, 200 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
 			4, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->unit_lbox == NULL)
 		goto failure;
 	
 	/* create transporters listbox */
-	snprintf( path, 512, "%s/scroll_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/scroll_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->trsp_lbox = lbox_create( gui_create_frame( 112, 120 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
 			2, 1, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->trsp_lbox == NULL)
 		goto failure;
 	
 	/* create reinforcements listbox */
-	snprintf( path, 512, "%s/scroll_buttons.bmp", theme_path );
+	snprintf( path, 512, "%s/scroll_buttons", theme_path );
+    strcpy( path2, search_file_name( path, 'i' ) );
 	pdlg->reinf_lbox = lbox_create( gui_create_frame( 112, 280 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
 			6, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_reinf, sdl.screen, 0, 0);
 	if (pdlg->reinf_lbox == NULL)

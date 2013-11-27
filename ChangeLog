@@ -1,3 +1,11 @@
+- raised limits for large efiles.  Icon sheet is limited to h=16384px
+  by SDL v1.x, not by LGD. (2013/01/08 AGW)
+- you can set the efile or other text files to use any mix of WAV/OGG/MP3
+  audio files supported by SDL mixer. (2013/01/08 AGW)
+- you can set the efile or other text files to use any mix of BMP/PNG/JPG
+  raster files supported by SDL. (2013/01/08 AGW)
+- added 4 new movement types, a new pillbox unit class, and an example for
+  a new rail terrain type.  Made misc. unit/terrain changes. (2013/01/08 AGW)
 - basic cmake configuration for main program (2013/11/11 AndO3131)
 - 2 SourceForge patches (Galland)
 

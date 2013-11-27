@@ -174,7 +174,7 @@ if ( WIN32 )
   endif ()
   set ( system_libs ${basic_windows_libs} SDLmain ${static_flags} )
 endif ()
-target_link_libraries ( lgeneral -lm -g ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LIBRARY} )
+target_link_libraries ( lgeneral -lm -g ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LIBRARY} ${SDLIMAGE_LIBRARY} )
 
 add_custom_command ( TARGET lgeneral
   POST_BUILD

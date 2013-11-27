@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -67,7 +69,7 @@ This buffer is used to fully load resource files when the
 compact format is used.
 ====================================================================
 */
-enum { CBUFFER_SIZE = 131072*2 }; /* 256 KB */
+enum { CBUFFER_SIZE = 1310720*2 }; /* 2560 KB */
 static char cbuffer[CBUFFER_SIZE];
 static char* cbuffer_pos = 0; /* position in cbuffer */
 

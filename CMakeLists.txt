@@ -10,13 +10,20 @@ option ( BUILD_PACKAGE "Prepares build for creation of a package with CPack" ON 
 option ( ENABLE_WARNING "Always show warnings (even for release builds)" OFF )
 option ( FATAL_WARNING "Treat warnings as errors" OFF )
 
-find_package ( SDL2 COMPONENTS mixer)
+find_package ( SDL2 COMPONENTS mixer image )
 
 if ( NOT SDL_FOUND )
   message ( FATAL_ERROR "Can't find SDL which is required" )
 else ()
   include_directories ( ${SDL_INCLUDE_DIR} )
   message ( "found SDL ${SDL_MAJOR}.${SDL_MINOR}.${SDL_MICRO} (${SDL_LIBRARY_DIRS}:${SDL_INCLUDE_DIR})" )
+endif ()
+
+if ( NOT SDLIMAGE_FOUND )
+  message ( FATAL_ERROR "Can't find SDL_IMAGE which is required" )
+else ()
+  include_directories ( ${SDLIMAGE_INCLUDE_DIR} )
+  message ( "found SDL_image ${SDL_IMAGE_MAJOR}.${SDL_IMAGE_MINOR}.${SDL_IMAGE_MICRO} (${SDL_IMAGE_LIBRARY_DIRS}:${SDLIMAGE_INCLUDE_DIR})" )
 endif ()
 
 if ( NOT SDLMIXER_FOUND )

@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,5 +40,13 @@ The directoriers are marked with an asteriks.
 ====================================================================
 */
 List* dir_get_entries( const char *path, const char *root, const char *ext );
+
+/*
+====================================================================
+Find full file name.
+Extensions are added according to type given.
+====================================================================
+*/
+char *search_file_name( const char *path, char type );
 
 #endif

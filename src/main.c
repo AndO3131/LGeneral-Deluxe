@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -89,21 +91,26 @@ static void show_title()
     int dummy;
     Font *font = 0;
     SDL_Surface *back = 0;
-    if ( ( back = load_surf( "title.bmp", SDL_SWSURFACE ) ) ) {
+    if ( ( back = load_surf( search_file_name( "title", 'i' ), SDL_SWSURFACE ) ) ) {
         FULL_DEST( sdl.screen );
         FULL_SOURCE( back );
         blit_surf();
     }
-    if ( ( font = load_font( "font_credit.bmp" ) ) ) {
-        font->align = ALIGN_X_RIGHT | ALIGN_Y_BOTTOM;
-        write_text( font, sdl.screen, sdl.screen->w - 2, sdl.screen->h - 2, tr("(C) 2001-2005 Michael Speck"), 255 );
+    if ( ( font = load_font( search_file_name( "font_credit", 'i' ) ) ) ) {
         font->align = ALIGN_X_LEFT | ALIGN_Y_BOTTOM;
-        write_text( font, sdl.screen, 2, sdl.screen->h - 2, tr("http://lgames.sf.net"), 255 );
+        write_text( font, sdl.screen, 2, sdl.screen->h - 14, tr("LGD (C) 2012 http://www.panzercentral.com/forum/viewtopic.php?f=98&t=48535"), 255 );
+        font->align = ALIGN_X_LEFT | ALIGN_Y_BOTTOM;
+        write_text( font, sdl.screen, 2, sdl.screen->h - 2, tr("LGD is a fork of LG.  LG is (C) 2001-2005 Michael Speck http://lgames.sf.net"), 255 );
     }
     refresh_screen( 0, 0, 0, 0 );
     /* wait */
-    SDL_PumpEvents(); event_clear();
-    while ( !event_get_buttonup( &dummy, &dummy, &dummy ) ) { SDL_PumpEvents(); SDL_Delay( 20 ); }
+    SDL_PumpEvents();
+    event_clear();
+    while ( !event_get_buttonup( &dummy, &dummy, &dummy ) )
+    {
+        SDL_PumpEvents();
+        SDL_Delay( 100 );
+    }
     event_clear();
     /* clear */
     free_surf(&back);
@@ -151,7 +158,10 @@ static void syntax(int argc, char *argv[])
 static void print_version()
 {
     /* display some credits */
-    printf( tr("LGeneral %s\nCopyright 2001-2012 Michael Speck\nPublished under GNU GPL\n---\n"), VERSION );
+    printf( tr("LGD %s\n"), VERSION );
+    printf( tr("LGD (C) 2012 http://www.panzercentral.com/forum/viewtopic.php?f=98&t=48535\n") );
+    printf( tr("LGD is a fork of LG.  LG is (C) 2001-2005 Michael Speck http://lgames.sf.net\n") );
+    printf( tr("LGeneral v1.2.3\nCopyright 2001-2011 Michael Speck\nPublished under GNU GPL\n---\n") );
     printf( tr("Looking up data in: %s\n"), get_gamedir() );
 #ifndef WITH_SOUND
     printf( tr("Compiled without sound and music\n") );
@@ -253,11 +263,11 @@ int main(int argc, char *argv[])
     /* init sdl */
     init_sdl( SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO );
     set_video_mode( 640, 480, 0 );
-    sprintf( window_name, tr("LGeneral %s"), VERSION );
+    sprintf( window_name, tr("LGeneral Deluxe %s"), VERSION );
     SDL_WM_SetCaption( window_name, 0 );
     event_enable_filter();
 
-    /* show lgeneral title */
+    /* show lgd title */
     if (!suppress_title) show_title();
 
     /* switch to configs resolution */
