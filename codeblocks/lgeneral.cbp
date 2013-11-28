@@ -47,17 +47,32 @@
 		<ExtraCommands>
 			<Add after="cmd /c copy ..\dependencies\bin .\" />
 			<Add after="cmd /c copy ..\dependencies\lib\x86\ .\" />
+			<Add after="cmd /c xcopy ..\src\ai_modules .\ai_modules\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\campaigns .\campaigns\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\gfx .\gfx\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\music .\music\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\sounds .\sounds\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\ai_modules .\ai_modules\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\maps .\maps\ /e /y" />
+			<Add after="cmd /c xcopy ..\src\music .\music\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\nations .\nations\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\scenarios .\scenarios\ /e /y" />
+			<Add after="cmd /c xcopy ..\src\sounds .\sounds\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\terrain .\terrain\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\themes .\themes\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\units .\units\ /e /y" />
+			<Add after="cmd /c del ai_modules\Makefile.am" />
+			<Add after="cmd /c del campaigns\Makefile.am" />
+			<Add after="cmd /c del gfx\Makefile.am" />
+			<Add after="cmd /c del gfx\flags\Makefile.am" />
+			<Add after="cmd /c del gfx\terrain\Makefile.am" />
+			<Add after="cmd /c del gfx\units\Makefile.am" />
+			<Add after="cmd /c del maps\Makefile.am" />
+			<Add after="cmd /c del music\Makefile.am" />
+			<Add after="cmd /c del nations\Makefile.am" />
+			<Add after="cmd /c del scenarios\Makefile.am" />
+			<Add after="cmd /c del sounds\Makefile.am" />
+			<Add after="cmd /c del terrain\Makefile.am" />
+			<Add after="cmd /c del themes\Makefile.am" />
+			<Add after="cmd /c del themes\default\Makefile.am" />
+			<Add after="cmd /c del units\Makefile.am" />
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="lgeneral.ico" />
