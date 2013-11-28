@@ -29,7 +29,9 @@
 #include "localize.h"
 
 //#define FILE_DEBUG
-const char *extension_image[] = { "bmp", "png", "jpg" };
+const int extension_image_length = 4;
+const int extension_sound_length = 3;
+const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 
 /*
@@ -251,6 +253,8 @@ int file_exists( const char *path )
 ====================================================================
 Find full file name.
 Extensions are added according to type given.
+'i' - images (bmp, png, jpg)
+'s' - sounds (wav, ogg, mp3)
 ====================================================================
 */
 char *search_file_name( const char *path, char type )
@@ -261,7 +265,7 @@ char *search_file_name( const char *path, char type )
     {
         case 'i':
         {
-            while ( ( !found ) && ( i < 3 ) )
+            while ( ( !found ) && ( i < extension_image_length ) )
             {
                 sprintf( pathFinal, "%s.%s", path, extension_image[i] );
                 if ( file_exists( pathFinal ) )
@@ -274,7 +278,7 @@ char *search_file_name( const char *path, char type )
         }
         case 's':
         {
-            while ( (!found) && i < 3 )
+            while ( (!found) && i < extension_sound_length )
             {
                 sprintf( pathFinal, "%s.%s", path, extension_sound[i] );
                 if ( file_exists( pathFinal ) )

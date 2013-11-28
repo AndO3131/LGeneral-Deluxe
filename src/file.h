@@ -45,6 +45,8 @@ List* dir_get_entries( const char *path, const char *root, const char *ext );
 ====================================================================
 Find full file name.
 Extensions are added according to type given.
+'i' - images (bmp, png, jpg)
+'s' - sounds (wav, ogg, mp3)
 ====================================================================
 */
 char *search_file_name( const char *path, char type );
