@@ -14,6 +14,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option='-DPACKAGE=\&quot;1.2.DEBUG\&quot;' />
+					<Add option='-DVERSION=\&quot;1.2.DEBUG\&quot;' />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -23,6 +25,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option='-DPACKAGE=\&quot;1.2.4\&quot;' />
+					<Add option='-DVERSION=\&quot;1.2.4\&quot;' />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,8 +36,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-DWITH_SOUND" />
-			<Add option='-DVERSION=\&quot;1.2.4\&quot;' />
-			<Add option='-DPACKAGE=\&quot;1.2.4\&quot;' />
 			<Add directory="..\dependencies\include" />
 			<Add directory="..\util" />
 			<Add directory="..\dependencies\include\SDL" />
