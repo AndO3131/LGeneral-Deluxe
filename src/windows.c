@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -967,7 +969,7 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 6, id_conf, label, surf, 
+                                         conf_button_w, conf_button_h, 7, id_conf, label, surf, 
                                          x + list_frame->w - 1, y + ctrl_frame->h + mod_frame->h ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -983,11 +985,14 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     group_add_button( sdlg->confirm, ID_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn") );
     px += border + conf_button_w;
     group_add_button( sdlg->confirm, ID_SETUP_PURCHASE, px, py, 1, tr("Purchase Option") );
+    px += border + conf_button_w;
+    group_add_button( sdlg->confirm, ID_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
     group_lock_button( sdlg->confirm, ID_SETUP_FOG, config.fog_of_war );
     group_lock_button( sdlg->confirm, ID_SETUP_SUPPLY, config.supply );
     group_lock_button( sdlg->confirm, ID_SETUP_WEATHER, config.weather );
     group_lock_button( sdlg->confirm, ID_SETUP_DEPLOYTURN, config.deploy_turn );
     group_lock_button( sdlg->confirm, ID_SETUP_PURCHASE, config.purchase );
+    group_lock_button( sdlg->confirm, ID_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     sdlg->select_cb = list_select_cb;
     return sdlg;
 failure:

@@ -27,6 +27,7 @@
 #include "list.h"
 #include "file.h"
 #include "localize.h"
+#include "sdl.h"
 
 //#define FILE_DEBUG
 const int extension_image_length = 4;

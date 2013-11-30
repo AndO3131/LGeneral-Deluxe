@@ -5,7 +5,9 @@
     copyright            : (C) 2000 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -135,6 +137,7 @@ void wait_for_click();
 inline void lock_screen();
 inline void unlock_screen();
 inline void flip_screen();
+inline void get_full_bmp_path( char *full_path, const char *file_name );
 
 /* cursor */
 /* creates cursor */

@@ -440,11 +440,11 @@ int gui_load( const char *dir )
     gui->setup = sdlg_create( 
                              gui_create_frame( 120, 120 ), load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ),
                              24, 24, 20, 
-                             gui_create_frame( 220, 40 ),  load_surf( search_file_name( path2, 'i' ), SDL_SWSURFACE ),
+                             gui_create_frame( 255, 40 ),  load_surf( search_file_name( path2, 'i' ), SDL_SWSURFACE ),
                              24, 24, ID_SETUP_CTRL,
-                             gui_create_frame( 220, 40 ),  load_surf( search_file_name( path3, 'i' ), SDL_SWSURFACE ),
+                             gui_create_frame( 255, 40 ),  load_surf( search_file_name( path3, 'i' ), SDL_SWSURFACE ),
                              24, 24, ID_SETUP_MODULE,
-                             gui_create_frame( 220, 40 ),  load_surf( search_file_name( path4, 'i' ), SDL_SWSURFACE ),
+                             gui_create_frame( 255, 40 ),  load_surf( search_file_name( path4, 'i' ), SDL_SWSURFACE ),
                              24, 24, ID_SETUP_OK,
                              gui->label,
                              gui_render_player_name, gui_handle_player_select,
@@ -1728,6 +1728,7 @@ void gui_open_scen_setup()
     group_lock_button( gui->setup->confirm, ID_SETUP_WEATHER, config.weather );
     group_lock_button( gui->setup->confirm, ID_SETUP_DEPLOYTURN, config.deploy_turn );
     group_lock_button( gui->setup->confirm, ID_SETUP_PURCHASE, config.purchase);
+    group_lock_button( gui->setup->confirm, ID_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     /* do the list and chose first entry */
     list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
     for ( i = 0; i < setup.player_count; i++ )

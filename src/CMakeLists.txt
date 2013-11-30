@@ -107,10 +107,10 @@ set ( util_src
 #)
 
 set ( data_install_dir bin )
-if ( CMAKE_COMPILER_IS_GNUCXX AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
+if ( CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
   add_definitions ( -D_DEBUG )
 endif ()
-if ( CMAKE_COMPILER_IS_GNUCXX AND ( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" OR ENABLE_WARNING) )
+if ( CMAKE_COMPILER_IS_GNUCC AND ( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" OR ENABLE_WARNING) )
     # Enable more GCC warnings if requested or we are doing a Debug build.
     add_definitions ( -Wall
       -Wsign-compare
@@ -174,7 +174,7 @@ if ( WIN32 )
   endif ()
   set ( system_libs ${basic_windows_libs} SDLmain ${static_flags} )
 endif ()
-target_link_libraries ( lgeneral -lm -g ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LIBRARY} ${SDLIMAGE_LIBRARY} )
+target_link_libraries ( lgeneral -lm ${system_libs} ${SDL_LIBRARY} ${SDLMIXER_LIBRARY} ${SDLIMAGE_LIBRARY} )
 
 add_custom_command ( TARGET lgeneral
   POST_BUILD

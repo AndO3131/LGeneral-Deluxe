@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,6 +42,7 @@ typedef struct {
     int show_cpu_turn;
     int deploy_turn; /* allow deployment */
     int purchase; /* disable predefined reinfs and allow purchase by prestige */
+    int merge_replacements; /* choose between classic reinforcements and merging units */
     int ai_debug; /* level of information about AI move */
     /* audio stuff */
     int sound_on;

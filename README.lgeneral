@@ -41,8 +41,8 @@ data, after you have installed LGeneral itself as described below.
 2. Installation
 ---------------
 
-LGeneral runs in X and uses SDL (>= 1.1.4) and SDL_mixer (optional, any 
-version). Both libraries can be found at http://libsdl.org.
+LGeneral runs in X and uses SDL (>= 1.1.4), SDL_image (any version?) and SDL_mixer
+(optional, any version). These libraries can be found at http://libsdl.org.
 
 2.1 Building LGeneral with autogen
 ----------------------------------
@@ -71,6 +71,7 @@ directory you extracted the LGeneral source (tested in Linux Ubuntu)
   > cd build
   > cmake ../
   > make
+For debugging purposes give cmake additional option -DCMAKE_BUILD_TYPE=Debug
 If compilation runs succesfully, program will be inside build/bin directory.
 It can be run without installation.
 
@@ -86,10 +87,10 @@ Some hints about building LGeneral on Mac OS X:
 2.4 Building LGeneral on Windows
 ---------------------------------
 
-LGeneral requires SDL ( >= 1.1.4 ), SDL_mixer(optional any version) and Libintl 
-for Windows (developer files + dependencies + binaries). Both libraries can be found 
-at http://libsdl.org. Put include, bin and lib folders inside \dependencies directory 
-and compile Code::Blocks project.
+LGeneral requires SDL ( >= 1.1.4 ), SDL_image (any version?), SDL_mixer(optional,
+any version) and Libintl for Windows (developer files + dependencies + binaries).
+Put include, bin and lib folders inside \dependencies directory and compile
+Code::Blocks project.
 
 3. Troubleshooting
 ------------------

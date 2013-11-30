@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -111,6 +113,7 @@ enum {
     ID_SETUP_WEATHER,
     ID_SETUP_DEPLOYTURN,
     ID_SETUP_PURCHASE,
+    ID_SETUP_MERGE_REPLACEMENTS,
     ID_SETUP_CTRL,
     ID_SETUP_MODULE,
     ID_MODULE_OK,
