@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -170,7 +172,8 @@ enum {
     STATUS_TITLE_MENU,         /* run title menu */
     STATUS_RUN_SCEN_DLG,       /* run scenario dialogue */
     STATUS_RUN_CAMP_DLG,       /* run campaign dialogue */
-    STATUS_RUN_SETUP,          /* run setup of scenario */
+    STATUS_RUN_SCEN_SETUP,     /* run setup of scenario */
+    STATUS_RUN_CAMP_SETUP,     /* run setup of campaign */
     STATUS_RUN_MODULE_DLG,     /* select ai module */
     STATUS_CAMP_BRIEFING,      /* run campaign briefing dialogue */
     STATUS_PURCHASE,           /* run unit purchase dialogue */
@@ -2050,6 +2053,7 @@ static void engine_handle_button( int id )
             engine_hide_game_menu();
             sprintf( path, "%s/campaigns", get_gamedir() );
             fdlg_open( gui->camp_dlg, path );
+            group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_CANCEL, 1 );
             status = STATUS_RUN_CAMP_DLG;
@@ -2272,39 +2276,55 @@ static void engine_handle_button( int id )
         case ID_SCEN_SETUP:
             fdlg_hide( gui->scen_dlg, 1 );
             gui_open_scen_setup();
-            status = STATUS_RUN_SETUP;
+            status = STATUS_RUN_SCEN_SETUP;
             break;
-        case ID_SETUP_OK:
+        case ID_SCEN_SETUP_OK:
             fdlg_hide( gui->scen_dlg, 0 );
-            sdlg_hide( gui->setup, 1 );
+            sdlg_hide( gui->scen_setup, 1 );
             status = STATUS_RUN_SCEN_DLG;
             break;
-        case ID_SETUP_SUPPLY:
+        case ID_SCEN_SETUP_SUPPLY:
             config.supply = !config.supply;
             break;
-        case ID_SETUP_WEATHER:
+        case ID_SCEN_SETUP_WEATHER:
             config.weather = !config.weather;
             break;
-        case ID_SETUP_FOG:
+        case ID_SCEN_SETUP_FOG:
             config.fog_of_war = !config.fog_of_war;
             break;
-        case ID_SETUP_DEPLOYTURN:
+        case ID_SCEN_SETUP_DEPLOYTURN:
             config.deploy_turn = !config.deploy_turn;
             break;
-        case ID_SETUP_PURCHASE:
+        case ID_SCEN_SETUP_PURCHASE:
             config.purchase = !config.purchase;
             break;
-        case ID_SETUP_CTRL:
-            setup.ctrl[gui->setup->sel_id] = !(setup.ctrl[gui->setup->sel_id] - 1) + 1;
-            gui_handle_player_select( gui->setup->list->cur_item );
+        case ID_SCEN_SETUP_CTRL:
+            setup.ctrl[gui->scen_setup->sel_id] = !(setup.ctrl[gui->scen_setup->sel_id] - 1) + 1;
+            gui_handle_player_select( gui->scen_setup->list->cur_item );
             break;
-        case ID_SETUP_MODULE:
-            sdlg_hide( gui->setup, 1 );
+        case ID_SCEN_SETUP_MODULE:
+            sdlg_hide( gui->scen_setup, 1 );
             group_set_active( gui->module_dlg->group, ID_MODULE_OK, 0 );
             group_set_active( gui->module_dlg->group, ID_MODULE_CANCEL, 1 );
             sprintf( path, "%s/ai_modules", get_gamedir() );
             fdlg_open( gui->module_dlg, path );
             status = STATUS_RUN_MODULE_DLG;
+            break;
+        case ID_CAMP_SETUP:
+            fdlg_hide( gui->camp_dlg, 1 );
+            gui_open_camp_setup();
+            status = STATUS_RUN_CAMP_SETUP;
+            break;
+        case ID_CAMP_SETUP_OK:
+            fdlg_hide( gui->camp_dlg, 0 );
+            sdlg_hide( gui->camp_setup, 1 );
+            status = STATUS_RUN_CAMP_DLG;
+            break;
+        case ID_CAMP_SETUP_MERGE_REPLACEMENTS:
+            config.merge_replacements = !config.merge_replacements;
+            break;
+        case ID_CAMP_SETUP_CORE:
+            config.core = !config.core;
             break;
         case ID_MODULE_OK:
             if ( gui->module_dlg->lbox->cur_item ) {
@@ -2312,14 +2332,14 @@ static void engine_handle_button( int id )
                     sprintf( path, "%s/%s", gui->module_dlg->subdir, (char*)gui->module_dlg->lbox->cur_item );
                 else
                     sprintf( path, "%s", (char*)gui->module_dlg->lbox->cur_item );
-                free( setup.modules[gui->setup->sel_id] );
-                setup.modules[gui->setup->sel_id] = strdup( path );
-                gui_handle_player_select( gui->setup->list->cur_item );
+                free( setup.modules[gui->scen_setup->sel_id] );
+                setup.modules[gui->scen_setup->sel_id] = strdup( path );
+                gui_handle_player_select( gui->scen_setup->list->cur_item );
             }
         case ID_MODULE_CANCEL:
             fdlg_hide( gui->module_dlg, 1 );
-            sdlg_hide( gui->setup, 0 );
-            status = STATUS_RUN_SETUP;
+            sdlg_hide( gui->scen_setup, 0 );
+            status = STATUS_RUN_SCEN_SETUP;
             break;
         case ID_DEPLOY_UP:
             gui_scroll_deploy_up();

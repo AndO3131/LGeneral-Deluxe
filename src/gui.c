@@ -420,36 +420,46 @@ int gui_load( const char *dir )
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
-    sprintf( path, "../themes/%s/confirm_buttons", dir );
+    sprintf( path, "../themes/%s/scen_dlg_buttons", dir );
     sprintf( path2, "../themes/%s/scroll_buttons", dir );
     gui->camp_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
                                  load_surf( search_file_name( path2, 'i' ), SDL_SWSURFACE), 24, 24,
                                  20,
                                  gui_create_frame( 220, 240),
-                                 load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ), 20, 20,
+                                 load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ), 24, 24,
                                  ID_CAMP_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_camp_info,
                                  sdl.screen, 0, 0 );
+    fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
-    /* setup window */
+    /* scenario setup window */
     sprintf( path, "../themes/%s/scroll_buttons", dir );
     sprintf( path2, "../themes/%s/ctrl_buttons", dir );
     sprintf( path3, "../themes/%s/module_buttons", dir );
-    sprintf( path4, "../themes/%s/setup_confirm_buttons", dir );
-    gui->setup = sdlg_create( 
+    sprintf( path4, "../themes/%s/scen_setup_confirm_buttons", dir );
+    gui->scen_setup = sdlg_create( 
                              gui_create_frame( 120, 120 ), load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ),
                              24, 24, 20, 
                              gui_create_frame( 255, 40 ),  load_surf( search_file_name( path2, 'i' ), SDL_SWSURFACE ),
-                             24, 24, ID_SETUP_CTRL,
+                             24, 24, ID_SCEN_SETUP_CTRL,
                              gui_create_frame( 255, 40 ),  load_surf( search_file_name( path3, 'i' ), SDL_SWSURFACE ),
-                             24, 24, ID_SETUP_MODULE,
+                             24, 24, ID_SCEN_SETUP_MODULE,
                              gui_create_frame( 255, 40 ),  load_surf( search_file_name( path4, 'i' ), SDL_SWSURFACE ),
-                             24, 24, ID_SETUP_OK,
+                             24, 24, ID_SCEN_SETUP_OK,
                              gui->label,
                              gui_render_player_name, gui_handle_player_select,
                              sdl.screen, 0, 0 );
-    sdlg_hide( gui->setup, 1 );
+    sdlg_hide( gui->scen_setup, 1 );
+    /* campaign setup window */
+    sprintf( path, "../themes/%s/camp_setup_confirm_buttons", dir );
+    gui->camp_setup = sdlg_camp_create( 
+                             gui_create_frame( 115, 40 ),  load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ),
+                             24, 24, ID_CAMP_SETUP_OK,
+                             gui->label,
+                             gui_render_player_name, gui_handle_player_select,
+                             sdl.screen, 0, 0 );
+    sdlg_hide( gui->camp_setup, 1 );
     /* module dialogue */
     sprintf( path, "../themes/%s/confirm_buttons", dir );
     sprintf( path2, "../themes/%s/scroll_buttons", dir );
@@ -523,7 +533,8 @@ void gui_delete()
 	select_dlg_delete( &gui->vmode_dlg );
         fdlg_delete( &gui->scen_dlg );
         fdlg_delete( &gui->camp_dlg );
-        sdlg_delete( &gui->setup );
+        sdlg_delete( &gui->scen_setup );
+        sdlg_delete( &gui->camp_setup );
         fdlg_delete( &gui->module_dlg );
         edit_delete( &gui->edit );
 	purchase_dlg_delete( &gui->purchase_dlg );
@@ -579,8 +590,11 @@ void gui_adjust()
                                                   gui->camp_dlg->lbox->group->frame->img->img->w ) ) / 2,
                ( sdl.screen->h - gui->camp_dlg->group->frame->img->img->h ) / 2 );
     /* scenario setup */
-    sdlg_move( gui->setup, ( sdl.screen->w - ( gui->setup->list->group->frame->img->img->w + gui->setup->ctrl->frame->img->img->w ) ) / 2,
-                           ( sdl.screen->h - ( gui->setup->list->group->frame->img->img->h ) ) / 2 );
+    sdlg_move( gui->scen_setup, ( sdl.screen->w - ( gui->scen_setup->list->group->frame->img->img->w + gui->scen_setup->ctrl->frame->img->img->w ) ) / 2,
+                           ( sdl.screen->h - ( gui->scen_setup->list->group->frame->img->img->h ) ) / 2 );
+    /* campaign setup */
+    sdlg_move( gui->camp_setup, ( sdl.screen->w - ( gui->camp_setup->confirm->frame->img->img->w ) ) / 2,
+                           ( sdl.screen->h - ( gui->camp_setup->confirm->frame->img->img->h ) ) / 2 );
     /* module dialogue */
     fdlg_move( gui->module_dlg, ( sdl.screen->w - ( gui->module_dlg->group->frame->img->img->w  + 
                                                   gui->module_dlg->lbox->group->frame->img->img->w ) ) / 2,
@@ -597,7 +611,9 @@ void gui_adjust()
 Change all GUI graphics to the one found in gfx/theme/path.
 ====================================================================
 */
-int gui_change( const char *path );
+/*int gui_change( const char *path )
+{
+}*/
 
 /*
 ====================================================================
@@ -626,7 +642,8 @@ void gui_get_bkgnds()
     fdlg_get_bkgnd( gui->scen_dlg );
     fdlg_get_bkgnd( gui->camp_dlg );
     fdlg_get_bkgnd( gui->module_dlg );
-    sdlg_get_bkgnd( gui->setup );
+    sdlg_get_bkgnd( gui->scen_setup );
+    sdlg_get_bkgnd( gui->camp_setup );
     purchase_dlg_get_bkgnd( gui->purchase_dlg );
     image_get_bkgnd( gui->cursors );
 }
@@ -652,7 +669,8 @@ void gui_draw_bkgnds()
     fdlg_draw_bkgnd( gui->scen_dlg );
     fdlg_draw_bkgnd( gui->camp_dlg );
     fdlg_draw_bkgnd( gui->module_dlg );
-    sdlg_draw_bkgnd( gui->setup );
+    sdlg_draw_bkgnd( gui->scen_setup );
+    sdlg_draw_bkgnd( gui->camp_setup );
     purchase_dlg_draw_bkgnd( gui->purchase_dlg );
     image_draw_bkgnd( gui->cursors );
 }
@@ -678,7 +696,8 @@ void gui_draw()
     fdlg_draw( gui->scen_dlg );
     fdlg_draw( gui->camp_dlg );
     fdlg_draw( gui->module_dlg );
-    sdlg_draw( gui->setup );
+    sdlg_draw( gui->scen_setup );
+    sdlg_draw( gui->camp_setup );
     purchase_dlg_draw( gui->purchase_dlg );
     image_draw( gui->cursors ); 
 }
@@ -742,7 +761,8 @@ int gui_handle_motion( int cx, int cy )
     if ( !fdlg_handle_motion( gui->scen_dlg, cx, cy  ) )
     if ( !fdlg_handle_motion( gui->camp_dlg, cx, cy  ) )
     if ( !fdlg_handle_motion( gui->module_dlg, cx, cy  ) )
-    if ( !sdlg_handle_motion( gui->setup, cx, cy  ) )
+    if ( !sdlg_handle_motion( gui->scen_setup, cx, cy  ) )
+    if ( !sdlg_handle_motion( gui->camp_setup, cx, cy  ) )
     if ( !purchase_dlg_handle_motion( gui->purchase_dlg, cx, cy  ) )
         ret = 0;
     /* cursor */
@@ -767,7 +787,8 @@ int  gui_handle_button( int button_id, int cx, int cy, Button **button )
     if ( !fdlg_handle_button( gui->scen_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->camp_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->module_dlg, button_id, cx, cy, button ) )
-    if ( !sdlg_handle_button( gui->setup, button_id, cx, cy, button ) )
+    if ( !sdlg_handle_button( gui->scen_setup, button_id, cx, cy, button ) )
+    if ( !sdlg_handle_button( gui->camp_setup, button_id, cx, cy, button ) )
     if ( !purchase_dlg_handle_button( gui->purchase_dlg, button_id, cx, cy, button ) )
         ret = 0;
     return ret;
@@ -1436,7 +1457,7 @@ void gui_render_scen_info( const char *path, SDL_Surface *buffer )
 /*
 ====================================================================
 Handle the selection of a campaign file (display info and 
-load scen_info from full path)
+load camp_info from full path)
 ====================================================================
 */
 void gui_render_camp_info( const char *path, SDL_Surface *buffer )
@@ -1446,10 +1467,13 @@ void gui_render_camp_info( const char *path, SDL_Surface *buffer )
     char *info;
     if ( path == 0 ) {
         /* no selection met */
+        group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
         group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );
+        SDL_FillRect( buffer, 0, 0x0 );
     }
     else
     if ( ( info = camp_load_info( path ) ) ) {
+        group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 1 );
         group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 1 );
         /* render info */
         SDL_FillRect( buffer, 0, 0x0 );
@@ -1723,22 +1747,36 @@ void gui_open_scen_setup()
     List *list;
     /* adjust the config settings, might have changed
        due to loading */
-    group_lock_button( gui->setup->confirm, ID_SETUP_FOG, config.fog_of_war );
-    group_lock_button( gui->setup->confirm, ID_SETUP_SUPPLY, config.supply );
-    group_lock_button( gui->setup->confirm, ID_SETUP_WEATHER, config.weather );
-    group_lock_button( gui->setup->confirm, ID_SETUP_DEPLOYTURN, config.deploy_turn );
-    group_lock_button( gui->setup->confirm, ID_SETUP_PURCHASE, config.purchase);
-    group_lock_button( gui->setup->confirm, ID_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_FOG, config.fog_of_war );
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_SUPPLY, config.supply );
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_WEATHER, config.weather );
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_DEPLOYTURN, config.deploy_turn );
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_PURCHASE, config.purchase);
+    group_lock_button( gui->scen_setup->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     /* do the list and chose first entry */
     list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
     for ( i = 0; i < setup.player_count; i++ )
         list_add( list, strdup( setup.names[i] ) );
-    lbox_set_items( gui->setup->list, list );
-    gui->setup->list->cur_item = list_first( list );
-    lbox_apply( gui->setup->list );
-    if ( gui->setup->list->cur_item )
-        gui_handle_player_select( gui->setup->list->cur_item );
-    sdlg_hide( gui->setup, 0 );
+    lbox_set_items( gui->scen_setup->list, list );
+    gui->scen_setup->list->cur_item = list_first( list );
+    lbox_apply( gui->scen_setup->list );
+    if ( gui->scen_setup->list->cur_item )
+        gui_handle_player_select( gui->scen_setup->list->cur_item );
+    sdlg_hide( gui->scen_setup, 0 );
+}
+
+/*
+====================================================================
+Open campaign setup.
+====================================================================
+*/
+void gui_open_camp_setup()
+{
+    /* adjust the config settings, might have changed
+       due to loading */
+    group_lock_button( gui->camp_setup->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
+    group_lock_button( gui->camp_setup->confirm, ID_CAMP_SETUP_CORE, config.core );
+    sdlg_hide( gui->camp_setup, 0 );
 }
 
 /*
@@ -1768,21 +1806,21 @@ void gui_handle_player_select( void *item )
     name = (const char*)item;
     for ( i = 0; i < setup.player_count; i++ )
         if ( STRCMP( name, setup.names[i] ) ) {
-            gui->setup->sel_id = i;
+            gui->scen_setup->sel_id = i;
             gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_CENTER;
-            contents = gui->setup->ctrl->frame->contents;
+            contents = gui->scen_setup->ctrl->frame->contents;
             SDL_FillRect( contents, 0, 0x0 );
             if ( setup.ctrl[i] == PLAYER_CTRL_HUMAN )
                 sprintf( str, tr("Control: Human") );
             else
                 sprintf( str, tr("Control: CPU") );
             write_text( gui->font_std, contents, 10, contents->h >> 1, str, 255 );
-            frame_apply( gui->setup->ctrl->frame );
-            contents = gui->setup->module->frame->contents;
+            frame_apply( gui->scen_setup->ctrl->frame );
+            contents = gui->scen_setup->module->frame->contents;
             SDL_FillRect( contents, 0, 0x0 );
             sprintf( str, tr("AI Module: %s"), setup.modules[i] );
             write_text( gui->font_std, contents, 10, contents->h >> 1, str, 255 );
-            frame_apply( gui->setup->module->frame );
+            frame_apply( gui->scen_setup->module->frame );
             break;
         }
 }

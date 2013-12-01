@@ -43,6 +43,7 @@ typedef struct {
     int deploy_turn; /* allow deployment */
     int purchase; /* disable predefined reinfs and allow purchase by prestige */
     int merge_replacements; /* choose between classic reinforcements and merging units */
+    int core; /* enable core army purchased by player move through campaign */
     int ai_debug; /* level of information about AI move */
     /* audio stuff */
     int sound_on;

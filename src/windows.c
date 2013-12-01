@@ -923,7 +923,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
 
 /*
 ====================================================================
-Create setup dialogue.
+Create scenario setup dialogue.
 ====================================================================
 */
 SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
@@ -974,25 +974,67 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
     py = (conf_frame->h - conf_button_h) / 2;
-    group_add_button( sdlg->confirm, ID_SETUP_OK, px, py, 0, tr("Ok") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_OK, px, py, 0, tr("Ok") );
     px = border;
-    group_add_button( sdlg->confirm, ID_SETUP_FOG, px, py, 1, tr("Fog Of War") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_FOG, px, py, 1, tr("Fog Of War") );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SETUP_SUPPLY, px, py, 1, tr("Unit Supply") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, px, py, 1, tr("Unit Supply") );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SETUP_WEATHER, px, py, 1, tr("Weather Influence") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, 1, tr("Weather Influence") );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn") );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SETUP_PURCHASE, px, py, 1, tr("Purchase Option") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, px, py, 1, tr("Purchase Option") );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
-    group_lock_button( sdlg->confirm, ID_SETUP_FOG, config.fog_of_war );
-    group_lock_button( sdlg->confirm, ID_SETUP_SUPPLY, config.supply );
-    group_lock_button( sdlg->confirm, ID_SETUP_WEATHER, config.weather );
-    group_lock_button( sdlg->confirm, ID_SETUP_DEPLOYTURN, config.deploy_turn );
-    group_lock_button( sdlg->confirm, ID_SETUP_PURCHASE, config.purchase );
-    group_lock_button( sdlg->confirm, ID_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_FOG, config.fog_of_war );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, config.supply );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, config.weather );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, config.deploy_turn );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, config.purchase );
+    group_lock_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
+    sdlg->select_cb = list_select_cb;
+    return sdlg;
+failure:
+    sdlg_delete( &sdlg );
+    return 0;
+}
+/*
+====================================================================
+Create campaign setup dialogue.
+====================================================================
+*/
+SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
+                   int conf_button_w, int conf_button_h, int id_conf,
+                   Label *label,
+                   void (*list_render_cb)(void*,SDL_Surface*),
+                   void (*list_select_cb)(void*),
+                   SDL_Surface *surf, int x, int y )
+{
+    int border = 10, alpha = 160, px, py;
+
+    SDlg *sdlg = calloc( 1, sizeof( SDlg ) );
+
+    /* set unused surfaces as 0 */
+    sdlg->list = 0;
+    sdlg->ctrl = 0;
+    sdlg->module = 0;
+
+    /* group with settings and confirm buttons; id_conf is id of first button
+     * in image conf_buttons */
+    if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
+                                         conf_button_w, conf_button_h, 3, id_conf, label, surf, 
+                                         x - 1, y ) ) == 0 )
+        goto failure;
+    px = conf_frame->w - (border + conf_button_w);
+    py = (conf_frame->h - conf_button_h) / 2;
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_OK, px, py, 0, tr("Ok") );
+    px = border;
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
+    px += border + conf_button_w;
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, 1, tr("Core Units Option") );
+    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
+    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.core );
     sdlg->select_cb = list_select_cb;
     return sdlg;
 failure:
@@ -1017,30 +1059,42 @@ Draw setup dialogue.
 */
 void sdlg_hide( SDlg *sdlg, int hide )
 {
-    lbox_hide( sdlg->list, hide );
-    group_hide( sdlg->ctrl, hide );
-    group_hide( sdlg->module, hide );
+    if ( sdlg->list )
+        lbox_hide( sdlg->list, hide );
+    if ( sdlg->ctrl )
+        group_hide( sdlg->ctrl, hide );
+    if ( sdlg->module )
+        group_hide( sdlg->module, hide );
     group_hide( sdlg->confirm, hide );
 }
 void sdlg_get_bkgnd( SDlg *sdlg )
 {
-    lbox_get_bkgnd( sdlg->list );
-    group_get_bkgnd( sdlg->ctrl );
-    group_get_bkgnd( sdlg->module );
+    if ( sdlg->list )
+        lbox_get_bkgnd( sdlg->list );
+    if ( sdlg->ctrl )
+        group_get_bkgnd( sdlg->ctrl );
+    if ( sdlg->module )
+        group_get_bkgnd( sdlg->module );
     group_get_bkgnd( sdlg->confirm );
 }
 void sdlg_draw_bkgnd( SDlg *sdlg )
 {
-    lbox_draw_bkgnd( sdlg->list );
-    group_draw_bkgnd( sdlg->ctrl );
-    group_draw_bkgnd( sdlg->module );
+    if ( sdlg->list )
+        lbox_draw_bkgnd( sdlg->list );
+    if ( sdlg->ctrl )
+        group_draw_bkgnd( sdlg->ctrl );
+    if ( sdlg->module )
+        group_draw_bkgnd( sdlg->module );
     group_draw_bkgnd( sdlg->confirm );
 }
 void sdlg_draw( SDlg *sdlg )
 {
-    lbox_draw( sdlg->list );
-    group_draw( sdlg->ctrl );
-    group_draw( sdlg->module );
+    if ( sdlg->list )
+        lbox_draw( sdlg->list );
+    if ( sdlg->ctrl )
+        group_draw( sdlg->ctrl );
+    if ( sdlg->module )
+        group_draw( sdlg->module );
     group_draw( sdlg->confirm );
 }
 
@@ -1058,12 +1112,21 @@ void sdlg_set_surface( SDlg *sdlg, SDL_Surface *surf )
 }
 void sdlg_move( SDlg *sdlg, int x, int y )
 {
-    lbox_move( sdlg->list, x, y );
-    group_move( sdlg->ctrl, x + sdlg->list->group->frame->img->img->w - 1, y );
-    group_move( sdlg->module, x + sdlg->list->group->frame->img->img->w - 1, 
-                sdlg->ctrl->frame->img->img->h + y );
-    group_move( sdlg->confirm, x + sdlg->list->group->frame->img->img->w - 1, 
+    if ( sdlg->list )
+    {
+        lbox_move( sdlg->list, x, y );
+        group_move( sdlg->confirm, x + sdlg->list->group->frame->img->img->w - 1, 
                 sdlg->ctrl->frame->img->img->h + sdlg->module->frame->img->img->h + y );
+    }
+    else
+    {
+        group_move( sdlg->confirm, x - 1, y );
+    }
+    if ( sdlg->ctrl )
+        group_move( sdlg->ctrl, x + sdlg->list->group->frame->img->img->w - 1, y );
+    if ( sdlg->module )
+        group_move( sdlg->module, x + sdlg->list->group->frame->img->img->w - 1, 
+                sdlg->ctrl->frame->img->img->h + y );
 }
 
 /*
@@ -1074,12 +1137,20 @@ handle_motion updates the focus of the buttons
 int sdlg_handle_motion( SDlg *sdlg, int cx, int cy )
 {
     void *item;
-    if ( !sdlg->list->group->frame->img->bkgnd->hide ) {
-        if ( !group_handle_motion( sdlg->ctrl, cx, cy ) )
-        if ( !group_handle_motion( sdlg->module, cx, cy ) )
-        if ( !group_handle_motion( sdlg->confirm, cx, cy ) )
-        if ( !lbox_handle_motion( sdlg->list, cx, cy, &item ) )
-            return 0;
+    if ( !sdlg->confirm->frame->img->bkgnd->hide ) {
+        if ( sdlg->ctrl )
+        {
+            if ( !group_handle_motion( sdlg->ctrl, cx, cy ) )
+            if ( !group_handle_motion( sdlg->module, cx, cy ) )
+            if ( !group_handle_motion( sdlg->confirm, cx, cy ) )
+            if ( !lbox_handle_motion( sdlg->list, cx, cy, &item ) )
+                return 0;
+        }
+        else
+        {
+            if ( !group_handle_motion( sdlg->confirm, cx, cy ) )
+                return 0;
+        }
         return 1;
     }
     return 0;
@@ -1092,17 +1163,20 @@ handle_button
 int sdlg_handle_button( SDlg *sdlg, int button_id, int cx, int cy, Button **button )
 {
     void *item = 0;
-    if ( !sdlg->list->group->frame->img->bkgnd->hide ) {
-        if ( group_handle_button( sdlg->ctrl, button_id, cx, cy, button ) )
-            return 1;
-        if ( group_handle_button( sdlg->module, button_id, cx, cy, button ) )
-            return 1;
+    if ( !sdlg->confirm->frame->img->bkgnd->hide ) {
+        if ( sdlg->ctrl )
+            if ( group_handle_button( sdlg->ctrl, button_id, cx, cy, button ) )
+                return 1;
+        if ( sdlg->module )
+            if ( group_handle_button( sdlg->module, button_id, cx, cy, button ) )
+                return 1;
         if ( group_handle_button( sdlg->confirm, button_id, cx, cy, button ) )
             return 1;
-        if ( lbox_handle_button( sdlg->list, button_id, cx, cy, button, &item ) ) {
-            if ( item ) {
-                (sdlg->select_cb)(item);
-            }
+        if ( sdlg->list )
+            if ( lbox_handle_button( sdlg->list, button_id, cx, cy, button, &item ) ) {
+                if ( item ) {
+                    (sdlg->select_cb)(item);
+                }
         }
     }
     return 0;

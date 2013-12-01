@@ -107,15 +107,19 @@ enum {
     ID_SCEN_SETUP,
     ID_CAMP_OK,
     ID_CAMP_CANCEL,
-    ID_SETUP_OK,
-    ID_SETUP_FOG,
-    ID_SETUP_SUPPLY,
-    ID_SETUP_WEATHER,
-    ID_SETUP_DEPLOYTURN,
-    ID_SETUP_PURCHASE,
-    ID_SETUP_MERGE_REPLACEMENTS,
-    ID_SETUP_CTRL,
-    ID_SETUP_MODULE,
+    ID_CAMP_SETUP,
+    ID_SCEN_SETUP_OK,
+    ID_SCEN_SETUP_FOG,
+    ID_SCEN_SETUP_SUPPLY,
+    ID_SCEN_SETUP_WEATHER,
+    ID_SCEN_SETUP_DEPLOYTURN,
+    ID_SCEN_SETUP_PURCHASE,
+    ID_SCEN_SETUP_MERGE_REPLACEMENTS,
+    ID_SCEN_SETUP_CTRL,
+    ID_SCEN_SETUP_MODULE,
+    ID_CAMP_SETUP_OK,
+    ID_CAMP_SETUP_MERGE_REPLACEMENTS,
+    ID_CAMP_SETUP_CORE,
     ID_MODULE_OK,
     ID_MODULE_CANCEL,
     ID_PURCHASE_OK,
@@ -156,7 +160,8 @@ typedef struct {
     SelectDlg *vmode_dlg;
     FDlg *scen_dlg;    /* scenario selection */
     FDlg *camp_dlg;    /* campaign selection */
-    SDlg *setup;       /* scenario setup (controls and ai modules) */
+    SDlg *scen_setup;  /* scenario setup (controls and ai modules) */
+    SDlg *camp_setup;  /* campaign setup (controls) */
     FDlg *module_dlg;  /* ai module selection */
     /* frame tiles */
     SDL_Surface *fr_luc, *fr_llc, *fr_ruc, *fr_rlc, *fr_hori, *fr_vert;
@@ -452,6 +457,13 @@ Open scenario setup and set first player as selected.
 ====================================================================
 */
 void gui_open_scen_setup();
+
+/*
+====================================================================
+Open campaign setup.
+====================================================================
+*/
+void gui_open_camp_setup();
 
 /*
 ====================================================================

@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -467,6 +469,12 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
                    SDL_Surface *mod_frame, SDL_Surface *mod_buttons,
                    int mod_button_w, int mod_button_h, int id_mod,
                    SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
+                   int conf_button_w, int conf_button_h, int id_conf,
+                   Label *label,
+                   void (*list_render_cb)(void*,SDL_Surface*),
+                   void (*list_select_cb)(void*),
+                   SDL_Surface *surf, int x, int y );
+SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    int conf_button_w, int conf_button_h, int id_conf,
                    Label *label,
                    void (*list_render_cb)(void*,SDL_Surface*),
