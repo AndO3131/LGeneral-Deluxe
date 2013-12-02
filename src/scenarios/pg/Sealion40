@@ -549,6 +549,7 @@ name»Axis
 nations»ger°aus°it°hun°bul°rum°fin°esp
 allied_players»
 unit_limit»64
+core_limit»29
 orientation»left
 control»human
 strategy»1

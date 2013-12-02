@@ -12,9 +12,7 @@ nation_db»pg.ndb
 main»pg.udb
 >
 map»pg/map12
-weather»°<°t°a°r°g°e°t°_°t°y°p°e°s°
-°°<°%°s°
-°n°a°m°e
+weather»fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair°fair
 <flags
 <flag
 x»26
@@ -185,6 +183,7 @@ name»Axis
 nations»ger°aus°it°hun°bul°rum°fin°esp
 allied_players»
 unit_limit»41
+core_limit»39
 orientation»left
 control»human
 strategy»-1
