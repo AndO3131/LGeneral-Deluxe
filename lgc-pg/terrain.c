@@ -62,7 +62,7 @@ struct {
 Terrain definitions.
 ====================================================================
 */
-#define NUM_TERRAIN_TYPES 15
+#define NUM_TERRAIN_TYPES 16
 struct {
     char id, *name, *set_name;
     int min_entr, max_entr, max_ini; 
@@ -74,6 +74,10 @@ struct {
         { "1121A1X1", "2331A1X2", "1221A1X2" },
         { "none","none","none" } },
     { 'r', "Road", "road", 0, 5, 99,
+        "112211221122",
+        { "1111A1X1", "1121A1X1", "1121A1X1" },
+        { "none","none","none" } },
+    { 'b', "Bridge", "bridge", 0, 5, 99,
         "112211221122",
         { "1111A1X1", "1121A1X1", "1121A1X1" },
         { "none","none","none" } },
@@ -141,11 +145,11 @@ int terrain_tile_count = 237;
 char tile_type[] = {
     'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 
     'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'c',
-    'c', 'o', 'o', 'o', 'h', 'h', 'h', 'h', 'r', 'o', 'r',
-    'c', 'c', 'c', 'c', 'r', 'c', 'c', 'r', 'r', 'o', 'c',
+    'c', 'o', 'o', 'o', 'h', 'h', 'h', 'h', 'b', 'o', 'b',
+    'c', 'c', 'c', 'c', 'r', 'c', 'c', 'b', 'b', 'o', 'c',
     'c', 'c', 'c', 'r', 'r', 'r', 'o', 'o', 'R', 'R', 'R',
-    'R', 'r', 'r', 'r', 'r', 'r', 'R', 'R', 'R', 'R', 'R',
-    'r', 'r', 'r', 'r', 'r', 'R', 'R', 'o', 'r', 'm', 'm',
+    'R', 'r', 'r', 'r', 'r', 'b', 'R', 'R', 'R', 'R', 'R',
+    'r', 'r', 'r', 'r', 'b', 'R', 'R', 'o', 'r', 'm', 'm',
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
@@ -162,7 +166,7 @@ char tile_type[] = {
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm',
     'm', 'm', 'm', 'm', 'm', 'm',
     /* ??? */
-    'r', 'r', 'r', 'r', 'R', 'R', 'R', 'c', 'h', 'h', 'd',
+    'b', 'b', 'b', 'b', 'R', 'R', 'R', 'c', 'h', 'h', 'd',
     'd', 'd', 'd'
 };
 
@@ -214,16 +218,16 @@ static int terrain_convert_tiles( char id, PG_Shp *shp, char *fname )
     pos = 0; count = 0;
     for ( i = 0; i < terrain_tile_count; i++ )
         if ( tile_type[i] == id ) {
-			/* road tile no 2 is buggy ... */
-			if (!is_road || count != 2) {
+			/* road tile no 0 is buggy ... */
+			if (!is_road || count != 0) {
                 srect.y = i * 50;
                 drect.x = pos;
                 SDL_BlitSurface( shp->surf, &srect, surf, &drect );
 			}
-			/* ... but can be repaired by mirroring tile no 7 */
-			if (is_road && count == 7) {
+			/* ... but can be repaired by mirroring tile no 3 */
+			if (is_road && count == 3) {
 				srect.y = i * 50;
-                drect.x = 2 * 60;
+                drect.x = 0 * 60;
 				copy_surf_mirrored(shp->surf, &srect, surf, &drect);
 			}
 			pos += 60;
@@ -425,6 +429,7 @@ int terrain_convert_graphics( void )
     if ( ( shp = shp_load( "TACMAP.SHP" ) ) == 0 ) goto failure;
     if ( !terrain_convert_tiles( 'c', shp, "clear" ) ) goto failure;
     if ( !terrain_convert_tiles( 'r', shp, "road" ) ) goto failure;
+    if ( !terrain_convert_tiles( 'b', shp, "bridge" ) ) goto failure;
     if ( !terrain_convert_tiles( '#', shp, "fields" ) ) goto failure;
     if ( !terrain_convert_tiles( '~', shp, "rough" ) ) goto failure;
     if ( !terrain_convert_tiles( 'R', shp, "river" ) ) goto failure;
