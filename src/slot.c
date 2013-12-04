@@ -10,6 +10,9 @@
     Patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520
  ***************************************************************************/
 /***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
+/***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -56,7 +59,7 @@ extern Scen_Info *scen_info;
 extern List *units;
 extern List *reinf, *avail_units;
 extern List *players;
-extern int camp_loaded;
+extern enum CampaignState camp_loaded;
 extern char *camp_fname;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;
@@ -91,6 +94,7 @@ enum StorageVersion {
     StoreUnitIsGuarding,	/* up to this versions are stored per unit */
     StoreGlobalVersioning,
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
+    StoreCoreVersionData, /* Core army data are stored in savegame */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -231,7 +235,8 @@ enum UnitStoreParams {
             ,
     UnitNameSize = 21*sizeof(char) + 3*sizeof(char)/*padding*/,
     UnitTagSize = 32*sizeof(char),
-    UnitSize = 2*UnitLibSize + 5*sizeof(void *) + UnitNameSize + UnitTagSize + 26*sizeof(int),
+    UnitBattleHonorsSize = 20*sizeof(char),
+    UnitSize = 2*UnitLibSize + 5*sizeof(void *) + UnitNameSize + UnitTagSize + 31*sizeof(int) + 6*UnitBattleHonorsSize
 };
 static void save_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
 {
@@ -404,6 +409,14 @@ static void save_unit( FILE *file, Unit *unit )
     save_string( file, unit->player->id );
     /* nation */
     save_string( file, unit->nation->id );
+    /* max_str */
+    save_int(file, unit->max_str);
+    /* core */
+    save_int(file, unit->core);
+    /* battle honors */
+    int i;
+    for (i = 0;i < 5;i++)
+        fwrite(unit->star[i], UnitBattleHonorsSize, 1, file);
 }
 static void load_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
 {
@@ -612,6 +625,20 @@ Unit* load_unit( FILE *file )
     /* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
     unit->terrain = map[unit->x][unit->y].terrain;
     /* end patch */
+    /* max_str (since StoreCoreVersionData) */
+    val = load_int(file);
+    unit->max_str = unit_store_version >= StoreCoreVersionData ? val : 10;
+    /* core (since StoreCoreVersionData) */
+    val = load_int(file);
+    unit->core = unit_store_version >= StoreCoreVersionData ? val : AUXILIARY;
+    /* battle honors (since StoreCoreVersionData) */
+    int i;
+    if (store_version >= StoreCoreVersionData)
+        for (i = 0;i < 5;i++)
+        {
+            fread(unit->star[i], UnitBattleHonorsSize, 1, file);
+            unit->star[i][UnitBattleHonorsSize - 1] = 0;
+        }
     unit_adjust_icon( unit );
     unit->exp_level = unit->exp / 100;
     unit_update_bar( unit );

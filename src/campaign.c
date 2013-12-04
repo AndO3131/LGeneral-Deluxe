@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -30,15 +32,20 @@ Externals
 ====================================================================
 */
 extern Setup setup;
+extern Config config;
 
-int camp_loaded = 0;
+/* campaign flag - 0: playing single scenario
+                   1: playing campaign scenario
+                   2: continue campaign
+                   3: campaign scenario restart */
+enum CampaignState camp_loaded = NO_CAMPAIGN;
 char *camp_fname = 0;
 char *camp_name = 0;
 char *camp_desc = 0;
 char *camp_authors = 0;
 List *camp_entries = 0; /* scenario entries */
 Camp_Entry *camp_cur_scen = 0;
-static char *camp_first;
+char *camp_first;
 
 /*
 ====================================================================
@@ -214,7 +221,7 @@ int camp_load( const char *fname )
         list_add( camp_entries, centry );
     }
     parser_free( &pd );
-    camp_loaded = 1;
+    camp_loaded = FIRST_SCENARIO;
     camp_verify_tree();
     free(domain);
     return 1;
@@ -272,7 +279,7 @@ void camp_delete()
     if ( camp_desc ) free( camp_desc ); camp_desc = 0;
     if ( camp_authors ) free( camp_authors ); camp_authors = 0;
     if ( camp_entries ) list_delete( camp_entries ); camp_entries = 0;
-    camp_loaded = 0;
+    camp_loaded = NO_CAMPAIGN;
     camp_cur_scen = 0;
     free(camp_first); camp_first = 0;
     

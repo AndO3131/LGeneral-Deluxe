@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -24,6 +26,7 @@
 #include "map.h"
 #include "scenario.h"
 #include "localize.h"
+#include "campaign.h"
 
 #if DEBUG_CAMPAIGN
 #  include <stdio.h>
@@ -56,6 +59,9 @@ extern Font *log_font;
 extern Setup setup;
 extern int deploy_turn;
 extern List *unit_lib;
+extern enum CampaignState camp_loaded;
+extern Camp_Entry *camp_cur_scen;
+extern char *camp_first;
 
 /*
 ====================================================================
@@ -251,27 +257,31 @@ int scen_load( const char *fname )
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( !parser_get_value( pd, "nation_db", &str, 0 ) ) goto parser_failure;
     if ( !nations_load( str ) ) goto failure;
+    /* unit libs NOT reloaded if continuing campaign */
+    if (camp_loaded <= 1)
+    {
     /* unit libs */
-    if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
-        /* check the scenario file itself but only for the main entry */
-        sprintf(path, "../scenarios/%s", fname); 
-        str = path;
-        sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
-        write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-        if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
-    }
-    else {
-        if ( !parser_get_value( sub, "main", &str, 0 ) ) goto parser_failure;
-        sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
-        write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-        if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
-        if ( parser_get_values( sub, "add", &values ) ) {
-            list_reset( values );
-            while ( ( lib = list_next( values ) ) ) {
-                sprintf( log_str, tr("Loading Additional Unit Library '%s'"), lib );
-                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-                if ( !unit_lib_load( lib, UNIT_LIB_ADD ) )
-                    goto failure;
+        if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
+            /* check the scenario file itself but only for the main entry */
+            sprintf(path, "../scenarios/%s", fname); 
+            str = path;
+            sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
+            write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+            if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
+        }
+        else {
+            if ( !parser_get_value( sub, "main", &str, 0 ) ) goto parser_failure;
+            sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
+            write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+            if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
+            if ( parser_get_values( sub, "add", &values ) ) {
+                list_reset( values );
+                while ( ( lib = list_next( values ) ) ) {
+                    sprintf( log_str, tr("Loading Additional Unit Library '%s'"), lib );
+                    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                    if ( !unit_lib_load( lib, UNIT_LIB_ADD ) )
+                        goto failure;
+                }
             }
         }
     }
@@ -314,8 +324,15 @@ int scen_load( const char *fname )
         for ( i = 0; i < values->count; i++ )
             player->nations[i] = nation_find( list_next( values ) );
 	
-	/* unit limit (0 = no limit) */
-	parser_get_int(sub, "unit_limit", &player->unit_limit);
+        /* unit limit (0 = no limit) */
+        parser_get_int(sub, "unit_limit", &player->unit_limit);
+
+        if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
+        {
+            parser_get_int(sub, "core_limit", &player->core_limit);
+        }
+        else
+            player->core_limit = -1;
 	
         if ( !parser_get_value( sub, "orientation", &str, 0 ) ) goto parser_failure;
         if ( STRCMP( str, "right" ) ) /* alldirs not implemented yet */
@@ -324,7 +341,10 @@ int scen_load( const char *fname )
             player->orient = UNIT_ORIENT_LEFT;
         if ( !parser_get_value( sub, "control", &str, 0 ) ) goto parser_failure;
         if ( STRCMP( str, "cpu" ) )
+        {
             player->ctrl = PLAYER_CTRL_CPU;
+            player->core_limit = -1;
+        }
         else
             player->ctrl = PLAYER_CTRL_HUMAN;
         if ( !parser_get_string( sub, "ai_module", &player->ai_fname ) )
@@ -552,11 +572,42 @@ int scen_load( const char *fname )
     sprintf( log_str, tr("Loading Units") );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     units = list_create( LIST_AUTO_DELETE, unit_delete );
-    reinf = list_create( LIST_AUTO_DELETE, unit_delete );
+    /* load core units from earlier scenario or create reinf list - unit status is checked elsewhere */
+    if (camp_loaded > 1 && config.use_core_units)
+    {
+        Unit *entry;
+        list_reset( reinf );
+        while ( ( entry = list_next( reinf ) ) )
+            if ( (camp_loaded == CONTINUE_CAMPAIGN) || ((camp_loaded == RESTART_CAMPAIGN) && entry->core == STARTING_CORE) )
+            {
+                if ( ( entry->nation = nation_find_by_id( entry->prop.nation ) ) == 0 ) {
+                    fprintf( stderr, tr("%s: not a nation\n"), str );
+                    goto failure;
+                }
+                if ( ( entry->player = player_get_by_nation( entry->nation ) ) == 0 ) {
+                    fprintf( stderr, tr("%s: no player controls this nation\n"), entry->nation->name );
+                    goto failure;
+                }
+                entry->orient = entry->player->orient;
+                entry->core = STARTING_CORE;
+                unit_reset_attributes(entry);
+                if (camp_loaded != NO_CAMPAIGN)
+                {
+                    unit = unit_duplicate( entry,0 );
+                    unit->killed = 2;
+                /* put unit to available units list */
+                    list_add( units, unit );
+                }
+                entry->core = CORE;
+            }
+    }
+    else
+        reinf = list_create( LIST_AUTO_DELETE, unit_delete );
     avail_units = list_create( LIST_AUTO_DELETE, unit_delete );
     vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
     if ( !parser_get_entries( pd, "units", &entries ) ) goto parser_failure;
     list_reset( entries );
+    int auxiliary_units_count = 0;
     while ( ( sub = list_next( entries ) ) ) {
         /* unit type */
         if ( !parser_get_value( sub, "id", &str, 0 ) ) goto parser_failure;
@@ -586,8 +637,12 @@ int scen_load( const char *fname )
             fprintf( stderr, tr("%s: out of map: ignored\n"), unit_base.name );
             continue;  
         }
-        /* strengt, entrenchment, experience */
+        /* strength, entrenchment, experience */
         if ( !parser_get_int( sub, "str", &unit_base.str ) ) goto parser_failure;
+        if (unit_base.str > 10 )
+            unit_base.max_str = 10;
+        else
+            unit_base.max_str = unit_base.str;
         if ( !parser_get_int( sub, "entr", &unit_base.entr ) ) goto parser_failure;
         if ( !parser_get_int( sub, "exp", &unit_base.exp_level ) ) goto parser_failure;
         /* transporter */
@@ -613,13 +668,20 @@ int scen_load( const char *fname )
                             vconds[i].subconds_or[j].count++;
             }
         }
+        /* core */
+        if ( !parser_get_int( sub, "core", &unit_base.core ) ) goto parser_failure;
         /* actual unit */
-        unit = unit_create( unit_prop, trsp_prop, &unit_base );
-        /* put unit to active or reinforcements list */
-        if ( !unit_delayed ) {
-            list_add( units, unit );
-            /* add unit to map */
-            map_insert_unit( unit );
+        if ( !(unit_base.player->ctrl == PLAYER_CTRL_HUMAN && auxiliary_units_count >= 
+               unit_base.player->unit_limit - unit_base.player->core_limit) ||
+               ( (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) && config.use_core_units ) )
+        {
+            unit = unit_create( unit_prop, trsp_prop, &unit_base );
+            /* put unit to active or reinforcements list or available units list */
+            if ( !unit_delayed ) {
+                list_add( units, unit );
+                /* add unit to map */
+                map_insert_unit( unit );
+            }
         }
         else if (!config.purchase) /* no fixed reinfs with purchase enabled */
             list_add( reinf, unit );
@@ -634,6 +696,8 @@ int scen_load( const char *fname )
                 unit->player->air_trsp_used++;
             }
         unit_ref++;
+        if (unit_base.player->ctrl == PLAYER_CTRL_HUMAN)
+            auxiliary_units_count++;
     }
     /* load deployment hexes */
     if ( parser_get_entries( pd, "deployfields", &entries ) ) {
@@ -833,7 +897,25 @@ void scen_delete()
         free( vconds ); vconds = 0;
         vcond_count = 0;
     }
-    if ( units ) {
+    if ( units )
+    {
+        if (camp_loaded == CONTINUE_CAMPAIGN)
+        {
+            Unit *entry;
+            list_reset( units );
+            while ( ( entry = list_next( units ) ) )
+                if (entry->core && !entry->killed)
+                    list_transfer( units,reinf,entry );
+        }
+        else
+            if (camp_loaded == RESTART_CAMPAIGN)
+            {
+                Unit *entry;
+                list_reset( units );
+                while ( ( entry = list_next( units ) ) )
+                    if (entry->core == STARTING_CORE)// && !entry->killed)
+                        list_transfer( units,reinf,entry );
+            }
         list_delete( units );
         units = 0;
     }
@@ -845,12 +927,14 @@ void scen_delete()
         list_delete( avail_units );
         avail_units = 0;
     }
-    if ( reinf ) {
+    if ( reinf && camp_loaded <= 1 )
+    {
         list_delete( reinf );
         reinf = 0;
     }
     nations_delete();
-    unit_lib_delete();
+    if (camp_loaded <= 1)
+        unit_lib_delete();
     players_delete();
     map_delete();
 

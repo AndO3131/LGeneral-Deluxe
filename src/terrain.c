@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -50,6 +52,7 @@ StrToFlag fct_terrain[] = {
     { "cut_strength", CUT_STRENGTH },
     { "bad_sight", BAD_SIGHT },
     { "swamp", SWAMP },
+    { "desert", DESERT },
     { "X", 0}    
 };
 

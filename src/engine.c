@@ -64,10 +64,11 @@ extern Scen_Info *scen_info;
 extern Map_Tile **map;
 extern Mask_Tile **mask;
 extern GUI *gui;
-extern int camp_loaded;
+extern enum CampaignState camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 extern Setup setup;
 extern int  term_game, sdl_quit;
+extern char *camp_first;
 
 /*
 ====================================================================
@@ -262,6 +263,9 @@ static void engine_finish_scenario()
     /* finalize ai turn if any */
     if ( cur_player && cur_player->ctrl == PLAYER_CTRL_CPU )
         (cur_player->ai_finalize)();
+    /* continue campaign if any */
+    if (camp_loaded == FIRST_SCENARIO)
+        camp_loaded = CONTINUE_CAMPAIGN;
     blind_cpu_turn = 0;
     engine_show_final_message();
     group_set_active( gui->base_menu, ID_MENU, 0 );
@@ -841,14 +845,17 @@ Remove unit from map and unit list and clear it's influence.
 */
 static void engine_remove_unit( Unit *unit )
 {
-    if (unit->killed >= 2) return;
+    if (unit->killed >= 3) return;
 
     /* check if it's an enemy to the current player; if so the influence must be removed */
     if ( !player_is_ally( cur_player, unit->player ) )
         map_remove_unit_infl( unit );
     map_remove_unit( unit );
-    /* from unit list */
-    unit->killed = 2;
+    /* from unit list (if not core unit) */
+    if (!unit->core)
+        unit->killed = 3;
+    else
+        unit->killed = 2;
 }
 
 /*
@@ -1067,6 +1074,8 @@ static void engine_begin_turn( Player *forced_player, int skip_unit_prep )
         if ( turn == scen_info->turn_limit ) {
             /* use else condition as scenario result */
             /* and take a final look */
+            if (camp_loaded == FIRST_SCENARIO)
+                camp_loaded = CONTINUE_CAMPAIGN;
             scen_check_result( 1 );
             blind_cpu_turn = 0;
             engine_show_final_message();
@@ -1200,8 +1209,11 @@ static void engine_end_turn()
         unit = list_next(units);
         if ( unit->killed ) {
             engine_remove_unit( unit );
-            list_delete_item( units, unit );
-            i--; /* adjust index */
+            if (unit->killed != 2)
+            {
+                list_delete_item( units, unit );
+                i--; /* adjust index */
+            }
         }
     }
 }
@@ -1704,9 +1716,10 @@ static void engine_update_info( int mx, int my, int region )
         moveCost = mask[mx][my].moveCost;
     /* entered a new tile so update the terrain info */
     if (status == STATUS_PURCHASE) {
-	snprintf( str, 256, tr("Prestige: %d"), cur_player->cur_prestige );
-	label_write( gui->label, gui->font_std, str );
-    } else if (status==STATUS_DROP)
+        snprintf( str, 256, tr("Prestige: %d"), cur_player->cur_prestige );
+        label_write( gui->label, gui->font_std, str );
+    }
+    else if (status==STATUS_DROP)
     {
         label_write( gui->label, gui->font_std,tr("Select Drop Zone")  );
     }
@@ -2041,6 +2054,8 @@ static void engine_handle_button( int id )
             engine_confirm_action( tr("Do you really want to restart this scenario?") );
             break;
         case ID_SCEN:
+            camp_loaded = NO_CAMPAIGN;
+            config.use_core_units = 0;
             engine_hide_game_menu();
             sprintf( path, "%s/scenarios", get_gamedir() );
             fdlg_open( gui->scen_dlg, path );
@@ -2050,6 +2065,7 @@ static void engine_handle_button( int id )
             status = STATUS_RUN_SCEN_DLG;
             break;
         case ID_CAMP:
+            camp_loaded = FIRST_SCENARIO;
             engine_hide_game_menu();
             sprintf( path, "%s/campaigns", get_gamedir() );
             fdlg_open( gui->camp_dlg, path );
@@ -2224,16 +2240,16 @@ static void engine_handle_button( int id )
             scroll_block_keys = 1;
             break;
         case ID_PURCHASE:
-		engine_hide_game_menu();
-		engine_select_unit( 0 );
-		gui_show_purchase_window();
-		status = STATUS_PURCHASE;
-		draw_map = 1;
-		break;
+            engine_hide_game_menu();
+            engine_select_unit( 0 );
+            gui_show_purchase_window();
+            status = STATUS_PURCHASE;
+            draw_map = 1;
+            break;
         case ID_PURCHASE_EXIT:
-		purchase_dlg_hide( gui->purchase_dlg, 1 );
-		engine_set_status( STATUS_NONE );
-		break;
+            purchase_dlg_hide( gui->purchase_dlg, 1 );
+            engine_set_status( STATUS_NONE );
+            break;
         case ID_DEPLOY:
             if ( avail_units->count > 0 || deploy_turn )
             {
@@ -2242,6 +2258,17 @@ static void engine_handle_button( int id )
                 gui_show_deploy_window();
                 map_get_deploy_mask(cur_player,deploy_unit,deploy_turn);
                 map_set_fog( F_DEPLOY );
+                if ( deploy_turn && (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) &&
+                    (config.use_core_units) )
+                {
+                    Unit *entry;
+                    list_reset( units );
+                    /* searching for core units */
+                    while ( ( entry = list_next( units ) ) ) {
+                        if (mask[entry->x][entry->y].deploy)
+                            entry->core = CORE;
+                    }
+                }
                 status = STATUS_DEPLOY;
                 draw_map = 1;
             }
@@ -2324,7 +2351,7 @@ static void engine_handle_button( int id )
             config.merge_replacements = !config.merge_replacements;
             break;
         case ID_CAMP_SETUP_CORE:
-            config.core = !config.core;
+            config.use_core_units = !config.use_core_units;
             break;
         case ID_MODULE_OK:
             if ( gui->module_dlg->lbox->cur_item ) {
@@ -3137,6 +3164,8 @@ static void engine_handle_next_action( int *reinit )
             setup.type = SETUP_INIT_SCEN;
             *reinit = 1;
             end_scen = 1;
+            if (config.use_core_units && (camp_loaded != NO_CAMPAIGN) && !STRCMP(camp_cur_scen->id, camp_first))
+                camp_loaded = RESTART_CAMPAIGN;
             break;
         case ACTION_QUIT:
             engine_set_status( STATUS_NONE );
@@ -3251,7 +3280,7 @@ static void engine_handle_next_action( int *reinit )
                 {
                     /* add new unit */
                     int dummy;
-                    Unit *newUnit = unit_duplicate( action->unit );
+                    Unit *newUnit = unit_duplicate( action->unit, 1 );
                     newUnit->str = action->str;
                     newUnit->x = action->x; newUnit->y = action->y;
                     newUnit->terrain = map[newUnit->x][newUnit->y].terrain;
@@ -4240,14 +4269,14 @@ void engine_run()
               status = STATUS_TITLE;
               setup.type = SETUP_RUN_TITLE;
             }
-            if ( turn == 0 && camp_loaded && setup.type == SETUP_CAMP_BRIEFING )
+            if ( turn == 0 && (camp_loaded != NO_CAMPAIGN) && setup.type == SETUP_CAMP_BRIEFING )
                 engine_prep_camp_brief();
             engine_main_loop( &reinit );
             if (term_game) break;
             engine_shutdown();
         }
         if ( scen_done() ) {
-            if ( camp_loaded ) {
+            if ( camp_loaded != NO_CAMPAIGN ) {
                 engine_store_debriefing(scen_get_result());
                 /* determine next scenario in campaign */
                 if ( !camp_set_next( scen_get_result() ) )

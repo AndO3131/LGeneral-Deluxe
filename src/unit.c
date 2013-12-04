@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,6 +21,8 @@
 #include "list.h"
 #include "unit.h"
 #include "localize.h"
+#include "map.h"
+#include "campaign.h"
 
 /*
 ====================================================================
@@ -34,6 +38,9 @@ extern List *units;
 extern int cur_weather;
 extern Weather_Type *weather_types;
 extern Unit *cur_target;
+extern Map_Tile **map;
+extern enum CampaignState camp_loaded;
+extern Camp_Entry *camp_cur_scen;
 
 /*
 ====================================================================
@@ -392,6 +399,8 @@ Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base )
     unit->delay = base->delay;
     unit->x = base->x; unit->y = base->y;
     unit->str = base->str; unit->entr = base->entr;
+    unit->max_str = base->max_str;
+//    unit->cur_str_repl = 0;
     unit->player = base->player;
     unit->nation = base->nation;
     strcpy_lt( unit->name, base->name, 20 );
@@ -402,6 +411,7 @@ Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base )
     unit->supply_level = 100;
     unit->cur_ammo = unit->prop.ammo;
     unit->cur_fuel = unit->prop.fuel;
+    unit->core = base->core;
     if ( unit->cur_fuel == 0 && unit->trsp_prop.id && unit->trsp_prop.fuel > 0 )
         unit->cur_fuel = unit->trsp_prop.fuel;
     strcpy_lt( unit->tag, base->tag, 31 );
@@ -582,7 +592,14 @@ int unit_add_exp( Unit *unit, int exp )
     unit->exp += exp;
     if ( unit->exp >= 500 ) unit->exp = 500;
     unit->exp_level = unit->exp / 100;
-    return ( old_level != unit->exp_level );
+    if ( old_level < unit->exp_level && config.use_core_units && (camp_loaded != NO_CAMPAIGN) && unit->core)
+    {
+        int i = 0;
+        while ( strcmp(unit->star[i],"") )
+            i++;
+        strcpy_lt(unit->star[i], camp_cur_scen->scen,20);
+    }
+    return ( old_level < unit->exp_level );
 }
 
 /*
@@ -997,7 +1014,7 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
     if ( unit->sel_prop->flags & FLYING ) {
         list_reset( units );
         while ( ( entry = list_next( units ) ) ) {
-            if ( entry->killed ) continue;
+            if ( entry->killed > 1 ) continue;
             if ( entry == target ) continue;
             if ( entry == unit ) continue;
             /* bombers -- intercepting impossibly covered by unit_check_attack() */
@@ -1026,7 +1043,7 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
            support */
         list_reset( units );
         while ( ( entry = list_next( units ) ) ) {
-            if ( entry->killed ) continue;
+            if ( entry->killed > 1 ) continue;
             if ( entry == target ) continue;
             if ( entry == unit ) continue;
             /* HACK: An artillery with range 1 cannot support adjacent units but
@@ -1287,14 +1304,16 @@ void unit_set_as_used( Unit *unit )
 
 /*
 ====================================================================
-Duplicate the unit.
+Duplicate the unit, generating new name (for splitting) or without
+new name (for campaign restart info).
 ====================================================================
 */
-Unit *unit_duplicate( Unit *unit )
+Unit *unit_duplicate( Unit *unit, int generate_new_name )
 {
     Unit *new = calloc(1,sizeof(Unit));
     memcpy(new,unit,sizeof(Unit));
-    unit_set_generic_name(new, units->count + 1, unit->prop.name);
+    if (generate_new_name)
+        unit_set_generic_name(new, units->count + 1, unit->prop.name);
     if (unit->sel_prop==&unit->prop)
         new->sel_prop=&new->prop;
     else
@@ -1340,5 +1359,28 @@ Check whether unit can be considered for deployment.
 int unit_supports_deploy( Unit *unit )
 {
     return !(unit->prop.flags & SWIMMING) /* ships and */
+           && !(unit->killed) /* killed units and */
            && unit->prop.mov > 0; /* fortresses cannot be deployed */
+}
+
+/*
+====================================================================
+Resets unit attributes (prepare unit for next scenario).
+====================================================================
+*/
+void unit_reset_attributes( Unit *unit )
+{
+    if (unit->str < unit->max_str)
+        unit->str = unit->max_str;
+    unit->entr = 0;
+    unit->cur_fuel = unit->prop.fuel;
+    if ( unit->cur_fuel == 0 && unit->trsp_prop.id && unit->trsp_prop.fuel > 0 )
+        unit->cur_fuel = unit->trsp_prop.fuel;
+    unit->cur_ammo = unit->prop.ammo;
+    unit->killed = 0;
+    unit_unmount(unit);
+    unit->cur_mov = 1;
+    unit->cur_atk_count = 1;
+    /* update life bar properties */
+    update_bar( unit );
 }

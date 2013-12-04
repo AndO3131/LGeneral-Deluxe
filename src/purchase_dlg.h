@@ -1,4 +1,7 @@
 /***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
+/***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -24,6 +27,7 @@ typedef struct {
 	Nation *cur_nation; /* pointer in global nations */
 	Unit_Class *cur_uclass; /* pointer in global unit_classes */
 	Unit_Class *trsp_uclass; /* pointer in global unit classes */
+    int cur_core_unit_limit; /* number of core units that can be purchased */
 	int cur_unit_limit; /* number of units that can be purchased */
 } PurchaseDlg;
 

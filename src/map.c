@@ -10,6 +10,9 @@
     Patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520
  ***************************************************************************/
 /***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
+/***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -26,6 +29,7 @@
 #include "map.h"
 #include "misc.h"
 #include "localize.h"
+#include "campaign.h"
 
 #include <assert.h>
 #include <limits.h>
@@ -48,6 +52,7 @@ extern Unit_Info_Icons *unit_info_icons;
 extern Player *cur_player;
 extern List *units;
 extern int modify_fog;
+extern enum CampaignState camp_loaded;
 
 /*
 ====================================================================
@@ -1022,7 +1027,14 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                   y + hex_h - unit_info_icons->str_h,
                   unit_info_icons->str_w, unit_info_icons->str_h );
             if ( cur_player && player_is_ally( cur_player, unit->player ) )
-                SOURCE( unit_info_icons->str, 
+                if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
+                     (!unit->core) )
+                    SOURCE( unit_info_icons->str,
+                            unit_info_icons->str_w,
+                            (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?
+                            unit_info_icons->str_h * ( unit->str - 1 + 15 ): unit_info_icons->str_h * ( unit->str - 1 ))
+                else
+                    SOURCE( unit_info_icons->str, 
                         (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?unit_info_icons->str_w:0, 
                         unit_info_icons->str_h * ( unit->str - 1 + 15 ) )
             else

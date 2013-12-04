@@ -68,6 +68,7 @@ extern int vcond_check_type;
 extern VCond *vconds;
 extern int vcond_count;
 extern Config config;
+extern enum CampaignState camp_loaded;
 
 /*
 ====================================================================
@@ -267,8 +268,16 @@ int gui_load( const char *dir )
         goto failure;
     frame_hide( gui->qinfo2, 1 );
     /* full unit info */
-    if ( ( gui->finfo = frame_create( gui_create_frame( 460, 280 ), 160, sdl.screen, 0, 0 ) ) == 0 )
-        goto failure;
+    if (!config.use_core_units)
+    {
+        if ( ( gui->finfo = frame_create( gui_create_frame( 460, 280 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+            goto failure;
+    }
+    else
+    {
+        if ( ( gui->finfo = frame_create( gui_create_frame( 460, 340 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+            goto failure;
+    }
     frame_hide( gui->finfo, 1 );
     /* scenario info */
     if ( ( gui->sinfo = frame_create( gui_create_frame( 300, 260 ), 160, sdl.screen, 0, 0 ) ) == 0 )
@@ -933,7 +942,8 @@ Show full info window.
 void gui_show_full_info( Unit *unit )
 {
     char str[128];
-    int border = 10, offset = 150;
+    int border = 10, offset;
+    offset = 140;
     int x, y, i;
     SDL_Surface *contents = gui->finfo->contents;
     gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
@@ -955,7 +965,10 @@ void gui_show_full_info( Unit *unit )
     write_line( contents, gui->font_std, unit->name, x, &y );
     write_line( contents, gui->font_std, unit->prop.name, x, &y );
     write_line( contents, gui->font_std, unit_classes[unit->prop.class].name, x, &y );
-    y += 10;
+    if (!config.use_core_units)
+        y += 10;
+    else
+        write_line( contents, gui->font_std, unit->core?"Core":"Auxiliary", x, &y );
     sprintf( str, tr("%s Movement"), mov_types[unit->prop.mov_type].name );
     write_line( contents, gui->font_std, str, x, &y );
     sprintf( str, tr("%s Target"), trgt_types[unit->prop.trgt_type].name );
@@ -1031,6 +1044,12 @@ void gui_show_full_info( Unit *unit )
         write_line( contents, gui->font_std, str, x, &y );
         /* spt, mov, ini, rng */
         x = border + hex_w + 90; y = border + offset;
+        if ( cur_player == 0 || player_is_ally( cur_player, unit->player ) )
+            sprintf( str, tr("Fuel:     %2i/%2i"), unit->cur_fuel, unit->trsp_prop.fuel );
+        else
+            sprintf( str, tr("Fuel:        %2i"), unit->prop.fuel );
+        write_line( contents, gui->font_std, str, x, &y );
+        y += 10;
         sprintf( str, tr("Spotting:    %2i"), unit->trsp_prop.spt );
         write_line( contents, gui->font_std, str, x, &y );
         sprintf( str, tr("Movement:    %2i"), unit->trsp_prop.mov );
@@ -1052,6 +1071,54 @@ void gui_show_full_info( Unit *unit )
         write_line( contents, gui->font_std, str, x, &y );
         sprintf( str, tr("Close Defense:  %2i"), unit->trsp_prop.def_cls );
         write_line( contents, gui->font_std, str, x, &y );
+    }
+    /* battle honors */
+    if (config.use_core_units && (camp_loaded != NO_CAMPAIGN) && unit->core)
+    {
+        x = border + 25; y = border + 255;
+        sprintf( str, tr("Battle Honors:") );
+        write_line( contents, gui->font_std, str, x, &y );
+        x = border + hex_w + 90; y = border;
+        int i = 0, j, stars_number = 0, len;
+        char mem_str[128];
+        /* calculate stars */
+        while (i < 5 && !STRCMP(unit->star[i],""))
+        {
+            if (i > 0)
+                if (STRCMP(unit->star[i],unit->star[i - 1]))
+                    stars_number++;
+                else
+                {
+                    strcpy(mem_str, "%20s ");
+                    for (j = 0;j < stars_number;j++)
+                    {
+                        strcat(mem_str,GS_STAR);
+                        strcat(mem_str," ");
+                    }
+                    len = sprintf( str, mem_str, unit->star[i - 1] );
+                    for (j = 0;j < stars_number;j++)
+                        str[len - (j * 2) - 2] = (char)CharStar;
+                    write_line( contents, gui->font_status, str, x, &y );
+                    stars_number = 1;
+                }
+            else
+                stars_number = 1;
+            i++;
+        }
+        /* last line printed in info window */
+        if (i > 0)
+        {
+            strcpy(mem_str, "%20s ");
+            for (j = 0;j < stars_number;j++)
+            {
+                strcat(mem_str,GS_STAR);
+                strcat(mem_str," ");
+            }
+            len = sprintf( str, mem_str, unit->star[i - 1] );
+            for (j = 0;j < stars_number;j++)
+                str[len - (j * 2) - 2] = (char)CharStar;
+            write_line( contents, gui->font_status, str, x, &y );
+        }
     }
     /* show */
     frame_apply( gui->finfo );
@@ -1775,7 +1842,7 @@ void gui_open_camp_setup()
     /* adjust the config settings, might have changed
        due to loading */
     group_lock_button( gui->camp_setup->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
-    group_lock_button( gui->camp_setup->confirm, ID_CAMP_SETUP_CORE, config.core );
+    group_lock_button( gui->camp_setup->confirm, ID_CAMP_SETUP_CORE, config.use_core_units );
     sdlg_hide( gui->camp_setup, 0 );
 }
 

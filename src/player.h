@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,6 +40,7 @@ typedef struct {
     Nation **nations;   /* list of pointers to nations controlled by this player */
     int nation_count;   /* number of nations controlled */
     List *allies;       /* list of the player's allies */
+    int core_limit;     /* max number of core units (placed + ordered) */
     int unit_limit;     /* max number of units (placed + ordered) */
     int air_trsp_count; /* number of air transporters */
     int sea_trsp_count; /* number of sea transporters */

@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -123,6 +125,20 @@ Nation* nation_find( char *id )
     if ( id == 0 ) return 0;
     for ( i = 0; i < nation_count; i++ )
         if ( STRCMP( id, nations[i].id ) )
+            return &nations[i];
+    return 0;
+}
+
+/*
+====================================================================
+Search for a nation by position in list. If this fails 0 is returned.
+====================================================================
+*/
+Nation* nation_find_by_id( int id )
+{
+    int i;
+    for ( i = 0; i < nation_count; i++ )
+        if ( i == id )
             return &nations[i];
     return 0;
 }

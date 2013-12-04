@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -75,6 +77,7 @@ enum GameSymbols {
     CharNoExp = 128,
     CharExpGrowth = CharNoExp,
     CharExp = 133,
+    CharStar = 134,
     CharCheckBoxEmpty = 136,
     CharCheckBoxEmptyFocused = 137,
     CharCheckBoxChecked = 138,
@@ -89,6 +92,7 @@ enum GameSymbols {
 #define GS_DISTANCE "\032"
 #define GS_NOEXP "\200"
 #define GS_EXP "\205"
+#define GS_STAR "\206"
 #define GS_CHECK_BOX_EMPTY "\210"
 #define GS_CHECK_BOX_EMPTY_FOCUSED "\211"
 #define GS_CHECK_BOX_CHECKED "\212"

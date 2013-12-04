@@ -42,8 +42,9 @@ typedef struct {
     int show_cpu_turn;
     int deploy_turn; /* allow deployment */
     int purchase; /* disable predefined reinfs and allow purchase by prestige */
-    int merge_replacements; /* choose between classic reinforcements and merging units */
-    int core; /* enable core army purchased by player move through campaign */
+    int merge_replacements; /* enable merging during battle (0) or enable replacements by prestige (1) */
+    int use_core_units; /* enable core army purchased by player move through campaign */
+    int instant_purchase; /* use/don't use instant placement after purchase */
     int ai_debug; /* level of information about AI move */
     /* audio stuff */
     int sound_on;

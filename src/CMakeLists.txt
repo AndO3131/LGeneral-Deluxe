@@ -108,7 +108,7 @@ set ( util_src
 
 set ( data_install_dir bin )
 if ( CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
-  add_definitions ( -D_DEBUG )
+  add_definitions ( -DNDEBUG )
 endif ()
 if ( CMAKE_COMPILER_IS_GNUCC AND ( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" OR ENABLE_WARNING) )
     # Enable more GCC warnings if requested or we are doing a Debug build.

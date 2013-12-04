@@ -1,3 +1,4 @@
+- added choice to play with/without core units. (2013/04/08 AndO3131)
 - raised limits for large efiles.  Icon sheet is limited to h=16384px
   by SDL v1.x, not by LGD. (2013/01/08 AGW)
 - you can set the efile or other text files to use any mix of WAV/OGG/MP3

@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -22,6 +24,7 @@
 #include "nation.h"
 #include "player.h"
 #include "terrain.h"
+#include "engine.h"
 
 //#define DEBUG_ATTACK
 
@@ -63,6 +66,13 @@ enum {
     BAR_TILE_HEIGHT = 4
 };
 
+/* core and auxiliary flags */
+enum{
+    AUXILIARY = 0,
+    CORE,
+    STARTING_CORE
+};
+
 /*
 ====================================================================
 Tactical unit.
@@ -85,6 +95,7 @@ typedef struct _Unit {
     Terrain_Type *terrain;      /* terrain the unit is currently on */
     int x, y;                   /* map position */
     int str;                    /* strength */
+    int max_str;                /* max strength unit can replace */
     int entr;                   /* entrenchment */
     int exp;                    /* experience */
     int exp_level;              /* exp level computed from exp */
@@ -109,17 +120,21 @@ typedef struct _Unit {
                                    low ammo (< 2) */
     int is_guarding;            /* do not include to list when cycling units */
     int killed;                 /* 1: remove from map & delete this unit
-				                   2: delete only */
+                                   2: remove from map only
+                                   3: delete only */
     int fresh_deploy;           /* if this is true this unit was deployed in this turn
                                    and as long as it is unused it may be undeployed in the 
                                    same turn */
     char tag[32];               /* if tag is set the unit belongs to a unit group that
                                    is monitored by the victory conditions units_killed()
                                    and units_saved() */
+    int core;                   /* 1: CORE unit
+                                   2: AUXILIARY unit */
     int eval_score;             /* between 0 - 1000 indicating the worth of the unit */
     /* AI eval */
     int target_score;           /* when targets of an AI unit are gathered this value is set
                                    to the result score for attack of unit on this target */
+    char star[6][20];           /* contains battle honors info */
 } __attribute((packed)) Unit;
 
 /*
@@ -363,10 +378,11 @@ void unit_set_as_used( Unit *unit );
 
 /*
 ====================================================================
-Duplicate the unit.
+Duplicate the unit, generating new name (for splitting) or without
+new name (for campaign restart info).
 ====================================================================
 */
-Unit *unit_duplicate( Unit *unit );
+Unit *unit_duplicate( Unit *unit, int generate_new_name );
 
 /*
 ====================================================================
@@ -382,5 +398,12 @@ Check whether unit can be considered for deployment.
 ====================================================================
 */
 int unit_supports_deploy( Unit *unit );
+
+/*
+====================================================================
+Resets unit attributes (prepare unit for next scenario).
+====================================================================
+*/
+void unit_reset_attributes( Unit *unit );
 
 #endif

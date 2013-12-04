@@ -18,6 +18,14 @@
 #ifndef __CAMPAIGN_H
 #define __CAMPAIGN_H
 
+/* ascii-codes of game-related symbols */
+enum CampaignState {
+    NO_CAMPAIGN = 0,
+    FIRST_SCENARIO = 1,
+    CONTINUE_CAMPAIGN,
+    RESTART_CAMPAIGN
+};
+
 /*
 ====================================================================
 Campaign Scenario entry.

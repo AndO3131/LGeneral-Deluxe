@@ -1034,7 +1034,7 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     px += border + conf_button_w;
     group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, 1, tr("Core Units Option") );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
-    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.core );
+    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.use_core_units );
     sdlg->select_cb = list_select_cb;
     return sdlg;
 failure:

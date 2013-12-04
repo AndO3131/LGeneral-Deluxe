@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -63,7 +65,8 @@ enum {
     SUPPLY_GROUND  = ( 1L << 5 ), /* ground units may supply */
     SUPPLY_SHIPS   = ( 1L << 6 ), /* swimming units may supply */
     BAD_SIGHT      = ( 1L << 7 ), /* ranged attack is harder */
-    SWAMP          = ( 1L << 8 )  /* attack penalty */
+    SWAMP          = ( 1L << 8 ), /* attack penalty */
+    DESERT         = ( 1L << 9 )  /* supply penalty */
 };
 /*
 ====================================================================
