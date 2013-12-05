@@ -651,6 +651,8 @@ int scen_load( const char *fname )
             trsp_prop = unit_lib_find( str );
         /* core */
         if ( !parser_get_int( sub, "core", &unit_base.core ) ) goto parser_failure;
+        if ( !config.use_core_units )
+            unit_base.core = 0;
         /* orientation */
         unit_base.orient = unit_base.player->orient;
         /* tag if set */

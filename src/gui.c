@@ -268,16 +268,8 @@ int gui_load( const char *dir )
         goto failure;
     frame_hide( gui->qinfo2, 1 );
     /* full unit info */
-    if (!config.use_core_units)
-    {
-        if ( ( gui->finfo = frame_create( gui_create_frame( 460, 280 ), 160, sdl.screen, 0, 0 ) ) == 0 )
-            goto failure;
-    }
-    else
-    {
-        if ( ( gui->finfo = frame_create( gui_create_frame( 460, 340 ), 160, sdl.screen, 0, 0 ) ) == 0 )
-            goto failure;
-    }
+    if ( ( gui->finfo = frame_create( gui_create_frame( 460, 300 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+        goto failure;
     frame_hide( gui->finfo, 1 );
     /* scenario info */
     if ( ( gui->sinfo = frame_create( gui_create_frame( 300, 260 ), 160, sdl.screen, 0, 0 ) ) == 0 )
