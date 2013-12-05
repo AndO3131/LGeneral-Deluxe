@@ -636,6 +636,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»108
@@ -646,6 +647,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»31
@@ -656,6 +658,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»106
@@ -666,6 +669,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»108
@@ -676,6 +680,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -686,6 +691,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»57
@@ -696,6 +702,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -706,6 +713,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»88
@@ -716,6 +724,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»19
@@ -726,6 +735,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»19
@@ -736,6 +746,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»19
@@ -746,6 +757,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»0
@@ -756,6 +768,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»1
@@ -766,6 +779,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»0
@@ -776,6 +790,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»103
@@ -786,6 +801,7 @@ str»10
 entr»0
 exp»1
 trsp»87
+core»0
 >
 <unit
 id»43
@@ -796,6 +812,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -806,6 +823,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»103
@@ -816,6 +834,7 @@ str»10
 entr»0
 exp»1
 trsp»87
+core»0
 >
 <unit
 id»0
@@ -826,6 +845,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»0
@@ -836,6 +856,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»0
@@ -846,6 +867,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»25
@@ -856,6 +878,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»43
@@ -866,6 +889,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -876,6 +900,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»97
@@ -886,6 +911,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -896,6 +922,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»32
@@ -906,6 +933,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»104
@@ -916,6 +944,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»98
@@ -926,6 +955,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»43
@@ -936,6 +966,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»106
@@ -946,6 +977,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»106
@@ -956,6 +988,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»103
@@ -966,6 +999,7 @@ str»10
 entr»1
 exp»1
 trsp»87
+core»0
 >
 <unit
 id»32
@@ -976,6 +1010,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»43
@@ -986,6 +1021,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»108
@@ -996,6 +1032,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»97
@@ -1006,6 +1043,7 @@ str»10
 entr»0
 exp»0
 trsp»298
+core»0
 >
 <unit
 id»293
@@ -1016,6 +1054,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»299
@@ -1026,6 +1065,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»292
@@ -1036,6 +1076,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»295
@@ -1046,6 +1087,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»299
@@ -1056,6 +1098,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»297
@@ -1066,6 +1109,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»299
@@ -1076,6 +1120,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»297
@@ -1086,6 +1131,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»297
@@ -1096,6 +1142,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»299
@@ -1106,6 +1153,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»291
@@ -1116,6 +1164,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»297
@@ -1126,6 +1175,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»293
@@ -1136,6 +1186,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»296
@@ -1146,6 +1197,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»294
@@ -1156,6 +1208,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»108
@@ -1166,6 +1219,7 @@ str»10
 entr»0
 exp»2
 trsp»28
+core»0
 >
 <unit
 id»108
@@ -1176,6 +1230,7 @@ str»10
 entr»0
 exp»2
 trsp»28
+core»0
 >
 <unit
 id»108
@@ -1186,6 +1241,7 @@ str»10
 entr»0
 exp»1
 trsp»28
+core»0
 >
 <unit
 id»108
@@ -1196,6 +1252,7 @@ str»10
 entr»0
 exp»1
 trsp»28
+core»0
 >
 <unit
 id»98
@@ -1206,6 +1263,7 @@ str»10
 entr»0
 exp»2
 trsp»298
+core»0
 >
 <unit
 id»294
@@ -1216,6 +1274,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»296
@@ -1226,6 +1285,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»293
@@ -1236,6 +1296,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»292
@@ -1246,6 +1307,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»291
@@ -1256,6 +1318,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»295
@@ -1266,6 +1329,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»294
@@ -1276,6 +1340,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»23
@@ -1286,6 +1351,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»25
@@ -1296,6 +1362,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»24
@@ -1306,6 +1373,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»25
@@ -1316,6 +1384,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»25
@@ -1326,6 +1395,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»104
@@ -1336,6 +1406,7 @@ str»10
 entr»0
 exp»1
 trsp»298
+core»0
 >
 <unit
 id»212
@@ -1346,6 +1417,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»163
@@ -1356,6 +1428,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»180
@@ -1366,6 +1439,7 @@ str»10
 entr»2
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1376,6 +1450,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1386,6 +1461,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1396,6 +1472,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1406,6 +1483,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»286
@@ -1416,6 +1494,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»286
@@ -1426,6 +1505,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»287
@@ -1436,6 +1516,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»287
@@ -1446,6 +1527,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»284
@@ -1456,6 +1538,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»285
@@ -1466,6 +1549,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»283
@@ -1476,6 +1560,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1486,6 +1571,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1496,6 +1582,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1506,6 +1593,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1516,6 +1604,7 @@ str»10
 entr»5
 exp»1
 trsp»210
+core»0
 >
 <unit
 id»224
@@ -1526,6 +1615,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»216
@@ -1536,6 +1626,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1546,6 +1637,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1556,6 +1648,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»215
@@ -1566,6 +1659,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1576,6 +1670,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1586,6 +1681,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»161
@@ -1596,6 +1692,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»221
@@ -1606,6 +1703,7 @@ str»10
 entr»5
 exp»1
 trsp»211
+core»0
 >
 <unit
 id»212
@@ -1616,6 +1714,7 @@ str»10
 entr»5
 exp»0
 trsp»210
+core»0
 >
 <unit
 id»163
@@ -1626,6 +1725,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1636,6 +1736,7 @@ str»10
 entr»5
 exp»0
 trsp»211
+core»0
 >
 <unit
 id»181
@@ -1646,6 +1747,7 @@ str»10
 entr»2
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»172
@@ -1656,6 +1758,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»172
@@ -1666,6 +1769,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»213
@@ -1676,6 +1780,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1686,6 +1791,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1696,6 +1802,7 @@ str»10
 entr»5
 exp»1
 trsp»211
+core»0
 >
 <unit
 id»212
@@ -1706,6 +1813,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1716,6 +1824,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1726,6 +1835,7 @@ str»10
 entr»5
 exp»0
 trsp»210
+core»0
 >
 <unit
 id»224
@@ -1736,6 +1846,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»163
@@ -1746,6 +1857,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1756,6 +1868,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1766,6 +1879,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»214
@@ -1776,6 +1890,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1786,6 +1901,7 @@ str»10
 entr»5
 exp»1
 trsp»210
+core»0
 >
 <unit
 id»224
@@ -1796,6 +1912,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1806,6 +1923,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»216
@@ -1816,6 +1934,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»151
@@ -1826,6 +1945,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1836,6 +1956,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»219
@@ -1846,6 +1967,7 @@ str»10
 entr»5
 exp»0
 trsp»211
+core»0
 >
 <unit
 id»151
@@ -1856,6 +1978,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1866,6 +1989,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1876,6 +2000,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1886,6 +2011,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»151
@@ -1896,6 +2022,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»221
@@ -1906,6 +2033,7 @@ str»10
 entr»5
 exp»1
 trsp»211
+core»0
 >
 <unit
 id»213
@@ -1916,6 +2044,7 @@ str»10
 entr»5
 exp»0
 trsp»210
+core»0
 >
 <unit
 id»151
@@ -1926,6 +2055,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1936,6 +2066,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -1946,6 +2077,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»216
@@ -1956,6 +2088,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -1966,6 +2099,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»179
@@ -1976,6 +2110,7 @@ str»10
 entr»2
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»216
@@ -1986,6 +2121,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»213
@@ -1996,6 +2132,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»216
@@ -2006,6 +2143,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -2016,6 +2154,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»219
@@ -2026,6 +2165,7 @@ str»10
 entr»5
 exp»0
 trsp»211
+core»0
 >
 <unit
 id»212
@@ -2036,6 +2176,7 @@ str»10
 entr»5
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -2046,6 +2187,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -2056,6 +2198,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»287
@@ -2066,6 +2209,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»287
@@ -2076,6 +2220,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»285
@@ -2086,6 +2231,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»283
@@ -2096,6 +2242,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»285
@@ -2106,6 +2253,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -2116,6 +2264,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»224
@@ -2126,6 +2275,7 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»212
@@ -2136,5 +2286,6 @@ str»10
 entr»5
 exp»1
 trsp»none
+core»0
 >
 >

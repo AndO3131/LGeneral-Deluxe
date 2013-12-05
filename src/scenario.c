@@ -649,6 +649,8 @@ int scen_load( const char *fname )
         trsp_prop = 0;
         if ( parser_get_value( sub, "trsp", &str, 0 ) && !STRCMP( str, "none" ) )
             trsp_prop = unit_lib_find( str );
+        /* core */
+        if ( !parser_get_int( sub, "core", &unit_base.core ) ) goto parser_failure;
         /* orientation */
         unit_base.orient = unit_base.player->orient;
         /* tag if set */
@@ -668,8 +670,6 @@ int scen_load( const char *fname )
                             vconds[i].subconds_or[j].count++;
             }
         }
-        /* core */
-        if ( !parser_get_int( sub, "core", &unit_base.core ) ) goto parser_failure;
         /* actual unit */
         if ( !(unit_base.player->ctrl == PLAYER_CTRL_HUMAN && auxiliary_units_count >= 
                unit_base.player->unit_limit - unit_base.player->core_limit) ||

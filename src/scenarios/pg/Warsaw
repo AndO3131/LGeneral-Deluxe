@@ -150,6 +150,7 @@ str»10
 entr»0
 exp»0
 trsp»85
+core»0
 >
 <unit
 id»88
@@ -160,6 +161,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»98
@@ -170,6 +172,7 @@ str»10
 entr»0
 exp»0
 trsp»85
+core»0
 >
 <unit
 id»104
@@ -180,6 +183,7 @@ str»10
 entr»0
 exp»0
 trsp»85
+core»0
 >
 <unit
 id»104
@@ -190,6 +194,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»19
@@ -200,6 +205,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»104
@@ -210,6 +216,7 @@ str»10
 entr»0
 exp»1
 trsp»85
+core»0
 >
 <unit
 id»32
@@ -220,6 +227,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»104
@@ -230,6 +238,7 @@ str»10
 entr»0
 exp»2
 trsp»none
+core»0
 >
 <unit
 id»37
@@ -240,6 +249,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»37
@@ -250,6 +260,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»37
@@ -260,6 +271,7 @@ str»10
 entr»0
 exp»1
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -270,6 +282,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»112
@@ -280,6 +293,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»120
@@ -290,6 +304,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»123
@@ -300,6 +315,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -310,6 +326,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -320,6 +337,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -330,6 +348,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»119
@@ -340,6 +359,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -350,6 +370,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»120
@@ -360,6 +381,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»119
@@ -370,6 +392,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -380,6 +403,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -390,6 +414,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»118
@@ -400,6 +425,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 id»117
@@ -410,6 +436,7 @@ str»10
 entr»0
 exp»0
 trsp»none
+core»0
 >
 <unit
 nation»ger
@@ -419,6 +446,7 @@ exp»0
 entr»0
 trsp»none
 delay»1
+core»0
 >
 <unit
 nation»ger
@@ -428,6 +456,7 @@ exp»1
 entr»0
 trsp»none
 delay»1
+core»0
 >
 <unit
 nation»ger
@@ -437,6 +466,7 @@ exp»0
 entr»0
 trsp»none
 delay»1
+core»0
 >
 <unit
 nation»pol
@@ -446,6 +476,7 @@ exp»0
 entr»0
 trsp»none
 delay»2
+core»0
 >
 <unit
 nation»pol
@@ -455,6 +486,7 @@ exp»0
 entr»0
 trsp»none
 delay»3
+core»0
 >
 <unit
 nation»pol
@@ -464,5 +496,6 @@ exp»0
 entr»0
 trsp»none
 delay»5
+core»0
 >
 >
