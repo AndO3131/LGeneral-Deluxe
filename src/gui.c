@@ -819,7 +819,19 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
           6 + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
           ( ( qinfo->contents->h - unit->prop.icon_h ) >> 1 ) + unit->prop.icon_h,
           unit_info_icons->str_w, unit_info_icons->str_h );
-    SOURCE( unit_info_icons->str, 0, ( unit->str + 14 ) * unit_info_icons->str_h )
+    if ( cur_player && player_is_ally( cur_player, unit->player ) )
+        if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
+             ( unit->core == AUXILIARY ) )
+            SOURCE( unit_info_icons->str,
+                    unit_info_icons->str_w,
+                    (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?
+                    unit_info_icons->str_h * ( unit->str - 1 + 15 ): unit_info_icons->str_h * ( unit->str - 1 ))
+        else
+            SOURCE( unit_info_icons->str, 
+                   (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?unit_info_icons->str_w:0, 
+                    unit_info_icons->str_h * ( unit->str - 1 + 15 ) )
+    else
+        SOURCE( unit_info_icons->str, 0, unit_info_icons->str_h * ( unit->str - 1 ) )
     blit_surf();
     /* nation flag */
     DEST( qinfo->contents, 6, 6, nation_flag_width, nation_flag_height );

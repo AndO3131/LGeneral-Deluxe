@@ -1028,7 +1028,7 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                   unit_info_icons->str_w, unit_info_icons->str_h );
             if ( cur_player && player_is_ally( cur_player, unit->player ) )
                 if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
-                     (!unit->core) )
+                     ( unit->core == AUXILIARY ) )
                     SOURCE( unit_info_icons->str,
                             unit_info_icons->str_w,
                             (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?
