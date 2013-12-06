@@ -63,8 +63,7 @@ enum {
     BAR_WIDTH = 31,
     BAR_HEIGHT = 4,
     BAR_TILE_WIDTH = 3,
-    BAR_TILE_HEIGHT = 4,
-    BAR_AUXILIARY = 4
+    BAR_TILE_HEIGHT = 4
 };
 
 /* core and auxiliary flags */
