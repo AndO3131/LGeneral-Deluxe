@@ -127,10 +127,10 @@ Add a button at x,y in group. If lock is true this button is a switch.
 'id' * group::h is the y_offset of the button.
 ====================================================================
 */
-int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip )
+int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip, int states )
 {
     return group_add_button_complex( group, id, id - group->base_id, 
-                                     x, y, lock, tooltip );
+                                     x, y, lock, tooltip, states );
 }
 
 /*
@@ -140,7 +140,7 @@ Add a button at x,y in group. If lock is true this button is a switch.
 multiple buttons of the same icon)
 ====================================================================
 */
-int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip )
+int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip, int states )
 {
     if ( group->button_count == group->button_limit ) {
         fprintf( stderr, tr("This group has reached it's maximum number of buttons.\n") );
@@ -158,6 +158,7 @@ int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, i
     group->buttons[group->button_count].active = 1;
     strcpy_lt( group->buttons[group->button_count].tooltip, tooltip, 31 );
     group->buttons[group->button_count].lock = lock;
+    group->buttons[group->button_count].states = states;
     group->button_count++;
     return 1;
 }
@@ -191,7 +192,7 @@ void group_set_active( Group *group, int id, int active )
                group->buttons[i].down = 0;
             }
             else
-               group->buttons[i].button_rect.x = 3 * group->w;
+               group->buttons[i].button_rect.x = (group->buttons[i].states + 1) * group->w;
             break;
         }
 }
@@ -206,10 +207,10 @@ void group_lock_button( Group *group, int id, int down )
     Button *button = group_get_button( group, id );
     if ( button && button->lock ) {
         button->down = down;
-        if ( down )
-            button->button_rect.x = 2 * group->w;
-        else
+        if ( !down )
             button->button_rect.x = 0;
+        else
+            button->button_rect.x = (button->down + 1) * group->w;
     }
 }
 /*
@@ -262,9 +263,12 @@ int group_handle_button( Group *group, int button_id, int x, int y, Button **but
             if ( group->buttons[i].active )
                 if ( button_focus( &group->buttons[i], x, y ) ) {
                     *button = &group->buttons[i];
-                    (*button)->down = !(*button)->down;
-                    if ( (*button)->down )
-                        (*button)->button_rect.x = 2 * group->w;
+                    if ( (*button)->down < ((*button)->states) - 1 )
+                        ((*button)->down)++;
+                    else
+                        (*button)->down = 0;
+                    if ( (*button)->down != 0 )
+                        (*button)->button_rect.x = ( (*button)->down + 1 ) * group->w;
                     else
                         (*button)->button_rect.x = 0;
                     return 1;
@@ -529,8 +533,8 @@ LBox *lbox_create( SDL_Surface *frame, int alpha, int border, SDL_Surface *butto
     /* up/down */
     bx = ( frame->w / 2 - button_w ) / 2;
     by = frame->h - border - button_h;
-    group_add_button( lbox->group, ID_INTERN_UP, bx, by, 0, tr("Up") ); 
-    group_add_button( lbox->group, ID_INTERN_DOWN, frame->w - bx - button_w, by, 0, tr("Down") ); 
+    group_add_button( lbox->group, ID_INTERN_UP, bx, by, 0, tr("Up"), 2 ); 
+    group_add_button( lbox->group, ID_INTERN_DOWN, frame->w - bx - button_w, by, 0, tr("Down"), 2 ); 
     return lbox;
 failure:
     free( lbox );
@@ -751,8 +755,8 @@ FDlg *fdlg_create(
     dlg->button_y = conf_frame->h - border - conf_button_h;
     dlg->button_x = conf_frame->w;
     dlg->button_dist = 10 + conf_button_w;
-    group_add_button( dlg->group, id_ok, dlg->button_x - dlg->button_dist * 2, dlg->button_y, 0, tr("Ok") );
-    group_add_button( dlg->group, id_ok + 1, dlg->button_x - dlg->button_dist, dlg->button_y, 0, tr("Cancel") );
+    group_add_button( dlg->group, id_ok, dlg->button_x - dlg->button_dist * 2, dlg->button_y, 0, tr("Ok"), 2 );
+    group_add_button( dlg->group, id_ok + 1, dlg->button_x - dlg->button_dist, dlg->button_y, 0, tr("Cancel"), 2 );
     /* file callback */
     dlg->file_cb = file_cb;
     /* info region */
@@ -829,7 +833,7 @@ Add button. Graphic is taken from conf_buttons.
 void fdlg_add_button( FDlg *fdlg, int id, int lock, const char *tooltip )
 {
     int x = fdlg->button_x - ( id - fdlg->group->base_id + 1 ) * fdlg->button_dist;
-    group_add_button( fdlg->group, id, x, fdlg->button_y, lock, tooltip );
+    group_add_button( fdlg->group, id, x, fdlg->button_y, lock, tooltip, 2 );
 }
 
 /*
@@ -954,14 +958,14 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     if ( ( sdlg->ctrl = group_create( ctrl_frame, alpha, ctrl_buttons, 
                                       ctrl_button_w, ctrl_button_h, 1, id_ctrl, label, surf, x + list_frame->w - 1, y ) ) == 0 )
         goto failure;
-    group_add_button( sdlg->ctrl, id_ctrl, ctrl_frame->w - border - ctrl_button_w, ( ctrl_frame->h - ctrl_button_h ) / 2, 0, tr("Switch Control") );
+    group_add_button( sdlg->ctrl, id_ctrl, ctrl_frame->w - border - ctrl_button_w, ( ctrl_frame->h - ctrl_button_h ) / 2, 0, tr("Switch Control"), 2 );
 
     /* group with ai module select button */
     if ( ( sdlg->module = group_create( mod_frame, alpha, mod_buttons, 
                                         mod_button_w, mod_button_h, 1, id_mod, label, surf, 
                                         x + list_frame->w - 1, y + ctrl_frame->h ) ) == 0 )
         goto failure;
-    group_add_button( sdlg->module, id_mod, ctrl_frame->w - border - ctrl_button_w, ( mod_frame->h - mod_button_h ) / 2, 0, tr("Select AI Module") );
+    group_add_button( sdlg->module, id_mod, ctrl_frame->w - border - ctrl_button_w, ( mod_frame->h - mod_button_h ) / 2, 0, tr("Select AI Module"), 2 );
 #ifndef USE_DL
     group_set_active( sdlg->module, id_mod, 0 );
 #endif
@@ -974,19 +978,19 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
     py = (conf_frame->h - conf_button_h) / 2;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_OK, px, py, 0, tr("Ok") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_OK, px, py, 0, tr("Ok"), 2 );
     px = border;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_FOG, px, py, 1, tr("Fog Of War") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_FOG, px, py, 1, tr("Fog Of War"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, px, py, 1, tr("Unit Supply") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, px, py, 1, tr("Unit Supply"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, 1, tr("Weather Influence") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, 1, tr("Weather Influence"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, px, py, 1, tr("Purchase Option") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, px, py, 1, tr("Purchase Option"), 3 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option"), 2 );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_FOG, config.fog_of_war );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, config.supply );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, config.weather );
@@ -1023,18 +1027,21 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 3, id_conf, label, surf, 
+                                         conf_button_w, conf_button_h, 4, id_conf, label, surf, 
                                          x - 1, y ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
     py = (conf_frame->h - conf_button_h) / 2;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_OK, px, py, 0, tr("Ok") );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_OK, px, py, 0, tr("Ok"), 2 );
     px = border;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option") );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, 1, tr("Core Units Option") );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, 1, tr("Core Units Option"), 2 );
+    px += border + conf_button_w;
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, px, py, 1, tr("Purchase Option"), 2 );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.use_core_units );
+    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, config.campaign_purchase );
     sdlg->select_cb = list_select_cb;
     return sdlg;
 failure:
@@ -1210,9 +1217,9 @@ SelectDlg *select_dlg_create(
 		goto failure;
 	sx = group_get_width( sdlg->button_group ) - 60; 
 	sy = 5;
-	group_add_button( sdlg->button_group, id_ok, sx, sy, 0, tr("Apply") );
+	group_add_button( sdlg->button_group, id_ok, sx, sy, 0, tr("Apply"), 2 );
 	group_add_button( sdlg->button_group, id_ok+1, sx + 30, sy, 0, 
-							tr("Cancel") );
+							tr("Cancel"), 2 );
 	
 	sdlg->select_lbox = lbox_create( lbox_frame, 160, 6, 
 			lbox_buttons, lbox_button_w, lbox_button_h, gui->label, 

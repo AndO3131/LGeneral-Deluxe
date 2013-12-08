@@ -25,6 +25,12 @@
 #  include <../config.h>
 #endif
 
+enum PurchaseOptions {
+    NO_PURCHASE = 0,
+    DELAYED_PURCHASE = 1,
+    INSTANT_PURCHASE = 2
+};
+
 /* configure struct */
 typedef struct {
     /* directory to save config and saved games */
@@ -41,10 +47,10 @@ typedef struct {
     int fog_of_war; /* guess what? */
     int show_cpu_turn;
     int deploy_turn; /* allow deployment */
-    int purchase; /* disable predefined reinfs and allow purchase by prestige */
+    enum PurchaseOptions purchase; /* disable predefined reinfs and allow purchase by prestige */
+    enum PurchaseOptions campaign_purchase; /* disable predefined reinfs and allow purchase by prestige */
     int merge_replacements; /* enable merging during battle (0) or enable replacements by prestige (1) */
     int use_core_units; /* enable core army purchased by player move through campaign */
-    int instant_purchase; /* use/don't use instant placement after purchase */
     int ai_debug; /* level of information about AI move */
     /* audio stuff */
     int sound_on;

@@ -77,11 +77,10 @@ void reset_config()
     config.fog_of_war = 1;
     config.show_cpu_turn = 1;
     config.deploy_turn = 1;
-    config.purchase = 1;
+    config.purchase = DELAYED_PURCHASE;
     config.ai_debug = 0;
     config.merge_replacements = 1; /* 0 - merge; 1 - replacements */
     config.use_core_units = 0;
-    config.instant_purchase = 0;
     /* audio stuff */
     config.sound_on = 1;
     config.sound_volume = 96;
@@ -120,7 +119,6 @@ void load_config( )
     parser_get_int( pd, "ai_debug", &config.ai_debug );
     parser_get_int( pd, "merge_replacements", &config.merge_replacements );
     parser_get_int( pd, "use_core_units", &config.use_core_units );
-    parser_get_int( pd, "instant_purchase", &config.instant_purchase );
     parser_get_int( pd, "sound_on", &config.sound_on );
     parser_get_int( pd, "sound_volume", &config.sound_volume );
     parser_get_int( pd, "music_on", &config.music_on );
@@ -155,7 +153,6 @@ void save_config( )
         fprintf( file, "ai_debug»%i\n", config.ai_debug );
         fprintf( file, "merge_replacements»%i\n", config.merge_replacements );
         fprintf( file, "use_core_units»%i\n", config.use_core_units  );
-        fprintf( file, "instant_purchase»%i\n", config.instant_purchase );
         fprintf( file, "sound_on»%i\n", config.sound_on );
         fprintf( file, "sound_volume»%i\n", config.sound_volume );
         fprintf( file, "music_on»%i\n", config.music_on );

@@ -79,8 +79,9 @@ typedef struct {
     int id;                 /* if returned on click */
     char tooltip[32];       /* displayed as short help */
     int active;             /* true if button may be used */
-    int down;               /* true if currently pressed */
+    int down;               /* consecutive numbers are different state positions */
     int lock;               /* keep button down when released */
+    int states;             /* number of possible states for this button; 2 state buttons are most common */
 } Button;
 typedef struct {
     Frame *frame;       /* frame of group */
@@ -110,7 +111,7 @@ Add a button at x,y in group. If lock is true this button is a switch.
 'id' * group::h is the y_offset of the button.
 ====================================================================
 */
-int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip );
+int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip, int states );
 
 /*
 ====================================================================
@@ -119,7 +120,7 @@ Add a button at x,y in group. If lock is true this button is a switch.
 multiple buttons of the same icon)
 ====================================================================
 */
-int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip );
+int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip, int states );
 
 /*
 ====================================================================

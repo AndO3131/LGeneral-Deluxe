@@ -629,7 +629,7 @@ void ai_run( void )
         case AI_STATUS_GROUP:
             if ( !ai_group_handle_next_unit( ai_group ) ) {
                 ai_group_delete( ai_group );
-                if (config.purchase) {
+                if (config.purchase != NO_PURCHASE) {
                     ai_status = AI_STATUS_PURCHASE;
                     AI_DEBUG( 0, "*** PURCHASE ***\n" );
                 } else {

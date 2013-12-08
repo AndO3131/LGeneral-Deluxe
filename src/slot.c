@@ -986,13 +986,13 @@ int slot_load( int id )
          * prevent confusion display a note. :-)
          * deploy is left unchanged and just used as configured by command 
          * line option. */
-        if (config.purchase) {
+        if (config.purchase != NO_PURCHASE) {
             printf( "**********\n"
 		"Note: Games saved before LGeneral version 1.2 do not provide proper prestige\n"
 		"and purchase information. Therefore purchase option will be disabled. You can\n"
 		"re-enable it in the settings menu when starting a new scenario.\n"
 		"**********\n");
-            config.purchase = 0;
+            config.purchase = NO_PURCHASE;
         }
     } else {
         config.deploy_turn = load_int( file );

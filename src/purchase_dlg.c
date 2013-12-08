@@ -215,7 +215,7 @@ static List *get_reinf_units( void )
 	while ((u = list_next(reinf)))
 		if (u->player == cur_player)
 			list_add( l, u );
-    if (config.instant_purchase)
+    if (config.purchase == INSTANT_PURCHASE)
     {
         list_reset(avail_units);
         while ((u = list_next(avail_units)))
@@ -518,7 +518,7 @@ void player_purchase_unit( Player *player, Nation *nation, int type,
 	unit_base.player = player;
 	/* FIXME: no global counter to number unit so use plain name */
 	snprintf(unit_base.name, sizeof(unit_base.name), "%s", unit_prop->name);
-    if (!config.instant_purchase)
+    if (config.purchase != INSTANT_PURCHASE)
         unit_base.delay = turn + 1; /* available next turn */
     else
         unit_base.delay = turn; /* available right away */
@@ -532,7 +532,7 @@ void player_purchase_unit( Player *player, Nation *nation, int type,
 		return;
 	}
     unit->core = type;
-    if (!config.instant_purchase)
+    if (config.purchase != INSTANT_PURCHASE)
         list_add( reinf, unit );
     else
         list_add( avail_units, unit );
@@ -559,7 +559,7 @@ static void player_refund_unit( Player *p, Unit *u )
 		list_delete_current(reinf);
 		return;
 	}
-    if (config.instant_purchase)
+    if (config.purchase == INSTANT_PURCHASE)
     {
         list_reset(avail_units);
         while ((e = list_next(avail_units))) {
@@ -632,9 +632,9 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 	sx = group_get_width( pdlg->main_group ) - 60; 
 	sy = group_get_height( pdlg->main_group ) - 25;
 	group_add_button( pdlg->main_group, ID_PURCHASE_OK, sx, sy, 0, 
-							tr("Ok") );
+							tr("Ok"), 2 );
 	group_add_button( pdlg->main_group, ID_PURCHASE_EXIT, sx + 30, sy, 0, 
-							tr("Exit") );
+							tr("Exit"), 2 );
 	
 	/* create unit limit info frame */
     pdlg->ulimit_frame = frame_create( gui_create_frame( 112, 65 ), 160,

@@ -281,8 +281,8 @@ int gui_load( const char *dir )
                 SDL_SWSURFACE ), 20, 20, 6, ID_OK, gui->label, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = gui->confirm->frame->img->img->w - 60; sy = gui->confirm->frame->img->img->h - 30;
-    group_add_button( gui->confirm, ID_OK, sx, sy, 0, tr("Accept") ); sx += 30;
-    group_add_button( gui->confirm, ID_CANCEL, sx, sy, 0, tr("Cancel") );
+    group_add_button( gui->confirm, ID_OK, sx, sy, 0, tr("Accept"), 2 ); sx += 30;
+    group_add_button( gui->confirm, ID_CANCEL, sx, sy, 0, tr("Cancel"), 2 );
     group_hide( gui->confirm, 1 );
     /* unit buttons */
     sprintf( path2, "../themes/%s/unit_buttons", dir );
@@ -290,13 +290,13 @@ int gui_load( const char *dir )
                 SDL_SWSURFACE ), 24, 24, 7, ID_SUPPLY, gui->label, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
-    group_add_button( gui->unit_buttons, ID_UNDO, sx, sy, 0, tr("Undo Turn [u]") ); sy += 40; 
-    group_add_button( gui->unit_buttons, ID_SUPPLY, sx, sy, 0, tr("Supply Unit [s]") ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_EMBARK_AIR, sx, sy, 0, tr("Air Embark") ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_MERGE, sx, sy, 0, tr("Merge Unit [j]") ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_SPLIT, sx, sy, 0, tr("Split Unit [x+1..9]") ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_RENAME, sx, sy, 0, tr("Rename Unit") ); sy += 40;
-    group_add_button( gui->unit_buttons, ID_DISBAND, sx, sy, 0, tr("Disband Unit") ); 
+    group_add_button( gui->unit_buttons, ID_UNDO, sx, sy, 0, tr("Undo Turn [u]"), 2 ); sy += 40; 
+    group_add_button( gui->unit_buttons, ID_SUPPLY, sx, sy, 0, tr("Supply Unit [s]"), 2 ); sy += 30; 
+    group_add_button( gui->unit_buttons, ID_EMBARK_AIR, sx, sy, 0, tr("Air Embark"), 2 ); sy += 30; 
+    group_add_button( gui->unit_buttons, ID_MERGE, sx, sy, 0, tr("Merge Unit [j]"), 2 ); sy += 30; 
+    group_add_button( gui->unit_buttons, ID_SPLIT, sx, sy, 0, tr("Split Unit [x+1..9]"), 2 ); sy += 30; 
+    group_add_button( gui->unit_buttons, ID_RENAME, sx, sy, 0, tr("Rename Unit"), 2 ); sy += 40;
+    group_add_button( gui->unit_buttons, ID_DISBAND, sx, sy, 0, tr("Disband Unit"), 2 ); 
     group_hide( gui->unit_buttons, 1 );
     /* split menu */
     sprintf( path2, "../themes/%s/strength_buttons", dir );
@@ -306,7 +306,7 @@ int gui_load( const char *dir )
     sx = 3; sy = 3;
     for ( i = 0; i < 9; i++ ) {
         sprintf( str, tr("Split Up %d Strength"), i+1 );
-        group_add_button( gui->split_menu, ID_SPLIT_1 + i, sx, sy, 0, str );
+        group_add_button( gui->split_menu, ID_SPLIT_1 + i, sx, sy, 0, str, 2 );
         sy += 20;
     }
     group_hide( gui->split_menu, 1 );
@@ -317,10 +317,10 @@ int gui_load( const char *dir )
         goto failure;
     sx = gui->deploy_window->frame->img->img->w - 65;
     sy = gui->deploy_window->frame->img->img->h - 60;
-    group_add_button( gui->deploy_window, ID_DEPLOY_UP, sx, sy, 0, tr("Scroll Up") );
-    group_add_button( gui->deploy_window, ID_DEPLOY_DOWN, sx + 30, sy, 0, tr("Scroll Down") ); sy += 30;
-    group_add_button( gui->deploy_window, ID_APPLY_DEPLOY, sx, sy, 0, tr("Apply Deployment") );
-    group_add_button( gui->deploy_window, ID_CANCEL_DEPLOY, sx + 30, sy, 0, tr("Cancel Deployment") );
+    group_add_button( gui->deploy_window, ID_DEPLOY_UP, sx, sy, 0, tr("Scroll Up"), 2 );
+    group_add_button( gui->deploy_window, ID_DEPLOY_DOWN, sx + 30, sy, 0, tr("Scroll Down"), 2 ); sy += 30;
+    group_add_button( gui->deploy_window, ID_APPLY_DEPLOY, sx, sy, 0, tr("Apply Deployment"), 2 );
+    group_add_button( gui->deploy_window, ID_CANCEL_DEPLOY, sx + 30, sy, 0, tr("Cancel Deployment"), 2 );
     group_hide( gui->deploy_window, 1 );
     /* edit */
     if ( ( gui->edit = edit_create( gui_create_frame( 240, 30 ), 160, gui->font_std, 20, sdl.screen, 0, 0 ) ) == 0 )
@@ -332,14 +332,14 @@ int gui_load( const char *dir )
                 SDL_SWSURFACE ), 24, 24, 8, ID_MENU, gui->label, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
-    group_add_button( gui->base_menu, ID_AIR_MODE, sx, sy, 0, tr("Switch Air/Ground [t]") ); sy += 30; 
-    group_add_button( gui->base_menu, ID_STRAT_MAP, sx, sy, 0, tr("Strategic Map [o]") ); sy += 30; 
-    group_add_button( gui->base_menu, ID_PURCHASE, sx, sy, 0, tr("Request Reinforcements") ); sy += 30;
-    group_add_button( gui->base_menu, ID_DEPLOY, sx, sy, 0, tr("Deploy Reinforcements [d]") ); sy += 30; 
-    group_add_button( gui->base_menu, ID_SCEN_INFO, sx, sy, 0, tr("Scenario Info [i]") ); sy += 30; 
-    group_add_button( gui->base_menu, ID_CONDITIONS, sx, sy, 0, tr("Victory Conditions") ); sy += 30; 
-    group_add_button( gui->base_menu, ID_END_TURN, sx, sy, 0, tr("End Turn [e]") ); sy += 40; 
-    group_add_button( gui->base_menu, ID_MENU, sx, sy, 0, tr("Main Menu") );
+    group_add_button( gui->base_menu, ID_AIR_MODE, sx, sy, 0, tr("Switch Air/Ground [t]"), 2 ); sy += 30; 
+    group_add_button( gui->base_menu, ID_STRAT_MAP, sx, sy, 0, tr("Strategic Map [o]"), 2 ); sy += 30; 
+    group_add_button( gui->base_menu, ID_PURCHASE, sx, sy, 0, tr("Request Reinforcements"), 2 ); sy += 30;
+    group_add_button( gui->base_menu, ID_DEPLOY, sx, sy, 0, tr("Deploy Reinforcements [d]"), 2 ); sy += 30; 
+    group_add_button( gui->base_menu, ID_SCEN_INFO, sx, sy, 0, tr("Scenario Info [i]"), 2 ); sy += 30; 
+    group_add_button( gui->base_menu, ID_CONDITIONS, sx, sy, 0, tr("Victory Conditions"), 2 ); sy += 30; 
+    group_add_button( gui->base_menu, ID_END_TURN, sx, sy, 0, tr("End Turn [e]"), 2 ); sy += 40; 
+    group_add_button( gui->base_menu, ID_MENU, sx, sy, 0, tr("Main Menu"), 2 );
     group_hide( gui->base_menu, 1 );
     /* main_menu */
     sprintf( path2, "../themes/%s/menu1_buttons", dir );
@@ -347,13 +347,13 @@ int gui_load( const char *dir )
                 SDL_SWSURFACE ), 24, 24, 7, ID_SAVE, gui->label, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
-    group_add_button( gui->main_menu, ID_SAVE, sx, sy, 0, tr("Save Game") ); sy += 30;
-    group_add_button( gui->main_menu, ID_LOAD, sx, sy, 0, tr("Load Game") ); sy += 30;
-    group_add_button( gui->main_menu, ID_RESTART, sx, sy, 0, tr("Restart Scenario") ); sy += 30;
-    group_add_button( gui->main_menu, ID_CAMP, sx, sy, 0, tr("Load Campaign") ); sy += 30;
-    group_add_button( gui->main_menu, ID_SCEN, sx, sy, 0, tr("Load Scenario") ); sy += 30;
-    group_add_button( gui->main_menu, ID_OPTIONS, sx, sy, 0, tr("Options") ); sy += 30;
-    group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game") );
+    group_add_button( gui->main_menu, ID_SAVE, sx, sy, 0, tr("Save Game"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_LOAD, sx, sy, 0, tr("Load Game"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_RESTART, sx, sy, 0, tr("Restart Scenario"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_CAMP, sx, sy, 0, tr("Load Campaign"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_SCEN, sx, sy, 0, tr("Load Scenario"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_OPTIONS, sx, sy, 0, tr("Options"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game"), 2 );
     group_hide( gui->main_menu, 1 );
     /* load menu */
     sprintf( path2, "../themes/%s/menu2_buttons", dir );
@@ -363,7 +363,7 @@ int gui_load( const char *dir )
     sx = 3; sy = 3;
     for ( i = 0; i < SLOT_COUNT; i++ ) {
         sprintf( str, tr("Load: %s"), slot_get_name( i ) );
-        group_add_button( gui->load_menu, ID_LOAD_0 + i, sx, sy, 0, str );
+        group_add_button( gui->load_menu, ID_LOAD_0 + i, sx, sy, 0, str, 2 );
         sy += 24;
     }
     group_hide( gui->load_menu, 1 );
@@ -375,7 +375,7 @@ int gui_load( const char *dir )
     sx = 3; sy = 3;
     for ( i = 0; i < 10; i++ ) {
         sprintf( str, tr("Save: %s"), slot_get_name( i ) );
-        group_add_button( gui->save_menu, ID_SAVE_0 + i, sx, sy, 0, str );
+        group_add_button( gui->save_menu, ID_SAVE_0 + i, sx, sy, 0, str, 2 );
         sy += 24;
     }
     group_hide( gui->save_menu, 1 );
@@ -387,14 +387,14 @@ int gui_load( const char *dir )
     sx = 3; sy = 3;
     //group_add_button( gui->opt_menu, ID_C_SUPPLY, sx, sy, 1, "Unit Supply" ); sy += 30;
     //group_add_button( gui->opt_menu, ID_C_WEATHER, sx, sy, 1, "Weather Influence" ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_GRID, sx, sy, 1, tr("Hex Grid [g]") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_SHOW_CPU, sx, sy, 1, tr("Show CPU Turn") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_SHOW_STRENGTH, sx, sy, 1, tr("Show Unit Strength [.]") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_SOUND, sx, sy, 1, tr("Sound") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_SOUND_INC, sx, sy, 0, tr("Sound Volume Up") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_SOUND_DEC, sx, sy, 0, tr("Sound Volume Down") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_MUSIC, sx, sy, 1, tr("Music") ); sy += 30;
-    group_add_button( gui->opt_menu, ID_C_VMODE, sx, sy, 0, tr("Video Mode [v]") );
+    group_add_button( gui->opt_menu, ID_C_GRID, sx, sy, 1, tr("Hex Grid [g]"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_SHOW_CPU, sx, sy, 1, tr("Show CPU Turn"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_SHOW_STRENGTH, sx, sy, 1, tr("Show Unit Strength [.]"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_SOUND, sx, sy, 1, tr("Sound"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_SOUND_INC, sx, sy, 0, tr("Sound Volume Up"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_SOUND_DEC, sx, sy, 0, tr("Sound Volume Down"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_MUSIC, sx, sy, 1, tr("Music"), 2 ); sy += 30;
+    group_add_button( gui->opt_menu, ID_C_VMODE, sx, sy, 0, tr("Video Mode [v]"), 2 );
     group_hide( gui->opt_menu, 1 );
     /* video mode dialog */
     sprintf( path, "../themes/%s/scroll_buttons", dir );
@@ -455,7 +455,7 @@ int gui_load( const char *dir )
     /* campaign setup window */
     sprintf( path, "../themes/%s/camp_setup_confirm_buttons", dir );
     gui->camp_setup = sdlg_camp_create( 
-                             gui_create_frame( 115, 40 ),  load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ),
+                             gui_create_frame( 150, 40 ),  load_surf( search_file_name( path, 'i' ), SDL_SWSURFACE ),
                              24, 24, ID_CAMP_SETUP_OK,
                              gui->label,
                              gui_render_player_name, gui_handle_player_select,

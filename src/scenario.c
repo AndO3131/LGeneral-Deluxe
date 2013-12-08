@@ -685,7 +685,7 @@ int scen_load( const char *fname )
                 map_insert_unit( unit );
             }
         }
-        else if (!config.purchase) /* no fixed reinfs with purchase enabled */
+        else if (config.purchase == NO_PURCHASE) /* no fixed reinfs with purchase enabled */
             list_add( reinf, unit );
         /* adjust transporter count */
         if ( unit->embark == EMBARK_SEA ) {

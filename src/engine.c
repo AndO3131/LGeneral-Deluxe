@@ -482,7 +482,7 @@ static void engine_check_menu_buttons()
     else
         group_set_active( gui->base_menu, ID_SCEN_INFO, 1 );
     /* purchase */
-    if ( config.purchase && cur_ctrl != PLAYER_CTRL_NOBODY && (!deploy_turn  && status == STATUS_NONE ) )
+    if ( (config.purchase != NO_PURCHASE) && cur_ctrl != PLAYER_CTRL_NOBODY && (!deploy_turn  && status == STATUS_NONE ) )
         group_set_active( gui->base_menu, ID_PURCHASE, 1 );
     else
         group_set_active( gui->base_menu, ID_PURCHASE, 0 );
@@ -2323,7 +2323,10 @@ static void engine_handle_button( int id )
             config.deploy_turn = !config.deploy_turn;
             break;
         case ID_SCEN_SETUP_PURCHASE:
-            config.purchase = !config.purchase;
+            if (config.purchase < 2)
+                config.purchase = config.purchase + 1;
+            else
+                config.purchase = 0;
             break;
         case ID_SCEN_SETUP_CTRL:
             setup.ctrl[gui->scen_setup->sel_id] = !(setup.ctrl[gui->scen_setup->sel_id] - 1) + 1;
@@ -2345,6 +2348,7 @@ static void engine_handle_button( int id )
         case ID_CAMP_SETUP_OK:
             fdlg_hide( gui->camp_dlg, 0 );
             sdlg_hide( gui->camp_setup, 1 );
+            config.purchase = config.campaign_purchase + 1;
             status = STATUS_RUN_CAMP_DLG;
             break;
         case ID_CAMP_SETUP_MERGE_REPLACEMENTS:
@@ -2352,6 +2356,9 @@ static void engine_handle_button( int id )
             break;
         case ID_CAMP_SETUP_CORE:
             config.use_core_units = !config.use_core_units;
+            break;
+        case ID_CAMP_SETUP_PURCHASE:
+            config.campaign_purchase = !config.campaign_purchase;
             break;
         case ID_MODULE_OK:
             if ( gui->module_dlg->lbox->cur_item ) {
