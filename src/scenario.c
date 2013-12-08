@@ -959,23 +959,34 @@ void scen_prep_unit( Unit *unit, int type )
     /* remove turn suppression */
     unit->turn_suppr = 0;
     /* allow actions */
-    unit->unused = 1;
-    unit->cur_mov = unit->sel_prop->mov;
-    if ( unit_check_ground_trsp( unit ) )
-        unit->cur_mov = unit->trsp_prop.mov;
-    /* if we have bad weather the relation between mov : fuel is 1 : 2 
-     * for ground units
-     */
-    if ( !(unit->sel_prop->flags & SWIMMING) && !(unit->sel_prop->flags & FLYING)
-         && (weather_types[scen_get_weather()].flags & DOUBLE_FUEL_COST) ) {
-        if ( unit_check_fuel_usage( unit ) && unit->cur_fuel < unit->cur_mov * 2 )
-            unit->cur_mov = unit->cur_fuel / 2;
+    unit_unmount( unit );
+    /* check instant_purchase button and stop recently placed units from acting */
+    if (type == SCEN_PREP_UNIT_DEPLOY && config.purchase == INSTANT_PURCHASE)
+    {
+        unit->cur_mov = 0;
+        unit->cur_atk_count = 0;
+        unit->unused = 0;
     }
     else
-        if ( unit_check_fuel_usage( unit ) && unit->cur_fuel < unit->cur_mov )
-            unit->cur_mov = unit->cur_fuel;
-    unit_unmount( unit );
-    unit->cur_atk_count = unit->sel_prop->atk_count;
+    {
+        unit->unused = 1;
+        unit->cur_mov = unit->sel_prop->mov;
+        if ( unit_check_ground_trsp( unit ) )
+            unit->cur_mov = unit->trsp_prop.mov;
+        /* if we have bad weather the relation between mov : fuel is 1 : 2 
+         * for ground units
+         */
+        if ( !(unit->sel_prop->flags & SWIMMING) && !(unit->sel_prop->flags & FLYING)
+             && (weather_types[scen_get_weather()].flags & DOUBLE_FUEL_COST) )
+        {
+            if ( unit_check_fuel_usage( unit ) && unit->cur_fuel < unit->cur_mov * 2 )
+                unit->cur_mov = unit->cur_fuel / 2;
+        }
+        else
+            if ( unit_check_fuel_usage( unit ) && unit->cur_fuel < unit->cur_mov )
+                unit->cur_mov = unit->cur_fuel;
+        unit->cur_atk_count = unit->sel_prop->atk_count;
+    }
     /* if unit is preparded normally check entrenchment */
     if ( type == SCEN_PREP_UNIT_NORMAL && !(unit->sel_prop->flags & FLYING) ) {
         min_entr = map_tile( unit->x, unit->y )->terrain->min_entr;

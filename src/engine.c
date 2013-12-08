@@ -2616,8 +2616,8 @@ static void engine_check_events(int *reinit)
                                         draw_map = 1;
                                     }
                                     /* check end_deploy button */
-                                    if (deploy_turn)
-                                        group_set_active(gui->deploy_window,ID_APPLY_DEPLOY,(left_deploy_units->count>0)?0:1);
+//                                    if (deploy_turn)
+//                                        group_set_active(gui->deploy_window,ID_APPLY_DEPLOY,(left_deploy_units->count>0)?0:1);
                                 }
                                 else if ( button == BUTTON_RIGHT )
                                 {
@@ -3238,7 +3238,7 @@ static void engine_handle_next_action( int *reinit )
             list_transfer( avail_units, units, action->unit );
             if ( cur_ctrl == PLAYER_CTRL_CPU ) /* for human player it is already inserted */
                 map_insert_unit( action->unit );
-            scen_prep_unit( action->unit, SCEN_PREP_UNIT_FIRST );
+            scen_prep_unit( action->unit, SCEN_PREP_UNIT_DEPLOY );
             break;
         case ACTION_EMBARK_SEA:
             if ( map_check_unit_embark( action->unit, action->x, action->y, EMBARK_SEA, 0 ) ) {

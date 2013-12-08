@@ -157,7 +157,8 @@ If SCEN_PREP_UNIT_FIRST is passed the entrenchment is not modified.
 */
 enum {
     SCEN_PREP_UNIT_FIRST = 0,
-    SCEN_PREP_UNIT_NORMAL
+    SCEN_PREP_UNIT_NORMAL,
+    SCEN_PREP_UNIT_DEPLOY
 };
 void scen_prep_unit( Unit *unit, int type );
 
