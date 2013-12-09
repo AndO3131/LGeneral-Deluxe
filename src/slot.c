@@ -622,23 +622,26 @@ Unit* load_unit( FILE *file )
     unit->nation = nation_find( str );
     free( str );
     /* recalculate members that aren't stored */
-    /* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
-    unit->terrain = map[unit->x][unit->y].terrain;
-    /* end patch */
-    /* max_str (since StoreCoreVersionData) */
-    val = load_int(file);
-    unit->max_str = unit_store_version >= StoreCoreVersionData ? val : 10;
-    /* core (since StoreCoreVersionData) */
-    val = load_int(file);
-    unit->core = unit_store_version >= StoreCoreVersionData ? val : AUXILIARY;
-    /* battle honors (since StoreCoreVersionData) */
-    int i;
-    if (store_version >= StoreCoreVersionData)
-        for (i = 0;i < 5;i++)
-        {
-            fread(unit->star[i], UnitBattleHonorsSize, 1, file);
-            unit->star[i][UnitBattleHonorsSize - 1] = 0;
-        }
+    if ( store_version >= StoreCoreVersionData )
+    {
+		/* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
+		unit->terrain = map[unit->x][unit->y].terrain;
+		/* end patch */
+		val = load_int(file);
+		/* max_str (since StoreCoreVersionData) */
+		unit->max_str = unit_store_version >= StoreCoreVersionData ? val : 10;
+		/* core (since StoreCoreVersionData) */
+		val = load_int(file);
+		unit->core = unit_store_version >= StoreCoreVersionData ? val : AUXILIARY;
+		/* battle honors (since StoreCoreVersionData) */
+		int i;
+		if (store_version >= StoreCoreVersionData)
+		    for (i = 0;i < 5;i++)
+		    {
+		        fread(unit->star[i], UnitBattleHonorsSize, 1, file);
+		        unit->star[i][UnitBattleHonorsSize - 1] = 0;
+		    }
+    }
     unit_adjust_icon( unit );
     unit->exp_level = unit->exp / 100;
     unit_update_bar( unit );
@@ -879,6 +882,8 @@ int slot_save( int id, char *name )
     save_int( file, config.weather );
     save_int( file, config.deploy_turn );
     save_int( file, config.purchase );
+    save_int( file, config.merge_replacements );
+    save_int( file, config.use_core_units );
     save_int( file, turn );
     save_int( file, player_get_index( cur_player ) );
     /* players */
@@ -997,6 +1002,10 @@ int slot_load( int id )
     } else {
         config.deploy_turn = load_int( file );
         config.purchase = load_int( file );
+    }
+    if (store_version >= StoreCoreVersionData) {
+        config.merge_replacements = load_int( file );
+        config.use_core_units = load_int( file );
     }
     turn = load_int( file );
     cur_player = player_get_by_index( load_int( file ) );

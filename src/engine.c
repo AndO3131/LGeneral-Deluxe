@@ -4180,6 +4180,10 @@ int engine_init()
     }
     if ( setup.type == SETUP_LOAD_GAME ) {
         if ( !slot_load( setup.slot_id ) ) return 0;
+        group_set_hidden( gui->unit_buttons, ID_REPLACEMENTS, !config.merge_replacements );
+        group_set_hidden( gui->unit_buttons, ID_ELITE_REPLACEMENTS, !config.merge_replacements );
+        group_set_hidden( gui->unit_buttons, ID_MERGE, config.merge_replacements );
+        group_set_hidden( gui->unit_buttons, ID_SPLIT, config.merge_replacements );
     }
     else 
         if ( setup.type == SETUP_INIT_CAMP ) {
