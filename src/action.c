@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -204,6 +206,18 @@ void action_queue_split( Unit *unit, int str, int x, int y, Unit *partner )
     action->target = partner;
     action->x = x; action->y = y;
     action->str = str;
+    action_queue( action );
+}
+void action_queue_replace( Unit *unit )
+{
+    Action *action = action_create( ACTION_REPLACE );
+    action->unit = unit;
+    action_queue( action );
+}
+void action_queue_elite_replace( Unit *unit )
+{
+    Action *action = action_create( ACTION_ELITE_REPLACE );
+    action->unit = unit;
     action_queue( action );
 }
 void action_queue_disband( Unit *unit )

@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -328,7 +330,7 @@ extern List *get_purchasable_unit_lib_entries( const char *nationid,
 				const char *uclassid, const Date *date );
 extern int player_can_purchase_unit( Player *p, Unit_Lib_Entry *unit,
 							Unit_Lib_Entry *trsp);
-extern void player_purchase_unit( Player *player, Nation *nation,
+extern void player_purchase_unit( Player *player, Nation *nation, int type,
 			Unit_Lib_Entry *unit_prop, Unit_Lib_Entry *trsp_prop );
 static void ai_purchase_units()
 {
@@ -441,7 +443,7 @@ static void ai_purchase_units()
 						buy_options[j].unit,
 						buy_options[j].trsp)) {
 			player_purchase_unit( cur_player, 
-				&nations[buy_options[j].unit->nation],
+                &nations[buy_options[j].unit->nation], AUXILIARY,
 				buy_options[j].unit,buy_options[j].trsp);
 			AI_DEBUG(1, "Prestige remaining: %d\n",
 						cur_player->cur_prestige);
@@ -504,11 +506,21 @@ void ai_init( void )
     /* build control masks */
     AI_DEBUG( 1, "Building control mask...\n" );
     //ai_get_ctrl_masks();
-    /* check new units first */
-    ai_status = AI_STATUS_DEPLOY; 
-    list_reset( avail_units );
-    AI_DEBUG( 0, "AI Initialized\n" );
-    AI_DEBUG( 0, "*** DEPLOY ***\n" );
+    if (config.purchase == INSTANT_PURCHASE)
+    {
+        ai_status = deploy_turn ? AI_STATUS_DEPLOY : AI_STATUS_SUPPLY;
+        AI_DEBUG( 0, "AI Initialized\n" );
+        AI_DEBUG( 0, deploy_turn ? "*** DEPLOY ***\n" :
+               "*** SUPPLY ***\n" );
+    }
+    else
+    {
+        /* check new units first */
+        ai_status = AI_STATUS_DEPLOY; 
+        list_reset( avail_units );
+        AI_DEBUG( 0, "AI Initialized\n" );
+        AI_DEBUG( 0, "*** DEPLOY ***\n" );
+    }
 }
 
 /*
@@ -558,29 +570,90 @@ void ai_run( void )
                     return;
                 }
             }
-            else {
-                ai_status = deploy_turn ? AI_STATUS_END : AI_STATUS_MERGE;
+            else
+            {
+                if (config.purchase == INSTANT_PURCHASE)
+                    if (deploy_turn)
+                    {
+                        ai_status = AI_STATUS_END;
+                    }
+                    else
+                    {
+                        ai_status = AI_STATUS_GROUP;
+                        /* build a group with all units, -1,-1 as destination means it will
+                           simply attack/defend the nearest target. later on this should
+                           split up into several groups with different target and strategy */
+                        ai_group = ai_group_create( cur_player->strat, -1, -1 );
+                        list_reset( ai_units );
+                        while ( ( unit = list_next( ai_units ) ) )
+                            ai_group_add_unit( ai_group, unit );
+                    }
+                else
+                    if (config.merge_replacements == OPTION_MERGE)
+                        ai_status = deploy_turn ? AI_STATUS_END : AI_STATUS_MERGE;
+                    else
+                        ai_status = deploy_turn ? AI_STATUS_END : AI_STATUS_SUPPLY;
                 list_reset( ai_units );
-                AI_DEBUG( 0, deploy_turn ? "*** END TURN ***\n" : 
+                if (config.purchase == INSTANT_PURCHASE)
+                    if (deploy_turn)
+                        AI_DEBUG( 0, "*** END TURN ***\n" );
+                    else
+                        AI_DEBUG( 0, "*** MOVE & ATTACK ***\n" );
+                else
+                    if (config.merge_replacements == OPTION_MERGE)
+                        AI_DEBUG( 0, deploy_turn ? "*** END TURN ***\n" : 
 							"*** MERGE ***\n" );
+                    else
+                        AI_DEBUG( 0, deploy_turn ? "*** END TURN ***\n" :
+                            "*** SUPPLY ***\n" );
             }
             break;
         case AI_STATUS_SUPPLY:
             /* get next unit */
             if ( ( unit = list_next( ai_units ) ) == 0 ) {
-                ai_status = AI_STATUS_GROUP;
-                /* build a group with all units, -1,-1 as destination means it will
-                   simply attack/defend the nearest target. later on this should
-                   split up into several groups with different target and strategy */
-                ai_group = ai_group_create( cur_player->strat, -1, -1 );
-                list_reset( ai_units );
-                while ( ( unit = list_next( ai_units ) ) )
-                    ai_group_add_unit( ai_group, unit );
-                AI_DEBUG( 0, "*** MOVE & ATTACK ***\n" );
+                if (config.purchase == INSTANT_PURCHASE)
+                {
+                    ai_status = AI_STATUS_PURCHASE;
+                    AI_DEBUG( 0, "*** PURCHASE ***\n" );
+                }
+                else
+                {
+                    ai_status = AI_STATUS_GROUP;
+                    /* build a group with all units, -1,-1 as destination means it will
+                       simply attack/defend the nearest target. later on this should
+                       split up into several groups with different target and strategy */
+                    ai_group = ai_group_create( cur_player->strat, -1, -1 );
+                    list_reset( ai_units );
+                    while ( ( unit = list_next( ai_units ) ) )
+                        ai_group_add_unit( ai_group, unit );
+                    AI_DEBUG( 0, "*** MOVE & ATTACK ***\n" );
+                }
             }
             else {
                 /* check if unit needs supply and remove 
                    it from ai_units if so */
+                if (config.merge_replacements == OPTION_REPLACEMENTS)
+                {
+                    if ( unit_check_replacements(unit, ELITE_REPLACEMENTS) )
+                    {
+                        if (unit_get_replacement_strength( unit, ELITE_REPLACEMENTS ) > 2 ||
+                            !unit_check_replacements(unit, REPLACEMENTS))
+                        {
+                            action_queue_elite_replace( unit );
+                            AI_DEBUG( 1, "%s gets elite replacements\n", unit->name );
+                            list_delete_item( ai_units, unit );
+                        }
+                    }
+                    else if ( unit_check_replacements(unit, REPLACEMENTS) )
+                    {
+                        if (unit_get_replacement_strength( unit, REPLACEMENTS ) > 2 )
+                        {
+                            action_queue_replace( unit );
+                            AI_DEBUG( 1, "%s gets replacements\n", unit->name );
+                            list_delete_item( ai_units, unit );
+                        }
+                    }
+                }
                 if ( ( unit_low_fuel( unit ) || unit_low_ammo( unit ) ) ) {
                     if ( unit->supply_level > 0 ) {
                         action_queue_supply( unit );
@@ -629,7 +702,8 @@ void ai_run( void )
         case AI_STATUS_GROUP:
             if ( !ai_group_handle_next_unit( ai_group ) ) {
                 ai_group_delete( ai_group );
-                if (config.purchase != NO_PURCHASE) {
+                if (config.purchase == DELAYED_PURCHASE)
+                {
                     ai_status = AI_STATUS_PURCHASE;
                     AI_DEBUG( 0, "*** PURCHASE ***\n" );
                 } else {
@@ -640,8 +714,19 @@ void ai_run( void )
             break;
         case AI_STATUS_PURCHASE:
             ai_purchase_units();
-            ai_status = AI_STATUS_END;
-            AI_DEBUG( 0, "*** END TURN ***\n" );
+            if (config.purchase == INSTANT_PURCHASE)
+            {
+                /* check new units first */
+                ai_status = AI_STATUS_DEPLOY;
+                list_reset( avail_units );
+                AI_DEBUG( 0, "AI Initialized\n" );
+                AI_DEBUG( 0, "*** DEPLOY ***\n" );
+            }
+            else
+            {
+                ai_status = AI_STATUS_END;
+                AI_DEBUG( 0, "*** END TURN ***\n" );
+            }
             break;
         case AI_STATUS_END:
             action_queue_end_turn();

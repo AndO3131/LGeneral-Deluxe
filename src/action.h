@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -35,6 +37,8 @@ enum {
     ACTION_DEBARK_AIR,
     ACTION_MERGE,
     ACTION_SPLIT,
+    ACTION_REPLACE,
+    ACTION_ELITE_REPLACE,
     ACTION_DISBAND,
     ACTION_DEPLOY,
     ACTION_DRAW_MAP,
@@ -113,6 +117,8 @@ void action_queue_embark_air( Unit *unit, int x, int y );
 void action_queue_debark_air( Unit *unit, int x, int y, int normal_landing );
 void action_queue_merge( Unit *unit, Unit *partner );
 void action_queue_split( Unit *unit, int str, int x, int y, Unit *partner );
+void action_queue_replace( Unit *unit );
+void action_queue_elite_replace( Unit *unit );
 void action_queue_disband( Unit *unit );
 void action_queue_deploy( Unit *unit, int x, int y );
 void action_queue_draw_map();

@@ -78,10 +78,12 @@ typedef struct {
     SDL_Rect surf_rect;     /* region in buffer::surface */ 
     int id;                 /* if returned on click */
     char tooltip[32];       /* displayed as short help */
+    char tooltip1[32];      /* displayed as short help extra field - used to display replacements details */
     int active;             /* true if button may be used */
     int down;               /* consecutive numbers are different state positions */
     int lock;               /* keep button down when released */
     int states;             /* number of possible states for this button; 2 state buttons are most common */
+    int hidden;             /* this button is hidden and inactive in menu */
 } Button;
 typedef struct {
     Frame *frame;       /* frame of group */
@@ -92,6 +94,7 @@ typedef struct {
     int button_limit;   /* limit of buttons */
     int base_id; 
     Label *label;       /* label for the tooltip */
+    Label *label1;      /* extra label for the tooltip */
 } Group;
 
 /*
@@ -102,7 +105,7 @@ An actual button id is computed as base_id + id.
 ====================================================================
 */
 Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int h, int limit, int base_id, 
-                     Label *label, SDL_Surface *surf, int x, int y );
+                     Label *label, Label *label1, SDL_Surface *surf, int x, int y );
 void group_delete( Group **group );
 
 /*
@@ -135,6 +138,13 @@ Set active state of a button by global id.
 ====================================================================
 */
 void group_set_active( Group *group, int id, int active );
+
+/*
+====================================================================
+Set hidden state of a button by global id.
+====================================================================
+*/
+void group_set_hidden( Group *group, int id, int hidden );
 
 /*
 ====================================================================

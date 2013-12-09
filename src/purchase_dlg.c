@@ -626,7 +626,7 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 	pdlg->main_group = group_create( gui_create_frame( 300, 320 ), 160, 
 				load_surf( path2, SDL_SWSURFACE ),
 				20, 20, 2, ID_PURCHASE_OK,
-				gui->label, sdl.screen, 0, 0 );
+				gui->label, 0, sdl.screen, 0, 0 );
 	if (pdlg->main_group == NULL)
 		goto failure;
 	sx = group_get_width( pdlg->main_group ) - 60; 

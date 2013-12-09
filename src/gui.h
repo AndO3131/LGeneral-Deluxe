@@ -49,6 +49,8 @@ enum {
     ID_RENAME,
     ID_DISBAND,
     ID_SPLIT,
+    ID_REPLACEMENTS,
+    ID_ELITE_REPLACEMENTS,
     ID_SPLIT_1,
     ID_SPLIT_2,
     ID_SPLIT_3,

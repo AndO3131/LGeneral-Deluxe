@@ -529,15 +529,47 @@ static void engine_check_unit_buttons()
     else
         group_set_active( gui->unit_buttons, ID_SUPPLY, 0 );
     /* merge */
-    if ( merge_unit_count > 0 )
-        group_set_active( gui->unit_buttons, ID_MERGE, 1 );
-    else
-        group_set_active( gui->unit_buttons, ID_MERGE, 0 );
+    if (config.merge_replacements == OPTION_MERGE)
+    {
+        if ( merge_unit_count > 0 )
+            group_set_active( gui->unit_buttons, ID_MERGE, 1 );
+        else
+            group_set_active( gui->unit_buttons, ID_MERGE, 0 );
+    }
     /* split */
     if (unit_get_split_strength(cur_unit)>0)
         group_set_active( gui->unit_buttons, ID_SPLIT, 1 );
     else
         group_set_active( gui->unit_buttons, ID_SPLIT, 0 );
+    /* replacements */
+    if (config.merge_replacements == OPTION_REPLACEMENTS)
+    {
+        if (unit_check_replacements(cur_unit,REPLACEMENTS) > 0)
+        {
+            group_set_active( gui->unit_buttons, ID_REPLACEMENTS, 1 );
+            /* show replacements and supply level */
+            unit_check_supply( cur_unit, UNIT_SUPPLY_ANYTHING, 0, 0 );
+            sprintf( str, tr("Replacements (Rate:%3i%%)"), cur_unit->supply_level );
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip, str );
+            sprintf( str, tr("Str:%2i, Exp:%4i, Prst:%4i"),
+                     cur_unit->cur_str_repl, -cur_unit->repl_exp_cost, -cur_unit->repl_prestige_cost );
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip1, str );
+        }
+        else
+            group_set_active( gui->unit_buttons, ID_REPLACEMENTS, 0 );
+        /* elite replacements */
+        if (unit_check_replacements(cur_unit,ELITE_REPLACEMENTS) > 0)
+        {
+            group_set_active( gui->unit_buttons, ID_ELITE_REPLACEMENTS, 1 );
+            /* show elite replacements and supply level */
+            sprintf( str, tr("Elite Repl. (Rate:%3i%%)"), cur_unit->supply_level );
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip, str );
+            sprintf( str, tr("Str:%2i, Prst:%4i"), cur_unit->cur_str_repl, -cur_unit->repl_prestige_cost );
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip1, str );
+        }
+        else
+            group_set_active( gui->unit_buttons, ID_ELITE_REPLACEMENTS, 0 );
+    }
     /* undo */
     if ( move_backup.used )
         group_set_active( gui->unit_buttons, ID_UNDO, 1 );
@@ -653,6 +685,7 @@ static void engine_hide_unit_menu()
     engine_set_status( STATUS_NONE );
     group_hide( gui->unit_buttons, 1 );
     group_hide( gui->split_menu, 1 );
+    label_hide( gui->label2, 1 );
     old_mx = old_my = -1;
 }
 
@@ -2218,6 +2251,20 @@ static void engine_handle_button( int id )
                 draw_map = 1;
             }
             break;
+        case ID_REPLACEMENTS:
+            if (cur_unit==0) break;
+            engine_hide_unit_menu();
+            action_queue_replace(cur_unit);
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip1, "" );
+            draw_map = 1;
+            break;
+        case ID_ELITE_REPLACEMENTS:
+            if (cur_unit==0) break;
+            engine_hide_unit_menu();
+            action_queue_elite_replace(cur_unit);
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip1, "" );
+            draw_map = 1;
+            break;
         case ID_DISBAND:
             if (cur_unit==0) break;
             engine_hide_unit_menu();
@@ -2287,6 +2334,10 @@ static void engine_handle_button( int id )
             break;
         case ID_SCEN_OK:
             fdlg_hide( gui->scen_dlg, 1 );
+            group_set_hidden( gui->unit_buttons, ID_REPLACEMENTS, !config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_ELITE_REPLACEMENTS, !config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_MERGE, config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_SPLIT, config.merge_replacements );
             engine_set_status( STATUS_NONE );
             action_queue_start_scen();
             break;
@@ -2297,6 +2348,10 @@ static void engine_handle_button( int id )
         case ID_CAMP_OK:
             fdlg_hide( gui->camp_dlg, 1 );
             setup.type = SETUP_CAMP_BRIEFING;
+            group_set_hidden( gui->unit_buttons, ID_REPLACEMENTS, !config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_ELITE_REPLACEMENTS, !config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_MERGE, config.merge_replacements );
+            group_set_hidden( gui->unit_buttons, ID_SPLIT, config.merge_replacements );
             engine_set_status( STATUS_NONE );
             action_queue_start_camp();
             break;
@@ -2328,6 +2383,9 @@ static void engine_handle_button( int id )
             else
                 config.purchase = 0;
             break;
+        case ID_SCEN_SETUP_MERGE_REPLACEMENTS:
+            config.merge_replacements = !config.merge_replacements;
+            break;
         case ID_SCEN_SETUP_CTRL:
             setup.ctrl[gui->scen_setup->sel_id] = !(setup.ctrl[gui->scen_setup->sel_id] - 1) + 1;
             gui_handle_player_select( gui->scen_setup->list->cur_item );
@@ -2349,6 +2407,8 @@ static void engine_handle_button( int id )
             fdlg_hide( gui->camp_dlg, 0 );
             sdlg_hide( gui->camp_setup, 1 );
             config.purchase = config.campaign_purchase + 1;
+            if (config.merge_replacements == OPTION_MERGE)
+                group_set_active( gui->unit_buttons, ID_REPLACEMENTS, 0 );
             status = STATUS_RUN_CAMP_DLG;
             break;
         case ID_CAMP_SETUP_MERGE_REPLACEMENTS:
@@ -3297,6 +3357,20 @@ static void engine_handle_next_action( int *reinit )
                     unit_update_bar(action->unit); unit_update_bar(newUnit);
                     map_update_spot_mask(newUnit,&dummy); map_set_fog(F_SPOT);
                 }
+            }
+            break;
+        case ACTION_REPLACE:
+            if ( unit_check_replacements( action->unit,REPLACEMENTS ) ) {
+                unit_replace( action->unit,REPLACEMENTS );
+                if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+                    engine_select_unit( action->unit );
+            }
+            break;
+        case ACTION_ELITE_REPLACE:
+            if ( unit_check_replacements( action->unit,ELITE_REPLACEMENTS ) ) {
+                unit_replace( action->unit,ELITE_REPLACEMENTS );
+                if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+                    engine_select_unit( action->unit );
             }
             break;
         case ACTION_DISBAND:

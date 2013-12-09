@@ -30,6 +30,10 @@ enum PurchaseOptions {
     DELAYED_PURCHASE = 1,
     INSTANT_PURCHASE = 2
 };
+enum MergeReplacementsOptions {
+    OPTION_MERGE = 0,
+    OPTION_REPLACEMENTS
+};
 
 /* configure struct */
 typedef struct {
@@ -49,7 +53,8 @@ typedef struct {
     int deploy_turn; /* allow deployment */
     enum PurchaseOptions purchase; /* disable predefined reinfs and allow purchase by prestige */
     enum PurchaseOptions campaign_purchase; /* disable predefined reinfs and allow purchase by prestige */
-    int merge_replacements; /* enable merging during battle (0) or enable replacements by prestige (1) */
+    enum MergeReplacementsOptions merge_replacements; /* enable merging during battle (0) or enable replacements
+                                                         by prestige (1) */
     int use_core_units; /* enable core army purchased by player move through campaign */
     int ai_debug; /* level of information about AI move */
     /* audio stuff */

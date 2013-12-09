@@ -96,6 +96,9 @@ typedef struct _Unit {
     int x, y;                   /* map position */
     int str;                    /* strength */
     int max_str;                /* max strength unit can replace */
+    int cur_str_repl;           /* strength unit can currently replace */
+    int repl_exp_cost;          /* experience lost if replaced */
+    int repl_prestige_cost;     /* prestige to pay if replaced */
     int entr;                   /* entrenchment */
     int exp;                    /* experience */
     int exp_level;              /* exp level computed from exp */
@@ -301,6 +304,34 @@ that will give defensive fire to before the real battle
 ====================================================================
 */
 void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units );
+
+/*
+====================================================================
+Check if unit can get replacements. Type is REPLACEMENTS or
+ELITE_REPLACEMENTS.
+====================================================================
+*/
+enum {
+    REPLACEMENTS = 0,
+    ELITE_REPLACEMENTS
+};
+int unit_check_replacements( Unit *unit, int type );
+
+/*
+====================================================================
+Get strength unit recieves through replacements. Type is
+REPLACEMENTS or ELITE_REPLACEMENTS.
+====================================================================
+*/
+int unit_get_replacement_strength( Unit *unit, int type );
+
+/*
+====================================================================
+Get replacements for unit. Type is REPLACEMENTS or
+ELITE_REPLACEMENTS.
+====================================================================
+*/
+void unit_replace( Unit *unit, int type );
 
 /*
 ====================================================================

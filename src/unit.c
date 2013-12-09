@@ -1101,6 +1101,37 @@ int unit_check_merge( Unit *unit, Unit *source )
 
 /*
 ====================================================================
+Check if unit can get replacements. type is REPLACEMENTS or
+ELITE_REPLACEMENTS
+====================================================================
+*/
+int unit_check_replacements( Unit *unit, int type )
+{
+    /* unit must not be sea/air embarked */
+    if ( unit->embark != EMBARK_NONE ) return 0;
+    /* unit must not have moved so far */
+    if ( !unit->unused ) return 0;
+    /* the unit strength must not exceed limit */
+    if (type == REPLACEMENTS)
+    {
+        if ( unit->str >= unit->max_str ) return 0;
+    }
+    else
+    {
+        if ( unit->str >= unit->max_str + unit->exp_level ) return 0;
+    }
+    /* unit is airborne and not on airfield */
+    if ( (unit->prop.flags & FLYING) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
+    /* unit is naval and not in port */
+    if ( (unit->prop.flags & SWIMMING) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
+    /* unit recieves 0 strength by calculations */
+    if ( unit_get_replacement_strength(unit,type) < 1 ) return 0;
+    /* not failed so far: allow replacements */
+    return 1;
+}
+
+/*
+====================================================================
 Get the maximum strength the unit can give for a split in its
 current state. Unit must have at least strength 3 remaining.
 ====================================================================
@@ -1186,6 +1217,98 @@ void unit_merge( Unit *unit, Unit *source )
         /* as this must be a ground transporter copy current fuel value */
         unit->cur_fuel = source->cur_fuel;
     }
+    update_bar( unit );
+}
+
+/*
+====================================================================
+Get strength unit recieves through replacements. Type is
+REPLACEMENTS or ELITE_REPLACEMENTS.
+====================================================================
+*/
+int unit_get_replacement_strength( Unit *unit, int type )
+{
+    int replacement_number = 0, replacement_cost;
+    Unit *entry;
+    List *close_units;
+    close_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
+    list_reset( units );
+
+    /* searching adjacent enemy units influence */
+    while ( ( entry = list_next( units ) ) ) {
+        if ( entry->killed > 1 ) continue;
+        if ( entry == unit ) continue;
+        if ( unit_is_close( unit, entry ) )
+            if ( !player_is_ally( entry->player, unit->player ) )
+                list_add( close_units, entry );
+    }
+
+    /* for elite replacements overstrength */
+    if ( (unit->max_str <= unit->str) && (unit->str < unit->max_str + unit->exp_level ) )
+        replacement_number = 1;
+    else
+    /* for naval units */
+        if (unit->prop.flags & SWIMMING)
+            if ( (unit->prop.flags & DIVING) || (unit->prop.flags & DESTROYER) )
+                replacement_number = MINIMUM( 2, unit->max_str - unit->str );
+            else
+                replacement_number = MINIMUM( 1, unit->max_str - unit->str );
+        else
+            replacement_number = unit->max_str - unit->str;
+
+    replacement_number = (int)replacement_number * (3 - close_units->count) / 3;
+    list_delete(close_units);
+
+    /* desert terrain influence */
+    if ( *(map[unit->x][unit->y].terrain->flags) & DESERT ){
+        if ( replacement_number / 4 < 1 )
+            replacement_number = 1;
+        else
+            replacement_number = replacement_number / 4;
+    }
+
+    /* evaluate replacement cost */
+    replacement_number++;
+    do
+    {
+        replacement_number--;
+        replacement_cost = replacement_number * (unit->prop.cost + unit->trsp_prop.cost) / 12;
+        if ( type == REPLACEMENTS )
+            replacement_cost = replacement_cost / 4;
+    }
+    while (replacement_cost > unit->player->cur_prestige);
+
+    unit->cur_str_repl = replacement_number;
+    unit->repl_prestige_cost = replacement_cost;
+
+    /* evaluate experience lost */
+    unit->repl_exp_cost = unit->exp - (10 - unit->cur_str_repl) * unit->exp / 10;
+    return replacement_number;
+}
+
+/*
+====================================================================
+Get replacements for unit. Type is REPLACEMENTS or
+ELITE_REPLACEMENTS.
+====================================================================
+*/
+void unit_replace( Unit *unit, int type )
+{
+    unit->str = unit->str + unit->cur_str_repl;
+    /* evaluate replacement cost */
+    unit->player->cur_prestige -= unit->repl_prestige_cost;
+    /* evaluate experience cost */
+    if ( type == REPLACEMENTS )
+    {
+        unit_add_exp( unit, -unit->repl_exp_cost );
+    }
+
+    /* supply unit */
+    unit_supply_intern(unit, UNIT_SUPPLY_ALL);
+
+    /* no other actions allowed */
+    unit_set_as_used(unit);
+
     update_bar( unit );
 }
 

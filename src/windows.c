@@ -88,7 +88,7 @@ An actual button id is computed as base_id + id.
 ====================================================================
 */
 Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int h, int limit, int base_id, 
-                     Label *label, SDL_Surface *surf, int x, int y )
+                     Label *label, Label *label1, SDL_Surface *surf, int x, int y )
 {
     Group *group = calloc( 1, sizeof( Group ) );
     if ( ( group->frame = frame_create( frame, alpha, surf, x, y ) ) == 0 ) goto failure;
@@ -106,6 +106,7 @@ Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int
         goto failure;
     }
     group->label = label;
+    group->label1 = label1;
     return group;
 failure:
     group_delete( &group );
@@ -159,6 +160,7 @@ int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, i
     strcpy_lt( group->buttons[group->button_count].tooltip, tooltip, 31 );
     group->buttons[group->button_count].lock = lock;
     group->buttons[group->button_count].states = states;
+    group->buttons[group->button_count].hidden = 0;
     group->button_count++;
     return 1;
 }
@@ -196,6 +198,20 @@ void group_set_active( Group *group, int id, int active )
             break;
         }
 }
+/*
+====================================================================
+Set hidden state of a button by global id.
+====================================================================
+*/
+void group_set_hidden( Group *group, int id, int hidden )
+{
+    int i;
+    for ( i = 0; i < group->button_count; i++ )
+        if ( id == group->buttons[i].id ) {
+            group->buttons[i].hidden = hidden;
+            break;
+        }
+}
 
 /*
 ====================================================================
@@ -205,7 +221,7 @@ Lock button.
 void group_lock_button( Group *group, int id, int down )
 {
     Button *button = group_get_button( group, id );
-    if ( button && button->lock ) {
+    if ( button && button->lock && !button->hidden ) {
         button->down = down;
         if ( !down )
             button->button_rect.x = 0;
@@ -215,7 +231,7 @@ void group_lock_button( Group *group, int id, int down )
 }
 /*
 ====================================================================
-Check motion event and modify buttons and label.
+Check motion event and modify buttons and labels.
 Return True if in this frame.
 ====================================================================
 */
@@ -227,10 +243,14 @@ int group_handle_motion( Group *group, int x, int y )
     if ( x < group->frame->img->bkgnd->surf_rect.x + group->frame->img->bkgnd->surf_rect.w )
     if ( y < group->frame->img->bkgnd->surf_rect.y + group->frame->img->bkgnd->surf_rect.h ) {
         label_hide( group->label, 1 );
+        if (group->label1 != 0)
+            label_hide( group->label1, 1 );
         for ( i = 0; i < group->button_count; i++ )
-            if ( group->buttons[i].active ) {
+            if ( group->buttons[i].active && !group->buttons[i].hidden ) {
                 if ( button_focus( &group->buttons[i], x, y ) ) {
                     label_write( group->label, 0, group->buttons[i].tooltip );
+                    if ( group->label1 != 0 && !STRCMP(group->buttons[i].tooltip1, "") )
+                        label_write( group->label1, 0, group->buttons[i].tooltip1 );
                     if ( !group->buttons[i].down )
                         group->buttons[i].button_rect.x = group->w;
                 }
@@ -241,7 +261,7 @@ int group_handle_motion( Group *group, int x, int y )
         return 1;
     }
     for ( i = 0; i < group->button_count; i++ )
-        if ( group->buttons[i].active && ( !group->buttons[i].down || !group->buttons[i].lock ) )
+        if ( group->buttons[i].active && !group->buttons[i].hidden && ( !group->buttons[i].down || !group->buttons[i].lock ) )
             group->buttons[i].button_rect.x = 0;
     return 0;
 }
@@ -260,7 +280,7 @@ int group_handle_button( Group *group, int button_id, int x, int y, Button **but
     if ( x < group->frame->img->bkgnd->surf_rect.x + group->frame->img->bkgnd->surf_rect.w )
     if ( y < group->frame->img->bkgnd->surf_rect.y + group->frame->img->bkgnd->surf_rect.h ) {
         for ( i = 0; i < group->button_count; i++ )
-            if ( group->buttons[i].active )
+            if ( group->buttons[i].active && !group->buttons[i].hidden )
                 if ( button_focus( &group->buttons[i], x, y ) ) {
                     *button = &group->buttons[i];
                     if ( (*button)->down < ((*button)->states) - 1 )
@@ -288,7 +308,8 @@ void group_draw( Group *group )
     frame_draw( group->frame );
     if ( !group->frame->img->bkgnd->hide )
         for ( i = 0; i < group->button_count; i++ )
-            SDL_BlitSurface( group->img, &group->buttons[i].button_rect,
+            if ( !group->buttons[i].hidden )
+                SDL_BlitSurface( group->img, &group->buttons[i].button_rect,
                              group->frame->img->bkgnd->surf, &group->buttons[i].surf_rect );
 }
 
@@ -518,7 +539,8 @@ LBox *lbox_create( SDL_Surface *frame, int alpha, int border, SDL_Surface *butto
     int bx, by;
     LBox *lbox = calloc( 1, sizeof( LBox ) );
     /* group */
-    if ( ( lbox->group = group_create( frame , alpha, buttons, button_w, button_h, 2, ID_INTERN_UP, label, surf, x, y ) ) == 0 )
+    if ( ( lbox->group = group_create( frame , alpha, buttons, button_w, button_h, 2, ID_INTERN_UP,
+           label, 0, surf, x, y ) ) == 0 )
         goto failure;
     /* cells */
     lbox->step = step;
@@ -748,7 +770,7 @@ FDlg *fdlg_create(
         goto failure;
     /* frame */
     button_count = conf_buttons->h / conf_button_h;
-    if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 
+    if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
                                       surf, x + lbox_frame->w, y ) ) == 0 )
         goto failure;
     /* buttons */
@@ -956,13 +978,13 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
 
     /* group with human/cpu control button */
     if ( ( sdlg->ctrl = group_create( ctrl_frame, alpha, ctrl_buttons, 
-                                      ctrl_button_w, ctrl_button_h, 1, id_ctrl, label, surf, x + list_frame->w - 1, y ) ) == 0 )
+                                      ctrl_button_w, ctrl_button_h, 1, id_ctrl, label, 0, surf, x + list_frame->w - 1, y ) ) == 0 )
         goto failure;
     group_add_button( sdlg->ctrl, id_ctrl, ctrl_frame->w - border - ctrl_button_w, ( ctrl_frame->h - ctrl_button_h ) / 2, 0, tr("Switch Control"), 2 );
 
     /* group with ai module select button */
     if ( ( sdlg->module = group_create( mod_frame, alpha, mod_buttons, 
-                                        mod_button_w, mod_button_h, 1, id_mod, label, surf, 
+                                        mod_button_w, mod_button_h, 1, id_mod, label, 0, surf, 
                                         x + list_frame->w - 1, y + ctrl_frame->h ) ) == 0 )
         goto failure;
     group_add_button( sdlg->module, id_mod, ctrl_frame->w - border - ctrl_button_w, ( mod_frame->h - mod_button_h ) / 2, 0, tr("Select AI Module"), 2 );
@@ -973,7 +995,7 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 7, id_conf, label, surf, 
+                                         conf_button_w, conf_button_h, 7, id_conf, label, 0, surf, 
                                          x + list_frame->w - 1, y + ctrl_frame->h + mod_frame->h ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -1027,7 +1049,7 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 4, id_conf, label, surf, 
+                                         conf_button_w, conf_button_h, 4, id_conf, label, 0, surf, 
                                          x - 1, y ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -1212,7 +1234,7 @@ SelectDlg *select_dlg_create(
 	
 	sdlg->button_group = group_create(conf_frame, 160, conf_buttons,
 				conf_button_w, conf_button_h, 2, id_ok, 
-				gui->label, sdl.screen, 0, 0);
+				gui->label, 0, sdl.screen, 0, 0);
 	if (sdlg->button_group == NULL)
 		goto failure;
 	sx = group_get_width( sdlg->button_group ) - 60; 

@@ -278,7 +278,7 @@ int gui_load( const char *dir )
     /* confirm window */
     sprintf( path2, "../themes/%s/confirm_buttons", dir );
     if ( ( gui->confirm = group_create( gui_create_frame( 200, 80 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 20, 20, 6, ID_OK, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 20, 20, 6, ID_OK, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = gui->confirm->frame->img->img->w - 60; sy = gui->confirm->frame->img->img->h - 30;
     group_add_button( gui->confirm, ID_OK, sx, sy, 0, tr("Accept"), 2 ); sx += 30;
@@ -287,21 +287,23 @@ int gui_load( const char *dir )
     /* unit buttons */
     sprintf( path2, "../themes/%s/unit_buttons", dir );
     if ( ( gui->unit_buttons = group_create( gui_create_frame( 30, 230 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 7, ID_SUPPLY, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 9, ID_SUPPLY, gui->label, gui->label2, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->unit_buttons, ID_UNDO, sx, sy, 0, tr("Undo Turn [u]"), 2 ); sy += 40; 
     group_add_button( gui->unit_buttons, ID_SUPPLY, sx, sy, 0, tr("Supply Unit [s]"), 2 ); sy += 30; 
     group_add_button( gui->unit_buttons, ID_EMBARK_AIR, sx, sy, 0, tr("Air Embark"), 2 ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_MERGE, sx, sy, 0, tr("Merge Unit [j]"), 2 ); sy += 30; 
-    group_add_button( gui->unit_buttons, ID_SPLIT, sx, sy, 0, tr("Split Unit [x+1..9]"), 2 ); sy += 30; 
+    group_add_button( gui->unit_buttons, ID_MERGE, sx, sy, 0, tr("Merge Unit [j]"), 2 );
+    group_add_button( gui->unit_buttons, ID_REPLACEMENTS, sx, sy, 0, tr("Replacements"), 2 ); sy += 30;
+    group_add_button( gui->unit_buttons, ID_SPLIT, sx, sy, 0, tr("Split Unit [x+1..9]"), 2 );
+    group_add_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS, sx, sy, 0, tr("Elite Replacements"), 2 ); sy += 30;
     group_add_button( gui->unit_buttons, ID_RENAME, sx, sy, 0, tr("Rename Unit"), 2 ); sy += 40;
     group_add_button( gui->unit_buttons, ID_DISBAND, sx, sy, 0, tr("Disband Unit"), 2 ); 
     group_hide( gui->unit_buttons, 1 );
     /* split menu */
     sprintf( path2, "../themes/%s/strength_buttons", dir );
     if ( ( gui->split_menu = group_create( gui_create_frame( 26, 186 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 20, 20, 10, ID_SPLIT_1, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 20, 20, 10, ID_SPLIT_1, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     for ( i = 0; i < 9; i++ ) {
@@ -313,7 +315,7 @@ int gui_load( const char *dir )
     /* deploy window */
     sprintf( path2, "../themes/%s/deploy_buttons", dir );
     if ( ( gui->deploy_window = group_create( gui_create_frame( 80, 440 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 20, 20, 6, ID_APPLY_DEPLOY, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 20, 20, 6, ID_APPLY_DEPLOY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = gui->deploy_window->frame->img->img->w - 65;
     sy = gui->deploy_window->frame->img->img->h - 60;
@@ -329,7 +331,7 @@ int gui_load( const char *dir )
     /* base menu */
     sprintf( path2, "../themes/%s/menu0_buttons", dir );
     if ( ( gui->base_menu = group_create( gui_create_frame( 30, 250 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 8, ID_MENU, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 8, ID_MENU, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->base_menu, ID_AIR_MODE, sx, sy, 0, tr("Switch Air/Ground [t]"), 2 ); sy += 30; 
@@ -344,7 +346,7 @@ int gui_load( const char *dir )
     /* main_menu */
     sprintf( path2, "../themes/%s/menu1_buttons", dir );
     if ( ( gui->main_menu = group_create( gui_create_frame( 30, 210 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 7, ID_SAVE, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 7, ID_SAVE, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->main_menu, ID_SAVE, sx, sy, 0, tr("Save Game"), 2 ); sy += 30;
@@ -358,7 +360,7 @@ int gui_load( const char *dir )
     /* load menu */
     sprintf( path2, "../themes/%s/menu2_buttons", dir );
     if ( ( gui->load_menu = group_create( gui_create_frame( 30, 246+24 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 11, ID_LOAD_0, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 11, ID_LOAD_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     for ( i = 0; i < SLOT_COUNT; i++ ) {
@@ -370,7 +372,7 @@ int gui_load( const char *dir )
     /* save menu */
     sprintf( path2, "../themes/%s/menu2_buttons", dir );
     if ( ( gui->save_menu = group_create( gui_create_frame( 30, 246 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 10, ID_SAVE_0, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 10, ID_SAVE_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     for ( i = 0; i < 10; i++ ) {
@@ -382,7 +384,7 @@ int gui_load( const char *dir )
     /* options */
     sprintf( path2, "../themes/%s/menu3_buttons", dir );
     if ( ( gui->opt_menu = group_create( gui_create_frame( 30, 300 - 60 ), 160, load_surf( search_file_name( path2, 'i' ),
-                SDL_SWSURFACE ), 24, 24, 10, ID_C_SUPPLY, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE ), 24, 24, 10, ID_C_SUPPLY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     //group_add_button( gui->opt_menu, ID_C_SUPPLY, sx, sy, 1, "Unit Supply" ); sy += 30;
