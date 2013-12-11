@@ -49,6 +49,6 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 ====================================================================
 */
-void search_file_name( char *pathFinalchar *path, char type );
+void search_file_name( char *pathFinal, char *path, char type );
 
 #endif
