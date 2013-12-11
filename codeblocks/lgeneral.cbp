@@ -14,8 +14,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option='-DPACKAGE=\&quot;1.2.DEBUG\&quot;' />
-					<Add option='-DVERSION=\&quot;1.2.DEBUG\&quot;' />
+					<Add option='-DPACKAGE=\&quot;1.2.3.DEBUG\&quot;' />
+					<Add option='-DVERSION=\&quot;1.2.3.DEBUG\&quot;' />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -42,13 +42,13 @@
 			<Add directory="..\" />
 		</Compiler>
 		<Linker>
-			<Add option="-lmingw32 -lintl -MD -lSDLmain -lSDL -lSDL_mixer" />
+			<Add option="-lmingw32 -lintl -MD -lSDLmain -lSDL -lSDL_mixer -lSDL_image" />
 			<Add directory="..\dependencies\lib" />
 			<Add directory="..\dependencies\lib\x86" />
 		</Linker>
 		<ExtraCommands>
 			<Add after="cmd /c copy ..\dependencies\bin .\" />
-			<Add after="cmd /c copy ..\dependencies\lib\x86\ .\" />
+			<Add after="cmd /c copy ..\dependencies\lib\*.dll .\" />
 			<Add after="cmd /c xcopy ..\src\ai_modules .\ai_modules\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\campaigns .\campaigns\ /e /y" />
 			<Add after="cmd /c xcopy ..\src\gfx .\gfx\ /e /y" />
@@ -75,6 +75,7 @@
 			<Add after="cmd /c del themes\Makefile.am" />
 			<Add after="cmd /c del themes\default\Makefile.am" />
 			<Add after="cmd /c del units\Makefile.am" />
+			<Add after="cmd /c copy ..\dependencies\lib\x86\ .\" />
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="lgeneral.ico" />
