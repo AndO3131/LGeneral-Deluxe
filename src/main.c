@@ -249,7 +249,7 @@ static void eval_cmdline(int argc, char **argv)
 
 int main(int argc, char *argv[])
 {
-    char window_name[32];
+    char window_name[64];
 
     locale_init(0);
 
