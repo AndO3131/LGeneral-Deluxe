@@ -91,12 +91,15 @@ static void show_title()
     int dummy;
     Font *font = 0;
     SDL_Surface *back = 0;
-    if ( ( back = load_surf( search_file_name( "title", 'i' ), SDL_SWSURFACE ) ) ) {
+    char path[512];
+    search_file_name( path, "title", 'i' );
+    if ( ( back = load_surf( path, SDL_SWSURFACE ) ) ) {
         FULL_DEST( sdl.screen );
         FULL_SOURCE( back );
         blit_surf();
     }
-    if ( ( font = load_font( search_file_name( "font_credit", 'i' ) ) ) ) {
+    search_file_name( path, "font_credit", 'i' );
+    if ( ( font = load_font( path ) ) ) {
         font->align = ALIGN_X_LEFT | ALIGN_Y_BOTTOM;
         write_text( font, sdl.screen, 2, sdl.screen->h - 14, tr("LGD (C) 2012 http://www.panzercentral.com/forum/viewtopic.php?f=98&t=48535"), 255 );
         font->align = ALIGN_X_LEFT | ALIGN_Y_BOTTOM;

@@ -239,10 +239,10 @@ Check if a file exist.
 */
 int file_exists( const char *path )
 {
-    char full_path[512];
+    char full_path[256];
     get_full_bmp_path( full_path, path );
-    FILE *f;
-    if ( f = fopen( full_path, "r" ) )
+    FILE *f = fopen( full_path, "r" );
+    if ( f )
     {
         fclose(f);
         return 1;
@@ -258,17 +258,16 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 ====================================================================
 */
-char *search_file_name( const char *path, char type )
+void search_file_name( char *pathFinal, char *path, char type )
 {
     int i = 0, found = 0;
-    char pathFinal[256];
     switch (type)
     {
         case 'i':
         {
             while ( ( !found ) && ( i < extension_image_length ) )
             {
-                sprintf( pathFinal, "%s.%s", path, extension_image[i] );
+                snprintf( pathFinal, 256, "%s.%s", path, extension_image[i] );
                 if ( file_exists( pathFinal ) )
                 {
                     found = 1;
@@ -281,7 +280,7 @@ char *search_file_name( const char *path, char type )
         {
             while ( (!found) && i < extension_sound_length )
             {
-                sprintf( pathFinal, "%s.%s", path, extension_sound[i] );
+                snprintf( pathFinal, 256, "%s.%s", path, extension_sound[i] );
                 if ( file_exists( pathFinal ) )
                 {
                     found = 1;
@@ -291,8 +290,6 @@ char *search_file_name( const char *path, char type )
             break;
         }
     }
-    char *path2 = &pathFinal[0];
-    return path2;
 }
 
 #ifdef TESTFILE
