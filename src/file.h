@@ -51,4 +51,11 @@ Extensions are added according to type given.
 */
 int search_file_name( char *pathFinal, char *path, char *modFolder, char type );
 
+/*
+====================================================================
+Find file name in directories. Extension already given.
+====================================================================
+*/
+int search_file_name_exact( char *pathFinal, char *path, char *modFolder );
+
 #endif

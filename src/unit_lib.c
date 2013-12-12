@@ -241,7 +241,7 @@ int unit_lib_load( char *fname, int main )
         best_sea = 0; /* used to relativate evaluations */
     List *entries, *flags;
     PData *pd, *sub, *subsub;
-    char path[512];
+    char path[512], transitionPath[512];
     char *str, *flag;
     char *domain = 0;
     float scale;
@@ -258,7 +258,7 @@ int unit_lib_load( char *fname, int main )
         main = UNIT_LIB_ADD;
     }
     /* parse file */
-    sprintf( path, "%s/units/%s", get_gamedir(), fname );
+    sprintf( path, "%s/pg/Units/%s", get_gamedir(), fname );
     sprintf( log_str, tr("  Parsing '%s'"), fname );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
@@ -292,8 +292,11 @@ int unit_lib_load( char *fname, int main )
             if ( !parser_get_value( sub, "name", &str, 0 ) ) goto parser_failure;
             mov_types[mov_type_count].name = strdup(trd(domain, str));
 #ifdef WITH_SOUND                
-            if ( parser_get_value( sub, "sound", &str, 0 ) ) {
-                mov_types[mov_type_count].wav_move = wav_load( str, 0 );
+            if ( parser_get_value( sub, "sound", &str, 0 ) )
+            {
+                snprintf( transitionPath, 512, "Sound/%s", str );
+                search_file_name_exact( path, transitionPath, "pg" );
+                mov_types[mov_type_count].wav_move = wav_load( path, 0 );
             }
 #endif            
             mov_type_count++;
@@ -319,21 +322,25 @@ int unit_lib_load( char *fname, int main )
         /* unit map tile icons */
         unit_info_icons = calloc( 1, sizeof( Unit_Info_Icons ) );
         if ( !parser_get_value( pd, "strength_icons", &str, 0 ) ) goto parser_failure;
-        sprintf( path, "units/%s", str );
+        sprintf( transitionPath, "Graphics/%s", str );
+        search_file_name_exact( path, transitionPath, "pg" );
         if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_int( pd, "strength_icon_width", &unit_info_icons->str_w ) ) goto parser_failure;
         if ( !parser_get_int( pd, "strength_icon_height", &unit_info_icons->str_h ) ) goto parser_failure;
         if ( !parser_get_value( pd, "attack_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( path, "units/%s", str );
+        sprintf( transitionPath, "Graphics/%s", str );
+        search_file_name_exact( path, transitionPath, "pg" );
         if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "move_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( path, "units/%s", str );
+        sprintf( transitionPath, "Graphics/%s", str );
+        search_file_name_exact( path, transitionPath, "pg" );
         if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
         {
             search_file_name( str, "pg_guard", "", 'i' );
         }
-        sprintf( path, "units/%s", str );
+        sprintf( transitionPath, "Graphics/%s", str );
+        search_file_name_exact( path, transitionPath, "pg" );
         if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
     }
     /* icons */
@@ -345,7 +352,8 @@ int unit_lib_load( char *fname, int main )
     else
         icon_type = UNIT_ICON_ALL_DIRS;
     if ( !parser_get_value( pd, "icons", &str, 0 ) ) goto parser_failure;
-    sprintf( path, "units/%s", str );
+    sprintf( transitionPath, "Graphics/%s", str );
+    search_file_name_exact( path, transitionPath, "pg" );
     write_line( sdl.screen, log_font, tr("  Loading Tactical Icons"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( ( icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
     /* unit lib entries */
@@ -519,7 +527,9 @@ int unit_lib_load( char *fname, int main )
         if ( parser_get_value( sub, "move_sound", &str, 0 ) ) {
             // FIXME reloading the same sound more than once is a
             // big waste of loadtime, runtime, and memory
-            if ( ( unit->wav_move = wav_load( str, 0 ) ) )
+            snprintf( transitionPath, 512, "Sound/%s", str );
+            search_file_name_exact( path, transitionPath, "pg" );
+            if ( ( unit->wav_move = wav_load( path, 0 ) ) )
                 unit->wav_alloc = 1;
             else {
                 unit->wav_move = mov_types[unit->mov_type].wav_move;

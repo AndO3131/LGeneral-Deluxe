@@ -2090,7 +2090,7 @@ static void engine_handle_button( int id )
             camp_loaded = NO_CAMPAIGN;
             config.use_core_units = 0;
             engine_hide_game_menu();
-            sprintf( path, "%s/scenarios", get_gamedir() );
+            sprintf( path, "%s/pg/Scenario", get_gamedir() );
             fdlg_open( gui->scen_dlg, path );
             group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 0 );
             group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 0 );
@@ -2100,7 +2100,7 @@ static void engine_handle_button( int id )
         case ID_CAMP:
             camp_loaded = FIRST_SCENARIO;
             engine_hide_game_menu();
-            sprintf( path, "%s/campaigns", get_gamedir() );
+            sprintf( path, "%s/pg/Campaigns", get_gamedir() );
             fdlg_open( gui->camp_dlg, path );
             group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );
@@ -2394,7 +2394,7 @@ static void engine_handle_button( int id )
             sdlg_hide( gui->scen_setup, 1 );
             group_set_active( gui->module_dlg->group, ID_MODULE_OK, 0 );
             group_set_active( gui->module_dlg->group, ID_MODULE_CANCEL, 1 );
-            sprintf( path, "%s/ai_modules", get_gamedir() );
+            sprintf( path, "%s/Default/AI_modules", get_gamedir() );
             fdlg_open( gui->module_dlg, path );
             status = STATUS_RUN_MODULE_DLG;
             break;

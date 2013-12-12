@@ -325,6 +325,25 @@ int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
     return 0;
 }
 
+/*
+====================================================================
+Find file name in directories. Extension already given.
+====================================================================
+*/
+int search_file_name_exact( char *pathFinal, char *path, char *modFolder )
+{
+    if ( !STRCMP( modFolder, "" ) )
+    {
+        snprintf( pathFinal, 256, "%s/%s", modFolder, path );
+        if ( file_exists( pathFinal ) )
+            return 1;
+    }
+    snprintf( pathFinal, 256, "Default/%s", path );
+    if ( file_exists( pathFinal ) )
+        return 1;
+    return 0; 
+}
+
 #ifdef TESTFILE
 int map_w, map_h;	/* shut up linker in misc.c */
 void char_width() {}

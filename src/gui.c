@@ -189,7 +189,7 @@ Publics
 
 /*
 ====================================================================
-Create the gui and use the graphics in Default/Gfx/themes/...
+Create the gui and use the graphics in <dir>/themes/Graphics/...
 ====================================================================
 */
 int gui_load( char *dir )

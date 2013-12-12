@@ -15,7 +15,7 @@ scenarios {
 
 [***** Europe *****]
 
-first { scenario = pg/Poland
+first { scenario = Poland
   title = "1st September 1939"
   briefing = "Fall Weiß, the conquest of Poland has commenced. Your order is to make an inroad breach through the main Polish defenses and take the towns of Kutno and Lodz by no later than the 10th of September. Failing to do so could cause England and France to declare war against Germany. An earlier completion may make available more resources to your for the assault of Warsaw."
   next { major = warsaw minor = warsaw defeat = gameover }
@@ -26,7 +26,7 @@ first { scenario = pg/Poland
   }
 }
 
-warsaw { scenario = pg/Warsaw
+warsaw { scenario = Warsaw
   title = "10th September 1939"
   briefing = "Despite of your efforts England and France have entered the war against Germany. Additionally, our Eastern ally the Soviet Union has begun invading Poland to take its share of the cake. Thus it is imperative that you advance to the Vistula river and take the key city of Warsaw and surrounding objectives by no later than the 30th of September."
   next { major = norway minor = lowcountries defeat = gameover }
@@ -37,7 +37,7 @@ warsaw { scenario = pg/Warsaw
   }
 }
 
-norway { scenario = pg/Norway
+norway { scenario = Norway
   title = "9th April 1940"
   briefing = "High Command has got a special order for you. In order to secure supply lines of Swedish ore, we prepared operation Weserübung, the invasion of Norway before the English will do so. You have to take Oslo, Stavanger-airport, and a number of Northern towns before the 3rd of May."
   next { major = lowcountries minor = lowcountries defeat = lowcountries }
@@ -48,7 +48,7 @@ norway { scenario = pg/Norway
   }
 }
 
-lowcountries { scenario = pg/LowCountries
+lowcountries { scenario = LowCountries
   title = "10th May 1940"
   briefing = "Now it is the time to make the French and English forces pay for their declarations of war. In an audacious two-pronged attack, your Northern forces will break through Liege, Brussels, Maubeuge, while your Southern forces will force their way through the rough Ardennes forests and take by surprise the northernmost outpost of the Maginot-line, Sedan. Both forces are bound to pass the battlefields of the World War and capture all objectives by the 8th of June. If you capture your objectives much earlier, this could give us a chance to prepare an invasion of England this year."
   next { major = france_sealion minor = france defeat = france }
@@ -59,7 +59,7 @@ lowcountries { scenario = pg/LowCountries
   }
 }
 
-france_sealion { scenario = pg/France
+france_sealion { scenario = France
   title = "@france"
   briefing = "France is weakened and open to attack. Since 1871, this is the first chance to battle down the mightiest army of Europe and face total victory on the Western continent. You are ordered to take Paris and various strategic coastal towns as well as towns of the hinterland. Timing is important, as only an early completion of your mission enables us to finish preparations in time for the invasion of England."
   next { major = sealion40 minor = france_selection defeat = gameover }
@@ -69,7 +69,7 @@ france_sealion { scenario = pg/France
     defeat = "@france"
   }
 }
-france { scenario = pg/France
+france { scenario = France
   title = "5th June 1940"
   briefing = "France is weakened and open to attack. Since 1871, this is the first chance to battle down the mightiest army of Europe and face total victory on the Western continent. You are ordered to take Paris and various strategic coastal towns as well as towns of the hinterland."
   next { major = france_selection minor = france_selection defeat = gameover }
@@ -85,7 +85,7 @@ france_selection {
   options { east = "Balkans" south = "North Africa" }
 }
 
-sealion40 { scenario = pg/Sealion40
+sealion40 { scenario = Sealion40
   title = "1st September 1940"
   briefing = "Your decisive and early success in France gave us plenty of time to prepare operation Sealion, the invasion of England. You have to capture London and various key towns in the vicinity before Autumn weather sets in, causing rough sea and putting our supply lines at stake. This is a unique chance to force England to surrender and end the war."
   next { major = barbarossa_XE minor = sealion40_selection defeat = gameover }
@@ -101,7 +101,7 @@ sealion40_selection {
   options { east = "@france_selection" south = "@france_selection" }
 }
 
-balkans { scenario = pg/Balkans
+balkans { scenario = Balkans
   title = "6th April 1941"
   briefing = "Negotiations with Yugoslavia have failed which in order made them turn against us. Italian forces are fighting a stiff battle at the Metaxas line in Greece and have not been able to gain substancial advantages for over a year, and they may not sustain any longer. For our upcoming invasion of Russia we cannot tolerate an undefeated enemy in our back. Thus it is your mission to capture key Yugoslav towns to make them surrender, and additionally aid Italian troops in their hapless fight against Greek and English adversaries."
   next { major = crete minor = barbarossa defeat = barbarossa }
@@ -112,7 +112,7 @@ balkans { scenario = pg/Balkans
   }
 }
 
-crete { scenario = pg/Crete
+crete { scenario = Crete
   title = "20th May 1941"
   briefing = "Crete has been captured by the English in 1940 as a reaction on Italy's invasion of Albania. Since then, the English have erected air and naval bases which are likely to interfere with our upcoming operations against Soviet Russia. It is your order to take the island, capture the strategic bases, and drive the English troops into the sea. This is the largest airborne operation seen in this war."
   next { major = barbarossa minor = barbarossa defeat = barbarossa }
@@ -125,13 +125,13 @@ crete { scenario = pg/Crete
 
 [***** Eastern Branch *****]
 
-barbarossa_XE { scenario = pg/Barbarossa
+barbarossa_XE { scenario = Barbarossa
   title = "@barbarossa"
   briefing = "@barbarossa"
   next { major = barbarossa_XE_selection minor = kiev_XE defeat = gameover }
   debriefings { defeat = "@barbarossa" }
 }
-barbarossa { scenario = pg/Barbarossa
+barbarossa { scenario = Barbarossa
   title = "22nd June 1941"
   briefing = "Eventually, time has come for operation Barbarossa, the long-term planned invasion of Soviet Russia. You are in charge of Army Group Center, and you have to conduct the main thrust through Soviet defences and keep them running. In order to prevent the enemy from establishing a front line and mobilise reserves from the rear, you have to capture Smolensk and all other objectives before the 7th of September."
   next { major = barbarossa_selection minor = kiev defeat = gameover }
@@ -154,13 +154,13 @@ barbarossa_selection {
   }
 }
 
-kiev_XE { scenario = pg/Kiev
+kiev_XE { scenario = Kiev
   title = "@kiev"
   briefing = "@kiev"
   next { major = moscow41_XE minor = moscow41_XE defeat = sevastapol_XE }
   debriefings { major = "@kiev" minor = "@kiev" defeat = "@kiev" }
 }
-kiev { scenario = pg/Kiev
+kiev { scenario = Kiev
   title = "23rd August 1941"
   briefing = "There has risen an opportunity to terminally cripple Russian forces. Around Kiev we have encountered a large amount of Russian troops. Using blitzkrieg tactics to their fullest extent, you are ordered to pocket and annihilate Soviet resistence in Kiev and surrounding towns. In order to continue our advance towards moscow, it is imperative that you capture all of your objective by no later than the 20th of September."
   next { major = moscow41 minor = moscow41 defeat = sevastapol }
@@ -171,7 +171,7 @@ kiev { scenario = pg/Kiev
   }
 }
 
-earlymoscow_XE { scenario = pg/EarlyMoscow
+earlymoscow_XE { scenario = EarlyMoscow
   title = "@earlymoscow"
   briefing = "@earlymoscow"
   next { major = washington_prep minor = sevastapol_XE defeat = sevastapol_XE }
@@ -180,7 +180,7 @@ earlymoscow_XE { scenario = pg/EarlyMoscow
     minor = "@earlymoscow" defeat = "@earlymoscow"
   }
 }
-earlymoscow { scenario = pg/EarlyMoscow
+earlymoscow { scenario = EarlyMoscow
   title = "8th September 1941"
   briefing = "Moscow, capital and industrial, and logistical center of Russia, is the ultimate objective you have to strive for on the Eastern front. You have to capture Moscow and all other objectives by the 16th of November at the latest. Yet to prevent autumn weather to halt our advance, you should finish your mission several weeks earlier."
   next { major = sealion43_XR minor = moscow41_selection defeat = sevastapol }
@@ -191,7 +191,7 @@ earlymoscow { scenario = pg/EarlyMoscow
   }
 }
 
-moscow41_XE { scenario = pg/Moscow41
+moscow41_XE { scenario = Moscow41
   title = "@moscow41"
   briefing = "@moscow41"
   next { major = washington_prep minor = sevastapol_XE defeat = sevastapol_XE }
@@ -201,7 +201,7 @@ moscow41_XE { scenario = pg/Moscow41
     defeat = "@moscow41"
   }
 }
-moscow41 { scenario = pg/Moscow41
+moscow41 { scenario = Moscow41
   title = "2nd October 1941"
   briefing = "Moscow, capital and industrial, and logistical center of Russia, is the ultimate objective you have to strive for on the Eastern front. You have to capture Moscow and all other objectives by the 4th of December at the latest. Yet to prevent autumn weather to slow down our advance, you should finish your mission several weeks earlier."
   next { major = sealion43_XR minor = moscow41_selection defeat = sevastapol }
@@ -219,13 +219,13 @@ moscow41_selection {
 
 [nooooooooooo! it is called sevast*o*pol, but for compatibility
  reasons, we cannot fix it anymore ]
-sevastapol_XE { scenario = pg/Sevastapol
+sevastapol_XE { scenario = Sevastapol
   title = "@sevastapol"
   briefing = "@sevastapol"
   next { major = stalingrad_XE minor = stalingrad_XE defeat = minordef }
   debriefings { major = "@sevastapol" minor = "@sevastapol" defeat = "@sevastapol" }
 }
-sevastapol { scenario = pg/Sevastapol
+sevastapol { scenario = Sevastapol
   title = "7th June 1942"
   briefing = "We now set our sights on Army Group South which has besieged the Black Sea port of Sevastopol for nearly one year. The time is ripe for an eventual assault on Sevastopol, and you are ordered to conduct it. You have to force your way through the town of Sevastopol and capture all objectives by no later than the 23rd of June. After the Moscow desaster last year, we cannot allow for another defeat."
   next { major = stalingrad minor = stalingrad defeat = gameover }
@@ -236,13 +236,13 @@ sevastapol { scenario = pg/Sevastapol
   }
 }
 
-stalingrad_XE { scenario = pg/Stalingrad
+stalingrad_XE { scenario = Stalingrad
   title = "@stalingrad"
   briefing = "@stalingrad"
   next { major = moscow42_XE minor = kharkov defeat = kharkov }
   debriefings { major = "@stalingrad" minor = "@stalingrad" defeat = "@stalingrad" }
 }
-stalingrad { scenario = pg/Stalingrad
+stalingrad { scenario = Stalingrad
   title = "25th June 1942"
   briefing = "Your next order is to lead the advance towards the industrial center of Stalingrad. Taking Stalingrad will cripple Russia's war industry, and cut supply lines over the Volga river. Thus, you must capture Stalingrad and all other objectives by the 22nd of November at the latest. Keep in mind that if we want to get another chance to advance towards Moscow this year, you have to finish your mission before October. Do not underestimate the vast distances of the steppe, and the supply shortage resulting thereof."
   next { major = moscow42 minor = kharkov defeat = kharkov }
@@ -253,13 +253,13 @@ stalingrad { scenario = pg/Stalingrad
   }
 }
 
-moscow43_XE { scenario = pg/Moscow43
+moscow43_XE { scenario = Moscow43
   title = "9th October 1943"
   briefing = "@moscow43"
   next { major = washington_prep minor = byelorussia_XE defeat = byelorussia_XE }
   debriefings { major = "@moscow41_XE" minor = "@moscow43" defeat = "@moscow43" }
 }
-moscow43 { scenario = pg/Moscow43
+moscow43 { scenario = Moscow43
   title = "9th October 1943"
   briefing = "For this year, we have gained another chance to advance towards Moscow, the logistical and industrial center of Russia. It is imperative that you take Moscow and all other objectives by no later than the 28th of December before winter weather will bring our advance to a halt. However, to garrison the city against russian counterattacks, you should finish your mission several weeks earlier. This is the ultimate chance to end the war in the East."
   next { major = dday_XR minor = moscow43_selection defeat = byelorussia }
@@ -275,13 +275,13 @@ moscow43_selection {
   options { east = "Byelorussia" west = "D-Day" }
 }
 
-moscow42_XE { scenario = pg/Moscow42
+moscow42_XE { scenario = Moscow42
   title = "@moscow42"
   briefing = "@moscow42"
   next { major = washington_prep minor = kharkov_XE defeat = kharkov_XE }
   debriefings { major = "@moscow41_XE" minor = "@moscow42" defeat = "@moscow42" }
 }
-moscow42 { scenario = pg/Moscow42
+moscow42 { scenario = Moscow42
   title = "1st October 1942"
   briefing = "We have now another chance to advance towards Moscow and end the war in the East. However, the Soviet defenders are much better prepared this time. Therefore, it is imperative that you capture Moscow and a multitude of other objectives by the 28th of December at the latest. However, to make the Russians actually surrender, it is necessary to finish your mission several weeks earlier."
   next { major = sealion43_XR minor = kharkov defeat = kharkov }
@@ -292,13 +292,13 @@ moscow42 { scenario = pg/Moscow42
   }
 }
 
-kharkov_XE { scenario = pg/Kharkov
+kharkov_XE { scenario = Kharkov
   title = "@kharkov"
   briefing = "@kharkov"
   next { major = moscow43_XE minor = kursk_XE defeat = byelorussia_XE }
   debriefings { major = "@kharkov" minor = "@kharkov" defeat = "@kharkov" }
 }
-kharkov { scenario = pg/Kharkov
+kharkov { scenario = Kharkov
   title = "11th February 1943"
   briefing = "As a result of their winter offensive, Russian troops are spread thin in the area of Kharkov. This is an excellent opportunity to start a counter-attack, annihilate the Soviet strike forces, and retake Kharkov. If you take Kharkov and all other objectives by at least the 4th of March, we may continue our advance in 1943. To undertake the necessary preparations for an attack of Moscow, it is imperative that you finish your mission much earlier."
   next { major = moscow43 minor = kursk defeat = byelorussia }
@@ -309,13 +309,13 @@ kharkov { scenario = pg/Kharkov
   }
 }
 
-kursk_XE { scenario = pg/Kursk
+kursk_XE { scenario = Kursk
   title = "@kursk"
   briefing = "@kursk"
   next { major = moscow43_XE minor = byelorussia_XE defeat = byelorussia_XE }
   debriefings { major = "@kursk" minor = "@kursk" defeat = "@kursk" }
 }
-kursk { scenario = pg/Kursk
+kursk { scenario = Kursk
   title = "5th July 1943"
   briefing = "Since the front lines have stabilised, there is a pocket of Russian defenders around Kursk. Our strategy is to break through Soviet defenses from the North and South, and cut off and terminate all adversaries. Be aware that the Soviets have no doubt about our intentions, and have prepared their defenses well. You must take Kursk at any rate. Taking all other objectives by no later than the 24th of July will enable High Command to prepare for another assault on Moscow in 1943."
   next { major = moscow43 minor = kursk_selection defeat = byelorussia }
@@ -331,7 +331,7 @@ kursk_selection {
   options { east = "Byelorussia" south = "Anzio" }
 }
 
-byelorussia_XE { scenario = pg/Byelorussia
+byelorussia_XE { scenario = Byelorussia
   title = "@byelorussia"
   briefing = "@byelorussia"
   next { major = budapest_XW minor = budapest_XW defeat = berlineast }
@@ -340,7 +340,7 @@ byelorussia_XE { scenario = pg/Byelorussia
     minor = "Holding Warsaw temporarily relieved us from pressure on the Eastern front, and enabled us to prepare further operations."
   }
 }
-byelorussia { scenario = pg/Byelorussia
+byelorussia { scenario = Byelorussia
   title = "22nd June 1944"
   briefing = "Soviet Russia has eventually launched its long expected summer offensive of 1944, ironically on the self same day we initiated operation Barbarossa three years ago. You are in charge of Army Group Center, and you must stop the Russian attack at any rate, and retake all objectives to turn the tides. If the odds are too strong, hold at least Warsaw until the 27th of August."
   next { major = ardennes minor = ardennes defeat = berlin }
@@ -350,7 +350,7 @@ byelorussia { scenario = pg/Byelorussia
   }
 }
 
-budapest_XW { scenario = pg/Budapest
+budapest_XW { scenario = Budapest
   title = "@budapest"
   briefing = "@budapest"
   next { major = minorvic minor = berlineast defeat = berlineast }
@@ -360,7 +360,7 @@ budapest_XW { scenario = pg/Budapest
     defeat = "@budapest"
   }
 }
-budapest { scenario = pg/Budapest
+budapest { scenario = Budapest
   title = "6th March 1945"
   briefing = "We have gathered all strike forces for the ultimate offensive on the Eastern front. You have to take Budapest and all other objectives by no later than the 25th of March. To ensure that the Russians will not recover from the offensive, and sign a favourable peace treaty, you should capture all objectives several days earlier."
   next { major = berlinwest minor = berlin defeat = berlin }
@@ -373,7 +373,7 @@ budapest { scenario = pg/Budapest
 
 [***** Western Branch *****]
 
-sealion43_XR { scenario = pg/Sealion43
+sealion43_XR { scenario = Sealion43
   title = "@sealion43"
   briefing = "@sealion43"
   next { major = washington_prep minor = anzio_XR defeat = anzio_XR }
@@ -383,7 +383,7 @@ sealion43_XR { scenario = pg/Sealion43
     defeat = "Your failure to conquer England in time before American reinforcements arrived has given the enemy the strength to strike back, and force our troops back to the continent."
   }
 }
-sealion43 { scenario = pg/Sealion43
+sealion43 { scenario = Sealion43
   title = "15th June 1943"
   briefing = "High Command has prepared an invasion of England this summer, and you are to lead the forces. This is the ultimate chance to knock England out of the war, and we have to succeed this time. As the English have established an alliance with the Americans, expect some US expeditionary forces aiding in the defense of England. You are ordered to take London and all other objectives by 13th of July at the latest, when strong American reinforcements are expected to arrive. In order to consolidate our defenses, you should finish your mission earlier."
   next { major = moscow43_XE minor = moscow43 defeat = anzio }
@@ -394,7 +394,7 @@ sealion43 { scenario = pg/Sealion43
   }
 }
 
-anzio_XR { scenario = pg/Anzio
+anzio_XR { scenario = Anzio
   title = "@anzio"
   briefing = "@anzio"
   next { major = dday_XR minor = dday_XR defeat = minordef }
@@ -402,7 +402,7 @@ anzio_XR { scenario = pg/Anzio
     defeat = "The mission was a disaster. Not sustaining allowed the Allies to invade Germany from the South. Thanks to your earlier victory over Russia, quickly established war industries allowed us to fend off the capturing of Germany, allowing us to negotiate a peace treaty at minor disadvantages."
   }
 }
-anzio { scenario = pg/Anzio
+anzio { scenario = Anzio
   title = "22nd January 1944"
   briefing = "The Allies have fought up all their way from Sicily to the center of Italy. While we halted their advance at the Gustav line, the Allies performed a massive landing operation at the beachhead of Anzio-Nettuno. To prevent detriment to the Reich, it is imperative that you fend off this massive onslaught at all costs. You have to hold at least Rome and two other objectives to turn the battle into a more favourable direction."
   next { major = anzio_selection minor = dday defeat = majordef }
@@ -418,13 +418,13 @@ anzio_selection {
   options { west = "D-Day" east = "Byelorussia" }
 }
 
-dday_XR { scenario = pg/D-Day
+dday_XR { scenario = D-Day
   title = "@dday"
   briefing = "@dday"
   next { major = anvil_XR minor = cobra_XR defeat = cobra_XR }
   debriefings { major = "@dday" minor = "@dday" defeat = "@dday" }
 }
-dday { scenario = pg/D-Day
+dday { scenario = D-Day
   title = "6th June 1944"
   briefing = "In Normandy, the expected landings of Allied forces have commenced. The is the biggest invasion even seen by man, and you must stop it. You have to hold all your objectives to inflict a defeat to the Allied operations."
   next { major = anvil minor = cobra defeat = cobra }
@@ -435,13 +435,13 @@ dday { scenario = pg/D-Day
   }
 }
 
-anvil_XR { scenario = pg/Anvil
+anvil_XR { scenario = Anvil
   title = "@anvil"
   briefing = "@anvil"
   next { major = ardennes_XR minor = marketgarden_XR defeat = marketgarden_XR }
   debriefings { major = "@anvil" minor = "@anvil" defeat = "@anvil" }
 }
-anvil { scenario = pg/Anvil
+anvil { scenario = Anvil
   title = "6th August 1944"
   briefing = "After their bloody repulse in Normandy, the Allies attempt a second invasion in Southern France. Hold all objectives until the 28th of August to make this invasion a disaster to the Allies again. Otherwise, hold at least two objectives to slow down the Allied advance."
   next { major = ardennes minor = marketgarden defeat = marketgarden }
@@ -452,13 +452,13 @@ anvil { scenario = pg/Anvil
   }
 }
 
-cobra_XR { scenario = pg/Cobra
+cobra_XR { scenario = Cobra
   title = "@cobra"
   briefing = "@cobra"
   next { major = ardennes_XR minor = marketgarden_XR defeat = marketgarden_XR }
   debriefings { major = "@cobra" minor = "@cobra" defeat = "@cobra" }
 }
-cobra { scenario = pg/Cobra
+cobra { scenario = Cobra
   title = "25th July 1944"
   briefing = "The Allies extended their beachheads in Normandy and have built up considerable strength. With our troops scattered and exhausted, you face a hopeless battle against overwhelming forces. Your order is to hold all objectives as well as to retake Cherbourg, Carentan, and Caen. If not feasible, hold at least three objectives until the 18th of August."
   next { major = ardennes minor = marketgarden defeat = marketgarden }
@@ -469,7 +469,7 @@ cobra { scenario = pg/Cobra
   }
 }
 
-ardennes_XR { scenario = pg/Ardennes
+ardennes_XR { scenario = Ardennes
   title = "@ardennes"
   briefing = "@ardennes"
   next { major = minorvic minor = berlinwest defeat = berlinwest }
@@ -479,7 +479,7 @@ ardennes_XR { scenario = pg/Ardennes
     defeat = "@ardennes"
   }
 }
-ardennes { scenario = pg/Ardennes
+ardennes { scenario = Ardennes
   title = "16th December 1944"
   briefing = "We have entrenched ourselves at the Siegfried line and have observed Allied spearheads to slow down considerably. Thus, we prepared a strike force for a counter-attack, called operation Wacht am Rhein, in an attempt to precipitate a decision in the West. If you capture all objectives until the 31st of December, we are in a strong position to negotiate a peace treaty."
   next { major = budapest_XW minor = berlin defeat = berlin }
@@ -490,13 +490,13 @@ ardennes { scenario = pg/Ardennes
   }
 }
 
-marketgarden_XR { scenario = pg/MarketGarden
+marketgarden_XR { scenario = MarketGarden
   title = "@marketgarden"
   briefing = "@marketgarden"
   next { major = ardennes_XR minor = ardennes_XR defeat = berlinwest }
   debriefings { major = "@marketgarden" minor = "@marketgarden" defeat = "@marketgarden" }
 }
-marketgarden { scenario = pg/MarketGarden
+marketgarden { scenario = MarketGarden
   title = "17th September 1944"
   briefing = "The Allies have launched a surprise airborne attack at Arnhem to capture a bridge across the Rhine. Yet, their slow outbreak from Normandy gave us plenty of time to establish potent defenses. Your order is to capture and hold the city of Arnhem until the 25th of September, and clean the area from paratroop landings before Allied reinforcements arrive."
   next { major = ardennes minor = ardennes defeat = berlin }
@@ -509,7 +509,7 @@ marketgarden { scenario = pg/MarketGarden
 
 [***** North Africa Branch *****]
 
-northafrica { scenario = pg/NorthAfrica
+northafrica { scenario = NorthAfrica
   title = "31st March 1941"
   briefing = "You are now in charge of the Africa Corps to aid Italian troops in their battle against English mediterranean dependencies in North Africa. Strategically, High Commands attempts to take Egypt, and then to proceed towards Persia to open up a new Southern front into Russia. You have to take all objectives until the 27th of June at the latest, but to allow us to garrison sufficiently against counter-attacks, you should finish the mission earlier."
   next { major = middleeast minor = northafrica_selection defeat = torch }
@@ -524,7 +524,7 @@ northafrica_selection {
   options { south = "Staying in the desert" east = "Kiev" }
 }
 
-elalamein { scenario = pg/ElAlamein
+elalamein { scenario = ElAlamein
   title = "26th May 1942"
   briefing = "We were eventually able to halt the English counter offensive, and are now ready to perform another attack. While we do not have to gain as much ground as last year, English restistence is expected to be much stronger. While the chance for invading the Middle East has been lost, we may be able to prepare another invasion of England if the North African chapter is closed in time. You have to take all objectives by no later than the 28th of September. Yet, in order to finish preparations for an invasion of England this year, you have to finish you mission several weeks earlier."
   next { major = sealion43 minor = torch defeat = torch }
@@ -535,7 +535,7 @@ elalamein { scenario = pg/ElAlamein
   }
 }
 
-middleeast { scenario = pg/MiddleEast
+middleeast { scenario = MiddleEast
   title = "1st September 1941"
   briefing = "Your next order is to secure the Middle East and Mesopotamia in order to allow for a new Southern front into the Caucasus. Take all objectives by the 15th of November at the latest before autumn rainfalls will stop our advance in the mud."
   next { major = sealion43 minor = caucasus defeat = elalamein }
@@ -549,7 +549,7 @@ middleeast_selection {
   options { england = "Sealion43" caucasus = "Caucasus" }
 }
 
-torch { scenario = pg/Torch
+torch { scenario = Torch
   title = "8th November 1942"
   briefing = "Meanwhile, the Africa Corps is facing another threat from the West. This is the initial landing of US expeditionary forces in Tunesia after their declaration of war against Germany. Though unexperienced, they outnumber our troops by far, and must not be underestimated. Your order is to force the American troops from the continent, taking all objectives. As a last resort, you have to hold at least Tunis and two other objectives to make the outcome favourable to us."
   next { major = torch_selection minor = husky defeat = husky }
@@ -565,7 +565,7 @@ torch_selection {
   options { south = "Husky" east = "Kursk" }
 }
 
-husky { scenario = pg/Husky
+husky { scenario = Husky
   title = "10th July 1943"
   briefing = "The British and American forces have begun invading Sicily, our ill-defended entrance gate to Southern Europe. Your orders are to hold all objectives. If this is not feasible, hold at least two objectives to slow down the Allied advance."
   next { major = husky_selection minor = anzio defeat = anzio }
@@ -580,7 +580,7 @@ husky_selection {
   options { south = "Staying in Italy" east = "Moscow" }
 }
 
-caucasus { scenario = pg/Caucasus
+caucasus { scenario = Caucasus
   title = "30th June 1942"
   briefing = "@stalingrad"
   next { major = moscow42 minor = kharkov defeat = kharkov }
@@ -599,7 +599,7 @@ washington_prep {
   briefing = ""
   next { next = washington }
 }
-washington { scenario = pg/Washington
+washington { scenario = Washington
   title = "1st June 1945"
   briefing = "With African and Russian resources, we heavily increased the output of our war industries, consequentially enabling us to gain hold onto American soil. Our troops have advanced to the gates of Washington, and your order is to capture it. Take Washington and all other objectives by the 3rd of August at the latest. Intelligence reports that the Americans are testing a secret weapon, which will be ready for mid-July. Hence, to reduce German casualties and to emphasise our strong position, you should finish your mission by then."
   next { major = majorvic minor = minorvic defeat = minordef }
@@ -609,7 +609,7 @@ washington { scenario = pg/Washington
     defeat = "Fanatic resistence kept our troops from advancing fast enough before the Americans used their secret weapon, the Atomic Bomb. Thus, heavy losses forced us to retract our troops from the American continent. Your America adventure has been a disaster, but General Staff ows you acknowledgement for your earlier victories over Western and Eastern Europe."
   }
 }
-berlin { scenario = pg/Berlin
+berlin { scenario = Berlin
   title = "1st April 1945"
   briefing = "This is the last stand. You have to fight against tremendous odds at either side of the front. Hold Berlin at any rate. Losing is not an option."
   next { major = draw minor = minordef defeat = majordef }
@@ -619,7 +619,7 @@ berlin { scenario = pg/Berlin
     defeat = "The former mighty Reich is reduced to rubbles. No authority is left to even sign a peace treaty. Germany has ceased to exist."
   }
 }
-berlineast { scenario = pg/BerlinEast
+berlineast { scenario = BerlinEast
   title = "1st April 1945"
   briefing = "We are now facing a massive force in the East invading German soil. Your order is to hold Berlin and at least five other objectives to prevent further detriment to the Reich."
   next { major = minorvic minor = draw defeat = majordef }
@@ -629,7 +629,7 @@ berlineast { scenario = pg/BerlinEast
     defeat = "@berlin"
   }
 }
-berlinwest { scenario = pg/BerlinWest
+berlinwest { scenario = BerlinWest
   title = "1st April 1945"
   briefing = "We are now facing a massive force in the West invading German soil. Your order is to hold Berlin and at least five other objectives to prevent further detriment to the Reich."
   next { major = minorvic minor = draw defeat = majordef }
