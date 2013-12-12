@@ -189,10 +189,10 @@ Publics
 
 /*
 ====================================================================
-Create the gui and use the graphics in gfx/themes/...
+Create the gui and use the graphics in Default/Gfx/themes/...
 ====================================================================
 */
-int gui_load( const char *dir )
+int gui_load( char *dir )
 {
     char str[128];
     int i;
@@ -204,68 +204,68 @@ int gui_load( const char *dir )
     /* name */
     gui->name = strdup( dir );
     /* frame tiles */
-    sprintf( transitionPath, "../themes/%s/fr_luc", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_luc" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_luc = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_luc, 0, 0 );
-    sprintf( transitionPath, "../themes/%s/fr_llc", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_llc" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_llc = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_llc, 0, 0 );
-    sprintf( transitionPath, "../themes/%s/fr_ruc", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_ruc" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_ruc = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_ruc, 0, 0 );
-    sprintf( transitionPath, "../themes/%s/fr_rlc", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_rlc" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_rlc = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_rlc, 0, 0 );
-    sprintf( transitionPath, "../themes/%s/fr_hori", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_hori" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_hori = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_hori, 0, 0 );
-    sprintf( transitionPath, "../themes/%s/fr_vert", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/fr_vert" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->fr_vert = load_surf( path, SDL_SWSURFACE );
     SDL_SetColorKey( gui->fr_vert, 0, 0 );
     /* briefing frame and background */
-    sprintf( transitionPath, "../themes/%s/bkgnd", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/bkgnd" );
+    search_file_name( path, transitionPath, dir, 'i' );
     if ( ( gui->bkgnd = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto sdl_failure;
-    sprintf( transitionPath, "../themes/%s/brief_frame", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/brief_frame" );
+    search_file_name( path, transitionPath, dir, 'i' );
     if ( ( gui->brief_frame = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto sdl_failure;
-    sprintf( transitionPath, "../themes/%s/wallpaper", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/wallpaper" );
+    search_file_name( path, transitionPath, dir, 'i' );
     if ( ( gui->wallpaper = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto sdl_failure;
     /* folder */
-    sprintf( transitionPath, "../themes/%s/folder", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/folder" );
+    search_file_name( path, transitionPath, dir, 'i' );
     if ( ( gui->folder_icon = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto sdl_failure;
     /* basic fonts */
-    sprintf( transitionPath, "../themes/%s/font_std", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/font_std" );
+    search_file_name( path, transitionPath, dir, 'i' );
     strcpy( path2, path );
     gui->font_std = load_font( path2 );
-    sprintf( transitionPath, "../themes/%s/font_status", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/font_status" );
+    search_file_name( path, transitionPath, dir, 'i' );
     strcpy( path2, path );
     gui->font_status = load_font( path2 );
-    sprintf( transitionPath, "../themes/%s/font_error", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/font_error" );
+    search_file_name( path, transitionPath, dir, 'i' );
     strcpy( path2, path );
     gui->font_error = load_font( path2 );
-    sprintf( transitionPath, "../themes/%s/font_turn_info", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/font_turn_info" );
+    search_file_name( path, transitionPath, dir, 'i' );
     strcpy( path2, path );
     gui->font_turn_info = load_font( path2 );
-    sprintf( transitionPath, "../themes/%s/font_brief", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/font_brief" );
+    search_file_name( path, transitionPath, dir, 'i' );
     strcpy( path2, path );
     gui->font_brief = load_font( path2 );
     /* cursors */
-    sprintf( transitionPath, "../themes/%s/cursors", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/cursors" );
+    search_file_name( path, transitionPath, dir, 'i' );
     if ( ( gui->cursors = image_create( load_surf( path, SDL_SWSURFACE ), 
                 22, 22, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -292,8 +292,8 @@ int gui_load( const char *dir )
         goto failure;
     frame_hide( gui->sinfo, 1 );
     /* confirm window */
-    sprintf( transitionPath, "../themes/%s/confirm_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/confirm_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->confirm = group_create( gui_create_frame( 200, 80 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 20, 20, 6, ID_OK, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -302,8 +302,8 @@ int gui_load( const char *dir )
     group_add_button( gui->confirm, ID_CANCEL, sx, sy, 0, tr("Cancel"), 2 );
     group_hide( gui->confirm, 1 );
     /* unit buttons */
-    sprintf( transitionPath, "../themes/%s/unit_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/unit_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->unit_buttons = group_create( gui_create_frame( 30, 230 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 9, ID_SUPPLY, gui->label, gui->label2, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -319,8 +319,8 @@ int gui_load( const char *dir )
     group_add_button( gui->unit_buttons, ID_DISBAND, sx, sy, 0, tr("Disband Unit"), 2 ); 
     group_hide( gui->unit_buttons, 1 );
     /* split menu */
-    sprintf( transitionPath, "../themes/%s/strength_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/strength_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->split_menu = group_create( gui_create_frame( 26, 186 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 20, 20, 10, ID_SPLIT_1, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -332,8 +332,8 @@ int gui_load( const char *dir )
     }
     group_hide( gui->split_menu, 1 );
     /* deploy window */
-    sprintf( transitionPath, "../themes/%s/deploy_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/deploy_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->deploy_window = group_create( gui_create_frame( 80, 440 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 20, 20, 6, ID_APPLY_DEPLOY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -349,8 +349,8 @@ int gui_load( const char *dir )
         goto failure;
     edit_hide( gui->edit, 1 );
     /* base menu */
-    sprintf( transitionPath, "../themes/%s/menu0_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/menu0_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->base_menu = group_create( gui_create_frame( 30, 250 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 8, ID_MENU, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -365,8 +365,8 @@ int gui_load( const char *dir )
     group_add_button( gui->base_menu, ID_MENU, sx, sy, 0, tr("Main Menu"), 2 );
     group_hide( gui->base_menu, 1 );
     /* main_menu */
-    sprintf( transitionPath, "../themes/%s/menu1_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/menu1_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->main_menu = group_create( gui_create_frame( 30, 210 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 7, ID_SAVE, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -380,8 +380,8 @@ int gui_load( const char *dir )
     group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game"), 2 );
     group_hide( gui->main_menu, 1 );
     /* load menu */
-    sprintf( transitionPath, "../themes/%s/menu2_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/menu2_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->load_menu = group_create( gui_create_frame( 30, 246+24 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 11, ID_LOAD_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -393,8 +393,8 @@ int gui_load( const char *dir )
     }
     group_hide( gui->load_menu, 1 );
     /* save menu */
-    sprintf( transitionPath, "../themes/%s/menu2_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/menu2_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->save_menu = group_create( gui_create_frame( 30, 246 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 10, ID_SAVE_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -406,8 +406,8 @@ int gui_load( const char *dir )
     }
     group_hide( gui->save_menu, 1 );
     /* options */
-    sprintf( transitionPath, "../themes/%s/menu3_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/menu3_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     if ( ( gui->opt_menu = group_create( gui_create_frame( 30, 300 - 60 ), 160, load_surf( path2,
                 SDL_SWSURFACE ), 24, 24, 10, ID_C_SUPPLY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -424,10 +424,10 @@ int gui_load( const char *dir )
     group_add_button( gui->opt_menu, ID_C_VMODE, sx, sy, 0, tr("Video Mode [v]"), 2 );
     group_hide( gui->opt_menu, 1 );
     /* video mode dialog */
-    sprintf( transitionPath, "../themes/%s/scroll_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/confirm_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/confirm_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     gui->vmode_dlg = select_dlg_create( gui_create_frame( 210, 120 ), 
 			    load_surf( path2, SDL_SWSURFACE ), 24, 24,
 			    8, 190, 12, lbox_render_text,
@@ -436,10 +436,10 @@ int gui_load( const char *dir )
 			    ID_VMODE_OK, sdl.screen, 0, 0);
     select_dlg_hide( gui->vmode_dlg, 1 );
     /* scenario dialogue */
-    sprintf( transitionPath, "../themes/%s/scen_dlg_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/scroll_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/scen_dlg_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     gui->scen_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE), 24, 24,
                                  20,
@@ -452,10 +452,10 @@ int gui_load( const char *dir )
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
-    sprintf( transitionPath, "../themes/%s/scen_dlg_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/scroll_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/scen_dlg_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     gui->camp_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE), 24, 24,
                                  20,
@@ -468,14 +468,14 @@ int gui_load( const char *dir )
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
     /* scenario setup window */
-    sprintf( transitionPath, "../themes/%s/scroll_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/ctrl_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/module_buttons", dir );
-    search_file_name( path3, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/scen_setup_confirm_buttons", dir );
-    search_file_name( path4, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/ctrl_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/module_buttons" );
+    search_file_name( path3, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/scen_setup_confirm_buttons", dir );
+    search_file_name( path4, transitionPath, dir, 'i' );
     gui->scen_setup = sdlg_create( 
                              gui_create_frame( 120, 120 ), load_surf( path, SDL_SWSURFACE ),
                              24, 24, 20, 
@@ -490,8 +490,8 @@ int gui_load( const char *dir )
                              sdl.screen, 0, 0 );
     sdlg_hide( gui->scen_setup, 1 );
     /* campaign setup window */
-    sprintf( transitionPath, "../themes/%s/camp_setup_confirm_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/camp_setup_confirm_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->camp_setup = sdlg_camp_create( 
                              gui_create_frame( 150, 40 ),  load_surf( path, SDL_SWSURFACE ),
                              24, 24, ID_CAMP_SETUP_OK,
@@ -500,10 +500,10 @@ int gui_load( const char *dir )
                              sdl.screen, 0, 0 );
     sdlg_hide( gui->camp_setup, 1 );
     /* module dialogue */
-    sprintf( transitionPath, "../themes/%s/confirm_buttons", dir );
-    search_file_name( path, transitionPath, 'i' );
-    sprintf( transitionPath, "../themes/%s/scroll_buttons", dir );
-    search_file_name( path2, transitionPath, 'i' );
+    sprintf( transitionPath, "Themes/confirm_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
     gui->module_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE), 24, 24,
                                  20,
@@ -515,7 +515,7 @@ int gui_load( const char *dir )
                                  sdl.screen, 0, 0 );
     fdlg_hide( gui->module_dlg, 1 );
     /* purchase dialogue */
-    sprintf( path2, "../themes/%s", dir );
+    sprintf( path2, "%s/Themes", dir );
     if ( (gui->purchase_dlg = purchase_dlg_create( path2 )) == NULL)
 	    goto failure;
     purchase_dlg_hide( gui->purchase_dlg, 1 );
@@ -523,11 +523,11 @@ int gui_load( const char *dir )
     gui_adjust();
     /* sounds */
 #ifdef WITH_SOUND
-    sprintf( transitionPath, "../themes/%s/click", dir );
-    search_file_name( path, transitionPath, 's' );
+    sprintf( transitionPath, "Themes/click" );
+    search_file_name( path, transitionPath, dir, 's' );
     gui->wav_click = wav_load( path, 1 );
-    sprintf( transitionPath, "../themes/%s/edit", dir );
-    search_file_name( path, transitionPath, 's' );
+    sprintf( transitionPath, "Themes/edit" );
+    search_file_name( path, transitionPath, dir, 's' );
     gui->wav_edit = wav_load( path, 1 );
 #endif
     log_font = gui->font_std;

@@ -258,19 +258,51 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 ====================================================================
 */
-void search_file_name( char *pathFinal, char *path, char type )
+int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
 {
-    int i = 0, found = 0;
+    int i = 0;
+    if ( !STRCMP( modFolder, "" ) )
+    {
+        switch (type)
+        {
+            case 'i':
+            {
+                while ( i < extension_image_length )
+                {
+                    snprintf( pathFinal, 256, "%s/%s.%s", modFolder, path, extension_image[i] );
+                    if ( file_exists( pathFinal ) )
+                    {
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
+            case 's':
+            {
+                while ( i < extension_sound_length )
+                {
+                    snprintf( pathFinal, 256, "%s/%s.%s", modFolder, path, extension_sound[i] );
+                    if ( file_exists( pathFinal ) )
+                    {
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
+        }
+    }
     switch (type)
     {
         case 'i':
         {
-            while ( ( !found ) && ( i < extension_image_length ) )
+            while ( i < extension_image_length )
             {
-                snprintf( pathFinal, 256, "%s.%s", path, extension_image[i] );
+                snprintf( pathFinal, 256, "Default/%s.%s", path, extension_image[i] );
                 if ( file_exists( pathFinal ) )
                 {
-                    found = 1;
+                    return 1;
                 }
                 i++;
             }
@@ -278,18 +310,19 @@ void search_file_name( char *pathFinal, char *path, char type )
         }
         case 's':
         {
-            while ( (!found) && i < extension_sound_length )
+            while ( i < extension_sound_length )
             {
-                snprintf( pathFinal, 256, "%s.%s", path, extension_sound[i] );
+                snprintf( pathFinal, 256, "Default/%s.%s", path, extension_sound[i] );
                 if ( file_exists( pathFinal ) )
                 {
-                    found = 1;
+                    return 1;
                 }
                 i++;
             }
             break;
         }
     }
+    return 0;
 }
 
 #ifdef TESTFILE

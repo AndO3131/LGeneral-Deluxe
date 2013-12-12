@@ -188,7 +188,7 @@ struct MessagePane;
 Create the gui and use the graphics in gfx/themes/path
 ====================================================================
 */
-int gui_load( const char *path );
+int gui_load( char *path );
 void gui_delete();
 
 /*

@@ -4143,7 +4143,7 @@ Create engine (load resources that are not modified by scenario)
 int engine_create()
 {
     slots_init();
-    gui_load( "default" );
+    gui_load( "Default" );
     return 1;
 }
 void engine_delete()

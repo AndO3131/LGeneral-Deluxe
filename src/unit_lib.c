@@ -331,7 +331,7 @@ int unit_lib_load( char *fname, int main )
         if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
         {
-            search_file_name( str, "pg_guard", 'i' );
+            search_file_name( str, "pg_guard", "", 'i' );
         }
         sprintf( path, "units/%s", str );
         if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 

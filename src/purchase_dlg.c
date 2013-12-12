@@ -610,10 +610,10 @@ static void handle_purchase_button( PurchaseDlg *pdlg )
 
 /** Create and return pointer to purchase dialogue. Use graphics from theme
  * path @theme_path. */
-PurchaseDlg *purchase_dlg_create( const char *theme_path )
+PurchaseDlg *purchase_dlg_create( char *theme_path )
 {
 	PurchaseDlg *pdlg = NULL;
-	char path[512], path2[512], transitionPath[512];
+	char path[512], transitionPath[512];
 	int sx, sy;
 	
 	pdlg = calloc( 1, sizeof(PurchaseDlg) );
@@ -621,11 +621,10 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 		return NULL;
 	
 	/* create main group (= main window) */
-	snprintf( transitionPath, 512, "%s/confirm_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "confirm_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->main_group = group_create( gui_create_frame( 300, 320 ), 160, 
-				load_surf( path2, SDL_SWSURFACE ),
+				load_surf( path, SDL_SWSURFACE ),
 				20, 20, 2, ID_PURCHASE_OK,
 				gui->label, 0, sdl.screen, 0, 0 );
 	if (pdlg->main_group == NULL)
@@ -644,55 +643,50 @@ PurchaseDlg *purchase_dlg_create( const char *theme_path )
 		goto failure;
 	
 	/* create nation listbox */
-	snprintf( transitionPath, 512, "%s/scroll_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "scroll_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->nation_lbox = lbox_create( gui_create_frame( 112, 74 ), 160, 6,
-			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			3, 1, 100, 12, 1, 0x0000ff,
 			render_lbox_nation, sdl.screen, 0, 0);
 	if (pdlg->nation_lbox == NULL)
 		goto failure;
 	
 	/* create class listbox */
-	snprintf( transitionPath, 512, "%s/scroll_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "scroll_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->uclass_lbox = lbox_create( gui_create_frame( 112, 166 ), 160, 6,
-			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			10, 2, 100, 12, 1, 0x0000ff,
 			render_lbox_uclass, sdl.screen, 0, 0);
 	if (pdlg->uclass_lbox == NULL)
 		goto failure;
 	
 	/* create units listbox */
-	snprintf( transitionPath, 512, "%s/scroll_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "scroll_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->unit_lbox = lbox_create( gui_create_frame( 112, 200 ), 160, 6,
-			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			4, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->unit_lbox == NULL)
 		goto failure;
 	
 	/* create transporters listbox */
-	snprintf( transitionPath, 512, "%s/scroll_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "scroll_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->trsp_lbox = lbox_create( gui_create_frame( 112, 120 ), 160, 6,
-			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			2, 1, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->trsp_lbox == NULL)
 		goto failure;
 	
 	/* create reinforcements listbox */
-	snprintf( transitionPath, 512, "%s/scroll_buttons", theme_path );
-    search_file_name( path, transitionPath, 'i' );
-    strcpy( path2, path );
+	snprintf( transitionPath, 512, "scroll_buttons" );
+    search_file_name( path, transitionPath, theme_path, 'i' );
 	pdlg->reinf_lbox = lbox_create( gui_create_frame( 112, 280 ), 160, 6,
-			load_surf( path2, SDL_SWSURFACE ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			6, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_reinf, sdl.screen, 0, 0);
 	if (pdlg->reinf_lbox == NULL)

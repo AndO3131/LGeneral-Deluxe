@@ -33,7 +33,7 @@ typedef struct {
 
 /** Purchase dialogue interface, see C-file for detailed comments. */
 
-PurchaseDlg *purchase_dlg_create( const char *theme_path );
+PurchaseDlg *purchase_dlg_create( char *theme_path );
 void purchase_dlg_delete( PurchaseDlg **pdlg );
 
 int purchase_dlg_get_width(PurchaseDlg *pdlg); 

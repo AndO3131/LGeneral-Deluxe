@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -99,13 +101,10 @@ Wave
 */
 Wav* wav_load( char *fname, int channel )
 {
-    char path[512];
     Wav *wav = 0;
     if ( !audio_ok ) return 0;
     wav = calloc( 1, sizeof( Wav ) );
-    /* use SRCDIR/sounds as source directory */
-    sprintf( path, "%s/sounds/%s", get_gamedir(), fname );
-    wav->chunk = Mix_LoadWAV( path );
+    wav->chunk = Mix_LoadWAV( fname );
     if ( wav->chunk == 0 ) {
         fprintf( stderr, "%s\n", SDL_GetError() );
         free( wav ); wav = 0;
