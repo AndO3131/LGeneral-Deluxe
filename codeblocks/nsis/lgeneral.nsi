@@ -43,9 +43,9 @@
 !insertmacro MUI_LANGUAGE "English"
 
 ; MUI end ------
-
+RequestExecutionLevel user
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "SetupLGeneral.exe"
+OutFile "LGeneral Installer.exe"
 InstallDir "$PROGRAMFILES\LGeneral"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
