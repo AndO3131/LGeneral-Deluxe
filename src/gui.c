@@ -380,31 +380,27 @@ int gui_load( char *dir )
     group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game"), 2 );
     group_hide( gui->main_menu, 1 );
     /* load menu */
-    sprintf( transitionPath, "Themes/menu2_buttons" );
-    search_file_name( path2, transitionPath, dir, 'i' );
-    if ( ( gui->load_menu = group_create( gui_create_frame( 30, 246+24 ), 160, load_surf( path2,
-                SDL_SWSURFACE ), 24, 24, 11, ID_LOAD_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
-        goto failure;
-    sx = 3; sy = 3;
-    for ( i = 0; i < SLOT_COUNT; i++ ) {
-        sprintf( str, tr("Load: %s"), slot_get_name( i ) );
-        group_add_button( gui->load_menu, ID_LOAD_0 + i, sx, sy, 0, str, 2 );
-        sy += 24;
-    }
-    group_hide( gui->load_menu, 1 );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    gui->load_menu = fdlg_save_create( gui_create_frame( 600, 400 ), 160, 10,
+                                              load_surf( path, SDL_SWSURFACE), 24, 24,
+                                              20,
+                                              ID_LOAD_OK, 
+                                              gui->label, 
+                                              gui_render_file_name, gui_render_scen_info,
+                                              sdl.screen, 0, 0 );
+    fdlg_hide( gui->load_menu, 1 );
     /* save menu */
-    sprintf( transitionPath, "Themes/menu2_buttons" );
-    search_file_name( path2, transitionPath, dir, 'i' );
-    if ( ( gui->save_menu = group_create( gui_create_frame( 30, 246 ), 160, load_surf( path2,
-                SDL_SWSURFACE ), 24, 24, 10, ID_SAVE_0, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
-        goto failure;
-    sx = 3; sy = 3;
-    for ( i = 0; i < 10; i++ ) {
-        sprintf( str, tr("Save: %s"), slot_get_name( i ) );
-        group_add_button( gui->save_menu, ID_SAVE_0 + i, sx, sy, 0, str, 2 );
-        sy += 24;
-    }
-    group_hide( gui->save_menu, 1 );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    gui->save_menu = fdlg_save_create( gui_create_frame( 600, 400 ), 160, 10,
+                                              load_surf( path, SDL_SWSURFACE), 24, 24,
+                                              20,
+                                              ID_LOAD_OK, 
+                                              gui->label, 
+                                              gui_render_file_name, gui_render_scen_info,
+                                              sdl.screen, 0, 0 );
+    fdlg_hide( gui->save_menu, 1 );
     /* options */
     sprintf( transitionPath, "Themes/menu3_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
@@ -474,7 +470,7 @@ int gui_load( char *dir )
     search_file_name( path2, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Themes/module_buttons" );
     search_file_name( path3, transitionPath, dir, 'i' );
-    sprintf( transitionPath, "Themes/scen_setup_confirm_buttons", dir );
+    sprintf( transitionPath, "Themes/scen_setup_confirm_buttons" );
     search_file_name( path4, transitionPath, dir, 'i' );
     gui->scen_setup = sdlg_create( 
                              gui_create_frame( 120, 120 ), load_surf( path, SDL_SWSURFACE ),
@@ -570,8 +566,8 @@ void gui_delete()
         group_delete( &gui->deploy_window );
         group_delete( &gui->base_menu );
         group_delete( &gui->main_menu );
-        group_delete( &gui->load_menu );
-        group_delete( &gui->save_menu );
+        fdlg_delete( &gui->load_menu );
+        fdlg_delete( &gui->save_menu );
         group_delete( &gui->opt_menu );
 	select_dlg_delete( &gui->vmode_dlg );
         fdlg_delete( &gui->scen_dlg );
@@ -673,8 +669,8 @@ void gui_get_bkgnds()
     frame_get_bkgnd( gui->sinfo );
     group_get_bkgnd( gui->base_menu );
     group_get_bkgnd( gui->main_menu );
-    group_get_bkgnd( gui->load_menu );
-    group_get_bkgnd( gui->save_menu );
+    fdlg_get_bkgnd( gui->load_menu );
+    fdlg_get_bkgnd( gui->save_menu );
     group_get_bkgnd( gui->opt_menu );
     group_get_bkgnd( gui->unit_buttons);
     group_get_bkgnd( gui->split_menu );
@@ -700,8 +696,8 @@ void gui_draw_bkgnds()
     frame_draw_bkgnd( gui->sinfo );
     group_draw_bkgnd( gui->base_menu );
     group_draw_bkgnd( gui->main_menu );
-    group_draw_bkgnd( gui->load_menu );
-    group_draw_bkgnd( gui->save_menu );
+    fdlg_draw_bkgnd( gui->load_menu );
+    fdlg_draw_bkgnd( gui->save_menu );
     group_draw_bkgnd( gui->opt_menu );
     group_draw_bkgnd( gui->unit_buttons);
     group_draw_bkgnd( gui->split_menu );
@@ -727,8 +723,8 @@ void gui_draw()
     frame_draw( gui->sinfo ); 
     group_draw( gui->base_menu ); 
     group_draw( gui->main_menu );
-    group_draw( gui->load_menu );
-    group_draw( gui->save_menu );
+    fdlg_draw( gui->load_menu );
+    fdlg_draw( gui->save_menu );
     group_draw( gui->opt_menu );
     group_draw( gui->unit_buttons);
     group_draw( gui->split_menu );
@@ -794,8 +790,8 @@ int gui_handle_motion( int cx, int cy )
     int ret = 1;
     if ( !group_handle_motion( gui->base_menu, cx, cy ) )
     if ( !group_handle_motion( gui->main_menu, cx, cy ) )
-    if ( !group_handle_motion( gui->load_menu, cx, cy ) )
-    if ( !group_handle_motion( gui->save_menu, cx, cy ) )
+    if ( !fdlg_handle_motion( gui->load_menu, cx, cy ) )
+    if ( !fdlg_handle_motion( gui->save_menu, cx, cy ) )
     if ( !group_handle_motion( gui->opt_menu, cx, cy ) )
     if ( !group_handle_motion( gui->unit_buttons, cx, cy ) )
     if ( !group_handle_motion( gui->split_menu, cx, cy ) )
@@ -819,8 +815,8 @@ int  gui_handle_button( int button_id, int cx, int cy, Button **button )
     *button = 0;
     if ( !group_handle_button( gui->base_menu, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->main_menu, button_id, cx, cy, button ) )
-    if ( !group_handle_button( gui->load_menu, button_id, cx, cy, button ) )
-    if ( !group_handle_button( gui->save_menu, button_id, cx, cy, button ) )
+    if ( !fdlg_handle_button( gui->load_menu, button_id, cx, cy, button ) )
+    if ( !fdlg_handle_button( gui->save_menu, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->opt_menu, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->unit_buttons, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->split_menu, button_id, cx, cy, button ) )
@@ -1506,11 +1502,11 @@ void gui_update_slot_tooltips()
     char str[128];
     for ( i = 0; i < SLOT_COUNT; i++ ) {
         sprintf( str, tr("Load: %s"), slot_get_name( i ) );
-        strcpy_lt( group_get_button( gui->load_menu, ID_LOAD_0 + i )->tooltip, str, 31 );
+//        strcpy_lt( group_get_button( gui->load_menu, ID_LOAD_0 + i )->tooltip, str, 31 );
     }
     for ( i = 0; i < 10; i++ ) {
         sprintf( str, tr("Save: %s"), slot_get_name( i ) );
-        strcpy_lt( group_get_button( gui->save_menu, ID_SAVE_0 + i )->tooltip, str, 31 );
+//        strcpy_lt( group_get_button( gui->save_menu, ID_SAVE_0 + i )->tooltip, str, 31 );
     }
 }
 

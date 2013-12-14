@@ -807,28 +807,92 @@ void fdlg_delete( FDlg **fdlg )
 
 /*
 ====================================================================
+Create a save file dialogue. The listbox is empty as default.
+The first two buttons in conf_buttons are added as ok and cancel.
+For all other buttons found in conf_buttons there is spaces
+reserved and this buttons may be added by fdlg_add_button().
+====================================================================
+*/
+FDlg *fdlg_save_create( 
+                        SDL_Surface *lbox_frame, int alpha, int border,
+                        SDL_Surface *lbox_buttons, int lbox_button_w, int lbox_button_h,
+                        int cell_h,
+                        int id_ok, 
+                        Label *label, 
+                        void (*lbox_cb)( void*, SDL_Surface* ),
+                        void (*file_cb)( const char*, SDL_Surface* ),
+                        SDL_Surface *surf, int x, int y )
+{
+    int info_w, info_h;
+    int cell_count, cell_w;
+    FDlg *dlg = calloc( 1, sizeof( FDlg ) );
+    /* listbox */
+    cell_w = lbox_frame->w - 2 * border;
+    cell_count = ( lbox_frame->h - 2 * border - lbox_button_h ) / ( cell_h + 1 );
+    if ( ( dlg->lbox = lbox_create( lbox_frame, alpha, border,
+                                    lbox_buttons, lbox_button_w, lbox_button_h, 
+                                    label, 
+                                    cell_count, 4, cell_w, cell_h, 1, 0x0000ff, 
+                                    lbox_cb, surf, x, y ) ) == 0 )
+        goto failure;
+    /* frame */
+//    button_count = conf_buttons->h / conf_button_h;
+    dlg->group = 0;
+/*    if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
+                                      surf, x + lbox_frame->w, y ) ) == 0 )
+        goto failure;*/
+    
+    /* buttons */
+/*    dlg->button_y = lbox_frame->h - border - conf_button_h;
+    dlg->button_x = lbox_frame->w;
+    dlg->button_dist = 10 + conf_button_w;
+    group_add_button( dlg->lbox, id_ok, dlg->button_x - dlg->button_dist * 2, dlg->button_y, 0, tr("Ok"), 2 );
+    group_add_button( dlg->lbox, id_ok + 1, dlg->button_x - dlg->button_dist, dlg->button_y, 0, tr("Cancel"), 2 );*/
+    /* file callback */
+    dlg->file_cb = file_cb;
+    /* info region */
+    info_w = lbox_frame->w - 2 * border;
+    info_h = lbox_frame->h - 2 * border;
+    dlg->info_x = border;
+    dlg->info_y = border;
+    dlg->info_buffer = create_surf( info_w, info_h, SDL_SWSURFACE );
+    /* path */
+    strcpy( dlg->root, "/" );
+    dlg->subdir[0] = 0;
+    return dlg;
+failure:
+    fdlg_delete( &dlg );
+    return 0;
+}
+
+/*
+====================================================================
 Draw file dialogue
 ====================================================================
 */
 void fdlg_hide( FDlg *fdlg, int hide )
 {
     buffer_hide( fdlg->lbox->group->frame->img->bkgnd, hide );
-    buffer_hide( fdlg->group->frame->img->bkgnd, hide );
+    if ( fdlg->group )
+        buffer_hide( fdlg->group->frame->img->bkgnd, hide );
 }
 void fdlg_get_bkgnd( FDlg *fdlg )
 {
     buffer_get( fdlg->lbox->group->frame->img->bkgnd );
-    buffer_get( fdlg->group->frame->img->bkgnd );
+    if ( fdlg->group )
+        buffer_get( fdlg->group->frame->img->bkgnd );
 }
 void fdlg_draw_bkgnd( FDlg *fdlg )
 {
     buffer_draw( fdlg->lbox->group->frame->img->bkgnd );
-    buffer_draw( fdlg->group->frame->img->bkgnd );
+    if ( fdlg->group )
+        buffer_draw( fdlg->group->frame->img->bkgnd );
 }
 void fdlg_draw( FDlg *fdlg )
 {
     group_draw( fdlg->lbox->group );
-    group_draw( fdlg->group );
+    if ( fdlg->group )
+        group_draw( fdlg->group );
 }
 
 /*
@@ -839,12 +903,14 @@ Modify file dialogue settings
 void fdlg_set_surface( FDlg *fdlg, SDL_Surface *surf )
 {
     group_set_surface( fdlg->lbox->group, surf );
-    group_set_surface( fdlg->group, surf );
+    if ( fdlg->group )
+        group_set_surface( fdlg->group, surf );
 }
 void fdlg_move( FDlg *fdlg, int x, int y )
 {
     group_move( fdlg->lbox->group, x, y );
-    group_move( fdlg->group, x + fdlg->lbox->group->frame->img->img->w - 1, y );
+    if ( fdlg->group )
+        group_move( fdlg->group, x + fdlg->lbox->group->frame->img->img->w - 1, y );
 }
 
 /*
@@ -868,8 +934,11 @@ void fdlg_open( FDlg *fdlg, const char *root )
     strcpy( fdlg->root, root );
     fdlg->subdir[0] = 0;
     lbox_set_items( fdlg->lbox, dir_get_entries( root, root, 0 ) );
-    SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
-    frame_apply( fdlg->group->frame );
+    if ( fdlg->group )
+    {
+        SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
+        frame_apply( fdlg->group->frame );
+    }
     fdlg_hide( fdlg, 0 );
 }
 
@@ -881,11 +950,20 @@ handle_motion updates the focus of the buttons
 int fdlg_handle_motion( FDlg *fdlg, int cx, int cy )
 {
     void *item;
-    if ( !fdlg->group->frame->img->bkgnd->hide ) {
-        if ( !lbox_handle_motion( fdlg->lbox, cx, cy, &item ) )
-        if ( !group_handle_motion( fdlg->group, cx, cy ) )
-            return 0;
-        return 1;
+    if ( !fdlg->lbox->group->frame->img->bkgnd->hide ) {
+        if ( fdlg->group )
+        {
+            if ( !lbox_handle_motion( fdlg->lbox, cx, cy, &item ) )
+            if ( !group_handle_motion( fdlg->group, cx, cy ) )
+                return 0;
+            return 1;
+        }
+        else
+        {
+            if ( !lbox_handle_motion( fdlg->lbox, cx, cy, &item ) )
+                return 0;
+            return 1;
+        }
     }
     return 0;
 }
@@ -899,12 +977,14 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
     char path[512];
     void *item = 0;
     char *fname;
-    if ( !fdlg->group->frame->img->bkgnd->hide ) {
-        if ( group_handle_button( fdlg->group, button_id, cx, cy, button ) )
-            return 1;
+    if ( !fdlg->lbox->group->frame->img->bkgnd->hide ) {
+        if ( fdlg->group )
+            if ( group_handle_button( fdlg->group, button_id, cx, cy, button ) )
+                return 1;
         if ( lbox_handle_button( fdlg->lbox, button_id, cx, cy, button, &item ) ) {
             if ( item ) {
-                SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
+                if ( fdlg->group )
+                    SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
                 fname = (char*)item;
                 if ( fname[0] == '*' ) {
                     /* switch directory */
@@ -935,10 +1015,13 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         sprintf( path, "%s/%s", fdlg->subdir, fname );
                     (fdlg->file_cb)( path, fdlg->info_buffer );
                 }
-                DEST( fdlg->group->frame->contents, fdlg->info_x, fdlg->info_y, fdlg->info_buffer->w, fdlg->info_buffer->h );
-                SOURCE( fdlg->info_buffer, 0, 0 );
-                blit_surf();
-                frame_apply( fdlg->group->frame );
+                if ( fdlg->group )
+                {
+                    DEST( fdlg->group->frame->contents, fdlg->info_x, fdlg->info_y, fdlg->info_buffer->w, fdlg->info_buffer->h );
+                    SOURCE( fdlg->info_buffer, 0, 0 );
+                    blit_surf();
+                    frame_apply( fdlg->group->frame );
+                }
             }
         }
         return 0;

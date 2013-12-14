@@ -410,6 +410,24 @@ void fdlg_delete( FDlg **fdlg );
 
 /*
 ====================================================================
+Create a save file dialogue. The listbox is empty as default.
+The first two buttons in conf_buttons are added as ok and cancel.
+For all other buttons found in conf_buttons there is spaces
+reserved and this buttons may be added by fdlg_add_button().
+====================================================================
+*/
+FDlg *fdlg_save_create( 
+                        SDL_Surface *lbox_frame, int alpha, int border,
+                        SDL_Surface *lbox_buttons, int lbox_button_w, int lbox_button_h,
+                        int cell_h,
+                        int id_ok, 
+                        Label *label, 
+                        void (*lbox_cb)( void*, SDL_Surface* ),
+                        void (*file_cb)( const char*, SDL_Surface* ),
+                        SDL_Surface *surf, int x, int y );
+
+/*
+====================================================================
 Draw file dialogue
 ====================================================================
 */

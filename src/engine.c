@@ -646,11 +646,11 @@ static void engine_show_game_menu( int cx, int cy )
     group_lock_button( gui->opt_menu, ID_C_SOUND, config.sound_on );
     /* loads */
     gui_update_slot_tooltips();
-    for ( i = 0; i < SLOT_COUNT; i++ )
+/*    for ( i = 0; i < SLOT_COUNT; i++ )
         if ( slot_is_valid( i ) )
             group_set_active( gui->load_menu, ID_LOAD_0 + i, 1 );
         else
-            group_set_active( gui->load_menu, ID_LOAD_0 + i, 0 );
+            group_set_active( gui->load_menu, ID_LOAD_0 + i, 0 );*/
 }
 static void engine_hide_game_menu()
 {
@@ -663,8 +663,8 @@ static void engine_hide_game_menu()
         engine_set_status( STATUS_NONE );
     group_hide( gui->base_menu, 1 );
     group_hide( gui->main_menu, 1 );
-    group_hide( gui->save_menu, 1 );
-    group_hide( gui->load_menu, 1 );
+    fdlg_hide( gui->save_menu, 1 );
+    fdlg_hide( gui->load_menu, 1 );
     group_hide( gui->opt_menu, 1 );
     old_mx = old_my = -1;
 }
@@ -2072,8 +2072,8 @@ static void engine_handle_button( int id )
             group_hide( gui->main_menu, 0 );
             break;
         case ID_OPTIONS:
-            group_hide( gui->load_menu, 1 );
-            group_hide( gui->save_menu, 1 );
+            fdlg_hide( gui->load_menu, 1 );
+            fdlg_hide( gui->save_menu, 1 );
             x = gui->main_menu->frame->img->bkgnd->surf_rect.x + 30 - 1;
             y = gui->main_menu->frame->img->bkgnd->surf_rect.y;
             if ( y + gui->opt_menu->frame->img->img->h >= sdl.screen->h )
@@ -2108,24 +2108,24 @@ static void engine_handle_button( int id )
             status = STATUS_RUN_CAMP_DLG;
             break;
         case ID_SAVE:
-            group_hide( gui->load_menu, 1 );
+            fdlg_hide( gui->load_menu, 1 );
             group_hide( gui->opt_menu, 1 );
-            x = gui->main_menu->frame->img->bkgnd->surf_rect.x + 30 - 1;
-            y = gui->main_menu->frame->img->bkgnd->surf_rect.y;
-            if ( y + gui->save_menu->frame->img->img->h >= sdl.screen->h )
-                y = sdl.screen->h - gui->save_menu->frame->img->img->h;
-            group_move( gui->save_menu, x, y );
-            group_hide( gui->save_menu, 0 );
+            x = ( sdl.screen->w - gui->save_menu->lbox->group->frame->img->img->w ) / 2;
+            y = ( sdl.screen->h - gui->save_menu->lbox->group->frame->img->img->h ) / 2;
+            sprintf( path, "%s/pg/Save", get_gamedir() );
+            fdlg_open( gui->save_menu, path );
+            fdlg_move( gui->save_menu, x, y );
+            fdlg_hide( gui->save_menu, 0 );
             break;
         case ID_LOAD:
-            group_hide( gui->save_menu, 1 );
+            fdlg_hide( gui->save_menu, 1 );
             group_hide( gui->opt_menu, 1 );
-            x = gui->main_menu->frame->img->bkgnd->surf_rect.x + 30 - 1;
-            y = gui->main_menu->frame->img->bkgnd->surf_rect.y;
-            if ( y + gui->load_menu->frame->img->img->h >= sdl.screen->h )
-                y = sdl.screen->h - gui->load_menu->frame->img->img->h;
-            group_move( gui->load_menu, x, y );
-            group_hide( gui->load_menu, 0 );
+            x = ( sdl.screen->w - gui->load_menu->lbox->group->frame->img->img->w ) / 2;
+            y = ( sdl.screen->h - gui->load_menu->lbox->group->frame->img->img->h ) / 2;
+            sprintf( path, "%s/pg/Save", get_gamedir() );
+            fdlg_open( gui->load_menu, path );
+            fdlg_move( gui->load_menu, x, y );
+            fdlg_hide( gui->load_menu, 0 );
             break;
         case ID_QUIT:
             engine_hide_game_menu();

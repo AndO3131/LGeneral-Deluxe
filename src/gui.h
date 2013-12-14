@@ -72,6 +72,7 @@ enum {
     ID_SCEN,
     ID_OPTIONS,
     ID_QUIT,
+    ID_LOAD_OK,
     ID_LOAD_0,
     ID_LOAD_1,
     ID_LOAD_2,
@@ -83,6 +84,7 @@ enum {
     ID_LOAD_8,
     ID_LOAD_9,
     ID_LOAD_10,
+    ID_SAVE_OK,
     ID_SAVE_0,
     ID_SAVE_1,
     ID_SAVE_2,
@@ -158,8 +160,8 @@ typedef struct {
     Group *base_menu; /* basic menu (switch airmode, deploy, end turn, menu ...) */
     Group *main_menu; /* main game menu */
     Group *opt_menu;  /* options */
-    Group *load_menu;
-    Group *save_menu;
+    FDlg *load_menu;
+    FDlg *save_menu;
     SelectDlg *vmode_dlg;
     FDlg *scen_dlg;    /* scenario selection */
     FDlg *camp_dlg;    /* campaign selection */
