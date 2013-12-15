@@ -644,13 +644,6 @@ static void engine_show_game_menu( int cx, int cy )
     group_lock_button( gui->opt_menu, ID_C_SHOW_CPU, config.show_cpu_turn );
     group_lock_button( gui->opt_menu, ID_C_SHOW_STRENGTH, config.show_bar );
     group_lock_button( gui->opt_menu, ID_C_SOUND, config.sound_on );
-    /* loads */
-    gui_update_slot_tooltips();
-/*    for ( i = 0; i < SLOT_COUNT; i++ )
-        if ( slot_is_valid( i ) )
-            group_set_active( gui->load_menu, ID_LOAD_0 + i, 1 );
-        else
-            group_set_active( gui->load_menu, ID_LOAD_0 + i, 0 );*/
 }
 static void engine_hide_game_menu()
 {
@@ -710,7 +703,7 @@ removed. If 'last_persistent_action' does not exist, all
 actions are removed.
 ====================================================================
 */
-static void engine_confirm_actions( Action *last_persistent_action, const char *text )
+static void engine_confirm_actions( Action *last_persistent_action, Group *group, const char *text )
 {
     top_committed_action = last_persistent_action;
     gui_show_confirm( text );
@@ -1979,6 +1972,12 @@ static void engine_handle_button( int id )
 
     switch ( id ) {
         /* loads */
+        case ID_LOAD_OK:
+            break;
+        case ID_LOAD_CANCEL:
+            fdlg_hide( gui->load_menu, 1 );
+            engine_set_status( STATUS_NONE );
+            break;
         case ID_LOAD_0:
         case ID_LOAD_1:
         case ID_LOAD_2:
@@ -2108,24 +2107,18 @@ static void engine_handle_button( int id )
             status = STATUS_RUN_CAMP_DLG;
             break;
         case ID_SAVE:
-            fdlg_hide( gui->load_menu, 1 );
-            group_hide( gui->opt_menu, 1 );
-            x = ( sdl.screen->w - gui->save_menu->lbox->group->frame->img->img->w ) / 2;
-            y = ( sdl.screen->h - gui->save_menu->lbox->group->frame->img->img->h ) / 2;
+            engine_hide_game_menu();
             sprintf( path, "%s/pg/Save", get_gamedir() );
             fdlg_open( gui->save_menu, path );
-            fdlg_move( gui->save_menu, x, y );
-            fdlg_hide( gui->save_menu, 0 );
+            group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
+            group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
             break;
         case ID_LOAD:
-            fdlg_hide( gui->save_menu, 1 );
-            group_hide( gui->opt_menu, 1 );
-            x = ( sdl.screen->w - gui->load_menu->lbox->group->frame->img->img->w ) / 2;
-            y = ( sdl.screen->h - gui->load_menu->lbox->group->frame->img->img->h ) / 2;
+            engine_hide_game_menu();
             sprintf( path, "%s/pg/Save", get_gamedir() );
             fdlg_open( gui->load_menu, path );
-            fdlg_move( gui->load_menu, x, y );
-            fdlg_hide( gui->load_menu, 0 );
+            group_set_active( gui->load_menu->group, ID_LOAD_OK, 0 );
+            group_set_active( gui->load_menu->group, ID_LOAD_CANCEL, 1 );
             break;
         case ID_QUIT:
             engine_hide_game_menu();
@@ -2451,7 +2444,7 @@ static void engine_handle_button( int id )
             if ( cur_ctrl == PLAYER_CTRL_HUMAN ) {
                 if ( deploy_turn ) {
                     action_queue_end_turn();
-                    engine_confirm_actions( last_act, tr("End deployment?") );
+                    engine_confirm_actions( last_act, gui->confirm, tr("End deployment?") );
                 } else {
                     action_queue_set_spot_mask();
                     action_queue_draw_map();
@@ -3221,7 +3214,7 @@ static void engine_handle_next_action( int *reinit )
             break;
         case ACTION_LOAD:
             setup.type = SETUP_LOAD_GAME;
-            strcpy( setup.fname, slot_get_fname( action->id ) );
+//            strcpy( setup.fname, slot_get_fname( action->id ) );
             setup.slot_id = action->id;
             *reinit = 1;
             end_scen = 1;

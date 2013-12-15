@@ -73,6 +73,7 @@ enum {
     ID_OPTIONS,
     ID_QUIT,
     ID_LOAD_OK,
+    ID_LOAD_CANCEL,
     ID_LOAD_0,
     ID_LOAD_1,
     ID_LOAD_2,
@@ -85,6 +86,7 @@ enum {
     ID_LOAD_9,
     ID_LOAD_10,
     ID_SAVE_OK,
+    ID_SAVE_CANCEL,
     ID_SAVE_0,
     ID_SAVE_1,
     ID_SAVE_2,
@@ -364,13 +366,6 @@ void gui_show_menu( int x, int y );
 
 /*
 ====================================================================
-Update save slot names.
-====================================================================
-*/
-void gui_update_slot_tooltips();
-
-/*
-====================================================================
 Render the file name to surface. (directories start with an
 asteriks)
 ====================================================================
@@ -387,11 +382,25 @@ void gui_render_scen_info( const char *path, SDL_Surface *buffer );
 
 /*
 ====================================================================
+Handle the selection of a file to load
+====================================================================
+*/
+void gui_render_load_menu( const char *path, SDL_Surface *buffer );
+
+/*
+====================================================================
 Handle the selection of a campaign file (display info and 
 load scen_info from full path)
 ====================================================================
 */
 void gui_render_camp_info( const char *path, SDL_Surface *buffer );
+
+/*
+====================================================================
+Handle loading saved file (render confirmation dialogue)
+====================================================================
+*/
+void gui_render_load( const char *path, SDL_Surface *buffer );
 
 /*
 ====================================================================
