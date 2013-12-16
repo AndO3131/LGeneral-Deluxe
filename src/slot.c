@@ -64,17 +64,7 @@ extern char *camp_fname;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;
 
-/*
-====================================================================
-Slot struct
-====================================================================
-*/
-typedef struct {
-    char name[256];  /* displayed name */
-    char fname[256]; /* file name */
-    int  valid;      /* may load from this slot? */
-} Slot;
-Slot slots[SLOT_COUNT];
+char fname[256]; /* file name */
 
 /*
 ====================================================================
@@ -95,6 +85,7 @@ enum StorageVersion {
     StoreGlobalVersioning,
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
     StoreCoreVersionData, /* Core army data are stored in savegame */
+    StoreNewFolderStructure, /* scenarios have new folder structure */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -125,13 +116,13 @@ static int is_saved_game( char *file_name, int *i )
 Save/load slot name to/from file.
 ====================================================================
 */
-static void slot_read_name( Slot *slot, FILE *file )
+static void slot_read_name( char *name, FILE *file )
 {
-    fread( slot->name, sizeof( slot->name ), 1, file );
+    fread( fname, 256, 1, file );
 }
-static void slot_write_name( Slot *slot, FILE *file )
+static void slot_write_name( char *name, FILE *file )
 {
-    fwrite( slot->name, sizeof( slot->name ), 1, file );
+    fwrite( fname, 256, 1, file );
 }
 
 /*
@@ -757,63 +748,31 @@ Check the save directory for saved games and add them to the
 slot list else setup a new entry: '_index_ <empty>'
 ====================================================================
 */
-void slots_init()
+/*void slots_init()
 {
     int i;
     DIR *dir = 0;
     struct dirent *entry = 0;
-    FILE *file = 0;
-    /* set all slots empty */
-    for ( i = 0; i < SLOT_COUNT; i++ ) {
-        sprintf( slots[i].name, "<emtpy>" );
-        slots[i].fname[0] = 0;
-        slots[i].valid = 0;
-    }
+    FILE *file = 0;*/
     /* open directory */
-    if ( ( dir = opendir( config.dir_name ) ) == 0 ) {
+/*    if ( ( dir = opendir( config.dir_name ) ) == 0 ) {
         fprintf( stderr, tr("init_slots: can't open directory '%s' to read saved games\n"),
                  config.dir_name );
         return;
     }
-    /* read all directory entries */
-    while ( ( entry = readdir( dir ) ) != 0 ) {
-        if ( is_saved_game( entry->d_name, &i ) ) {
-            sprintf( slots[i].fname, "%s/%s", config.dir_name, entry->d_name );
-            if ( ( file = fopen( slots[i].fname, "r" ) ) == 0 ) {
-                fprintf( stderr, tr("'%s': file not found\n"), slots[i].fname );
-                break;
-            }
-            /* read slot::name saved there */
-            slot_read_name( &slots[i], file );
-            fclose( file );
-            slots[i].valid = 1;
-        }
-    }
     closedir(dir);
-}
+}*/
 
 /*
 ====================================================================
 Get full slot name from id.
 ====================================================================
 */
-char *slot_get_name( int id )
-{
-    if ( id >= SLOT_COUNT ) id = 0;
-    return slots[id].name;
-}
-
-/*
-====================================================================
-Get slot's file name. This slot name may be passed to
-slot_load/save().
-====================================================================
-*/
-char *slot_get_fname( int id )
-{
-    if ( id >= SLOT_COUNT ) id = 0;
-    return slots[id].fname;
-}
+//char *slot_get_name( int id )
+//{
+//    if ( id >= SLOT_COUNT ) id = 0;
+//    return slots[id].name;
+//}
 
 /*
 ====================================================================
@@ -863,10 +822,6 @@ int slot_save( int id, char *name )
         fprintf( stderr, tr("%s: not found\n"), path );
         return 0;
     }
-    /* update slot name */
-    strcpy( slots[id].name, name );
-    /* write slot identification */
-    slot_write_name( &slots[id], file );
     /* write version */
     save_int(file, StoreHighestSupportedVersion);
     /* if campaign is set some campaign info follows */
@@ -914,14 +869,12 @@ int slot_save( int id, char *name )
         for ( j = 0; j < map_h; j++ )
             save_map_tile_flag( file, map_tile( i, j ) );
     fclose( file );
-    /* is valid now */
-    slots[id].valid = 1;
     return 1;
 }
-int slot_load( int id )
+int slot_load( char *name )
 {
     FILE *file = 0;
-    char path[512];
+    char path[512], temp[256];
     int camp_saved;
     int i, j;
     char *scen_file_name = 0;
@@ -930,7 +883,7 @@ int slot_load( int id )
 	
     store_version = StoreVersionLegacy;
     /* get file name */
-    sprintf( path, "%s/lg_save_%i", config.dir_name, id );
+    sprintf( path, "%s/pg/Save/%s", config.dir_name, name );
     /* open file */
 #ifdef WIN32
     if ( ( file = fopen( path, "rb" ) ) == 0 ) {
@@ -941,7 +894,7 @@ int slot_load( int id )
         return 0;
     }
     /* read slot identification -- won't change anything but the file handle needs to move */
-    slot_read_name( &slots[id], file );
+    slot_read_name( temp, file );
     /* read version */
     fread( &store_version, sizeof( int ), 1, file );
     /* check for endianness */
@@ -974,7 +927,10 @@ int slot_load( int id )
     /* the scenario that is loaded now is the one that belongs to the scenario id of the campaign above */
     /* read scenario file name */
     scen_file_name = load_string( file );
-    if ( !scen_load( scen_file_name ) ) {
+    if ( store_version < StoreNewFolderStructure )
+        snprintf( scen_file_name, strlen( scen_file_name ) - 2, "%s", &scen_file_name[3] );
+    if ( !scen_load( scen_file_name ) )
+    {
         free( scen_file_name );
         fclose(file);
         return 0;
@@ -1045,14 +1001,4 @@ int slot_load( int id )
     deploy_turn = 0;
     fclose( file );
     return 1;
-}
-
-/*
-====================================================================
-Return True if slot is loadable.
-====================================================================
-*/
-int slot_is_valid( int id )
-{
-    return slots[id].valid;
 }

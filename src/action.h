@@ -57,7 +57,8 @@ typedef struct {
     Unit *target;   /* target if attack */
     int x, y;       /* dest position if movement */
     int w, h, full; /* video mode settings */
-    int id;         /* slot id if any */
+    int id;         /* id used by debark air unit */
+    char *name;     /* slot name if any */
     int str;        /* strength of split */
 } Action;
 
@@ -126,8 +127,8 @@ void action_queue_set_spot_mask();
 void action_queue_set_vmode( int w, int h, int fullscreen );
 void action_queue_quit();
 void action_queue_restart();
-void action_queue_load( int id );
-void action_queue_overwrite( int id );
+void action_queue_load( char *name );
+void action_queue_overwrite( char *name );
 void action_queue_start_scen();
 void action_queue_start_camp();
 

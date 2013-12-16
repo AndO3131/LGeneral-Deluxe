@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -26,7 +28,7 @@ Check the save directory for saved games and add them to the
 slot list else setup a new entry: '_index_ <empty>'
 ====================================================================
 */
-void slots_init();
+//void slots_init();
 
 /*
 ====================================================================
@@ -49,7 +51,7 @@ Save/load game
 ====================================================================
 */
 int slot_save( int id, char *name );
-int slot_load( int id );
+int slot_load( char *name );
 
 /*
 ====================================================================

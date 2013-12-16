@@ -261,16 +261,16 @@ void action_queue_restart()
     Action *action = action_create( ACTION_RESTART );
     action_queue( action );
 }
-void action_queue_load( int id )
+void action_queue_load( char *name )
 {
     Action *action = action_create( ACTION_LOAD );
-    action->id = id;
+    action->name = name;
     action_queue( action );
 }
-void action_queue_overwrite( int id )
+void action_queue_overwrite( char *name )
 {
     Action *action = action_create( ACTION_OVERWRITE );
-    action->id = id;
+    action->name = name;
     action_queue( action );
 }
 void action_queue_start_scen()

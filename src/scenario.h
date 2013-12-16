@@ -49,7 +49,7 @@ enum {
 typedef struct {
     char fname[256];    /* resource file for loading type */
     int  type;
-    int  slot_id; /* in case of LOAD_GAME this is the slot id */
+    char *load_name; /* in case of LOAD_GAME this is the slot id */
     /* campaign specific information, must be set for SETUP_CAMP_INIT */
     const char *scen_state; /* scenario state to begin campaign with */
     /* scenario specific information which is loaded by scen_load_info() */

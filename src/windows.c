@@ -770,17 +770,20 @@ FDlg *fdlg_create(
         goto failure;
     /* frame */
     button_count = conf_buttons->h / conf_button_h;
-    if ( arrangement ) /* one over another arrangement */
+    switch ( arrangement )
     {
-        if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
-                                      surf, x, y + lbox_frame->h ) ) == 0 )
-            goto failure;
-    }
-    else /* next to eachother arrangement */
-    {
-        if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
+        case ARRANGE_COLUMNS:
+            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
                                       surf, x + lbox_frame->w, y ) ) == 0 )
-            goto failure;
+                goto failure;
+            break;
+        case ARRANGE_ROWS:
+            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
+                                      surf, x, y + lbox_frame->h ) ) == 0 )
+                goto failure;
+            break;
+        case ARRANGE_INSIDE:
+            break;
     }
     /* buttons */
     dlg->button_y = conf_frame->h - border - conf_button_h;
@@ -791,22 +794,26 @@ FDlg *fdlg_create(
     /* file callback */
     dlg->file_cb = file_cb;
     /* path */
-    if ( arrangement )
+    switch ( arrangement )
     {
-        info_w = conf_frame->w - 2 * border;
-        info_h = conf_frame->h;
-        strcpy( dlg->root, "/pg/Save" );
-    }
-    else
-    {
-        info_w = conf_frame->w - 2 * border;
-        info_h = conf_frame->h - 3 * border - conf_button_h;
-        strcpy( dlg->root, "/" );
+        case ARRANGE_COLUMNS:
+            info_w = conf_frame->w - 2 * border;
+            info_h = conf_frame->h - 3 * border - conf_button_h;
+            strcpy( dlg->root, "/" );
+            break;
+        case ARRANGE_ROWS:
+            info_w = conf_frame->w - 2 * border;
+            info_h = conf_frame->h;
+            strcpy( dlg->root, "/pg/Save" );
+            break;
+        case ARRANGE_INSIDE:
+            break;
     }
     /* info region */
     dlg->info_x = border;
     dlg->info_y = border;
     dlg->info_buffer = create_surf( info_w, info_h, SDL_SWSURFACE );
+    dlg->current_name = 0;
     dlg->subdir[0] = 0;
     dlg->arrangement = arrangement;
     return dlg;
@@ -863,10 +870,17 @@ void fdlg_set_surface( FDlg *fdlg, SDL_Surface *surf )
 void fdlg_move( FDlg *fdlg, int x, int y )
 {
     group_move( fdlg->lbox->group, x, y );
-    if ( fdlg->arrangement )
-        group_move( fdlg->group, x, y + fdlg->lbox->group->frame->img->img->h - 1 );
-    else
-        group_move( fdlg->group, x + fdlg->lbox->group->frame->img->img->w - 1, y );
+    switch ( fdlg->arrangement )
+    {
+        case ARRANGE_COLUMNS:
+            group_move( fdlg->group, x + fdlg->lbox->group->frame->img->img->w - 1, y );
+            break;
+        case ARRANGE_ROWS:
+            group_move( fdlg->group, x, y + fdlg->lbox->group->frame->img->img->h - 1 );
+            break;
+        case ARRANGE_INSIDE:
+            break;
+    }
 }
 
 /*
@@ -955,6 +969,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         strcpy( path, fname );
                     else
                         sprintf( path, "%s/%s", fdlg->subdir, fname );
+                    fdlg->current_name = fname;
                     (fdlg->file_cb)( path, fdlg->info_buffer );
                 }
                 DEST( fdlg->group->frame->contents, fdlg->info_x, fdlg->info_y, fdlg->info_buffer->w, fdlg->info_buffer->h );

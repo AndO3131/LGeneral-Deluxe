@@ -392,7 +392,7 @@ int gui_load( char *dir )
                                   ID_LOAD_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
-                                  sdl.screen, 0, 0, 1 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
     gui->save_menu = fdlg_create( gui_create_frame( 600, 300 ), 160, 10,
@@ -403,7 +403,7 @@ int gui_load( char *dir )
                                   ID_SAVE_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_scen_info,
-                                  sdl.screen, 0, 0, 1 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS );
     fdlg_hide( gui->save_menu, 1 );
     /* options */
     sprintf( transitionPath, "Themes/menu3_buttons" );
@@ -448,7 +448,7 @@ int gui_load( char *dir )
                                  ID_SCEN_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_scen_info,
-                                 sdl.screen, 0, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
@@ -464,7 +464,7 @@ int gui_load( char *dir )
                                  ID_CAMP_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_camp_info,
-                                 sdl.screen, 0, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
     /* scenario setup window */
@@ -512,7 +512,7 @@ int gui_load( char *dir )
                                  ID_MODULE_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_module_info,
-                                 sdl.screen, 0, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
     fdlg_hide( gui->module_dlg, 1 );
     /* purchase dialogue */
     sprintf( path2, "%s/Themes", dir );

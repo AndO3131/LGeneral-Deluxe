@@ -394,6 +394,7 @@ typedef struct {
     int arrangement;                    /* arrangement of two windows
                                            0: arranged next to eachother
                                            1: arranged one above another */
+    char *current_name;                 /* current selected file */
 } FDlg;
 
 /*

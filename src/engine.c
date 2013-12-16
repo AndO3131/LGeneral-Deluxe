@@ -148,7 +148,7 @@ int scroll_block = 0;          /* block scrolling if set used to have a constant
                                   scrolling speed */
 int scroll_time = 100;         /* one scroll every 'scroll_time' milliseconds */
 Delay scroll_delay;            /* used to time out the remaining milliseconds */
-int slot_id;                   /* slot id to which game is saved */
+char *slot_name;                   /* slot id to which game is saved */
 Delay blink_delay;             /* used to blink dots on strat map */
 /* ACTION */
 enum {
@@ -1973,6 +1973,11 @@ static void engine_handle_button( int id )
     switch ( id ) {
         /* loads */
         case ID_LOAD_OK:
+            fdlg_hide( gui->load_menu, 1 );
+            engine_hide_game_menu();
+            action_queue_load( gui->load_menu->current_name );
+            sprintf( str, tr("Load Game '%s'"), gui->load_menu->current_name );
+            engine_confirm_action( str );
             break;
         case ID_LOAD_CANCEL:
             fdlg_hide( gui->load_menu, 1 );
@@ -1989,11 +1994,6 @@ static void engine_handle_button( int id )
         case ID_LOAD_8:
         case ID_LOAD_9:
         case ID_LOAD_10:
-            engine_hide_game_menu();
-            action_queue_load( id - ID_LOAD_0 );
-            slot_id = id - ID_LOAD_0;
-            sprintf( str, tr("Load Game '%s'"), slot_get_name( slot_id ) );
-            engine_confirm_action( str );
             break;
         /* saves */
         case ID_SAVE_0:
@@ -2009,7 +2009,7 @@ static void engine_handle_button( int id )
         case ID_SAVE_10:
             engine_hide_game_menu();
             action_queue_overwrite( id - ID_SAVE_0 );
-            if ( slot_is_valid( id - ID_SAVE_0 ) )
+//            if ( slot_is_valid( id - ID_SAVE_0 ) )
                 engine_confirm_action( tr("Overwrite saved game?") );
             break;
         /* options */
@@ -3039,9 +3039,9 @@ static void engine_check_events(int *reinit)
                                 hide_edit = 1;
                                 break;
                             case STATUS_SAVE:
-                                slot_save( slot_id, gui->edit->text );
+//                                slot_save( slot_id, gui->edit->text );
                                 hide_edit = 1;
-                                printf( tr("Game saved to slot '%i' as '%s'.\n"), slot_id, gui->edit->text );
+//                                printf( tr("Game saved to slot '%i' as '%s'.\n"), slot_id, gui->edit->text );
                                 break;
                         }
                         keypressed = 1;
@@ -3208,14 +3208,12 @@ static void engine_handle_next_action( int *reinit )
             break;
         case ACTION_OVERWRITE:
             status = STATUS_SAVE;
-            edit_show( gui->edit, slot_get_name( action->id ) );
+//            edit_show( gui->edit, slot_get_name( action->id ) );
             scroll_block_keys = 1;
-            slot_id = action->id;
             break;
         case ACTION_LOAD:
             setup.type = SETUP_LOAD_GAME;
-//            strcpy( setup.fname, slot_get_fname( action->id ) );
-            setup.slot_id = action->id;
+            strcpy( setup.fname, gui->load_menu->current_name );
             *reinit = 1;
             end_scen = 1;
             break;
@@ -4135,7 +4133,6 @@ Create engine (load resources that are not modified by scenario)
 */
 int engine_create()
 {
-    slots_init();
     gui_load( "Default" );
     return 1;
 }
@@ -4172,7 +4169,7 @@ int engine_init()
         return 1;
     }
     if ( setup.type == SETUP_LOAD_GAME ) {
-        if ( !slot_load( setup.slot_id ) ) return 0;
+        if ( !slot_load( gui->load_menu->current_name ) ) return 0;
         group_set_hidden( gui->unit_buttons, ID_REPLACEMENTS, !config.merge_replacements );
         group_set_hidden( gui->unit_buttons, ID_ELITE_REPLACEMENTS, !config.merge_replacements );
         group_set_hidden( gui->unit_buttons, ID_MERGE, config.merge_replacements );
