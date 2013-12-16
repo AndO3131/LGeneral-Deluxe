@@ -22,6 +22,12 @@
 
 #include "image.h"
 
+enum {
+    ARRANGE_COLUMNS = 0,
+    ARRANGE_ROWS,
+    ARRANGE_INSIDE
+};
+
 /*
 ====================================================================
 Label. A frame with a text drawn to it.

@@ -38,7 +38,7 @@ extern Config config;
                    1: playing campaign scenario
                    2: continue campaign
                    3: campaign scenario restart */
-enum CampaignState camp_loaded = NO_CAMPAIGN;
+int camp_loaded = NO_CAMPAIGN;
 char *camp_fname = 0;
 char *camp_name = 0;
 char *camp_desc = 0;

@@ -68,7 +68,7 @@ extern int vcond_check_type;
 extern VCond *vconds;
 extern int vcond_count;
 extern Config config;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 
 /*
 ====================================================================

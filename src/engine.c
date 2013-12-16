@@ -64,7 +64,7 @@ extern Scen_Info *scen_info;
 extern Map_Tile **map;
 extern Mask_Tile **mask;
 extern GUI *gui;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 extern Setup setup;
 extern int  term_game, sdl_quit;
@@ -703,7 +703,7 @@ removed. If 'last_persistent_action' does not exist, all
 actions are removed.
 ====================================================================
 */
-static void engine_confirm_actions( Action *last_persistent_action, Group *group, const char *text )
+static void engine_confirm_actions( Action *last_persistent_action, const char *text )
 {
     top_committed_action = last_persistent_action;
     gui_show_confirm( text );
@@ -2444,7 +2444,7 @@ static void engine_handle_button( int id )
             if ( cur_ctrl == PLAYER_CTRL_HUMAN ) {
                 if ( deploy_turn ) {
                     action_queue_end_turn();
-                    engine_confirm_actions( last_act, gui->confirm, tr("End deployment?") );
+                    engine_confirm_actions( last_act, tr("End deployment?") );
                 } else {
                     action_queue_set_spot_mask();
                     action_queue_draw_map();

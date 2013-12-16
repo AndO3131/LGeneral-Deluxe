@@ -59,7 +59,7 @@ extern Scen_Info *scen_info;
 extern List *units;
 extern List *reinf, *avail_units;
 extern List *players;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 extern char *camp_fname;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;

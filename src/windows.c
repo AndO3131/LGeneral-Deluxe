@@ -793,14 +793,14 @@ FDlg *fdlg_create(
     /* path */
     if ( arrangement )
     {
-		info_w = conf_frame->w - 2 * border;
-		info_h = conf_frame->h;
+        info_w = conf_frame->w - 2 * border;
+        info_h = conf_frame->h;
         strcpy( dlg->root, "/pg/Save" );
     }
     else
     {
-		info_w = conf_frame->w - 2 * border;
-		info_h = conf_frame->h - 3 * border - conf_button_h;
+        info_w = conf_frame->w - 2 * border;
+        info_h = conf_frame->h - 3 * border - conf_button_h;
         strcpy( dlg->root, "/" );
     }
     /* info region */

@@ -39,7 +39,7 @@ extern int cur_weather;
 extern Weather_Type *weather_types;
 extern Unit *cur_target;
 extern Map_Tile **map;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 
 /*

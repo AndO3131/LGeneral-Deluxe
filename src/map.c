@@ -52,7 +52,7 @@ extern Unit_Info_Icons *unit_info_icons;
 extern Player *cur_player;
 extern List *units;
 extern int modify_fog;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 
 /*
 ====================================================================
