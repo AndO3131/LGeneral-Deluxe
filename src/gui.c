@@ -384,7 +384,7 @@ int gui_load( char *dir )
     search_file_name( path, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Themes/scroll_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
-    gui->load_menu = fdlg_create( gui_create_frame( 600, 300 ), 160, 10,
+    gui->load_menu = fdlg_create( gui_create_frame( 600, 380 ), 160, 10,
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
                                   gui_create_frame( 600, 46),
@@ -395,7 +395,7 @@ int gui_load( char *dir )
                                   sdl.screen, 0, 0, ARRANGE_ROWS );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
-    gui->save_menu = fdlg_create( gui_create_frame( 600, 300 ), 160, 10,
+    gui->save_menu = fdlg_create( gui_create_frame( 600, 380 ), 160, 10,
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
                                   gui_create_frame( 600, 50),
@@ -429,7 +429,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Themes/confirm_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
     gui->vmode_dlg = select_dlg_create( gui_create_frame( 210, 120 ), 
-			    load_surf( path2, SDL_SWSURFACE ), 24, 24,
+			    load_surf( path, SDL_SWSURFACE ), 24, 24,
 			    8, 190, 12, lbox_render_text,
 			    gui_create_frame( 210, 30 ), 
 			    load_surf( path2, SDL_SWSURFACE ), 20, 20,
