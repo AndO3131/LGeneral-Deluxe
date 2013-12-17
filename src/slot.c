@@ -730,42 +730,10 @@ Publics
 
 /*
 ====================================================================
-Check the save directory for saved games and add them to the 
-slot list else setup a new entry: '_index_ <empty>'
-====================================================================
-*/
-/*void slots_init()
-{
-    int i;
-    DIR *dir = 0;
-    struct dirent *entry = 0;
-    FILE *file = 0;*/
-    /* open directory */
-/*    if ( ( dir = opendir( config.dir_name ) ) == 0 ) {
-        fprintf( stderr, tr("init_slots: can't open directory '%s' to read saved games\n"),
-                 config.dir_name );
-        return;
-    }
-    closedir(dir);
-}*/
-
-/*
-====================================================================
-Get full slot name from id.
-====================================================================
-*/
-//char *slot_get_name( int id )
-//{
-//    if ( id >= SLOT_COUNT ) id = 0;
-//    return slots[id].name;
-//}
-
-/*
-====================================================================
 Save/load game to/from file.
 ====================================================================
 */
-int slot_save( char *name )
+int slot_save( char *name, char *subdir )
 {
     FILE *file = 0;
     char path[512];
@@ -802,7 +770,7 @@ int slot_save( char *name )
     /* if we ever hit this, we have *big* problems */
     COMPILE_TIME_ASSERT(StoreHighestSupportedVersion <= StoreVersionLimit);
     /* get file name */
-    sprintf( path, "%s/pg/Save/%s", config.dir_name, name );
+    sprintf( path, "%s/pg/Save/%s/%s", config.dir_name, subdir, name );
     /* open file */
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, tr("%s: not found\n"), path );

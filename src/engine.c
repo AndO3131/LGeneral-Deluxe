@@ -1197,7 +1197,7 @@ static void engine_end_turn()
     if (!deploy_turn && cur_player && cur_player->ctrl == PLAYER_CTRL_HUMAN)
     {
         snprintf( autosaveName, 25, "Autosave");// (%s), %s, %s",  );
-        slot_save( autosaveName );
+        slot_save( autosaveName, "" );
     }
     /* fuel up and kill crashed aircrafts*/
     list_reset( units );
@@ -3024,10 +3024,9 @@ static void engine_check_events(int *reinit)
                                 hide_edit = 1;
                                 break;
                             case STATUS_SAVE:
-                                /* list_check isn't working */
-                                if ( list_check( gui->save_menu->lbox->items, strdup( gui->edit->text ) ) != -1 )
+                                if ( dir_check( gui->save_menu->lbox->items, gui->edit->text ) != -1 )
                                     engine_confirm_action( tr("Overwrite saved game?") );
-                                slot_save( gui->edit->text );
+                                slot_save( gui->edit->text, gui->save_menu->subdir );
                                 hide_edit = 1;
                                 break;
                         }

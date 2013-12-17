@@ -43,6 +43,14 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
 
 /*
 ====================================================================
+Check if filename is in list.
+Return Value: Position of filename else -1.
+====================================================================
+*/
+int dir_check( List *list, char *item );
+
+/*
+====================================================================
 Find full file name.
 Extensions are added according to type given.
 'i' - images (bmp, png, jpg)

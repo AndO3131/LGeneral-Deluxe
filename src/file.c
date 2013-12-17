@@ -257,6 +257,24 @@ int file_exists( const char *path )
 
 /*
 ====================================================================
+Check if filename is in list.
+Return Value: Position of filename else -1.
+====================================================================
+*/
+int dir_check( List *list, char *item )
+{
+    int pos = -1;
+    List_Entry *cur = list->head.next;
+    while ( cur != &list->tail ) {
+        pos++;
+        if ( strcmp(cur->item, item) == 0 ) return pos;
+        cur = cur->next;
+    }
+    return -1;
+}
+
+/*
+====================================================================
 Find full file name.
 Extensions are added according to type given.
 'i' - images (bmp, png, jpg)

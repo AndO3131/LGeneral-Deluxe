@@ -27,7 +27,7 @@ enum { SLOT_COUNT = 11 };
 Save/load game
 ====================================================================
 */
-int slot_save( char *name );
+int slot_save( char *name, char *subdir );
 int slot_load( char *name );
 
 #endif
