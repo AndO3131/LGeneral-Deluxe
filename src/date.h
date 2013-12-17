@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,5 +42,8 @@ void date_to_str( char *str, Date date, int type );
 
 /* add number of days to date and adjust it */
 void date_add_days( Date *date, int days );
+
+/* Get current date, format is DD.MM.YYYY */
+void currentDateTime( char *currentDate );
 
 #endif

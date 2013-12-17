@@ -59,7 +59,7 @@ extern Font *log_font;
 extern Setup setup;
 extern int deploy_turn;
 extern List *unit_lib;
-extern enum CampaignState camp_loaded;
+extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 extern char *camp_first;
 

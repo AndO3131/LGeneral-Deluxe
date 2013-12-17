@@ -99,20 +99,6 @@ static enum StorageVersion store_version;
 
 /*
 ====================================================================
-Return True if this is a saved game and return the slot index.
-====================================================================
-*/
-static int is_saved_game( char *file_name, int *i )
-{
-    char *ptr;
-    if ( strncmp( file_name, "lg_save_", 8 ) ) return 0;
-    ptr = &file_name[8];
-    (*i) = atoi(ptr);
-    return *i < SLOT_COUNT;
-}
-
-/*
-====================================================================
 Save/load slot name to/from file.
 ====================================================================
 */
@@ -779,7 +765,7 @@ Get full slot name from id.
 Save/load game to/from file.
 ====================================================================
 */
-int slot_save( int id, char *name )
+int slot_save( char *name )
 {
     FILE *file = 0;
     char path[512];
@@ -816,12 +802,14 @@ int slot_save( int id, char *name )
     /* if we ever hit this, we have *big* problems */
     COMPILE_TIME_ASSERT(StoreHighestSupportedVersion <= StoreVersionLimit);
     /* get file name */
-    sprintf( path, "%s/lg_save_%i", config.dir_name, id );
+    sprintf( path, "%s/pg/Save/%s", config.dir_name, name );
     /* open file */
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, tr("%s: not found\n"), path );
         return 0;
     }
+    /* write slot identification */
+    slot_write_name( name, file );
     /* write version */
     save_int(file, StoreHighestSupportedVersion);
     /* if campaign is set some campaign info follows */
@@ -928,7 +916,7 @@ int slot_load( char *name )
     /* read scenario file name */
     scen_file_name = load_string( file );
     if ( store_version < StoreNewFolderStructure )
-        snprintf( scen_file_name, strlen( scen_file_name ) - 2, "%s", &scen_file_name[3] );
+        snprintf( scen_file_name, strlen( scen_file_name ), "%s", strrchr( scen_file_name, '/' ) );
     if ( !scen_load( scen_file_name ) )
     {
         free( scen_file_name );

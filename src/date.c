@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -15,6 +17,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <time.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -129,5 +132,15 @@ void date_add_days( Date *date, int days )
             }
         }
     }
+}
+
+/* Get current date, format is DD.MM.YYYY */
+void currentDateTime( char *currentDate )
+{
+    time_t now;
+    struct tm *tstruct;
+    now = time(NULL);
+    tstruct = localtime(&now);
+    strftime( currentDate, 15, "%d.%m.%Y", tstruct );
 }
 

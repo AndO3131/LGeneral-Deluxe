@@ -391,6 +391,7 @@ typedef struct {
     int button_x, button_y;             /* position of first button (right upper corner,
                                            new buttons are added to the left) */
     int button_dist;                    /* distance between to buttons (gap + width) */
+    int emptyFile;                      /* indicates if this file dialogue reqires empty file */
     int arrangement;                    /* arrangement of two windows
                                            0: arranged next to eachother
                                            1: arranged one above another */
@@ -415,7 +416,7 @@ FDlg *fdlg_create(
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, SDL_Surface* ),
-                   SDL_Surface *surf, int x, int y, int arrangement );
+                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile );
 void fdlg_delete( FDlg **fdlg );
 
 /*

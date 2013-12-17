@@ -132,7 +132,7 @@ Makefile stuff.
 The directoriers are marked with an asteriks.
 ====================================================================
 */
-List* dir_get_entries( const char *path, const char *root, const char *ext )
+List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile )
 {
     Text *text = 0;
     int i;
@@ -216,6 +216,11 @@ List* dir_get_entries( const char *path, const char *root, const char *ext )
     /* transfer directories */
     for ( i = 0; i < text->count && text->lines[i][0] == '*'; i++ )
         list_add( list, strdup( text->lines[i] ) );
+    /* insert empty file */
+    if ( emptyFile )
+    {
+        list_add( list, strdup( tr("<empty>") ) );
+    }
     /* insert list of extracted ordered files between directories and files */
     {
         char *str;

@@ -148,7 +148,7 @@ int scroll_block = 0;          /* block scrolling if set used to have a constant
                                   scrolling speed */
 int scroll_time = 100;         /* one scroll every 'scroll_time' milliseconds */
 Delay scroll_delay;            /* used to time out the remaining milliseconds */
-char *slot_name;                   /* slot id to which game is saved */
+char *slot_name;               /* slot name to which game is saved */
 Delay blink_delay;             /* used to blink dots on strat map */
 /* ACTION */
 enum {
@@ -620,7 +620,6 @@ Show/Hide game menu.
 */
 static void engine_show_game_menu( int cx, int cy )
 {
-    int i;
     if ( setup.type == SETUP_RUN_TITLE ) {
         status = STATUS_TITLE_MENU;
         if ( cy + gui->main_menu->frame->img->img->h >= sdl.screen->h )
@@ -1184,6 +1183,7 @@ autosave happens, aircrafts crash, units get supplied.
 static void engine_end_turn()
 {
     int i;
+    char autosaveName[25];
     Unit *unit;
     /* finalize ai turn if any */
     if ( cur_player && cur_player->ctrl == PLAYER_CTRL_CPU )
@@ -1195,7 +1195,10 @@ static void engine_end_turn()
     }
     /* autosave game for a human */
     if (!deploy_turn && cur_player && cur_player->ctrl == PLAYER_CTRL_HUMAN)
-        slot_save( 10 /* Autosave */, "Autosave" );
+    {
+        snprintf( autosaveName, 25, "Autosave");// (%s), %s, %s",  );
+        slot_save( autosaveName );
+    }
     /* fuel up and kill crashed aircrafts*/
     list_reset( units );
     while ( (unit=list_next(units)) )
@@ -1983,34 +1986,16 @@ static void engine_handle_button( int id )
             fdlg_hide( gui->load_menu, 1 );
             engine_set_status( STATUS_NONE );
             break;
-        case ID_LOAD_0:
-        case ID_LOAD_1:
-        case ID_LOAD_2:
-        case ID_LOAD_3:
-        case ID_LOAD_4:
-        case ID_LOAD_5:
-        case ID_LOAD_6:
-        case ID_LOAD_7:
-        case ID_LOAD_8:
-        case ID_LOAD_9:
-        case ID_LOAD_10:
-            break;
-        /* saves */
-        case ID_SAVE_0:
-        case ID_SAVE_1:
-        case ID_SAVE_2:
-        case ID_SAVE_3:
-        case ID_SAVE_4:
-        case ID_SAVE_5:
-        case ID_SAVE_6:
-        case ID_SAVE_7:
-        case ID_SAVE_8:
-        case ID_SAVE_9:
-        case ID_SAVE_10:
-            engine_hide_game_menu();
-            action_queue_overwrite( id - ID_SAVE_0 );
-//            if ( slot_is_valid( id - ID_SAVE_0 ) )
+        /* save */
+        case ID_SAVE_OK:
+            fdlg_hide( gui->save_menu, 1 );
+            action_queue_overwrite( gui->save_menu->current_name );
+            if ( strcmp ( gui->save_menu->current_name, "<empty>" ) != 0 )
                 engine_confirm_action( tr("Overwrite saved game?") );
+            break;
+        case ID_SAVE_CANCEL:
+            fdlg_hide( gui->save_menu, 1 );
+            engine_set_status( STATUS_NONE );
             break;
         /* options */
         case ID_C_SOUND:
@@ -3039,9 +3024,11 @@ static void engine_check_events(int *reinit)
                                 hide_edit = 1;
                                 break;
                             case STATUS_SAVE:
-//                                slot_save( slot_id, gui->edit->text );
+                                /* list_check isn't working */
+                                if ( list_check( gui->save_menu->lbox->items, strdup( gui->edit->text ) ) != -1 )
+                                    engine_confirm_action( tr("Overwrite saved game?") );
+                                slot_save( gui->edit->text );
                                 hide_edit = 1;
-//                                printf( tr("Game saved to slot '%i' as '%s'.\n"), slot_id, gui->edit->text );
                                 break;
                         }
                         keypressed = 1;
@@ -3187,6 +3174,7 @@ static void engine_handle_next_action( int *reinit )
     Action *action = 0;
     int enemy_spotted = 0;
     int depth, flags, i, j;
+    char name[30];
     /* lock action queue? */
     if ( status == STATUS_CONF || status == STATUS_ATTACK || status == STATUS_MOVE )
         return;
@@ -3208,7 +3196,17 @@ static void engine_handle_next_action( int *reinit )
             break;
         case ACTION_OVERWRITE:
             status = STATUS_SAVE;
-//            edit_show( gui->edit, slot_get_name( action->id ) );
+            if (gui->save_menu->current_name)
+            {
+                char time[15];
+                currentDateTime( time );
+                snprintf( name, 30, "(%s) %s, turn %i", time, scen_info->fname, turn );
+            }
+            else
+            {
+                snprintf( name, 30, "%s", gui->save_menu->current_name );
+            }
+            edit_show( gui->edit, name );
             scroll_block_keys = 1;
             break;
         case ACTION_LOAD:

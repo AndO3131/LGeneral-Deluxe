@@ -754,7 +754,7 @@ FDlg *fdlg_create(
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, SDL_Surface* ),
-                   SDL_Surface *surf, int x, int y, int arrangement )
+                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile )
 {
     int info_w, info_h, button_count;
     int cell_count, cell_w;
@@ -816,6 +816,7 @@ FDlg *fdlg_create(
     dlg->current_name = 0;
     dlg->subdir[0] = 0;
     dlg->arrangement = arrangement;
+    dlg->emptyFile = emptyFile;
     return dlg;
 failure:
     fdlg_delete( &dlg );
@@ -903,7 +904,7 @@ void fdlg_open( FDlg *fdlg, const char *root )
 {
     strcpy( fdlg->root, root );
     fdlg->subdir[0] = 0;
-    lbox_set_items( fdlg->lbox, dir_get_entries( root, root, 0 ) );
+    lbox_set_items( fdlg->lbox, dir_get_entries( root, root, 0, fdlg->emptyFile ) );
     SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
     frame_apply( fdlg->group->frame );
     fdlg_hide( fdlg, 0 );
@@ -960,7 +961,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         strcpy( path, fdlg->root );
                     else
                         sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
-                    lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, 0 ) );
+                    lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, 0, fdlg->emptyFile ) );
                     (fdlg->file_cb)( 0, fdlg->info_buffer );
                 }
                 else {

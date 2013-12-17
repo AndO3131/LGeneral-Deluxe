@@ -24,40 +24,10 @@ enum { SLOT_COUNT = 11 };
 
 /*
 ====================================================================
-Check the save directory for saved games and add them to the 
-slot list else setup a new entry: '_index_ <empty>'
-====================================================================
-*/
-//void slots_init();
-
-/*
-====================================================================
-Get full slot name from id.
-====================================================================
-*/
-char *slot_get_name( int id );
-
-/*
-====================================================================
-Get slot's file name. This slot name may be passed to
-slot_load/save().
-====================================================================
-*/
-char *slot_get_fname( int id );
-
-/*
-====================================================================
 Save/load game
 ====================================================================
 */
-int slot_save( int id, char *name );
+int slot_save( char *name );
 int slot_load( char *name );
-
-/*
-====================================================================
-Return True if slot is loadable.
-====================================================================
-*/
-int slot_is_valid( int id );
 
 #endif

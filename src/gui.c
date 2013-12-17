@@ -345,7 +345,7 @@ int gui_load( char *dir )
     group_add_button( gui->deploy_window, ID_CANCEL_DEPLOY, sx + 30, sy, 0, tr("Cancel Deployment"), 2 );
     group_hide( gui->deploy_window, 1 );
     /* edit */
-    if ( ( gui->edit = edit_create( gui_create_frame( 240, 30 ), 160, gui->font_std, 20, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->edit = edit_create( gui_create_frame( 240, 30 ), 160, gui->font_std, 30, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     edit_hide( gui->edit, 1 );
     /* base menu */
@@ -384,7 +384,7 @@ int gui_load( char *dir )
     search_file_name( path, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Themes/scroll_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
-    gui->load_menu = fdlg_create( gui_create_frame( 600, 380 ), 160, 10,
+    gui->load_menu = fdlg_create( gui_create_frame( 600, 356 ), 160, 10,
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
                                   gui_create_frame( 600, 46),
@@ -392,18 +392,18 @@ int gui_load( char *dir )
                                   ID_LOAD_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 0 );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
-    gui->save_menu = fdlg_create( gui_create_frame( 600, 380 ), 160, 10,
+    gui->save_menu = fdlg_create( gui_create_frame( 600, 356 ), 160, 10,
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
                                   gui_create_frame( 600, 50),
                                   load_surf( path, SDL_SWSURFACE ), 24, 24,
                                   ID_SAVE_OK, 
                                   gui->label, 
-                                  gui_render_file_name, gui_render_scen_info,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS );
+                                  gui_render_file_name, gui_render_save_menu,
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 1 );
     fdlg_hide( gui->save_menu, 1 );
     /* options */
     sprintf( transitionPath, "Themes/menu3_buttons" );
@@ -448,7 +448,7 @@ int gui_load( char *dir )
                                  ID_SCEN_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_scen_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
@@ -464,7 +464,7 @@ int gui_load( char *dir )
                                  ID_CAMP_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_camp_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
     /* scenario setup window */
@@ -512,7 +512,7 @@ int gui_load( char *dir )
                                  ID_MODULE_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_module_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
     fdlg_hide( gui->module_dlg, 1 );
     /* purchase dialogue */
     sprintf( path2, "%s/Themes", dir );
@@ -1604,6 +1604,27 @@ void gui_render_load_menu( const char *path, SDL_Surface *buffer )
     else
     {
         group_set_active( gui->load_menu->group, ID_LOAD_OK, 1 );
+        /* render info */
+        SDL_FillRect( buffer, 0, 0x0 );
+    }
+}
+
+/*
+====================================================================
+Handle the selection of a file to save
+====================================================================
+*/
+void gui_render_save_menu( const char *path, SDL_Surface *buffer )
+{
+    if ( path == 0 )
+    {
+        /* no selection met */
+        group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
+        SDL_FillRect( buffer, 0, 0x0 );
+    }
+    else
+    {
+        group_set_active( gui->save_menu->group, ID_SAVE_OK, 1 );
         /* render info */
         SDL_FillRect( buffer, 0, 0x0 );
     }

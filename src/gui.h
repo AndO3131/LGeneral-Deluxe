@@ -74,30 +74,8 @@ enum {
     ID_QUIT,
     ID_LOAD_OK,
     ID_LOAD_CANCEL,
-    ID_LOAD_0,
-    ID_LOAD_1,
-    ID_LOAD_2,
-    ID_LOAD_3,
-    ID_LOAD_4,
-    ID_LOAD_5,
-    ID_LOAD_6,
-    ID_LOAD_7,
-    ID_LOAD_8,
-    ID_LOAD_9,
-    ID_LOAD_10,
     ID_SAVE_OK,
     ID_SAVE_CANCEL,
-    ID_SAVE_0,
-    ID_SAVE_1,
-    ID_SAVE_2,
-    ID_SAVE_3,
-    ID_SAVE_4,
-    ID_SAVE_5,
-    ID_SAVE_6,
-    ID_SAVE_7,
-    ID_SAVE_8,
-    ID_SAVE_9,
-    ID_SAVE_10,
     ID_C_SUPPLY,
     ID_C_WEATHER,
     ID_C_SHOW_CPU,
@@ -386,6 +364,13 @@ Handle the selection of a file to load
 ====================================================================
 */
 void gui_render_load_menu( const char *path, SDL_Surface *buffer );
+
+/*
+====================================================================
+Handle the selection of a file to save
+====================================================================
+*/
+void gui_render_save_menu( const char *path, SDL_Surface *buffer );
 
 /*
 ====================================================================
