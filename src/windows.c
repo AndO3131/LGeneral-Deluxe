@@ -868,6 +868,7 @@ void fdlg_set_surface( FDlg *fdlg, SDL_Surface *surf )
     group_set_surface( fdlg->lbox->group, surf );
     group_set_surface( fdlg->group, surf );
 }
+
 void fdlg_move( FDlg *fdlg, int x, int y )
 {
     group_move( fdlg->lbox->group, x, y );
@@ -900,11 +901,18 @@ void fdlg_add_button( FDlg *fdlg, int id, int lock, const char *tooltip )
 Show file dialogue at directory root.
 ====================================================================
 */
-void fdlg_open( FDlg *fdlg, const char *root )
+void fdlg_open( FDlg *fdlg, const char *root, const char *subdir )
 {
     strcpy( fdlg->root, root );
-    fdlg->subdir[0] = 0;
-    lbox_set_items( fdlg->lbox, dir_get_entries( root, root, 0, fdlg->emptyFile ) );
+    if ( strcmp( subdir, "" ) == 0 )
+        fdlg->subdir[0] = 0;
+    else
+        strcpy( fdlg->subdir, subdir );
+    char path[512];
+    snprintf( path, 512, "%s/%s", root, subdir );
+    lbox_set_items( fdlg->lbox, dir_get_entries( path, root, 0, fdlg->emptyFile ) );
+                    (fdlg->file_cb)( 0, fdlg->info_buffer );
+    
     SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
     frame_apply( fdlg->group->frame );
     fdlg_hide( fdlg, 0 );

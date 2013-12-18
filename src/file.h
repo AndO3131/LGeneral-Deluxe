@@ -51,6 +51,13 @@ int dir_check( List *list, char *item );
 
 /*
 ====================================================================
+Create directory if folderName doesn't exist.
+====================================================================
+*/
+int dir_create( const char *folderName, const char *subdir );
+
+/*
+====================================================================
 Find full file name.
 Extensions are added according to type given.
 'i' - images (bmp, png, jpg)

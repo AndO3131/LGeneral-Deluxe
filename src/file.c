@@ -28,6 +28,9 @@
 #include "file.h"
 #include "localize.h"
 #include "sdl.h"
+#include "config.h"
+
+extern Config config;
 
 //#define FILE_DEBUG
 const int extension_image_length = 4;
@@ -219,7 +222,7 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
     /* insert empty file */
     if ( emptyFile )
     {
-        list_add( list, strdup( tr("<empty>") ) );
+        list_add( list, strdup( tr("<empty file>") ) );
     }
     /* insert list of extracted ordered files between directories and files */
     {
@@ -271,6 +274,24 @@ int dir_check( List *list, char *item )
         cur = cur->next;
     }
     return -1;
+}
+
+/*
+====================================================================
+Create directory if folderName doesn't exist.
+====================================================================
+*/
+int dir_create( const char *folderName, const char *subdir )
+{
+    struct stat st = {0};
+    char dir[4096]; 
+    snprintf( dir, 4096, "%s/pg/Save/%s/%s", config.dir_name, subdir, folderName );
+    if (stat( dir, &st ) == -1)
+    {
+        mkdir( dir, 0777 );
+        return 1;
+    }
+    return 0;
 }
 
 /*

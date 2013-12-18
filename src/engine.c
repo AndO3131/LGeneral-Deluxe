@@ -38,6 +38,7 @@
 #include "ai.h"
 #include "engine.h"
 #include "localize.h"
+#include "file.h"
 
 /*
 ====================================================================
@@ -169,6 +170,7 @@ enum {
     STATUS_STRAT_MAP,          /* showing the strategic map */
     STATUS_RENAME,             /* rename unit */
     STATUS_SAVE,               /* running the save edit */
+    STATUS_NEW_FOLDER,         /* creating new folder name */
     STATUS_TITLE,              /* show the background */
     STATUS_TITLE_MENU,         /* run title menu */
     STATUS_RUN_SCEN_DLG,       /* run scenario dialogue */
@@ -1459,7 +1461,8 @@ static void engine_check_scroll(int by_wheel)
         }
     }
     /* scroll */
-    if ( scroll_vert != SCROLL_NONE || scroll_hori != SCROLL_NONE ) {
+    if ( ( scroll_vert != SCROLL_NONE || scroll_hori != SCROLL_NONE ) && gui->save_menu->group->frame->img->bkgnd->hide )
+    {
         if ( scroll_vert == SCROLL_UP )
             engine_goto_xy( map_x, map_y - 2 );
         else
@@ -1990,12 +1993,18 @@ static void engine_handle_button( int id )
         case ID_SAVE_OK:
             fdlg_hide( gui->save_menu, 1 );
             action_queue_overwrite( gui->save_menu->current_name );
-            if ( strcmp ( gui->save_menu->current_name, "<empty>" ) != 0 )
+            if ( strcmp ( gui->save_menu->current_name, tr( "<empty file>" ) ) != 0 )
                 engine_confirm_action( tr("Overwrite saved game?") );
             break;
         case ID_SAVE_CANCEL:
             fdlg_hide( gui->save_menu, 1 );
             engine_set_status( STATUS_NONE );
+            break;
+        case ID_NEW_FOLDER:
+            fdlg_hide( gui->save_menu, 1 );
+            status = STATUS_NEW_FOLDER;
+            edit_show( gui->edit, tr( "new folder" ) );
+            scroll_block_keys = 1;
             break;
         /* options */
         case ID_C_SOUND:
@@ -2075,7 +2084,7 @@ static void engine_handle_button( int id )
             config.use_core_units = 0;
             engine_hide_game_menu();
             sprintf( path, "%s/pg/Scenario", get_gamedir() );
-            fdlg_open( gui->scen_dlg, path );
+            fdlg_open( gui->scen_dlg, path, "" );
             group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 0 );
             group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 0 );
             group_set_active( gui->scen_dlg->group, ID_SCEN_CANCEL, 1 );
@@ -2085,7 +2094,7 @@ static void engine_handle_button( int id )
             camp_loaded = FIRST_SCENARIO;
             engine_hide_game_menu();
             sprintf( path, "%s/pg/Campaigns", get_gamedir() );
-            fdlg_open( gui->camp_dlg, path );
+            fdlg_open( gui->camp_dlg, path, "" );
             group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_CANCEL, 1 );
@@ -2094,14 +2103,14 @@ static void engine_handle_button( int id )
         case ID_SAVE:
             engine_hide_game_menu();
             sprintf( path, "%s/pg/Save", get_gamedir() );
-            fdlg_open( gui->save_menu, path );
+            fdlg_open( gui->save_menu, path, "" );
             group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
             group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
             break;
         case ID_LOAD:
             engine_hide_game_menu();
             sprintf( path, "%s/pg/Save", get_gamedir() );
-            fdlg_open( gui->load_menu, path );
+            fdlg_open( gui->load_menu, path, "" );
             group_set_active( gui->load_menu->group, ID_LOAD_OK, 0 );
             group_set_active( gui->load_menu->group, ID_LOAD_CANCEL, 1 );
             break;
@@ -2373,7 +2382,7 @@ static void engine_handle_button( int id )
             group_set_active( gui->module_dlg->group, ID_MODULE_OK, 0 );
             group_set_active( gui->module_dlg->group, ID_MODULE_CANCEL, 1 );
             sprintf( path, "%s/Default/AI_modules", get_gamedir() );
-            fdlg_open( gui->module_dlg, path );
+            fdlg_open( gui->module_dlg, path, "" );
             status = STATUS_RUN_MODULE_DLG;
             break;
         case ID_CAMP_SETUP:
@@ -3015,7 +3024,7 @@ static void engine_check_events(int *reinit)
                         engine_handle_button(ID_OK);
                     else if ( event.key.keysym.sym == SDLK_ESCAPE )
                         engine_handle_button(ID_CANCEL);
-                } else if ( status == STATUS_RENAME || status == STATUS_SAVE ) {
+                } else if ( status == STATUS_RENAME || status == STATUS_SAVE || status == STATUS_NEW_FOLDER ) {
                     if ( event.key.keysym.sym == SDLK_RETURN ) {
                         /* apply */
                         switch ( status ) {
@@ -3027,6 +3036,16 @@ static void engine_check_events(int *reinit)
                                 if ( dir_check( gui->save_menu->lbox->items, gui->edit->text ) != -1 )
                                     engine_confirm_action( tr("Overwrite saved game?") );
                                 slot_save( gui->edit->text, gui->save_menu->subdir );
+                                hide_edit = 1;
+                                break;
+                            case STATUS_NEW_FOLDER:
+                                dir_create( gui->edit->text, gui->save_menu->subdir );
+                                char path[512];
+                                sprintf( path, "%s/pg/Save", config.dir_name );
+                                fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
+                                group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
+                                group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
+                                group_set_active( gui->save_menu->group, ID_NEW_FOLDER, 1 );
                                 hide_edit = 1;
                                 break;
                         }

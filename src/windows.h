@@ -449,7 +449,7 @@ void fdlg_add_button( FDlg *fdlg, int id, int lock, const char *tooltip );
 Show file dialogue at directory root.
 ====================================================================
 */
-void fdlg_open( FDlg *fdlg, const char *root );
+void fdlg_open( FDlg *fdlg, const char *root, const char *subdir );
 
 /*
 ====================================================================

@@ -76,6 +76,7 @@ enum {
     ID_LOAD_CANCEL,
     ID_SAVE_OK,
     ID_SAVE_CANCEL,
+    ID_NEW_FOLDER,
     ID_C_SUPPLY,
     ID_C_WEATHER,
     ID_C_SHOW_CPU,

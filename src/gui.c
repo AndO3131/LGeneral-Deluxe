@@ -380,7 +380,7 @@ int gui_load( char *dir )
     group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game"), 2 );
     group_hide( gui->main_menu, 1 );
     /* load menu */
-    sprintf( transitionPath, "Themes/scen_dlg_buttons" );
+    sprintf( transitionPath, "Themes/confirm_buttons" );
     search_file_name( path, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Themes/scroll_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
@@ -388,13 +388,15 @@ int gui_load( char *dir )
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
                                   gui_create_frame( 600, 46),
-                                  load_surf( path, SDL_SWSURFACE ), 24, 24,
+                                  load_surf( path, SDL_SWSURFACE ), 20, 20,
                                   ID_LOAD_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
                                   sdl.screen, 0, 0, ARRANGE_ROWS, 0 );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
+    sprintf( transitionPath, "Themes/save_dlg_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
     gui->save_menu = fdlg_create( gui_create_frame( 600, 356 ), 160, 10,
                                   load_surf( path2, SDL_SWSURFACE), 24, 24,
                                   20,
@@ -404,6 +406,8 @@ int gui_load( char *dir )
                                   gui->label, 
                                   gui_render_file_name, gui_render_save_menu,
                                   sdl.screen, 0, 0, ARRANGE_ROWS, 1 );
+    sx = 15; sy = 15;
+    group_add_button( gui->save_menu->group, ID_NEW_FOLDER, sx, sy, 0, tr("Create New Folder"), 2 );
     fdlg_hide( gui->save_menu, 1 );
     /* options */
     sprintf( transitionPath, "Themes/menu3_buttons" );
