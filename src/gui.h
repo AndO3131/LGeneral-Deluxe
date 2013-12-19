@@ -71,6 +71,7 @@ enum {
     ID_CAMP,
     ID_SCEN,
     ID_OPTIONS,
+    ID_MOD_SELECT,
     ID_QUIT,
     ID_LOAD_OK,
     ID_LOAD_CANCEL,
@@ -112,7 +113,9 @@ enum {
     ID_PURCHASE_EXIT,
     ID_PURCHASE_REFUND,
     ID_VMODE_OK,
-    ID_VMODE_CANCEL
+    ID_VMODE_CANCEL,
+    ID_MOD_SELECT_OK,
+    ID_MOD_SELECT_CANCEL
 };
 
 /*
@@ -149,6 +152,7 @@ typedef struct {
     SDlg *scen_setup;  /* scenario setup (controls and ai modules) */
     SDlg *camp_setup;  /* campaign setup (controls) */
     FDlg *module_dlg;  /* ai module selection */
+    FDlg *mod_select_dlg; /* mod selection */
     /* frame tiles */
     SDL_Surface *fr_luc, *fr_llc, *fr_ruc, *fr_rlc, *fr_hori, *fr_vert;
     SDL_Surface *brief_frame;   /* briefing window */
@@ -485,6 +489,13 @@ Load a module's info
 ====================================================================
 */
 void gui_render_module_info( const char *path, SDL_Surface *buffer );
+
+/*
+====================================================================
+Handle the selection of a mod folder to load
+====================================================================
+*/
+void gui_render_mod_select_info( const char *path, SDL_Surface *buffer );
 
 /*
 ====================================================================

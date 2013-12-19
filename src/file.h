@@ -39,7 +39,7 @@ Makefile stuff.
 The directoriers are marked with an asteriks.
 ====================================================================
 */
-List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile );
+List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile, int dir_only );
 
 /*
 ====================================================================

@@ -630,6 +630,7 @@ static void engine_show_game_menu( int cx, int cy )
         group_hide( gui->main_menu, 0 );
         group_set_active( gui->main_menu, ID_SAVE, 0 );
         group_set_active( gui->main_menu, ID_RESTART, 0 );
+        group_set_active( gui->main_menu, ID_MOD_SELECT, 1 );
     }
     else {
         engine_check_menu_buttons();
@@ -637,6 +638,7 @@ static void engine_show_game_menu( int cx, int cy )
         status = STATUS_GAME_MENU;
         group_set_active( gui->main_menu, ID_SAVE, 1 );
         group_set_active( gui->main_menu, ID_RESTART, 1 );
+        group_set_active( gui->main_menu, ID_MOD_SELECT, 0 );
     }
     /* lock config buttons */
     group_lock_button( gui->opt_menu, ID_C_SUPPLY, config.supply );
@@ -1461,7 +1463,8 @@ static void engine_check_scroll(int by_wheel)
         }
     }
     /* scroll */
-    if ( ( scroll_vert != SCROLL_NONE || scroll_hori != SCROLL_NONE ) && gui->save_menu->group->frame->img->bkgnd->hide )
+    if ( !( scroll_vert == SCROLL_NONE && scroll_hori == SCROLL_NONE ) &&
+          ( gui->save_menu->group->frame->img->bkgnd->hide && gui->load_menu->group->frame->img->bkgnd->hide ) )
     {
         if ( scroll_vert == SCROLL_UP )
             engine_goto_xy( map_x, map_y - 2 );
@@ -2475,6 +2478,20 @@ static void engine_handle_button( int id )
 		label_hide(gui->label, 1);
 		engine_set_status( STATUS_NONE );
 		break;
+        case ID_MOD_SELECT:
+            engine_hide_game_menu();
+            sprintf( path, "%s", get_gamedir() );
+            fdlg_open( gui->mod_select_dlg, path, "" );
+            fdlg_hide( gui->mod_select_dlg, 0 );
+            group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_OK, 0 );
+            group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_CANCEL, 1 );
+            break;
+        case ID_MOD_SELECT_OK:
+            break;
+        case ID_MOD_SELECT_CANCEL:
+            fdlg_hide( gui->mod_select_dlg, 1 );
+            engine_set_status( STATUS_NONE );
+            break;
     }
 }
 

@@ -135,7 +135,7 @@ Makefile stuff.
 The directoriers are marked with an asteriks.
 ====================================================================
 */
-List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile )
+List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile, int dir_only )
 {
     Text *text = 0;
     int i;
@@ -182,12 +182,16 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
         if ( S_ISDIR( fstat.st_mode ) ) {
             if ( ( test_dir = opendir( file_name ) ) == 0  ) continue;
             closedir( test_dir );
-            sprintf( file_name, "*%s", dirent->d_name );
-            list_add( list, strdup( file_name ) );
+            if ( !dir_only )
+                sprintf( file_name, "*%s", dirent->d_name );
+            else
+                sprintf( file_name, "%s", dirent->d_name );
+            if ( !( dir_only && ( STRCMP( dirent->d_name, "Default" ) != 0 ) ) )
+                list_add( list, strdup( file_name ) );
         }
         else
         /* check regular file */
-        if ( S_ISREG( fstat.st_mode ) ) {
+        if ( S_ISREG( fstat.st_mode ) && !dir_only ) {
             /* test it */
             if ( ( file = fopen( file_name, "r" ) ) == 0 ) continue;
             fclose( file );

@@ -81,6 +81,7 @@ void reset_config()
     config.ai_debug = 0;
     config.merge_replacements = 1; /* 0 - merge; 1 - replacements */
     config.use_core_units = 0;
+    config.mod_name = "Default";
     /* audio stuff */
     config.sound_on = 1;
     config.sound_volume = 96;
@@ -123,6 +124,7 @@ void load_config( )
     parser_get_int( pd, "sound_volume", &config.sound_volume );
     parser_get_int( pd, "music_on", &config.music_on );
     parser_get_int( pd, "music_volume", &config.music_volume );
+    parser_get_string( pd, "mod_name", &config.mod_name );
     parser_free( &pd );
 }
 
@@ -157,6 +159,7 @@ void save_config( )
         fprintf( file, "sound_volume»%i\n", config.sound_volume );
         fprintf( file, "music_on»%i\n", config.music_on );
         fprintf( file, "music_volume»%i\n", config.music_volume );
+        fprintf( file, "mod_name»%s\n", config.mod_name );
         fclose( file );
     }
 }

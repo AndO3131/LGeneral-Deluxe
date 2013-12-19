@@ -754,7 +754,7 @@ FDlg *fdlg_create(
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, SDL_Surface* ),
-                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile )
+                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only )
 {
     int info_w, info_h, button_count;
     int cell_count, cell_w;
@@ -817,6 +817,7 @@ FDlg *fdlg_create(
     dlg->subdir[0] = 0;
     dlg->arrangement = arrangement;
     dlg->emptyFile = emptyFile;
+    dlg->dir_only = dir_only;
     return dlg;
 failure:
     fdlg_delete( &dlg );
@@ -903,14 +904,19 @@ Show file dialogue at directory root.
 */
 void fdlg_open( FDlg *fdlg, const char *root, const char *subdir )
 {
+    char path[512];
     strcpy( fdlg->root, root );
     if ( strcmp( subdir, "" ) == 0 )
+    {
         fdlg->subdir[0] = 0;
+        snprintf( path, 512, "%s", root );
+    }
     else
+    {
         strcpy( fdlg->subdir, subdir );
-    char path[512];
-    snprintf( path, 512, "%s/%s", root, subdir );
-    lbox_set_items( fdlg->lbox, dir_get_entries( path, root, 0, fdlg->emptyFile ) );
+        snprintf( path, 512, "%s/%s", root, subdir );
+    }
+    lbox_set_items( fdlg->lbox, dir_get_entries( path, root, 0, fdlg->emptyFile, fdlg->dir_only ) );
                     (fdlg->file_cb)( 0, fdlg->info_buffer );
     
     SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
@@ -951,7 +957,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
             if ( item ) {
                 SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
                 fname = (char*)item;
-                if ( fname[0] == '*' ) {
+                if ( ( fname[0] == '*' ) && ( !fdlg->dir_only ) ) {
                     /* switch directory */
                     if ( fname[1] == '.' ) {
                         /* one up */
@@ -969,7 +975,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         strcpy( path, fdlg->root );
                     else
                         sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
-                    lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, 0, fdlg->emptyFile ) );
+                    lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, 0, fdlg->emptyFile, fdlg->dir_only ) );
                     (fdlg->file_cb)( 0, fdlg->info_buffer );
                 }
                 else {

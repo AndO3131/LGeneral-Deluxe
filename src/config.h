@@ -37,8 +37,9 @@ enum MergeReplacementsOptions {
 
 /* configure struct */
 typedef struct {
-    /* directory to save config and saved games */
+    /* directory to save config */
     char dir_name[512];
+    char *mod_name;
     /* gfx options */
     int grid; /* hex grid */
     int tran; /* transparancy */

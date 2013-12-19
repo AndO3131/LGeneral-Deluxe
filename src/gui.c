@@ -367,8 +367,8 @@ int gui_load( char *dir )
     /* main_menu */
     sprintf( transitionPath, "Themes/menu1_buttons" );
     search_file_name( path2, transitionPath, dir, 'i' );
-    if ( ( gui->main_menu = group_create( gui_create_frame( 30, 210 ), 160, load_surf( path2,
-                SDL_SWSURFACE ), 24, 24, 7, ID_SAVE, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->main_menu = group_create( gui_create_frame( 30, 240 ), 160, load_surf( path2,
+                SDL_SWSURFACE ), 24, 24, 8, ID_SAVE, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->main_menu, ID_SAVE, sx, sy, 0, tr("Save Game"), 2 ); sy += 30;
@@ -377,6 +377,7 @@ int gui_load( char *dir )
     group_add_button( gui->main_menu, ID_CAMP, sx, sy, 0, tr("Load Campaign"), 2 ); sy += 30;
     group_add_button( gui->main_menu, ID_SCEN, sx, sy, 0, tr("Load Scenario"), 2 ); sy += 30;
     group_add_button( gui->main_menu, ID_OPTIONS, sx, sy, 0, tr("Options"), 2 ); sy += 30;
+    group_add_button( gui->main_menu, ID_MOD_SELECT, sx, sy, 0, tr("Mod Select"), 2 ); sy += 30;
     group_add_button( gui->main_menu, ID_QUIT, sx, sy, 0, tr("Quit Game"), 2 );
     group_hide( gui->main_menu, 1 );
     /* load menu */
@@ -392,7 +393,7 @@ int gui_load( char *dir )
                                   ID_LOAD_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS, 0 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 0, 0 );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
     sprintf( transitionPath, "Themes/save_dlg_buttons" );
@@ -405,7 +406,7 @@ int gui_load( char *dir )
                                   ID_SAVE_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_save_menu,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS, 1 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 1, 0 );
     sx = 15; sy = 15;
     group_add_button( gui->save_menu->group, ID_NEW_FOLDER, sx, sy, 0, tr("Create New Folder"), 2 );
     fdlg_hide( gui->save_menu, 1 );
@@ -452,7 +453,7 @@ int gui_load( char *dir )
                                  ID_SCEN_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_scen_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
@@ -468,7 +469,7 @@ int gui_load( char *dir )
                                  ID_CAMP_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_camp_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
     /* scenario setup window */
@@ -516,13 +517,28 @@ int gui_load( char *dir )
                                  ID_MODULE_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_module_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
     fdlg_hide( gui->module_dlg, 1 );
     /* purchase dialogue */
     sprintf( path2, "%s/Themes", dir );
     if ( (gui->purchase_dlg = purchase_dlg_create( path2 )) == NULL)
 	    goto failure;
     purchase_dlg_hide( gui->purchase_dlg, 1 );
+    /* mod select dialogue */
+    sprintf( transitionPath, "Themes/confirm_buttons" );
+    search_file_name( path, transitionPath, dir, 'i' );
+    sprintf( transitionPath, "Themes/scroll_buttons" );
+    search_file_name( path2, transitionPath, dir, 'i' );
+    gui->mod_select_dlg = fdlg_create( gui_create_frame( 120, 208 ), 160, 10,
+                                 load_surf( path2, SDL_SWSURFACE), 24, 24,
+                                 20,
+                                 gui_create_frame( 221, 208),
+                                 load_surf( path, SDL_SWSURFACE ), 20, 20,
+                                 ID_MOD_SELECT_OK, 
+                                 gui->label, 
+                                 gui_render_file_name, gui_render_mod_select_info,
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 1 );
+    fdlg_hide( gui->mod_select_dlg, 1 );
     /* adjust positions */
     gui_adjust();
     /* sounds */
@@ -583,6 +599,7 @@ void gui_delete()
         sdlg_delete( &gui->scen_setup );
         sdlg_delete( &gui->camp_setup );
         fdlg_delete( &gui->module_dlg );
+        fdlg_delete( &gui->mod_select_dlg );
         edit_delete( &gui->edit );
 	purchase_dlg_delete( &gui->purchase_dlg );
 #ifdef WITH_SOUND
@@ -654,6 +671,10 @@ void gui_adjust()
     fdlg_move( gui->module_dlg, ( sdl.screen->w - ( gui->module_dlg->group->frame->img->img->w  + 
                                                   gui->module_dlg->lbox->group->frame->img->img->w ) ) / 2,
                ( sdl.screen->h - gui->module_dlg->group->frame->img->img->h ) / 2 );
+    /* scenario dialogue */
+    fdlg_move( gui->mod_select_dlg, ( sdl.screen->w - ( gui->mod_select_dlg->group->frame->img->img->w  + 
+                                                  gui->mod_select_dlg->lbox->group->frame->img->img->w ) ) / 2,
+               ( sdl.screen->h - gui->mod_select_dlg->group->frame->img->img->h ) / 2 );
 	       
     /* purchase dialogue */
     purchase_dlg_move(gui->purchase_dlg, 
@@ -697,6 +718,7 @@ void gui_get_bkgnds()
     fdlg_get_bkgnd( gui->scen_dlg );
     fdlg_get_bkgnd( gui->camp_dlg );
     fdlg_get_bkgnd( gui->module_dlg );
+    fdlg_get_bkgnd( gui->mod_select_dlg );
     sdlg_get_bkgnd( gui->scen_setup );
     sdlg_get_bkgnd( gui->camp_setup );
     purchase_dlg_get_bkgnd( gui->purchase_dlg );
@@ -724,6 +746,7 @@ void gui_draw_bkgnds()
     fdlg_draw_bkgnd( gui->scen_dlg );
     fdlg_draw_bkgnd( gui->camp_dlg );
     fdlg_draw_bkgnd( gui->module_dlg );
+    fdlg_draw_bkgnd( gui->mod_select_dlg );
     sdlg_draw_bkgnd( gui->scen_setup );
     sdlg_draw_bkgnd( gui->camp_setup );
     purchase_dlg_draw_bkgnd( gui->purchase_dlg );
@@ -751,6 +774,7 @@ void gui_draw()
     fdlg_draw( gui->scen_dlg );
     fdlg_draw( gui->camp_dlg );
     fdlg_draw( gui->module_dlg );
+    fdlg_draw( gui->mod_select_dlg );
     sdlg_draw( gui->scen_setup );
     sdlg_draw( gui->camp_setup );
     purchase_dlg_draw( gui->purchase_dlg );
@@ -816,6 +840,7 @@ int gui_handle_motion( int cx, int cy )
     if ( !fdlg_handle_motion( gui->scen_dlg, cx, cy  ) )
     if ( !fdlg_handle_motion( gui->camp_dlg, cx, cy  ) )
     if ( !fdlg_handle_motion( gui->module_dlg, cx, cy  ) )
+    if ( !fdlg_handle_motion( gui->mod_select_dlg, cx, cy  ) )
     if ( !sdlg_handle_motion( gui->scen_setup, cx, cy  ) )
     if ( !sdlg_handle_motion( gui->camp_setup, cx, cy  ) )
     if ( !purchase_dlg_handle_motion( gui->purchase_dlg, cx, cy  ) )
@@ -842,6 +867,7 @@ int  gui_handle_button( int button_id, int cx, int cy, Button **button )
     if ( !fdlg_handle_button( gui->scen_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->camp_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->module_dlg, button_id, cx, cy, button ) )
+    if ( !fdlg_handle_button( gui->mod_select_dlg, button_id, cx, cy, button ) )
     if ( !sdlg_handle_button( gui->scen_setup, button_id, cx, cy, button ) )
     if ( !sdlg_handle_button( gui->camp_setup, button_id, cx, cy, button ) )
     if ( !purchase_dlg_handle_button( gui->purchase_dlg, button_id, cx, cy, button ) )
@@ -1631,6 +1657,34 @@ void gui_render_save_menu( const char *path, SDL_Surface *buffer )
         group_set_active( gui->save_menu->group, ID_SAVE_OK, 1 );
         /* render info */
         SDL_FillRect( buffer, 0, 0x0 );
+    }
+}
+
+/*
+====================================================================
+Handle the selection of a mod folder to load
+====================================================================
+*/
+void gui_render_mod_select_info( const char *path, SDL_Surface *buffer )
+{
+    char pathFinal[512];
+    SDL_Surface *image;
+    if ( path == 0 )
+    {
+        /* no selection met */
+        group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_OK, 0 );
+        SDL_FillRect( buffer, 0, 0x0 );
+    }
+    else
+    {
+        group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_OK, 1 );
+        /* render image */
+        if ( search_file_name( pathFinal, "game", path, 'i' ) )
+        {
+            DEST( buffer, 0, 0, buffer->w, buffer->h );
+            SOURCE( load_surf( pathFinal, SDL_SWSURFACE ), 0, 0 );
+            blit_surf();
+        }
     }
 }
 
