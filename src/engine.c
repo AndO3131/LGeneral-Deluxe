@@ -169,7 +169,10 @@ enum {
     STATUS_DEPLOY_INFO,        /* full unit info while deploying */
     STATUS_STRAT_MAP,          /* showing the strategic map */
     STATUS_RENAME,             /* rename unit */
-    STATUS_SAVE,               /* running the save edit */
+    STATUS_SAVE_EDIT,          /* running the save edit */
+    STATUS_SAVE_MENU,          /* running the save menu */
+    STATUS_LOAD_MENU,          /* running the load menu */
+    STATUS_MOD_SELECT,         /* running mod select menu */
     STATUS_NEW_FOLDER,         /* creating new folder name */
     STATUS_TITLE,              /* show the background */
     STATUS_TITLE_MENU,         /* run title menu */
@@ -2005,8 +2008,8 @@ static void engine_handle_button( int id )
             break;
         case ID_NEW_FOLDER:
             fdlg_hide( gui->save_menu, 1 );
-            status = STATUS_NEW_FOLDER;
             edit_show( gui->edit, tr( "new folder" ) );
+            engine_set_status( STATUS_NEW_FOLDER );
             scroll_block_keys = 1;
             break;
         /* options */
@@ -2109,6 +2112,7 @@ static void engine_handle_button( int id )
             fdlg_open( gui->save_menu, path, "" );
             group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
             group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
+            engine_set_status( STATUS_SAVE_MENU );
             break;
         case ID_LOAD:
             engine_hide_game_menu();
@@ -2116,6 +2120,7 @@ static void engine_handle_button( int id )
             fdlg_open( gui->load_menu, path, "" );
             group_set_active( gui->load_menu->group, ID_LOAD_OK, 0 );
             group_set_active( gui->load_menu->group, ID_LOAD_CANCEL, 1 );
+            engine_set_status( STATUS_LOAD_MENU );
             break;
         case ID_QUIT:
             engine_hide_game_menu();
@@ -2485,6 +2490,7 @@ static void engine_handle_button( int id )
             fdlg_hide( gui->mod_select_dlg, 0 );
             group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_OK, 0 );
             group_set_active( gui->mod_select_dlg->group, ID_MOD_SELECT_CANCEL, 1 );
+            engine_set_status( STATUS_MOD_SELECT );
             break;
         case ID_MOD_SELECT_OK:
             break;
@@ -2586,6 +2592,10 @@ static void engine_check_events(int *reinit)
                     case STATUS_TITLE_MENU:
                         if ( button == BUTTON_RIGHT )
                             engine_hide_game_menu();
+                        break;
+                    case STATUS_SAVE_MENU:
+                        if ( button == BUTTON_RIGHT )
+                            engine_show_game_menu( cx, cy );
                         break;
                     case STATUS_CAMP_BRIEFING:
                         gui_handle_message_pane_event(camp_pane, cx, cy, button, 1);
@@ -3041,7 +3051,7 @@ static void engine_check_events(int *reinit)
                         engine_handle_button(ID_OK);
                     else if ( event.key.keysym.sym == SDLK_ESCAPE )
                         engine_handle_button(ID_CANCEL);
-                } else if ( status == STATUS_RENAME || status == STATUS_SAVE || status == STATUS_NEW_FOLDER ) {
+                } else if ( status == STATUS_RENAME || status == STATUS_SAVE_EDIT || status == STATUS_NEW_FOLDER ) {
                     if ( event.key.keysym.sym == SDLK_RETURN ) {
                         /* apply */
                         switch ( status ) {
@@ -3049,7 +3059,7 @@ static void engine_check_events(int *reinit)
                                 strcpy_lt( cur_unit->name, gui->edit->text, 20 );
                                 hide_edit = 1;
                                 break;
-                            case STATUS_SAVE:
+                            case STATUS_SAVE_EDIT:
                                 if ( dir_check( gui->save_menu->lbox->items, gui->edit->text ) != -1 )
                                     engine_confirm_action( tr("Overwrite saved game?") );
                                 slot_save( gui->edit->text, gui->save_menu->subdir );
@@ -3070,7 +3080,18 @@ static void engine_check_events(int *reinit)
                     }
                     else
                         if ( event.key.keysym.sym == SDLK_ESCAPE )
+                        {
                             hide_edit = 1;
+                            if ( status == STATUS_NEW_FOLDER )
+                            {
+                                char path[512];
+                                sprintf( path, "%s/pg/Save", config.dir_name );
+                                fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
+                                group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
+                                group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
+                                group_set_active( gui->save_menu->group, ID_NEW_FOLDER, 1 );
+                            }
+                        }
                     if ( hide_edit ) {    
                         engine_set_status( STATUS_NONE );
                         edit_hide( gui->edit, 1 );
@@ -3230,7 +3251,7 @@ static void engine_handle_next_action( int *reinit )
             end_scen = 1;
             break;
         case ACTION_OVERWRITE:
-            status = STATUS_SAVE;
+            status = STATUS_SAVE_EDIT;
             if (gui->save_menu->current_name)
             {
                 char time[15];
