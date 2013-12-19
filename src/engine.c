@@ -2089,7 +2089,7 @@ static void engine_handle_button( int id )
             camp_loaded = NO_CAMPAIGN;
             config.use_core_units = 0;
             engine_hide_game_menu();
-            sprintf( path, "%s/pg/Scenario", get_gamedir() );
+            sprintf( path, "%s/%s/Scenario", get_gamedir(), config.mod_name );
             fdlg_open( gui->scen_dlg, path, "" );
             group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 0 );
             group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 0 );
@@ -2099,7 +2099,7 @@ static void engine_handle_button( int id )
         case ID_CAMP:
             camp_loaded = FIRST_SCENARIO;
             engine_hide_game_menu();
-            sprintf( path, "%s/pg/Campaigns", get_gamedir() );
+            sprintf( path, "%s/%s/Campaigns", get_gamedir(), config.mod_name );
             fdlg_open( gui->camp_dlg, path, "" );
             group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );
@@ -2108,7 +2108,7 @@ static void engine_handle_button( int id )
             break;
         case ID_SAVE:
             engine_hide_game_menu();
-            sprintf( path, "%s/pg/Save", get_gamedir() );
+            sprintf( path, "%s/%s/Save", get_gamedir(), config.mod_name );
             fdlg_open( gui->save_menu, path, "" );
             group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
             group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
@@ -2116,7 +2116,7 @@ static void engine_handle_button( int id )
             break;
         case ID_LOAD:
             engine_hide_game_menu();
-            sprintf( path, "%s/pg/Save", get_gamedir() );
+            sprintf( path, "%s/%s/Save", get_gamedir(), config.mod_name );
             fdlg_open( gui->load_menu, path, "" );
             group_set_active( gui->load_menu->group, ID_LOAD_OK, 0 );
             group_set_active( gui->load_menu->group, ID_LOAD_CANCEL, 1 );
@@ -2493,6 +2493,9 @@ static void engine_handle_button( int id )
             engine_set_status( STATUS_MOD_SELECT );
             break;
         case ID_MOD_SELECT_OK:
+            fdlg_hide( gui->mod_select_dlg, 1 );
+            config.mod_name = gui->mod_select_dlg->current_name;
+            engine_set_status( STATUS_NONE );
             break;
         case ID_MOD_SELECT_CANCEL:
             fdlg_hide( gui->mod_select_dlg, 1 );
@@ -3068,7 +3071,7 @@ static void engine_check_events(int *reinit)
                             case STATUS_NEW_FOLDER:
                                 dir_create( gui->edit->text, gui->save_menu->subdir );
                                 char path[512];
-                                sprintf( path, "%s/pg/Save", config.dir_name );
+                                sprintf( path, "%s/%s/Save", config.dir_name, config.mod_name );
                                 fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
                                 group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
                                 group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );
@@ -3085,7 +3088,7 @@ static void engine_check_events(int *reinit)
                             if ( status == STATUS_NEW_FOLDER )
                             {
                                 char path[512];
-                                sprintf( path, "%s/pg/Save", config.dir_name );
+                                sprintf( path, "%s/%s/Save", config.dir_name, config.mod_name );
                                 fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
                                 group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
                                 group_set_active( gui->save_menu->group, ID_SAVE_CANCEL, 1 );

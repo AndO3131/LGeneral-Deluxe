@@ -770,7 +770,7 @@ int slot_save( char *name, char *subdir )
     /* if we ever hit this, we have *big* problems */
     COMPILE_TIME_ASSERT(StoreHighestSupportedVersion <= StoreVersionLimit);
     /* get file name */
-    sprintf( path, "%s/pg/Save/%s/%s", config.dir_name, subdir, name );
+    sprintf( path, "%s/%s/Save/%s/%s", get_gamedir(), config.mod_name, subdir, name );
     /* open file */
     if ( ( file = fopen( path, "w" ) ) == 0 ) {
         fprintf( stderr, tr("%s: not found\n"), path );
@@ -839,7 +839,7 @@ int slot_load( char *name )
 	
     store_version = StoreVersionLegacy;
     /* get file name */
-    sprintf( path, "%s/pg/Save/%s", config.dir_name, name );
+    sprintf( path, "%s/%s/Save/%s", get_gamedir(), config.mod_name, name );
     /* open file */
 #ifdef WIN32
     if ( ( file = fopen( path, "rb" ) ) == 0 ) {

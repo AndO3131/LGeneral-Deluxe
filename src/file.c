@@ -289,7 +289,7 @@ int dir_create( const char *folderName, const char *subdir )
 {
     struct stat st = {0};
     char dir[4096]; 
-    snprintf( dir, 4096, "%s/pg/Save/%s/%s", config.dir_name, subdir, folderName );
+    snprintf( dir, 4096, "%s/%s/Save/%s/%s", get_gamedir(), config.mod_name, subdir, folderName );
     if (stat( dir, &st ) == -1)
     {
         mkdir( dir, 0777 );

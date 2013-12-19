@@ -139,7 +139,7 @@ int map_load( char *fname )
     char *str, *tile;
     char *domain = 0;
     List *tiles, *names;
-    sprintf( path, "%s/pg/Maps/%s", get_gamedir(), fname );
+    sprintf( path, "%s/%s/Maps/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);

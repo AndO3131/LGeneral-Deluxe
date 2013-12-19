@@ -28,6 +28,7 @@
 #include "nation.h"
 #include "parser.h"
 #include "localize.h"
+#include "config.h"
 
 /*
 ====================================================================
@@ -35,6 +36,7 @@ Externals
 ====================================================================
 */
 extern Sdl sdl;
+extern Config config;
 
 /*
 ====================================================================
@@ -59,7 +61,7 @@ int nations_load( char *fname )
     char path[512];
     char *str;
     char *domain = 0;
-    sprintf( path, "%s/pg/Nations/%s", get_gamedir(), fname );
+    sprintf( path, "%s/%s/Nations/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -68,7 +70,7 @@ int nations_load( char *fname )
     if ( !parser_get_int( pd, "icon_height", &nation_flag_height ) ) goto parser_failure;
     /* icons */
     if ( !parser_get_value( pd, "icons", &str, 0 ) ) goto parser_failure;
-    search_file_name_exact( path, str, "pg" );
+    search_file_name_exact( path, str, config.mod_name );
     if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE ) ) == 0 ) {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;

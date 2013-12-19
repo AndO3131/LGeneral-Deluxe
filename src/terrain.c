@@ -93,7 +93,7 @@ int terrain_load( char *fname )
     /* log info */
     int  log_dot_limit = 40; /* maximum of dots */
     char log_str[128];
-    sprintf( path, "%s/pg/Maps/%s", get_gamedir(), fname );
+    sprintf( path, "%s/%s/Maps/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -120,29 +120,29 @@ int terrain_load( char *fname )
     terrain_icons = calloc( 1, sizeof( Terrain_Icons ) );
     if ( !parser_get_value( pd, "fog", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->fog = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "danger", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->danger = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "grid", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->grid = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "frame", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->select = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "crosshair", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->cross = anim_create( load_surf( path, SDL_SWSURFACE ), 1000/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->cross, 1 );
     if ( !parser_get_value( pd, "explosion", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/terrain/%s", str );
-    search_file_name_exact( path, transitionPath, "pg" );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( terrain_icons->expl1 = anim_create( load_surf( path, SDL_SWSURFACE ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->expl1, 1 );
@@ -154,13 +154,13 @@ int terrain_load( char *fname )
     if ( parser_get_value( pd, "explosion_sound", &str, 0 ) )
     {
         snprintf( transitionPath, 512, "Sound/%s", str );
-        search_file_name_exact( path, transitionPath, "pg" );
+        search_file_name_exact( path, transitionPath, config.mod_name );
         terrain_icons->wav_expl = wav_load( path, 2 );
     }
     if ( parser_get_value( pd, "select_sound", &str, 0 ) )
     {
         snprintf( transitionPath, 512, "Sound/%s", str );
-        search_file_name_exact( path, transitionPath, "pg" );
+        search_file_name_exact( path, transitionPath, config.mod_name );
         terrain_icons->wav_select = wav_load( path, 1 );
     }
 #endif
@@ -186,7 +186,7 @@ int terrain_load( char *fname )
             }
             else {
                 sprintf( transitionPath, "Graphics/terrain/%s", str );
-                search_file_name_exact( path, transitionPath, "pg" );
+                search_file_name_exact( path, transitionPath, config.mod_name );
                 if ( ( terrain_types[i].images[j] = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto parser_failure;
                 SDL_SetColorKey( terrain_types[i].images[j], SDL_SRCCOLORKEY, 
                                  get_pixel( terrain_types[i].images[j], 0, 0 ) );

@@ -227,7 +227,7 @@ int scen_load( const char *fname )
     int unit_delayed = 0;
 	
     scen_delete();
-    sprintf( path, "%s/pg/Scenario/%s", get_gamedir(), fname );
+    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     free(scen_domain);
     domain = scen_domain = determine_domain(pd, fname);
@@ -759,7 +759,7 @@ char* scen_load_info( const char *fname )
     char *info = 0;
     char *domain = 0;
     int i;
-    sprintf( path, "%s/pg/Scenario/%s", get_gamedir(), fname );
+    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     /* title and description */
     domain = determine_domain(pd, fname);
