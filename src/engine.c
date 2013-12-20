@@ -2494,7 +2494,7 @@ static void engine_handle_button( int id )
             break;
         case ID_MOD_SELECT_OK:
             fdlg_hide( gui->mod_select_dlg, 1 );
-            config.mod_name = gui->mod_select_dlg->current_name;
+            snprintf( config.mod_name, 256, "%s", gui->mod_select_dlg->current_name );
             engine_set_status( STATUS_NONE );
             break;
         case ID_MOD_SELECT_CANCEL:

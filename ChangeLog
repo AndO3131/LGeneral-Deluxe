@@ -11,7 +11,7 @@
 - you can set the efile or other text files to use any mix of BMP/PNG/JPG
   raster files supported by SDL (2013/01/08 AGW)
 - added 4 new movement types, a new pillbox unit class, and an example for
-  a new rail terrain type.  Made misc. unit/terrain changes. (2013/01/08 AGW)
+  a new rail terrain type; made misc. unit/terrain changes (2013/01/08 AGW)
 - basic cmake configuration for main program (2013/11/11 AndO3131)
 - 2 SourceForge patches (Galland)
 
