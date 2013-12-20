@@ -1681,6 +1681,7 @@ void gui_render_mod_select_info( const char *path, SDL_Surface *buffer )
         /* render image */
         if ( search_file_name( pathFinal, "game", path, 'i' ) )
         {
+            SDL_FillRect( buffer, 0, 0x0 );
             DEST( buffer, 0, 0, buffer->w, buffer->h );
             SOURCE( load_surf( pathFinal, SDL_SWSURFACE ), 0, 0 );
             blit_surf();

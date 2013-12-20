@@ -44,7 +44,7 @@ data, after you have installed LGeneral itself as described below.
 LGeneral runs in X and uses SDL (>= 1.1.4), SDL_image (any version?) and SDL_mixer
 (optional, any version). These libraries can be found at http://libsdl.org.
 
-2.1 Building LGeneral with autogen
+2.1 Building LGeneral with autogen (OUTDATED)
 ----------------------------------
 
 Now enter your favorite shell and type in the following stuff (in the
