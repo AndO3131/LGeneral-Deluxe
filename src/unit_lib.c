@@ -260,7 +260,7 @@ int unit_lib_load( char *fname, int main )
         main = UNIT_LIB_ADD;
     }
     /* parse file */
-    sprintf( path, "%s/%s/Units/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     sprintf( log_str, tr("  Parsing '%s'"), fname );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
@@ -330,18 +330,18 @@ int unit_lib_load( char *fname, int main )
         if ( !parser_get_int( pd, "strength_icon_width", &unit_info_icons->str_w ) ) goto parser_failure;
         if ( !parser_get_int( pd, "strength_icon_height", &unit_info_icons->str_h ) ) goto parser_failure;
         if ( !parser_get_value( pd, "attack_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( transitionPath, "Graphics/%s", str );
+        sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
         if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "move_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( transitionPath, "Graphics/%s", str );
+        sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
         if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
         {
             search_file_name( str, "pg_guard", "", 'i' );
         }
-        sprintf( transitionPath, "Graphics/%s", str );
+        sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
         if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
     }

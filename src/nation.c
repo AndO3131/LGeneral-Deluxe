@@ -61,7 +61,7 @@ int nations_load( char *fname )
     char path[512];
     char *str;
     char *domain = 0;
-    sprintf( path, "%s/%s/Nations/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
