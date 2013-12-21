@@ -11,7 +11,7 @@ nation_db»pg.ndb
 <unit_db
 main»pg.udb
 >
-map»map16
+map»map16.lgmap
 weather»clouds°clouds°clouds°fair°fair°fair°fair°fair°fair°fair°fair°clouds°r°rain°clouds°fair°fair°fair°fair°fair°fair°fair°fair
 <flags
 <flag

@@ -1,8 +1,8 @@
 @
 domain»pg
-icons»tacicons.bmp
+icons»units/pg.bmp
 icon_type»single
-strength_icons»strength.bmp
+strength_icons»units/pg_strength.bmp
 strength_icon_width»16
 strength_icon_height»12
 attack_icon»pg_attack.bmp

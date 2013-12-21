@@ -2099,7 +2099,7 @@ static void engine_handle_button( int id )
         case ID_CAMP:
             camp_loaded = FIRST_SCENARIO;
             engine_hide_game_menu();
-            sprintf( path, "%s/%s/Campaigns", get_gamedir(), config.mod_name );
+            sprintf( path, "%s/%s/Scenario", get_gamedir(), config.mod_name );
             fdlg_open( gui->camp_dlg, path, "" );
             group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 0 );
             group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 0 );

@@ -61,7 +61,7 @@ frame»select_frame.bmp
 crosshair»crosshair.bmp
 explosion»explosion.bmp
 damage_bar»damage_bars.bmp
-explosion_sound»explosion.wav
+explosion_sound»explode.wav
 select_sound»select.wav
 <terrain
 <c

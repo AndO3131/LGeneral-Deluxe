@@ -167,7 +167,7 @@ int camp_load( const char *fname )
     char *result, *next_scen;
     char *domain = 0;
     camp_delete();
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( path, "%s/%s/Scenario/%s.lgcam", get_gamedir(), config.mod_name, fname );
     camp_fname = strdup( fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
@@ -245,7 +245,7 @@ char* camp_load_info( const char *fname )
     char *name, *desc;
     char *domain = 0;
     char *info = 0;
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( path, "%s/%s/Scenario/%s.lgcam", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);

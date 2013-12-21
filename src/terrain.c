@@ -93,7 +93,7 @@ int terrain_load( char *fname )
     /* log info */
     int  log_dot_limit = 40; /* maximum of dots */
     char log_str[128];
-    sprintf( path, "%s/%s/Maps/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);

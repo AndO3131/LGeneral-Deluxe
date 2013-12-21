@@ -199,7 +199,11 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
             if ( ext )
                 if ( !STRCMP( dirent->d_name + ( strlen( dirent->d_name ) - strlen( ext ) ), ext ) )
                     continue;
-            list_add( list, strdup( dirent->d_name ) );
+            if ( ext != 0 )
+                snprintf( file_name, strcspn( dirent->d_name, "." ) + 1, "%s", dirent->d_name );
+            else
+                snprintf( file_name, 512, "%s", dirent->d_name );
+            list_add( list, strdup( file_name ) );
         }
     }
     /* close dir */

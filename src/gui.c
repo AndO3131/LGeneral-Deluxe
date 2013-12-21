@@ -393,7 +393,7 @@ int gui_load( char *dir )
                                   ID_LOAD_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS, 0, 0 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 0, 0, 0 );
     fdlg_hide( gui->load_menu, 1 );
     /* save menu */
     sprintf( transitionPath, "Theme/save_dlg_buttons" );
@@ -406,7 +406,7 @@ int gui_load( char *dir )
                                   ID_SAVE_OK, 
                                   gui->label, 
                                   gui_render_file_name, gui_render_save_menu,
-                                  sdl.screen, 0, 0, ARRANGE_ROWS, 1, 0 );
+                                  sdl.screen, 0, 0, ARRANGE_ROWS, 1, 0, 0 );
     sx = 15; sy = 15;
     group_add_button( gui->save_menu->group, ID_NEW_FOLDER, sx, sy, 0, tr("Create New Folder"), 2 );
     fdlg_hide( gui->save_menu, 1 );
@@ -453,7 +453,7 @@ int gui_load( char *dir )
                                  ID_SCEN_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_scen_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, "lgscn" );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
@@ -469,7 +469,7 @@ int gui_load( char *dir )
                                  ID_CAMP_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_camp_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, "lgcam" );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
     /* scenario setup window */
@@ -517,7 +517,7 @@ int gui_load( char *dir )
                                  ID_MODULE_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_module_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, 0 );
     fdlg_hide( gui->module_dlg, 1 );
     /* purchase dialogue */
     sprintf( path2, "%s/Theme", dir );
@@ -537,7 +537,7 @@ int gui_load( char *dir )
                                  ID_MOD_SELECT_OK, 
                                  gui->label, 
                                  gui_render_file_name, gui_render_mod_select_info,
-                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 1 );
+                                 sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 1, 0 );
     fdlg_hide( gui->mod_select_dlg, 1 );
     /* adjust positions */
     gui_adjust();
