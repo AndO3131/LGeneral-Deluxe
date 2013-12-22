@@ -837,6 +837,8 @@ char* scen_load_info( char *fname )
     search_file_name( path, extension, fname, temp, 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn_info( fname, path );
+    else if ( strcmp( extension, "pgscn" ) == 0 )
+        return 1;
     return 0;
 }
 

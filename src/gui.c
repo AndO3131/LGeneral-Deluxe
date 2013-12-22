@@ -1577,12 +1577,15 @@ void gui_render_scen_info( const char *path, SDL_Surface *buffer )
         group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 1 );
         /* render info */
         SDL_FillRect( buffer, 0, 0x0 );
-        gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
-        text = create_text( gui->font_std, info, buffer->w );
-        for ( i = 0; i < text->count; i++ )
-            write_line( buffer, gui->font_std, text->lines[i], x, &y );
-        delete_text( text );
-        free( info );
+        if ( info != 1 )
+        {
+            gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+            text = create_text( gui->font_std, info, buffer->w );
+            for ( i = 0; i < text->count; i++ )
+                write_line( buffer, gui->font_std, text->lines[i], x, &y );
+            delete_text( text );
+            free( info );
+        }
     }
 }
 
