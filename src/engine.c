@@ -633,7 +633,6 @@ static void engine_show_game_menu( int cx, int cy )
         group_hide( gui->main_menu, 0 );
         group_set_active( gui->main_menu, ID_SAVE, 0 );
         group_set_active( gui->main_menu, ID_RESTART, 0 );
-        group_set_active( gui->main_menu, ID_MOD_SELECT, 1 );
     }
     else {
         engine_check_menu_buttons();
@@ -641,7 +640,6 @@ static void engine_show_game_menu( int cx, int cy )
         status = STATUS_GAME_MENU;
         group_set_active( gui->main_menu, ID_SAVE, 1 );
         group_set_active( gui->main_menu, ID_RESTART, 1 );
-        group_set_active( gui->main_menu, ID_MOD_SELECT, 0 );
     }
     /* lock config buttons */
     group_lock_button( gui->opt_menu, ID_C_SUPPLY, config.supply );
@@ -2495,7 +2493,9 @@ static void engine_handle_button( int id )
         case ID_MOD_SELECT_OK:
             fdlg_hide( gui->mod_select_dlg, 1 );
             snprintf( config.mod_name, 256, "%s", gui->mod_select_dlg->current_name );
-            engine_set_status( STATUS_NONE );
+            engine_confirm_action( tr("Loading new game folder will erase current game. Are you sure?") );
+            setup.type = SETUP_RUN_TITLE;
+            engine_set_status( STATUS_TITLE );
             break;
         case ID_MOD_SELECT_CANCEL:
             fdlg_hide( gui->mod_select_dlg, 1 );
