@@ -35,8 +35,10 @@ extern Config config;
 //#define FILE_DEBUG
 const int extension_image_length = 4;
 const int extension_sound_length = 3;
+const int extension_scenario_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
+const char *extension_scenario[] = { "lgscn", "pgscn" };
 
 /*
 ====================================================================
@@ -135,10 +137,10 @@ Makefile stuff.
 The directoriers are marked with an asteriks.
 ====================================================================
 */
-List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile, int dir_only )
+List* dir_get_entries( const char *path, const char *root, int file_type, int emptyFile, int dir_only )
 {
     Text *text = 0;
-    int i;
+    int i, ext_limit, flag = 0;
     DIR *dir;
     DIR *test_dir;
     struct dirent *dirent = 0;
@@ -146,13 +148,27 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
     List *order = 0;
     List *extracted;
     struct stat fstat;
-    char file_name[4096];
+    char file_name[4096], *ext[5];
     FILE *file;
     /* open this directory */
     if ( ( dir = opendir( path ) ) == 0 ) {
         fprintf( stderr, tr("get_file_list: can't open parent directory '%s'\n"), path );
         return 0;
     }
+    /* determine extensions according to file_type */
+    if ( file_type == LIST_ALL )
+        ext_limit = 0;
+    else if ( file_type == LIST_SCENARIOS )
+    {
+        ext_limit = extension_scenario_length;
+        for ( i = 0;i < ext_limit; i++ )
+        {
+            ext[i] = calloc( 10, sizeof( char ) );
+            snprintf( ext[i], 10, ".%s", extension_scenario[i] );
+        }
+    }
+//    else if ( file_type == LIST_CAMPAIGNS )
+//        ext = extension_campaign;
     text = calloc( 1, sizeof( Text ) );
     /* use dynamic list to gather all valid entries */
     list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
@@ -196,14 +212,22 @@ List* dir_get_entries( const char *path, const char *root, const char *ext, int 
             if ( ( file = fopen( file_name, "r" ) ) == 0 ) continue;
             fclose( file );
             /* check if this file has the proper extension */
-            if ( ext )
-                if ( !STRCMP( dirent->d_name + ( strlen( dirent->d_name ) - strlen( ext ) ), ext ) )
+            if ( ext_limit != 0 )
+            {
+                flag = 0;
+                for ( i = 0; i < ext_limit; i++ )
+                    if ( !STRCMP( strrchr( dirent->d_name, '.' ), ext[i] ) )
+                        flag++;
+                if ( flag == ext_limit )
                     continue;
-            if ( ext != 0 )
                 snprintf( file_name, strcspn( dirent->d_name, "." ) + 1, "%s", dirent->d_name );
+                list_add( list, strdup( file_name ) );
+            }
             else
+            {
                 snprintf( file_name, 512, "%s", dirent->d_name );
-            list_add( list, strdup( file_name ) );
+                list_add( list, strdup( file_name ) );
+            }
         }
     }
     /* close dir */
@@ -305,14 +329,17 @@ int dir_create( const char *folderName, const char *subdir )
 /*
 ====================================================================
 Find full file name.
-Extensions are added according to type given.
+Extensions are added according to type given and may be returned
+for further use.
 'i' - images (bmp, png, jpg)
 's' - sounds (wav, ogg, mp3)
+'o' - scenarios (lgscn, pgscn)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
+int search_file_name( char *pathFinal, char *extension, char *name, char *modFolder, char type )
 {
     int i = 0;
+    char pathTemp[256];
     if ( !STRCMP( modFolder, "" ) )
     {
         switch (type)
@@ -321,9 +348,13 @@ int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
             {
                 while ( i < extension_image_length )
                 {
-                    snprintf( pathFinal, 256, "%s/%s.%s", modFolder, path, extension_image[i] );
-                    if ( file_exists( pathFinal ) )
+                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_image[i] );
+                    if ( file_exists( pathTemp ) )
                     {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, 256, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, 10, "%s", extension_image[i] );
                         return 1;
                     }
                     i++;
@@ -334,9 +365,30 @@ int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
             {
                 while ( i < extension_sound_length )
                 {
-                    snprintf( pathFinal, 256, "%s/%s.%s", modFolder, path, extension_sound[i] );
-                    if ( file_exists( pathFinal ) )
+                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_sound[i] );
+                    if ( file_exists( pathTemp ) )
                     {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, 256, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, 10, "%s", extension_sound[i] );
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
+            case 'o':
+            {
+                while ( i < extension_scenario_length )
+                {
+                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_scenario[i] );
+                    if ( file_exists( pathTemp ) )
+                    {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, 256, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, 10, "%s", extension_scenario[i] );
                         return 1;
                     }
                     i++;
@@ -351,9 +403,13 @@ int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
         {
             while ( i < extension_image_length )
             {
-                snprintf( pathFinal, 256, "Default/%s.%s", path, extension_image[i] );
-                if ( file_exists( pathFinal ) )
+                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_image[i] );
+                if ( file_exists( pathTemp ) )
                 {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, 256, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, 10, "%s", extension_image[i] );
                     return 1;
                 }
                 i++;
@@ -364,9 +420,30 @@ int search_file_name( char *pathFinal, char *path, char *modFolder, char type )
         {
             while ( i < extension_sound_length )
             {
-                snprintf( pathFinal, 256, "Default/%s.%s", path, extension_sound[i] );
-                if ( file_exists( pathFinal ) )
+                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_sound[i] );
+                if ( file_exists( pathTemp ) )
                 {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, 256, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, 10, "%s", extension_sound[i] );
+                    return 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 'o':
+        {
+            while ( i < extension_scenario_length )
+            {
+                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_scenario[i] );
+                if ( file_exists( pathTemp ) )
+                {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, 256, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, 10, "%s", extension_scenario[i] );
                     return 1;
                 }
                 i++;

@@ -874,7 +874,7 @@ int slot_load( char *name )
     if ( camp_saved ) {
         /* reload campaign and set to current scenario id */
         str = load_string( file );
-        snprintf( path, 512, "%s.lgcam", str );
+        snprintf( path, 512, "%s", str );
         camp_load( path );
         free( str );
         str = load_string( file );

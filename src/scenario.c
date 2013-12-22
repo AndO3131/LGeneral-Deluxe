@@ -199,16 +199,10 @@ static void update_nations_purchase_flag()
 
 /*
 ====================================================================
-Publics
+Load a scenario in LGD format.
 ====================================================================
 */
-
-/*
-====================================================================
-Load a scenario.
-====================================================================
-*/
-int scen_load( const char *fname )
+int scen_load_lgscn( const char *fname, const char *path )
 {
     char log_str[256];
     int unit_ref = 0;
@@ -217,8 +211,7 @@ int scen_load( const char *fname )
     PData *pd, *sub, *flag, *subsub;
     PData *pd_vcond, *pd_bind, *pd_vsubcond;
     List *entries, *values, *flags;
-    char path[512];
-    char *str, *lib;
+    char *str, *lib, *temp;
     char *domain;
     Player *player = 0;
     Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0;
@@ -227,7 +220,6 @@ int scen_load( const char *fname )
     int unit_delayed = 0;
 	
     scen_delete();
-    sprintf( path, "%s/%s/Scenario/%s.lgscn", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     free(scen_domain);
     domain = scen_domain = determine_domain(pd, fname);
@@ -263,8 +255,7 @@ int scen_load( const char *fname )
     /* unit libs */
         if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
             /* check the scenario file itself but only for the main entry */
-            sprintf(path, "../scenarios/%s", fname); 
-            str = path;
+            sprintf(str, "../scenarios/%s", fname); 
             sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
             write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
             if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
@@ -287,8 +278,7 @@ int scen_load( const char *fname )
     }
     /* map and weather */
     if ( !parser_get_value( pd, "map", &str, 0 ) ) {
-        sprintf(path, "../scenarios/%s", fname); /* check the scenario file itself */
-        str = path;
+        sprintf(str, "../scenarios/%s", fname); /* check the scenario file itself */
     }
     sprintf( log_str, tr("Loading Map '%s'"), str );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
@@ -383,11 +373,12 @@ int scen_load( const char *fname )
     }
     /* set alliances */
     list_reset( players );
+    temp = calloc( 256, sizeof(char) );
     for ( i = 0; i < players->count; i++ ) {
         player = list_next( players );
         player->allies = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
-        sprintf( path, "players/%s/allied_players", player->id );
-        if ( parser_get_values( pd, path, &values ) ) {
+        sprintf( temp, "players/%s/allied_players", player->id );
+        if ( parser_get_values( pd, temp, &values ) ) {
             list_reset( values );
             for ( j = 0; j < values->count; j++ )
                 list_add( player->allies, player_get_by_id( list_next( values ) ) );
@@ -747,19 +738,17 @@ failure:
 
 /*
 ====================================================================
-Load a scenario description.
+Load a scenario description in LGD format.
 ====================================================================
 */
-char* scen_load_info( const char *fname )
+char* scen_load_lgscn_info( const char *fname, const char *path )
 {
     PData *pd, *sub;
-    char path[512];
     List *entries;
     char *name, *desc, *turns, count[4], *str;
     char *info = 0;
     char *domain = 0;
     int i;
-    sprintf( path, "%s/%s/Scenario/%s.lgscn", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     /* title and description */
     domain = determine_domain(pd, fname);
@@ -806,6 +795,48 @@ failure:
     if ( pd ) parser_free( &pd );
     if ( info ) free( info );
     free(domain);
+    return 0;
+}
+
+/*
+====================================================================
+Publics
+====================================================================
+*/
+
+/*
+====================================================================
+Load a scenario.
+====================================================================
+*/
+int scen_load( char *fname )
+{
+    char *path, *extension, temp[256];
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    snprintf( temp, 256, "%s/Scenario", config.mod_name );
+    search_file_name( path, extension, fname, temp, 'o' );
+    if ( strcmp( extension, "lgscn" ) == 0 )
+        return scen_load_lgscn( fname, path );
+//    else if ( strcmp( extension, "pgscn" ) == 0 )
+//        return scen_load_pgscn( fname, path );
+    return 0;
+}
+
+/*
+====================================================================
+Load a scenario description.
+====================================================================
+*/
+char* scen_load_info( char *fname )
+{
+    char *path, *extension, temp[256];
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    snprintf( temp, 256, "%s/Scenario", config.mod_name );
+    search_file_name( path, extension, fname, temp, 'o' );
+    if ( strcmp( extension, "lgscn" ) == 0 )
+        return scen_load_lgscn_info( fname, path );
     return 0;
 }
 

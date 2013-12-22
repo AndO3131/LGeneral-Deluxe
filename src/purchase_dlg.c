@@ -622,7 +622,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create main group (= main window) */
 	snprintf( transitionPath, 512, "confirm_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->main_group = group_create( gui_create_frame( 300, 320 ), 160, 
 				load_surf( path, SDL_SWSURFACE ),
 				20, 20, 2, ID_PURCHASE_OK,
@@ -644,7 +644,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create nation listbox */
 	snprintf( transitionPath, 512, "scroll_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->nation_lbox = lbox_create( gui_create_frame( 112, 74 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			3, 1, 100, 12, 1, 0x0000ff,
@@ -654,7 +654,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create class listbox */
 	snprintf( transitionPath, 512, "scroll_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->uclass_lbox = lbox_create( gui_create_frame( 112, 166 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			10, 2, 100, 12, 1, 0x0000ff,
@@ -664,7 +664,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create units listbox */
 	snprintf( transitionPath, 512, "scroll_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->unit_lbox = lbox_create( gui_create_frame( 112, 200 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			4, 3, 100, 40, 1, 0x0000ff,
@@ -674,7 +674,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create transporters listbox */
 	snprintf( transitionPath, 512, "scroll_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->trsp_lbox = lbox_create( gui_create_frame( 112, 120 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			2, 1, 100, 40, 1, 0x0000ff,
@@ -684,7 +684,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	
 	/* create reinforcements listbox */
 	snprintf( transitionPath, 512, "scroll_buttons" );
-    search_file_name( path, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->reinf_lbox = lbox_create( gui_create_frame( 112, 280 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE ), 24, 24, gui->label,
 			6, 3, 100, 40, 1, 0x0000ff,

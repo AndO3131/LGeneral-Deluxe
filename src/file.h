@@ -23,6 +23,12 @@
 
 #include <stdio.h>
 
+enum {
+    LIST_ALL = 0,
+    LIST_SCENARIOS,
+    LIST_CAMPAIGNS
+};
+
 /*
 ====================================================================
 Read all lines from file.
@@ -39,7 +45,7 @@ Makefile stuff.
 The directoriers are marked with an asteriks.
 ====================================================================
 */
-List* dir_get_entries( const char *path, const char *root, const char *ext, int emptyFile, int dir_only );
+List* dir_get_entries( const char *path, const char *root, int file_type, int emptyFile, int dir_only );
 
 /*
 ====================================================================
@@ -64,7 +70,7 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *path, char *modFolder, char type );
+int search_file_name( char *pathFinal, char *extension, char *name, char *modFolder, char type );
 
 /*
 ====================================================================

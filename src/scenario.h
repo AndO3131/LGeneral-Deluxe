@@ -115,7 +115,7 @@ typedef struct {
 Load a scenario. 
 ====================================================================
 */
-int scen_load( const char *fname );
+int scen_load( char *fname );
 
 /*
 ====================================================================
@@ -124,7 +124,7 @@ and setup the setup :) except the type which is set when the
 engine performs the load action.
 ====================================================================
 */
-char* scen_load_info( const char *fname );
+char* scen_load_info( char *fname );
 
 /*
 ====================================================================

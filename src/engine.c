@@ -4211,7 +4211,7 @@ int engine_init()
     int i, j;
     Player *player;
 #ifdef USE_DL
-    char path[256];
+    char path[256], extension[10];
 #endif
     end_scen = 0;
     /* build action queue */
@@ -4240,7 +4240,8 @@ int engine_init()
             setup.type = SETUP_CAMP_BRIEFING;
             return 1;
         }
-        else {
+        else
+        {
             if ( !scen_load( setup.fname ) ) return 0;
             if ( setup.type == SETUP_INIT_SCEN ) {
                 /* player control */

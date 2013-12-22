@@ -397,7 +397,7 @@ typedef struct {
                                            1: arranged one above another */
     int dir_only;                       /* this file dialogue searches only folders */
     char *current_name;                 /* current selected file */
-    const char *extension;              /* extension used for this file dialogue window */
+    int file_type;                      /* show specific file type in this file dialogue window */
 } FDlg;
 
 /*
@@ -418,8 +418,7 @@ FDlg *fdlg_create(
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, SDL_Surface* ),
-                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only,
-                   const char *extension );
+                   SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only, int file_type );
 void fdlg_delete( FDlg **fdlg );
 
 /*
