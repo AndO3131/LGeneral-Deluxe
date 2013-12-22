@@ -4211,7 +4211,7 @@ int engine_init()
     int i, j;
     Player *player;
 #ifdef USE_DL
-    char path[256], extension[10];
+    char path[256];
 #endif
     end_scen = 0;
     /* build action queue */

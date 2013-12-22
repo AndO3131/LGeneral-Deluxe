@@ -214,6 +214,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             /* check if this file has the proper extension */
             if ( ext_limit != 0 )
             {
+                /* if at least one extension fits, add this file to list */
                 flag = 0;
                 for ( i = 0; i < ext_limit; i++ )
                     if ( !STRCMP( strrchr( dirent->d_name, '.' ), ext[i] ) )
