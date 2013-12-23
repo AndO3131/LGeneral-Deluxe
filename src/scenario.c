@@ -27,6 +27,7 @@
 #include "scenario.h"
 #include "localize.h"
 #include "campaign.h"
+#include "FPGE/pgf.h"
 
 #if DEBUG_CAMPAIGN
 #  include <stdio.h>
@@ -818,8 +819,8 @@ int scen_load( char *fname )
     search_file_name( path, extension, fname, temp, 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn( fname, path );
-//    else if ( strcmp( extension, "pgscn" ) == 0 )
-//        return scen_load_pgscn( fname, path );
+    else if ( strcmp( extension, "pgscn" ) == 0 )
+        return load_pgf_equipment( "equipment.pgeqp" );
     return 0;
 }
 
@@ -828,7 +829,7 @@ int scen_load( char *fname )
 Load a scenario description.
 ====================================================================
 */
-char* scen_load_info( char *fname )
+int scen_load_info( char *info, char *fname )
 {
     char *path, *extension, temp[256];
     path = calloc( 256, sizeof( char ) );
@@ -836,9 +837,15 @@ char* scen_load_info( char *fname )
     snprintf( temp, 256, "%s/Scenario", config.mod_name );
     search_file_name( path, extension, fname, temp, 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
-        return scen_load_lgscn_info( fname, path );
-    else if ( strcmp( extension, "pgscn" ) == 0 )
+    {
+        strncpy( info, scen_load_lgscn_info( fname, path ), 1024 );
         return 1;
+    }
+    else if ( strcmp( extension, "pgscn" ) == 0 )
+    {
+        strcpy( setup.fname, fname );
+        return 2;
+    }
     return 0;
 }
 

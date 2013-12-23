@@ -145,7 +145,7 @@ static void unit_get_icon_geometry( int icon_id, SDL_Surface *icons, int *width,
 Delete unit library entry.
 ====================================================================
 */
-static void unit_lib_delete_entry( void *ptr )
+void unit_lib_delete_entry( void *ptr )
 {
     Unit_Lib_Entry *entry = (Unit_Lib_Entry*)ptr;
     if ( entry == 0 ) return;

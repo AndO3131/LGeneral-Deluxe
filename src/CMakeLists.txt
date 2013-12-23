@@ -106,6 +106,14 @@ set ( util_src
 #  intl/textdomain.c
 #)
 
+set ( fpge_src
+#  FPGE/load.c
+#  FPGE/load.h
+#  FPGE/fpge.h
+  FPGE/pgf.c
+  FPGE/pgf.h
+)
+
 set ( data_install_dir bin )
 if ( CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug" )
   add_definitions ( -DNDEBUG )
@@ -140,7 +148,7 @@ if ( WIN32 )
   set ( application_type WIN32 )
 endif ()
 
-set ( lgeneral_src ${root_src} ${audio_src} ${util_src} )#${intl_src} )
+set ( lgeneral_src ${root_src} ${audio_src} ${util_src} ${fpge_src} )
 
 set ( install_dest RUNTIME )
 set ( set_exec_path ON )

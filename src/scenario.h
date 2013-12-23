@@ -124,7 +124,7 @@ and setup the setup :) except the type which is set when the
 engine performs the load action.
 ====================================================================
 */
-char* scen_load_info( char *fname );
+int scen_load_info( char *info, char *fname );
 
 /*
 ====================================================================
