@@ -20,18 +20,7 @@
 #include <ctype.h>
 #include "fpge.h"
 #include "load.h"
-//#include "save.h"
-//#include "filename.h"
-//#include "fpge_colors.h"
-//#include "maingui.h"
-//#include "minimap.h"
-//#include "unitutil.h"
-//#include "tables.h"
 #include "pgf.h"
-//#include "hash.h"
-//#include "app6.h"
-//#include "pg.h"
-//#include "lgeneral.h"
 #include "lgeneral.h"
 #include "parser.h"
 #include "date.h"
@@ -52,14 +41,6 @@ extern Setup setup;
 extern int log_x, log_y;       /* position where to draw log info */
 
 unsigned short UCS2_header=0xfeff;
-/*
-unsigned char block1_Name[256]="CHANGEME";
-unsigned char block1_Description[1024]="CHANGEME";
-unsigned char block1_SET_file[256];
-unsigned char block1_Max_Unit_Strength[256]="15";
-unsigned char block1_Max_Unit_Experience[256]="599";
-unsigned char block1_Allies_Move_First[64]="0";
-*/
 unsigned short axis_experience=200;
 unsigned short allied_experience=200;
 unsigned short allies_move_first;
@@ -269,25 +250,17 @@ int load_pgf_equipment(char *fname){
 	  int utf16 = 0;
 
     snprintf( path, MAX_PATH, "%s/Scenario/%s", config.mod_name, fname );
-//    fprintf( stderr, "%s\n", path );
-//	  canonicalize_filename(path,path,MAX_PATH);
 	  inf=fopen(path,"rb");
 	  if (!inf)
 	  {
 			strncpy(path,"../../default/scenario/",MAX_PATH);
 			strncat(path,fname,MAX_PATH);
-//			canonicalize_filename(path,path,MAX_PATH);
 			inf=fopen(path,"rb");
 			if (!inf)
 				return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
 	  }
 	  lines=0;
 
-/*	  if (probe_file_only != LOAD_CONVERSION_TABLE_ONLY)
-		  total_equip=0;
-	  else
-		  conversion_total_equip=0;
-*/
 	  //probe for UTF16 file magic bytes
 	  fread(&file_type_probe, 2, 1, inf);
 	  if (UCS2_header==file_type_probe) { utf16=1;}
@@ -440,7 +413,6 @@ int load_pgf_pgscn(char *fname){
 	  int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines;
 	  int total_victory,total_left,total_right,where_add_new;
 	  unsigned char t1,t2;
-	  //short digit;
 	  WORD unum;
 
     scen_delete();
@@ -448,8 +420,6 @@ int load_pgf_pgscn(char *fname){
     log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     log_x = 2; log_y = 2;
 	  snprintf( path, MAX_PATH, "%s/Scenario/%s", config.mod_name, fname );
-//	  sprintf(path,"%03d.pgscn",scen_number);
-//	  canonicalize_filename(path,path,MAX_PATH);
 	  fprintf(stderr, "Opening file %s\n", fname);
 	  inf=fopen(path,"rb");
 	  if (!inf)
@@ -460,10 +430,6 @@ int load_pgf_pgscn(char *fname){
 
     sprintf( log_str, tr("*** Loading scenario '%s' ***"), fname );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-//	  if (probe_file_only==PROBE_FILE){
-//		  fclose(inf);
-//		  return ERROR_PGF_SCN_BASE+ERROR_FPGE_FILE_FOUND;
-//	  }
 	  //init
 	  //units
 /*	  clear_all_units();
@@ -841,7 +807,6 @@ char* load_pgf_pgscn_info( const char *fname, const char *path )
             if (token!=2)
                 printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
             strlwr(tokens[0]);
-//        fprintf(stderr, "%s,%s\n", tokens[0], tokens[1]);
             if (strcmp(tokens[0],"name")==0)
                 strncpy(name,tokens[1],256);
             if (strcmp(tokens[0],"description")==0)
@@ -851,10 +816,8 @@ char* load_pgf_pgscn_info( const char *fname, const char *path )
             allies_move_first=0;
             if (strcmp(tokens[0],"allies move first")==0)
             {
-//                strncpy(block1_Allies_Move_First,tokens[1],64);
                 allies_move_first=atoi(tokens[1]);//block1_Allies_Move_First);
             }
-//            fprintf(stderr, "%d\n", allies_move_first);
         }
         if (block==2)
         {
