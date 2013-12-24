@@ -222,7 +222,7 @@ static void eval_cmdline(int argc, char **argv)
     if (optind < argc) {
         enum { LOAD_NOTHING, LOAD_SCEN, LOAD_CAMP, LOAD_GAME }
         load = LOAD_NOTHING;
-        if (scen_load_info(0,argv[optind])) {
+        if (scen_load_info(argv[optind])) {
             setup.type = SETUP_INIT_SCEN;
             load = LOAD_SCEN;
         } else if (camp_load_info(argv[optind])) {

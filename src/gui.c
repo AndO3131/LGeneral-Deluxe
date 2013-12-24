@@ -1564,8 +1564,7 @@ void gui_render_scen_info( const char *path, SDL_Surface *buffer )
 {
     Text *text;
     int i, x = 0, y = 0;
-    char info[1024];
-//    info = calloc( 1024, sizeof(char) );
+    char *info;
     if ( path == 0 ) {
         /* no selection met */
         group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 0 );
@@ -1573,21 +1572,17 @@ void gui_render_scen_info( const char *path, SDL_Surface *buffer )
         SDL_FillRect( buffer, 0, 0x0 );
     }
     else
-    if ( i = scen_load_info( info, path ) ) {
+    if ( info = scen_load_info( path ) ) {
         group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 1 );
         group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 1 );
         /* render info */
         SDL_FillRect( buffer, 0, 0x0 );
-        if ( i == 1 )
-        {
-            gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
-            text = create_text( gui->font_std, info, buffer->w );
-            for ( i = 0; i < text->count; i++ )
-                write_line( buffer, gui->font_std, text->lines[i], x, &y );
-            delete_text( text );
-        }
+        gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+        text = create_text( gui->font_std, info, buffer->w );
+        for ( i = 0; i < text->count; i++ )
+            write_line( buffer, gui->font_std, text->lines[i], x, &y );
+        delete_text( text );
     }
-//    free( info );
 }
 
 /*

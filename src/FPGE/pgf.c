@@ -17,8 +17,7 @@
  ***************************************************************************/
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <ctype.h>
 #include "fpge.h"
 #include "load.h"
 //#include "save.h"
@@ -49,17 +48,18 @@ extern Sdl sdl;
 extern Font *log_font;
 extern List *unit_lib;
 extern Config config;
+extern Setup setup;
 extern int log_x, log_y;       /* position where to draw log info */
 
 unsigned short UCS2_header=0xfeff;
-
+/*
 unsigned char block1_Name[256]="CHANGEME";
 unsigned char block1_Description[1024]="CHANGEME";
 unsigned char block1_SET_file[256];
 unsigned char block1_Max_Unit_Strength[256]="15";
 unsigned char block1_Max_Unit_Experience[256]="599";
 unsigned char block1_Allies_Move_First[64]="0";
-
+*/
 unsigned short axis_experience=200;
 unsigned short allied_experience=200;
 unsigned short allies_move_first;
@@ -149,7 +149,17 @@ unsigned short allied_prestige_allotments[PRESTIGE_ALLOTMENTS_NUMBER]={
 0,0,0,230,270,170 // elements38
 };
 
-unsigned char block4[MAX_TURNS][MAX_LINE_SIZE]; //block 4 storage
+/* Definition of non-standard function */
+void strlwr( char *string)
+{
+   int i;
+   for ( i = 0; i < strlen( string ); i++ )
+   {
+       string[i] = tolower( string[i] );
+   }
+}
+
+/*unsigned char block4[MAX_TURNS][MAX_LINE_SIZE]; //block 4 storage
 int block4_lines;
 unsigned char block5[MAX_SUPPLY][MAX_LINE_SIZE]; //block 5 storage
 int block5_lines;
@@ -157,7 +167,7 @@ unsigned char block7[MAX_VICTORY_CON][MAX_LINE_SIZE]; //block 7 storage
 int block7_lines;
 unsigned char block9[MAX_CLASSES][MAX_LINE_SIZE]; //block 9 storage
 int block9_lines;
-
+*/
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
 	int gcursor=0;
@@ -775,6 +785,105 @@ int load_pgf_pgscn(char *fname){
 
 	  return 0;
 }
+
+char* load_pgf_pgscn_info( const char *fname, const char *path )
+{
+    FILE *inf;
+    char line[1024],tokens[20][1024], temp[MAX_PATH];//, log_str[256];
+    int i,block=0,last_line_length=-1,cursor=0,token=0,lines;//,x,y,error,j;
+    char name[256], desc[1024], turns[10], *info;//, *str, day[10], month[15], year[10], info[1024];
+    List *entries;
+    PData *sub;
+
+    scen_delete();
+    search_file_name( path, 0, fname, temp, 'o' );
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        //printf("Couldn't open scenario file\n");
+        return 0;
+    }
+
+    while (read_utf16_line_convert_to_utf8(inf,line)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23)
+            {
+                line[i]=0;
+                break;
+            }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+               tokens[token][cursor]=0;
+               token++;cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#1  +: General scenario data : 2 col, 14 rows
+        if (block==1 && token>1)
+        {
+            if (token!=2)
+                printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
+            strlwr(tokens[0]);
+//        fprintf(stderr, "%s,%s\n", tokens[0], tokens[1]);
+            if (strcmp(tokens[0],"name")==0)
+                strncpy(name,tokens[1],256);
+            if (strcmp(tokens[0],"description")==0)
+                strncpy(desc,tokens[1],1024);
+            if (strcmp(tokens[0],"turns")==0)
+                strncpy(turns,tokens[1],10);
+        }
+        if (block==2)
+        {
+            fclose(inf);
+            info = calloc( 1024, sizeof(char) );
+            snprintf( info, 1024, tr("%s##%s##%s Turns"), name, desc, turns );
+            return info;
+        }
+    }
+    fclose(inf);
+    /* set setup */
+    scen_clear_setup();
+    strcpy( setup.fname, fname );
+//    setup.player_count = 2;
+//    setup.ctrl = calloc( setup.player_count, sizeof( int ) );
+//    setup.names = calloc( setup.player_count, sizeof( char* ) );
+//    setup.modules = calloc( setup.player_count, sizeof( char* ) );
+    /* load the player ctrls */
+/*    list_reset( entries ); i = 0;
+    while ( ( sub = list_next( entries ) ) ) {
+        if ( !parser_get_value( sub, "name", &str, 0 ) ) goto parser_failure;
+        setup.names[i] = strdup(trd(domain, str));
+        if ( !parser_get_value( sub, "control", &str, 0 ) ) goto parser_failure;
+        if ( STRCMP( str, "cpu" ) )
+            setup.ctrl[i] = PLAYER_CTRL_CPU;
+        else
+            setup.ctrl[i] = PLAYER_CTRL_HUMAN;
+        if ( !parser_get_string( sub, "ai_module", &setup.modules[i] ) )
+            setup.modules[i] = strdup( "default" );
+        i++;
+    }*/
+    return 0;
+}
+
 /*
 int load_bmp_tacticons(){
 	FILE *inf;

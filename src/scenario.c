@@ -829,7 +829,7 @@ int scen_load( char *fname )
 Load a scenario description.
 ====================================================================
 */
-int scen_load_info( char *info, char *fname )
+char *scen_load_info( char *fname )
 {
     char *path, *extension, temp[256];
     path = calloc( 256, sizeof( char ) );
@@ -838,13 +838,11 @@ int scen_load_info( char *info, char *fname )
     search_file_name( path, extension, fname, temp, 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
     {
-        strncpy( info, scen_load_lgscn_info( fname, path ), 1024 );
-        return 1;
+        return scen_load_lgscn_info( fname, path );
     }
     else if ( strcmp( extension, "pgscn" ) == 0 )
     {
-        strcpy( setup.fname, fname );
-        return 2;
+        return load_pgf_pgscn_info( fname, path );
     }
     return 0;
 }

@@ -39,14 +39,15 @@ extern unsigned short allied_experience;
 
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line);
 int load_pgf_pgscn(char *fname);
+char* load_pgf_pgscn_info( const char *fname, const char *path );
 int load_pgf_equipment(char *fname);
 //int save_pgf_pgscn(int scn_number, int show_info, int save_type, int hide_names, int,int );
-void fake_UTF_write_string_with_eol(FILE *f, char *write_me);
-int load_bmp_tacticons();
+//void fake_UTF_write_string_with_eol(FILE *f, char *write_me);
+/*int load_bmp_tacticons();
 int load_bmp_tacmap();
 int load_bmp_flags();
 int load_bmp_strength();
-int load_bmp_stackicn();
+int load_bmp_stackicn();*/
 /*void draw_units_bmp(BITMAP *, int, int, int, int, int);
 void draw_units_per_country_bmp(int country, int month, int year, int flipIcons);
 void draw_one_unit_bmp(BITMAP *, int, int, int, int,int);
