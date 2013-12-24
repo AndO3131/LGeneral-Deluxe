@@ -790,10 +790,8 @@ char* load_pgf_pgscn_info( const char *fname, const char *path )
 {
     FILE *inf;
     char line[1024],tokens[20][1024], temp[MAX_PATH];//, log_str[256];
-    int i,block=0,last_line_length=-1,cursor=0,token=0,lines;//,x,y,error,j;
+    int i, block=0,last_line_length=-1,cursor=0,token=0,lines;//,x,y,error,j;
     char name[256], desc[1024], turns[10], *info;//, *str, day[10], month[15], year[10], info[1024];
-    List *entries;
-    PData *sub;
 
     scen_delete();
     search_file_name( path, 0, fname, temp, 'o' );
@@ -850,37 +848,45 @@ char* load_pgf_pgscn_info( const char *fname, const char *path )
                 strncpy(desc,tokens[1],1024);
             if (strcmp(tokens[0],"turns")==0)
                 strncpy(turns,tokens[1],10);
+            allies_move_first=0;
+            if (strcmp(tokens[0],"allies move first")==0)
+            {
+//                strncpy(block1_Allies_Move_First,tokens[1],64);
+                allies_move_first=atoi(tokens[1]);//block1_Allies_Move_First);
+            }
+//            fprintf(stderr, "%d\n", allies_move_first);
         }
         if (block==2)
         {
             fclose(inf);
+        	/* set setup */
+        	scen_clear_setup();
+        	strcpy( setup.fname, fname );
+        	setup.player_count = 2;
+        	setup.ctrl = calloc( setup.player_count, sizeof( int ) );
+        	setup.names = calloc( setup.player_count, sizeof( char* ) );
+        	setup.modules = calloc( setup.player_count, sizeof( char* ) );
+        	/* load the player ctrls */
+        	if ( allies_move_first == 0 )
+        	{
+        		setup.names[0] = strdup(trd(domain, "Axis"));
+                setup.names[1] = strdup(trd(domain, "Allied"));
+        	}
+        	else
+        	{
+        		setup.names[0] = strdup(trd(domain, "Allied"));
+                setup.names[1] = strdup(trd(domain, "Axis"));
+        	}
+        	setup.ctrl[0] = PLAYER_CTRL_HUMAN;
+            setup.ctrl[1] = PLAYER_CTRL_CPU;
+        	setup.modules[0] = strdup( "default" );
+            setup.modules[1] = strdup( "default" );
             info = calloc( 1024, sizeof(char) );
-            snprintf( info, 1024, tr("%s##%s##%s Turns"), name, desc, turns );
+            snprintf( info, 1024, tr("%s##%s##%s Turns#%d Players"), name, desc, turns, 2 );
             return info;
         }
     }
     fclose(inf);
-    /* set setup */
-    scen_clear_setup();
-    strcpy( setup.fname, fname );
-//    setup.player_count = 2;
-//    setup.ctrl = calloc( setup.player_count, sizeof( int ) );
-//    setup.names = calloc( setup.player_count, sizeof( char* ) );
-//    setup.modules = calloc( setup.player_count, sizeof( char* ) );
-    /* load the player ctrls */
-/*    list_reset( entries ); i = 0;
-    while ( ( sub = list_next( entries ) ) ) {
-        if ( !parser_get_value( sub, "name", &str, 0 ) ) goto parser_failure;
-        setup.names[i] = strdup(trd(domain, str));
-        if ( !parser_get_value( sub, "control", &str, 0 ) ) goto parser_failure;
-        if ( STRCMP( str, "cpu" ) )
-            setup.ctrl[i] = PLAYER_CTRL_CPU;
-        else
-            setup.ctrl[i] = PLAYER_CTRL_HUMAN;
-        if ( !parser_get_string( sub, "ai_module", &setup.modules[i] ) )
-            setup.modules[i] = strdup( "default" );
-        i++;
-    }*/
     return 0;
 }
 
