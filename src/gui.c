@@ -189,7 +189,7 @@ Publics
 
 /*
 ====================================================================
-Create the gui and use the graphics in <dir>/theme/Graphics/...
+Create the gui and use the graphics in <dir>/Default/Theme/...
 ====================================================================
 */
 int gui_load( char *dir )
@@ -197,7 +197,7 @@ int gui_load( char *dir )
     char str[128];
     int i;
     int sx, sy;
-    char path[256], path2[256], path3[256], path4[256], transitionPath[256];
+    char path[MAX_PATH], path2[MAX_PATH], path3[MAX_PATH], path4[MAX_PATH], transitionPath[MAX_PATH];
 	
     gui_delete();
     gui = calloc( 1, sizeof( GUI ) );
@@ -345,7 +345,7 @@ int gui_load( char *dir )
     group_add_button( gui->deploy_window, ID_CANCEL_DEPLOY, sx + 30, sy, 0, tr("Cancel Deployment"), 2 );
     group_hide( gui->deploy_window, 1 );
     /* edit */
-    if ( ( gui->edit = edit_create( gui_create_frame( 240, 30 ), 160, gui->font_std, 30, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->edit = edit_create( gui_create_frame( 440, 30 ), 160, gui->font_std, MAX_NAME, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     edit_hide( gui->edit, 1 );
     /* base menu */
@@ -1671,7 +1671,7 @@ Handle the selection of a mod folder to load
 */
 void gui_render_mod_select_info( const char *path, SDL_Surface *buffer )
 {
-    char pathFinal[512];
+    char pathFinal[MAX_PATH];
     SDL_Surface *image;
     if ( path == 0 )
     {

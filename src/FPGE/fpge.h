@@ -14,9 +14,6 @@
 #ifndef _FPGE_H_
 #define _FPGE_H_
 
-#define MAX_PATH 512
-#define MAX_EXT 50
-
 //my helper function
 #define Max(a,b) (a>b)?(a):(b)
 #define Min(a,b) (a<b)?(a):(b)

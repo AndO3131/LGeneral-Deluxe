@@ -1053,7 +1053,7 @@ int scen_check_result( int after_last_turn )
 {
     int i, j, and_okay, or_okay;
 #if DEBUG_CAMPAIGN
-    char fname[512];
+    char fname[MAX_PATH];
     FILE *f;
     snprintf(fname, sizeof fname, "%s/.lgames/.scenresult", getenv("HOME"));
     f = fopen(fname, "r");

@@ -22,14 +22,16 @@
 #include "parser.h"
 #include "misc.h"
 #include "localize.h"
+#include "file.h"
+#include "lgeneral.h"
 
 /*
 ====================================================================
 Error string.
 ====================================================================
 */
-static char parser_sub_error[1024];
-static char parser_error[1024];
+static char parser_sub_error[MAX_LINE_SHORT];
+static char parser_error[MAX_LINE_SHORT];
 
 /*
 ====================================================================

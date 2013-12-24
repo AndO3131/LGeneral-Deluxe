@@ -29,6 +29,7 @@
 #include "parser.h"
 #include "localize.h"
 #include "config.h"
+#include "lgeneral.h"
 
 /*
 ====================================================================
@@ -58,7 +59,7 @@ int nations_load( char *fname )
     int i;
     PData *pd, *sub;
     List *entries;
-    char path[512];
+    char path[MAX_PATH];
     char *str;
     char *domain = 0;
     sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );

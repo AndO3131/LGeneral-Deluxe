@@ -28,6 +28,7 @@
 #include "config.h"
 #include "parser.h"
 #include "localize.h"
+#include "file.h"
 
 Config config;
 
@@ -91,7 +92,7 @@ void reset_config()
 /* load config */
 void load_config( )
 {
-    char file_name[512];
+    char file_name[MAX_PATH];
     PData *pd; 
     /* set to defaults */
     check_config_dir_name();
@@ -131,7 +132,7 @@ void load_config( )
 void save_config( )
 {
     FILE *file = 0;
-    char file_name[512];
+    char file_name[MAX_PATH];
 
     sprintf( file_name, "%s/%s", config.dir_name, "lgeneral.conf" );
     if ( ( file = fopen( file_name, "w" ) ) == 0 )

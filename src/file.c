@@ -29,6 +29,7 @@
 #include "localize.h"
 #include "sdl.h"
 #include "config.h"
+#include "lgeneral.h"
 
 extern Config config;
 
@@ -36,9 +37,11 @@ extern Config config;
 const int extension_image_length = 4;
 const int extension_sound_length = 3;
 const int extension_scenario_length = 2;
+const int extension_campaign_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
+const char *extension_campaign[] = { "lgcam", "pgcam" };
 
 /*
 ====================================================================
@@ -48,7 +51,7 @@ Read all lines from file.
 List *file_read_lines( FILE *file )
 {
     List *list;
-    char buffer[4096];
+    char buffer[MAX_BUFFER];
 
     if ( !file ) return 0;
 
@@ -148,7 +151,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
     List *order = 0;
     List *extracted;
     struct stat fstat;
-    char file_name[4096], *ext[5];
+    char file_name[MAX_BUFFER], *ext[5];
     FILE *file;
     /* open this directory */
     if ( ( dir = opendir( path ) ) == 0 ) {
@@ -163,12 +166,19 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
         ext_limit = extension_scenario_length;
         for ( i = 0;i < ext_limit; i++ )
         {
-            ext[i] = calloc( 10, sizeof( char ) );
-            snprintf( ext[i], 10, ".%s", extension_scenario[i] );
+            ext[i] = calloc( MAX_EXTENSION, sizeof( char ) );
+            snprintf( ext[i], MAX_EXTENSION, ".%s", extension_scenario[i] );
         }
     }
-//    else if ( file_type == LIST_CAMPAIGNS )
-//        ext = extension_campaign;
+    else if ( file_type == LIST_CAMPAIGNS )
+    {
+        ext_limit = extension_campaign_length;
+        for ( i = 0;i < ext_limit; i++ )
+        {
+            ext[i] = calloc( MAX_EXTENSION, sizeof( char ) );
+            snprintf( ext[i], MAX_EXTENSION, ".%s", extension_campaign[i] );
+        }
+    }
     text = calloc( 1, sizeof( Text ) );
     /* use dynamic list to gather all valid entries */
     list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
@@ -226,7 +236,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             }
             else
             {
-                snprintf( file_name, 512, "%s", dirent->d_name );
+                snprintf( file_name, MAX_PATH, "%s", dirent->d_name );
                 list_add( list, strdup( file_name ) );
             }
         }
@@ -280,7 +290,7 @@ Check if a file exist.
 */
 int file_exists( const char *path )
 {
-    char full_path[256];
+    char full_path[MAX_PATH];
     get_full_bmp_path( full_path, path );
     FILE *f = fopen( full_path, "r" );
     if ( f )
@@ -317,8 +327,8 @@ Create directory if folderName doesn't exist.
 int dir_create( const char *folderName, const char *subdir )
 {
     struct stat st = {0};
-    char dir[4096]; 
-    snprintf( dir, 4096, "%s/%s/Save/%s/%s", get_gamedir(), config.mod_name, subdir, folderName );
+    char dir[MAX_PATH]; 
+    snprintf( dir, MAX_PATH, "%s/%s/Save/%s/%s", get_gamedir(), config.mod_name, subdir, folderName );
     if (stat( dir, &st ) == -1)
     {
         mkdir( dir, 0777 );
@@ -340,7 +350,7 @@ for further use.
 int search_file_name( char *pathFinal, char *extension, char *name, char *modFolder, char type )
 {
     int i = 0;
-    char pathTemp[256];
+    char pathTemp[MAX_PATH];
     if ( !STRCMP( modFolder, "" ) )
     {
         switch (type)
@@ -349,13 +359,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
             {
                 while ( i < extension_image_length )
                 {
-                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_image[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_image[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
-                            snprintf( pathFinal, 256, "%s", pathTemp );
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                         if ( extension != 0 )
-                            snprintf( extension, 10, "%s", extension_image[i] );
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_image[i] );
                         return 1;
                     }
                     i++;
@@ -366,13 +376,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
             {
                 while ( i < extension_sound_length )
                 {
-                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_sound[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_sound[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
-                            snprintf( pathFinal, 256, "%s", pathTemp );
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                         if ( extension != 0 )
-                            snprintf( extension, 10, "%s", extension_sound[i] );
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_sound[i] );
                         return 1;
                     }
                     i++;
@@ -383,13 +393,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
             {
                 while ( i < extension_scenario_length )
                 {
-                    snprintf( pathTemp, 256, "%s/%s.%s", modFolder, name, extension_scenario[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_scenario[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
-                            snprintf( pathFinal, 256, "%s", pathTemp );
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                         if ( extension != 0 )
-                            snprintf( extension, 10, "%s", extension_scenario[i] );
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_scenario[i] );
                         return 1;
                     }
                     i++;
@@ -404,13 +414,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
         {
             while ( i < extension_image_length )
             {
-                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_image[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_image[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
-                        snprintf( pathFinal, 256, "%s", pathTemp );
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
-                        snprintf( extension, 10, "%s", extension_image[i] );
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_image[i] );
                     return 1;
                 }
                 i++;
@@ -421,13 +431,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
         {
             while ( i < extension_sound_length )
             {
-                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_sound[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_sound[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
-                        snprintf( pathFinal, 256, "%s", pathTemp );
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
-                        snprintf( extension, 10, "%s", extension_sound[i] );
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_sound[i] );
                     return 1;
                 }
                 i++;
@@ -438,13 +448,13 @@ int search_file_name( char *pathFinal, char *extension, char *name, char *modFol
         {
             while ( i < extension_scenario_length )
             {
-                snprintf( pathTemp, 256, "Default/%s.%s", name, extension_scenario[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_scenario[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
-                        snprintf( pathFinal, 256, "%s", pathTemp );
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
-                        snprintf( extension, 10, "%s", extension_scenario[i] );
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_scenario[i] );
                     return 1;
                 }
                 i++;
@@ -464,11 +474,11 @@ int search_file_name_exact( char *pathFinal, char *path, char *modFolder )
 {
     if ( !STRCMP( modFolder, "" ) )
     {
-        snprintf( pathFinal, 256, "%s/%s", modFolder, path );
+        snprintf( pathFinal, MAX_PATH, "%s/%s", modFolder, path );
         if ( file_exists( pathFinal ) )
             return 1;
     }
-    snprintf( pathFinal, 256, "Default/%s", path );
+    snprintf( pathFinal, MAX_PATH, "Default/%s", path );
     if ( file_exists( pathFinal ) )
         return 1;
     return 0; 

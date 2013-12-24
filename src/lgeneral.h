@@ -18,6 +18,13 @@
 #ifndef __LGENERAL_H
 #define __LGENERAL_H
 
+#define MAX_BUFFER 4096
+#define MAX_LINE_SHORT 1024
+#define MAX_PATH 512
+#define MAX_LINE 256
+#define MAX_NAME 50
+#define MAX_EXTENSION 10
+
 /*
 ====================================================================
 General system includes.

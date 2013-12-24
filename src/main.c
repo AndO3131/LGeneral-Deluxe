@@ -91,7 +91,7 @@ static void show_title()
     int dummy;
     Font *font = 0;
     SDL_Surface *back = 0;
-    char path[512];
+    char path[MAX_PATH];
     search_file_name( path, 0,"Theme/title", "", 'i' );
     if ( ( back = load_surf( path, SDL_SWSURFACE ) ) ) {
         FULL_DEST( sdl.screen );
@@ -249,7 +249,7 @@ static void eval_cmdline(int argc, char **argv)
 
 int main(int argc, char *argv[])
 {
-    char window_name[64];
+    char window_name[MAX_NAME];
 
     locale_init(0);
 

@@ -520,7 +520,7 @@ Check unit buttons. (use current unit)
 */
 static void engine_check_unit_buttons()
 {
-    char str[128];
+    char str[MAX_LINE];
     if ( cur_unit == 0 ) return;
     /* rename */
     group_set_active( gui->unit_buttons, ID_RENAME, 1 );
@@ -1735,7 +1735,7 @@ region has the focus. Also update the cursor.
 static void engine_update_info( int mx, int my, int region )
 {
     Unit *unit1 = 0, *unit2 = 0, *unit;
-    char str[256];
+    char str[MAX_LINE];
     int att_damage, def_damage;
     int moveCost = 0;
     /* no infos when cpu is acting */
@@ -1752,7 +1752,7 @@ static void engine_update_info( int mx, int my, int region )
         moveCost = mask[mx][my].moveCost;
     /* entered a new tile so update the terrain info */
     if (status == STATUS_PURCHASE) {
-        snprintf( str, 256, tr("Prestige: %d"), cur_player->cur_prestige );
+        snprintf( str, MAX_LINE, tr("Prestige: %d"), cur_player->cur_prestige );
         label_write( gui->label, gui->font_std, str );
     }
     else if (status==STATUS_DROP)
@@ -1974,8 +1974,8 @@ Handle a button that was clicked.
 */
 static void engine_handle_button( int id )
 {
-    char path[512];
-    char str[128];
+    char path[MAX_PATH];
+    char str[MAX_LINE];
     int x, y, i, max;
     Unit *unit;
     Action *last_act;
@@ -2492,7 +2492,7 @@ static void engine_handle_button( int id )
             break;
         case ID_MOD_SELECT_OK:
             fdlg_hide( gui->mod_select_dlg, 1 );
-            snprintf( config.mod_name, 256, "%s", gui->mod_select_dlg->current_name );
+            snprintf( config.mod_name, MAX_NAME, "%s", gui->mod_select_dlg->current_name );
             engine_confirm_action( tr("Loading new game folder will erase current game. Are you sure?") );
             setup.type = SETUP_RUN_TITLE;
             engine_set_status( STATUS_TITLE );
@@ -3070,7 +3070,7 @@ static void engine_check_events(int *reinit)
                                 break;
                             case STATUS_NEW_FOLDER:
                                 dir_create( gui->edit->text, gui->save_menu->subdir );
-                                char path[512];
+                                char path[MAX_PATH];
                                 sprintf( path, "%s/%s/Save", config.dir_name, config.mod_name );
                                 fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
                                 group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
@@ -3087,7 +3087,7 @@ static void engine_check_events(int *reinit)
                             hide_edit = 1;
                             if ( status == STATUS_NEW_FOLDER )
                             {
-                                char path[512];
+                                char path[MAX_PATH];
                                 sprintf( path, "%s/%s/Save", config.dir_name, config.mod_name );
                                 fdlg_open( gui->save_menu, path, gui->save_menu->subdir );
                                 group_set_active( gui->save_menu->group, ID_SAVE_OK, 0 );
@@ -3129,7 +3129,7 @@ combatants.
 static int engine_get_next_combatants()
 {
     int fight = 0;
-    char str[128];
+    char str[MAX_LINE];
     /* check if there are supporting units; if so initate fight 
        between attacker and these units */
     if ( df_units->count > 0 ) {
@@ -3233,7 +3233,7 @@ static void engine_handle_next_action( int *reinit )
     Action *action = 0;
     int enemy_spotted = 0;
     int depth, flags, i, j;
-    char name[30];
+    char name[MAX_NAME];
     /* lock action queue? */
     if ( status == STATUS_CONF || status == STATUS_ATTACK || status == STATUS_MOVE )
         return;
@@ -3257,13 +3257,13 @@ static void engine_handle_next_action( int *reinit )
             status = STATUS_SAVE_EDIT;
             if (gui->save_menu->current_name)
             {
-                char time[15];
+                char time[MAX_NAME];
                 currentDateTime( time );
-                snprintf( name, 30, "(%s) %s, turn %i", time, scen_info->fname, turn );
+                snprintf( name, MAX_NAME, "(%s) %s, turn %i", time, scen_info->fname, turn + 1 );
             }
             else
             {
-                snprintf( name, 30, "%s", gui->save_menu->current_name );
+                snprintf( name, MAX_NAME, "%s", gui->save_menu->current_name );
             }
             edit_show( gui->edit, name );
             scroll_block_keys = 1;

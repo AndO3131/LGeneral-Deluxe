@@ -905,17 +905,17 @@ Show file dialogue at directory root.
 */
 void fdlg_open( FDlg *fdlg, const char *root, const char *subdir )
 {
-    char path[512];
+    char path[MAX_PATH];
     strcpy( fdlg->root, root );
     if ( strcmp( subdir, "" ) == 0 )
     {
         fdlg->subdir[0] = 0;
-        snprintf( path, 512, "%s", root );
+        snprintf( path, MAX_PATH, "%s", root );
     }
     else
     {
         strcpy( fdlg->subdir, subdir );
-        snprintf( path, 512, "%s/%s", root, subdir );
+        snprintf( path, MAX_PATH, "%s/%s", root, subdir );
     }
     lbox_set_items( fdlg->lbox, dir_get_entries( path, root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
                     (fdlg->file_cb)( 0, fdlg->info_buffer );
@@ -948,7 +948,7 @@ handle_click
 */
 int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **button )
 {
-    char path[512];
+    char path[MAX_PATH];
     void *item = 0;
     char *fname;
     if ( !fdlg->lbox->group->frame->img->bkgnd->hide ) {

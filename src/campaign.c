@@ -25,6 +25,7 @@
 #include "scenario.h"
 #include "campaign.h"
 #include "localize.h"
+#include "file.h"
 
 /*
 ====================================================================
@@ -163,7 +164,7 @@ int camp_load( const char *fname )
     Camp_Entry *centry = 0;
     PData *pd, *scen_ent, *sub, *pdent, *subsub;
     List *entries, *next_entries;
-    char path[512], str[1024];
+    char path[MAX_PATH], str[MAX_LINE_SHORT];
     char *result, *next_scen;
     char *domain = 0;
     camp_delete();
@@ -208,7 +209,7 @@ int camp_load( const char *fname )
             centry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
             list_reset( next_entries );
             while ( ( subsub = list_next( next_entries ) ) ) {
-                char key[1024];
+                char key[MAX_LINE_SHORT];
                 const char *result = subsub->name;
                 const char *next_desc;
                 snprintf(key, sizeof key, "%s/%s", pdent->name, subsub->name);
@@ -241,7 +242,7 @@ engine performs the load action.
 char* camp_load_info( const char *fname )
 {
     PData *pd;
-    char path[512];
+    char path[MAX_PATH];
     char *name, *desc;
     char *domain = 0;
     char *info = 0;

@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "localize.h"
+#include "lgeneral.h"
 
 extern int  term_game;
 
@@ -50,7 +51,7 @@ SDL_Surface* load_surf(const char *fname, int f)
 {
     SDL_Surface *buf;
     SDL_Surface *new_sur;
-    char path[ 512 ];
+    char path[ MAX_PATH ];
     SDL_PixelFormat *spf;
 
     get_full_bmp_path( path, fname );
@@ -268,7 +269,7 @@ void font_load_glyphs(Font *font, const char *fname)
 #  define B_INDEX 0
 #endif
 #define AT_RGB(pixel, idx) (((Uint8 *)&(pixel))+(idx))
-    char    path[512];
+    char    path[MAX_PATH];
     int     i;
     Uint32  transparency_key;
     Uint8   start_code, reserved1, reserved2;

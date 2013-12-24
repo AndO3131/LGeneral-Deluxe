@@ -135,7 +135,7 @@ int map_load( char *fname )
 {
     int i, x, y, j, limit;
     PData *pd;
-    char path[512];
+    char path[MAX_PATH];
     char *str, *tile;
     char *domain = 0;
     List *tiles, *names;
