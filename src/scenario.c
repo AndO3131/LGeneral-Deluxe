@@ -820,7 +820,7 @@ int scen_load( char *fname )
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn( fname, path );
     else if ( strcmp( extension, "pgscn" ) == 0 )
-        return load_pgf_equipment( "equipment.pgeqp" );
+        return load_pgf_pgscn( path );
     return 0;
 }
 

@@ -39,6 +39,10 @@ extern List *unit_lib;
 extern Config config;
 extern Setup setup;
 extern int log_x, log_y;       /* position where to draw log info */
+extern Scen_Info *scen_info;
+extern List *players;
+extern Player *player;
+extern int camp_loaded;
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
@@ -383,190 +387,273 @@ int load_pgf_equipment(char *fname){
 	  return 0;
 }
 
-int load_pgf_pgscn(char *fname){
+int load_pgf_pgscn(char *fullName){
 
-	  FILE *inf;
-	  char path[MAX_PATH];
-	  char line[1024],tokens[20][1024], log_str[256];
-	  int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines;
-	  int total_victory,total_left,total_right,where_add_new;
-	  unsigned char t1,t2;
-	  WORD unum;
+    FILE *inf;
+    char path[MAX_PATH];
+    char line[1024],tokens[20][1024], log_str[256], SET_file[MAX_PATH], STM_file[MAX_PATH];
+    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines;
+    int air_trsp_player1, air_trsp_player2, sea_trsp_player1, sea_trsp_player2, total_victory,where_add_new;
+    unsigned char t1,t2;
+    WORD unum;
 
     scen_delete();
+    player = 0;
     SDL_FillRect( sdl.screen, 0, 0x0 );
     log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     log_x = 2; log_y = 2;
-	  snprintf( path, MAX_PATH, "%s/Scenario/%s", config.mod_name, fname );
-	  fprintf(stderr, "Opening file %s\n", fname);
-	  inf=fopen(path,"rb");
-	  if (!inf)
-	  {
-	    //printf("Couldn't open scenario file\n");
-	    return ERROR_PGF_SCN_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-	  }
+    scen_info = calloc( 1, sizeof( Scen_Info ) );
+//    fprintf(stderr, "Opening file %s\n", fullName);
+    scen_info->fname = strdup( fullName );
+    inf=fopen(fullName,"rb");
+    if (!inf)
+    {
+        //printf("Couldn't open scenario file\n");
+        return ERROR_PGF_SCN_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+    }
 
-    sprintf( log_str, tr("*** Loading scenario '%s' ***"), fname );
+    sprintf( log_str, tr("*** Loading scenario '%s' ***"), fullName );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-	  //init
-	  //units
-/*	  clear_all_units();
+    //init
+    //units
 
-	  int total_deploy=0;
-	  int total_left=0;
-	  int total_right=0;
+    int total_deploy=0;
+    int total_left=0;
+    int total_right=0;
 
-	  total_victory=0;
-	  for (i=0; i<20; ++i)
-	  {
-		  victory_hexes[i].x=-1;
-		  victory_hexes[i].y=-1;
-	  }
-	  //
-	  lines=0;
-	  block4_lines=0;
-	  block5_lines=0;
-	  block7_lines=0;
-	  block9_lines=0;
-	  memset(scn_buffer,0,sizeof(scn_buffer));
+    total_victory=0;
+    lines=0;
 
-	  while (read_utf16_line_convert_to_utf8(inf,line)>=0){
-		  //count lines so error can be displayed with line number
-		  lines++;
+    while (read_utf16_line_convert_to_utf8(inf,line)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
 
-			  //strip comments
-			  for(i=0;i<strlen(line);i++)
-				  if (line[i]==0x23) { line[i]=0; break; }
-			  if (strlen(line)>0 && last_line_length==0){
-				  block++;
-			  }
-			  last_line_length=strlen(line);
-			  token=0;
-			  cursor=0;
-			  for(i=0;i<strlen(line);i++)
-				  if (line[i]==0x09) {tokens[token][cursor]=0;token++;cursor=0;}
-				  else {tokens[token][cursor]=line[i]; cursor++;}
-			  tokens[token][cursor]=0;
-			  token++;
-			  //for(i=0;i<token;i++)
-				//  printf("%s->",tokens[i]);
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23)
+            {
+                line[i]=0;
+                break;
+            }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+        //for(i=0;i<token;i++)
+        //  printf("%s->",tokens[i]);
 
-			  //Block#1  +: General scenario data : 2 col, 14 rows
-			  if (block==1 && token>1){
+        //Block#1  +: General scenario data : 2 col, 14 rows
+        if (block==1 && token>1)
+        {
+            if (token!=2)
+                printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
+            strlwr(tokens[0]);
+            if (strcmp(tokens[0],"name")==0)
+            {
+                /* get scenario info */
+                sprintf( log_str, tr("Loading Scenario Info"));
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                scen_info->name = strdup( tokens[1] );
+            }
+            if (strcmp(tokens[0],"description")==0)
+                scen_info->desc = strdup( tokens[1] );
+            if (strcmp(tokens[0],"set file")==0)
+            {
+                /* map and weather */
+                strncpy( SET_file, tokens[1], 256 );
+//                fprintf( stderr, "SET file:%s\n", SET_file );
+/*                strncpy(tokens[2],"",1024);
+                j=0;
+                for(i=0;i<strlen(tokens[1]);i++)
+                    if (tokens[1][i]>='0' && tokens[1][i]<='9')
+                    {
+                        tokens[2][j]=tokens[1][i];
+                        j++;
+                    }
+                tokens[2][j]=0;
+                pgf_map_number=atoi(tokens[2]);*/
+                snprintf( log_str, strcspn( SET_file, "." ) + 1, "%s", SET_file );
+                snprintf( STM_file, 256, "%s.STM", log_str );
+//                fprintf( stderr, "MAP file:%s\n", STM_file );
+                sprintf( log_str, tr("Loading Map '%s' and '%s'"), SET_file, STM_file );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+/*                if ( !map_load( tokens[1] ) )
+                {
+                    terrain_delete();
+                    scen_delete();
+                    if ( player ) player_delete( player );
+                    return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+                }*/
+            }
+            if (strcmp(tokens[0],"turns")==0)
+                scen_info->turn_limit=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"year")==0)
+                scen_info->start_date.year=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"month")==0)
+                scen_info->start_date.month=(unsigned char)atoi(tokens[1]) - 1;
+            if (strcmp(tokens[0],"day")==0)
+                scen_info->start_date.day=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"days per turn")==0)
+                scen_info->days_per_turn=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"turns per day")==0)
+                scen_info->turns_per_day=(unsigned char)atoi(tokens[1]);
+/*            if (strcmp(tokens[0],"weather zone")==0)
+                scn_buffer[SCEN_LOCALE]=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"current weather")==0)
+                if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[STORM_FRONT]=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"max unit strength")==0)
+                if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Strength,tokens[1],256);
+            if (strcmp(tokens[0],"max unit experience")==0)
+                if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Experience,tokens[1],256);
+*/
+            allies_move_first=0;
+            if (strcmp(tokens[0],"allies move first")==0)
+                allies_move_first=atoi(tokens[1]);
+        }
+        //Block#2  +: Sides : 11 col, 2 rows
+        if (block==2 && token>1)
+        {
+            if (token!=11)
+                printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,11,token);
+            if (atoi(tokens[0])==0)
+            {
+                /* players */
+                sprintf( log_str, tr("Loading Players") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                scen_info->player_count = 2;
 
-				  if (token!=2)
-				 	printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
-				  strlwr(tokens[0]);
-				  if (strcmp(tokens[0],"name")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Name,tokens[1],256);
-				  if (strcmp(tokens[0],"description")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Description,tokens[1],1024);
-				  if (strcmp(tokens[0],"set file")==0){
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_SET_file,tokens[1],256);
-					  strncpy(tokens[2],"",1024);
-					  j=0;
-					  for(i=0;i<strlen(tokens[1]);i++)
-						  if (tokens[1][i]>='0' && tokens[1][i]<='9'){
-							  tokens[2][j]=tokens[1][i];
-							  j++;
-						  }
-					  tokens[2][j]=0;
-					  pgf_map_number=atoi(tokens[2]);
-					  if (probe_file_only==SCAN_FOR_MAP_NUMBER){
-						  fclose(inf);
-						  return ERROR_PGF_SCN_BASE+ERROR_FPGE_MAP_NUMBER_FOUND;
-					  }
-				  }
-				  if (strcmp(tokens[0],"turns")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[TURNS]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"year")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[YEAR]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"month")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[MONTH]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"day")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[DAY]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"days per turn")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[DAYS_PER_TURN]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"turns per day")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[TURNS_PER_DAY]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"weather zone")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[SCEN_LOCALE]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"current weather")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[STORM_FRONT]=(unsigned char)atoi(tokens[1]);
-				  if (strcmp(tokens[0],"max unit strength")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Strength,tokens[1],256);
-				  if (strcmp(tokens[0],"max unit experience")==0)
-					  if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Experience,tokens[1],256);
+                /* create player */
+                player = calloc( 1, sizeof( Player ) );
 
-				  allies_move_first=0;
-				  if (strcmp(tokens[0],"allies move first")==0)
-				  	  if (probe_file_only!=SCAN_FOR_MAP_NUMBER)
-				  		  {
-							  strncpy(block1_Allies_Move_First,tokens[1],64);
-							  allies_move_first=atoi(block1_Allies_Move_First);
-				  		  }
+                if ( allies_move_first == 0 )
+                {
+                    player->id = strdup( "axis" );
+                    player->name = strdup(trd(domain, "Axis"));
+                }
+                else
+                {
+                    player->id = strdup( "allies" );
+                    player->name = strdup(trd(domain, "Allies"));
+                }
+                player->ctrl = PLAYER_CTRL_HUMAN;
+                //TODO make this shifts >> below more clear and implement it in right way
+                if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
+                {
+                    player->core_limit = (unsigned char)atoi(tokens[2]);
+                }
+                else
+                    player->core_limit = -1;
+//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
-			  }
-			  //Block#2  +: Sides : 11 col, 2 rows
-			  if (block==2 && token>1){
+                player->unit_limit = (unsigned char)atoi(tokens[3]);
+                if ( player->core_limit >= 0 )
+                    player->unit_limit += player->core_limit;
+                else
+                    player->unit_limit += (unsigned char)atoi(tokens[2]);
+//                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
+                player->strat = (unsigned char)atoi(tokens[4]);
+//                fprintf( stderr, "Strategy:%d\n", player->strat );
 
-				  if (probe_file_only==SCAN_FOR_MAP_NUMBER){
-					  fclose(inf);
-					  return ERROR_PGF_SCN_BASE+ERROR_FPGE_MAP_NUMBER_NOT_FOUND;
-				  }
+                player->air_trsp_count = (unsigned char)atoi(tokens[8]);
+//                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
+                air_trsp_player1 = (unsigned char)atoi(tokens[9]);
+//                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
+//                s4_buffer[AXIS_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
 
-				  if (token!=11)
-				 	printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,11,token);
-				  if (atoi(tokens[0])==0){
-					  //TODO make this shifts >> below more clear and implement it in right way
-					  scn_buffer[CORE_UNITS_LIMIT]=(unsigned char)atoi(tokens[2]);
-					  scn_buffer[AUX_UNITS_LIMIT]=(unsigned char)atoi(tokens[3]);
-					  scn_buffer[AXIS_STANCE]=(unsigned char)atoi(tokens[4]);
+                player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
+//                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
+                sea_trsp_player1 = (unsigned char)atoi(tokens[7]);
+//                fprintf( stderr, "Sea transport type: %d\n", sea_trsp_player1 );
+//                s4_buffer[AXIS_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
 
-					  s4_buffer[AXIS_AIR_NUMBER]=(unsigned char)atoi(tokens[8]);
-					  s4_buffer[AXIS_AIR_TYPE]=(unsigned char)atoi(tokens[9]);
-					  s4_buffer[AXIS_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
+                player->prestige_per_turn = calloc( scen_info->turn_limit, sizeof(int));
+                player->prestige_per_turn[0] = (unsigned char)atoi(tokens[1]);
+//                fprintf( stderr, "Prestige: %d\n", player->prestige_per_turn[0] );
+//                s4_buffer[AXIS_PRESTIGE+1]=(unsigned char)(atoi(tokens[1])>>8);
 
-					  s4_buffer[AXIS_SEA_NUMBER]=(unsigned char)atoi(tokens[6]);
-					  s4_buffer[AXIS_SEA_TYPE]=(unsigned char)atoi(tokens[7]);
-					  s4_buffer[AXIS_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
 
-					  s4_buffer[AXIS_PRESTIGE]=(unsigned char)atoi(tokens[1]);
-					  s4_buffer[AXIS_PRESTIGE+1]=(unsigned char)(atoi(tokens[1])>>8);
+//                axis_experience = atoi(tokens[10]);
+            }
+            if (atoi(tokens[0])==1)
+            {
+                /* create player */
+                player = calloc( 1, sizeof( Player ) );
 
-					  axis_experience = atoi(tokens[10]);
-				  }
-				  if (atoi(tokens[0])==1){
-					  scn_buffer[ALLIED_UNITS_LIMIT]=(unsigned char)atoi(tokens[2]);
-					  scn_buffer[ALLIED_AUX_UNITS_LIMIT]=(unsigned char)atoi(tokens[3]);
-					  scn_buffer[ALLIED_STANCE]=(unsigned char)atoi(tokens[4]);
-					  if (atoi(tokens[5])==1)
-					    {
-					      scn_buffer[ORIENTATION]=1;
-					      scn_buffer[ORIENTATION+1]=0;
-					    }
-					    else
-					    {
-					      scn_buffer[ORIENTATION]=255;
-					      scn_buffer[ORIENTATION+1]=255;
-					    }
+                if ( allies_move_first == 1 )
+                {
+                    player->id = strdup( "axis" );
+                    player->name = strdup(trd(domain, "Axis"));
+//                    fprintf( stderr, "2nd player: %s\n", player->name );
+                }
+                else
+                {
+                    player->id = strdup( "allies" );
+                    player->name = strdup(trd(domain, "Allies"));
+//                    fprintf( stderr, "2nd player: %s\n", player->name );
+                }
+                player->ctrl = PLAYER_CTRL_CPU;
+                player->core_limit = -1;
 
-					  s4_buffer[ALLIED_AIR_NUMBER]=(unsigned char)atoi(tokens[8]);
-					  s4_buffer[ALLIED_AIR_TYPE]=(unsigned char)atoi(tokens[9]);
-					  s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
-					  s4_buffer[ALLIED_SEA_NUMBER]=(unsigned char)atoi(tokens[6]);
-					  s4_buffer[ALLIED_SEA_TYPE]=(unsigned char)atoi(tokens[7]);
-					  s4_buffer[ALLIED_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
+/*                if (atoi(tokens[5])==1)
+                {
+                    scn_buffer[ORIENTATION]=1;
+                    scn_buffer[ORIENTATION+1]=0;
+                }
+                else
+                {
+                    scn_buffer[ORIENTATION]=255;
+                    scn_buffer[ORIENTATION+1]=255;
+                }
+*/
+//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
-					  s4_buffer[ALLIED_PRESTIGE]=(unsigned char)atoi(tokens[1]);
-					  s4_buffer[ALLIED_PRESTIGE+1]=(unsigned char)(atoi(tokens[1])>>8);
+                player->unit_limit = (unsigned char)atoi(tokens[3]);
+//                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
+                player->strat = (unsigned char)atoi(tokens[4]);
+//                fprintf( stderr, "Strategy:%d\n", player->strat );
 
-					  allied_experience = atoi(tokens[10]);
+                player->air_trsp_count = (unsigned char)atoi(tokens[8]);
+//                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
+                air_trsp_player1 = (unsigned char)atoi(tokens[9]);
+//                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
+//                s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
 
-				  }
-			  }
+                player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
+//                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
+                sea_trsp_player1 = (unsigned char)atoi(tokens[7]);
+//                fprintf( stderr, "Sea transport type: %d\n", sea_trsp_player1 );
+//                s4_buffer[ALLIED_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
+
+                player->prestige_per_turn = calloc( scen_info->turn_limit, sizeof(int));
+                player->prestige_per_turn[0] = (unsigned char)atoi(tokens[1]);
+//                fprintf( stderr, "Prestige: %d\n", player->prestige_per_turn[0] );
+//                s4_buffer[ALLIED_PRESTIGE+1]=(unsigned char)(atoi(tokens[1])>>8);
+
+//                allied_experience = atoi(tokens[10]);
+
+                player_add( player ); player = 0;
+            }
+        }
 			  //Block#3  +: Nations: 2 col, 2 or more rows
-			  if (block==3 && token>1){
+/*			  if (block==3 && token>1){
 				  if (token!=2){
 				 	printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
 
@@ -707,11 +794,11 @@ int load_pgf_pgscn(char *fname){
 			 //printf(":%d:%d\n",block,token);
 			  //printf("%d:%s\n",block,line);
 			  continue;
+*/
+    }
 
-	  }
-
-	  fclose(inf);
-
+    fclose(inf);
+/*
 		scn_buffer[CORE_UNITS]=total_axis_core;
 		scn_buffer[ALLIED_UNITS]=total_allied_core;
 		scn_buffer[AUX_UNITS]=total_axis_aux;
@@ -724,13 +811,13 @@ int load_pgf_pgscn(char *fname){
 		printf("total_allied_aux=%d\n",total_allied_aux);
 */
 	 // printf("block4_lines=%d\nblock5_lines=%d\nblock7_lines=%d\nblock9_lines=%d\n",block4_lines,block5_lines,block7_lines,block9_lines);
-	  sprintf( log_str, "PGF scenario %s loaded.\n", fname );
+    sprintf( log_str, "PGF scenario %s loaded.\n", fullName );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
 
-	  return 0;
+    return 0;
 }
 
-char* load_pgf_pgscn_info( const char *fname, const char *path )
+char *load_pgf_pgscn_info( const char *fname, const char *path )
 {
     FILE *inf;
     char line[1024],tokens[20][1024], temp[MAX_PATH];//, log_str[256];
@@ -811,11 +898,11 @@ char* load_pgf_pgscn_info( const char *fname, const char *path )
         	if ( allies_move_first == 0 )
         	{
         		setup.names[0] = strdup(trd(domain, "Axis"));
-                setup.names[1] = strdup(trd(domain, "Allied"));
+                setup.names[1] = strdup(trd(domain, "Allies"));
         	}
         	else
         	{
-        		setup.names[0] = strdup(trd(domain, "Allied"));
+        		setup.names[0] = strdup(trd(domain, "Allies"));
                 setup.names[1] = strdup(trd(domain, "Axis"));
         	}
         	setup.ctrl[0] = PLAYER_CTRL_HUMAN;
