@@ -130,25 +130,6 @@ unsigned short allied_prestige_allotments[PRESTIGE_ALLOTMENTS_NUMBER]={
 0,0,0,230,270,170 // elements38
 };
 
-/* Definition of non-standard function */
-void strlwr( char *string)
-{
-   int i;
-   for ( i = 0; i < strlen( string ); i++ )
-   {
-       string[i] = tolower( string[i] );
-   }
-}
-
-/*unsigned char block4[MAX_TURNS][MAX_LINE_SIZE]; //block 4 storage
-int block4_lines;
-unsigned char block5[MAX_SUPPLY][MAX_LINE_SIZE]; //block 5 storage
-int block5_lines;
-unsigned char block7[MAX_VICTORY_CON][MAX_LINE_SIZE]; //block 7 storage
-int block7_lines;
-unsigned char block9[MAX_CLASSES][MAX_LINE_SIZE]; //block 9 storage
-int block9_lines;
-*/
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
 	int gcursor=0;
@@ -326,10 +307,7 @@ int load_pgf_equipment(char *fname){
 					token_write++;
 				  }
 				  //all done
-
-				  //printf("%s\n",tokens[1]);
 			  }
-//			  fprintf( stderr, "%d\n",token );
 			  if (token==33){
 			  // write back to normal equipment table
 			  i=atoi(tokens[0]);

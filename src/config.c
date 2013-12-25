@@ -28,7 +28,7 @@
 #include "config.h"
 #include "parser.h"
 #include "localize.h"
-#include "file.h"
+#include "misc.h"
 
 Config config;
 

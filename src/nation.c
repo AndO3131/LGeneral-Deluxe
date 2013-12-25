@@ -29,7 +29,6 @@
 #include "parser.h"
 #include "localize.h"
 #include "config.h"
-#include "lgeneral.h"
 
 /*
 ====================================================================

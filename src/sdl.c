@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "localize.h"
-#include "lgeneral.h"
 
 extern int  term_game;
 

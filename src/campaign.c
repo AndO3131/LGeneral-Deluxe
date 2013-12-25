@@ -25,7 +25,7 @@
 #include "scenario.h"
 #include "campaign.h"
 #include "localize.h"
-#include "file.h"
+#include "misc.h"
 
 /*
 ====================================================================

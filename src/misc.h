@@ -23,7 +23,12 @@
 struct PData;
 struct _Font;
 
-#define MAXPATHLEN 512
+#define MAX_BUFFER 4096
+#define MAX_LINE_SHORT 1024
+#define MAX_PATH 512
+#define MAX_LINE 256
+#define MAX_NAME 50
+#define MAX_EXTENSION 10
 
 /* check if number is odd or even */
 #define ODD( x ) ( x & 1 )
@@ -63,6 +68,9 @@ struct _Font;
 #else
 #  define COMPILE_TIME_ASSERT_SYMBOL( s )
 #endif
+
+/* Definition of non-standard function */
+void strlwr( char *string);
 
 /* ascii-codes of game-related symbols */
 enum GameSymbols {

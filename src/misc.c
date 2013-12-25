@@ -61,6 +61,16 @@ inline int timed_out( Delay *delay, int ms )
     return 0;
 }
 
+/* Definition of non-standard function */
+void strlwr( char *string)
+{
+    int i;
+    for ( i = 0; i < strlen( string ); i++ )
+    {
+        string[i] = tolower( string[i] );
+    }
+}
+
 /* Convert grid coordinates into isometric (diagonal) coordinates. */
 inline static void convert_coords_to_diag( int *x, int *y )
 {

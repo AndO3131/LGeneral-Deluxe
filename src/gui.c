@@ -445,10 +445,10 @@ int gui_load( char *dir )
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
-    gui->scen_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
+    gui->scen_dlg = fdlg_create( gui_create_frame( 120, 270 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE), 24, 24,
                                  20,
-                                 gui_create_frame( 220, 240),
+                                 gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE ), 24, 24,
                                  ID_SCEN_OK, 
                                  gui->label, 
@@ -461,10 +461,10 @@ int gui_load( char *dir )
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
-    gui->camp_dlg = fdlg_create( gui_create_frame( 120, 240 ), 160, 10,
+    gui->camp_dlg = fdlg_create( gui_create_frame( 120, 270 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE), 24, 24,
                                  20,
-                                 gui_create_frame( 220, 240),
+                                 gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE ), 24, 24,
                                  ID_CAMP_OK, 
                                  gui->label, 

@@ -22,8 +22,6 @@
 #include "parser.h"
 #include "misc.h"
 #include "localize.h"
-#include "file.h"
-#include "lgeneral.h"
 
 /*
 ====================================================================

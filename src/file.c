@@ -29,7 +29,6 @@
 #include "localize.h"
 #include "sdl.h"
 #include "config.h"
-#include "lgeneral.h"
 
 extern Config config;
 
