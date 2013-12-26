@@ -66,6 +66,7 @@ Scenario Info
 */
 typedef struct {
     char *fname;    /* scenario knows it's own file_name in the scenario path */
+    char *mod_name; /* scenario's mod folder name */
     char *name;     /* scenario's name */
     char *desc;     /* description */
     char *authors;  /* a string with all author names */

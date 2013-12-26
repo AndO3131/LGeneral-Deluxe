@@ -235,6 +235,7 @@ int scen_load_lgscn( const char *fname, const char *path )
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     scen_info = calloc( 1, sizeof( Scen_Info ) );
     scen_info->fname = strdup( fname );
+    scen_info->mod_name = strdup( config.mod_name );
     if ( !parser_get_localized_string( pd, "name", domain, &scen_info->name ) ) goto parser_failure;
     if ( !parser_get_localized_string( pd, "desc", domain, &scen_info->desc ) ) goto parser_failure;
     if ( !parser_get_localized_string( pd, "authors", domain, &scen_info->authors) ) goto parser_failure;
@@ -919,6 +920,7 @@ void scen_delete()
     cur_weather = 0;
     if ( scen_info ) {
         if ( scen_info->fname ) free( scen_info->fname );
+        if ( scen_info->mod_name ) free( scen_info->mod_name );
         if ( scen_info->name ) free( scen_info->name );
         if ( scen_info->desc ) free( scen_info->desc );
         if ( scen_info->authors ) free( scen_info->authors );

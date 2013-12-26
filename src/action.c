@@ -283,3 +283,8 @@ void action_queue_start_camp()
     Action *action = action_create( ACTION_START_CAMP );
     action_queue( action );
 }
+void action_queue_change_mod()
+{
+    Action *action = action_create( ACTION_CHANGE_MOD );
+    action_queue( action );
+}

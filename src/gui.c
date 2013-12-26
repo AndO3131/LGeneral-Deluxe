@@ -1223,6 +1223,9 @@ void gui_show_scen_info()
     SDL_Surface *contents = gui->sinfo->contents;
     gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     SDL_FillRect( contents, 0, 0x0 );
+    /* mod folder */
+    sprintf( str, tr("MOD: %s"), scen_info->mod_name );
+    write_line( contents, gui->font_std, str, x, &y ); y += 10;
     /* title */
     write_line( contents, gui->font_std, scen_info->name, x, &y ); y += 10;
     /* desc */

@@ -49,7 +49,8 @@ enum {
     ACTION_LOAD,
     ACTION_OVERWRITE,
     ACTION_START_SCEN,
-    ACTION_START_CAMP
+    ACTION_START_CAMP,
+    ACTION_CHANGE_MOD
 };
 typedef struct {
     int type;       /* type as above */
@@ -131,5 +132,6 @@ void action_queue_load( char *name );
 void action_queue_overwrite( char *name );
 void action_queue_start_scen();
 void action_queue_start_camp();
+void action_queue_change_mod();
 
 #endif

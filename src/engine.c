@@ -236,6 +236,8 @@ int deploy_turn;		/* 1 if this is the deployment-turn */
 static Action *top_committed_action;/* topmost action not to be removed */
 static struct MessagePane *camp_pane; /* state of campaign message pane */
 static char *last_debriefing;   /* text of last debriefing */
+int log_x, log_y = 2;
+char log_str[MAX_NAME];
 
 /*
 ====================================================================
@@ -331,6 +333,12 @@ static void engine_set_status( int newstat )
         /* re-show main menu */
         if (!term_game) engine_show_game_menu(10,10);
     }
+    else if ( newstat == STATUS_TITLE )
+    {
+        /* re-show main menu */
+        status = STATUS_TITLE;
+        if (!term_game) engine_show_game_menu(10,10);
+    }
     else
         status = newstat;
 }
@@ -354,6 +362,12 @@ static void engine_draw_bkgnd()
           ( sdl.screen->h - gui->bkgnd->h ) / 2,
           gui->bkgnd->w, gui->bkgnd->h );
     SOURCE( gui->bkgnd, 0, 0 );
+    blit_surf();
+    log_x = sdl.screen->w - 2;
+    log_y = 2;
+    gui->font_error->align = ALIGN_X_RIGHT | ALIGN_Y_TOP;
+    snprintf( log_str, MAX_NAME, tr("Mod: %s"), config.mod_name );
+    write_line( sdl.screen, gui->font_error, log_str, log_x, &log_y );
     blit_surf();
 }
 
@@ -2492,10 +2506,8 @@ static void engine_handle_button( int id )
             break;
         case ID_MOD_SELECT_OK:
             fdlg_hide( gui->mod_select_dlg, 1 );
-            snprintf( config.mod_name, MAX_NAME, "%s", gui->mod_select_dlg->current_name );
+            action_queue_change_mod();
             engine_confirm_action( tr("Loading new game folder will erase current game. Are you sure?") );
-            setup.type = SETUP_RUN_TITLE;
-            engine_set_status( STATUS_TITLE );
             break;
         case ID_MOD_SELECT_CANCEL:
             fdlg_hide( gui->mod_select_dlg, 1 );
@@ -3285,6 +3297,11 @@ static void engine_handle_next_action( int *reinit )
         case ACTION_QUIT:
             engine_set_status( STATUS_NONE );
             end_scen = 1;
+            break;
+        case ACTION_CHANGE_MOD:
+            snprintf( config.mod_name, MAX_NAME, "%s", gui->mod_select_dlg->current_name );
+            setup.type = SETUP_RUN_TITLE;
+            engine_set_status( STATUS_TITLE );
             break;
         case ACTION_SET_VMODE:
             flags = SDL_SWSURFACE;
@@ -4219,7 +4236,7 @@ int engine_init()
     /* scenario&campaign or title*/
     if ( setup.type == SETUP_RUN_TITLE ) {
         status = STATUS_TITLE;
-        return 1;
+        return 0;
     }
     if ( setup.type == SETUP_CAMP_BRIEFING ) {
         status = STATUS_CAMP_BRIEFING;
