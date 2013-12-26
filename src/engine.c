@@ -333,9 +333,9 @@ static void engine_set_status( int newstat )
         /* re-show main menu */
         if (!term_game) engine_show_game_menu(10,10);
     }
+    /* return from scenario to title screen */
     else if ( newstat == STATUS_TITLE )
     {
-        /* re-show main menu */
         status = STATUS_TITLE;
         if (!term_game) engine_show_game_menu(10,10);
     }
@@ -4236,7 +4236,7 @@ int engine_init()
     /* scenario&campaign or title*/
     if ( setup.type == SETUP_RUN_TITLE ) {
         status = STATUS_TITLE;
-        return 0;
+        return 1;
     }
     if ( setup.type == SETUP_CAMP_BRIEFING ) {
         status = STATUS_CAMP_BRIEFING;
