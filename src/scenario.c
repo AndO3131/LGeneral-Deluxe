@@ -247,10 +247,12 @@ int scen_load_lgscn( const char *fname, const char *path )
     if ( !parser_get_entries( pd, "players", &entries ) ) goto parser_failure;
     scen_info->player_count = entries->count;
     /* nations */
+    temp = calloc( 256, sizeof(char) );
     sprintf( log_str, tr("Loading Nations") );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( !parser_get_value( pd, "nation_db", &str, 0 ) ) goto parser_failure;
-    if ( !nations_load( str ) ) goto failure;
+    snprintf( temp, MAX_PATH, "Scenario/%s", str );
+    if ( !nations_load( temp ) ) goto failure;
     /* unit libs NOT reloaded if continuing campaign */
     if (camp_loaded <= 1)
     {
@@ -375,7 +377,6 @@ int scen_load_lgscn( const char *fname, const char *path )
     }
     /* set alliances */
     list_reset( players );
-    temp = calloc( 256, sizeof(char) );
     for ( i = 0; i < players->count; i++ ) {
         player = list_next( players );
         player->allies = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
@@ -821,7 +822,7 @@ int scen_load( char *fname )
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn( fname, path );
     else if ( strcmp( extension, "pgscn" ) == 0 )
-        return load_pgf_pgscn( path );
+        return load_pgf_pgscn( path, atoi( fname ) );
     return 0;
 }
 

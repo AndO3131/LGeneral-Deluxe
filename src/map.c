@@ -1000,20 +1000,32 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
         if ( tile->a_unit ) {
             if ( !ground || tile->g_unit == 0 ) {
                 /* large air unit */
-                DEST( surf,
-                      x + ( (hex_w - tile->a_unit->sel_prop->icon_w) >> 1 ),
-                      y + 6,
-                      tile->a_unit->sel_prop->icon_w, tile->a_unit->sel_prop->icon_h );
+                if ( tile->a_unit->sel_prop->icon_type == UNIT_ICON_FIXED )
+                    DEST( surf,
+                          x,
+                          y - 10,
+                          tile->a_unit->sel_prop->icon_w, tile->a_unit->sel_prop->icon_h )
+                else
+                    DEST( surf,
+                          x + ( (hex_w - tile->a_unit->sel_prop->icon_w) >> 1 ),
+                          y + 6,
+                          tile->a_unit->sel_prop->icon_w, tile->a_unit->sel_prop->icon_h )
                 SOURCE( tile->a_unit->sel_prop->icon, tile->a_unit->icon_offset, 0 );
                 blit_surf();
                 unit = tile->a_unit;
             }
             else {
                 /* small air unit */
-                DEST( surf,
-                      x + ( (hex_w - tile->a_unit->sel_prop->icon_tiny_w) >> 1 ),
-                      y + 6,
-                      tile->a_unit->sel_prop->icon_tiny_w, tile->a_unit->sel_prop->icon_tiny_h );
+                if ( tile->a_unit->sel_prop->icon_type == UNIT_ICON_FIXED )
+                    DEST( surf,
+                          x + ( (hex_w - tile->a_unit->sel_prop->icon_tiny_w) >> 1 ),
+                          y - 6,
+                          tile->a_unit->sel_prop->icon_tiny_w, tile->a_unit->sel_prop->icon_tiny_h )
+                else
+                    DEST( surf,
+                          x + ( (hex_w - tile->a_unit->sel_prop->icon_tiny_w) >> 1 ),
+                          y + 6,
+                          tile->a_unit->sel_prop->icon_tiny_w, tile->a_unit->sel_prop->icon_tiny_h )
                 SOURCE( tile->a_unit->sel_prop->icon_tiny, tile->a_unit->icon_tiny_offset, 0 );
                 blit_surf();
                 unit = tile->g_unit;
@@ -1030,15 +1042,15 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                 if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
                      ( unit->core == AUXILIARY ) )
                     SOURCE( unit_info_icons->str,
-                            unit_info_icons->str_w,
-                            (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?
-                            unit_info_icons->str_h * ( unit->str - 1 + 15 ): unit_info_icons->str_h * ( unit->str - 1 ))
+                            unit_info_icons->str_w * ( unit->str - 1 ),
+                            unit_info_icons->str_h * (unit->nation->strength_row + 1))
                 else
                     SOURCE( unit_info_icons->str, 
-                        (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?unit_info_icons->str_w:0, 
-                        unit_info_icons->str_h * ( unit->str - 1 + 15 ) )
+                            unit_info_icons->str_w * ( unit->str - 1 ),
+                            unit_info_icons->str_h * unit->nation->strength_row)
             else
-                SOURCE( unit_info_icons->str, 0, unit_info_icons->str_h * ( unit->str - 1 ) )
+                SOURCE( unit_info_icons->str, unit_info_icons->str_w * ( unit->str - 1 ), 
+                        unit_info_icons->str_h * unit->nation->strength_row )
             blit_surf();
             /* for current player only */
             if ( unit->player == cur_player ) {

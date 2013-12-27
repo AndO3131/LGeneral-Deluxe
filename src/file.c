@@ -33,12 +33,12 @@
 extern Config config;
 
 //#define FILE_DEBUG
-const int extension_image_length = 4;
-const int extension_sound_length = 3;
+const int extension_image_length = 8;
+const int extension_sound_length = 6;
 const int extension_scenario_length = 2;
 const int extension_campaign_length = 2;
-const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
-const char *extension_sound[] = { "wav", "ogg", "mp3" };
+const char *extension_image[] = { "bmp", "BMP", "png", "PNG", "jpg", "JPG", "jpeg", "JPEG" };
+const char *extension_sound[] = { "wav", "WAV", "ogg", "OGG", "mp3", "MP3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
 const char *extension_campaign[] = { "lgcam", "pgcam" };
 

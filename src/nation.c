@@ -61,7 +61,7 @@ int nations_load( char *fname )
     char path[MAX_PATH];
     char *str;
     char *domain = 0;
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
+    search_file_name_exact( path, fname, config.mod_name );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -84,6 +84,7 @@ int nations_load( char *fname )
         nations[i].id = strdup( sub->name );
         if ( !parser_get_localized_string( sub, "name", domain, &nations[i].name ) ) goto parser_failure;
         if ( !parser_get_int( sub, "icon_id", &nations[i].flag_offset ) ) goto parser_failure;
+        if ( !parser_get_int( sub, "strength_row", &nations[i].strength_row ) ) goto parser_failure;
         nations[i].flag_offset *= nation_flag_height;
         i++;
     }
@@ -156,7 +157,7 @@ int nation_get_index( Nation *nation )
     for ( i = 0; i < nation_count; i++ )
         if ( nation == &nations[i] )
             return i;
-    return 0;
+    return -1;
 }
 
 /*

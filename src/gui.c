@@ -895,23 +895,30 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
           unit->prop.icon_w, unit->prop.icon_h );
     SOURCE( unit->prop.icon, 0, 0 );
     blit_surf();
-    DEST( qinfo->contents, 
-          6 + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
-          ( ( qinfo->contents->h - unit->prop.icon_h ) >> 1 ) + unit->prop.icon_h,
-          unit_info_icons->str_w, unit_info_icons->str_h );
+    /* stength */
+    if ( unit->prop.icon_type == UNIT_ICON_FIXED )
+        DEST( qinfo->contents, 
+              6 + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
+              qinfo->contents->h - unit_info_icons->str_h - 5,
+              unit_info_icons->str_w, unit_info_icons->str_h )
+    else
+        DEST( qinfo->contents, 
+              6 + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
+              ( ( qinfo->contents->h - unit->prop.icon_h ) >> 1 ) + unit->prop.icon_h,
+              unit_info_icons->str_w, unit_info_icons->str_h )
     if ( cur_player && player_is_ally( cur_player, unit->player ) )
         if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
-             ( unit->core == AUXILIARY ) )
+            ( unit->core == AUXILIARY ) )
             SOURCE( unit_info_icons->str,
-                    unit_info_icons->str_w,
-                    (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?
-                    unit_info_icons->str_h * ( unit->str - 1 + 15 ): unit_info_icons->str_h * ( unit->str - 1 ))
+                    unit_info_icons->str_w * ( unit->str - 1 ),
+                    unit_info_icons->str_h * (unit->nation->strength_row + 1))
         else
             SOURCE( unit_info_icons->str, 
-                   (unit&&(unit_low_ammo(unit)||unit_low_fuel(unit)))?unit_info_icons->str_w:0, 
-                    unit_info_icons->str_h * ( unit->str - 1 + 15 ) )
+                    unit_info_icons->str_w * ( unit->str - 1 ),
+                    unit_info_icons->str_h * unit->nation->strength_row)
     else
-        SOURCE( unit_info_icons->str, 0, unit_info_icons->str_h * ( unit->str - 1 ) )
+        SOURCE( unit_info_icons->str, unit_info_icons->str_w * ( unit->str - 1 ), 
+                unit_info_icons->str_h * unit->nation->strength_row )
     blit_surf();
     /* nation flag */
     DEST( qinfo->contents, 6, 6, nation_flag_width, nation_flag_height );

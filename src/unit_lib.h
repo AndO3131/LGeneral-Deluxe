@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,8 +27,8 @@ Unit flags.
 */
 enum {
     SWIMMING       = ( 1L << 1 ),   /* ship */
-    DIVING         = ( 1L << 2 ),   /* aircraft */
-    FLYING         = ( 1L << 3 ),   /* submarine */
+    DIVING         = ( 1L << 2 ),   /* submarine */
+    FLYING         = ( 1L << 3 ),   /* aircraft */
     PARACHUTE      = ( 1L << 4 ),   /* may air debark anywhere */
     TRANSPORTER    = ( 1L << 7 ),   /* is a transporter */
     RECON          = ( 1L << 8 ),   /* multiple movements a round */
@@ -161,11 +163,14 @@ typedef struct {
 /*
 ====================================================================
 Load a unit library. If UNIT_LIB_MAIN is passed target_types,
+mov_types and unit classes will be also loaded (may only happen once).
+If UNIT_LIB_BASE_DATA is passed only target_types,
 mov_types and unit classes will be loaded (may only happen once)
 ====================================================================
 */
 enum {
     UNIT_LIB_ADD = 0,
+    UNIT_LIB_BASE_DATA,
     UNIT_LIB_MAIN
 };
 int unit_lib_load( char *fname, int main );
@@ -190,6 +195,13 @@ Find unit lib entry by id string.
 ====================================================================
 */
 Unit_Lib_Entry* unit_lib_find( char *id );
+
+/*
+====================================================================
+Find unit icons in image sheet.
+====================================================================
+*/
+void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit );
 
 /*
 ====================================================================

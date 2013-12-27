@@ -43,6 +43,15 @@ extern Scen_Info *scen_info;
 extern List *players;
 extern Player *player;
 extern int camp_loaded;
+extern Trgt_Type *trgt_types;
+extern int trgt_type_count;
+extern Mov_Type *mov_types;
+extern int mov_type_count;
+extern Unit_Class *unit_classes;
+extern int unit_class_count;
+extern int icon_type;
+extern SDL_Surface *icons;
+extern StrToFlag fct_units[];
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
@@ -222,172 +231,295 @@ int load_line(FILE *inf, char *line, int isUTF16){
 }
 
 
-int load_pgf_equipment(char *fname){
-	  FILE *inf;
+int load_pgf_equipment(char *fullName){
+    FILE *inf;
 
-	  char line[1024],tokens[50][256], log_str[256];
-	  int i,cursor=0,token=0,lines;
-	  //int total_victory,total_left,total_right;
-	  int token_len, token_write, bmp_idx;
-	  unsigned short temp;
-	  unsigned short file_type_probe;
-	  char path[MAX_PATH];
-	  int utf16 = 0;
+    Unit_Lib_Entry *unit;
+    char line[1024],tokens[50][256], log_str[256];
+    int i,cursor=0,token=0,lines, icon_id;
+    //int total_victory,total_left,total_right;
+    int token_len, token_write;
+    unsigned short file_type_probe;
+    int utf16 = 0;
 
-    snprintf( path, MAX_PATH, "%s/Scenario/%s", config.mod_name, fname );
-	  inf=fopen(path,"rb");
-	  if (!inf)
-	  {
-			strncpy(path,"../../default/scenario/",MAX_PATH);
-			strncat(path,fname,MAX_PATH);
-			inf=fopen(path,"rb");
-			if (!inf)
-				return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-	  }
-	  lines=0;
+    inf=fopen(fullName,"rb");
+    if (!inf)
+    {
+        return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+    }
+    lines=0;
 
-	  //probe for UTF16 file magic bytes
-	  fread(&file_type_probe, 2, 1, inf);
-	  if (UCS2_header==file_type_probe) { utf16=1;}
-	  fseek(inf,0,SEEK_SET);
+    //probe for UTF16 file magic bytes
+    fread(&file_type_probe, 2, 1, inf);
+    if (UCS2_header==file_type_probe) { utf16=1;}
+    fseek(inf,0,SEEK_SET);
 
-    fprintf( stderr, "Loading PGF-style Unit Library '%s'\n", fname );
-    sprintf( log_str, tr("Loading PGF-style Unit Library '%s'"), fname );
+    if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
+        return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+
+    sprintf( log_str, tr("Loading PGF-style Unit Library 'basic_unit_data.udb'") );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
 
-	  while (load_line(inf,line,utf16)>=0){
-		  //count lines so error can be displayed with line number
-		  lines++;
-			  //strip comments
-		  //printf("%d\n",0);
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
 
-		  for(i=0;i<strlen(line);i++)
-				  if (line[i]==0x23) { line[i]=0; break; }
-			  //tokenize
-			 // printf("%d\n",1);
-			  token=0;
-			  cursor=0;
-			for (i = 0; i < strlen(line); i++)
-				if (line[i] == 0x09) {
-					tokens[token][cursor] = 0;
-					token++;
-					cursor = 0;
-				} else {
-					tokens[token][cursor] = line[i];
-					cursor++;
-				}
-			  tokens[token][cursor]=0;
-			  token++;
-			  //printf("%d\n",2);
-			  //printf("%d:",token);
-			  //if (lines>110 && lines<120){
-			  //for(i=0;i<token;i++)
-			  //		printf("%s->", tokens[i]);
-			  //printf("\n");
-			  //}
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23)
+            {
+                line[i]=0;
+                break;
+            }
+            //tokenize
+        token=0;
+        cursor=0;
+        for (i = 0; i < strlen(line); i++)
+            // 'tab' and 'comma' delimiters
+            if (line[i] == 0x09 || line[i] == 0x2c)
+            {
+                tokens[token][cursor] = 0;
+                token++;
+                cursor = 0;
+            }
+            else
+            {
+                tokens[token][cursor] = line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+        //printf("%d\n",2);
+        //printf("%d:",token);
+        //if (lines>110 && lines<120){
+        //for(i=0;i<token;i++)
+        //    printf("%s->", tokens[i]);
+        //printf("\n");
+        //}
 
-			  //0x22
-			  //remove quoting
-			  if (tokens[1][0]==0x22){
-				  //check ending quote
-				  token_len=strlen(tokens[1]);
+        //0x22
+        //remove quoting
+        if (tokens[1][0]==0x22)
+        {
+            //check ending quote
+            token_len=strlen(tokens[1]);
 
-				  if (tokens[1][token_len-1]!=0x22){
-					  printf("Error. Line %d. Check quotation mark in name >%s<. Line skipped.\n",lines,tokens[1]);
-					  continue;
-				  }
-				 //remove start/end quotation marks
-				  for (i=1;i<token_len-1;i++)
-					  tokens[1][i-1]=tokens[1][i];
-				  tokens[1][token_len-2]=0;
-				  //remove double quote
-				  // get new length
-				  token_len=strlen(tokens[1]);
-				  token_write=0;
-				  for (i=0;i<token_len+1;i++){
-					tokens[1][token_write]=tokens[1][i];
-					if (tokens[1][i]==0x22 && tokens[1][i+1]==0x22) i++; //skip next char
-					token_write++;
-				  }
-				  //all done
-			  }
-			  if (token==33){
-			  // write back to normal equipment table
-			  i=atoi(tokens[0]);
-			  //printf("%d\n",i);
+            if (tokens[1][token_len-1]!=0x22)
+            {
+                printf("Error. Line %d. Check quotation mark in name >%s<. Line skipped.\n",lines,tokens[1]);
+                continue;
+            }
+            //remove start/end quotation marks
+            for (i=1;i<token_len-1;i++)
+                tokens[1][i-1]=tokens[1][i];
+            tokens[1][token_len-2]=0;
+            //remove double quote
+            // get new length
+            token_len=strlen(tokens[1]);
+            token_write=0;
+            for (i=0;i<token_len+1;i++)
+            {
+                tokens[1][token_write]=tokens[1][i];
+                if (tokens[1][i]==0x22 && tokens[1][i+1]==0x22) i++; //skip next char
+                token_write++;
+            }
+            //all done
+        }
+        if (token==33)
+        {
+            /* read unit entry */
+            unit = calloc( 1, sizeof( Unit_Lib_Entry ) );
+            /* identification */
+            unit->id = strdup( tokens[0] );
+            /* name */
+            unit->name = strdup(tokens[1]);
+    	    /* nation (if not found or 'none' unit can't be purchased) */
+    	    unit->nation = -1; /* undefined */
+            /* class id */
+            for ( i = 0; i < unit_class_count; i++ )
+                if ( STRCMP( tokens[2], unit_classes[i].id ) ) {
+                    unit->class = i;
+                    break;
+                }
+            //attack
+            for ( i = 0; i < trgt_type_count; i++ )
+                unit->atks[i] = (unsigned char) atoi(tokens[i + 3]);
+            /* ground defense */
+            unit->def_grnd = (unsigned char) atoi(tokens[7]);
+            /* air defense */
+            unit->def_air = (unsigned char) atoi(tokens[8]);
+            /* close defense */
+            unit->def_cls = (unsigned char) atoi(tokens[9]);
+            /* move type id */
+            unit->mov_type = 0;
+            for ( i = 0; i < mov_type_count; i++ )
+                if ( STRCMP( tokens[10], mov_types[i].id ) ) {
+                    unit->mov_type = i;
+                    break;
+                }
+            /* initiative */
+            unit->ini = (unsigned char) atoi(tokens[11]);
+            /* range */
+            unit->rng = (unsigned char) atoi(tokens[12]);
+            /* spotting */
+            unit->spt = (unsigned char) atoi(tokens[13]);
+            /* target type id */
+            unit->trgt_type = 0;
+            for ( i = 0; i < trgt_type_count; i++ )
+                if ( STRCMP( tokens[14], trgt_types[i].id ) ) {
+                    unit->trgt_type = i;
+                    break;
+                }
+            /* movement */
+            unit->mov = (unsigned char) atoi(tokens[15]);
+            /* fuel */
+            unit->fuel = (unsigned char) atoi(tokens[16]);
+            /* ammo */
+            unit->ammo = (unsigned char) atoi(tokens[17]);
+    	    /* cost of unit (0 == cannot be purchased) */
+        	unit->cost = (unsigned char) atoi(tokens[18]);
+            /* icon id */
+            icon_id = atoi(tokens[19]);
+            /* icon_type */
+            unit->icon_type = icon_type;
+            /* set small and large icons */
+            lib_entry_set_icons( icon_id, unit );
+            /* time period of usage (0 == cannot be purchased) */
+            unit->start_month = atoi(tokens[21]);
+            unit->start_year = 1900 + atoi(tokens[22]);
+            unit->last_year = 1900 + atoi(tokens[23]);
 
-				  //printf("2\n");
-/*				strncpy(equip[i], tokens[1], 20);
-//				strncpy(equip_name_utf8[i], tokens[1],40);
-				//already converted
-				//convert_from_cp1250_to_utf8(equip_name_utf8[i], equip[i], 20);
+    	    /* nation (if not found unit can't be purchased) */
+    	    unit->nation = -1;
+            Nation *n = nation_find_by_id( atoi(tokens[32]) - 1 );
+            if (n)
+                unit->nation = nation_get_index( n );
 
-				equip[i][CLASS] = (unsigned char) atoi(tokens[2]);
-				//attack
-				equip[i][SA] = (unsigned char) atoi(tokens[3]);
-				equip[i][HA] = (unsigned char) atoi(tokens[4]);
-				equip[i][AA] = (unsigned char) atoi(tokens[5]);
-				equip[i][NA] = (unsigned char) atoi(tokens[6]);
-				//Defense
-				equip[i][GD] = (unsigned char) atoi(tokens[7]);
-				equip[i][AD] = (unsigned char) atoi(tokens[8]);
-				equip[i][CD] = (unsigned char) atoi(tokens[9]);
+            /* standard flags based on unit class */
+            switch ( unit->class )
+            {
+                case 0: // infantry
+                    unit->flags |= check_flag( "infantry", fct_units );
+                    unit->flags |= check_flag( "air_trsp_ok", fct_units );
+                    unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                    break;
+                case 1: //tank
+                    unit->flags |= check_flag( "low_entr_rate", fct_units );
+                    unit->flags |= check_flag( "tank", fct_units );
+                    break;
+                case 2: // recon
+                    unit->flags |= check_flag( "recon", fct_units );
+                    unit->flags |= check_flag( "tank", fct_units );
+                    break;
+                case 3: // anti-tank
+                    if ( unit->mov_type == 4 ) // towed anti-tanks
+                    {
+                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
+                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                    }
+                    unit->flags |= check_flag( "anti_tank", fct_units );
+                    break;
+                case 4: // artillery
+                    if ( unit->mov_type == 4 ) // towed artillery
+                    {
+                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
+                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                    }
+                    unit->flags |= check_flag( "artillery", fct_units );
+                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    unit->flags |= check_flag( "attack_first", fct_units );
+                    break;
+                case 5: // anti-aircraft
+                    unit->flags |= check_flag( "low_entr_rate", fct_units );
+                    break;
+                case 6: // air defense
+                    if ( unit->mov_type == 4 ) // towed air defense
+                    {
+                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
+                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                    }
+                    unit->flags |= check_flag( "air_defense", fct_units );
+                    unit->flags |= check_flag( "attack_first", fct_units );
+                    break;
+                case 7: // fortification
+                    unit->flags |= check_flag( "low_entr_rate", fct_units );
+                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    break;
+                case 8: // fighter
+                    unit->flags |= check_flag( "interceptor", fct_units );
+                    unit->flags |= check_flag( "carrier_ok", fct_units );
+                    unit->flags |= check_flag( "flying", fct_units );
+                    break;
+                case 9: // tactical bomber
+                    unit->flags |= check_flag( "bomber", fct_units );
+                    unit->flags |= check_flag( "carrier_ok", fct_units );
+                    unit->flags |= check_flag( "flying", fct_units );
+                    break;
+                case 10: // level bomber
+                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    unit->flags |= check_flag( "turn_suppr", fct_units );
+                    unit->flags |= check_flag( "flying", fct_units );
+                    break;
+                case 11: // submarine
+                    unit->flags |= check_flag( "swimming", fct_units );
+                    unit->flags |= check_flag( "diving", fct_units );
+                    break;
+                case 12: // destroyer
+                    unit->flags |= check_flag( "destroyer", fct_units );
+                    unit->flags |= check_flag( "swimming", fct_units );
+                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    break;
+                case 13: // capital ship
+                    unit->flags |= check_flag( "swimming", fct_units );
+                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    break;
+                case 14: // aircraft carrier
+                    unit->flags |= check_flag( "swimming", fct_units );
+                    unit->flags |= check_flag( "carrier", fct_units );
+                    break;
+                case 15: // land transport
+                    unit->flags |= check_flag( "transporter", fct_units );
+                    break;
+                case 16: // air transport
+                    unit->flags |= check_flag( "transporter", fct_units );
+                    unit->flags |= check_flag( "flying", fct_units );
+                    break;
+                case 17: // sea transport
+                    unit->flags |= check_flag( "transporter", fct_units );
+                    unit->flags |= check_flag( "swimming", fct_units );
+                    break;
+            }
+            // flags from equipment.pgeqp
+            if ( atoi(tokens[25]) )
+                unit->flags |= check_flag( "ignore_entr", fct_units );
+            if ( atoi(tokens[30]) )
+                unit->flags |= check_flag( "bridge_eng", fct_units );
+            if ( atoi(tokens[31]) )
+                unit->flags |= check_flag( "jet", fct_units );
+//            fprintf( stderr, "%s: flags %d\n", unit->name, unit->flags );
 
-				equip[i][MOV_TYPE] = (unsigned char) atoi(tokens[10]);
-				if (equip[i][MOV_TYPE] == MOV_TYPE_AIR) //air
-					equip[i][GAF] = 1;
-				else
-					equip[i][GAF] = 0;
-				equip[i][INITIATIVE] = (unsigned char) atoi(tokens[11]);
-				equip[i][RANGE] = (unsigned char) atoi(tokens[12]);
-				equip[i][SPOTTING] = (unsigned char) atoi(tokens[13]);
+#ifdef WITH_SOUND
+            unit->wav_move = mov_types[unit->mov_type].wav_move;
+            unit->wav_alloc = 0;
+#endif
 
-				equip[i][TARGET_TYPE] = (unsigned char) atoi(tokens[14]);
-				equip[i][MOV] = (unsigned char) atoi(tokens[15]);
-				equip[i][FUEL] = (unsigned char) atoi(tokens[16]);
-				equip[i][AMMO] = (unsigned char) atoi(tokens[17]);
-				equip[i][COST] = (unsigned char) ((int) atoi(tokens[18])
-						/ COST_DIVISOR);
-				bmp_idx = atoi(tokens[19]);
-				equip[i][BMP] = bmp_idx & 0xff;
-				equip[i][BMP+1] = (bmp_idx >> 8)& 0xff;
-
-				temp = atoi(tokens[20]);
-				equip[i][ANI] = temp& 0xff;
-				equip[i][ANI+1] = (temp >> 8)& 0xff;
-
-				equip[i][MON] = (unsigned char) atoi(tokens[21]);
-				equip[i][YR] = (unsigned char) atoi(tokens[22]);
-				equip[i][LAST_YEAR] = (unsigned char) atoi(tokens[23]);
-				equip[i][AAF] = (unsigned char) atoi(tokens[24]);
-				equip_flags[i] =0;
-				equip_flags[i] |= (unsigned char) atoi(tokens[25])?EQUIPMENT_IGNORES_ENTRENCHMENT:0;
-				equip_flags[i] |= (unsigned char) atoi(tokens[26])?EQUIPMENT_CAN_HAVE_ORGANIC_TRANSPORT:0;
-				equip[i][ALLOWED_TRANSPORT]=0;
-				if (atoi(tokens[27])==1) equip[i][ALLOWED_TRANSPORT]=1; //naval transport
-				if (atoi(tokens[28])==1) equip[i][ALLOWED_TRANSPORT]=2; //air mobile transport
-				if (atoi(tokens[29])==1) equip[i][ALLOWED_TRANSPORT]=3; //paradrop
-
-				equip_flags[i] |= (unsigned char) atoi(tokens[30])?EQUIPMENT_CAN_BRIDGE_RIVERS:0;
-				equip_flags[i] |= (unsigned char) atoi(tokens[31])?EQUIPMENT_JET:0;
-
-				equip_country[i] = (char) atoi(tokens[32]);
+/* unused
+            equip[i][AAF] = (unsigned char) atoi(tokens[24]);
+            equip_flags[i] |= (unsigned char) atoi(tokens[26])?EQUIPMENT_CAN_HAVE_ORGANIC_TRANSPORT:0;
+            equip[i][ALLOWED_TRANSPORT]=0;
+            if (atoi(tokens[27])==1) equip[i][ALLOWED_TRANSPORT]=1; //naval transport
+            if (atoi(tokens[28])==1) equip[i][ALLOWED_TRANSPORT]=2; //air mobile transport
+            if (atoi(tokens[29])==1) equip[i][ALLOWED_TRANSPORT]=3; //paradrop
 */
-				//if (total_equip==388)
-				//for(i=0;i<token;i++)
-				 //printf("%s->", tokens[30]);
-
-
-//				total_equip++;
-		  }
-	  }
-	  fclose(inf);
-	  fprintf( stderr, "All loaded.\n" );
-	  return 0;
+        }
+    }
+    SDL_FreeSurface(icons);
+    fclose(inf);
+    return 0;
 }
 
-int load_pgf_pgscn(char *fullName){
+int load_pgf_pgscn(char *fullName, int scenNumber){
 
     FILE *inf;
     char path[MAX_PATH];
@@ -403,7 +535,6 @@ int load_pgf_pgscn(char *fullName){
     log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     log_x = 2; log_y = 2;
     scen_info = calloc( 1, sizeof( Scen_Info ) );
-//    fprintf(stderr, "Opening file %s\n", fullName);
     scen_info->fname = strdup( fullName );
     inf=fopen(fullName,"rb");
     if (!inf)
@@ -418,8 +549,6 @@ int load_pgf_pgscn(char *fullName){
     //units
 
     int total_deploy=0;
-    int total_left=0;
-    int total_right=0;
 
     total_victory=0;
     lines=0;
@@ -464,7 +593,7 @@ int load_pgf_pgscn(char *fullName){
         if (block==1 && token>1)
         {
             if (token!=2)
-                printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
+                fprintf(stderr, "Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
             strlwr(tokens[0]);
             if (strcmp(tokens[0],"name")==0)
             {
@@ -477,6 +606,30 @@ int load_pgf_pgscn(char *fullName){
                 scen_info->desc = strdup( tokens[1] );
             if (strcmp(tokens[0],"set file")==0)
             {
+                /* nations */
+                sprintf( log_str, tr("Loading Nations") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !nations_load( "Scenario/nations.ndb" ) )
+                {
+                    terrain_delete();
+                    scen_delete();
+                    if ( player ) player_delete( player );
+                    return 0;
+                }
+
+                /* unit libs NOT reloaded if continuing campaign */
+                if (camp_loaded <= 1)
+                {
+                    search_file_name_exact( SET_file, "Scenario/equipment.pgeqp", config.mod_name );
+                    if ( load_pgf_equipment( SET_file ) )
+                    {
+                        terrain_delete();
+                        scen_delete();
+                        if ( player ) player_delete( player );
+                        return 0;
+                    }
+                }
+
                 /* map and weather */
                 strncpy( SET_file, tokens[1], 256 );
 //                fprintf( stderr, "SET file:%s\n", SET_file );
@@ -532,7 +685,7 @@ int load_pgf_pgscn(char *fullName){
         if (block==2 && token>1)
         {
             if (token!=11)
-                printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,11,token);
+                fprintf(stderr,"Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,11,token);
             if (atoi(tokens[0])==0)
             {
                 /* players */
@@ -542,11 +695,14 @@ int load_pgf_pgscn(char *fullName){
 
                 /* create player */
                 player = calloc( 1, sizeof( Player ) );
+                player->nations = calloc( 6, sizeof( Nation* ) );
+                player->nation_count = 0;
 
                 if ( allies_move_first == 0 )
                 {
                     player->id = strdup( "axis" );
                     player->name = strdup(trd(domain, "Axis"));
+                    
                 }
                 else
                 {
@@ -569,7 +725,10 @@ int load_pgf_pgscn(char *fullName){
                 else
                     player->unit_limit += (unsigned char)atoi(tokens[2]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
-                player->strat = (unsigned char)atoi(tokens[4]);
+                if ( (unsigned char)atoi(tokens[4]) == 0)
+                    player->strat = -1;
+                else
+                    player->strat = 1;
 //                fprintf( stderr, "Strategy:%d\n", player->strat );
 
                 player->air_trsp_count = (unsigned char)atoi(tokens[8]);
@@ -591,6 +750,8 @@ int load_pgf_pgscn(char *fullName){
 
 
 //                axis_experience = atoi(tokens[10]);
+
+                player_add( player ); player = 0;
             }
             if (atoi(tokens[0])==1)
             {
@@ -627,7 +788,10 @@ int load_pgf_pgscn(char *fullName){
 
                 player->unit_limit = (unsigned char)atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
-                player->strat = (unsigned char)atoi(tokens[4]);
+                if ( (unsigned char)atoi(tokens[4]) == 0)
+                    player->strat = -1;
+                else
+                    player->strat = 1;
 //                fprintf( stderr, "Strategy:%d\n", player->strat );
 
                 player->air_trsp_count = (unsigned char)atoi(tokens[8]);
@@ -649,27 +813,39 @@ int load_pgf_pgscn(char *fullName){
 
 //                allied_experience = atoi(tokens[10]);
 
+                player->nations = calloc( 6, sizeof( Nation* ) );
+                player->nation_count = 0;
                 player_add( player ); player = 0;
             }
         }
-			  //Block#3  +: Nations: 2 col, 2 or more rows
-/*			  if (block==3 && token>1){
-				  if (token!=2){
-				 	printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
+        //Block#3  +: Alliances: 2 col, 2 or more rows
+        if (block==3 && token>1)
+        {
+            if (token!=2)
+            {
+                fprintf(stderr, "Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,2,token);
+            }
+            else
+            {
+                t1=atoi(tokens[0]);
+                t2=atoi(tokens[1]);
 
-				  }else{
-				  t1=atoi(tokens[0]);
-				  t2=atoi(tokens[1]);
+                list_reset( players );
+                player = list_next( players );
+                if (t2==1)
+                {
+                    player = list_next( players );
+                }
+                player->nations[player->nation_count] = nation_find_by_id( t1 - 1 );
+//                fprintf( stderr, "Player %s: %s\n", player->name, player->nations[player->nation_count]->name );
+                player->nation_count++;
 
-				  if(t2==0) { scn_buffer[total_left*2]=t1;  total_left++;}
-				  if(t2==1) { scn_buffer[total_right*2+1]=t1;  total_right++;}
-
-				  if (total_left>6 || total_right>6)
-					  printf("Error. Line %d. Too many nations (max=6 per side).\n",lines);
-				  }
-			  }
+                if (player->nation_count > 6)
+                    fprintf(stderr, "Error. Line %d. Too many nations (max=6 per side).\n",lines);
+            }
+        }
 			  //Block#4   : Per-turn prestige allotments: 3 col, rows = no of turns
-			  if (block==4 && token>1){
+/*			  if (block==4 && token>1){
 				  if (block4_lines>MAX_TURNS)
 					  printf("Error. Line %d. Too many lines in 'Per-turn prestige allotments' block.\n",lines);
 				  else{

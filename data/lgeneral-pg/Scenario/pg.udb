@@ -2,7 +2,10 @@
 domain»pg
 icons»units/pg.bmp
 icon_type»single
-strength_icons»units/pg_strength.bmp
+icon_width»0
+icon_height»0
+icon_columns»1
+strength_icons»strength.bmp
 strength_icon_width»16
 strength_icon_height»12
 attack_icon»pg_attack.bmp

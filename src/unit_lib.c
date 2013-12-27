@@ -48,6 +48,10 @@ Mov_Type *mov_types = 0;
 int mov_type_count = 0;
 Unit_Class *unit_classes= 0;
 int unit_class_count = 0;
+int icon_type;
+SDL_Surface *icons = NULL;
+SDL_Surface *type_icons = NULL;
+int icon_width, icon_height, icon_columns;
 
 /*
 ====================================================================
@@ -110,7 +114,7 @@ Get the geometry of an icon in surface 'icons' by using the three
 measure dots in the left upper, right upper, left lower corner.
 ====================================================================
 */
-static void unit_get_icon_geometry( int icon_id, SDL_Surface *icons, int *width, int *height, int *offset, Uint32 *key )
+static void unit_get_icon_geometry( int icon_id, int *width, int *height, int *offset, Uint32 *key )
 {
     Uint32 mark;
     int y;
@@ -230,13 +234,7 @@ mov_types and unit classes will be loaded (may only happen once)
 */
 int unit_lib_load( char *fname, int main )
 {
-    int i, j, icon_id;
-    SDL_Surface *icons = NULL;
-    int icon_type;
-    int width, height, offset;
-    Uint32 color_key;
-    int byte_size, y_offset;
-    char *pix_buffer;
+    int i, icon_id;
     Unit_Lib_Entry *unit;
     int best_ground = 0,
         best_air = 0,
@@ -246,7 +244,6 @@ int unit_lib_load( char *fname, int main )
     char path[512], transitionPath[512];
     char *str, *flag;
     char *domain = 0;
-    float scale;
     /* log info */
     int  log_dot_limit = 40; /* maximum of dots */
     int  log_dot_count = 0; /* actual number of dots displayed */
@@ -260,14 +257,16 @@ int unit_lib_load( char *fname, int main )
         main = UNIT_LIB_ADD;
     }
     /* parse file */
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
+    
+    sprintf( transitionPath, "Scenario/%s", fname );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     sprintf( log_str, tr("  Parsing '%s'"), fname );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
-    /* if main read target types & co */
-    if ( main == UNIT_LIB_MAIN ) {
+    /* if main or base data required, read target types & co */
+    if ( main != UNIT_LIB_ADD ) {
         write_line( sdl.screen, log_font, tr("  Loading Main Definitions"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
         unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
         /* target types */
@@ -347,7 +346,7 @@ int unit_lib_load( char *fname, int main )
     }
     /* icons */
     if ( !parser_get_value( pd, "icon_type", &str, 0 ) ) goto parser_failure;
-    if (STRCMP( str, "fixed" ) )
+    if ( STRCMP( str, "fixed" ) )
         icon_type = UNIT_ICON_FIXED;
     else if ( STRCMP( str, "single" ) )
         icon_type = UNIT_ICON_SINGLE;
@@ -357,207 +356,152 @@ int unit_lib_load( char *fname, int main )
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
     write_line( sdl.screen, log_font, tr("  Loading Tactical Icons"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+    if ( !parser_get_int( pd, "icon_width", &icon_width ) ) goto parser_failure;
+    if ( !parser_get_int( pd, "icon_height", &icon_height ) ) goto parser_failure;
+    if ( !parser_get_int( pd, "icon_columns", &icon_columns ) ) goto parser_failure;
     if ( ( icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
-    /* unit lib entries */
-    if ( !parser_get_entries( pd, "unit_lib", &entries ) ) goto parser_failure;
-      /* LOG INIT */
-      log_units_per_dot = entries->count / log_dot_limit;
-      log_dot_count = 0;
-      log_unit_count = 0;
-      /* (LOG) */
-    list_reset( entries );
-    while ( ( sub = list_next( entries ) ) ) {
-        /* read unit entry */
-        unit = calloc( 1, sizeof( Unit_Lib_Entry ) );
-        /* identification */
-        unit->id = strdup( sub->name );
-        /* name */
-        if ( !parser_get_value( sub, "name", &str, 0) ) goto parser_failure;
-        unit->name = strdup(trd(domain, str));
-	/* nation (if not found or 'none' unit can't be purchased) */
-	unit->nation = -1; /* undefined */
-	if ( parser_get_value( sub, "nation", &str, 0) && strcmp(str,"none") ) {
-		Nation *n = nation_find( str );
-		if (n)
-			unit->nation = nation_get_index( n );
-	}
-        /* class id */
-        unit->class = 0;
-        if ( !parser_get_value( sub, "class", &str, 0 ) ) goto parser_failure;
-        for ( i = 0; i < unit_class_count; i++ )
-            if ( STRCMP( str, unit_classes[i].id ) ) {
-                unit->class = i;
-                break;
-            }
-        /* target type id */
-        unit->trgt_type = 0;
-        if ( !parser_get_value( sub, "target_type", &str, 0 ) ) goto parser_failure;
-        for ( i = 0; i < trgt_type_count; i++ )
-            if ( STRCMP( str, trgt_types[i].id ) ) {
-                unit->trgt_type = i;
-                break;
-            }
-        /* initiative */
-        if ( !parser_get_int( sub, "initiative", &unit->ini ) ) goto parser_failure;
-        /* spotting */
-        if ( !parser_get_int( sub, "spotting", &unit->spt ) ) goto parser_failure;
-        /* movement */
-        if ( !parser_get_int( sub, "movement", &unit->mov ) ) goto parser_failure;
-        /* move type id */
-        unit->mov_type = 0;
-        if ( !parser_get_value( sub, "move_type", &str, 0 ) ) goto parser_failure;
-        for ( i = 0; i < mov_type_count; i++ )
-            if ( STRCMP( str, mov_types[i].id ) ) {
-                unit->mov_type = i;
-                break;
-            }
-        /* fuel */
-        if ( !parser_get_int( sub, "fuel", &unit->fuel ) ) goto parser_failure;
-        /* range */
-        if ( !parser_get_int( sub, "range", &unit->rng ) ) goto parser_failure;
-        /* ammo */
-        if ( !parser_get_int( sub, "ammo", &unit->ammo ) ) goto parser_failure;
-        /* attack count */
-        if ( !parser_get_int( sub, "attack/count", &unit->atk_count ) ) goto parser_failure;
-        /* attack values */
-        if ( !parser_get_pdata( sub, "attack", &subsub ) ) goto parser_failure;
-        for ( i = 0; i < trgt_type_count; i++ )
-            if ( !parser_get_int( subsub, trgt_types[i].id, &unit->atks[i] ) ) goto parser_failure;
-        /* ground defense */
-        if ( !parser_get_int( sub, "def_ground", &unit->def_grnd ) ) goto parser_failure;
-        /* air defense */
-        if ( !parser_get_int( sub, "def_air", &unit->def_air ) ) goto parser_failure;
-        /* close defense */
-        if ( !parser_get_int( sub, "def_close", &unit->def_cls ) ) goto parser_failure;
-        /* flags */
-        if ( parser_get_values( sub, "flags", &flags ) ) {
-            list_reset( flags ); 
-            while ( ( flag = list_next( flags ) ) )
-                unit->flags |= check_flag( flag, fct_units );
-        }
-        /* set the entrenchment rate */
-        unit->entr_rate = 2;
-        if ( unit->flags & LOW_ENTR_RATE )
-            unit->entr_rate = 1;
-        else
-            if ( unit->flags & INFANTRY )
-                unit->entr_rate = 3;
-        /* time period of usage (0 == cannot be purchased) */
-        unit->start_year = unit->start_month = unit->last_year = 0;
-        parser_get_int( sub, "start_year", &unit->start_year );
-        parser_get_int( sub, "start_month", &unit->start_month );
-        parser_get_int( sub, "last_year", &unit->last_year );
-	/* cost of unit (0 == cannot be purchased) */
-	unit->cost = 0;
-	parser_get_int( sub, "cost", &unit->cost );
-        /* icon */
-        /* icon id */
-        if ( !parser_get_int( sub, "icon_id", &icon_id ) ) goto parser_failure;
-        /* icon_type */
-        unit->icon_type = icon_type;
-        /* get position and size in icons surface */
-        unit_get_icon_geometry( icon_id, icons, &width, &height, &offset, &color_key );
-        /* picture is copied from unit_pics first
-         * if picture_type is not ALL_DIRS, picture is a single picture looking to the right;
-         * add a flipped picture looking to the left 
-         */
-        if ( unit->icon_type == UNIT_ICON_ALL_DIRS ) {
-            unit->icon = create_surf( width * 6, height, SDL_SWSURFACE );
-            unit->icon_w = width;
-            unit->icon_h = height;
-            FULL_DEST( unit->icon );
-            SOURCE( icons, 0, offset );
-            blit_surf();
-            /* remove measure dots */
-            set_pixel( unit->icon, 0, 0, color_key );
-            set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
-            set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
-            /* set transparency */
-            SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
-        }
-        else {
-            /* set size */
-            unit->icon_w = width;
-            unit->icon_h = height;
-            /* create pic and copy first pic */
-            unit->icon = create_surf( unit->icon_w * 2, unit->icon_h, SDL_SWSURFACE );
-            DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
-            SOURCE( icons, 0, offset );
-            blit_surf();
-            /* remove measure dots */
-            set_pixel( unit->icon, 0, 0, color_key );
-            set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
-            set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
-            /* set transparency */
-            SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
-            /* get format info */
-            byte_size = icons->format->BytesPerPixel;
-            y_offset = 0;
-            pix_buffer = calloc( byte_size, sizeof( char ) );
-            /* get second by flipping first one */
-            for ( j = 0; j < unit->icon_h; j++ ) {
-                for ( i = 0; i < unit->icon_w; i++ ) {
-                    memcpy( pix_buffer,
-                            unit->icon->pixels +
-                            y_offset +
-                            ( unit->icon_w - 1 - i ) * byte_size,
-                            byte_size );
-                    memcpy( unit->icon->pixels +
-                            y_offset +
-                            unit->icon_w * byte_size +
-                            i * byte_size,
-                            pix_buffer, byte_size );
+/*    if ( !parser_get_value( pd, "type_icons", &str, 0 ) ) goto parser_failure;
+    if ( strcmp( str, "none" ) )
+    {
+        sprintf( transitionPath, "Graphics/%s", str );
+        search_file_name_exact( path, transitionPath, config.mod_name );
+        if ( ( type_icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
+    }*/
+    if ( main != UNIT_LIB_BASE_DATA ) {
+        /* unit lib entries */
+        if ( !parser_get_entries( pd, "unit_lib", &entries ) ) goto parser_failure;
+          /* LOG INIT */
+          log_units_per_dot = entries->count / log_dot_limit;
+          log_dot_count = 0;
+          log_unit_count = 0;
+          /* (LOG) */
+        list_reset( entries );
+        while ( ( sub = list_next( entries ) ) ) {
+            /* read unit entry */
+            unit = calloc( 1, sizeof( Unit_Lib_Entry ) );
+            /* identification */
+            unit->id = strdup( sub->name );
+            /* name */
+            if ( !parser_get_value( sub, "name", &str, 0) ) goto parser_failure;
+            unit->name = strdup(trd(domain, str));
+    	    /* nation (if not found or 'none' unit can't be purchased) */
+    	    unit->nation = -1; /* undefined */
+    	    if ( parser_get_value( sub, "nation", &str, 0) && strcmp(str,"none") ) {
+    	    	Nation *n = nation_find( str );
+    	    	if (n)
+    	    		unit->nation = nation_get_index( n );
+    	    }
+            /* class id */
+            unit->class = 0;
+            if ( !parser_get_value( sub, "class", &str, 0 ) ) goto parser_failure;
+            for ( i = 0; i < unit_class_count; i++ )
+                if ( STRCMP( str, unit_classes[i].id ) ) {
+                    unit->class = i;
+                    break;
                 }
-                y_offset += unit->icon->pitch;
+            /* target type id */
+            unit->trgt_type = 0;
+            if ( !parser_get_value( sub, "target_type", &str, 0 ) ) goto parser_failure;
+            for ( i = 0; i < trgt_type_count; i++ )
+                if ( STRCMP( str, trgt_types[i].id ) ) {
+                    unit->trgt_type = i;
+                    break;
+                }
+            /* initiative */
+            if ( !parser_get_int( sub, "initiative", &unit->ini ) ) goto parser_failure;
+            /* spotting */
+            if ( !parser_get_int( sub, "spotting", &unit->spt ) ) goto parser_failure;
+            /* movement */
+            if ( !parser_get_int( sub, "movement", &unit->mov ) ) goto parser_failure;
+            /* move type id */
+            unit->mov_type = 0;
+            if ( !parser_get_value( sub, "move_type", &str, 0 ) ) goto parser_failure;
+            for ( i = 0; i < mov_type_count; i++ )
+                if ( STRCMP( str, mov_types[i].id ) ) {
+                    unit->mov_type = i;
+                    break;
+                }
+            /* fuel */
+            if ( !parser_get_int( sub, "fuel", &unit->fuel ) ) goto parser_failure;
+            /* range */
+            if ( !parser_get_int( sub, "range", &unit->rng ) ) goto parser_failure;
+            /* ammo */
+            if ( !parser_get_int( sub, "ammo", &unit->ammo ) ) goto parser_failure;
+            /* attack count */
+            if ( !parser_get_int( sub, "attack/count", &unit->atk_count ) ) goto parser_failure;
+            /* attack values */
+            if ( !parser_get_pdata( sub, "attack", &subsub ) ) goto parser_failure;
+            for ( i = 0; i < trgt_type_count; i++ )
+                if ( !parser_get_int( subsub, trgt_types[i].id, &unit->atks[i] ) ) goto parser_failure;
+            /* ground defense */
+            if ( !parser_get_int( sub, "def_ground", &unit->def_grnd ) ) goto parser_failure;
+            /* air defense */
+            if ( !parser_get_int( sub, "def_air", &unit->def_air ) ) goto parser_failure;
+            /* close defense */
+            if ( !parser_get_int( sub, "def_close", &unit->def_cls ) ) goto parser_failure;
+            /* flags */
+            if ( parser_get_values( sub, "flags", &flags ) ) {
+                list_reset( flags ); 
+                while ( ( flag = list_next( flags ) ) )
+                    unit->flags |= check_flag( flag, fct_units );
             }
-            /* free mem */
-            free( pix_buffer );
-        }
-        scale = 1.5;
-        unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
-        unit->icon_tiny_w = unit->icon_w * ( 1.0 / scale ); unit->icon_tiny_h = unit->icon_h * ( 1.0 / scale );
-        for ( j = 0; j < unit->icon_tiny->h; j++ ) {
-            for ( i = 0; i < unit->icon_tiny->w; i++ )
-                set_pixel( unit->icon_tiny,
-                           i, j, 
-                           get_pixel( unit->icon, scale * i, scale * j ) );
-        }
-        /* use color key of 'big' picture */
-        SDL_SetColorKey( unit->icon_tiny, SDL_SRCCOLORKEY, color_key );
-        /* read sounds -- well as there are none so far ... */
+            /* set the entrenchment rate */
+            unit->entr_rate = 2;
+            if ( unit->flags & LOW_ENTR_RATE )
+                unit->entr_rate = 1;
+            else
+                if ( unit->flags & INFANTRY )
+                    unit->entr_rate = 3;
+            /* time period of usage (0 == cannot be purchased) */
+            unit->start_year = unit->start_month = unit->last_year = 0;
+            parser_get_int( sub, "start_year", &unit->start_year );
+            parser_get_int( sub, "start_month", &unit->start_month );
+            parser_get_int( sub, "last_year", &unit->last_year );
+    	    /* cost of unit (0 == cannot be purchased) */
+	        unit->cost = 0;
+        	parser_get_int( sub, "cost", &unit->cost );
+            /* icon */
+            /* icon id */
+            if ( !parser_get_int( sub, "icon_id", &icon_id ) ) goto parser_failure;
+            /* icon_type */
+            unit->icon_type = icon_type;
+            /* set small and large icons */
+            lib_entry_set_icons( icon_id, unit );
+            /* read sounds -- well as there are none so far ... */
 #ifdef WITH_SOUND
-        if ( parser_get_value( sub, "move_sound", &str, 0 ) ) {
-            // FIXME reloading the same sound more than once is a
-            // big waste of loadtime, runtime, and memory
-            snprintf( transitionPath, 512, "Sound/%s", str );
-            search_file_name_exact( path, transitionPath, config.mod_name );
-            if ( ( unit->wav_move = wav_load( path, 0 ) ) )
-                unit->wav_alloc = 1;
+            if ( parser_get_value( sub, "move_sound", &str, 0 ) ) {
+                // FIXME reloading the same sound more than once is a
+                // big waste of loadtime, runtime, and memory
+                snprintf( transitionPath, 512, "Sound/%s", str );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit->wav_move = wav_load( path, 0 ) ) )
+                    unit->wav_alloc = 1;
+                else {
+                    unit->wav_move = mov_types[unit->mov_type].wav_move;
+                    unit->wav_alloc = 0;
+                }
+            }
             else {
                 unit->wav_move = mov_types[unit->mov_type].wav_move;
                 unit->wav_alloc = 0;
             }
-        }
-        else {
-            unit->wav_move = mov_types[unit->mov_type].wav_move;
-            unit->wav_alloc = 0;
-        }
 #endif      
-        /* add unit to database */
-        list_add( unit_lib, unit );
-        /* absolute evaluation */
-        unit_lib_eval_unit( unit );
-        /* LOG */
-        log_unit_count++;
-        if ( log_unit_count >= log_units_per_dot ) {
-            log_unit_count = 0;
-            if ( log_dot_count < log_dot_limit ) {
-                log_dot_count++;
-                strcpy( log_str, "  [                                        ]" );
-                for ( i = 0; i < log_dot_count; i++ )
-                    log_str[3 + i] = '*';
-                write_text( log_font, sdl.screen, log_x, log_y, log_str, 255 );
-                SDL_UpdateRect( sdl.screen, log_font->last_x, log_font->last_y, log_font->last_width, log_font->last_height );
+            /* add unit to database */
+            list_add( unit_lib, unit );
+            /* absolute evaluation */
+            unit_lib_eval_unit( unit );
+            /* LOG */
+            log_unit_count++;
+            if ( log_unit_count >= log_units_per_dot ) {
+                log_unit_count = 0;
+                if ( log_dot_count < log_dot_limit ) {
+                    log_dot_count++;
+                    strcpy( log_str, "  [                                        ]" );
+                    for ( i = 0; i < log_dot_count; i++ )
+                        log_str[3 + i] = '*';
+                    write_text( log_font, sdl.screen, log_x, log_y, log_str, 255 );
+                    SDL_UpdateRect( sdl.screen, log_font->last_x, log_font->last_y, log_font->last_width, log_font->last_height );
+                }
             }
         }
     }
@@ -589,7 +533,8 @@ int unit_lib_load( char *fname, int main )
         }
     }
     free(domain);
-    SDL_FreeSurface(icons);
+    if ( main != UNIT_LIB_BASE_DATA )
+        SDL_FreeSurface(icons);
     return 1;
 parser_failure:        
     fprintf( stderr, "%s\n", parser_get_error() );
@@ -665,4 +610,125 @@ Unit_Lib_Entry* unit_lib_find( char *id )
         if ( STRCMP( entry->id, id ) )
             return entry;
     return 0;
+}
+
+/*
+====================================================================
+Find unit icons in image sheet.
+====================================================================
+*/
+void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
+{
+    int i, j;
+    int width, height, offset;
+    Uint32 color_key;
+    int byte_size, y_offset;
+    char *pix_buffer;
+    float scale;
+    if ( icon_width == 0 || icon_height == 0 )
+        unit_get_icon_geometry( icon_id, &width, &height, &offset, &color_key );
+    /* picture is copied from unit_pics first
+    * if picture_type is not ALL_DIRS, picture is a single picture looking to the right;
+    * add a flipped picture looking to the left 
+    */
+    if ( unit->icon_type == UNIT_ICON_ALL_DIRS ) {
+        unit->icon = create_surf( width * 6, height, SDL_SWSURFACE );
+        unit->icon_w = width;
+        unit->icon_h = height;
+        FULL_DEST( unit->icon );
+        SOURCE( icons, 0, offset );
+        blit_surf();
+        /* remove measure dots */
+        set_pixel( unit->icon, 0, 0, color_key );
+        set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
+        set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
+        /* set transparency */
+        SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+    }
+    else if ( unit->icon_type == UNIT_ICON_SINGLE ) {
+        /* set size */
+        unit->icon_w = width;
+        unit->icon_h = height;
+        /* create pic and copy first pic */
+        unit->icon = create_surf( unit->icon_w * 2, unit->icon_h, SDL_SWSURFACE );
+        DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
+        SOURCE( icons, 0, offset );
+        blit_surf();
+        /* remove measure dots */
+        set_pixel( unit->icon, 0, 0, color_key );
+        set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
+        set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
+        /* set transparency */
+        SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+        /* get format info */
+        byte_size = icons->format->BytesPerPixel;
+        y_offset = 0;
+        pix_buffer = calloc( byte_size, sizeof( char ) );
+        /* get second by flipping first one */
+        for ( j = 0; j < unit->icon_h; j++ ) {
+            for ( i = 0; i < unit->icon_w; i++ ) {
+                memcpy( pix_buffer,
+                        unit->icon->pixels +
+                        y_offset +
+                        ( unit->icon_w - 1 - i ) * byte_size,
+                        byte_size );
+                memcpy( unit->icon->pixels +
+                        y_offset +
+                        unit->icon_w * byte_size +
+                        i * byte_size,
+                        pix_buffer, byte_size );
+            }
+            y_offset += unit->icon->pitch;
+        }
+        /* free mem */
+        free( pix_buffer );
+    }
+    else
+    {
+        color_key = get_pixel( icons, 0, 0 );
+        /* set size */
+        unit->icon_w = icon_width;
+        unit->icon_h = icon_height;
+        /* create pic and copy first pic */
+        unit->icon = create_surf( unit->icon_w * 2, icon_height, SDL_SWSURFACE );
+        DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
+        SOURCE( icons, ( icon_id % icon_columns ) * icon_width, ( (int)(icon_id / icon_columns) ) * icon_height );
+//fprintf( stderr, "%d %d\n", ( (int)(icon_id / icon_columns) ) * icon_width , ( icon_id % icon_columns ) * icon_height );
+        blit_surf();
+        /* set transparency */
+        SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+        /* get format info */
+        byte_size = icons->format->BytesPerPixel;
+        y_offset = 0;
+        pix_buffer = calloc( byte_size, sizeof( char ) );
+        /* get second by flipping first one */
+        for ( j = 0; j < unit->icon_h; j++ ) {
+            for ( i = 0; i < unit->icon_w; i++ ) {
+                memcpy( pix_buffer,
+                        unit->icon->pixels +
+                        y_offset +
+                        ( unit->icon_w - 1 - i ) * byte_size,
+                        byte_size );
+                memcpy( unit->icon->pixels +
+                        y_offset +
+                        unit->icon_w * byte_size +
+                        i * byte_size,
+                        pix_buffer, byte_size );
+            }
+            y_offset += unit->icon->pitch;
+        }
+        /* free mem */
+        free( pix_buffer );
+    }
+    scale = 1.5;
+    unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
+    unit->icon_tiny_w = unit->icon_w * ( 1.0 / scale ); unit->icon_tiny_h = unit->icon_h * ( 1.0 / scale );
+    for ( j = 0; j < unit->icon_tiny->h; j++ ) {
+        for ( i = 0; i < unit->icon_tiny->w; i++ )
+            set_pixel( unit->icon_tiny,
+                       i, j, 
+                       get_pixel( unit->icon, scale * i, scale * j ) );
+    }
+    /* use color key of 'big' picture */
+    SDL_SetColorKey( unit->icon_tiny, SDL_SRCCOLORKEY, color_key );
 }

@@ -7,7 +7,7 @@ turns»32
 turns_per_day»2
 days_per_turn»0
 domain»pg
-nation_db»pg.ndb
+nation_db»nations.ndb
 <unit_db
 main»pg.udb
 >
