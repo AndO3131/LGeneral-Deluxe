@@ -787,18 +787,6 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 }
                 player->ctrl = PLAYER_CTRL_CPU;
                 player->core_limit = -1;
-
-                if (atoi(tokens[5])==1)
-                {
-                    scn_buffer[ORIENTATION]=1;
-                    scn_buffer[ORIENTATION+1]=0;
-                }
-                else
-                {
-                    scn_buffer[ORIENTATION]=255;
-                    scn_buffer[ORIENTATION+1]=255;
-                }
-
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
                 player->unit_limit = (unsigned char)atoi(tokens[3]);
@@ -831,6 +819,9 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
                 player_add( player ); player = 0;
+
+                /* flip icons if scenario demands it */
+                adjust_fixed_icon_orientation();
             }
         }
         //Block#3  +: Alliances: 2 col, 2 or more rows
