@@ -24,6 +24,8 @@
 #include "nation.h"
 #include "file.h"
 #include "config.h"
+#include "player.h"
+#include "unit.h"
 
 /*
 ====================================================================
@@ -50,7 +52,6 @@ Unit_Class *unit_classes= 0;
 int unit_class_count = 0;
 int icon_type;
 SDL_Surface *icons = NULL;
-SDL_Surface *type_icons = NULL;
 int icon_width, icon_height, icon_columns;
 
 /*
@@ -360,13 +361,6 @@ int unit_lib_load( char *fname, int main )
     if ( !parser_get_int( pd, "icon_height", &icon_height ) ) goto parser_failure;
     if ( !parser_get_int( pd, "icon_columns", &icon_columns ) ) goto parser_failure;
     if ( ( icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
-/*    if ( !parser_get_value( pd, "type_icons", &str, 0 ) ) goto parser_failure;
-    if ( strcmp( str, "none" ) )
-    {
-        sprintf( transitionPath, "Graphics/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
-        if ( ( type_icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
-    }*/
     if ( main != UNIT_LIB_BASE_DATA ) {
         /* unit lib entries */
         if ( !parser_get_entries( pd, "unit_lib", &entries ) ) goto parser_failure;
@@ -622,14 +616,11 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
     int i, j;
     int width, height, offset;
     Uint32 color_key;
-    int byte_size, y_offset;
-    char *pix_buffer;
     float scale;
     if ( icon_width == 0 || icon_height == 0 )
         unit_get_icon_geometry( icon_id, &width, &height, &offset, &color_key );
     /* picture is copied from unit_pics first
-    * if picture_type is not ALL_DIRS, picture is a single picture looking to the right;
-    * add a flipped picture looking to the left 
+    * if picture_type is not ALL_DIRS, picture is a single picture
     */
     if ( unit->icon_type == UNIT_ICON_ALL_DIRS ) {
         unit->icon = create_surf( width * 6, height, SDL_SWSURFACE );
@@ -649,8 +640,8 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
         /* set size */
         unit->icon_w = width;
         unit->icon_h = height;
-        /* create pic and copy first pic */
-        unit->icon = create_surf( unit->icon_w * 2, unit->icon_h, SDL_SWSURFACE );
+        /* create and copy pic */
+        unit->icon = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
         DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
         SOURCE( icons, 0, offset );
         blit_surf();
@@ -660,28 +651,6 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
         set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
         /* set transparency */
         SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
-        /* get format info */
-        byte_size = icons->format->BytesPerPixel;
-        y_offset = 0;
-        pix_buffer = calloc( byte_size, sizeof( char ) );
-        /* get second by flipping first one */
-        for ( j = 0; j < unit->icon_h; j++ ) {
-            for ( i = 0; i < unit->icon_w; i++ ) {
-                memcpy( pix_buffer,
-                        unit->icon->pixels +
-                        y_offset +
-                        ( unit->icon_w - 1 - i ) * byte_size,
-                        byte_size );
-                memcpy( unit->icon->pixels +
-                        y_offset +
-                        unit->icon_w * byte_size +
-                        i * byte_size,
-                        pix_buffer, byte_size );
-            }
-            y_offset += unit->icon->pitch;
-        }
-        /* free mem */
-        free( pix_buffer );
     }
     else
     {
@@ -689,36 +658,13 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
         /* set size */
         unit->icon_w = icon_width;
         unit->icon_h = icon_height;
-        /* create pic and copy first pic */
-        unit->icon = create_surf( unit->icon_w * 2, icon_height, SDL_SWSURFACE );
+        /* create and copy pic */
+        unit->icon = create_surf( unit->icon_w, icon_height, SDL_SWSURFACE );
         DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
         SOURCE( icons, ( icon_id % icon_columns ) * icon_width, ( (int)(icon_id / icon_columns) ) * icon_height );
-//fprintf( stderr, "%d %d\n", ( (int)(icon_id / icon_columns) ) * icon_width , ( icon_id % icon_columns ) * icon_height );
         blit_surf();
         /* set transparency */
         SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
-        /* get format info */
-        byte_size = icons->format->BytesPerPixel;
-        y_offset = 0;
-        pix_buffer = calloc( byte_size, sizeof( char ) );
-        /* get second by flipping first one */
-        for ( j = 0; j < unit->icon_h; j++ ) {
-            for ( i = 0; i < unit->icon_w; i++ ) {
-                memcpy( pix_buffer,
-                        unit->icon->pixels +
-                        y_offset +
-                        ( unit->icon_w - 1 - i ) * byte_size,
-                        byte_size );
-                memcpy( unit->icon->pixels +
-                        y_offset +
-                        unit->icon_w * byte_size +
-                        i * byte_size,
-                        pix_buffer, byte_size );
-            }
-            y_offset += unit->icon->pitch;
-        }
-        /* free mem */
-        free( pix_buffer );
     }
     scale = 1.5;
     unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
@@ -731,4 +677,55 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
     }
     /* use color key of 'big' picture */
     SDL_SetColorKey( unit->icon_tiny, SDL_SRCCOLORKEY, color_key );
+}
+
+/*
+====================================================================
+Flip unit icons if necessary.
+====================================================================
+*/
+void adjust_fixed_icon_orientation()
+{
+    int i, j;
+    int byte_size, y_offset;
+    char *pix_buffer;
+    SDL_Surface *tempSurface;
+    Unit_Lib_Entry *unit;
+    list_reset( unit_lib );
+    while ( ( unit = list_next( unit_lib ) ) )
+    {
+        if ( unit->icon_type != UNIT_ICON_ALL_DIRS )
+        {
+            if ( ( player_get_by_id( "axis" ) && player_get_by_id( "axis" )->orient == UNIT_ORIENT_LEFT ) ||
+                 ( player_get_by_id( "allies" ) && player_get_by_id( "allies" )->orient == UNIT_ORIENT_RIGHT ) )
+            {
+                /* get format info */
+                byte_size = unit->icon->format->BytesPerPixel;
+                tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                y_offset = 0;
+                pix_buffer = calloc( byte_size, sizeof( char ) );
+                /* flip image to temp surface */
+                for ( j = 0; j < unit->icon_h; j++ ) {
+                    for ( i = 0; i < unit->icon_w; i++ ) {
+                        memcpy( tempSurface->pixels +
+                                y_offset +
+                                i * byte_size,
+                                unit->icon->pixels +
+                                y_offset +
+                                ( unit->icon_w - 1 - i ) * byte_size,
+                                byte_size );
+                    }
+                    y_offset += unit->icon->pitch;
+                }
+                /* free mem */
+                free( pix_buffer );
+                /* copy fliped image back */
+                unit->icon = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
+                SOURCE( tempSurface, 0, 0 );
+                blit_surf();
+                SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
+            }
+        }
+    }
 }

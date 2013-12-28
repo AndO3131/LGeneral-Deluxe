@@ -375,6 +375,8 @@ int scen_load_lgscn( const char *fname, const char *path )
 	    
         player_add( player ); player = 0;
     }
+    /* flip icons if scenario demands it */
+    adjust_fixed_icon_orientation();
     /* set alliances */
     list_reset( players );
     for ( i = 0; i < players->count; i++ ) {

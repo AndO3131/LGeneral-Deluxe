@@ -702,15 +702,22 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 {
                     player->id = strdup( "axis" );
                     player->name = strdup(trd(domain, "Axis"));
-                    
+                    if (atoi(tokens[5])==0)
+                        player->orient = UNIT_ORIENT_RIGHT;
+                    else
+                        player->orient = UNIT_ORIENT_LEFT;
                 }
                 else
                 {
                     player->id = strdup( "allies" );
                     player->name = strdup(trd(domain, "Allies"));
+                    if (atoi(tokens[5])==0)
+                        player->orient = UNIT_ORIENT_LEFT;
+                    else
+                        player->orient = UNIT_ORIENT_RIGHT;
                 }
                 player->ctrl = PLAYER_CTRL_HUMAN;
-                //TODO make this shifts >> below more clear and implement it in right way
+
                 if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
                 {
                     player->core_limit = (unsigned char)atoi(tokens[2]);
@@ -762,18 +769,26 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 {
                     player->id = strdup( "axis" );
                     player->name = strdup(trd(domain, "Axis"));
+                    if (atoi(tokens[5])==1)
+                        player->orient = UNIT_ORIENT_RIGHT;
+                    else
+                        player->orient = UNIT_ORIENT_LEFT;
 //                    fprintf( stderr, "2nd player: %s\n", player->name );
                 }
                 else
                 {
                     player->id = strdup( "allies" );
                     player->name = strdup(trd(domain, "Allies"));
+                    if (atoi(tokens[5])==1)
+                        player->orient = UNIT_ORIENT_LEFT;
+                    else
+                        player->orient = UNIT_ORIENT_RIGHT;
 //                    fprintf( stderr, "2nd player: %s\n", player->name );
                 }
                 player->ctrl = PLAYER_CTRL_CPU;
                 player->core_limit = -1;
 
-/*                if (atoi(tokens[5])==1)
+                if (atoi(tokens[5])==1)
                 {
                     scn_buffer[ORIENTATION]=1;
                     scn_buffer[ORIENTATION+1]=0;
@@ -783,7 +798,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                     scn_buffer[ORIENTATION]=255;
                     scn_buffer[ORIENTATION+1]=255;
                 }
-*/
+
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
                 player->unit_limit = (unsigned char)atoi(tokens[3]);

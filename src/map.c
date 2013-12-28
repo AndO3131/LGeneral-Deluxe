@@ -982,7 +982,7 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                       x + ( (hex_w - tile->g_unit->sel_prop->icon_w) >> 1 ),
                       y + ( ( hex_h - tile->g_unit->sel_prop->icon_h ) >> 1 ),
                       tile->g_unit->sel_prop->icon_w, tile->g_unit->sel_prop->icon_h );
-                SOURCE( tile->g_unit->sel_prop->icon, tile->g_unit->icon_offset, 0 );
+                SOURCE( tile->g_unit->sel_prop->icon, 0, 0 );
                 blit_surf();
                 unit = tile->g_unit;
             }
@@ -992,7 +992,7 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                       x + ( (hex_w - tile->g_unit->sel_prop->icon_tiny_w) >> 1 ),
                       y + ( ( hex_h - tile->g_unit->sel_prop->icon_tiny_h ) >> 1 ) + 4,
                       tile->g_unit->sel_prop->icon_tiny_w, tile->g_unit->sel_prop->icon_tiny_h );
-                SOURCE( tile->g_unit->sel_prop->icon_tiny, tile->g_unit->icon_tiny_offset, 0 );
+                SOURCE( tile->g_unit->sel_prop->icon_tiny, 0, 0 );
                 blit_surf();
                 unit = tile->a_unit;
             }
@@ -1010,7 +1010,7 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                           x + ( (hex_w - tile->a_unit->sel_prop->icon_w) >> 1 ),
                           y + 6,
                           tile->a_unit->sel_prop->icon_w, tile->a_unit->sel_prop->icon_h )
-                SOURCE( tile->a_unit->sel_prop->icon, tile->a_unit->icon_offset, 0 );
+                SOURCE( tile->a_unit->sel_prop->icon, 0, 0 );
                 blit_surf();
                 unit = tile->a_unit;
             }
@@ -1026,7 +1026,7 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                           x + ( (hex_w - tile->a_unit->sel_prop->icon_tiny_w) >> 1 ),
                           y + 6,
                           tile->a_unit->sel_prop->icon_tiny_w, tile->a_unit->sel_prop->icon_tiny_h )
-                SOURCE( tile->a_unit->sel_prop->icon_tiny, tile->a_unit->icon_tiny_offset, 0 );
+                SOURCE( tile->a_unit->sel_prop->icon_tiny, 0, 0 );
                 blit_surf();
                 unit = tile->g_unit;
             }

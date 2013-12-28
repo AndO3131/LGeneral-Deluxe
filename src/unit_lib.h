@@ -213,4 +213,6 @@ This evaluation is PG specific.
 */
 void unit_lib_eval_unit( Unit_Lib_Entry *unit );
 
+void adjust_fixed_icon_orientation();
+
 #endif
