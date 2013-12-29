@@ -803,7 +803,8 @@ static void engine_show_turn_info()
         write_text( gui->font_turn_info, sdl.screen, text_x, text_y, text, OPAQUE );
         text_y += gui->font_turn_info->height;
     }
-    sprintf( text, tr("Weather: %s"), weather_types[scen_get_weather()].name );
+    sprintf( text, tr("Weather: %s (%s)"), weather_types[scen_get_weather()].name,
+                                           weather_types[scen_get_weather()].ground_conditions );
     write_text( gui->font_turn_info, sdl.screen, text_x, text_y, text, OPAQUE );
     text_y += gui->font_turn_info->height;
     if ( turn + 1 < scen_info->turn_limit )

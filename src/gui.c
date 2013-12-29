@@ -1270,13 +1270,17 @@ void gui_show_scen_info()
     }
     /* weather */
     y += 10;
-    sprintf( str, tr("Weather:  %s"),
+    sprintf( str, tr("Weather:  %s (%s)"),
             (( turn < scen_info->turn_limit ) ?
-             weather_types[scen_get_weather()].name : tr("n/a")));
+             weather_types[scen_get_weather()].name : tr("n/a")),
+             ( turn < scen_info->turn_limit ) ?
+             weather_types[scen_get_weather()].ground_conditions : tr("n/a") );
     write_line( contents, gui->font_std, str, x, &y );
-    sprintf( str, tr("Forecast: %s"),
+    sprintf( str, tr("Forecast: %s (%s)"),
             ((turn+1 < scen_info->turn_limit ) ?
-             weather_types[scen_get_forecast()].name : tr("n/a")) );
+             weather_types[scen_get_forecast()].name : tr("n/a")),
+             ( turn < scen_info->turn_limit ) ?
+             weather_types[scen_get_weather()].ground_conditions : tr("n/a") );
     write_line( contents, gui->font_std, str, x, &y );
     /* show */
     frame_apply( gui->sinfo );
