@@ -399,7 +399,7 @@ int load_pgf_equipment(char *fullName){
             /* standard flags based on unit class */
             switch ( unit->class )
             {
-                case 0: // infantry
+                case 0: // infantry (check cavalry flags)
                     unit->flags |= check_flag( "infantry", fct_units );
                     unit->flags |= check_flag( "air_trsp_ok", fct_units );
                     unit->flags |= check_flag( "ground_trsp_ok", fct_units );
@@ -504,6 +504,10 @@ int load_pgf_equipment(char *fullName){
             unit->wav_alloc = 0;
 #endif
 
+            /* add unit to database */
+            list_add( unit_lib, unit );
+            /* absolute evaluation */
+            unit_lib_eval_unit( unit );
 /* unused
             equip[i][AAF] = (unsigned char) atoi(tokens[24]);
             equip_flags[i] |= (unsigned char) atoi(tokens[26])?EQUIPMENT_CAN_HAVE_ORGANIC_TRANSPORT:0;
@@ -514,6 +518,8 @@ int load_pgf_equipment(char *fullName){
 */
         }
     }
+    relative_evaluate_units();
+    /* icons are loaded in unit_lib.c and now we have to free large sheet */
     SDL_FreeSurface(icons);
     fclose(inf);
     return 0;

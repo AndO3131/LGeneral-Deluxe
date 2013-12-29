@@ -39,6 +39,7 @@ Weather type.
 typedef struct {
     char *id;
     char *name;
+    char *ground_conditions;
     int flags;
 } Weather_Type;
 
@@ -109,6 +110,17 @@ typedef struct {
 
 /*
 ====================================================================
+Terrain images
+====================================================================
+*/
+typedef struct {
+    char *ground_conditions;
+    SDL_Surface **images;
+    SDL_Surface **images_fogged;
+} Terrain_Images;
+
+/*
+====================================================================
 Load terrain types, weather information and hex tile icons.
 ====================================================================
 */
@@ -131,5 +143,12 @@ Return cost else.
 ====================================================================
 */
 int terrain_get_mov( Terrain_Type *type, int mov_type, int weather );
+
+/*
+====================================================================
+Get weather's ground conditions id (number)
+====================================================================
+*/
+int ground_conditions_get_index( char *ground_condition );
 
 #endif

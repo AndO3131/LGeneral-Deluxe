@@ -42,7 +42,7 @@ Externals
 extern Sdl sdl;
 extern Terrain_Type *terrain_types;
 extern int terrain_type_count;
-extern int hex_w, hex_h, hex_x_offset;
+extern int hex_w, hex_h, hex_x_offset, terrain_columns;
 extern List *vis_units;
 extern int cur_weather;
 extern int nation_flag_width, nation_flag_height;
@@ -53,6 +53,7 @@ extern Player *cur_player;
 extern List *units;
 extern int modify_fog;
 extern int camp_loaded;
+extern Weather_Type *weather_types;
 
 /*
 ====================================================================
@@ -181,10 +182,16 @@ int map_load( char *fname )
             /* check image id -- set offset */
             limit = map[x][y].terrain->images[0]->w / hex_w - 1;
             if ( tile[1] == '?' )
+            {
                 /* set offset by random */
-                map[x][y].image_offset = RANDOM( 0, limit ) * hex_w;
+                map[x][y].image_offset_x = RANDOM( 0, limit ) * hex_w;
+                map[x][y].image_offset_y = 0;
+            }
             else
-                map[x][y].image_offset = atoi( tile + 1 ) * hex_w;
+            {
+                map[x][y].image_offset_x = atoi( tile + 1 ) % terrain_columns * hex_w;
+                map[x][y].image_offset_y = atoi( tile + 1 ) / terrain_columns * hex_h;
+            }
             /* set name */
             map[x][y].name = strdup( map[x][y].terrain->name );
         }
@@ -941,9 +948,11 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
     /* terrain */
     DEST( surf, x, y, hex_w, hex_h );
     if ( mask[map_x][map_y].fog )
-        SOURCE( tile->terrain->images_fogged[cur_weather], tile->image_offset, 0 )
+        SOURCE( tile->terrain->images_fogged[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
+                tile->image_offset_x, tile->image_offset_y )
     else
-        SOURCE( tile->terrain->images[cur_weather], tile->image_offset, 0 )
+        SOURCE( tile->terrain->images[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
+                tile->image_offset_x, tile->image_offset_y )
     blit_surf();
     /* nation flag */
     if ( tile->nation != 0 ) {

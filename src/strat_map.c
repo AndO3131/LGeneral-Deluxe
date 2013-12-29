@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,13 +42,16 @@ extern int nation_count;
 extern int nation_flag_width, nation_flag_height;
 extern int map_w, map_h;
 extern int hex_w, hex_h;
-extern int hex_x_offset, hex_y_offset;
+extern int hex_x_offset, hex_y_offset, terrain_columns, terrain_rows;
 extern int terrain_type_count;
 extern Terrain_Type *terrain_types;
 extern Mask_Tile **mask;
 extern Map_Tile **map;
 extern int air_mode;
 extern Player *cur_player;
+extern int cur_weather;
+extern Weather_Type *weather_types;
+extern Terrain_Images *terrain_images;
 
 /*
 ====================================================================
@@ -107,9 +112,10 @@ static void update_strat_image_offset()
     int x, y;
     for ( x = 0; x < map_w; x++ )
         for ( y = 0;  y < map_h; y++ )
-            map_tile( x, y )->strat_image_offset =   strat_tile_width
-                                                 * map_tile( x, y )->image_offset
-                                                 / hex_w;
+            map_tile( x, y )->strat_image_offset = strat_tile_width
+                                                 * map_tile( x, y )->image_offset_x / hex_w +
+                                                 strat_tile_width * terrain_columns
+                                                 * map_tile( x, y )->image_offset_y / hex_h;
 }
 
 /*
@@ -128,7 +134,7 @@ unit_layer
 void strat_map_create()
 {
     Uint32 ckey;
-    int i, j, x, y;
+    int i, j, j2, x, y;
     int strat_tile_count;
     Uint32 pixel;
     int hori_scale, vert_scale;
@@ -151,33 +157,36 @@ void strat_map_create()
     strat_tile_x_offset = hex_x_offset / scale;
     strat_tile_y_offset = hex_y_offset / scale;
     /* create strat tile array */
-    tile_count = terrain_type_count;
+    tile_count = terrain_type_count / 4;
     strat_tile_pic = calloc( tile_count, sizeof( SDL_Surface* ) );
     /* create strat tiles */
     for ( i = 0; i < tile_count; i++ ) {
         /* how many tiles are rowed? */
-        strat_tile_count = terrain_types[i].images[0]->w / hex_w;
+        strat_tile_count = terrain_columns * terrain_rows;
         /* create strat_pic */
         strat_tile_pic[i] = create_surf( strat_tile_count * strat_tile_width,
                                          strat_tile_height,
                                          SDL_SWSURFACE );
         /* clear to color key */
-        ckey = get_pixel( terrain_types[i].images[0], 0, 0 );
+        ckey = get_pixel( terrain_images->images[0], 0, 0 );
         FULL_DEST( strat_tile_pic[i] );
         fill_surf( ckey );
         SDL_SetColorKey( strat_tile_pic[i], SDL_SRCCOLORKEY, ckey );
         /* copy pixels from pic to strat_pic if strat_fog is none transparent */
-        for ( j = 0; j < strat_tile_count; j++ )
-            for ( x = 0; x < strat_tile_width; x++ )
-                for ( y = 0; y < strat_tile_height; y++ ) {
-                    /* we have the pixel in strat_pic by x + j * strat_fog_pic->w,y */
-                    /* no we need the aquivalent pixel in tiles[i]->pic to copy it */
-                    pixel = get_pixel( terrain_types[i].images[0],
-                                       j * hex_w +
-                                       hex_w * x / strat_tile_width,
-                                       hex_h * y / strat_tile_height );
-                    set_pixel( strat_tile_pic[i], j * strat_tile_width + x, y, pixel );
-                }
+        for ( j = 0; j < terrain_columns; j++ )
+            for ( j2 = 0; j2 < terrain_rows; j2++ )
+                for ( x = 0; x < strat_tile_width; x++ )
+                    for ( y = 0; y < strat_tile_height; y++ ) {
+                        /* we have the pixel in strat_pic by x + j * strat_fog_pic->w,y */
+                        /* no we need the aquivalent pixel in tiles[i]->pic to copy it */
+                        pixel = get_pixel( terrain_images->images[i],
+                                           j * hex_w +
+                                           scale * x,
+                                           j2 * hex_h + 
+                                           scale * y);
+                        set_pixel( strat_tile_pic[i], j * strat_tile_width + strat_tile_width * terrain_columns * j2 + x,
+                                   y, pixel );
+                    }
     }
     /* update strat picture offset in all map tiles */
     update_strat_image_offset();
@@ -260,7 +269,8 @@ void strat_map_update_terrain_layer()
                       sm_x_offset + i * strat_tile_x_offset,
                       sm_y_offset + j * strat_tile_height + ( i & 1 ) * strat_tile_y_offset,
                       strat_tile_width, strat_tile_height );
-                SOURCE( strat_tile_pic[map_tile( i, j )->terrain_id],
+                SOURCE( strat_tile_pic
+                        [ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
                         map_tile( i, j )->strat_image_offset, 0 );
                 blit_surf();
             }
@@ -275,7 +285,7 @@ void strat_map_update_terrain_layer()
                       sm_x_offset + i * strat_tile_x_offset,
                       sm_y_offset + j * strat_tile_height + ( i & 1 ) * strat_tile_y_offset,
                       strat_tile_width, strat_tile_height );
-                SOURCE( strat_tile_pic[map_tile( i, j )->terrain_id],
+                SOURCE( strat_tile_pic[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
                         map_tile( i, j )->strat_image_offset, 0 );
                 blit_surf();
             }

@@ -215,4 +215,11 @@ void unit_lib_eval_unit( Unit_Lib_Entry *unit );
 
 void adjust_fixed_icon_orientation();
 
+/*
+====================================================================
+Relative evaluate of units
+====================================================================
+*/
+void relative_evaluate_units();
+
 #endif

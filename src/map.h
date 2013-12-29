@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -31,7 +33,8 @@ typedef struct {
     char *name;             /* name of this map tile */
     Terrain_Type *terrain;  /* terrain properties */
     int terrain_id;         /* id of terrain properties */
-    int image_offset;       /* image offset in prop->image */
+    int image_offset_x;     /* image offset in prop->image */
+    int image_offset_y;     /* image offset in prop->image */
     int strat_image_offset; /* offset in the list of strategic tiny terrain images */
     Nation *nation;         /* nation that owns this flag (NULL == no nation) */
     Player *player;         /* dito */

@@ -237,9 +237,6 @@ int unit_lib_load( char *fname, int main )
 {
     int i, icon_id;
     Unit_Lib_Entry *unit;
-    int best_ground = 0,
-        best_air = 0,
-        best_sea = 0; /* used to relativate evaluations */
     List *entries, *flags;
     PData *pd, *sub, *subsub;
     char path[512], transitionPath[512];
@@ -502,30 +499,7 @@ int unit_lib_load( char *fname, int main )
     parser_free( &pd );
     /* LOG */
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-    /* relative evaluate of units */
-    list_reset( unit_lib );
-    while ( ( unit = list_next( unit_lib ) ) ) {
-        if ( unit->flags & FLYING )
-            best_air = MAXIMUM( unit->eval_score, best_air );
-        else {
-            if ( unit->flags & SWIMMING )
-                best_sea = MAXIMUM( unit->eval_score, best_sea );
-            else
-                best_ground = MAXIMUM( unit->eval_score, best_ground );
-        }
-    }
-    list_reset( unit_lib );
-    while ( ( unit = list_next( unit_lib ) ) ) {
-        unit->eval_score *= 1000;
-        if ( unit->flags & FLYING )
-            unit->eval_score /= best_air;
-        else {
-            if ( unit->flags & SWIMMING )
-                unit->eval_score /= best_sea;
-            else
-                unit->eval_score /= best_ground;
-        }
-    }
+    relative_evaluate_units();
     free(domain);
     if ( main != UNIT_LIB_BASE_DATA )
         SDL_FreeSurface(icons);
@@ -726,6 +700,42 @@ void adjust_fixed_icon_orientation()
                 blit_surf();
                 SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
             }
+        }
+    }
+}
+
+/*
+====================================================================
+Relative evaluate of units
+====================================================================
+*/
+void relative_evaluate_units()
+{
+    Unit_Lib_Entry *unit;
+    int best_ground = 0,
+        best_air = 0,
+        best_sea = 0; /* used to relativate evaluations */
+    list_reset( unit_lib );
+    while ( ( unit = list_next( unit_lib ) ) ) {
+        if ( unit->flags & FLYING )
+            best_air = MAXIMUM( unit->eval_score, best_air );
+        else {
+            if ( unit->flags & SWIMMING )
+                best_sea = MAXIMUM( unit->eval_score, best_sea );
+            else
+                best_ground = MAXIMUM( unit->eval_score, best_ground );
+        }
+    }
+    list_reset( unit_lib );
+    while ( ( unit = list_next( unit_lib ) ) ) {
+        unit->eval_score *= 1000;
+        if ( unit->flags & FLYING )
+            unit->eval_score /= best_air;
+        else {
+            if ( unit->flags & SWIMMING )
+                unit->eval_score /= best_sea;
+            else
+                unit->eval_score /= best_ground;
         }
     }
 }
