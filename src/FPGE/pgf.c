@@ -53,6 +53,7 @@ extern int unit_class_count;
 extern int icon_type;
 extern SDL_Surface *icons;
 extern StrToFlag fct_units[];
+extern int *weather;
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
@@ -658,10 +659,14 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 scen_info->days_per_turn=(unsigned char)atoi(tokens[1]);
             if (strcmp(tokens[0],"turns per day")==0)
                 scen_info->turns_per_day=(unsigned char)atoi(tokens[1]);
+            if (strcmp(tokens[0],"current weather")==0)
+            {
+                weather = calloc( scen_info->turn_limit, sizeof( int ) );
+                for ( i = 0; i < scen_info->turn_limit; i++ )
+                    weather[i] = (unsigned char)atoi(tokens[1]);
+            }
 /*            if (strcmp(tokens[0],"weather zone")==0)
                 scn_buffer[SCEN_LOCALE]=(unsigned char)atoi(tokens[1]);
-            if (strcmp(tokens[0],"current weather")==0)
-                if (probe_file_only!=SCAN_FOR_MAP_NUMBER) scn_buffer[STORM_FRONT]=(unsigned char)atoi(tokens[1]);
             if (strcmp(tokens[0],"max unit strength")==0)
                 if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Strength,tokens[1],256);
             if (strcmp(tokens[0],"max unit experience")==0)
