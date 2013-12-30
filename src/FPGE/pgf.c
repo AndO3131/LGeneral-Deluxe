@@ -20,6 +20,7 @@
 #include <ctype.h>
 #include "fpge.h"
 #include "load.h"
+#include "pg.h"
 #include "pgf.h"
 #include "lgeneral.h"
 #include "parser.h"
@@ -245,7 +246,7 @@ int load_pgf_equipment(char *fullName){
     inf=fopen(fullName,"rb");
     if (!inf)
     {
-        return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+        return 0;
     }
     lines=0;
 
@@ -254,12 +255,10 @@ int load_pgf_equipment(char *fullName){
     if (UCS2_header==file_type_probe) { utf16=1;}
     fseek(inf,0,SEEK_SET);
 
-    if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
-        return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-
-    sprintf( log_str, tr("Loading PGF-style Unit Library 'basic_unit_data.udb'") );
-    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
+
+    if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
+        return 0;
 
     while (load_line(inf,line,utf16)>=0)
     {
@@ -522,7 +521,7 @@ int load_pgf_equipment(char *fullName){
     /* icons are loaded in unit_lib.c and now we have to free large sheet */
     SDL_FreeSurface(icons);
     fclose(inf);
-    return 0;
+    return 1;
 }
 
 int load_pgf_pgscn(char *fullName, int scenNumber){
@@ -546,7 +545,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
     if (!inf)
     {
         //printf("Couldn't open scenario file\n");
-        return ERROR_PGF_SCN_BASE+ERROR_FPGE_FILE_NOT_FOUND;
+        return 0;
     }
 
     sprintf( log_str, tr("*** Loading scenario '%s' ***"), fullName );
@@ -627,7 +626,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 if (camp_loaded <= 1)
                 {
                     search_file_name_exact( SET_file, "Scenario/equipment.pgeqp", config.mod_name );
-                    if ( load_pgf_equipment( SET_file ) )
+                    if ( !load_pgf_equipment( SET_file ) )
                     {
                         terrain_delete();
                         scen_delete();
@@ -635,10 +634,6 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                         return 0;
                     }
                 }
-
-                /* map and weather */
-                strncpy( SET_file, tokens[1], 256 );
-//                fprintf( stderr, "SET file:%s\n", SET_file );
 /*                strncpy(tokens[2],"",1024);
                 j=0;
                 for(i=0;i<strlen(tokens[1]);i++)
@@ -649,18 +644,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                     }
                 tokens[2][j]=0;
                 pgf_map_number=atoi(tokens[2]);*/
-                snprintf( log_str, strcspn( SET_file, "." ) + 1, "%s", SET_file );
-                snprintf( STM_file, 256, "%s.STM", log_str );
-//                fprintf( stderr, "MAP file:%s\n", STM_file );
-                sprintf( log_str, tr("Loading Map '%s' and '%s'"), SET_file, STM_file );
-                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-/*                if ( !map_load( tokens[1] ) )
-                {
-                    terrain_delete();
-                    scen_delete();
-                    if ( player ) player_delete( player );
-                    return ERROR_PGF_EQUIP_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-                }*/
+                snprintf( STM_file, MAX_PATH, "Scenario/%s", tokens[1] );
             }
             if (strcmp(tokens[0],"turns")==0)
                 scen_info->turn_limit=(unsigned char)atoi(tokens[1]);
@@ -828,6 +812,18 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 
                 /* flip icons if scenario demands it */
                 adjust_fixed_icon_orientation();
+
+                /* map and weather */
+                search_file_name_exact( SET_file, STM_file, config.mod_name );
+                sprintf( log_str, tr("Loading Map '%s'"), SET_file );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !load_map_pg( SET_file ) )
+                {
+                    terrain_delete();
+                    scen_delete();
+                    if ( player ) player_delete( player );
+                    return 0;
+                }
             }
         }
         //Block#3  +: Alliances: 2 col, 2 or more rows
@@ -999,10 +995,10 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 		printf("total_allied_aux=%d\n",total_allied_aux);
 */
 	 // printf("block4_lines=%d\nblock5_lines=%d\nblock7_lines=%d\nblock9_lines=%d\n",block4_lines,block5_lines,block7_lines,block9_lines);
-    sprintf( log_str, "PGF scenario %s loaded.\n", fullName );
+    sprintf( log_str, "PGF scenario %s loaded.", fullName );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
 
-    return 0;
+    return 1;
 }
 
 char *load_pgf_pgscn_info( const char *fname, const char *path )
@@ -1585,6 +1581,7 @@ int load_bmp_stackicn(){
 */
 /* function to pass to hash_free_table */
 //void strfree( void *d )
+
 //{
       /* any additional processing goes here (if you use structures as data) */
       /* free the datapointer */

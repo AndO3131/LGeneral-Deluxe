@@ -20,6 +20,9 @@
 #ifndef __PLAYER_H
 #define __PLAYER_H
 
+#include "list.h"
+#include "unit_lib.h"
+
 /*
 ====================================================================
 Player info. The players are created by scenario but managed

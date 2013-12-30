@@ -495,10 +495,10 @@ int unit_lib_load( char *fname, int main )
                 }
             }
         }
+        write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     }
     parser_free( &pd );
     /* LOG */
-    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     relative_evaluate_units();
     free(domain);
     if ( main != UNIT_LIB_BASE_DATA )

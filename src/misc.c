@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -69,6 +71,44 @@ void strlwr( char *string)
     {
         string[i] = tolower( string[i] );
     }
+}
+
+/** Try to open file with lowercase name, then with uppercase name.
+ * If both fails return NULL. Path itself is considered to be in
+ * correct case, only the name after last '/' is modified. */
+FILE *fopen_ic( const char *_path, const char *mode )
+{
+	FILE *file = NULL;
+	char path[strlen(_path)+1], *start, *ptr;
+	
+	strcpy(path,_path); /* we need to copy since we modify it */
+	
+	/* start behind file separator */
+	if ((start = strrchr(path,'/')) == NULL) /* Linux */
+		start = strrchr(path,'\\'); /* Windows */
+	if (start)
+		start++;
+	else	
+		start = path; /* only a file name */
+	
+	/* try all lower case */
+	for (ptr = start; *ptr != 0; ptr++)
+		*ptr = tolower(*ptr);
+	if ((file = fopen(path,mode)))
+		return file;
+	
+	/* try first upper case */
+	start[0] = toupper(start[0]);
+	if ((file = fopen(path,mode)))
+		return file;
+	
+	/* try all upper case */
+	for (ptr = start + 1; *ptr != 0; ptr++)
+		*ptr = toupper(*ptr);
+	if ((file = fopen(path,mode)))
+		return file;
+	
+	return NULL;
 }
 
 /* Convert grid coordinates into isometric (diagonal) coordinates. */

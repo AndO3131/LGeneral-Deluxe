@@ -107,9 +107,8 @@ set ( util_src
 #)
 
 set ( fpge_src
-#  FPGE/load.c
-#  FPGE/load.h
-#  FPGE/fpge.h
+  FPGE/pg.c
+  FPGE/pg.h
   FPGE/pgf.c
   FPGE/pgf.h
 )

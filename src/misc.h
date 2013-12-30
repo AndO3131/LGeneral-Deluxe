@@ -19,6 +19,7 @@
 
 #ifndef __MISC_H
 #define __MISC_H
+#include <stdio.h>
 
 struct PData;
 struct _Font;
@@ -71,6 +72,11 @@ struct _Font;
 
 /* Definition of non-standard function */
 void strlwr( char *string);
+
+/** Try to open file with lowercase name, then with uppercase name.
+ * If both fails return NULL. Path itself is considered to be in
+ * correct case, only the name after last '/' is modified. */
+FILE *fopen_ic( const char *path, const char *mode );
 
 /* ascii-codes of game-related symbols */
 enum GameSymbols {

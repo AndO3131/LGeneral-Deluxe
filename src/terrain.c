@@ -97,10 +97,11 @@ int terrain_load( char *fname )
     /* log info */
     int  log_dot_limit = 40; /* maximum of dots */
     char log_str[128];
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
+    sprintf( transitionPath, "Scenario/%s", fname );
+    search_file_name_exact( path, transitionPath, config.mod_name );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
-    domain = determine_domain(pd, fname);
-    locale_load_domain(domain, 0/*FIXME*/);
+//    domain = determine_domain(pd, fname);
+//    locale_load_domain(domain, 0/*FIXME*/);
     /* get weather */
     if ( !parser_get_entries( pd, "weather", &entries ) ) goto parser_failure;
     weather_type_count = entries->count;
@@ -108,7 +109,9 @@ int terrain_load( char *fname )
     list_reset( entries ); i = 0;
     while ( ( sub = list_next( entries ) ) ) {
         weather_types[i].id = strdup( sub->name );
-        if ( !parser_get_localized_string( sub, "name", domain, &weather_types[i].name ) ) goto parser_failure;
+//        if ( !parser_get_localized_string( sub, "name", domain, &weather_types[i].name ) ) goto parser_failure;
+        if ( !parser_get_value( sub, "name", &str, 0 ) ) goto parser_failure;
+        weather_types[i].name = strdup( str );
         if ( !parser_get_value( sub, "ground_cond", &str, 0 ) ) goto parser_failure;
         weather_types[i].ground_conditions = strdup( str );
         if ( !parser_get_values( sub, "flags", &flags ) ) goto parser_failure;

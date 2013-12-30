@@ -20,6 +20,10 @@
 #ifndef __TERRAIN_H
 #define __TERRAIN_H
 
+#include <SDL.h>
+#include "image.h"
+#include "audio.h"
+
 /*
 ====================================================================
 Weather flags.

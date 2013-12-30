@@ -21,6 +21,9 @@
 #define __MAP_H
 
 #include "terrain.h"
+#include "nation.h"
+#include "player.h"
+#include "unit.h"
 
 enum { FAIR = 0, CLOUDS, RAIN, SNOW };
 
