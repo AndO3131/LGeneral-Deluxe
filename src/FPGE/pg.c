@@ -177,7 +177,6 @@ int parse_set_file(FILE *inf, int offset)
             fread( &i, 2, 1, inf );
             i = SDL_SwapLE16( i );
             tile_get_name( name_file, i, name_buf );
-            fprintf(stderr, "%s\n", name_buf);
             map[x][y].name = strdup( name_buf );
         }
 /*

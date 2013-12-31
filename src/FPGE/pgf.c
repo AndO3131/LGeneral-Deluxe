@@ -542,6 +542,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
     log_x = 2; log_y = 2;
     scen_info = calloc( 1, sizeof( Scen_Info ) );
     scen_info->fname = strdup( fullName );
+    scen_info->mod_name = strdup( config.mod_name );
     inf=fopen(fullName,"rb");
     if (!inf)
     {
