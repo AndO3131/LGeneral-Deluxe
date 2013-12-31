@@ -37,6 +37,7 @@ extern Mask_Tile **mask;
 extern int log_x, log_y;       /* position where to draw log info */
 extern Terrain_Type *terrain_types;
 extern int terrain_type_count;
+extern int hex_w, hex_h, terrain_columns;
 
 char stm_fname[16];
 
@@ -75,12 +76,14 @@ Read map tile name with that id to buf
 */
 static void tile_get_name( FILE *file, int id, char *buf )
 {
-    buf = calloc( 21, sizeof(char) );
     fseek( file, 2 + id * 20, SEEK_SET );
     if ( feof( file ) ) 
         sprintf( buf, "none" );
     else
+{
         fread( buf, 20, 1, file );
+//fprintf(stderr, "%s\n", buf);
+}
 }
 
 int parse_set_file(FILE *inf, int offset)
@@ -89,7 +92,7 @@ int parse_set_file(FILE *inf, int offset)
     char path[MAX_PATH];
     int x,y,c=0,i;
     /* log info */
-    char log_str[128];
+    char log_str[128], name_buf[24];
  
     //get the map size
     fseek(inf, offset+MAP_X_ADDR, SEEK_SET);
@@ -144,6 +147,12 @@ int parse_set_file(FILE *inf, int offset)
             /* tile not found, used first one */
             if ( map[x][y].terrain == 0 )
                 map[x][y].terrain = &terrain_types[0];
+            /* check image id -- set offset */
+            map[x][y].image_offset_x = ( map[x][y].terrain_id ) % terrain_columns * hex_w;
+            map[x][y].image_offset_y = ( map[x][y].terrain_id ) / terrain_columns * hex_h;
+            /* clear units on this tile */
+            map[x][y].g_unit = 0;
+            map[x][y].a_unit = 0;
         }
     if (c!=map_w*map_h)
         fprintf(stderr, "WARNING: SET file too short !\n");
@@ -158,7 +167,7 @@ int parse_set_file(FILE *inf, int offset)
                 map[x][y].deploy_center = 1;
         }
     }
-    //get the gln numbers
+    //get the names
     fseek(inf, offset+MAP_LAYERS_START + 0 * map_w * map_h, SEEK_SET);
 
     for (y = 0; y < map_h; ++y)
@@ -167,7 +176,9 @@ int parse_set_file(FILE *inf, int offset)
             i = 0;
             fread( &i, 2, 1, inf );
             i = SDL_SwapLE16( i );
-            tile_get_name( name_file, i, map[x][y].name );
+            tile_get_name( name_file, i, name_buf );
+            fprintf(stderr, "%s\n", name_buf);
+            map[x][y].name = strdup( name_buf );
         }
 /*
     //get the road connectivity

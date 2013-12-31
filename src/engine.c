@@ -506,10 +506,13 @@ static void engine_check_menu_buttons()
     else
         group_set_active( gui->base_menu, ID_PURCHASE, 0 );
     /* deploy */
-    if ( ( avail_units->count > 0 || deploy_turn ) && status == STATUS_NONE )
-        group_set_active( gui->base_menu, ID_DEPLOY, 1 );
-    else
-        group_set_active( gui->base_menu, ID_DEPLOY, 0 );
+    if ( avail_units )
+    {
+        if ( ( avail_units->count > 0 || deploy_turn ) && status == STATUS_NONE )
+            group_set_active( gui->base_menu, ID_DEPLOY, 1 );
+        else
+            group_set_active( gui->base_menu, ID_DEPLOY, 0 );
+    }
     /* strat map */
     if ( status == STATUS_NONE )
         group_set_active( gui->base_menu, ID_STRAT_MAP, 1 );
@@ -954,26 +957,32 @@ static void engine_update_avail_reinf_list()
     Unit *unit;
     int i;
     /* available reinforcements */
-    list_reset( avail_units );
-    while ( avail_units->count > 0 )
-        list_transfer( avail_units, reinf, list_first( avail_units ) );
-    /* add all units from scen::reinf whose delay <= cur_turn */
-    list_reset( reinf );
-    for ( i = 0; i < reinf->count; i++ ) {
-        unit = list_next( reinf );
-        if ( unit->sel_prop->flags & FLYING && unit->player == cur_player && unit->delay <= turn ) {
-            list_transfer( reinf, avail_units, unit );
-            /* index must be reset if unit was added */
-            i--;
+    if ( avail_units )
+    {
+        list_reset( avail_units );
+        while ( avail_units->count > 0 )
+            list_transfer( avail_units, reinf, list_first( avail_units ) );
+        /* add all units from scen::reinf whose delay <= cur_turn */
+        list_reset( reinf );
+        for ( i = 0; i < reinf->count; i++ ) {
+            unit = list_next( reinf );
+            if ( unit->sel_prop->flags & FLYING && unit->player == cur_player && unit->delay <= turn ) {
+                list_transfer( reinf, avail_units, unit );
+                /* index must be reset if unit was added */
+                i--;
+            }
         }
     }
-    list_reset( reinf );
-    for ( i = 0; i < reinf->count; i++ ) {
-        unit = list_next( reinf );
-        if ( !(unit->sel_prop->flags & FLYING) && unit->player == cur_player && unit->delay <= turn ) {
-            list_transfer( reinf, avail_units, unit );
-            /* index must be reset if unit was added */
-            i--;
+    if ( reinf )
+    {
+        list_reset( reinf );
+        for ( i = 0; i < reinf->count; i++ ) {
+            unit = list_next( reinf );
+            if ( !(unit->sel_prop->flags & FLYING) && unit->player == cur_player && unit->delay <= turn ) {
+                list_transfer( reinf, avail_units, unit );
+                /* index must be reset if unit was added */
+                i--;
+            }
         }
     }
 }
@@ -999,14 +1008,17 @@ static void engine_select_player( Player *player, int skip_unit_prep )
         /* update available reinforcements */
         engine_update_avail_reinf_list();
         /* prepare units for turn -- fuel, mov-points, entr, weather etc */
-        list_reset( units );
-        for ( i = 0; i < units->count; i++ ) {
-            unit = list_next( units );
-            if ( unit->player == cur_player ) {
-                if ( turn == 0 )
-                    scen_prep_unit( unit, SCEN_PREP_UNIT_FIRST );
-                else
-                    scen_prep_unit( unit, SCEN_PREP_UNIT_NORMAL );
+        if (units)
+        {
+            list_reset( units );
+            for ( i = 0; i < units->count; i++ ) {
+                unit = list_next( units );
+                if ( unit->player == cur_player ) {
+                    if ( turn == 0 )
+                        scen_prep_unit( unit, SCEN_PREP_UNIT_FIRST );
+                    else
+                        scen_prep_unit( unit, SCEN_PREP_UNIT_NORMAL );
+                }
             }
         }
     }
@@ -1058,11 +1070,13 @@ static void engine_select_player( Player *player, int skip_unit_prep )
             group_hide( gui->deploy_window, 1 );
 
         /* supply levels */
-        list_reset( units );
-        while ( ( unit = list_next( units ) ) )
-            if ( unit->player == cur_player )
-                scen_adjust_unit_supply_level( unit );
-            
+        if ( units )
+        {
+            list_reset( units );
+            while ( ( unit = list_next( units ) ) )
+                if ( unit->player == cur_player )
+                    scen_adjust_unit_supply_level( unit );
+        }        
         /* mark unit as re-deployable in deployment-turn when it is
          * located on a deployment-field and is allowed to be re-deployed.
          */

@@ -926,13 +926,16 @@ Get a list (vis_units) of all visible units by checking spot mask.
 void map_get_vis_units( void )
 {
     int x, y;
-    list_clear( vis_units );
-    for ( x = 0; x < map_w; x++ )
-        for ( y = 0; y < map_h; y++ )
-            if ( mask[x][y].spot || ( cur_player && cur_player->ctrl == PLAYER_CTRL_CPU ) ) {
-                if ( map[x][y].g_unit ) list_add( vis_units, map[x][y].g_unit );
-                if ( map[x][y].a_unit ) list_add( vis_units, map[x][y].a_unit );
-            }
+    if ( vis_units )
+    {
+        list_clear( vis_units );
+        for ( x = 0; x < map_w; x++ )
+            for ( y = 0; y < map_h; y++ )
+                if ( mask[x][y].spot || ( cur_player && cur_player->ctrl == PLAYER_CTRL_CPU ) ) {
+                    if ( map[x][y].g_unit ) list_add( vis_units, map[x][y].g_unit );
+                    if ( map[x][y].a_unit ) list_add( vis_units, map[x][y].a_unit );
+                }
+    }
 }
 
 /*
@@ -955,12 +958,12 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
                 tile->image_offset_x, tile->image_offset_y )
     blit_surf();
     /* nation flag */
-    if ( tile->nation != 0 ) {
+/*    if ( tile->nation != 0 ) {
         nation_draw_flag( tile->nation, surf,
                           x + ( ( hex_w - nation_flag_width ) >> 1 ),
                           y + hex_h - nation_flag_height - 2,
                           tile->obj );
-    }
+    }*/
     /* grid */
     if ( config.grid ) {
         DEST( surf, x, y, hex_w, hex_h );
@@ -1134,12 +1137,15 @@ void map_set_spot_mask()
     map_clear_mask( F_AUX ); /* buffer here first */
     /* get spot_mask for each unit and add to fog */
     /* use map::mask::aux as buffer */
-    list_reset( units );
-    for ( i = 0; i < units->count; i++ ) {
-        unit = list_next( units );
-        if ( unit->killed ) continue;
-        if ( player_is_ally( cur_player, unit->player ) ) /* it's your unit or at least it's allied... */
-            map_add_unit_spot_mask( unit );
+    if ( units )
+    {
+        list_reset( units );
+        for ( i = 0; i < units->count; i++ ) {
+            unit = list_next( units );
+            if ( unit->killed ) continue;
+            if ( player_is_ally( cur_player, unit->player ) ) /* it's your unit or at least it's allied... */
+                map_add_unit_spot_mask( unit );
+        }
     }
     /* check all flags; if flag belongs to you or any of your partners you see the surrounding, too */
     for ( x = 0; x < map_w; x++ )
@@ -1300,12 +1306,15 @@ void map_set_infl_mask()
     Unit *unit = 0;
     map_clear_mask( F_INFL | F_INFL_AIR );
     /* add all hostile units influence */
-    list_reset( units );
-    while ( ( unit = list_next( units ) ) )
-        if ( !unit->killed && !player_is_ally( cur_player, unit->player ) )
-            map_add_unit_infl( unit );
-    /* visible influence must also be updated */
-    map_set_vis_infl_mask();
+    if ( units )
+    {
+        list_reset( units );
+        while ( ( unit = list_next( units ) ) )
+            if ( !unit->killed && !player_is_ally( cur_player, unit->player ) )
+                map_add_unit_infl( unit );
+        /* visible influence must also be updated */
+        map_set_vis_infl_mask();
+    }
 }
 void map_set_vis_infl_mask()
 {

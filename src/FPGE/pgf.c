@@ -658,7 +658,11 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
             if (strcmp(tokens[0],"days per turn")==0)
                 scen_info->days_per_turn=(unsigned char)atoi(tokens[1]);
             if (strcmp(tokens[0],"turns per day")==0)
+            {
                 scen_info->turns_per_day=(unsigned char)atoi(tokens[1]);
+                if ( scen_info->turns_per_day == 0 )
+                    scen_info->turns_per_day = 1; // fix for some scenarios
+            }
             if (strcmp(tokens[0],"current weather")==0)
             {
                 weather = calloc( scen_info->turn_limit, sizeof( int ) );
