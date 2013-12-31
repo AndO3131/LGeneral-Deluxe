@@ -958,12 +958,12 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
                 tile->image_offset_x, tile->image_offset_y )
     blit_surf();
     /* nation flag */
-/*    if ( tile->nation != 0 ) {
+    if ( tile->nation != 0 ) {
         nation_draw_flag( tile->nation, surf,
                           x + ( ( hex_w - nation_flag_width ) >> 1 ),
                           y + hex_h - nation_flag_height - 2,
                           tile->obj );
-    }*/
+    }
     /* grid */
     if ( config.grid ) {
         DEST( surf, x, y, hex_w, hex_h );

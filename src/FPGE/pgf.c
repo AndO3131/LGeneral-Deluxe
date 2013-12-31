@@ -530,7 +530,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
     FILE *inf;
     char path[MAX_PATH];
     char line[1024],tokens[20][1024], log_str[256], SET_file[MAX_PATH], STM_file[MAX_PATH];
-    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines;
+    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines, flag_map_loaded = 0;
     int air_trsp_player1, air_trsp_player2, sea_trsp_player1, sea_trsp_player2, total_victory,where_add_new;
     unsigned char t1,t2;
     WORD unum;
@@ -698,24 +698,12 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
 
-                if ( allies_move_first == 0 )
-                {
-                    player->id = strdup( "axis" );
-                    player->name = strdup(trd(domain, "Axis"));
-                    if (atoi(tokens[5])==0)
-                        player->orient = UNIT_ORIENT_RIGHT;
-                    else
-                        player->orient = UNIT_ORIENT_LEFT;
-                }
+                player->id = strdup( "axis" );
+                player->name = strdup(trd(domain, "Axis"));
+                if (atoi(tokens[5])==0)
+                    player->orient = UNIT_ORIENT_RIGHT;
                 else
-                {
-                    player->id = strdup( "allies" );
-                    player->name = strdup(trd(domain, "Allies"));
-                    if (atoi(tokens[5])==0)
-                        player->orient = UNIT_ORIENT_LEFT;
-                    else
-                        player->orient = UNIT_ORIENT_RIGHT;
-                }
+                    player->orient = UNIT_ORIENT_LEFT;
                 player->ctrl = PLAYER_CTRL_HUMAN;
 
                 if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
@@ -765,26 +753,13 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 /* create player */
                 player = calloc( 1, sizeof( Player ) );
 
-                if ( allies_move_first == 1 )
-                {
-                    player->id = strdup( "axis" );
-                    player->name = strdup(trd(domain, "Axis"));
-                    if (atoi(tokens[5])==1)
-                        player->orient = UNIT_ORIENT_RIGHT;
-                    else
-                        player->orient = UNIT_ORIENT_LEFT;
-//                    fprintf( stderr, "2nd player: %s\n", player->name );
-                }
+                player->id = strdup( "allies" );
+                player->name = strdup(trd(domain, "Allies"));
+                if (atoi(tokens[5])==1)
+                    player->orient = UNIT_ORIENT_LEFT;
                 else
-                {
-                    player->id = strdup( "allies" );
-                    player->name = strdup(trd(domain, "Allies"));
-                    if (atoi(tokens[5])==1)
-                        player->orient = UNIT_ORIENT_LEFT;
-                    else
-                        player->orient = UNIT_ORIENT_RIGHT;
+                    player->orient = UNIT_ORIENT_RIGHT;
 //                    fprintf( stderr, "2nd player: %s\n", player->name );
-                }
                 player->ctrl = PLAYER_CTRL_CPU;
                 player->core_limit = -1;
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
@@ -823,16 +798,11 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 /* flip icons if scenario demands it */
                 adjust_fixed_icon_orientation();
 
-                /* map and weather */
-                search_file_name_exact( SET_file, STM_file, config.mod_name );
-                sprintf( log_str, tr("Loading Map '%s'"), SET_file );
-                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-                if ( !load_map_pg( SET_file ) )
-                {
-                    terrain_delete();
-                    scen_delete();
-                    if ( player ) player_delete( player );
-                    return 0;
+                /* set alliances */
+                list_reset( players );
+                for ( i = 0; i < players->count; i++ ) {
+                    player = list_next( players );
+                    player->allies = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
                 }
             }
         }
@@ -862,16 +832,33 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                     fprintf(stderr, "Error. Line %d. Too many nations (max=6 per side).\n",lines);
             }
         }
-			  //Block#4   : Per-turn prestige allotments: 3 col, rows = no of turns
-/*			  if (block==4 && token>1){
-				  if (block4_lines>MAX_TURNS)
+        //Block#4   : Per-turn prestige allotments: 3 col, rows = no of turns
+        if (block==4 && token>1)
+        {
+            if ( !flag_map_loaded )
+            {
+                /* map and weather */
+                search_file_name_exact( SET_file, STM_file, config.mod_name );
+                sprintf( log_str, tr("Loading Map '%s'"), SET_file );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !load_map_pg( SET_file ) )
+                {
+                    terrain_delete();
+                    scen_delete();
+                    if ( player ) player_delete( player );
+                    return 0;
+                }
+                flag_map_loaded = 1;
+            }
+
+/*				  if (block4_lines>MAX_TURNS)
 					  printf("Error. Line %d. Too many lines in 'Per-turn prestige allotments' block.\n",lines);
 				  else{
 					  strncpy(block4[block4_lines],line,MAX_LINE_SIZE);
 					  block4_lines++;
-				  }
+				  }*/
 			  }
-			  //Block#5  ?: Supply hexes: 2 col, rows - many
+/*			  //Block#5  ?: Supply hexes: 2 col, rows - many
 			  if (block == 5 && token > 1) {
 				if (block5_lines > MAX_SUPPLY)
 					printf(

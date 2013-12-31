@@ -161,11 +161,20 @@ int parse_set_file(FILE *inf, int offset)
     for (y = 0; y < map_h; ++y)
     {
         for (x = 0; x < map_w; ++x){
-            fread(&(map[x][y].nation), 1, 1, inf);
-            map[x][y].player = player_get_by_nation( map[x][y].nation );
-            if ( map[x][y].nation )
-                map[x][y].deploy_center = 1;
+            c = 0;
+            fread(&c, 1, 1, inf);
+            map[x][y].obj = 0;
+            map[x][y].nation = nation_find_by_id( c - 1 );
+            if (map[x][y].nation != 0)
+            {
+//                fprintf(stderr, "%s ", map[x][y].nation->name);
+                map[x][y].player = player_get_by_nation( map[x][y].nation );
+//                fprintf(stderr, "%s ", map[x][y].player->name);
+                if ( map[x][y].nation )
+                    map[x][y].deploy_center = 1;
+            }
         }
+//        fprintf(stderr, "\n");
     }
     //get the names
     fseek(inf, offset+MAP_LAYERS_START + 0 * map_w * map_h, SEEK_SET);
