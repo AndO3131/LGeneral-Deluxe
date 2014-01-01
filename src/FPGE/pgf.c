@@ -54,6 +54,18 @@ extern int icon_type;
 extern SDL_Surface *icons;
 extern StrToFlag fct_units[];
 extern int *weather;
+extern int map_w, map_h;
+extern Map_Tile **map;
+extern List *units;        /* active units */
+extern List *vis_units;    /* all units spotted by current player */
+extern List *avail_units;  /* available units for current player to deploy */
+extern List *reinf;
+extern Camp_Entry *camp_cur_scen;
+extern char *camp_first;
+extern VCond *vconds;
+extern int vcond_count;
+extern int *casualties;	/* sum of casualties grouped by unit class and player */
+extern int deploy_turn;
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
@@ -334,8 +346,8 @@ int load_pgf_equipment(char *fullName){
             unit->id = strdup( tokens[0] );
             /* name */
             unit->name = strdup(tokens[1]);
-    	    /* nation (if not found or 'none' unit can't be purchased) */
-    	    unit->nation = -1; /* undefined */
+            /* nation (if not found or 'none' unit can't be purchased) */
+            unit->nation = -1; /* undefined */
             /* class id */
             for ( i = 0; i < unit_class_count; i++ )
                 if ( STRCMP( tokens[2], unit_classes[i].id ) ) {
@@ -345,6 +357,8 @@ int load_pgf_equipment(char *fullName){
             //attack
             for ( i = 0; i < trgt_type_count; i++ )
                 unit->atks[i] = (unsigned char) atoi(tokens[i + 3]);
+            /* attack count */
+            unit->atk_count = 1;
             /* ground defense */
             unit->def_grnd = (unsigned char) atoi(tokens[7]);
             /* air defense */
@@ -377,8 +391,8 @@ int load_pgf_equipment(char *fullName){
             unit->fuel = (unsigned char) atoi(tokens[16]);
             /* ammo */
             unit->ammo = (unsigned char) atoi(tokens[17]);
-    	    /* cost of unit (0 == cannot be purchased) */
-        	unit->cost = (unsigned char) atoi(tokens[18]);
+            /* cost of unit (0 == cannot be purchased) */
+            unit->cost = (unsigned char) atoi(tokens[18]);
             /* icon id */
             icon_id = atoi(tokens[19]);
             /* icon_type */
@@ -390,8 +404,8 @@ int load_pgf_equipment(char *fullName){
             unit->start_year = 1900 + atoi(tokens[22]);
             unit->last_year = 1900 + atoi(tokens[23]);
 
-    	    /* nation (if not found unit can't be purchased) */
-    	    unit->nation = -1;
+            /* nation (if not found unit can't be purchased) */
+            unit->nation = -1;
             Nation *n = nation_find_by_id( atoi(tokens[32]) - 1 );
             if (n)
                 unit->nation = nation_get_index( n );
@@ -525,14 +539,19 @@ int load_pgf_equipment(char *fullName){
     return 1;
 }
 
-int load_pgf_pgscn(char *fullName, int scenNumber){
+int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
     FILE *inf;
     char path[MAX_PATH];
     char line[1024],tokens[20][1024], log_str[256], SET_file[MAX_PATH], STM_file[MAX_PATH];
-    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines, flag_map_loaded = 0;
+    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines, flag_map_loaded = 0, flag_unit_load_started = 0;
     int air_trsp_player1, air_trsp_player2, sea_trsp_player1, sea_trsp_player2, total_victory,where_add_new;
     unsigned char t1,t2;
+    int unit_ref = 0, auxiliary_units_count = 0;
+    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0;
+    Unit *unit;
+    Unit unit_base; /* used to store values for unit */
+    int unit_delayed = 0;
     WORD unum;
 
     scen_delete();
@@ -541,7 +560,8 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
     log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     log_x = 2; log_y = 2;
     scen_info = calloc( 1, sizeof( Scen_Info ) );
-    scen_info->fname = strdup( fullName );
+    snprintf( SET_file, 256, "%s.lgscn", fname );
+    scen_info->fname = strdup( SET_file );
     scen_info->mod_name = strdup( config.mod_name );
     inf=fopen(fullName,"rb");
     if (!inf)
@@ -651,7 +671,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
             if (strcmp(tokens[0],"turns")==0)
                 scen_info->turn_limit=(unsigned char)atoi(tokens[1]);
             if (strcmp(tokens[0],"year")==0)
-                scen_info->start_date.year=(unsigned char)atoi(tokens[1]);
+                scen_info->start_date.year=(unsigned char)atoi(tokens[1]) + 1900;
             if (strcmp(tokens[0],"month")==0)
                 scen_info->start_date.month=(unsigned char)atoi(tokens[1]) - 1;
             if (strcmp(tokens[0],"day")==0)
@@ -697,6 +717,31 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 player = calloc( 1, sizeof( Player ) );
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
+                player_add( player ); player = 0;
+                player = calloc( 1, sizeof( Player ) );
+                player->nations = calloc( 6, sizeof( Nation* ) );
+                player->nation_count = 0;
+                player_add( player ); player = 0;
+
+                list_reset( players );
+                player = list_next( players );
+                if ( allies_move_first )
+                {
+                    player = list_next( players );
+                    player->ctrl = PLAYER_CTRL_CPU;
+                    player->core_limit = -1;
+                }
+                else
+                {
+                    player->ctrl = PLAYER_CTRL_HUMAN;
+                    if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
+                    {
+                        player->core_limit = (unsigned char)atoi(tokens[2]);
+                    }
+                    else
+                        player->core_limit = -1;
+                }
+//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
                 player->id = strdup( "axis" );
                 player->name = strdup(trd(domain, "Axis"));
@@ -704,21 +749,8 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                     player->orient = UNIT_ORIENT_RIGHT;
                 else
                     player->orient = UNIT_ORIENT_LEFT;
-                player->ctrl = PLAYER_CTRL_HUMAN;
 
-                if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
-                {
-                    player->core_limit = (unsigned char)atoi(tokens[2]);
-                }
-                else
-                    player->core_limit = -1;
-//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
-
-                player->unit_limit = (unsigned char)atoi(tokens[3]);
-                if ( player->core_limit >= 0 )
-                    player->unit_limit += player->core_limit;
-                else
-                    player->unit_limit += (unsigned char)atoi(tokens[2]);
+                player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
                 if ( (unsigned char)atoi(tokens[4]) == 0)
                     player->strat = -1;
@@ -745,13 +777,28 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 
 
 //                axis_experience = atoi(tokens[10]);
-
-                player_add( player ); player = 0;
             }
             if (atoi(tokens[0])==1)
             {
-                /* create player */
-                player = calloc( 1, sizeof( Player ) );
+                list_reset( players );
+                player = list_next( players );
+                if ( allies_move_first )
+                {
+                    player->ctrl = PLAYER_CTRL_HUMAN;
+                    if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
+                    {
+                        player->core_limit = (unsigned char)atoi(tokens[2]);
+                    }
+                    else
+                        player->core_limit = -1;
+                }
+                else
+                {
+                    player = list_next( players );
+                    player->ctrl = PLAYER_CTRL_CPU;
+                        player->core_limit = -1;
+                }
+//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
                 player->id = strdup( "allies" );
                 player->name = strdup(trd(domain, "Allies"));
@@ -760,11 +807,8 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 else
                     player->orient = UNIT_ORIENT_RIGHT;
 //                    fprintf( stderr, "2nd player: %s\n", player->name );
-                player->ctrl = PLAYER_CTRL_CPU;
-                player->core_limit = -1;
-//                fprintf( stderr, "Core limit:%d\n", player->core_limit );
 
-                player->unit_limit = (unsigned char)atoi(tokens[3]);
+                player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
                 if ( (unsigned char)atoi(tokens[4]) == 0)
                     player->strat = -1;
@@ -776,7 +820,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 //                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
                 air_trsp_player1 = (unsigned char)atoi(tokens[9]);
 //                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
-//                s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
+//                s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned chaallies_move_firstr)(atoi(tokens[9])>>8);
 
                 player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
 //                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
@@ -793,7 +837,6 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
-                player_add( player ); player = 0;
 
                 /* flip icons if scenario demands it */
                 adjust_fixed_icon_orientation();
@@ -820,7 +863,7 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 
                 list_reset( players );
                 player = list_next( players );
-                if (t2==1)
+                if ( (t2==1 && !allies_move_first) || (t2==0 && allies_move_first) )
                 {
                     player = list_next( players );
                 }
@@ -851,14 +894,15 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
                 flag_map_loaded = 1;
             }
 
-/*				  if (block4_lines>MAX_TURNS)
-					  printf("Error. Line %d. Too many lines in 'Per-turn prestige allotments' block.\n",lines);
-				  else{
-					  strncpy(block4[block4_lines],line,MAX_LINE_SIZE);
-					  block4_lines++;
-				  }*/
-			  }
-/*			  //Block#5  ?: Supply hexes: 2 col, rows - many
+                list_reset( players );
+                for ( i = 0; i < players->count; i++ )
+                {
+                    player = list_next( players );
+                    player->prestige_per_turn[atoi(tokens[0]) - 1] += atoi( tokens[i + 1] );
+//                    fprintf( stderr, "%s prestige: %d\n", player->name, player->prestige_per_turn[atoi(tokens[0]) - 1] );
+                }
+        }
+/*			  //Block#5  ?: Supply hexes: 2 col, rows - many ** UNUSED **
 			  if (block == 5 && token > 1) {
 				if (block5_lines > MAX_SUPPLY)
 					printf(
@@ -868,46 +912,56 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 					strncpy(block5[block5_lines], line,MAX_LINE_SIZE);
 					block5_lines++;
 				}
-			}
-			  //Block#6  +: Victory hexes: 1 col, rows - many, limit 20
-			  if (block==6 && strlen(tokens[0])>0){
-				  if (token!=1)
-				 	printf("Error. Line %d. Victory hexes. Expected no of columns %d while %d columns detected.\n",lines,1,token);
+			}*/
+        //Block#6  +: Victory hexes: 1 col, rows - many, limit 20
+        if (block==6 && strlen(tokens[0])>0)
+        {
+            if (token!=1)
+                printf("Error. Line %d. Victory hexes. Expected no of columns %d while %d columns detected.\n",lines,1,token);
 
-				  error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
-				  //some protection
-				  if (x>=0 && y>=0 && x<mapx && y<mapy){
-					  victory_hexes[total_victory].x=x;
-					  victory_hexes[total_victory].y=y;
-					  victory_hexes[total_victory].own=map[x][y].own;
-
-					  map[x][y].vic=1;
-					  total_victory++;
-				  }
-			  }
-			  //Block#7   : Victory conditions: 3 col, rows 2
-			  if (block == 7 && token > 1) {
-				if (block7_lines > MAX_VICTORY_CON)
-					printf(
-							"Error. Line %d. Too many lines in 'Victory conditions' block.\n",
-							lines);
-				else {
-					strncpy(block7[block7_lines], line,MAX_LINE_SIZE);
-					block7_lines++;
-				}
-			}
-			  //Block#8  +: Deploy hexes: 1 col, rows - many, limit 80
-			  if (block==8 && strlen(tokens[0])>0){
-				  if (token!=1)
-				 	printf("Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,1,token);
-
-				  error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
-				  if (error==2 && x>=0 && y>=0 && x<mapx && y<mapy){
-					  map[x][y].deploy=1;
-					  total_deploy++;
-				  }
-			  }
-			  //Block#9   : Purchasable classes: 2 col, rows up to 16 ?
+            error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
+            //some protection
+            if (x>=0 && y>=0 && x<map_w && y<map_h){
+                map[x][y].obj = 1;
+            }
+        }
+        //Block#7   : Victory conditions: 3 col, rows 2
+        if (block == 7 && token > 1)
+        {
+            /* create conditions *
+            if ( vconds == 0 )
+            {
+                vcond_count = 2;
+                vconds = calloc( vcond_count, sizeof( VCond ) );
+                i = 1;
+            }
+            if ( ( strcmp( tokens[0], "AXIS_VICTORY" ) == 0 ) && !allies_move_first )
+            {
+                vconds[i].sub_and_count = 1;
+                vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
+                vconds[i].subconds_and[0].player = player_get_by_id( "axis" );
+            }
+            else if ( strcmp( tokens[0], "ALLIED_VICTORY" ) == 0 && allies_move_first )
+            {
+                vconds[i].sub_and_count = 1;
+                vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
+                vconds[i].subconds_and[0].player = player_get_by_id( "allies" );
+            }
+            /* else condition (used if no other condition is fullfilled and scenario ends) *
+            strcpy( vconds[0].result, "defeat" );
+            strcpy( vconds[0].message, tr("Defeat") );*/
+        }
+        //Block#8  +: Deploy hexes: 1 col, rows - many
+        if (block==8 && strlen(tokens[0])>0)
+        {
+            error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
+            if (error == 2 && x >= 0 && y >= 0 && x < map_w && y < map_h)
+            {
+//                plidx = player_get_index( pl );
+                map_set_deploy_field( x, y, 0 );
+            }
+        }
+/*			  //Block#9   : Purchasable classes: 2 col, rows up to 16 ?
 			  if (block == 9 && token > 1) {
 				if (block9_lines > MAX_CLASSES)
 					printf(
@@ -917,44 +971,150 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 					strncpy(block9[block9_lines], line,MAX_LINE_SIZE);
 					block9_lines++;
 				}
-			}
-			  //Block#10 +: Units: 12 col, rows - many, limit
-			  if (block==10 && token>1){
-				  //for(i=0;i<token;i++)
-					//  printf("%s->",tokens[i]);
-				  //printf(":%d:%d\n",block,token);
+			}*/
+        //Block#10 +: Units: 12 col, rows - many, limit
+        if (block==10 && token>1)
+        {
+            if (token!=12)
+                fprintf(stderr, "Error. Line %d. Units. Expected no of columns %d while %d columns detected.\n",lines,12,token);
 
-				  if (token!=12)
-					  printf("Error. Line %d. Units. Expected no of columns %d while %d columns detected.\n",lines,12,token);
+            //0 #Hex
+            //1 #Type
+            //2 #Organic Transport Type
+            //3 #Sea/Air Transport Type
+            //4 #Side
+            //5 #Flag
+            //6 #Strength
+            //7 #Experience
+            //8 #Entrenchment
+            //9 #Fuel
+            //10 #Ammo
+            //11 #Auxiliary
 
-				  //0 #Hex
-				  //1 #Type
-				  //2 #Organic Transport Type
-				  //3 #Sea/Air Transport Type
-				  //4 #Side
-				  //5 #Flag
-				  //6 #Strength
-				  //7 #Experience
-				  //8 #Entrenchment
-				  //9 #Fuel
-				  //10 #Ammo
-				  //11 #Auxiliary
+            else
+            {
+                if ( !flag_unit_load_started )
+                {
+                    /* units */
+                    sprintf( log_str, tr("Loading Units") );
+                    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                    units = list_create( LIST_AUTO_DELETE, unit_delete );
+                    /* load core units from earlier scenario or create reinf list - unit status is checked elsewhere */
+                    if (camp_loaded > 1 && config.use_core_units)
+                    {
+                        Unit *entry;
+                        list_reset( reinf );
+                        while ( ( entry = list_next( reinf ) ) )
+                            if ( (camp_loaded == CONTINUE_CAMPAIGN) || ((camp_loaded == RESTART_CAMPAIGN) && entry->core == STARTING_CORE) )
+                            {
+                                entry->nation = nation_find_by_id( entry->prop.nation );
+                                if ( ( entry->player = player_get_by_nation( entry->nation ) ) == 0 ) {
+                                    fprintf( stderr, tr("%s: no player controls this nation\n"), entry->nation->name );
+                                }
+                                entry->orient = entry->player->orient;
+                                entry->core = STARTING_CORE;
+                                unit_reset_attributes(entry);
+                                if (camp_loaded != NO_CAMPAIGN)
+                                {
+                                    unit = unit_duplicate( entry,0 );
+                                    unit->killed = 2;
+                                    /* put unit to available units list */
+                                    list_add( units, unit );
+                                }
+                                entry->core = CORE;
+                            }
+                    }
+                    else
+                        reinf = list_create( LIST_AUTO_DELETE, unit_delete );
+                    avail_units = list_create( LIST_AUTO_DELETE, unit_delete );
+                    vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
 
-				  where_add_new=add_unit_type(atoi(tokens[4]),atoi(tokens[11]));
+                    flag_unit_load_started = 1;
+                }
+                /* unit type */
+                if ( ( unit_prop = unit_lib_find( tokens[1] ) ) == 0 ) {
+                    fprintf( stderr, tr("%s: unit entry not found\n"), tokens[1] );
+                    goto failure;
+                }
+                memset( &unit_base, 0, sizeof( Unit ) );
+                /* nation & player */
+                if ( ( unit_base.nation = nation_find_by_id( atoi(tokens[5]) - 1 ) ) == 0 ) {
+                    fprintf( stderr, tr("%s: not a nation\n"), tokens[5] );
+                    goto failure;
+                }
+                if ( ( unit_base.player = player_get_by_nation( unit_base.nation ) ) == 0 ) {
+                    fprintf( stderr, tr("%s: no player controls this nation\n"), unit_base.nation->name );
+                    goto failure;
+                }
+//                fprintf( stderr, "%s %s %s\n", unit_prop->name, unit_base.nation->name, unit_base.player->name );
+                /* name */
+                unit_set_generic_name( &unit_base, unit_ref + 1, unit_prop->name );
+                /* delay */
+                unit_delayed = 0;
+                /* position */
+                error=sscanf(tokens[0],"(%8d:%8d)",&unit_base.x,&unit_base.y);
+                if (x>=map_w || y>=map_h || x<0 || y<0) //this is an error!
+                {
+                    printf("Warning. Ignoring line %d. Check unit x,y !\n",lines);
+                }
+                if ( !unit_delayed && ( unit_base.x <= 0 || unit_base.y <= 0 || unit_base.x >= map_w - 1 || unit_base.y >= map_h - 1 ) ) {
+                    fprintf( stderr, tr("%s: out of map: ignored\n"), unit_base.name );
+                    continue;  
+                }
+                /* strength, entrenchment, experience */
+                unit_base.str = atoi(tokens[6]);
+                if (unit_base.str > 10 )
+                    unit_base.max_str = 10;
+                else
+                    unit_base.max_str = unit_base.str;
+                unit_base.entr = atoi(tokens[8]);
+                unit_base.exp_level = atoi(tokens[7])/100;
+                /* transporter */
+                trsp_prop = 0;
+                trsp_prop = unit_lib_find( tokens[2] );
+                /* core */
+                unit_base.core = !atoi(tokens[11]);
+                if ( !config.use_core_units )
+                    unit_base.core = 0;
+//                fprintf( stderr, "%s %d\n", unit_prop->name, unit_base.core );
+                /* orientation */
+                unit_base.orient = unit_base.player->orient;
+                /* tag if set */
+                unit_base.tag[0] = 0;
+                /* actual unit */
+                if ( !(unit_base.player->ctrl == PLAYER_CTRL_HUMAN && auxiliary_units_count >= 
+                       unit_base.player->unit_limit - unit_base.player->core_limit) ||
+                       ( (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) && config.use_core_units ) )
+                {
+                    unit = unit_create( unit_prop, trsp_prop, &unit_base );
+                    /* put unit to active or reinforcements list or available units list */
+                    if ( !unit_delayed ) {
+                        list_add( units, unit );
+                        /* add unit to map */
+                        map_insert_unit( unit );
+                    }
+                }
+                else if (config.purchase == NO_PURCHASE) /* no fixed reinfs with purchase enabled */
+                    list_add( reinf, unit );
+                /* adjust transporter count */
+                if ( unit->embark == EMBARK_SEA ) {
+                    unit->player->sea_trsp_count++;
+                    unit->player->sea_trsp_used++;
+                }
+                else
+                    if ( unit->embark == EMBARK_AIR ) {
+                        unit->player->air_trsp_count++;
+                        unit->player->air_trsp_used++;
+                    }
+                unit_ref++;
+                if (unit_base.player->ctrl == PLAYER_CTRL_HUMAN)
+                    auxiliary_units_count++;
+/*                        all_units[where_add_new].unum=atoi(tokens[1]);
+                        all_units[where_add_new].orgtnum=atoi(tokens[2]);
+                        all_units[where_add_new].country=atoi(tokens[5]);
+                        all_units[where_add_new].auxtnum=atoi(tokens[3]);
 
-				    error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
-				    if (x>=mapx || y>=mapy || x<0 || y<0) //this is an error!
-			         {
-						 printf("Warning. Ignoring line %d. Check unit x,y !\n",lines);
-			         }
-				    else
-				    {
-						all_units[where_add_new].unum=atoi(tokens[1]);
-						all_units[where_add_new].orgtnum=atoi(tokens[2]);
-						all_units[where_add_new].country=atoi(tokens[5]);
-						all_units[where_add_new].auxtnum=atoi(tokens[3]);
-
-						all_units[where_add_new].x=x;
+                        all_units[where_add_new].x=x;
 						all_units[where_add_new].y=y;
 						all_units[where_add_new].str=atoi(tokens[6]);
 						all_units[where_add_new].exp=atoi(tokens[7])/100;
@@ -962,40 +1122,32 @@ int load_pgf_pgscn(char *fullName, int scenNumber){
 						all_units[where_add_new].fuel=atoi(tokens[9]);
 						all_units[where_add_new].ammo=atoi(tokens[10]);
 
-						//place on map
+						//place on mapflag_unit_load_started
 						 unum=all_units[where_add_new].unum;
 						 if (equip[unum][GAF]) //1 if air unit
 						   map[x][y].auidx=total_units;
 						 else
 						   map[x][y].guidx=total_units;
 
-						total_units++;
+						total_units++;*/
 				    }
 			  }
-			 //printf(":%d:%d\n",block,token);
-			  //printf("%d:%s\n",block,line);
 			  continue;
-*/
     }
 
-    fclose(inf);
-/*
-		scn_buffer[CORE_UNITS]=total_axis_core;
-		scn_buffer[ALLIED_UNITS]=total_allied_core;
-		scn_buffer[AUX_UNITS]=total_axis_aux;
-		scn_buffer[AUX_ALLIED_UNITS]=total_allied_aux;*/
-/*
-		printf("total_units=%d\n",total_units);
-		printf("total_axis_core=%d\n",total_axis_core);
-		printf("total_axis_aux=%d\n",total_axis_aux);
-		printf("total_allied_core=%d\n",total_allied_core);
-		printf("total_allied_aux=%d\n",total_allied_aux);
-*/
-	 // printf("block4_lines=%d\nblock5_lines=%d\nblock7_lines=%d\nblock9_lines=%d\n",block4_lines,block5_lines,block7_lines,block9_lines);
-    sprintf( log_str, "PGF scenario %s loaded.", fullName );
-    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+    casualties = calloc( scen_info->player_count * unit_class_count, sizeof casualties[0] );
+    deploy_turn = config.deploy_turn;
+
+    /* check which nations may do purchase for this scenario */
+    update_nations_purchase_flag();
 
     return 1;
+failure:
+    fclose(inf);
+    terrain_delete();
+    scen_delete();
+    if ( player ) player_delete( player );
+    return 0;
 }
 
 char *load_pgf_pgscn_info( const char *fname, const char *path )

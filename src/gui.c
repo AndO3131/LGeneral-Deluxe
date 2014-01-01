@@ -288,7 +288,7 @@ int gui_load( char *dir )
         goto failure;
     frame_hide( gui->finfo, 1 );
     /* scenario info */
-    if ( ( gui->sinfo = frame_create( gui_create_frame( 300, 260 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->sinfo = frame_create( gui_create_frame( 400, 360 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     frame_hide( gui->sinfo, 1 );
     /* confirm window */

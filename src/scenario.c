@@ -89,7 +89,7 @@ char scen_message[128] = ""; /* the final scenario message is saved here */
 int vcond_check_type = 0;   /* test victory conditions this turn */
 VCond *vconds = 0;          /* victory conditions */
 int vcond_count = 0;
-static int *casualties;	/* sum of casualties grouped by unit class and player */
+int *casualties;	/* sum of casualties grouped by unit class and player */
 
 /*
 ====================================================================
@@ -162,7 +162,7 @@ static int subcond_check( VSubCond *cond )
 /** Set no_purchase for all nations that either have no purchasable
  * units in current unit library or have neither flag nor unit under
  * control (thus are not present in this scenario). */
-static void update_nations_purchase_flag()
+void update_nations_purchase_flag()
 {
 	int i, x, y;
 	Unit_Lib_Entry *e = NULL;
@@ -824,7 +824,7 @@ int scen_load( char *fname )
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn( fname, path );
     else if ( strcmp( extension, "pgscn" ) == 0 )
-        return load_pgf_pgscn( path, atoi( fname ) );
+        return load_pgf_pgscn( fname, path, atoi( fname ) );
     return 0;
 }
 

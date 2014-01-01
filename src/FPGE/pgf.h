@@ -38,7 +38,7 @@ extern unsigned short axis_experience;
 extern unsigned short allied_experience;
 
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line);
-int load_pgf_pgscn(char *fullName, int scenNumber);
+int load_pgf_pgscn(char *fname, char *fullName, int scenNumber);
 char *load_pgf_pgscn_info( const char *fname, const char *path );
 //int load_pgf_equipment(char *fname);
 //int save_pgf_pgscn(int scn_number, int show_info, int save_type, int hide_names, int,int );

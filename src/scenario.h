@@ -165,6 +165,11 @@ enum {
 };
 void scen_prep_unit( Unit *unit, int type );
 
+/** Set no_purchase for all nations that either have no purchasable
+ * units in current unit library or have neither flag nor unit under
+ * control (thus are not present in this scenario). */
+void update_nations_purchase_flag();
+
 /*
 ====================================================================
 Check if the victory conditions are fullfilled and if so

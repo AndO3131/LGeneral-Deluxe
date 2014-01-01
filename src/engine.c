@@ -3286,7 +3286,7 @@ static void engine_handle_next_action( int *reinit )
             {
                 char time[MAX_NAME];
                 currentDateTime( time );
-                snprintf( name, MAX_NAME, "(%s) %s, turn %i", time, scen_info->fname, turn + 1 );
+                snprintf( name, MAX_NAME, "(%s) %s, turn %i", time, scen_info->name, turn + 1 );
             }
             else
             {
