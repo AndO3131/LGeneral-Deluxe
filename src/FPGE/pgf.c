@@ -986,6 +986,23 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             {
                 if ( atoi(tokens[1]) == 0 )
                 {
+                    strcpy_lt( vconds[i].result, "minor", 63 );
+                    strcpy_lt( vconds[i].message, tokens[0], 127 );
+                    vconds[i].sub_and_count = count_characters( tokens[3], '(' ) + 1;
+                    /* create subconditions */
+                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                    j = 0;
+                    vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
+                    vconds[i].subconds_and[j].count = atoi( tokens[2] );
+                    vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
+                    for ( j = 1; j < vconds[i].sub_and_count; j++ )
+                    {
+                        vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
+                        sscanf( tokens[3], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
+                        sprintf( tokens[3], strchr( tokens[3], ')' ) );
+                        sprintf( tokens[3], strchr( tokens[3], '(' ) );
+                        vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
+                    }
                 }
                 else if ( atoi(tokens[1]) == 1 )
                 {
