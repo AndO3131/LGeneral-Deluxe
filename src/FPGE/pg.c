@@ -106,8 +106,8 @@ int parse_set_file(FILE *inf, int offset)
         map_delete();
         return 0;
     }
-    search_file_name_exact( path, "Scenario/MAPNAMES.STR", config.mod_name );
-    if ( (name_file = fopen_ic( path, "r" )) == NULL )
+    search_file_name_exact( path, "Scenario/mapnames.str", config.mod_name );
+    if ( (name_file = fopen( path, "r" )) == NULL )
     {
         return 0;
     }

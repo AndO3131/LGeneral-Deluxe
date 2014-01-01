@@ -73,15 +73,31 @@ void strlwr( char *string)
     }
 }
 
+/* Count number of character occurences in input str */
+int count_characters( const char *str, char character )
+{
+    const char *p = str;
+    int count = 0;
+
+    do
+    {
+        if (*p == character)
+            count++;
+    } while (*(p++));
+
+    return count;
+}
+
 /** Try to open file with lowercase name, then with uppercase name.
  * If both fails return NULL. Path itself is considered to be in
  * correct case, only the name after last '/' is modified. */
-FILE *fopen_ic( const char *_path, const char *mode )
+FILE *fopen_ic( char *path, const char *mode )
 {
 	FILE *file = NULL;
-	char path[strlen(_path)+1], *start, *ptr;
+	char //path[strlen(_path)+1],
+     *start, *ptr;
 	
-	strcpy(path,_path); /* we need to copy since we modify it */
+//	strcpy(path,_path); /* we need to copy since we modify it */
 	
 	/* start behind file separator */
 	if ((start = strrchr(path,'/')) == NULL) /* Linux */

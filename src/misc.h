@@ -73,10 +73,13 @@ struct _Font;
 /* Definition of non-standard function */
 void strlwr( char *string);
 
+/* Count number of character occurences in input str */
+int count_characters( const char *str, char character );
+
 /** Try to open file with lowercase name, then with uppercase name.
  * If both fails return NULL. Path itself is considered to be in
  * correct case, only the name after last '/' is modified. */
-FILE *fopen_ic( const char *path, const char *mode );
+FILE *fopen_ic( char *path, const char *mode );
 
 /* ascii-codes of game-related symbols */
 enum GameSymbols {

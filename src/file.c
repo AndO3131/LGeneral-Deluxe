@@ -287,14 +287,15 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
 Check if a file exist.
 ====================================================================
 */
-int file_exists( const char *path )
+int file_exists( char *path )
 {
     char full_path[MAX_PATH];
     get_full_bmp_path( full_path, path );
-    FILE *f = fopen( full_path, "r" );
+    FILE *f = fopen_ic( full_path, "r" );
     if ( f )
     {
         fclose(f);
+        strcpy( path, full_path );
         return 1;
     }
     return 0;

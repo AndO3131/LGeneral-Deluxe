@@ -66,6 +66,9 @@ extern VCond *vconds;
 extern int vcond_count;
 extern int *casualties;	/* sum of casualties grouped by unit class and player */
 extern int deploy_turn;
+extern char scen_result[64];  /* the scenario result is saved here */
+extern char scen_message[128]; /* the final scenario message is saved here */
+extern int vcond_check_type;
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
@@ -742,13 +745,13 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         player->core_limit = -1;
                 }
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
-
-                player->id = strdup( "axis" );
-                player->name = strdup(trd(domain, "Axis"));
                 if (atoi(tokens[5])==0)
                     player->orient = UNIT_ORIENT_RIGHT;
                 else
                     player->orient = UNIT_ORIENT_LEFT;
+
+                player->id = strdup( "axis" );
+                player->name = strdup(trd(domain, "Axis"));
 
                 player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
@@ -799,13 +802,13 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         player->core_limit = -1;
                 }
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
-
-                player->id = strdup( "allies" );
-                player->name = strdup(trd(domain, "Allies"));
                 if (atoi(tokens[5])==1)
                     player->orient = UNIT_ORIENT_LEFT;
                 else
                     player->orient = UNIT_ORIENT_RIGHT;
+
+                player->id = strdup( "allies" );
+                player->name = strdup(trd(domain, "Allies"));
 //                    fprintf( stderr, "2nd player: %s\n", player->name );
 
                 player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
@@ -928,28 +931,76 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         //Block#7   : Victory conditions: 3 col, rows 2
         if (block == 7 && token > 1)
         {
-            /* create conditions *
+            /* create conditions */
             if ( vconds == 0 )
             {
+                /* victory conditions */
+                scen_result[0] = 0;
+                scen_message[0] = 0;
+                sprintf( log_str, tr("Loading Victory Conditions") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
                 vcond_count = 2;
                 vconds = calloc( vcond_count, sizeof( VCond ) );
                 i = 1;
+                /* check type */
+                vcond_check_type = VCOND_CHECK_EVERY_TURN;
+                if ( atoi(tokens[1]) == 0 )
+                {
+                    vcond_check_type = VCOND_CHECK_LAST_TURN;
+                }
             }
-            if ( ( strcmp( tokens[0], "AXIS_VICTORY" ) == 0 ) && !allies_move_first )
+            if ( ( strcmp( tokens[0], "AXIS VICTORY" ) == 0 ) && !allies_move_first )
             {
-                vconds[i].sub_and_count = 1;
-                vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
-                vconds[i].subconds_and[0].player = player_get_by_id( "axis" );
+                if ( atoi(tokens[1]) == 0 )
+                {
+                    strcpy_lt( vconds[i].result, "minor", 63 );
+                    strcpy_lt( vconds[i].message, tokens[0], 127 );
+                    vconds[i].sub_and_count = count_characters( tokens[3], '(' ) + 1;
+                    /* create subconditions */
+                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                    j = 0;
+                    vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
+                    vconds[i].subconds_and[j].count = atoi( tokens[2] );
+                    vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
+                    for ( j = 1; j < vconds[i].sub_and_count; j++ )
+                    {
+                        vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
+                        sscanf( tokens[3], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
+                        sprintf( tokens[3], strchr( tokens[3], ')' ) );
+                        sprintf( tokens[3], strchr( tokens[3], '(' ) );
+                        vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
+                    }
+                }
+                else if ( atoi(tokens[1]) == 1 )
+                {
+                    strcpy_lt( vconds[i].result, "minor", 63 );
+                    strcpy_lt( vconds[i].message, tokens[0], 127 );
+                    vconds[i].sub_and_count = 1;
+                    /* create subconditions */
+                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                    vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
+                    vconds[i].subconds_and[0].player = player_get_by_id( "axis" );
+                }
             }
-            else if ( strcmp( tokens[0], "ALLIED_VICTORY" ) == 0 && allies_move_first )
+            else if ( strcmp( tokens[0], "ALLIED VICTORY" ) == 0 && allies_move_first )
             {
-                vconds[i].sub_and_count = 1;
-                vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
-                vconds[i].subconds_and[0].player = player_get_by_id( "allies" );
+                if ( atoi(tokens[1]) == 0 )
+                {
+                }
+                else if ( atoi(tokens[1]) == 1 )
+                {
+                    strcpy_lt( vconds[i].result, "minor", 63 );
+                    strcpy_lt( vconds[i].message, tokens[0], 127 );
+                    vconds[i].sub_and_count = 1;
+                    /* create subconditions */
+                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                    vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
+                    vconds[i].subconds_and[0].player = player_get_by_id( "allies" );
+                }
             }
-            /* else condition (used if no other condition is fullfilled and scenario ends) *
+            /* else condition (used if no other condition is fullfilled and scenario ends) */
             strcpy( vconds[0].result, "defeat" );
-            strcpy( vconds[0].message, tr("Defeat") );*/
+            strcpy( vconds[0].message, tr("Defeat") );
         }
         //Block#8  +: Deploy hexes: 1 col, rows - many
         if (block==8 && strlen(tokens[0])>0)
