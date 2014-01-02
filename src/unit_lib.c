@@ -52,7 +52,8 @@ Unit_Class *unit_classes= 0;
 int unit_class_count = 0;
 int icon_type;
 SDL_Surface *icons = NULL;
-int icon_width, icon_height, icon_columns;
+int icon_width = 0, icon_height = 0, icon_columns;
+int outside_icon_width = 0, outside_icon_height = 0;
 
 /*
 ====================================================================
@@ -323,24 +324,27 @@ int unit_lib_load( char *fname, int main )
         if ( !parser_get_value( pd, "strength_icons", &str, 0 ) ) goto parser_failure;
         sprintf( transitionPath, "Graphics/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
-        if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
-        if ( !parser_get_int( pd, "strength_icon_width", &unit_info_icons->str_w ) ) goto parser_failure;
-        if ( !parser_get_int( pd, "strength_icon_height", &unit_info_icons->str_h ) ) goto parser_failure;
+        unit_info_icons->str_w = 16;
+        unit_info_icons->str_h = 12;
+        if ( !parser_get_int( pd, "strength_icon_width", &outside_icon_width ) ) goto parser_failure;
+        if ( !parser_get_int( pd, "strength_icon_height", &outside_icon_height ) ) goto parser_failure;
+        if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE, outside_icon_width, outside_icon_height,
+                                                 unit_info_icons->str_w, unit_info_icons->str_h ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "attack_icon", &str, 0 ) ) goto parser_failure;
         sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
-        if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
+        if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "move_icon", &str, 0 ) ) goto parser_failure;
         sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
-        if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
+        if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
         {
             search_file_name( str, 0, "pg_guard", "", 'i' );
         }
         sprintf( transitionPath, "Theme/%s", str );
         search_file_name_exact( path, transitionPath, config.mod_name );
-        if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
+        if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
     }
     /* icons */
     if ( !parser_get_value( pd, "icon_type", &str, 0 ) ) goto parser_failure;
@@ -357,7 +361,7 @@ int unit_lib_load( char *fname, int main )
     if ( !parser_get_int( pd, "icon_width", &icon_width ) ) goto parser_failure;
     if ( !parser_get_int( pd, "icon_height", &icon_height ) ) goto parser_failure;
     if ( !parser_get_int( pd, "icon_columns", &icon_columns ) ) goto parser_failure;
-    if ( ( icons = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure; 
+    if ( ( icons = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
     if ( main != UNIT_LIB_BASE_DATA ) {
         /* unit lib entries */
         if ( !parser_get_entries( pd, "unit_lib", &entries ) ) goto parser_failure;

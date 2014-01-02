@@ -93,7 +93,7 @@ static void show_title()
     SDL_Surface *back = 0;
     char path[MAX_PATH];
     search_file_name( path, 0,"Theme/title", "", 'i' );
-    if ( ( back = load_surf( path, SDL_SWSURFACE ) ) ) {
+    if ( ( back = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) ) {
         FULL_DEST( sdl.screen );
         FULL_SOURCE( back );
         blit_surf();

@@ -130,32 +130,32 @@ int terrain_load( char *fname )
     if ( !parser_get_value( pd, "fog", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->fog = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
+    if ( ( terrain_icons->fog = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "danger", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->danger = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
+    if ( ( terrain_icons->danger = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "grid", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->grid = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
+    if ( ( terrain_icons->grid = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "frame", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->select = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto failure;
+    if ( ( terrain_icons->select = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "crosshair", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->cross = anim_create( load_surf( path, SDL_SWSURFACE ), 1000/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( terrain_icons->cross = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 1000/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->cross, 1 );
     if ( !parser_get_value( pd, "explosion", &str, 0 ) ) goto parser_failure;
     sprintf( transitionPath, "Graphics/%s", str );
     search_file_name_exact( path, transitionPath, config.mod_name );
-    if ( ( terrain_icons->expl1 = anim_create( load_surf( path, SDL_SWSURFACE ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( terrain_icons->expl1 = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->expl1, 1 );
-    if ( ( terrain_icons->expl2 = anim_create( load_surf( path, SDL_SWSURFACE ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( terrain_icons->expl2 = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->expl2, 1 );
     /* terrain sounds */
@@ -192,7 +192,7 @@ int terrain_load( char *fname )
         else {
             sprintf( transitionPath, "Graphics/%s", str );
             search_file_name_exact( path, transitionPath, config.mod_name );
-            if ( ( terrain_images->images[j] = load_surf( path, SDL_SWSURFACE ) ) == 0 ) goto parser_failure;
+            if ( ( terrain_images->images[j] = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto parser_failure;
             SDL_SetColorKey( terrain_images->images[j], SDL_SRCCOLORKEY, 
                              get_pixel( terrain_images->images[j], 0, 0 ) );
         }

@@ -46,7 +46,8 @@ Nations
 Nation *nations = 0;
 int nation_count = 0;
 SDL_Surface *nation_flags = 0;
-int nation_flag_width = 0, nation_flag_height = 0;
+int nation_flag_width = 20, nation_flag_height = 13;
+int outside_nation_flag_width = 0, outside_nation_flag_height = 0;
 
 /*
 ====================================================================
@@ -66,12 +67,14 @@ int nations_load( char *fname )
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
     /* icon size */
-    if ( !parser_get_int( pd, "icon_width", &nation_flag_width ) ) goto failure;
-    if ( !parser_get_int( pd, "icon_height", &nation_flag_height ) ) goto parser_failure;
+    if ( !parser_get_int( pd, "icon_width", &outside_nation_flag_width ) ) goto failure;
+    if ( !parser_get_int( pd, "icon_height", &outside_nation_flag_height ) ) goto parser_failure;
     /* icons */
     if ( !parser_get_value( pd, "icons", &str, 0 ) ) goto parser_failure;
     search_file_name_exact( path, str, config.mod_name );
-    if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE ) ) == 0 ) {
+    if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE, 
+           outside_nation_flag_width, outside_nation_flag_height, nation_flag_width, nation_flag_height ) ) == 0 )
+    {
         fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
         goto failure;
     }
@@ -85,7 +88,7 @@ int nations_load( char *fname )
         if ( !parser_get_localized_string( sub, "name", domain, &nations[i].name ) ) goto parser_failure;
         if ( !parser_get_int( sub, "icon_id", &nations[i].flag_offset ) ) goto parser_failure;
         if ( !parser_get_int( sub, "strength_row", &nations[i].strength_row ) ) goto parser_failure;
-        nations[i].flag_offset *= nation_flag_height;
+        nations[i].flag_offset *= nation_flag_width;
         i++;
     }
     parser_free( &pd );
@@ -174,12 +177,12 @@ void nation_draw_flag( Nation *nation, SDL_Surface *surf, int x, int y, int obj 
         DEST( surf, x, y, nation_flag_width, nation_flag_height );
         fill_surf( 0xffff00 );
         DEST( surf, x + 1, y + 1, nation_flag_width - 2, nation_flag_height - 2 );
-        SOURCE( nation_flags, 1, nation->flag_offset + 1 );
+        SOURCE( nation_flags, nation->flag_offset + 1, 1 );
         blit_surf();
     }
     else {
-        DEST( surf, x, y, nation_flag_width, nation_flag_height );
-        SOURCE( nation_flags, 0, nation->flag_offset );
+        DEST( surf, x, y, 20, 13 );
+        SOURCE( nation_flags, nation->flag_offset, 0 );
         blit_surf();
     }
 }
@@ -191,6 +194,6 @@ Get a specific pixel value in a nation's flag.
 */
 Uint32 nation_get_flag_pixel( Nation *nation, int x, int y )
 {
-    return get_pixel( nation_flags, x, nation->flag_offset + y );
+    return get_pixel( nation_flags, nation->flag_offset + x, y );
 }
 

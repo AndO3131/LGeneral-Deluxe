@@ -193,7 +193,7 @@ void strat_map_create()
     /* resized nation flags */
     strat_flag_width = strat_tile_width - 2;
     strat_flag_height = strat_tile_height - 2;
-    strat_flags = create_surf( strat_flag_width, strat_flag_height * nation_count, SDL_SWSURFACE );
+    strat_flags = create_surf( strat_flag_width * nation_count, strat_flag_height, SDL_SWSURFACE );
     /* scale down */
     for ( i = 0; i < nation_count; i++ )
         for ( x = 0; x < strat_flag_width; x++ )
@@ -201,7 +201,7 @@ void strat_map_create()
                 pixel = nation_get_flag_pixel( &nations[i], 
                                                nation_flag_width * x / strat_flag_width,
                                                nation_flag_height * y / strat_flag_height );
-                set_pixel( strat_flags, x, i * strat_flag_height + y, pixel );
+                set_pixel( strat_flags, i * strat_flag_width + x, y, pixel );
             }
     /* measurements */
     width = ( map_w - 1 ) * strat_tile_x_offset;
@@ -322,7 +322,7 @@ void strat_map_update_unit_layer()
                           sm_x_offset + i * strat_tile_x_offset + 1,
                           sm_y_offset + j * strat_tile_height + ( i & 1 ) * strat_tile_y_offset + 1,
                           strat_flag_width, strat_flag_height );
-                    SOURCE( strat_flags, 0, nation_get_index( map_tile( i, j )->nation ) * strat_flag_height );
+                    SOURCE( strat_flags, nation_get_index( map_tile( i, j )->nation ) * strat_flag_width, 0  );
                     blit_surf();
                 }
             }
@@ -338,7 +338,7 @@ void strat_map_update_unit_layer()
                       sm_x_offset + i * strat_tile_x_offset + 1,
                       sm_y_offset + j * strat_tile_height + ( i & 1 ) * strat_tile_y_offset + 1,
                       strat_flag_width, strat_flag_height );
-                SOURCE( strat_flags, 0, nation_get_index( unit->nation ) * strat_flag_height );
+                SOURCE( strat_flags, nation_get_index( unit->nation ) * strat_flag_width, 0 );
                 blit_surf();
                 if ( cur_player )
                 if ( cur_player == unit->player )
@@ -431,7 +431,7 @@ void strat_map_blink()
     while ( ( pos = list_next( dots ) ) ) {
         if ( blink_on ) {
             DEST( sdl.screen, screen_x + pos->x, screen_y + pos->y, strat_flag_width, strat_flag_height );
-            SOURCE( strat_flags, 0, nation_get_index( pos->nation ) * strat_flag_height );
+            SOURCE( strat_flags, nation_get_index( pos->nation ) * strat_flag_width, 0 );
             blit_surf();
         }
         else {

@@ -6,8 +6,8 @@ icon_width»60
 icon_height»50
 icon_columns»20
 strength_icons»strength.bmp
-strength_icon_width»16
-strength_icon_height»12
+strength_icon_width»60
+strength_icon_height»50
 attack_icon»pg_attack.bmp
 move_icon»pg_move.bmp
 guard_icon»pg_guard.bmp

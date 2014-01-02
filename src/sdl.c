@@ -46,7 +46,8 @@ inline void get_full_bmp_path( char *full_path, const char *file_name )
 /*
     load a surface from file putting it in soft or hardware mem
 */
-SDL_Surface* load_surf(const char *fname, int f)
+SDL_Surface* load_surf(const char *fname, int f, int outside_width, int outside_height,
+                       int inside_width, int inside_height)
 {
     SDL_Surface *buf;
     SDL_Surface *new_sur;
@@ -74,9 +75,59 @@ SDL_Surface* load_surf(const char *fname, int f)
     SDL_BlitSurface(buf, 0, new_sur, 0);
     SDL_FreeSurface(buf);*/
     spf = SDL_GetVideoSurface()->format;
-    new_sur = SDL_ConvertSurface( buf, spf, f );
+
+    if ( outside_width == inside_width || outside_height == inside_height )
+    {
+        new_sur = SDL_ConvertSurface( buf, spf, f );
+        SDL_SetColorKey( new_sur, SDL_SRCCOLORKEY, 0x0 );
+    }
+    else
+    {
+        int x = 0, y = 0, number_x, number_y, i, j, internal_i, internal_j;
+//        SDL_SetColorKey( buf, SDL_SRCCOLORKEY, 0x0 );
+        SDL_Surface *temp;
+        Uint32 pixel;
+        number_x = buf->w / outside_width;
+        number_y = buf->h / outside_height;
+        temp = create_surf( inside_width * number_x, inside_height * number_y, SDL_SWSURFACE);
+        /* cutting edges */
+        while ( get_pixel( buf, x, y ) == 0xffe1e1 )
+        {
+            if ( x < buf->w + 1 )
+                x++;
+            else
+            {
+                x = 0;
+                y++;
+            }
+        }
+        /* copy images */
+        for ( i = 0; i < number_x; i++ )
+            for ( j = 0; j < number_y; j++ )
+                /* change 0x0 (black) and 0xffe1e1 (pink) colors */
+                for ( internal_i = 0; internal_i < inside_width; internal_i++ )
+                    for ( internal_j = 0; internal_j < inside_height; internal_j++ )
+                    {
+                        pixel = get_pixel( buf, i * outside_width + x + internal_i, j * outside_height + y + internal_j );
+                        switch (pixel)
+                        {
+                            case 0x0:      set_pixel( temp, i * inside_width + internal_i,
+                                                      j * inside_height + internal_j, 0x1 );
+                                           break;
+                            case 0xffe1e1: set_pixel( temp, i * inside_width + internal_i,
+                                                      j * inside_height + internal_j, 0x0 );
+                                           break;
+                            default:       set_pixel( temp, i * inside_width + internal_i,
+                                           j * inside_height + internal_j, pixel );
+                                           break;
+                        }                            
+                    }
+
+        new_sur = SDL_ConvertSurface( temp, spf, f );
+        SDL_SetColorKey( new_sur, SDL_SRCCOLORKEY, 0x0 );
+        SDL_FreeSurface( temp );
+    }
     SDL_FreeSurface( buf );
-    SDL_SetColorKey( new_sur, SDL_SRCCOLORKEY, 0x0 );
     SDL_SetAlpha( new_sur, 0, 0 ); /* no alpha */
     return new_sur;
 }
@@ -276,7 +327,7 @@ void font_load_glyphs(Font *font, const char *fname)
 
     get_full_font_path( path, fname );
 
-    if ((new_glyphs = load_surf(path, SDL_SWSURFACE)) == 0) {
+    if ((new_glyphs = load_surf(path, SDL_SWSURFACE, 0, 0, 0, 0)) == 0) {
         fprintf(stderr, tr("Cannot load new glyphs surface: %s\n"), SDL_GetError());
         exit(1);
     }

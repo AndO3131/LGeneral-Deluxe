@@ -41,7 +41,8 @@ typedef struct {
 
 // Sdl Surface //
 #define SDL_NONFATAL 0x10000000
-SDL_Surface* load_surf(const char *fname, int f);
+SDL_Surface* load_surf(const char *fname, int f, int outside_width, int outside_height,
+                       int inside_width, int inside_height);
 SDL_Surface* create_surf(int w, int h, int f);
 void free_surf( SDL_Surface **surf );
 int  disp_format(SDL_Surface *sur);
