@@ -1,3 +1,4 @@
+- fix for ground transporter loss when unit sea embarks (2014/01/02 AndO3131)
 - player can choose folder to load game data from (2013/12/19 AndO3131)
 - load/save screen allowing multiple saves (2013/12/18 AndO3131)
 - NSIS Installer added (2013/12/11 mas1904)
