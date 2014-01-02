@@ -215,7 +215,7 @@ int scen_load_lgscn( const char *fname, const char *path )
     char *str, *lib, *temp;
     char *domain;
     Player *player = 0;
-    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0;
+    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0, *land_trsp_prop = 0;
     Unit *unit;
     Unit unit_base; /* used to store values for unit */
     int unit_delayed = 0;
@@ -645,6 +645,9 @@ int scen_load_lgscn( const char *fname, const char *path )
         trsp_prop = 0;
         if ( parser_get_value( sub, "trsp", &str, 0 ) && !STRCMP( str, "none" ) )
             trsp_prop = unit_lib_find( str );
+        land_trsp_prop = 0;
+        if ( parser_get_value( sub, "land_trsp", &str, 0 ) && !STRCMP( str, "none" ) )
+            land_trsp_prop = unit_lib_find( str );
         /* core */
         if ( !parser_get_int( sub, "core", &unit_base.core ) ) goto parser_failure;
         if ( !config.use_core_units )
@@ -673,7 +676,7 @@ int scen_load_lgscn( const char *fname, const char *path )
                unit_base.player->unit_limit - unit_base.player->core_limit) ||
                ( (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) && config.use_core_units ) )
         {
-            unit = unit_create( unit_prop, trsp_prop, &unit_base );
+            unit = unit_create( unit_prop, trsp_prop, land_trsp_prop, &unit_base );
             /* put unit to active or reinforcements list or available units list */
             if ( !unit_delayed ) {
                 list_add( units, unit );

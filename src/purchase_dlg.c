@@ -527,7 +527,7 @@ void player_purchase_unit( Player *player, Nation *nation, int type,
 	unit_base.orient = cur_player->orient;
 	
 	/* create unit and push to reinf list */
-	if ((unit = unit_create( unit_prop, trsp_prop, &unit_base )) == NULL) {
+	if ((unit = unit_create( unit_prop, trsp_prop, 0, &unit_base )) == NULL) {
 		fprintf( stderr, tr("Out of memory\n") );
 		return;
 	}

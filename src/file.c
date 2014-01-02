@@ -347,7 +347,7 @@ for further use.
 'o' - scenarios (lgscn, pgscn)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *extension, char *name, char *modFolder, char type )
+int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type )
 {
     int i = 0;
     char pathTemp[MAX_PATH];

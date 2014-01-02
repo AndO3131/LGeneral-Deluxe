@@ -545,17 +545,14 @@ int load_pgf_equipment(char *fullName){
 int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
     FILE *inf;
-    char path[MAX_PATH];
     char line[1024],tokens[20][1024], log_str[256], SET_file[MAX_PATH], STM_file[MAX_PATH];
     int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines, flag_map_loaded = 0, flag_unit_load_started = 0;
-    int air_trsp_player1, air_trsp_player2, sea_trsp_player1, sea_trsp_player2, total_victory,where_add_new;
     unsigned char t1,t2;
     int unit_ref = 0, auxiliary_units_count = 0;
-    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0;
+    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0, *land_trsp_prop = 0;
     Unit *unit;
     Unit unit_base; /* used to store values for unit */
     int unit_delayed = 0;
-    WORD unum;
 
     scen_delete();
     player = 0;
@@ -578,9 +575,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
     //init
     //units
 
-    int total_deploy=0;
-
-    total_victory=0;
     lines=0;
 
     while (read_utf16_line_convert_to_utf8(inf,line)>=0)
@@ -763,14 +757,13 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
                 player->air_trsp_count = (unsigned char)atoi(tokens[8]);
 //                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
-                air_trsp_player1 = (unsigned char)atoi(tokens[9]);
+                player->air_trsp = unit_lib_find( tokens[9] );
 //                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
 //                s4_buffer[AXIS_AIR_TYPE+1]=(unsigned char)(atoi(tokens[9])>>8);
 
                 player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
 //                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
-                sea_trsp_player1 = (unsigned char)atoi(tokens[7]);
-//                fprintf( stderr, "Sea transport type: %d\n", sea_trsp_player1 );
+                player->sea_trsp = unit_lib_find( tokens[7] );
 //                s4_buffer[AXIS_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
 
                 player->prestige_per_turn = calloc( scen_info->turn_limit, sizeof(int));
@@ -821,13 +814,13 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
                 player->air_trsp_count = (unsigned char)atoi(tokens[8]);
 //                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
-                air_trsp_player1 = (unsigned char)atoi(tokens[9]);
+                player->air_trsp = unit_lib_find( tokens[9] );
 //                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
 //                s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned chaallies_move_firstr)(atoi(tokens[9])>>8);
 
                 player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
 //                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
-                sea_trsp_player1 = (unsigned char)atoi(tokens[7]);
+                player->sea_trsp = unit_lib_find( tokens[7] );
 //                fprintf( stderr, "Sea transport type: %d\n", sea_trsp_player1 );
 //                s4_buffer[ALLIED_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
 
@@ -897,13 +890,13 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 flag_map_loaded = 1;
             }
 
-                list_reset( players );
-                for ( i = 0; i < players->count; i++ )
-                {
-                    player = list_next( players );
-                    player->prestige_per_turn[atoi(tokens[0]) - 1] += atoi( tokens[i + 1] );
-//                    fprintf( stderr, "%s prestige: %d\n", player->name, player->prestige_per_turn[atoi(tokens[0]) - 1] );
-                }
+            list_reset( players );
+            for ( i = 0; i < players->count; i++ )
+            {
+                player = list_next( players );
+                player->prestige_per_turn[atoi(tokens[0]) - 1] += atoi( tokens[i + 1] );
+//                fprintf( stderr, "%s prestige: %d\n", player->name, player->prestige_per_turn[atoi(tokens[0]) - 1] );
+            }
         }
 /*			  //Block#5  ?: Supply hexes: 2 col, rows - many ** UNUSED **
 			  if (block == 5 && token > 1) {
@@ -1139,7 +1132,14 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 unit_base.exp_level = atoi(tokens[7])/100;
                 /* transporter */
                 trsp_prop = 0;
-                trsp_prop = unit_lib_find( tokens[2] );
+                land_trsp_prop = 0;
+                if ( atoi(tokens[3]) == 0 )
+                    trsp_prop = unit_lib_find( tokens[2] );
+                else
+                {
+                    land_trsp_prop = unit_lib_find( tokens[2] );
+                    trsp_prop = unit_lib_find( tokens[3] );
+                }
                 /* core */
                 unit_base.core = !atoi(tokens[11]);
                 if ( !config.use_core_units )
@@ -1154,7 +1154,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                        unit_base.player->unit_limit - unit_base.player->core_limit) ||
                        ( (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) && config.use_core_units ) )
                 {
-                    unit = unit_create( unit_prop, trsp_prop, &unit_base );
+                    unit = unit_create( unit_prop, trsp_prop, land_trsp_prop, &unit_base );
                     /* put unit to active or reinforcements list or available units list */
                     if ( !unit_delayed ) {
                         list_add( units, unit );
@@ -1218,7 +1218,7 @@ failure:
     return 0;
 }
 
-char *load_pgf_pgscn_info( const char *fname, const char *path )
+char *load_pgf_pgscn_info( const char *fname, char *path )
 {
     FILE *inf;
     char line[1024],tokens[20][1024], temp[MAX_PATH];//, log_str[256];
@@ -1310,8 +1310,11 @@ char *load_pgf_pgscn_info( const char *fname, const char *path )
             setup.ctrl[1] = PLAYER_CTRL_CPU;
         	setup.modules[0] = strdup( "default" );
             setup.modules[1] = strdup( "default" );
-            info = calloc( 1024, sizeof(char) );
-            snprintf( info, 1024, tr("%s##%s##%s Turns#%d Players"), name, desc, turns, 2 );
+            if ( ( info = calloc( strlen( name ) + strlen( desc ) + strlen( turns ) + 30, sizeof( char ) ) ) == 0 ) {
+                fprintf( stderr, tr("Out of memory\n") );
+                free( info );
+            }
+            sprintf( info, tr("%s##%s##%s Turns#%d Players"), name, desc, turns, 2 );
             return info;
         }
     }

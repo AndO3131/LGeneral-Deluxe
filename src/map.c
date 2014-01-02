@@ -1445,9 +1445,8 @@ void map_embark_unit( Unit *unit, int x, int y, int type, int *enemy_spotted )
     if ( type == EMBARK_SEA ) {
         /* action taken */
         unit->unused = 0;
-        /* abandon ground transporter */
-        /* FIXME! This is utterly wrong! */
-        memset( &unit->trsp_prop, 0, sizeof( Unit_Lib_Entry ) );
+        /* store ground transporter */
+        memcpy( &unit->land_trsp_prop, &unit->trsp_prop, sizeof( Unit_Lib_Entry ) );
         /* set and change to sea_tran_prop */
         memcpy( &unit->trsp_prop, cur_player->sea_trsp, sizeof( Unit_Lib_Entry ) );
         unit->sel_prop = &unit->trsp_prop;
@@ -1482,7 +1481,8 @@ void map_debark_unit( Unit *unit, int x, int y, int type, int *enemy_spotted )
         /* action taken */
         unit->unused = 0;
         /* change back to unit_prop */
-        memset( &unit->trsp_prop, 0, sizeof( Unit_Lib_Entry ) );
+        memcpy( &unit->trsp_prop, &unit->land_trsp_prop, sizeof( Unit_Lib_Entry ) );
+        memset( &unit->land_trsp_prop, 0, sizeof( Unit_Lib_Entry ) );
         unit->sel_prop = &unit->prop;
         unit->embark = EMBARK_NONE;
         /* set position */

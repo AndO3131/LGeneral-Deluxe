@@ -70,7 +70,7 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *extension, char *name, char *modFolder, char type );
+int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type );
 
 /*
 ====================================================================

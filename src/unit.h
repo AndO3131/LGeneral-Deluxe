@@ -87,6 +87,7 @@ is checked. ( 0 = no transporter, 1 = has transporter )
 typedef struct _Unit {
     Unit_Lib_Entry prop;        /* properties */
     Unit_Lib_Entry trsp_prop;   /* transporters properties */
+    Unit_Lib_Entry land_trsp_prop; /* land transporters properties (used during sea transport) */
     Unit_Lib_Entry *sel_prop;   /* selected props: either prop or trsp_prop */
     struct _Unit *backup;       /* used to backup various unit values that may temporaly change (e.g. expected losses) */
     char name[24];              /* unit name */
@@ -148,7 +149,8 @@ This function will use the passed values to create a Unit struct
 with all values set then.
 ====================================================================
 */
-Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base );
+Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop,
+                   Unit_Lib_Entry *land_trsp_prop, Unit *base );
 
 /*
 ====================================================================

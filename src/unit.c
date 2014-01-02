@@ -373,7 +373,8 @@ This function will use the passed values to create a Unit struct
 with all values set then.
 ====================================================================
 */
-Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base )
+Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop,
+                   Unit_Lib_Entry *land_trsp_prop, Unit *base )
 {
     Unit *unit = 0;
     if ( prop == 0 ) return 0;
@@ -389,6 +390,8 @@ Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base )
         if ( trsp_prop->flags & SWIMMING ) {
             unit->embark = EMBARK_SEA;
             unit->sel_prop = &unit->trsp_prop;
+            if ( land_trsp_prop )
+                memcpy( &unit->land_trsp_prop, land_trsp_prop, sizeof( Unit_Lib_Entry ) );
         }
         if ( trsp_prop->flags & FLYING ) {
             unit->embark = EMBARK_AIR;
