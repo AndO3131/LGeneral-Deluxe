@@ -86,6 +86,7 @@ enum StorageVersion {
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
     StoreCoreVersionData, /* Core army data are stored in savegame */
     StoreNewFolderStructure, /* scenarios have new folder structure */
+    StoreLandTransportData, /* land transporter on sea embarked units is saved */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -394,6 +395,13 @@ static void save_unit( FILE *file, Unit *unit )
     int i;
     for (i = 0;i < 5;i++)
         fwrite(unit->star[i], UnitBattleHonorsSize, 1, file);
+    /* land_trsp_prop */
+    save_unit_lib_entry(file, &unit->land_trsp_prop);
+    /* land_trsp_prop.id */
+    if ( unit->land_trsp_prop.id )
+        save_string( file, unit->land_trsp_prop.id );
+    else
+        save_string( file, "none" );
 }
 static void load_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
 {
@@ -618,6 +626,23 @@ Unit* load_unit( FILE *file )
 		        fread(unit->star[i], UnitBattleHonorsSize, 1, file);
 		        unit->star[i][UnitBattleHonorsSize - 1] = 0;
 		    }
+    }
+    if ( store_version >= StoreLandTransportData )
+    {
+        /* land_trsp_prop */
+        load_unit_lib_entry(file, &unit->land_trsp_prop);
+        /* land transporter */
+        str = load_string( file );
+        lib_entry = unit_lib_find( str );
+        if ( lib_entry ) {
+            unit->land_trsp_prop.id = lib_entry->id;
+            unit->land_trsp_prop.name = lib_entry->name;
+            unit->land_trsp_prop.icon = lib_entry->icon;
+            unit->land_trsp_prop.icon_tiny = lib_entry->icon_tiny;
+#ifdef WITH_SOUND
+            unit->land_trsp_prop.wav_move = lib_entry->wav_move;
+#endif
+        }
     }
     unit_adjust_icon( unit );
     unit->exp_level = unit->exp / 100;

@@ -84,7 +84,6 @@ SDL_Surface* load_surf(const char *fname, int f, int outside_width, int outside_
     else
     {
         int x = 0, y = 0, number_x, number_y, i, j, internal_i, internal_j;
-//        SDL_SetColorKey( buf, SDL_SRCCOLORKEY, 0x0 );
         SDL_Surface *temp;
         Uint32 pixel;
         number_x = buf->w / outside_width;

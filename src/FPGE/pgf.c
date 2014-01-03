@@ -560,8 +560,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
     log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     log_x = 2; log_y = 2;
     scen_info = calloc( 1, sizeof( Scen_Info ) );
-    snprintf( SET_file, 256, "%s.lgscn", fname );
-    scen_info->fname = strdup( SET_file );
+    scen_info->fname = strdup( fname );
     scen_info->mod_name = strdup( config.mod_name );
     inf=fopen(fullName,"rb");
     if (!inf)
