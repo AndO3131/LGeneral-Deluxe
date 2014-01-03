@@ -1024,7 +1024,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         //Block#9   : Purchasable classes: 2 col, rows up to 16 ?
         if (block == 9 && token > 1)
         {
-            if ( atoi( tokens[0] ) != 15 )
+            if ( atoi( tokens[0] ) < 15 )
                 if ( atoi( tokens[1] ) == 1 )
                     unit_classes[ atoi( tokens[0] ) ].purchase = UC_PT_NORMAL;
                 else
