@@ -1055,14 +1055,14 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
                      ( unit->core == AUXILIARY ) )
                     SOURCE( unit_info_icons->str,
                             unit_info_icons->str_w * ( unit->str - 1 ),
-                            unit_info_icons->str_h * (unit->nation->strength_row + 1))
+                            unit_info_icons->str_h * (unit->player->strength_row + 1))
                 else
                     SOURCE( unit_info_icons->str, 
                             unit_info_icons->str_w * ( unit->str - 1 ),
-                            unit_info_icons->str_h * unit->nation->strength_row)
+                            unit_info_icons->str_h * unit->player->strength_row)
             else
                 SOURCE( unit_info_icons->str, unit_info_icons->str_w * ( unit->str - 1 ), 
-                        unit_info_icons->str_h * unit->nation->strength_row )
+                        unit_info_icons->str_h * unit->player->strength_row )
             blit_surf();
             /* for current player only */
             if ( unit->player == cur_player ) {

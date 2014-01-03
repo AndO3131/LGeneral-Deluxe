@@ -345,6 +345,7 @@ fprintf(stderr, "%s\n", fname);
         if ( !parser_get_string( sub, "ai_module", &player->ai_fname ) )
             player->ai_fname = strdup( "default" );
         if ( !parser_get_int( sub, "strategy", &player->strat ) ) goto parser_failure;
+        if ( !parser_get_int( sub, "strength_row", &player->strength_row ) ) goto parser_failure;
         if ( parser_get_pdata( sub, "transporters/air", &subsub ) ) {
             if ( !parser_get_value( subsub, "unit", &str, 0 ) ) goto parser_failure;
             player->air_trsp = unit_lib_find( str );

@@ -911,14 +911,14 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
             ( unit->core == AUXILIARY ) )
             SOURCE( unit_info_icons->str,
                     unit_info_icons->str_w * ( unit->str - 1 ),
-                    unit_info_icons->str_h * (unit->nation->strength_row + 1))
+                    unit_info_icons->str_h * (unit->player->strength_row + 1))
         else
             SOURCE( unit_info_icons->str, 
                     unit_info_icons->str_w * ( unit->str - 1 ),
-                    unit_info_icons->str_h * unit->nation->strength_row)
+                    unit_info_icons->str_h * unit->player->strength_row)
     else
         SOURCE( unit_info_icons->str, unit_info_icons->str_w * ( unit->str - 1 ), 
-                unit_info_icons->str_h * unit->nation->strength_row )
+                unit_info_icons->str_h * unit->player->strength_row )
     blit_surf();
     /* nation flag */
     DEST( qinfo->contents, 6, 6, nation_flag_width, nation_flag_height );

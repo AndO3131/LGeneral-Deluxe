@@ -87,7 +87,6 @@ int nations_load( char *fname )
         nations[i].id = strdup( sub->name );
         if ( !parser_get_localized_string( sub, "name", domain, &nations[i].name ) ) goto parser_failure;
         if ( !parser_get_int( sub, "icon_id", &nations[i].flag_offset ) ) goto parser_failure;
-        if ( !parser_get_int( sub, "strength_row", &nations[i].strength_row ) ) goto parser_failure;
         nations[i].flag_offset *= nation_flag_width;
         i++;
     }

@@ -295,6 +295,7 @@ core_limit»28
 orientation»left
 control»human
 strategy»1
+strength_row»0
 prestige»375°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0°0
 ai_module»default
 <transporters
@@ -312,6 +313,7 @@ unit_limit»45
 orientation»right
 control»cpu
 strategy»-1
+strength_row»2
 prestige»1594°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45°45
 ai_module»default
 <transporters

@@ -40,6 +40,7 @@ typedef struct {
     int ctrl;           /* controlled by human or CPU */
     char *ai_fname;     /* dll with AI routines */
     int strat;          /* strategy: -2 very defensive to 2 very aggressive */
+    int strength_row;   /* number of strength row in strength icons */
     Nation **nations;   /* list of pointers to nations controlled by this player */
     int nation_count;   /* number of nations controlled */
     List *allies;       /* list of the player's allies */

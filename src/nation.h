@@ -32,7 +32,6 @@ typedef struct {
     int  flag_offset;
     int  no_purchase; /* whether nation has units to purchase; 
                          updated when scenario is loaded */
-    int  strength_row;
 } Nation;
 
 /*
