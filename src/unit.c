@@ -470,7 +470,7 @@ Adjust orientation (and adjust icon) of unit if looking towards x,y.
 */
 void unit_adjust_orient( Unit *unit, int x, int y )
 {
-    if ( unit->prop.icon_type == UNIT_ICON_SINGLE ) {
+    if ( unit->prop.icon_type != UNIT_ICON_ALL_DIRS ) {
         if ( x < unit->x )  {
             unit->orient = UNIT_ORIENT_LEFT;
             unit->icon_offset = unit->sel_prop->icon_w;

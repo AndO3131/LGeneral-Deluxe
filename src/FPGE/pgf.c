@@ -75,91 +75,6 @@ unsigned short axis_experience=200;
 unsigned short allied_experience=200;
 unsigned short allies_move_first;
 
-unsigned short axis_experience_table[] =
-{
-
-0,1,1,0,1,1,1,1,
-1,2,2,3,2,2,2,2,
-2,2,1,2,1,1,2,2,
-2,2,2,2,2,3,2,2,
-2,1,1,2,2,1
-};
-
-unsigned short allied_experience_table[] =
-{
-0,0,0,0,0,1,1,1,
-1,1,1,1,1,2,2,2,
-2,2,2,2,1,1,0,0,
-0,1,1,1,1,2,2,2,
-2,2,2,2,0,1
-};
-
-char axis_victory_table[][128]={
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t0\t3\t(27:5)",
-"AXIS VICTORY\t0\t2\t",
-"AXIS VICTORY\t0\t3\t(13:17)",
-"AXIS VICTORY\t0\t2\t(11:7)(22:28)(43:27)",
-"AXIS VICTORY\t0\t2\t",
-"AXIS VICTORY\t0\t7\t(16:16)(26:4)(27:21)(39:21)(48:8)(54:14)(59:18)",
-"AXIS VICTORY\t0\t3\t(50:5)(50:22)(44:35)(8:42)",
-"AXIS VICTORY\t0\t2\t(37:10)(38:11)",
-"AXIS VICTORY\t0\t6\t(36:14)",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t0\t1\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t0\t1\t(3:12)",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t0\t6\t(36:14)",
-"AXIS VICTORY\t0\t1\t(35:14)",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t",
-"AXIS VICTORY\t1\t0\t"
-};
-
-char default_purchasable_classes[]={
- 1,1,1,1,1,
- 1,1,0,1,1,
- 1,0,0,0,0,
- 1
-};
-
-unsigned short axis_prestige_allotments[PRESTIGE_ALLOTMENTS_NUMBER]={
-0,0,0,0,0,0,0,0,
-0,0,0,0,142,94,140,96,
-0,96,122,140,0,0,0,0,
-0,0,0,0,0,0,0,94,
-0,140,164,0,0,0
-};
-
-unsigned short allied_prestige_allotments[PRESTIGE_ALLOTMENTS_NUMBER]={
-40,40,80,98,90,168,90,140, //8
-126,170,206,0,0,0,0,0, //16
-150,0,0,0,202,90,120,160, //24
-230,126,210,190,110,230,244,0, //32
-0,0,0,230,270,170 // elements38
-};
-
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
 	int gcursor=0;
@@ -737,10 +652,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         player->core_limit = -1;
                 }
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
-                if (atoi(tokens[5])==0)
-                    player->orient = UNIT_ORIENT_RIGHT;
-                else
-                    player->orient = UNIT_ORIENT_LEFT;
 
                 player->id = strdup( "axis" );
                 player->name = strdup(trd(domain, "Axis"));
@@ -794,10 +705,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         player->core_limit = -1;
                 }
 //                fprintf( stderr, "Core limit:%d\n", player->core_limit );
-                if (atoi(tokens[5])==1)
-                    player->orient = UNIT_ORIENT_LEFT;
-                else
-                    player->orient = UNIT_ORIENT_RIGHT;
 
                 player->id = strdup( "allies" );
                 player->name = strdup(trd(domain, "Allies"));
@@ -833,13 +740,15 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
 
-                /* flip icons if scenario demands it */
-                adjust_fixed_icon_orientation();
-
                 /* set alliances */
                 list_reset( players );
                 for ( i = 0; i < players->count; i++ ) {
                     player = list_next( players );
+                    if ( ( atoi(tokens[5]) == -1 && strcmp( player->id, "allies" ) ) ||
+                         ( atoi(tokens[5]) == 1 && strcmp( player->id, "axis" ) ) )
+                        player->orient = UNIT_ORIENT_LEFT;
+                    else
+                        player->orient = UNIT_ORIENT_RIGHT;
                     player->allies = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
                 }
             }
@@ -875,6 +784,9 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         {
             if ( !flag_map_loaded )
             {
+                /* flip icons if scenario demands it */
+                adjust_fixed_icon_orientation();
+
                 /* map and weather */
                 search_file_name_exact( SET_file, STM_file, config.mod_name );
                 sprintf( log_str, tr("Loading Map '%s'"), SET_file );
@@ -1025,10 +937,12 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         if (block == 9 && token > 1)
         {
             if ( atoi( tokens[0] ) < 15 )
+            {
                 if ( atoi( tokens[1] ) == 1 )
                     unit_classes[ atoi( tokens[0] ) ].purchase = UC_PT_NORMAL;
                 else
                     unit_classes[ atoi( tokens[0] ) ].purchase = UC_PT_NONE;
+            }
         }
         //Block#10 +: Units: 12 col, rows - many, limit
         if (block==10 && token>1)

@@ -591,10 +591,8 @@ Find unit icons in image sheet.
 */
 void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
 {
-    int i, j;
     int width, height, offset;
     Uint32 color_key;
-    float scale;
     if ( icon_width == 0 || icon_height == 0 )
         unit_get_icon_geometry( icon_id, &width, &height, &offset, &color_key );
     /* picture is copied from unit_pics first
@@ -614,47 +612,40 @@ void lib_entry_set_icons( int icon_id, Unit_Lib_Entry *unit )
         /* set transparency */
         SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
     }
-    else if ( unit->icon_type == UNIT_ICON_SINGLE ) {
-        /* set size */
-        unit->icon_w = width;
-        unit->icon_h = height;
-        /* create and copy pic */
-        unit->icon = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
-        DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
-        SOURCE( icons, 0, offset );
-        blit_surf();
-        /* remove measure dots */
-        set_pixel( unit->icon, 0, 0, color_key );
-        set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
-        set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
-        /* set transparency */
-        SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
-    }
     else
     {
-        color_key = get_pixel( icons, 0, 0 );
-        /* set size */
-        unit->icon_w = icon_width;
-        unit->icon_h = icon_height;
-        /* create and copy pic */
-        unit->icon = create_surf( unit->icon_w, icon_height, SDL_SWSURFACE );
-        DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
-        SOURCE( icons, ( icon_id % icon_columns ) * icon_width, ( (int)(icon_id / icon_columns) ) * icon_height );
-        blit_surf();
-        /* set transparency */
-        SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+        if ( unit->icon_type == UNIT_ICON_SINGLE )
+        {
+            /* set size */
+            unit->icon_w = width;
+            unit->icon_h = height;
+            /* create and copy first pic */
+            unit->icon = create_surf( unit->icon_w * 2, unit->icon_h, SDL_SWSURFACE );
+            DEST( unit->icon, 0, 0, width, height );
+            SOURCE( icons, 0, offset );
+            blit_surf();
+            /* remove measure dots */
+            set_pixel( unit->icon, 0, 0, color_key );
+            set_pixel( unit->icon, 0, unit->icon_h - 1, color_key );
+            set_pixel( unit->icon, unit->icon_w - 1, 0, color_key );
+            /* set transparency */
+            SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+        }
+        else
+        {
+            color_key = get_pixel( icons, 0, 0 );
+            /* set size */
+            unit->icon_w = icon_width;
+            unit->icon_h = icon_height;
+            /* create and copy first pic */
+            unit->icon = create_surf( unit->icon_w * 2, icon_height, SDL_SWSURFACE );
+            DEST( unit->icon, 0, 0, icon_width, icon_height );
+            SOURCE( icons, ( icon_id % icon_columns ) * icon_width, ( (int)(icon_id / icon_columns) ) * icon_height );
+            blit_surf();
+            /* set transparency */
+            SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, color_key );
+        }
     }
-    scale = 1.5;
-    unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
-    unit->icon_tiny_w = unit->icon_w * ( 1.0 / scale ); unit->icon_tiny_h = unit->icon_h * ( 1.0 / scale );
-    for ( j = 0; j < unit->icon_tiny->h; j++ ) {
-        for ( i = 0; i < unit->icon_tiny->w; i++ )
-            set_pixel( unit->icon_tiny,
-                       i, j, 
-                       get_pixel( unit->icon, scale * i, scale * j ) );
-    }
-    /* use color key of 'big' picture */
-    SDL_SetColorKey( unit->icon_tiny, SDL_SRCCOLORKEY, color_key );
 }
 
 /*
@@ -666,44 +657,109 @@ void adjust_fixed_icon_orientation()
 {
     int i, j;
     int byte_size, y_offset;
-    char *pix_buffer;
     SDL_Surface *tempSurface;
     Unit_Lib_Entry *unit;
+    float scale;
+    Uint32 color_key;
+
     list_reset( unit_lib );
     while ( ( unit = list_next( unit_lib ) ) )
     {
         if ( unit->icon_type != UNIT_ICON_ALL_DIRS )
         {
-            if ( ( player_get_by_id( "axis" ) && player_get_by_id( "axis" )->orient == UNIT_ORIENT_LEFT ) ||
-                 ( player_get_by_id( "allies" ) && player_get_by_id( "allies" )->orient == UNIT_ORIENT_RIGHT ) )
+            if ( player_get_by_nation( nation_find_by_id( unit->nation ) ) != 0 )
             {
+                if ( strcmp( player_get_by_nation( nation_find_by_id( unit->nation ) )->id, "allies" ) == 0 )
+                {
+                    /* image is facing left on image sheet - copy it to the right side */
+                    DEST( unit->icon, unit->icon->w / 2, 0, unit->icon->w, unit->icon->h );
+                    SOURCE( unit->icon, 0, 0 );
+                    blit_surf();
+                    /* get format info */
+                    byte_size = unit->icon->format->BytesPerPixel;
+                    tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                    y_offset = 0;
+                    /* flip image to left side of the surface */
+                    for ( j = 0; j < unit->icon_h; j++ )
+                    {
+                        for ( i = 0; i < unit->icon_w; i++ )
+                        {
+                            memcpy( unit->icon->pixels +
+                                    y_offset +
+                                    i * byte_size,
+                                    unit->icon->pixels +
+                                    y_offset +
+                                    unit->icon_w * byte_size +
+                                    ( unit->icon_w - 1 - i ) * byte_size,
+                                    byte_size );
+                        }
+                        y_offset += unit->icon->pitch;
+                    }
+                    SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
+                }
+                else
+                {
+                    /* get format info */
+                    byte_size = unit->icon->format->BytesPerPixel;
+                    tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                    y_offset = 0;
+                    /* flip image to right side of the surface */
+                    for ( j = 0; j < unit->icon_h; j++ ) {
+                        for ( i = 0; i < unit->icon_w; i++ ) {
+                            memcpy( unit->icon->pixels +
+                                    y_offset +
+                                    unit->icon_w * byte_size +
+                                    i * byte_size,
+                                    unit->icon->pixels +
+                                    y_offset +
+                                    ( unit->icon_w - 1 - i ) * byte_size,
+                                    byte_size );
+                        }
+                        y_offset += unit->icon->pitch;
+                    }
+                    SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
+                }
+            }
+            else
+            {
+                /* image is facing left on image sheet - copy it to the right side */
+                DEST( unit->icon, unit->icon->w / 2, 0, unit->icon->w, unit->icon->h );
+                SOURCE( unit->icon, 0, 0 );
+                blit_surf();
                 /* get format info */
                 byte_size = unit->icon->format->BytesPerPixel;
                 tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
                 y_offset = 0;
-                pix_buffer = calloc( byte_size, sizeof( char ) );
-                /* flip image to temp surface */
-                for ( j = 0; j < unit->icon_h; j++ ) {
-                    for ( i = 0; i < unit->icon_w; i++ ) {
-                        memcpy( tempSurface->pixels +
+                /* flip image to left side of the surface */
+                for ( j = 0; j < unit->icon_h; j++ )
+                {
+                    for ( i = 0; i < unit->icon_w; i++ )
+                    {
+                        memcpy( unit->icon->pixels +
                                 y_offset +
                                 i * byte_size,
                                 unit->icon->pixels +
                                 y_offset +
+                                unit->icon_w * byte_size +
                                 ( unit->icon_w - 1 - i ) * byte_size,
                                 byte_size );
                     }
                     y_offset += unit->icon->pitch;
                 }
-                /* free mem */
-                free( pix_buffer );
-                /* copy fliped image back */
-                unit->icon = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
-                DEST( unit->icon, 0, 0, unit->icon_w, unit->icon_h );
-                SOURCE( tempSurface, 0, 0 );
-                blit_surf();
                 SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
             }
+            color_key = get_pixel( unit->icon, 0, 0 );
+            scale = 1.5;
+            unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
+            unit->icon_tiny_w = unit->icon_w * ( 1.0 / scale ); unit->icon_tiny_h = unit->icon_h * ( 1.0 / scale );
+            for ( j = 0; j < unit->icon_tiny->h; j++ ) {
+                for ( i = 0; i < unit->icon_tiny->w; i++ )
+                    set_pixel( unit->icon_tiny,
+                               i, j, 
+                               get_pixel( unit->icon, scale * i, scale * j ) );
+            }
+            /* use color key of 'big' picture */
+            SDL_SetColorKey( unit->icon_tiny, SDL_SRCCOLORKEY, color_key );
         }
     }
 }

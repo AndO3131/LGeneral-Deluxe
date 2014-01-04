@@ -3315,6 +3315,8 @@ static void engine_handle_next_action( int *reinit )
             break;
         case ACTION_CHANGE_MOD:
             snprintf( config.mod_name, MAX_NAME, "%s", gui->mod_select_dlg->current_name );
+            frame_hide( gui->qinfo1, 1 );
+            frame_hide( gui->qinfo2, 1 );
             setup.type = SETUP_RUN_TITLE;
             engine_set_status( STATUS_TITLE );
             break;
@@ -3671,7 +3673,8 @@ static void engine_update( int ms )
                             }
                         }
                     /* units looking direction */
-                    unit_adjust_orient( move_unit, way[way_pos].x, way[way_pos].y );
+                    if ( way_pos + 1 < way_length )
+                        unit_adjust_orient( move_unit, way[way_pos + 1].x, way[way_pos + 1].y );
                     if ( !blind_cpu_turn )
                         image_set_region( move_image, move_unit->icon_offset, 0, 
                                           move_unit->sel_prop->icon_w, move_unit->sel_prop->icon_h );
