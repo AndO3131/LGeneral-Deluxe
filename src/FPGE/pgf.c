@@ -168,7 +168,6 @@ int load_pgf_equipment(char *fullName){
     Unit_Lib_Entry *unit;
     char line[1024],tokens[50][256], log_str[256];
     int i,cursor=0,token=0,lines, icon_id;
-    //int total_victory,total_left,total_right;
     int token_len, token_write;
     unsigned short file_type_probe;
     int utf16 = 0;
@@ -219,15 +218,7 @@ int load_pgf_equipment(char *fullName){
             }
         tokens[token][cursor]=0;
         token++;
-        //printf("%d\n",2);
-        //printf("%d:",token);
-        //if (lines>110 && lines<120){
-        //for(i=0;i<token;i++)
-        //    printf("%s->", tokens[i]);
-        //printf("\n");
-        //}
 
-        //0x22
         //remove quoting
         if (tokens[1][0]==0x22)
         {
@@ -485,8 +476,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
     sprintf( log_str, tr("*** Loading scenario '%s' ***"), fullName );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-    //init
-    //units
 
     lines=0;
 
@@ -523,8 +512,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             }
         tokens[token][cursor]=0;
         token++;
-        //for(i=0;i<token;i++)
-        //  printf("%s->",tokens[i]);
 
         //Block#1  +: General scenario data : 2 col, 14 rows
         if (block==1 && token>1)
@@ -566,16 +553,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         return 0;
                     }
                 }
-/*                strncpy(tokens[2],"",1024);
-                j=0;
-                for(i=0;i<strlen(tokens[1]);i++)
-                    if (tokens[1][i]>='0' && tokens[1][i]<='9')
-                    {
-                        tokens[2][j]=tokens[1][i];
-                        j++;
-                    }
-                tokens[2][j]=0;
-                pgf_map_number=atoi(tokens[2]);*/
                 snprintf( STM_file, MAX_PATH, "Scenario/%s", tokens[1] );
             }
             if (strcmp(tokens[0],"turns")==0)
@@ -929,7 +906,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             error=sscanf(tokens[0],"(%8d:%8d)",&x,&y);
             if (error == 2 && x >= 0 && y >= 0 && x < map_w && y < map_h)
             {
-//                plidx = player_get_index( pl );
                 map_set_deploy_field( x, y, 0 );
             }
         }
@@ -1088,27 +1064,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 unit_ref++;
                 if (unit_base.player->ctrl == PLAYER_CTRL_HUMAN)
                     auxiliary_units_count++;
-/*                        all_units[where_add_new].unum=atoi(tokens[1]);
-                        all_units[where_add_new].orgtnum=atoi(tokens[2]);
-                        all_units[where_add_new].country=atoi(tokens[5]);
-                        all_units[where_add_new].auxtnum=atoi(tokens[3]);
-
-                        all_units[where_add_new].x=x;
-						all_units[where_add_new].y=y;
-						all_units[where_add_new].str=atoi(tokens[6]);
-						all_units[where_add_new].exp=atoi(tokens[7])/100;
-						all_units[where_add_new].entrench=atoi(tokens[8]);
-						all_units[where_add_new].fuel=atoi(tokens[9]);
-						all_units[where_add_new].ammo=atoi(tokens[10]);
-
-						//place on mapflag_unit_load_started
-						 unum=all_units[where_add_new].unum;
-						 if (equip[unum][GAF]) //1 if air unit
-						   map[x][y].auidx=total_units;
-						 else
-						   map[x][y].guidx=total_units;
-
-						total_units++;*/
 				    }
 			  }
 			  continue;
@@ -1192,7 +1147,7 @@ char *load_pgf_pgscn_info( const char *fname, char *path )
             allies_move_first=0;
             if (strcmp(tokens[0],"allies move first")==0)
             {
-                allies_move_first=atoi(tokens[1]);//block1_Allies_Move_First);
+                allies_move_first=atoi(tokens[1]);
             }
         }
         if (block==2)
