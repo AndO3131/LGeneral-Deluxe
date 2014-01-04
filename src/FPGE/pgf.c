@@ -1132,11 +1132,10 @@ failure:
 char *load_pgf_pgscn_info( const char *fname, char *path )
 {
     FILE *inf;
-    char line[1024],tokens[20][1024], temp[MAX_PATH];//, log_str[256];
-    int i, block=0,last_line_length=-1,cursor=0,token=0,lines;//,x,y,error,j;
-    char name[256], desc[1024], turns[10], *info;//, *str, day[10], month[15], year[10], info[1024];
+    char line[1024],tokens[20][1024], temp[MAX_PATH];
+    int i, block=0,last_line_length=-1,cursor=0,token=0,lines;
+    char name[256], desc[1024], turns[10], *info;
 
-    scen_delete();
     search_file_name( path, 0, fname, temp, 'o' );
     inf=fopen(path,"rb");
     if (!inf)
@@ -1198,7 +1197,6 @@ char *load_pgf_pgscn_info( const char *fname, char *path )
         }
         if (block==2)
         {
-            fclose(inf);
         	/* set setup */
         	scen_clear_setup();
         	strcpy( setup.fname, fname );
@@ -1226,6 +1224,7 @@ char *load_pgf_pgscn_info( const char *fname, char *path )
                 free( info );
             }
             sprintf( info, tr("%s##%s##%s Turns#%d Players"), name, desc, turns, 2 );
+            fclose(inf);
             return info;
         }
     }

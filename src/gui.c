@@ -922,7 +922,7 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
     blit_surf();
     /* nation flag */
     DEST( qinfo->contents, 6, 6, nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, unit->nation->flag_offset );
+    SOURCE( nation_flags, unit->nation->flag_offset, 0 );
     blit_surf();
     /* name */
     gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;

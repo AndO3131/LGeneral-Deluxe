@@ -839,10 +839,8 @@ Load a scenario description.
 */
 char *scen_load_info( char *fname )
 {
-    char *path, *extension, temp[256];
-    path = calloc( 256, sizeof( char ) );
-    extension = calloc( 10, sizeof( char ) );
-    snprintf( temp, 256, "%s/Scenario", config.mod_name );
+    char path[MAX_PATH], extension[10], temp[MAX_PATH];
+    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
     search_file_name( path, extension, fname, temp, 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
     {

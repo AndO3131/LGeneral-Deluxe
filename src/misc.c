@@ -99,6 +99,10 @@ FILE *fopen_ic( char *path, const char *mode )
 	
 //	strcpy(path,_path); /* we need to copy since we modify it */
 	
+	/* try exact name */
+	if ((file = fopen(path,mode)))
+		return file;
+
 	/* start behind file separator */
 	if ((start = strrchr(path,'/')) == NULL) /* Linux */
 		start = strrchr(path,'\\'); /* Windows */
