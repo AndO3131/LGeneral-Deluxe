@@ -357,6 +357,14 @@ void gui_render_file_name( void *item, SDL_Surface *buffer );
 
 /*
 ====================================================================
+Render scenario/campaign name to surface. (directories start with an
+asteriks)
+====================================================================
+*/
+void gui_render_scen_file_name( void *item, SDL_Surface *buffer );
+
+/*
+====================================================================
 Handle the selection of a scenario file (display info and 
 load scen_info from full path)
 ====================================================================

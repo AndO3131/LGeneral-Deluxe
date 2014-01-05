@@ -1084,7 +1084,7 @@ failure:
     return 0;
 }
 
-char *load_pgf_pgscn_info( const char *fname, char *path )
+char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
 {
     FILE *inf;
     char line[1024],tokens[20][1024], temp[MAX_PATH];
@@ -1140,6 +1140,14 @@ char *load_pgf_pgscn_info( const char *fname, char *path )
             strlwr(tokens[0]);
             if (strcmp(tokens[0],"name")==0)
                 strncpy(name,tokens[1],256);
+            if ( name_only )
+            {
+                /* we need only scenario name */
+                info = calloc( strlen( name ) + 1, sizeof( char ) );
+                sprintf( info, tr("%s"), name );
+                fclose(inf);
+                return info;
+            }
             if (strcmp(tokens[0],"description")==0)
                 strncpy(desc,tokens[1],1024);
             if (strcmp(tokens[0],"turns")==0)

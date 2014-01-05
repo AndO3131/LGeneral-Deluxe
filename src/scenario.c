@@ -848,7 +848,7 @@ char *scen_load_info( char *fname )
     }
     else if ( strcmp( extension, "pgscn" ) == 0 )
     {
-        return load_pgf_pgscn_info( fname, path );
+        return load_pgf_pgscn_info( fname, path, 0 );
     }
     return 0;
 }

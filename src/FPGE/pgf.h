@@ -39,7 +39,7 @@ extern unsigned short allied_experience;
 
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line);
 int load_pgf_pgscn(char *fname, char *fullName, int scenNumber);
-char *load_pgf_pgscn_info( const char *fname, char *path );
+char *load_pgf_pgscn_info( const char *fname, char *path, int name_only );
 //int load_pgf_equipment(char *fname);
 //int save_pgf_pgscn(int scn_number, int show_info, int save_type, int hide_names, int,int );
 //void fake_UTF_write_string_with_eol(FILE *f, char *write_me);

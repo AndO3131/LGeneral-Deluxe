@@ -445,14 +445,14 @@ int gui_load( char *dir )
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
-    gui->scen_dlg = fdlg_create( gui_create_frame( 120, 270 ), 160, 10,
+    gui->scen_dlg = fdlg_create( gui_create_frame( 180, 270 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  20,
                                  gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  ID_SCEN_OK, 
                                  gui->label, 
-                                 gui_render_file_name, gui_render_scen_info,
+                                 gui_render_scen_file_name, gui_render_scen_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, LIST_SCENARIOS );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
@@ -461,14 +461,14 @@ int gui_load( char *dir )
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
-    gui->camp_dlg = fdlg_create( gui_create_frame( 120, 270 ), 160, 10,
+    gui->camp_dlg = fdlg_create( gui_create_frame( 180, 270 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  20,
                                  gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  ID_CAMP_OK, 
                                  gui->label, 
-                                 gui_render_file_name, gui_render_camp_info,
+                                 gui_render_scen_file_name, gui_render_camp_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, LIST_CAMPAIGNS );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->camp_dlg, 1 );
@@ -1565,6 +1565,27 @@ void gui_render_file_name( void *item, SDL_Surface *buffer )
         SOURCE( gui->folder_icon, 0, 0 );
         blit_surf();
         write_text( gui->font_std, buffer, 4 + gui->folder_icon->w, buffer->h >> 1, fname + 1, 255 );
+    }
+}
+
+/*
+====================================================================
+Render scenario/campaign name to surface. (directories start with an
+asteriks)
+====================================================================
+*/
+void gui_render_scen_file_name( void *item, SDL_Surface *buffer )
+{
+    Name_Entry_Type *name_entry = (Name_Entry_Type*)item;
+    SDL_FillRect( buffer, 0, 0x0 );
+    gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_CENTER;
+    if ( name_entry->internal_name[0] != '*' )
+        write_text( gui->font_std, buffer, 4, buffer->h >> 1, name_entry->internal_name, 255 );
+    else {
+        DEST( buffer, 2, ( buffer->h - gui->folder_icon->h ) >> 1, gui->folder_icon->w, gui->folder_icon->h );
+        SOURCE( gui->folder_icon, 0, 0 );
+        blit_surf();
+        write_text( gui->font_std, buffer, 4 + gui->folder_icon->w, buffer->h >> 1, name_entry->internal_name + 1, 255 );
     }
 }
 

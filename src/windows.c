@@ -951,42 +951,82 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
     char path[MAX_PATH];
     void *item = 0;
     char *fname;
+    Name_Entry_Type *name_entry;
     if ( !fdlg->lbox->group->frame->img->bkgnd->hide ) {
         if ( group_handle_button( fdlg->group, button_id, cx, cy, button ) )
             return 1;
         if ( lbox_handle_button( fdlg->lbox, button_id, cx, cy, button, &item ) ) {
             if ( item ) {
                 SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
-                fname = (char*)item;
-                if ( ( fname[0] == '*' ) && ( !fdlg->dir_only ) ) {
-                    /* switch directory */
-                    if ( fname[1] == '.' ) {
-                        /* one up */
-                        if ( strrchr( fdlg->subdir, '/' ) )
-                            (strrchr( fdlg->subdir, '/' ))[0] = 0;
+                if ( fdlg->file_type == LIST_ALL )
+                {
+                    /* no file name switching */
+                    fname = (char*)item;
+                    if ( ( fname[0] == '*' ) && ( !fdlg->dir_only ) ) {
+                        /* switch directory */
+                        if ( fname[1] == '.' ) {
+                            /* one up */
+                            if ( strrchr( fdlg->subdir, '/' ) )
+                                (strrchr( fdlg->subdir, '/' ))[0] = 0;
+                            else
+                                fdlg->subdir[0] = 0;
+                        }
+                        else {
+                            if ( fdlg->subdir[0] != 0 )
+                                strcat( fdlg->subdir, "/" );
+                            strcat( fdlg->subdir, fname + 1 );
+                        }
+                        if ( fdlg->subdir[0] == 0 )
+                            strcpy( path, fdlg->root );
                         else
-                            fdlg->subdir[0] = 0;
+                            sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
+                        lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
+                        (fdlg->file_cb)( 0, fdlg->info_buffer );
                     }
                     else {
-                        if ( fdlg->subdir[0] != 0 )
-                            strcat( fdlg->subdir, "/" );
-                        strcat( fdlg->subdir, fname + 1 );
+                        /* file info */
+                        if ( fdlg->subdir[0] == 0 )
+                            strcpy( path, fname );
+                        else
+                            sprintf( path, "%s/%s", fdlg->subdir, fname );
+                        fdlg->current_name = fname;
+                        (fdlg->file_cb)( path, fdlg->info_buffer );
                     }
-                    if ( fdlg->subdir[0] == 0 )
-                        strcpy( path, fdlg->root );
-                    else
-                        sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
-                    lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
-                    (fdlg->file_cb)( 0, fdlg->info_buffer );
                 }
-                else {
-                    /* file info */
-                    if ( fdlg->subdir[0] == 0 )
-                        strcpy( path, fname );
-                    else
-                        sprintf( path, "%s/%s", fdlg->subdir, fname );
-                    fdlg->current_name = fname;
-                    (fdlg->file_cb)( path, fdlg->info_buffer );
+                else
+                {
+                    /* file name must be extracted from structure */
+                    name_entry = (Name_Entry_Type*)item;
+                    if ( ( name_entry->internal_name[0] == '*' ) && ( !fdlg->dir_only ) ) {
+                        /* switch directory */
+                        if ( name_entry->internal_name[1] == '.' ) {
+                            /* one up */
+                            if ( strrchr( fdlg->subdir, '/' ) )
+                                (strrchr( fdlg->subdir, '/' ))[0] = 0;
+                            else
+                                fdlg->subdir[0] = 0;
+                        }
+                        else {
+                            if ( fdlg->subdir[0] != 0 )
+                                strcat( fdlg->subdir, "/" );
+                            strcat( fdlg->subdir, name_entry->internal_name + 1 );
+                        }
+                        if ( fdlg->subdir[0] == 0 )
+                            strcpy( path, fdlg->root );
+                        else
+                            sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
+                        lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
+                        (fdlg->file_cb)( 0, fdlg->info_buffer );
+                    }
+                    else {
+                        /* file info */
+                        if ( fdlg->subdir[0] == 0 )
+                            strcpy( path, name_entry->file_name );
+                        else
+                            sprintf( path, "%s/%s", fdlg->subdir, name_entry->file_name );
+                        fdlg->current_name = name_entry->file_name;
+                        (fdlg->file_cb)( path, fdlg->info_buffer );
+                    }
                 }
                 DEST( fdlg->group->frame->contents, fdlg->info_x, fdlg->info_y, fdlg->info_buffer->w, fdlg->info_buffer->h );
                 SOURCE( fdlg->info_buffer, 0, 0 );

@@ -29,6 +29,7 @@
 #include "localize.h"
 #include "sdl.h"
 #include "config.h"
+#include "FPGE/pgf.h"
 
 extern Config config;
 
@@ -68,6 +69,18 @@ List *file_read_lines( FILE *file )
 
 /*
 ====================================================================
+Remove name entry.
+====================================================================
+*/
+static void delete_name_entry( void *ptr )
+{
+    Name_Entry_Type *entry = (Name_Entry_Type*)ptr;
+    if ( entry->file_name ) free( entry->file_name );
+    if ( entry->internal_name ) free( entry->internal_name );
+}
+
+/*
+====================================================================
 Parse the predefined order of files from the given .order file.
 Returns a list of files, or 0 if error.
 ====================================================================
@@ -93,23 +106,40 @@ Extracts the list of files that match the order list, and returns
 the matches in the correct order. Returns an empty list otherwise.
 ====================================================================
 */
-static List *file_extract_order_list( List *files, List *orderlist )
+static List *file_extract_order_list( List *files, List *orderlist, int file_type )
 {
-    List *extracted = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    List *extracted;
+    if ( file_type == LIST_ALL )
+        extracted = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    else
+        extracted = list_create( LIST_AUTO_DELETE, delete_name_entry );
     char *ordered, *name;
+    Name_Entry_Type *name_entry;
 
     if ( !orderlist ) return extracted;
     
     list_reset( orderlist );
     while ( ( ordered = list_next( orderlist ) ) ) {
         list_reset( files );
-        while ( ( name = list_next( files ) ) ) {
-        
-            if ( strcmp( name, ordered ) == 0 ) {
-                list_transfer( files, extracted, name );
-                break;
+        if ( file_type == LIST_ALL )
+        {
+            while ( ( name = list_next( files ) ) )
+            {
+                if ( strcmp( name, ordered ) == 0 ) {
+                    list_transfer( files, extracted, name );
+                    break;
+                }
             }
-        
+        }
+        else
+        {
+            while ( ( name_entry = list_next( files ) ) )
+            {
+                if ( strcmp( name_entry->file_name, ordered ) == 0 ) {
+                    list_transfer( files, extracted, name_entry );
+                    break;
+                }
+            }
         }
     }
     return extracted;
@@ -149,8 +179,10 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
     List *list;
     List *order = 0;
     List *extracted;
+    List *list_final;
     struct stat fstat;
-    char file_name[MAX_BUFFER], *ext[5];
+    Name_Entry_Type *name_entry;
+    char file_name[MAX_BUFFER], *ext[10];
     FILE *file;
     /* open this directory */
     if ( ( dir = opendir( path ) ) == 0 ) {
@@ -159,7 +191,11 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
     }
     /* determine extensions according to file_type */
     if ( file_type == LIST_ALL )
+    {
         ext_limit = 0;
+        /* use dynamic list to gather all valid entries */
+        list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    }
     else if ( file_type == LIST_SCENARIOS )
     {
         ext_limit = extension_scenario_length;
@@ -168,6 +204,8 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             ext[i] = calloc( MAX_EXTENSION, sizeof( char ) );
             snprintf( ext[i], MAX_EXTENSION, ".%s", extension_scenario[i] );
         }
+        /* use dynamic list to gather all valid entries */
+        list = list_create( LIST_AUTO_DELETE, delete_name_entry );
     }
     else if ( file_type == LIST_CAMPAIGNS )
     {
@@ -177,10 +215,10 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             ext[i] = calloc( MAX_EXTENSION, sizeof( char ) );
             snprintf( ext[i], MAX_EXTENSION, ".%s", extension_campaign[i] );
         }
+        /* use dynamic list to gather all valid entries */
+        list = list_create( LIST_AUTO_DELETE, delete_name_entry );
     }
     text = calloc( 1, sizeof( Text ) );
-    /* use dynamic list to gather all valid entries */
-    list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
     /* read each entry and check if its a valid entry, then add it to the dynamic list */
     while ( ( dirent = readdir( dir ) ) != 0 ) {
         /* compose filename */
@@ -212,7 +250,17 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             else
                 sprintf( file_name, "%s", dirent->d_name );
             if ( !( dir_only && ( STRCMP( dirent->d_name, "Default" ) != 0 ) ) )
-                list_add( list, strdup( file_name ) );
+            {
+                if ( file_type == LIST_ALL )
+                    list_add( list, strdup( file_name ) );
+                else
+                {
+                    name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                    name_entry->file_name = strdup( file_name );
+                    name_entry->internal_name = strdup( file_name );
+                    list_add( list, name_entry );
+                }
+            }
         }
         else
         /* check regular file */
@@ -225,18 +273,44 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             {
                 /* if at least one extension fits, add this file to list */
                 flag = 0;
+                char internal_name[MAX_BUFFER];
                 for ( i = 0; i < ext_limit; i++ )
                     if ( !STRCMP( strrchr( dirent->d_name, '.' ), ext[i] ) )
                         flag++;
                 if ( flag == ext_limit )
                     continue;
                 snprintf( file_name, strcspn( dirent->d_name, "." ) + 1, "%s", dirent->d_name );
-                list_add( list, strdup( file_name ) );
+                if ( strcmp( strrchr( dirent->d_name, '.' ), ".pgscn" ) == 0 )
+                {
+                    char temp[MAX_BUFFER];
+                    snprintf( temp, MAX_BUFFER, "%s/Scenario", config.mod_name );
+                    search_file_name( temp, 0, file_name, temp, 'o' );
+                    snprintf( internal_name, MAX_BUFFER, "%s", load_pgf_pgscn_info( file_name, temp, 1 ) );
+                }
+                else
+                    snprintf( internal_name, MAX_BUFFER, "%s", file_name );
+                if ( file_type == LIST_ALL ) 
+                    list_add( list, strdup( file_name ) );
+                else
+                {
+                    name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                    name_entry->file_name = strdup( file_name );
+                    name_entry->internal_name = strdup( internal_name );
+                    list_add( list, name_entry );
+                }
             }
             else
             {
                 snprintf( file_name, MAX_PATH, "%s", dirent->d_name );
-                list_add( list, strdup( file_name ) );
+                if ( file_type == LIST_ALL ) 
+                    list_add( list, strdup( file_name ) );
+                else
+                {
+                    name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                    name_entry->file_name = strdup( file_name );
+                    name_entry->internal_name = strdup( file_name );
+                    list_add( list, name_entry );
+                }
             }
         }
     }
@@ -246,40 +320,93 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
      * Directories are never ordered as they have an asterisk prefixed
      * (this is intentional!)
      */
-    extracted = file_extract_order_list( list, order );
+    extracted = file_extract_order_list( list, order, file_type );
     /* convert to static list */
     text->count = list->count;
     text->lines = malloc( list->count * sizeof( char* ));
     list_reset( list );
     for ( i = 0; i < text->count; i++ )
-        text->lines[i] = strdup( list_next( list ) );
-    list_delete( list );
+    {
+        if ( file_type == LIST_ALL ) 
+            text->lines[i] = strdup( list_next( list ) );
+        else
+        {
+            name_entry = list_next( list );
+            text->lines[i] = strdup( name_entry->file_name );
+        }
+    }
     /* sort this list: directories at top and everything in alphabetical order */
     qsort( text->lines, text->count, sizeof text->lines[0], file_compare );
     /* return as dynamic list */
-    list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    if ( file_type == LIST_ALL )
+        list_final = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    else
+        list_final = list_create( LIST_AUTO_DELETE, delete_name_entry );
     /* transfer directories */
     for ( i = 0; i < text->count && text->lines[i][0] == '*'; i++ )
-        list_add( list, strdup( text->lines[i] ) );
+    {
+        if ( file_type == LIST_ALL ) 
+            list_add( list_final, strdup( text->lines[i] ) );
+        else
+        {
+            list_reset( list );
+            while ( ( name_entry = list_next( list ) ) )
+                if ( strcmp( name_entry->file_name, text->lines[i] ) == 0 )
+                    break;
+            list_transfer( list, list_final, name_entry );
+        }
+    }
     /* insert empty file */
     if ( emptyFile )
     {
-        list_add( list, strdup( tr("<empty file>") ) );
+        if ( file_type == LIST_ALL )
+            list_add( list_final, strdup( tr("<empty file>") ) );
+        else
+        {
+            name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+            name_entry->file_name = strdup( tr("<empty file>") );
+            name_entry->internal_name = strdup( tr("<empty file>") );
+            list_add( list_final, name_entry );
+        }
     }
     /* insert list of extracted ordered files between directories and files */
+    if ( file_type == LIST_ALL )
     {
         char *str;
         list_reset( extracted );
         while ( ( str = list_next( extracted ) ) )
-            list_transfer( extracted, list, str );
+        {
+            list_transfer( extracted, list_final, str );
+        }
+    }
+    else
+    {
+        Name_Entry_Type *extracted_name_entry;
+        list_reset( extracted );
+        while ( ( extracted_name_entry = list_next( extracted ) ) )
+        {
+            list_transfer( extracted, list_final, extracted_name_entry );
+        }
     }
     /* transfer files */
     for ( ; i < text->count; i++ )
-        list_add( list, strdup( text->lines[i] ) );
+    {
+        if ( file_type == LIST_ALL )
+            list_add( list_final, strdup( text->lines[i] ) );
+        else
+        {
+            list_reset( list );
+            while ( ( name_entry = list_next( list ) ) )
+                if ( strcmp( name_entry->file_name, text->lines[i] ) == 0 )
+                    break;
+            list_transfer( list, list_final, name_entry );
+        }
+    }
     delete_text( text );
     if ( order ) list_delete( order );
     list_delete( extracted );
-    return list;
+    list_delete( list );
+    return list_final;
 }
 
 /*
