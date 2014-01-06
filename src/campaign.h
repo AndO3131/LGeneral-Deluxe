@@ -48,14 +48,13 @@ Load campaign.
 ====================================================================
 */
 int camp_load( const char *fname );
+
 /*
 ====================================================================
-Load a campaign description (newly allocated string)
-and setup the setup :) except the type which is set when the 
-engine performs the load action.
+Load a campaign description.
 ====================================================================
 */
-char* camp_load_info( const char *fname );
+char* camp_load_info( char *fname, char *camp_entry );
 
 void camp_delete();
 

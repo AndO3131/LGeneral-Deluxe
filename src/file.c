@@ -34,12 +34,12 @@
 extern Config config;
 
 //#define FILE_DEBUG
-const int extension_image_length = 8;
-const int extension_sound_length = 6;
+const int extension_image_length = 4;
+const int extension_sound_length = 3;
 const int extension_scenario_length = 2;
 const int extension_campaign_length = 2;
-const char *extension_image[] = { "bmp", "BMP", "png", "PNG", "jpg", "JPG", "jpeg", "JPEG" };
-const char *extension_sound[] = { "wav", "WAV", "ogg", "OGG", "mp3", "MP3" };
+const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
+const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
 const char *extension_campaign[] = { "lgcam", "pgcam" };
 
@@ -286,17 +286,40 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                     snprintf( temp, MAX_BUFFER, "%s/Scenario", config.mod_name );
                     search_file_name( temp, 0, file_name, temp, 'o' );
                     snprintf( internal_name, MAX_BUFFER, "%s", load_pgf_pgscn_info( file_name, temp, 1 ) );
-                }
-                else
-                    snprintf( internal_name, MAX_BUFFER, "%s", file_name );
-                if ( file_type == LIST_ALL ) 
-                    list_add( list, strdup( file_name ) );
-                else
-                {
+                    /* add one scenario entry */
                     name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
                     name_entry->file_name = strdup( file_name );
                     name_entry->internal_name = strdup( internal_name );
                     list_add( list, name_entry );
+                }
+                else if ( strcmp( strrchr( dirent->d_name, '.' ), ".pgcam" ) == 0 )
+                {
+                    char temp[MAX_BUFFER];
+                    snprintf( temp, MAX_BUFFER, "%s/Scenario", config.mod_name );
+                    search_file_name( temp, 0, file_name, temp, 'c' );
+                    List *campaign_entries;
+                    campaign_entries = list_create( LIST_AUTO_DELETE, delete_name_entry );
+                    parse_pgcam( campaign_entries, file_name, temp, 0 );
+                    /* add several campaign entries */
+                    list_reset( campaign_entries );
+                    while ( ( name_entry = list_next( campaign_entries ) ) )
+                    {
+                        list_transfer( campaign_entries, list, name_entry );
+                    }
+                    list_delete( campaign_entries );
+                }
+                else
+                {
+                    snprintf( internal_name, MAX_BUFFER, "%s", file_name );
+                    if ( file_type == LIST_ALL ) 
+                        list_add( list, strdup( file_name ) );
+                    else
+                    {
+                        name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                        name_entry->file_name = strdup( file_name );
+                        name_entry->internal_name = strdup( internal_name );
+                        list_add( list, name_entry );
+                    }
                 }
             }
             else
@@ -472,6 +495,7 @@ for further use.
 'i' - images (bmp, png, jpg)
 's' - sounds (wav, ogg, mp3)
 'o' - scenarios (lgscn, pgscn)
+'c' - campaigns (lgcam, pgcam)
 ====================================================================
 */
 int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type )
@@ -533,6 +557,23 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                 }
                 break;
             }
+            case 'c':
+            {
+                while ( i < extension_campaign_length )
+                {
+                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_campaign[i] );
+                    if ( file_exists( pathTemp ) )
+                    {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_campaign[i] );
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
         }
     }
     switch (type)
@@ -582,6 +623,23 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                         snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
                         snprintf( extension, MAX_EXTENSION, "%s", extension_scenario[i] );
+                    return 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 'c':
+        {
+            while ( i < extension_campaign_length )
+            {
+                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_campaign[i] );
+                if ( file_exists( pathTemp ) )
+                {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_campaign[i] );
                     return 1;
                 }
                 i++;

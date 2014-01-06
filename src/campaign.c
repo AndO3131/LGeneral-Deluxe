@@ -26,6 +26,8 @@
 #include "campaign.h"
 #include "localize.h"
 #include "misc.h"
+#include "file.h"
+#include "FPGE/pgf.h"
 
 /*
 ====================================================================
@@ -234,19 +236,17 @@ parser_failure:
 }
 /*
 ====================================================================
-Load a campaign description (newly allocated string)
+Load a campaign description in LGD format (newly allocated string)
 and setup the setup :) except the type which is set when the 
 engine performs the load action.
 ====================================================================
 */
-char* camp_load_info( const char *fname )
+char* camp_load_lgcam_info( const char *fname, const char *path )
 {
     PData *pd;
-    char path[MAX_PATH];
     char *name, *desc;
     char *domain = 0;
     char *info = 0;
-    sprintf( path, "%s/%s/Scenario/%s.lgcam", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -270,6 +270,27 @@ failure:
     if ( info ) free( info );
     parser_free( &pd );
     free(domain);
+    return 0;
+}
+
+/*
+====================================================================
+Load a campaign description.
+====================================================================
+*/
+char *camp_load_info( char *fname, char *camp_entry )
+{
+    char path[MAX_PATH], extension[10], temp[MAX_PATH];
+    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+    search_file_name( path, extension, fname, temp, 'c' );
+    if ( strcmp( extension, "lgcam" ) == 0 )
+    {
+        return camp_load_lgcam_info( fname, path );
+    }
+    else if ( strcmp( extension, "pgcam" ) == 0 )
+    {
+        return parse_pgcam( 0, fname, path, camp_entry );
+    }
     return 0;
 }
 

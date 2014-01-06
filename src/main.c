@@ -225,7 +225,7 @@ static void eval_cmdline(int argc, char **argv)
         if (scen_load_info(argv[optind])) {
             setup.type = SETUP_INIT_SCEN;
             load = LOAD_SCEN;
-        } else if (camp_load_info(argv[optind])) {
+        } else if (camp_load_info(argv[optind], 0)) {
             setup.type = SETUP_INIT_CAMP;
             setup.scen_state = camp_scen_state;
             load = LOAD_CAMP;

@@ -78,6 +78,8 @@ Find full file name.
 Extensions are added according to type given.
 'i' - images (bmp, png, jpg)
 's' - sounds (wav, ogg, mp3)
+'o' - scenarios (lgscn, pgscn)
+'c' - campaigns (lgcam, pgcam)
 ====================================================================
 */
 int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type );

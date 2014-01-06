@@ -753,7 +753,7 @@ FDlg *fdlg_create(
                    int id_ok, 
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
-                   void (*file_cb)( const char*, SDL_Surface* ),
+                   void (*file_cb)( const char*, const char*, SDL_Surface* ),
                    SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only, int file_type )
 {
     int info_w, info_h, button_count;
@@ -918,7 +918,7 @@ void fdlg_open( FDlg *fdlg, const char *root, const char *subdir )
         snprintf( path, MAX_PATH, "%s/%s", root, subdir );
     }
     lbox_set_items( fdlg->lbox, dir_get_entries( path, root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
-                    (fdlg->file_cb)( 0, fdlg->info_buffer );
+                    (fdlg->file_cb)( 0, 0, fdlg->info_buffer );
     
     SDL_FillRect( fdlg->group->frame->contents, 0, 0x0 );
     frame_apply( fdlg->group->frame );
@@ -981,7 +981,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         else
                             sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
                         lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
-                        (fdlg->file_cb)( 0, fdlg->info_buffer );
+                        (fdlg->file_cb)( 0, 0, fdlg->info_buffer );
                     }
                     else {
                         /* file info */
@@ -990,7 +990,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         else
                             sprintf( path, "%s/%s", fdlg->subdir, fname );
                         fdlg->current_name = fname;
-                        (fdlg->file_cb)( path, fdlg->info_buffer );
+                        (fdlg->file_cb)( path, 0, fdlg->info_buffer );
                     }
                 }
                 else
@@ -1016,7 +1016,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         else
                             sprintf( path, "%s/%s", fdlg->root, fdlg->subdir );
                         lbox_set_items( fdlg->lbox, dir_get_entries( path, fdlg->root, fdlg->file_type, fdlg->emptyFile, fdlg->dir_only ) );
-                        (fdlg->file_cb)( 0, fdlg->info_buffer );
+                        (fdlg->file_cb)( 0, 0, fdlg->info_buffer );
                     }
                     else {
                         /* file info */
@@ -1025,7 +1025,7 @@ int fdlg_handle_button( FDlg *fdlg, int button_id, int cx, int cy, Button **butt
                         else
                             sprintf( path, "%s/%s", fdlg->subdir, name_entry->file_name );
                         fdlg->current_name = name_entry->file_name;
-                        (fdlg->file_cb)( path, fdlg->info_buffer );
+                        (fdlg->file_cb)( path, name_entry->internal_name, fdlg->info_buffer );
                     }
                 }
                 DEST( fdlg->group->frame->contents, fdlg->info_x, fdlg->info_y, fdlg->info_buffer->w, fdlg->info_buffer->h );

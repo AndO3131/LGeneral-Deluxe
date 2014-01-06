@@ -1160,27 +1160,27 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
         }
         if (block==2)
         {
-        	/* set setup */
-        	scen_clear_setup();
-        	strcpy( setup.fname, fname );
-        	setup.player_count = 2;
-        	setup.ctrl = calloc( setup.player_count, sizeof( int ) );
-        	setup.names = calloc( setup.player_count, sizeof( char* ) );
-        	setup.modules = calloc( setup.player_count, sizeof( char* ) );
-        	/* load the player ctrls */
-        	if ( allies_move_first == 0 )
-        	{
-        		setup.names[0] = strdup(trd(domain, "Axis"));
+            /* set setup */
+            scen_clear_setup();
+            strcpy( setup.fname, fname );
+            setup.player_count = 2;
+            setup.ctrl = calloc( setup.player_count, sizeof( int ) );
+            setup.names = calloc( setup.player_count, sizeof( char* ) );
+            setup.modules = calloc( setup.player_count, sizeof( char* ) );
+            /* load the player ctrls */
+            if ( allies_move_first == 0 )
+            {
+                setup.names[0] = strdup(trd(domain, "Axis"));
                 setup.names[1] = strdup(trd(domain, "Allies"));
-        	}
-        	else
-        	{
-        		setup.names[0] = strdup(trd(domain, "Allies"));
+            }
+            else
+            {
+                setup.names[0] = strdup(trd(domain, "Allies"));
                 setup.names[1] = strdup(trd(domain, "Axis"));
-        	}
-        	setup.ctrl[0] = PLAYER_CTRL_HUMAN;
+            }
+            setup.ctrl[0] = PLAYER_CTRL_HUMAN;
             setup.ctrl[1] = PLAYER_CTRL_CPU;
-        	setup.modules[0] = strdup( "default" );
+            setup.modules[0] = strdup( "default" );
             setup.modules[1] = strdup( "default" );
             if ( ( info = calloc( strlen( name ) + strlen( desc ) + strlen( turns ) + 30, sizeof( char ) ) ) == 0 ) {
                 fprintf( stderr, tr("Out of memory\n") );
@@ -1195,149 +1195,160 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
     return 0;
 }
 
-/*
-int parse_pgcam( int show_info,  int probe_file_only){
+char *parse_pgcam( List *camp_entries, const char *fname, char *path, char *info_entry_name )
+{
+    FILE *inf;
+    char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
+    char line[1024],tokens[20][256], temp[MAX_PATH];
+    int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0;
+    int lines=0;
 
-	  FILE *inf, *outf;
-	  char path[MAX_PATH], brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
-	  char line[1024],tokens[20][256];
-	  int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0;
-	  int lines=0;
+    search_file_name( path, 0, fname, temp, 'c' );
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open scenario file\n");
+        return 0;
+    }
 
-	  hash_table table;
+    while (read_utf16_line_convert_to_utf8(inf,line)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
 
-	  snprintf(path,MAX_PATH,pgf_pg_pgcam);
-	  canonicalize_filename(path,path,MAX_PATH);
-	  if (show_info && probe_file_only==LOAD_FILE)
-		  printf("Opening file %s\n",path);
-	  inf=fopen(path,"rb");
-	  if (!inf)
-	  {
-	    //printf("Couldn't open scenario file\n");
-	    return ERROR_PGCAM_FILE_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-	  }
-	  if (probe_file_only==PROBE_FILE){
-		  fclose(inf);
-		  return ERROR_PGCAM_FILE_BASE+ERROR_FPGE_FILE_FOUND;
-	  }
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23) { line[i]=0; break; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
 
-	  hash_construct_table(&table,211);
+        //entry points
+        if (block == 2 && token > 1)
+        {
+            if ( camp_entries != 0 )
+            {
+                Name_Entry_Type *name_entry;
+                name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                name_entry->file_name = strdup( fname );
+                name_entry->internal_name = strdup( tokens[0] );
+                list_add( camp_entries, name_entry );
+            }
+            else if ( info_entry_name != 0 )
+            {
+                if ( strcmp( tokens[0], info_entry_name ) == 0 )
+                {
+                    fclose(inf);
+                    char *info = calloc( strlen( tokens[0] ) + strlen( tokens[2] ) + 3, sizeof( char ) );
+                    sprintf( info, "%s##%s", tokens[0], tokens[2] );
+                    strcpy( setup.fname, fname );
+                    setup.scen_state = 0;
+                    return info;
+                }
+            }
+        }
+        //Block#5  path
+        if (block == 5 && token > 1)
+        {
+            if ( camp_entries != 0 )
+            {
+                fclose(inf);
+                return "1";
+            }
+/*            //header
+            strncpy(scenario_node,tokens[0],256);
+            //check brefing
+            if (strlen(tokens[1])>0)
+            {
+                strncat(scenario_node,"+",256);
 
-	  snprintf(path,MAX_PATH,fpge_pgcam_gv);
-	  canonicalize_filename(path,path,MAX_PATH);
-	  outf=fopen(path,"wb");
-	  if (!outf)
-	  {
-	    //printf("Couldn't open scenario file\n");
-		  fclose(inf);
-		  return ERROR_PGCAM_FILE_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-	  }
+                fprintf(outf,"subgraph cluster_%d { color=white \n",sub_graph_counter);
 
-	  fprintf(outf,"digraph G { \n");
+                //cheat
+                fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\", color=darkgoldenrod1]\n",tokens[0],tokens[1]); //darkgoldenrod1
+                //link
+                fprintf(outf,"\"%s\" -> \"%s\" [color=darkgoldenrod1]\n",tokens[0],scenario_node);
+                //scenario node
+                fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //+
 
-	  while (read_utf16_line_convert_to_utf8(inf,line)>=0){
-		  //count lines so error can be displayed with line number
-		  lines++;
+                fprintf(outf,"}\n");
+                sub_graph_counter++;
+            }
+            else
+            {
+                fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //chartreuse2
+            }
 
-			  //strip comments
-			  for(i=0;i<strlen(line);i++)
-				  if (line[i]==0x23) { line[i]=0; break; }
-			  if (strlen(line)>0 && last_line_length==0){
-				  block++;
-			  }
-			  last_line_length=strlen(line);
-			  token=0;
-			  cursor=0;
-			  for(i=0;i<strlen(line);i++)
-				  if (line[i]==0x09) {tokens[token][cursor]=0;token++;cursor=0;}
-				  else {tokens[token][cursor]=line[i]; cursor++;}
-			  tokens[token][cursor]=0;
-			  token++;
+            for (j = 0; j < 3; j++)
+            {
+                switch (j)
+                {
+                    case 0:
+                        strncpy(color_code, "[color=blue]", 256);
+                        strncpy(br_color_code, "[color=blue2]", 256);
+                        break;
+                    case 1:
+                        strncpy(color_code, "[color=green]", 256);
+                        strncpy(br_color_code, "[color=green2]", 256);
+                    break;
+                case 2:
+                    strncpy(color_code, "[color=red]", 256);
+                    strncpy(br_color_code, "[color=red2]", 256);
+                    break;
+                }
+                if (strlen(tokens[3*(j+1)+2])>0)
+                {
+                    strncpy(brfnametmp,tokens[3*(j+1)+2],256);
+                    if (hash_lookup(brfnametmp,&table))
+                    {
+                        //printf("%s juz jest\n",brfnametmp);
+                        while(hash_lookup(brfnametmp,&table))
+                        {
+                            strncat(brfnametmp,"+",256);
+                        }
+                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
+                        //printf("%s nie ma\n",brfnametmp);
+                    }
+                    else
+                    {
+                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
+                    }
 
-			  //entry points
-			  if (block == 2 && token > 1){
+                    fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\"] %s\n",brfnametmp,tokens[3*(j+1)+2],br_color_code); //darkgoldenrod1
+                    parse_pgbrf(outf,tokens[3*(j+1)+2],brfnametmp,color_code);
+                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,brfnametmp,color_code);
+                    if (strlen(tokens[3*(j+1)])>0)
+                        fprintf(outf,"\"%s\" -> \"%s\" %s\n",brfnametmp,tokens[3*(j+1)],color_code);
+                }
+                else
+                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,tokens[3*(j+1)],color_code);
+            }*/
+        }
+    }
+    //end node
+    fclose(inf);
 
-				  fprintf(outf,"\"%s\" [shape=diamond, fillcolor=crimson, style=filled, color=black ]\n",tokens[0]);
-				  fprintf(outf,"\"%s\" -> \"%s\" %s\n",tokens[0],tokens[1],"[color=crimson]");
-			  }
-			  //Block#5  path
-			  if (block == 5 && token > 1) {
-				  //header
-				  strncpy(scenario_node,tokens[0],256);
-				  //check brefing
-				  if (strlen(tokens[1])>0){
-					  strncat(scenario_node,"+",256);
-
-					  fprintf(outf,"subgraph cluster_%d { color=white \n",sub_graph_counter);
-
-					  //cheat
-					  fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\", color=darkgoldenrod1]\n",tokens[0],tokens[1]); //darkgoldenrod1
-					  //link
-					  fprintf(outf,"\"%s\" -> \"%s\" [color=darkgoldenrod1]\n",tokens[0],scenario_node);
-					  //scenario node
-					  fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //+
-
-					  fprintf(outf,"}\n");
-					  sub_graph_counter++;
-				  }else{
-					  fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //chartreuse2
-				  }
-
-				  for (j = 0; j < 3; j++) {
-				switch (j) {
-				case 0:
-					strncpy(color_code, "[color=blue]", 256);
-					strncpy(br_color_code, "[color=blue2]", 256);
-					break;
-				case 1:
-					strncpy(color_code, "[color=green]", 256);
-					strncpy(br_color_code, "[color=green2]", 256);
-					break;
-				case 2:
-					strncpy(color_code, "[color=red]", 256);
-					strncpy(br_color_code, "[color=red2]", 256);
-					break;
-				}
-				  if (strlen(tokens[3*(j+1)+2])>0){
-					  strncpy(brfnametmp,tokens[3*(j+1)+2],256);
-					  if (hash_lookup(brfnametmp,&table)){
-						  //printf("%s juz jest\n",brfnametmp);
-						  while(hash_lookup(brfnametmp,&table)){
-							  strncat(brfnametmp,"+",256);
-						  }
-						  hash_insert( brfnametmp, strdup(brfnametmp), &table );
-						  //printf("%s nie ma\n",brfnametmp);
-					  }else{
-						  hash_insert( brfnametmp, strdup(brfnametmp), &table );
-					  }
-
-					  fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\"] %s\n",brfnametmp,tokens[3*(j+1)+2],br_color_code); //darkgoldenrod1
-					  parse_pgbrf(outf,tokens[3*(j+1)+2],brfnametmp,color_code);
-					  fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,brfnametmp,color_code);
-					  if (strlen(tokens[3*(j+1)])>0)
-						  fprintf(outf,"\"%s\" -> \"%s\" %s\n",brfnametmp,tokens[3*(j+1)],color_code);
-				  }else
-					  fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,tokens[3*(j+1)],color_code);
-				  }
-			}
-	  }
-	  //end node
-	  fprintf(outf,"\"END\" [shape=diamond, fillcolor=crimson, style=filled, color=black ]\n");
-
-	  fprintf(outf,"}\n");
-	  fclose(inf);
-	  fclose(outf);
-
-      hash_free_table( &table, strfree );
-
-	  if (show_info) {
-		  printf("PGF campaign file loaded.\n");
-		  printf("'%s' file written. To make pgcam.png use : dot %s -Tpng > pgcam.png\n",fpge_pgcam_gv,fpge_pgcam_gv);
-	  }
-
-	  return 0;
+    return "1";
 }
-
+/*
 int parse_pgbrf(FILE *outf, char *path, char *node_name, char *color){
 
 	  FILE *inf;

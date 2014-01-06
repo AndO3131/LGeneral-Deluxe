@@ -529,7 +529,7 @@ int gui_load( char *dir )
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
-    gui->mod_select_dlg = fdlg_create( gui_create_frame( 120, 208 ), 160, 10,
+    gui->mod_select_dlg = fdlg_create( gui_create_frame( 180, 208 ), 160, 10,
                                  load_surf( path2, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  20,
                                  gui_create_frame( 231, 208),
@@ -1592,10 +1592,11 @@ void gui_render_scen_file_name( void *item, SDL_Surface *buffer )
 /*
 ====================================================================
 Handle the selection of a scenario file (render info and 
-load scen_info from path)
+load scen_info from path).
+@camp_entry variable not used.
 ====================================================================
 */
-void gui_render_scen_info( const char *path, SDL_Surface *buffer )
+void gui_render_scen_info( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     Text *text;
     int i, x = 0, y = 0;
@@ -1626,7 +1627,7 @@ Handle the selection of a campaign file (display info and
 load camp_info from full path)
 ====================================================================
 */
-void gui_render_camp_info( const char *path, SDL_Surface *buffer )
+void gui_render_camp_info( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     Text *text;
     int i, x = 0, y = 0;
@@ -1638,7 +1639,7 @@ void gui_render_camp_info( const char *path, SDL_Surface *buffer )
         SDL_FillRect( buffer, 0, 0x0 );
     }
     else
-    if ( ( info = camp_load_info( path ) ) ) {
+    if ( ( info = camp_load_info( path, camp_entry ) ) ) {
         group_set_active( gui->camp_dlg->group, ID_CAMP_SETUP, 1 );
         group_set_active( gui->camp_dlg->group, ID_CAMP_OK, 1 );
         /* render info */
@@ -1654,10 +1655,11 @@ void gui_render_camp_info( const char *path, SDL_Surface *buffer )
 
 /*
 ====================================================================
-Handle the selection of a file to load
+Handle the selection of a file to load.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_load_menu( const char *path, SDL_Surface *buffer )
+void gui_render_load_menu( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     if ( path == 0 )
     {
@@ -1675,10 +1677,11 @@ void gui_render_load_menu( const char *path, SDL_Surface *buffer )
 
 /*
 ====================================================================
-Handle the selection of a file to save
+Handle the selection of a file to save.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_save_menu( const char *path, SDL_Surface *buffer )
+void gui_render_save_menu( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     if ( path == 0 )
     {
@@ -1696,10 +1699,11 @@ void gui_render_save_menu( const char *path, SDL_Surface *buffer )
 
 /*
 ====================================================================
-Handle the selection of a mod folder to load
+Handle the selection of a mod folder to load.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_mod_select_info( const char *path, SDL_Surface *buffer )
+void gui_render_mod_select_info( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     char pathFinal[MAX_PATH];
     SDL_Surface *image;

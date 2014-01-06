@@ -369,21 +369,23 @@ Handle the selection of a scenario file (display info and
 load scen_info from full path)
 ====================================================================
 */
-void gui_render_scen_info( const char *path, SDL_Surface *buffer );
+void gui_render_scen_info( const char *path, const char *camp_entry, SDL_Surface *buffer );
 
 /*
 ====================================================================
-Handle the selection of a file to load
+Handle the selection of a file to load.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_load_menu( const char *path, SDL_Surface *buffer );
+void gui_render_load_menu( const char *path, const char *camp_entry, SDL_Surface *buffer );
 
 /*
 ====================================================================
-Handle the selection of a file to save
+Handle the selection of a file to save.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_save_menu( const char *path, SDL_Surface *buffer );
+void gui_render_save_menu( const char *path, const char *camp_entry, SDL_Surface *buffer );
 
 /*
 ====================================================================
@@ -391,7 +393,7 @@ Handle the selection of a campaign file (display info and
 load scen_info from full path)
 ====================================================================
 */
-void gui_render_camp_info( const char *path, SDL_Surface *buffer );
+void gui_render_camp_info( const char *path, const char *camp_entry, SDL_Surface *buffer );
 
 /*
 ====================================================================
@@ -500,10 +502,11 @@ void gui_render_module_info( const char *path, SDL_Surface *buffer );
 
 /*
 ====================================================================
-Handle the selection of a mod folder to load
+Handle the selection of a mod folder to load.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_mod_select_info( const char *path, SDL_Surface *buffer );
+void gui_render_mod_select_info( const char *path, const char *camp_entry, SDL_Surface *buffer );
 
 /*
 ====================================================================

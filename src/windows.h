@@ -384,7 +384,8 @@ typedef struct {
     Group *group;                       /* info frame with ok/cancel buttons */
     char root[1024];                    /* root directory */
     char subdir[1024];                  /* current directory in root directory */
-    void (*file_cb)( const char*, SDL_Surface* ); /* called if a file was selected
+    void (*file_cb)( const char*, const char*, SDL_Surface* );
+                                        /* called if a file was selected
                                                the full path is given */
     int info_x, info_y;                 /* info position */
     SDL_Surface *info_buffer;           /* buffer of information */
@@ -417,7 +418,7 @@ FDlg *fdlg_create(
                    int id_ok,
                    Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
-                   void (*file_cb)( const char*, SDL_Surface* ),
+                   void (*file_cb)( const char*, const char*, SDL_Surface* ),
                    SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only, int file_type );
 void fdlg_delete( FDlg **fdlg );
 
