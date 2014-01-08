@@ -56,51 +56,6 @@ Locals
 ====================================================================
 */
 
-/*
-====================================================================
-Delete campaign entry.
-====================================================================
-*/
-static void camp_delete_entry( void *ptr )
-{
-    Camp_Entry *entry = (Camp_Entry*)ptr;
-    if ( entry ) {
-        if ( entry->id ) free( entry->id );
-        if ( entry->scen ) free( entry->scen );
-        if ( entry->brief ) free( entry->brief );
-        if ( entry->nexts ) list_delete( entry->nexts );
-        if ( entry->descs ) list_delete( entry->descs );
-        free( entry );
-    }
-}
-
-/* check whether all next entries have a matching scenario entry */
-static void camp_verify_tree()
-{
-    int i;
-    Camp_Entry *entry = 0;
-    char *next = 0, *ptr;
-
-    for ( i = 0; i < camp_entries->count; i++ )
-    {
-        entry = list_get( camp_entries, i );
-        if ( entry->nexts && entry->nexts->count > 0 )
-        {
-            list_reset( entry->nexts );
-            while ( (next = list_next(entry->nexts)) )
-            {
-                ptr = strchr( next, '>' ); 
-                if ( ptr ) 
-                    ptr++; 
-                else 
-                    ptr = next;
-                if ( camp_get_entry(ptr) == 0 ) 
-                    printf( "  (is a 'next' entry in scenario %s)\n", entry->id );
-            }
-        }
-    }
-}
-
 /**
  * resolve a reference to a value defined in another scenario state
  * @param entries parse tree containing scenario states
@@ -152,26 +107,19 @@ inline static char *camp_resolve_ref_localized(PData *entries, const char *key, 
 
 /*
 ====================================================================
-Publics
+Load campaign in LGD format.
 ====================================================================
 */
-
-/*
-====================================================================
-Load campaign.
-====================================================================
-*/
-int camp_load( const char *fname )
+int camp_load_lgcam( const char *fname, const char *path )
 {
     Camp_Entry *centry = 0;
     PData *pd, *scen_ent, *sub, *pdent, *subsub;
     List *entries, *next_entries;
-    char path[MAX_PATH], str[MAX_LINE_SHORT];
+    char str[MAX_LINE_SHORT];
     char *result, *next_scen;
     char *domain = 0;
     camp_delete();
-    sprintf( path, "%s/%s/Scenario/%s.lgcam", get_gamedir(), config.mod_name, fname );
-    camp_fname = strdup( fname );
+
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -234,6 +182,7 @@ parser_failure:
     free(domain);
     return 0;
 }
+
 /*
 ====================================================================
 Load a campaign description in LGD format (newly allocated string)
@@ -275,6 +224,76 @@ failure:
 
 /*
 ====================================================================
+Publics
+====================================================================
+*/
+
+/*
+====================================================================
+Delete campaign entry.
+====================================================================
+*/
+void camp_delete_entry( void *ptr )
+{
+    Camp_Entry *entry = (Camp_Entry*)ptr;
+    if ( entry ) {
+        if ( entry->id ) free( entry->id );
+        if ( entry->scen ) free( entry->scen );
+        if ( entry->brief ) free( entry->brief );
+        if ( entry->nexts ) list_delete( entry->nexts );
+        if ( entry->descs ) list_delete( entry->descs );
+        free( entry );
+    }
+}
+
+/* check whether all next entries have a matching scenario entry */
+void camp_verify_tree()
+{
+    int i;
+    Camp_Entry *entry = 0;
+    char *next = 0, *ptr;
+
+    for ( i = 0; i < camp_entries->count; i++ )
+    {
+        entry = list_get( camp_entries, i );
+        if ( entry->nexts && entry->nexts->count > 0 )
+        {
+            list_reset( entry->nexts );
+            while ( (next = list_next(entry->nexts)) )
+            {
+                ptr = strchr( next, '>' ); 
+                if ( ptr ) 
+                    ptr++; 
+                else 
+                    ptr = next;
+                if ( camp_get_entry(ptr) == 0 ) 
+                    printf( "  (is a 'next' entry in scenario %s)\n", entry->id );
+            }
+        }
+    }
+}
+
+/*
+====================================================================
+Load campaign.
+====================================================================
+*/
+int camp_load( const char *fname, const char *camp_entry )
+{
+    char *path, *extension, temp[256];
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    snprintf( temp, 256, "%s/Scenario", config.mod_name );
+    search_file_name( path, extension, setup.fname, temp, 'c' );
+    if ( strcmp( extension, "lgcam" ) == 0 )
+        return camp_load_lgcam( fname, path );
+    else if ( strcmp( extension, "pgcam" ) == 0 )
+        return parse_pgcam( fname, path, camp_entry );
+    return 0;
+}
+
+/*
+====================================================================
 Load a campaign description.
 ====================================================================
 */
@@ -289,7 +308,7 @@ char *camp_load_info( char *fname, char *camp_entry )
     }
     else if ( strcmp( extension, "pgcam" ) == 0 )
     {
-        return parse_pgcam( 0, fname, path, camp_entry );
+        return parse_pgcam_info( 0, fname, path, camp_entry );
     }
     return 0;
 }

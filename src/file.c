@@ -299,7 +299,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                     search_file_name( temp, 0, file_name, temp, 'c' );
                     List *campaign_entries;
                     campaign_entries = list_create( LIST_AUTO_DELETE, delete_name_entry );
-                    parse_pgcam( campaign_entries, file_name, temp, 0 );
+                    parse_pgcam_info( campaign_entries, file_name, temp, 0 );
                     /* add several campaign entries */
                     list_reset( campaign_entries );
                     while ( ( name_entry = list_next( campaign_entries ) ) )

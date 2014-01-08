@@ -44,10 +44,20 @@ typedef struct {
 
 /*
 ====================================================================
+Delete campaign entry.
+====================================================================
+*/
+void camp_delete_entry( void *ptr );
+
+/* check whether all next entries have a matching scenario entry */
+void camp_verify_tree();
+
+/*
+====================================================================
 Load campaign.
 ====================================================================
 */
-int camp_load( const char *fname );
+int camp_load( const char *fname, const char *camp_entry );
 
 /*
 ====================================================================

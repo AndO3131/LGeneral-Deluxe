@@ -43,7 +43,6 @@ extern int log_x, log_y;       /* position where to draw log info */
 extern Scen_Info *scen_info;
 extern List *players;
 extern Player *player;
-extern int camp_loaded;
 extern Trgt_Type *trgt_types;
 extern int trgt_type_count;
 extern Mov_Type *mov_types;
@@ -60,8 +59,6 @@ extern List *units;        /* active units */
 extern List *vis_units;    /* all units spotted by current player */
 extern List *avail_units;  /* available units for current player to deploy */
 extern List *reinf;
-extern Camp_Entry *camp_cur_scen;
-extern char *camp_first;
 extern VCond *vconds;
 extern int vcond_count;
 extern int *casualties;	/* sum of casualties grouped by unit class and player */
@@ -69,11 +66,44 @@ extern int deploy_turn;
 extern char scen_result[64];  /* the scenario result is saved here */
 extern char scen_message[128]; /* the final scenario message is saved here */
 extern int vcond_check_type;
+extern int camp_loaded;
+extern char *camp_fname;
+extern char *camp_name;
+extern char *camp_desc;
+extern char *camp_authors;
+extern List *camp_entries; /* scenario entries */
+extern Camp_Entry *camp_cur_scen;
+extern char *camp_first;
 
 unsigned short UCS2_header=0xfeff;
 unsigned short axis_experience=200;
 unsigned short allied_experience=200;
 unsigned short allies_move_first;
+
+/*
+====================================================================
+Campaign scenario entry.
+====================================================================
+*/
+typedef struct {
+    char *id;       /* scenario id */
+    char *fname;    /* scenario file name */
+} Scen_Entry;
+
+/*
+====================================================================
+Delete scenario entry.
+====================================================================
+*/
+void scen_entry_delete( void *ptr )
+{
+    Scen_Entry *entry = (Scen_Entry*)ptr;
+    if ( entry ) {
+        if ( entry->id ) free( entry->id );
+        if ( entry->fname ) free( entry->fname );
+        free( entry );
+    }
+}
 
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
@@ -166,7 +196,7 @@ int load_pgf_equipment(char *fullName){
     FILE *inf;
 
     Unit_Lib_Entry *unit;
-    char line[1024],tokens[50][256], log_str[256];
+    char line[1024],tokens[50][256];
     int i,cursor=0,token=0,lines, icon_id;
     int token_len, token_write;
     unsigned short file_type_probe;
@@ -632,6 +662,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
                 player->id = strdup( "axis" );
                 player->name = strdup(trd(domain, "Axis"));
+                player->ai_fname = strdup( "default" );
                 player->strength_row = 0;
 
                 player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
@@ -685,6 +716,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
                 player->id = strdup( "allies" );
                 player->name = strdup(trd(domain, "Allies"));
+                player->ai_fname = strdup( "default" );
                 player->strength_row = 2;
 
                 player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
@@ -1163,6 +1195,7 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
             /* set setup */
             scen_clear_setup();
             strcpy( setup.fname, fname );
+            strcpy( setup.camp_entry_name, "" );
             setup.player_count = 2;
             setup.ctrl = calloc( setup.player_count, sizeof( int ) );
             setup.names = calloc( setup.player_count, sizeof( char* ) );
@@ -1195,7 +1228,232 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
     return 0;
 }
 
-char *parse_pgcam( List *camp_entries, const char *fname, char *path, char *info_entry_name )
+int parse_pgcam( const char *fname, const char *full_name, const char *info_entry_name )
+{
+    List *temp_list, *next_entries, *scenarios = 0;
+    Camp_Entry *centry = 0;
+    Scen_Entry *sentry = 0;
+    FILE *inf;
+    char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
+    char outcomes[10][256];
+    char line[1024],tokens[20][256], temp[MAX_PATH];
+    char str[MAX_LINE_SHORT];
+    int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0, current_outcome = 0;
+    int lines=0;
+    camp_delete();
+
+    inf=fopen(full_name,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open scenario file\n");
+        return 0;
+    }
+
+    scenarios = list_create( LIST_AUTO_DELETE, scen_entry_delete );
+
+    while (read_utf16_line_convert_to_utf8(inf,line)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23) { line[i]=0; break; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#2 entry points
+        if (block == 2 && token > 1)
+        {
+            if ( strcmp( tokens[0], info_entry_name ) == 0 )
+            {
+                /* name, desc */
+                camp_name = strdup( tokens[0] );
+                camp_desc = strdup( tokens[2] );
+                temp_list = list_create( LIST_AUTO_DELETE, camp_delete_entry );
+//                if (!camp_first)
+                camp_first = strdup( tokens[1] );
+/*                centry = calloc( 1, sizeof( Camp_Entry ) );
+
+                centry->id = strdup( tokens[1] );
+                char *info = calloc( strlen( tokens[0] ) + strlen( tokens[2] ) + 3, sizeof( char ) );
+                sprintf( info, "%s##%s", tokens[0], tokens[2] );
+                strcpy( setup.fname, fname );
+                strcpy( setup.info_entry_name, fname );
+                setup.scen_state = 0;*/
+            }
+        }
+
+        //Block#3 outcomes
+        if (block == 3 && token > 1)
+        {
+            snprintf( outcomes[current_outcome], 256, "%s", tokens[0] );
+            current_outcome++;
+        }
+
+        //Block#4 scenario entries
+        if (block == 4 && token > 1)
+        {
+            sentry = calloc( 1, sizeof( Scen_Entry ) );
+            sentry->id = strdup( tokens[0] );
+            sentry->fname = strdup( tokens[1] );
+            list_add( scenarios, sentry );
+        }
+
+        //Block#5 path
+        if (block == 5 && token > 1)
+        {
+            /* entries */
+            centry = calloc( 1, sizeof( Camp_Entry ) );
+            centry->id = strdup( tokens[0] );
+            centry->scen = strdup( tokens[2] );
+            //check initial briefing
+            if (strlen(tokens[1])>0)
+            {
+//                parse_pgbrf
+            }
+            else
+            {
+                
+            }
+
+            centry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+            for (j = 0; j < 3; j++)
+            {
+                if ( ( strcmp( tokens[3 * ( j + 1 )], "" ) == 0 ) || ( strcmp( tokens[3 * ( j + 1 )], "END" ) == 0 ) )
+                {
+                    Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
+                    end_entry->id = strdup( tokens[3 * ( j + 1 )] );
+                    list_add( temp_list, end_entry );
+                }
+                snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[3 * ( j + 1 )] );
+//fprintf(stderr, "%s\n", str );
+                list_add( centry->nexts, strdup( str ) );
+                if (strlen(tokens[3 * ( j + 1 ) + 2])>0)
+                {
+/*                    strncpy(brfnametmp,tokens[3*(j+1)+2],256);
+
+                    if (hash_lookup(brfnametmp,&table))
+                    {
+                        //printf("%s juz jest\n",brfnametmp);
+
+                        while(hash_lookup(brfnametmp,&table))
+                        {
+                            strncat(brfnametmp,"+",256);
+                        }
+
+
+                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
+                        //printf("%s nie ma\n",brfnametmp);
+                    }
+                    else
+
+                    {
+                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
+                    }
+
+
+                    fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\"] %s\n",brfnametmp,tokens[3*(j+1)+2],br_color_code); //darkgoldenrod1
+                    parse_pgbrf(outf,tokens[3*(j+1)+2],brfnametmp,color_code);
+
+                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,brfnametmp,color_code);
+                    if (strlen(tokens[3*(j+1)])>0)
+                        fprintf(outf,"\"%s\" -> \"%s\" %s\n",brfnametmp,tokens[3*(j+1)],color_code);
+                }
+
+                else
+                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,tokens[3*(j+1)],color_code);*/
+                }
+            }
+            list_add( temp_list, centry );
+        }
+    }
+
+    //end node
+    fclose(inf);
+
+    /* build campaign starting at selected entry point */
+    camp_entries = list_create( LIST_AUTO_DELETE, camp_delete_entry );
+    list_reset( temp_list );
+    /* searching for entry point */
+    for ( i = 0; i < temp_list->count; i++ )
+    {
+        centry = list_next( temp_list );
+        if ( strcmp( centry->id, camp_first ) == 0 )
+        {
+            list_transfer( temp_list, camp_entries, centry );
+            break;
+        }
+    }
+
+    Camp_Entry *final_entry;
+    char *next = 0, *ptr;
+    list_reset( camp_entries );
+    /* searching for subsequent entries */
+    while ( ( final_entry = list_next( camp_entries ) ) )
+    {
+        if ( final_entry->nexts && final_entry->nexts->count > 0 )
+        {
+            list_reset( final_entry->nexts );
+            while ( (next = list_next( final_entry->nexts )) )
+            {
+                ptr = strchr( next, '>' ); 
+                if ( ptr ) 
+                {
+//fprintf(stderr, "%s\n", next );
+                    ptr++; 
+                    list_reset( temp_list );
+                    while ( ( centry = list_next( temp_list ) ) )
+                        if ( strcmp( ptr, centry->id ) == 0 )
+                        {
+                            list_transfer( temp_list, camp_entries, centry );
+                        }
+                }
+            }
+        }
+        /* searching for scenario filenames */
+        list_reset( scenarios );
+//fprintf(stderr, "%s\n", final_entry->scen );
+        while ( ( sentry = list_next( scenarios ) ) )
+            if ( ( final_entry->scen ) && strcmp( sentry->id, final_entry->scen ) == 0 )
+            {
+                free( final_entry->scen );
+                final_entry->scen = calloc( 10, sizeof( char ) );
+                int length = strcspn( sentry->fname, "." );
+                length++;
+                snprintf( final_entry->scen, length, "%s", sentry->fname );
+//fprintf(stderr, "%s\n", final_entry->scen );
+                break;
+            }
+    }
+
+    /* cleanup */
+    camp_loaded = FIRST_SCENARIO;
+    camp_verify_tree();
+
+    return 1;
+}
+
+char *parse_pgcam_info( List *camp_entries, const char *fname, char *path, char *info_entry_name )
 {
     FILE *inf;
     char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
@@ -1260,6 +1518,7 @@ char *parse_pgcam( List *camp_entries, const char *fname, char *path, char *info
                     char *info = calloc( strlen( tokens[0] ) + strlen( tokens[2] ) + 3, sizeof( char ) );
                     sprintf( info, "%s##%s", tokens[0], tokens[2] );
                     strcpy( setup.fname, fname );
+                    strcpy( setup.camp_entry_name, info_entry_name );
                     setup.scen_state = 0;
                     return info;
                 }
@@ -1273,74 +1532,6 @@ char *parse_pgcam( List *camp_entries, const char *fname, char *path, char *info
                 fclose(inf);
                 return "1";
             }
-/*            //header
-            strncpy(scenario_node,tokens[0],256);
-            //check brefing
-            if (strlen(tokens[1])>0)
-            {
-                strncat(scenario_node,"+",256);
-
-                fprintf(outf,"subgraph cluster_%d { color=white \n",sub_graph_counter);
-
-                //cheat
-                fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\", color=darkgoldenrod1]\n",tokens[0],tokens[1]); //darkgoldenrod1
-                //link
-                fprintf(outf,"\"%s\" -> \"%s\" [color=darkgoldenrod1]\n",tokens[0],scenario_node);
-                //scenario node
-                fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //+
-
-                fprintf(outf,"}\n");
-                sub_graph_counter++;
-            }
-            else
-            {
-                fprintf(outf,"\"%s\" [shape=box, fillcolor=darkgoldenrod1, style=filled, color=black, label=\"%s\"]\n",scenario_node,tokens[0]); //chartreuse2
-            }
-
-            for (j = 0; j < 3; j++)
-            {
-                switch (j)
-                {
-                    case 0:
-                        strncpy(color_code, "[color=blue]", 256);
-                        strncpy(br_color_code, "[color=blue2]", 256);
-                        break;
-                    case 1:
-                        strncpy(color_code, "[color=green]", 256);
-                        strncpy(br_color_code, "[color=green2]", 256);
-                    break;
-                case 2:
-                    strncpy(color_code, "[color=red]", 256);
-                    strncpy(br_color_code, "[color=red2]", 256);
-                    break;
-                }
-                if (strlen(tokens[3*(j+1)+2])>0)
-                {
-                    strncpy(brfnametmp,tokens[3*(j+1)+2],256);
-                    if (hash_lookup(brfnametmp,&table))
-                    {
-                        //printf("%s juz jest\n",brfnametmp);
-                        while(hash_lookup(brfnametmp,&table))
-                        {
-                            strncat(brfnametmp,"+",256);
-                        }
-                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
-                        //printf("%s nie ma\n",brfnametmp);
-                    }
-                    else
-                    {
-                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
-                    }
-
-                    fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\"] %s\n",brfnametmp,tokens[3*(j+1)+2],br_color_code); //darkgoldenrod1
-                    parse_pgbrf(outf,tokens[3*(j+1)+2],brfnametmp,color_code);
-                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,brfnametmp,color_code);
-                    if (strlen(tokens[3*(j+1)])>0)
-                        fprintf(outf,"\"%s\" -> \"%s\" %s\n",brfnametmp,tokens[3*(j+1)],color_code);
-                }
-                else
-                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,tokens[3*(j+1)],color_code);
-            }*/
         }
     }
     //end node
@@ -1348,6 +1539,7 @@ char *parse_pgcam( List *camp_entries, const char *fname, char *path, char *info
 
     return "1";
 }
+
 /*
 int parse_pgbrf(FILE *outf, char *path, char *node_name, char *color){
 

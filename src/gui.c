@@ -2069,10 +2069,11 @@ void gui_handle_player_select( void *item )
 
 /*
 ====================================================================
-Load a module's info
+Load a module's info.
+@camp_entry is unused
 ====================================================================
 */
-void gui_render_module_info( const char *path, SDL_Surface *buffer )
+void gui_render_module_info( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     if ( path )
         group_set_active( gui->module_dlg->group, ID_MODULE_OK, 1 );

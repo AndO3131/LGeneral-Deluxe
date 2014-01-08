@@ -50,6 +50,7 @@ enum {
 };
 typedef struct {
     char fname[256];    /* resource file for loading type */
+    char camp_entry_name[256]; /* campaign entry to load */
     int  type;
     char *load_name; /* in case of LOAD_GAME this is the slot id */
     /* campaign specific information, must be set for SETUP_CAMP_INIT */

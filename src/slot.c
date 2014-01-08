@@ -900,7 +900,7 @@ int slot_load( char *name )
         /* reload campaign and set to current scenario id */
         str = load_string( file );
         snprintf( path, 512, "%s", str );
-        camp_load( path );
+        camp_load( path, "" );
         free( str );
         str = load_string( file );
         camp_set_cur( str );

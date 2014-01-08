@@ -777,6 +777,7 @@ char* scen_load_lgscn_info( const char *fname, const char *path )
     /* set setup */
     scen_clear_setup();
     strcpy( setup.fname, fname );
+    strcpy( setup.camp_entry_name, "" );
     setup.player_count = entries->count;
     setup.ctrl = calloc( setup.player_count, sizeof( int ) );
     setup.names = calloc( setup.player_count, sizeof( char* ) );

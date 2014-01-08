@@ -4269,7 +4269,7 @@ int engine_init()
     }
     else 
         if ( setup.type == SETUP_INIT_CAMP ) {
-            if ( !camp_load( setup.fname ) ) return 0;
+            if ( !camp_load( setup.fname, setup.camp_entry_name ) ) return 0;
             camp_set_cur( setup.scen_state );
             if ( !camp_cur_scen ) return 0;
             setup.type = SETUP_CAMP_BRIEFING;
