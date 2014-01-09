@@ -119,6 +119,7 @@ int camp_load_lgcam( const char *fname, const char *path )
     char *result, *next_scen;
     char *domain = 0;
     camp_delete();
+    camp_fname = strdup( fname );
 
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
@@ -284,7 +285,7 @@ int camp_load( const char *fname, const char *camp_entry )
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
     snprintf( temp, 256, "%s/Scenario", config.mod_name );
-    search_file_name( path, extension, setup.fname, temp, 'c' );
+    search_file_name( path, extension, fname, temp, 'c' );
     if ( strcmp( extension, "lgcam" ) == 0 )
         return camp_load_lgcam( fname, path );
     else if ( strcmp( extension, "pgcam" ) == 0 )

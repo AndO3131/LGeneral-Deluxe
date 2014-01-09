@@ -192,6 +192,131 @@ int load_line(FILE *inf, char *line, int isUTF16){
 	}
 }
 
+int load_pgf_victory_conditions( const char *full_name, const char *scenario_name )
+{
+    FILE *inf;
+    char log_str[256];
+    char outcomes[10][256];
+    char line[1024],tokens[20][256];
+    int j,i,block=0,last_line_length=-1,cursor=0,token=0, current_outcome = 0;
+    int lines=0;
+    int vcond_counter = 0;
+
+    inf=fopen(full_name,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open campaign data file\n");
+        return 0;
+    }
+
+    while (read_utf16_line_convert_to_utf8(inf,line)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23) { line[i]=0; break; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#3 outcomes
+        if (block == 3 && token > 1)
+        {
+            snprintf( outcomes[current_outcome], 256, "%s", tokens[0] );
+            current_outcome++;
+        }
+
+        //Block#4 scenario entries
+        if (block == 4 && token > 1)
+        {
+            if ( strcmp( scenario_name, tokens[1] ) == 0 )
+            {
+                /* create conditions */
+                if ( vconds == 0 )
+                {
+                    /* victory conditions */
+                    scen_result[0] = 0;
+                    scen_message[0] = 0;
+                    sprintf( log_str, tr("Loading Victory Conditions") );
+                    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+
+                    vcond_count = current_outcome;
+                    vconds = calloc( vcond_count, sizeof( VCond ) );
+                    /* check type */
+                    vcond_check_type = VCOND_CHECK_EVERY_TURN;
+                    if ( atoi(tokens[2]) == 0 )
+                    {
+                        vcond_check_type = VCOND_CHECK_LAST_TURN;
+                    }
+                }
+                for ( i = 1; i < vcond_count; i++ )
+                {
+                    if ( atoi(tokens[3 * i - 1]) == 0 )
+                    {
+                        strcpy_lt( vconds[i].result, outcomes[i - 1], 63 );
+                        strcpy_lt( vconds[i].message, outcomes[i - 1], 127 );
+                        vconds[i].sub_and_count = count_characters( tokens[3 * i + 1], '(' ) +  + 1;
+                        /* create subconditions */
+                        vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                        j = 0;
+                        vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
+                        vconds[i].subconds_and[j].count = atoi( tokens[3 * i] );
+                        vconds[i].subconds_and[j].player = player_get_by_index( 0 );
+                        for ( j = 1; j < vconds[i].sub_and_count; j++ )
+                        {
+                            vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
+                            sscanf( tokens[3 * i + 1], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
+                            sprintf( tokens[3 * i + 1], "%s", strchr( tokens[3 * i + 1], ')' ) );
+                            sprintf( tokens[3 * i + 1], strchr( tokens[3 * i + 1], '(' ) );
+                            vconds[i].subconds_and[j].player = player_get_by_index( 0 );
+                        }
+                    }
+                    else
+                    {
+                        strcpy_lt( vconds[i].result, outcomes[i - 1], 63 );
+                        strcpy_lt( vconds[i].message, outcomes[i - 1], 127 );
+                        vconds[i].sub_and_count = 2;
+                        /* create subconditions */
+                        vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
+                        vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
+                        vconds[i].subconds_and[0].player = player_get_by_index( 0 );
+                        vconds[i].subconds_and[1].type = VSUBCOND_TURNS_LEFT;
+                        vconds[i].subconds_and[1].count = atoi( tokens[3 * i - 1] );
+                    }
+                }
+                /* else condition (used if no other condition is fullfilled and scenario ends) */
+                strcpy( vconds[0].result, outcomes[i - 1] );
+                strcpy( vconds[0].message, outcomes[i - 1] );
+            }
+            vcond_counter++;
+        }
+    }
+    //end node
+    fclose(inf);
+    return 1;
+}
+
 int load_pgf_equipment(char *fullName){
     FILE *inf;
 
@@ -213,7 +338,6 @@ int load_pgf_equipment(char *fullName){
     fread(&file_type_probe, 2, 1, inf);
     if (UCS2_header==file_type_probe) { utf16=1;}
     fseek(inf,0,SEEK_SET);
-
     unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
 
     if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
@@ -481,7 +605,8 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
 
     FILE *inf;
     char line[1024],tokens[20][1024], log_str[256], SET_file[MAX_PATH], STM_file[MAX_PATH];
-    int i,j,block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines, flag_map_loaded = 0, flag_unit_load_started = 0;
+    int i, block=0,last_line_length=-1,cursor=0,token=0,x,y,error,lines;
+    int flag_map_loaded = 0, flag_unit_load_started = 0, flag_vict_cond_loaded = 0;
     unsigned char t1,t2;
     int unit_ref = 0, auxiliary_units_count = 0;
     Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0, *land_trsp_prop = 0;
@@ -842,95 +967,14 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             }
         }
         //Block#7   : Victory conditions: 3 col, rows 2
-        if (block == 7 && token > 1)
+        if (block == 7 && token > 1 && !flag_vict_cond_loaded )
         {
-            /* create conditions */
-            if ( vconds == 0 )
-            {
-                /* victory conditions */
-                scen_result[0] = 0;
-                scen_message[0] = 0;
-                sprintf( log_str, tr("Loading Victory Conditions") );
-                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-                vcond_count = 2;
-                vconds = calloc( vcond_count, sizeof( VCond ) );
-                i = 1;
-                /* check type */
-                vcond_check_type = VCOND_CHECK_EVERY_TURN;
-                if ( atoi(tokens[1]) == 0 )
-                {
-                    vcond_check_type = VCOND_CHECK_LAST_TURN;
-                }
-            }
-            if ( ( strcmp( tokens[0], "AXIS VICTORY" ) == 0 ) && !allies_move_first )
-            {
-                if ( atoi(tokens[1]) == 0 )
-                {
-                    strcpy_lt( vconds[i].result, "minor", 63 );
-                    strcpy_lt( vconds[i].message, tokens[0], 127 );
-                    vconds[i].sub_and_count = count_characters( tokens[3], '(' ) + 1;
-                    /* create subconditions */
-                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
-                    j = 0;
-                    vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
-                    vconds[i].subconds_and[j].count = atoi( tokens[2] );
-                    vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
-                    for ( j = 1; j < vconds[i].sub_and_count; j++ )
-                    {
-                        vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
-                        sscanf( tokens[3], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
-                        sprintf( tokens[3], strchr( tokens[3], ')' ) );
-                        sprintf( tokens[3], strchr( tokens[3], '(' ) );
-                        vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
-                    }
-                }
-                else if ( atoi(tokens[1]) == 1 )
-                {
-                    strcpy_lt( vconds[i].result, "minor", 63 );
-                    strcpy_lt( vconds[i].message, tokens[0], 127 );
-                    vconds[i].sub_and_count = 1;
-                    /* create subconditions */
-                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
-                    vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
-                    vconds[i].subconds_and[0].player = player_get_by_id( "axis" );
-                }
-            }
-            else if ( strcmp( tokens[0], "ALLIED VICTORY" ) == 0 && allies_move_first )
-            {
-                if ( atoi(tokens[1]) == 0 )
-                {
-                    strcpy_lt( vconds[i].result, "minor", 63 );
-                    strcpy_lt( vconds[i].message, tokens[0], 127 );
-                    vconds[i].sub_and_count = count_characters( tokens[3], '(' ) + 1;
-                    /* create subconditions */
-                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
-                    j = 0;
-                    vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
-                    vconds[i].subconds_and[j].count = atoi( tokens[2] );
-                    vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
-                    for ( j = 1; j < vconds[i].sub_and_count; j++ )
-                    {
-                        vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
-                        sscanf( tokens[3], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
-                        sprintf( tokens[3], strchr( tokens[3], ')' ) );
-                        sprintf( tokens[3], strchr( tokens[3], '(' ) );
-                        vconds[i].subconds_and[j].player = player_get_by_id( "axis" );
-                    }
-                }
-                else if ( atoi(tokens[1]) == 1 )
-                {
-                    strcpy_lt( vconds[i].result, "minor", 63 );
-                    strcpy_lt( vconds[i].message, tokens[0], 127 );
-                    vconds[i].sub_and_count = 1;
-                    /* create subconditions */
-                    vconds[i].subconds_and = calloc( vconds[i].sub_and_count, sizeof( VSubCond ) );
-                    vconds[i].subconds_and[0].type = VSUBCOND_CTRL_ALL_HEXES;
-                    vconds[i].subconds_and[0].player = player_get_by_id( "allies" );
-                }
-            }
-            /* else condition (used if no other condition is fullfilled and scenario ends) */
-            strcpy( vconds[0].result, "defeat" );
-            strcpy( vconds[0].message, tr("Defeat") );
+            char camp_file_path[MAX_PATH], scenario_name[MAX_NAME], temp[MAX_PATH];
+            snprintf( scenario_name, MAX_NAME, "%s.pgscn", fname );
+            snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+            search_file_name_exact( camp_file_path, "pg.pgcam", temp );
+            load_pgf_victory_conditions( camp_file_path, scenario_name );
+            flag_vict_cond_loaded = 1;
         }
         //Block#8  +: Deploy hexes: 1 col, rows - many
         if (block==8 && strlen(tokens[0])>0)
@@ -1287,6 +1331,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
             if ( strcmp( tokens[0], info_entry_name ) == 0 )
             {
                 /* name, desc */
+                camp_fname = strdup( fname );
                 camp_name = strdup( tokens[0] );
                 camp_desc = strdup( tokens[2] );
                 temp_list = list_create( LIST_AUTO_DELETE, camp_delete_entry );
@@ -1337,15 +1382,17 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
             }
 
             centry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
-            for (j = 0; j < 3; j++)
+            for (j = 0; j < current_outcome; j++)
             {
-                if ( ( strcmp( tokens[3 * ( j + 1 )], "" ) == 0 ) || ( strcmp( tokens[3 * ( j + 1 )], "END" ) == 0 ) )
+                if ( ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 ) || ( strcmp( tokens[current_outcome * ( j + 1 )], "END" ) == 0 ) )
                 {
+                    if ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 )
+                        fprintf(stderr, "Found empty scenario in line %d, possibly indicating unimplemented campaign choice\n", lines );
                     Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
                     end_entry->id = strdup( tokens[3 * ( j + 1 )] );
                     list_add( temp_list, end_entry );
                 }
-                snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[3 * ( j + 1 )] );
+                snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * ( j + 1 )] );
 //fprintf(stderr, "%s\n", str );
                 list_add( centry->nexts, strdup( str ) );
                 if (strlen(tokens[3 * ( j + 1 ) + 2])>0)
@@ -1595,6 +1642,7 @@ int parse_pgbrf(FILE *outf, char *path, char *node_name, char *color){
 	    		//printf("%c",buf);
 	    	}
 	    		//printf("%c%d",buf,state);
+
 	    } while (buf != EOF);
 	  fclose(inf);
 	  return 0;

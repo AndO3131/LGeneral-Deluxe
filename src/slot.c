@@ -61,6 +61,7 @@ extern List *reinf, *avail_units;
 extern List *players;
 extern int camp_loaded;
 extern char *camp_fname;
+extern char *camp_name;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;
 
@@ -87,6 +88,7 @@ enum StorageVersion {
     StoreCoreVersionData, /* Core army data are stored in savegame */
     StoreNewFolderStructure, /* scenarios have new folder structure */
     StoreLandTransportData, /* land transporter on sea embarked units is saved */
+    StoreCampaignEntryName, /* store campaign entry name */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -809,6 +811,7 @@ int slot_save( char *name, char *subdir )
     save_int( file, camp_loaded );
     if ( camp_loaded ) {
         save_string( file, camp_fname );
+        save_string( file, camp_name );
         save_string( file, camp_cur_scen->id );
     }
     /* basic data */
@@ -900,7 +903,14 @@ int slot_load( char *name )
         /* reload campaign and set to current scenario id */
         str = load_string( file );
         snprintf( path, 512, "%s", str );
-        camp_load( path, "" );
+        free( str );
+        if ( store_version >= StoreCampaignEntryName )
+        {
+            str = load_string( file );
+            camp_load( path, str );
+        }
+        else
+            camp_load( path, "" );
         free( str );
         str = load_string( file );
         camp_set_cur( str );
