@@ -64,6 +64,7 @@ inline int timed_out( Delay *delay, int ms )
 }
 
 /* Definition of non-standard function */
+#ifndef WIN32
 void strlwr( char *string)
 {
     int i;
@@ -72,7 +73,7 @@ void strlwr( char *string)
         string[i] = tolower( string[i] );
     }
 }
-
+#endif
 /* Count number of character occurences in input str */
 int count_characters( const char *str, char character )
 {
@@ -96,9 +97,9 @@ FILE *fopen_ic( char *path, const char *mode )
 	FILE *file = NULL;
 	char //path[strlen(_path)+1],
      *start, *ptr;
-	
+
 //	strcpy(path,_path); /* we need to copy since we modify it */
-	
+
 	/* try exact name */
 	if ((file = fopen(path,mode)))
 		return file;
@@ -108,26 +109,26 @@ FILE *fopen_ic( char *path, const char *mode )
 		start = strrchr(path,'\\'); /* Windows */
 	if (start)
 		start++;
-	else	
+	else
 		start = path; /* only a file name */
-	
+
 	/* try all lower case */
 	for (ptr = start; *ptr != 0; ptr++)
 		*ptr = tolower(*ptr);
 	if ((file = fopen(path,mode)))
 		return file;
-	
+
 	/* try first upper case */
 	start[0] = toupper(start[0]);
 	if ((file = fopen(path,mode)))
 		return file;
-	
+
 	/* try all upper case */
 	for (ptr = start + 1; *ptr != 0; ptr++)
 		*ptr = toupper(*ptr);
 	if ((file = fopen(path,mode)))
 		return file;
-	
+
 	return NULL;
 }
 
@@ -345,7 +346,7 @@ int check_flag( const char *name, StrToFlag *fct )
             return fct[i].flag;
         i++;
     }
-    if ( !STRCMP( "none", name ) ) 
+    if ( !STRCMP( "none", name ) )
         fprintf( stderr, tr("%s: unknown flag\n"), name );
     return 0;
 }
@@ -410,7 +411,7 @@ int get_close_hex_pos( int x, int y, int id, int *dest_x, int *dest_y )
             *dest_y = y - 1;
         }
     }
-	if ( *dest_x <= 0 || *dest_y <= 0 || *dest_x >= map_w-1 || 
+	if ( *dest_x <= 0 || *dest_y <= 0 || *dest_x >= map_w-1 ||
 							*dest_y >= map_h-1 )
 		return 0;
     return 1;
