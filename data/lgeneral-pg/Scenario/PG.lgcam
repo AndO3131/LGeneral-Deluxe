@@ -62,13 +62,21 @@ lowcountries { scenario = LowCountries
 france_sealion { scenario = France
   title = "@france"
   briefing = "France is weakened and open to attack. Since 1871, this is the first chance to battle down the mightiest army of Europe and face total victory on the Western continent. You are ordered to take Paris and various strategic coastal towns as well as towns of the hinterland. Timing is important, as only an early completion of your mission enables us to finish preparations in time for the invasion of England."
-  next { major = sealion40 minor = france_selection defeat = gameover }
+  next { major = france_sealion_selection minor = france_selection defeat = gameover }
   debriefings {
-    major = "@france"
+    major = "Congratulations on your outstanding victory in France. My humiliation in 1918 is avenged.#
+England lies open to invasion, ensuring total victory on the western front. The invasion is planned to occur on September 1st, but a debate at the highest level of government is in progress. Some believe that we should invade Spain in order to take Gibraltar and thus free the Italian Navy to assist us against the powerful British Navy. Others believe this to be unnecessary and they are winning the argument. Your opinion could influence the outcome of this key decision. The assistance of the Italian Fleet could be the difference in the upcoming invasion, but it may come at the cost of some of your prestige."
     minor = "Congratulations for conquering France and for bringing an overwhelming victory to the Reich. France has surrendered, and its dependencies will be put under German protectorate. Yet it was too late to finish preparations for the invasion of England in time."
     defeat = "@france"
   }
 }
+
+france_sealion_selection {
+  briefing = "Do you want to spend 1000 prestige to secure Gibralter and the help of the Italian Navy?"
+  next { yes = sealionplus no = sealion40 }
+  options { yes = "Yes" no = "No" }
+}
+
 france { scenario = France
   title = "5th June 1940"
   briefing = "France is weakened and open to attack. Since 1871, this is the first chance to battle down the mightiest army of Europe and face total victory on the Western continent. You are ordered to take Paris and various strategic coastal towns as well as towns of the hinterland."
@@ -88,6 +96,22 @@ france_selection {
 sealion40 { scenario = Sealion40
   title = "1st September 1940"
   briefing = "Your decisive and early success in France gave us plenty of time to prepare operation Sealion, the invasion of England. You have to capture London and various key towns in the vicinity before Autumn weather sets in, causing rough sea and putting our supply lines at stake. This is a unique chance to force England to surrender and end the war."
+  next { major = barbarossa_XE minor = sealion40_selection defeat = gameover }
+  debriefings {
+    major = "England has surrendered! It is to be attributed to your talent and to the high morale of your troops that you achieved an unprecedented victory over the British Empire. England, Scotland, Ireland, and the oversea dependencies are now governed by German administration. You are herewith awarded one of the highest order medals of the Reich, the Iron Cross with Oak Leaves, and Swords."
+    minor = "Your brave efforts lead to the capturing of all Southern England. Unfortunately, bad weather and interference by the strong British fleet from the unattacked North have wreaked havoc on our supply lines. Thus, we were forced to retract all troops back to the continent."
+    defeat = "Your failure to conquer England had given the enemy a chance to build up resistence and assemble a naval fleet of formidable strength crippling our supply lines. Thus, our expeditionary forces were severely decimated, forcing us to sign an unfavorable peace treaty."
+  }
+}
+sealion40_selection {
+  briefing = "@france_selection"
+  next { east = balkans south = northafrica }
+  options { east = "@france_selection" south = "@france_selection" }
+}
+
+sealionplus { scenario = SealionPlus
+  title = "1st September 1940"
+  briefing = "Gibraltar has been taken and the Italian Fleet has sailed toward England. Your mission is to take London and the Industrial Heart of England before our limited shipping and storms in the English Channel force us to withdraw our invasion.#High command has given you until September 30th to complete your mission, but we fear that you must succeed sooner or we will see the invasion falter before the British surrender. Operation Sealion is about to begin. Good Luck!"
   next { major = barbarossa_XE minor = sealion40_selection defeat = gameover }
   debriefings {
     major = "England has surrendered! It is to be attributed to your talent and to the high morale of your troops that you achieved an unprecedented victory over the British Empire. England, Scotland, Ireland, and the oversea dependencies are now governed by German administration. You are herewith awarded one of the highest order medals of the Reich, the Iron Cross with Oak Leaves, and Swords."

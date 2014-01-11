@@ -192,6 +192,64 @@ int load_line(FILE *inf, char *line, int isUTF16){
 	}
 }
 
+char **parse_pgbrf_campaign_select( const char *path )
+{
+    FILE *inf;
+    char **str, line[1024];
+    int state = 0, i = 0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open briefing file\n" );
+        return 0;
+    }
+
+    str = calloc( 6, sizeof( char *) );
+
+    while (read_utf8_line_convert_to_utf8(inf,line)>=0)
+    {
+        if ( strchr( line, '<' ) )
+        {
+            char *pos = strchr( line, '<' );
+            pos++;
+            if ( pos[0] == 'a' )
+            {
+                pos++;
+                if ( pos[1] == '-' )
+                {
+                    pos = strchr( pos, '\"' );
+                    pos++;
+                    str[3 * i + 2] = calloc( 10, sizeof( char ) );
+                    state = strcspn( pos, "\"" );
+                    state++;
+                    snprintf( str[3 * i + 2], state, "%s", pos );
+                    pos = strchr( pos, '\"' );
+                    pos++;
+                }
+                if ( pos[1] == 'h' )
+                {
+                    pos = strchr( pos, '\"' );
+                    pos++;
+                    str[3 * i] = calloc( 25, sizeof( char ) );
+                    state = strcspn( pos, "\"" );
+                    state++;
+                    snprintf( str[3 * i], state, "%s", pos );
+                }
+                pos = strchr( pos, '>' );
+                pos++;
+                str[3 * i + 1] = calloc( 100, sizeof( char ) );
+                state = strcspn( pos, "<" );
+                state++;
+                snprintf( str[3 * i + 1], state, "%s", pos );
+                i++;
+            }
+        }
+    }
+    fclose(inf);
+    return str;
+}
+
 int load_pgf_victory_conditions( const char *full_name, const char *scenario_name )
 {
     FILE *inf;
@@ -285,10 +343,12 @@ int load_pgf_victory_conditions( const char *full_name, const char *scenario_nam
                         vconds[i].subconds_and[j].player = player_get_by_index( 0 );
                         for ( j = 1; j < vconds[i].sub_and_count; j++ )
                         {
+                            char *temp;
                             vconds[i].subconds_and[j].type = VSUBCOND_CTRL_HEX;
-                            sscanf( tokens[3 * i + 1], "(%8d:%8d)", &vconds[i].subconds_and[j].x, &vconds[i].subconds_and[j].y );
-                            sprintf( tokens[3 * i + 1], "%s", strchr( tokens[3 * i + 1], ')' ) );
-                            sprintf( tokens[3 * i + 1], strchr( tokens[3 * i + 1], '(' ) );
+                            sscanf( tokens[3 * i + 1], "(%8d:%8d)", &vconds[i].subconds_and[j].x,
+                                    &vconds[i].subconds_and[j].y );
+                            temp = strchr( tokens[3 * i + 1], ')' );
+                            temp++;
                             vconds[i].subconds_and[j].player = player_get_by_index( 0 );
                         }
                     }
@@ -1274,15 +1334,15 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
 
 int parse_pgcam( const char *fname, const char *full_name, const char *info_entry_name )
 {
-    List *temp_list, *next_entries, *scenarios = 0;
+    List *temp_list, *scenarios = 0;
     Camp_Entry *centry = 0;
     Scen_Entry *sentry = 0;
     FILE *inf;
-    char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
+    char brfnametmp[256];
     char outcomes[10][256];
     char line[1024],tokens[20][256], temp[MAX_PATH], brf_path[MAX_PATH];
     char str[MAX_LINE_SHORT];
-    int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0, current_outcome = 0;
+    int j,i,block=0,last_line_length=-1,cursor=0,token=0, current_outcome = 0;
     int lines=0;
     camp_delete();
 
@@ -1335,16 +1395,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                 camp_name = strdup( tokens[0] );
                 camp_desc = strdup( tokens[2] );
                 temp_list = list_create( LIST_AUTO_DELETE, camp_delete_entry );
-//                if (!camp_first)
                 camp_first = strdup( tokens[1] );
-/*                centry = calloc( 1, sizeof( Camp_Entry ) );
-
-                centry->id = strdup( tokens[1] );
-                char *info = calloc( strlen( tokens[0] ) + strlen( tokens[2] ) + 3, sizeof( char ) );
-                sprintf( info, "%s##%s", tokens[0], tokens[2] );
-                strcpy( setup.fname, fname );
-                strcpy( setup.info_entry_name, fname );
-                setup.scen_state = 0;*/
             }
         }
 
@@ -1377,34 +1428,94 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                 strncpy(brfnametmp,tokens[1],256);
                 snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
                 search_file_name_exact( brf_path, brfnametmp, temp );
-                centry->brief = parse_pgbrf( brf_path );
-            }
-            else
-            {
-                
+                centry->brief = strdup( parse_pgbrf( brf_path ) );
             }
 
             centry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
             for (j = 0; j < current_outcome; j++)
             {
-                if ( ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 ) || ( strcmp( tokens[current_outcome * ( j + 1 )], "END" ) == 0 ) )
+                if ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 )
                 {
-                    if ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 )
-                        fprintf(stderr, "Found empty scenario in line %d, possibly indicating unimplemented campaign choice\n", lines );
-                    Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
-                    end_entry->id = strdup( tokens[current_outcome * ( j + 1 )] );
-                    if (strlen(tokens[current_outcome * ( j + 1 ) + 2])>0)
+                    strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
+                    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+                    search_file_name_exact( brf_path, brfnametmp, temp );
+                    char **camp_option = parse_pgbrf_campaign_select( brf_path );
+                    // TODO implement prestige costs
+                    // selection entry
+                    Camp_Entry *select_entry = calloc( 1, sizeof( Camp_Entry ) );
+                    sprintf( str, "%s_selection", centry->id );
+                    select_entry->id = strdup( str );
+                    // select next scenarios
+                    select_entry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                    snprintf( str, sizeof(str), "%s>%s", camp_option[1], camp_option[0] );
+                    list_add( select_entry->nexts, strdup( str ) );
+                    snprintf( str, sizeof(str), "%s>%s", camp_option[4], camp_option[3] );
+                    list_add( select_entry->nexts, strdup( str ) );
+                    // select descriptions
+                    select_entry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                    snprintf( str, sizeof(str), "%s>%s", camp_option[1], camp_option[1] );
+                    list_add( select_entry->descs, strdup( str ) );
+                    snprintf( str, sizeof(str), "%s>%s", camp_option[4], camp_option[4] );
+                    list_add( select_entry->descs, strdup( str ) );
+                    // checking if selection entry already exists in campaign memory
+                    Camp_Entry *search_entry;
+                    int found = 0;
+                    list_reset( temp_list );
+                    while ( ( search_entry = list_next( temp_list ) ) )
                     {
-                        strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
-                        snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-                        search_file_name_exact( brf_path, brfnametmp, temp );
-                        end_entry->brief = strdup( parse_pgbrf( brf_path ) );
+                        if ( strcmp( search_entry->id, select_entry->id ) == 0 )
+                            found = 1;
                     }
-                    list_add( temp_list, end_entry );
+                    if ( !found )
+                    {
+                        list_add( temp_list, select_entry );
+//                        fprintf(stderr, "%s\n", select_entry->id );
+                    }
+                    // select entry for current scenario
+                    snprintf( str, sizeof(str), "%s>%s", outcomes[j], select_entry->id );
+                    list_add( centry->nexts, strdup( str ) );
                 }
-                snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * ( j + 1 )] );
-//fprintf(stderr, "%s\n", str );
-                list_add( centry->nexts, strdup( str ) );
+                else if ( strcmp( tokens[current_outcome * ( j + 1 )], "END" ) == 0 )
+                {
+                    // ending entry (id is pgbrf file)
+                    Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
+                    end_entry->id = strdup( tokens[current_outcome * ( j + 1 ) + 2] );
+                    strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
+                    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+                    search_file_name_exact( brf_path, brfnametmp, temp );
+                    end_entry->brief = strdup( parse_pgbrf( brf_path ) );
+                    // checking if ending entry already exists in campaign memory
+                    Camp_Entry *search_entry;
+                    int found = 0;
+                    list_reset( temp_list );
+                    while ( ( search_entry = list_next( temp_list ) ) )
+                    {
+                        if ( strcmp( search_entry->id, end_entry->id ) == 0 )
+                            found = 1;
+                    }
+                    if ( !found )
+                    {
+                        list_add( temp_list, end_entry );
+//                        fprintf(stderr, "%s\n", end_entry->brief );
+                    }
+                    // ending entry for current scenario
+                    snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * ( j + 1 ) + 2] );
+                    list_add( centry->nexts, strdup( str ) );
+                }
+                else
+                {
+                    // linear next scenario
+                    snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * ( j + 1 )] );
+                    list_add( centry->nexts, strdup( str ) );
+                }
+                // debriefings
+                centry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
+                snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+                search_file_name_exact( brf_path, brfnametmp, temp );
+                snprintf( str, sizeof(str), "%s>%s", outcomes[j], strdup( parse_pgbrf( brf_path ) ) );
+                list_add( centry->descs, strdup( str ) );
+//                fprintf(stderr, "%s\n", str );
             }
             list_add( temp_list, centry );
         }
@@ -1454,7 +1565,6 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
         }
         /* searching for scenario filenames */
         list_reset( scenarios );
-//fprintf(stderr, "%s\n", final_entry->scen );
         while ( ( sentry = list_next( scenarios ) ) )
             if ( ( final_entry->scen ) && strcmp( sentry->id, final_entry->scen ) == 0 )
             {
@@ -1463,7 +1573,6 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                 int length = strcspn( sentry->fname, "." );
                 length++;
                 snprintf( final_entry->scen, length, "%s", sentry->fname );
-//fprintf(stderr, "%s\n", final_entry->scen );
                 break;
             }
     }
@@ -1478,9 +1587,8 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
 char *parse_pgcam_info( List *camp_entries, const char *fname, char *path, char *info_entry_name )
 {
     FILE *inf;
-    char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
     char line[1024],tokens[20][256], temp[MAX_PATH];
-    int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0;
+    int i,block=0,last_line_length=-1,cursor=0,token=0;
     int lines=0;
 
     search_file_name( path, 0, fname, temp, 'c' );
@@ -1577,23 +1685,32 @@ char *parse_pgbrf( const char *path )
         return 0;
     }
 
-    str = calloc( MAX_LINE_SHORT, sizeof( char ) );
+    str = calloc( 1500, sizeof( char ) );
 
     buf = fgetc (inf);
     while (buf != EOF)
     {
         switch ( buf )
         {
-            case '<': // strip <?>
-                state = 1;
+            case '<': // strip '<p>'; don't change '<a' status
+                if ( state < 4 )
+                    state = 1;
                 break;
             case '>':
-                state = 3;
+                if ( state < 4 )
+                    state = 3;
                 break;
             case '/':
-                state = 2;
+                if ( state < 4 )
+                    state = 2;
                 break;
-            case 'p': // line break
+            case 'a': // campaign option; not a part of briefing
+                if ( state == 1 )
+                {
+                    state = 4;
+                    break;
+                }
+            case 'p': // line break on </p>
                 if ( state == 2 )
                 {
                     str[str_idx]='#';
