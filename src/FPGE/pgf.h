@@ -27,6 +27,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber);
 char *load_pgf_pgscn_info( const char *fname, char *path, int name_only );
 int parse_pgcam( const char *fname, const char *full_name, const char *info_entry_name );
 char *parse_pgcam_info( List *camp_entries, const char *fname, char *path, char *info_entry_name );
-int parse_pgbrf(FILE *, char *, char *, char *);
+char *parse_pgbrf( const char *path );
 
 #endif /* PGF_H_ */

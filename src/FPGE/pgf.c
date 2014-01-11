@@ -61,7 +61,7 @@ extern List *avail_units;  /* available units for current player to deploy */
 extern List *reinf;
 extern VCond *vconds;
 extern int vcond_count;
-extern int *casualties;	/* sum of casualties grouped by unit class and player */
+extern int *casualties; /* sum of casualties grouped by unit class and player */
 extern int deploy_turn;
 extern char scen_result[64];  /* the scenario result is saved here */
 extern char scen_message[128]; /* the final scenario message is saved here */
@@ -1280,7 +1280,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
     FILE *inf;
     char brfnametmp[256], color_code[256], br_color_code[256], scenario_node[256];
     char outcomes[10][256];
-    char line[1024],tokens[20][256], temp[MAX_PATH];
+    char line[1024],tokens[20][256], temp[MAX_PATH], brf_path[MAX_PATH];
     char str[MAX_LINE_SHORT];
     int j,i,block=0,last_line_length=-1,cursor=0,token=0, sub_graph_counter=0, current_outcome = 0;
     int lines=0;
@@ -1374,7 +1374,10 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
             //check initial briefing
             if (strlen(tokens[1])>0)
             {
-//                parse_pgbrf
+                strncpy(brfnametmp,tokens[1],256);
+                snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+                search_file_name_exact( brf_path, brfnametmp, temp );
+                centry->brief = parse_pgbrf( brf_path );
             }
             else
             {
@@ -1389,47 +1392,19 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                     if ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 )
                         fprintf(stderr, "Found empty scenario in line %d, possibly indicating unimplemented campaign choice\n", lines );
                     Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
-                    end_entry->id = strdup( tokens[3 * ( j + 1 )] );
+                    end_entry->id = strdup( tokens[current_outcome * ( j + 1 )] );
+                    if (strlen(tokens[current_outcome * ( j + 1 ) + 2])>0)
+                    {
+                        strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
+                        snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
+                        search_file_name_exact( brf_path, brfnametmp, temp );
+                        end_entry->brief = strdup( parse_pgbrf( brf_path ) );
+                    }
                     list_add( temp_list, end_entry );
                 }
                 snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * ( j + 1 )] );
 //fprintf(stderr, "%s\n", str );
                 list_add( centry->nexts, strdup( str ) );
-                if (strlen(tokens[3 * ( j + 1 ) + 2])>0)
-                {
-/*                    strncpy(brfnametmp,tokens[3*(j+1)+2],256);
-
-                    if (hash_lookup(brfnametmp,&table))
-                    {
-                        //printf("%s juz jest\n",brfnametmp);
-
-                        while(hash_lookup(brfnametmp,&table))
-                        {
-                            strncat(brfnametmp,"+",256);
-                        }
-
-
-                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
-                        //printf("%s nie ma\n",brfnametmp);
-                    }
-                    else
-
-                    {
-                        hash_insert( brfnametmp, strdup(brfnametmp), &table );
-                    }
-
-
-                    fprintf(outf,"\"%s\" [shape=ellipse, style=filled, label=\"%s\"] %s\n",brfnametmp,tokens[3*(j+1)+2],br_color_code); //darkgoldenrod1
-                    parse_pgbrf(outf,tokens[3*(j+1)+2],brfnametmp,color_code);
-
-                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,brfnametmp,color_code);
-                    if (strlen(tokens[3*(j+1)])>0)
-                        fprintf(outf,"\"%s\" -> \"%s\" %s\n",brfnametmp,tokens[3*(j+1)],color_code);
-                }
-
-                else
-                    fprintf(outf,"\"%s\" -> \"%s\" %s\n",scenario_node,tokens[3*(j+1)],color_code);*/
-                }
             }
             list_add( temp_list, centry );
         }
@@ -1587,63 +1562,53 @@ char *parse_pgcam_info( List *camp_entries, const char *fname, char *path, char 
     return "1";
 }
 
-/*
-int parse_pgbrf(FILE *outf, char *path, char *node_name, char *color){
+char *parse_pgbrf( const char *path )
+{
+    FILE *inf;
+    char *str;
+    int str_idx=0;
+    int state=0;
+    int buf;
 
-	  FILE *inf;
-	  char str[1024];
-	  int str_idx=0;
-	  int state=0;
-	  int buf;
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open briefing file\n" );
+        return 0;
+    }
 
-	  inf=fopen(path,"rb");
-	  if (!inf)
-	  {
-	    //printf("Couldn't open scenario file\n");
-	    return ERROR_PGBRF_FILE_BASE+ERROR_FPGE_FILE_NOT_FOUND;
-	  }
-	    do {
-	    	buf = fgetc (inf);
-	    	if (state==0 && buf=='<')  {state=1; continue;}
-	    	if (state==1 && buf=='a')  state=2;
-	    	if (state==1 && buf!='a')  state=0;
-	    	if (state==2 && buf=='>')  state=0;
-	    	if (state==2){
-	    		if (buf=='h') { state=3;continue;}
-	    	}
-	    	if (state==3){
-	    		if (buf=='r') { state=4;continue;}
-	    		state=2;
-	    	}
-	    	if (state==4){
-	    		if (buf=='e') { state=5;continue;}
-	    		state=2;
-	    	}
-	    	if (state==5){
-	    		if (buf=='f') { state=6;continue;}
-	    		state=2;
-	    	}
-	    	if (state==6){
-	    		if (buf=='\"') { state=7;continue;}
-	    	}
-	    	if (state==7){
-	    		if (buf=='\"') {
-	    			str[str_idx]=0;
-	    			fprintf(outf,"\"%s\" -> \"%s\" %s\n",node_name,str,color);
-	    			//printf("\n");
-	    			state=0;
-	    			str_idx=0;
-	    			continue;
-	    		}
-	    	}
-	    	if (state==7 && buf != EOF){
-	    		str[str_idx]=(char)buf;
-	    		str_idx++;
-	    		//printf("%c",buf);
-	    	}
-	    		//printf("%c%d",buf,state);
+    str = calloc( MAX_LINE_SHORT, sizeof( char ) );
 
-	    } while (buf != EOF);
-	  fclose(inf);
-	  return 0;
-}*/
+    buf = fgetc (inf);
+    while (buf != EOF)
+    {
+        switch ( buf )
+        {
+            case '<': // strip <?>
+                state = 1;
+                break;
+            case '>':
+                state = 3;
+                break;
+            case '/':
+                state = 2;
+                break;
+            case 'p': // line break
+                if ( state == 2 )
+                {
+                    str[str_idx]='#';
+                    str_idx++;
+                    break;
+                }
+            default:  
+                if ( state == 3 )
+                {
+                    str[str_idx]=(char)buf;
+                    str_idx++;
+                }
+        }
+        buf = fgetc (inf);
+    }
+    fclose(inf);
+    return str;
+}
