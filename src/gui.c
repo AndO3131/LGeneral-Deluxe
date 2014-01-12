@@ -240,7 +240,7 @@ int gui_load( char *dir )
     if ( ( gui->wallpaper = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto sdl_failure;
     /* map frame */
     const SDL_PixelFormat *fmt = SDL_GetVideoSurface()->format;
-    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w - 30, sdl.screen->h- 30,
+    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w, sdl.screen->h- 30,
                                            fmt->BitsPerPixel,
                                            fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
     /* folder */
@@ -627,7 +627,7 @@ void gui_adjust()
     /* map frame */
     const SDL_PixelFormat *fmt = SDL_GetVideoSurface()->format;
     SDL_free( gui->map_frame );
-    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w - 30, sdl.screen->h- 30,
+    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w, sdl.screen->h- 30,
                                            fmt->BitsPerPixel,
                                            fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
     int label_top = 10;

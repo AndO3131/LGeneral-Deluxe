@@ -1315,7 +1315,7 @@ static int engine_get_screen_pos( int mx, int my, int *sx, int *sy )
     if ( x >= gui->map_frame->w || y >= gui->map_frame->h ) return 0;
     /* assign */
     *sx = x;
-    *sy = y;
+    *sy = y + 30;
     return 1;
 }
 enum {
@@ -1352,9 +1352,9 @@ static int engine_get_map_pos( int sx, int sy, int *mx, int *my, int *region )
     y = ( sy - 30 - total_y_offset - map_sy ) / hex_h;
     /* compute screen position */
     if ( !engine_get_screen_pos( x + map_x, y + map_y, &screen_x, &screen_y ) ) return 0;
-    /* test mask with  sx - screen_x, sy + 30 - screen_y */
+    /* test mask with  sx - screen_x, sy - 30 - screen_y */
     tile_x = sx - screen_x;
-    tile_y = sy - 30 - screen_y;
+    tile_y = sy - screen_y;
     if ( !hex_mask[tile_y * hex_w + tile_x] ) {
         if ( EVEN( map_x ) ) {
             if ( tile_y < hex_y_offset && EVEN( x ) ) y--;
@@ -3916,7 +3916,7 @@ static void engine_update( int ms )
                     if ( atk_damage_delta ) {
                         engine_get_screen_pos( cur_atk->x, cur_atk->y, &cx, &cy );
 			            if (!cur_atk->str) map_remove_unit( cur_atk );
-                        map_draw_tile( sdl.screen, cur_atk->x, cur_atk->y, cx, cy, !air_mode, 0 );
+                        map_draw_tile( gui->map_frame, cur_atk->x, cur_atk->y, cx, cy, !air_mode, 0 );
                         anim_move( terrain_icons->expl1, cx, cy );
                         anim_play( terrain_icons->expl1, 0 );
                     }
@@ -3924,7 +3924,7 @@ static void engine_update( int ms )
                     if ( def_damage_delta ) {
                         engine_get_screen_pos( cur_def->x, cur_def->y, &cx, &cy );
                         if (!cur_def->str) map_remove_unit( cur_def );
-			            map_draw_tile( sdl.screen, cur_def->x, cur_def->y, cx, cy, !air_mode, 0 );
+			            map_draw_tile( gui->map_frame, cur_def->x, cur_def->y, cx, cy, !air_mode, 0 );
                         anim_move( terrain_icons->expl2, cx, cy );
                         anim_play( terrain_icons->expl2, 0 );
                     }

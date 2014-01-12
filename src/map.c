@@ -1130,8 +1130,8 @@ Draw terrain and units.
 */
 void map_draw_tile( SDL_Surface *surf, int map_x, int map_y, int x, int y, int ground, int select )
 {
-    map_draw_terrain( surf, map_x, map_y, x, y );
-    map_draw_units( surf, map_x, map_y, x, y, ground, select );
+    map_draw_terrain( surf, map_x, map_y, x, y - 30 );
+    map_draw_units( surf, map_x, map_y, x, y - 30, ground, select );
 }
 
 /*
