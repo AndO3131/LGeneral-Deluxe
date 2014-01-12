@@ -159,6 +159,7 @@ typedef struct {
     SDL_Surface *bkgnd;         /* background for briefing window and main menu */
     SDL_Surface *wallpaper;     /* wallpaper used if background doesn't fill the whole screen */
     SDL_Surface *folder_icon;   /* folder icon for file list */
+    SDL_Surface *map_frame;     /* map window */
     /* sounds */
 #ifdef WITH_SOUND
     Wav *wav_click;

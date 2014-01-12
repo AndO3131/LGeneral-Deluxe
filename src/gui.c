@@ -238,6 +238,11 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/wallpaper" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
     if ( ( gui->wallpaper = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto sdl_failure;
+    /* map frame */
+    const SDL_PixelFormat *fmt = SDL_GetVideoSurface()->format;
+    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w - 30, sdl.screen->h- 30,
+                                           fmt->BitsPerPixel,
+                                           fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
     /* folder */
     sprintf( transitionPath, "Theme/folder" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
@@ -565,6 +570,7 @@ void gui_delete()
         free_surf( &gui->bkgnd );
         free_surf( &gui->brief_frame );
         free_surf( &gui->wallpaper );
+        free_surf( &gui->map_frame );
         free_surf( &gui->fr_luc );
         free_surf( &gui->fr_llc );
         free_surf( &gui->fr_ruc );
@@ -618,6 +624,12 @@ measurements.
 */
 void gui_adjust()
 {
+    /* map frame */
+    const SDL_PixelFormat *fmt = SDL_GetVideoSurface()->format;
+    SDL_free( gui->map_frame );
+    gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w - 30, sdl.screen->h- 30,
+                                           fmt->BitsPerPixel,
+                                           fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
     int label_top = 10;
     int label_x = (sdl.screen->w - gui->label->frame->img->img->w ) >> 1;
     /* info labels */
@@ -1706,7 +1718,6 @@ Handle the selection of a mod folder to load.
 void gui_render_mod_select_info( const char *path, const char *camp_entry, SDL_Surface *buffer )
 {
     char pathFinal[MAX_PATH];
-    SDL_Surface *image;
     if ( path == 0 )
     {
         /* no selection met */

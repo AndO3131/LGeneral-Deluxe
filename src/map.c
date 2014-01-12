@@ -970,6 +970,10 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
         SOURCE( terrain_icons->grid, 0, 0 );
         blit_surf();
     }
+    /* final draw */
+    DEST( sdl.screen, 0, 30, surf->w, surf->h );
+    FULL_SOURCE( surf )
+    blit_surf();
 }
 /*
 ====================================================================
@@ -1097,6 +1101,10 @@ void map_draw_units( SDL_Surface *surf, int map_x, int map_y, int x, int y, int 
         SOURCE( terrain_icons->select, 0, 0 );
         blit_surf();
     }
+    /* final draw */
+    DEST( sdl.screen, 0, 30, surf->w, surf->h );
+    FULL_SOURCE( surf )
+    blit_surf();
 }
 /*
 ====================================================================
@@ -1110,6 +1118,10 @@ void map_apply_danger_to_tile( SDL_Surface *surf, int map_x, int map_y, int x, i
     DEST( surf, x, y, hex_w, hex_h );
     SOURCE( terrain_icons->danger, 0, 0 );
     alpha_blit_surf( DANGER_ALPHA );
+    /* final draw */
+    DEST( sdl.screen, 0, 30, surf->w, surf->h );
+    FULL_SOURCE( surf )
+    blit_surf();
 }
 /*
 ====================================================================

@@ -1312,7 +1312,7 @@ static int engine_get_screen_pos( int mx, int my, int *sx, int *sy )
             y -= hex_y_offset;
     }
     /* check range */
-    if ( x >= sdl.screen->w || y >= sdl.screen->h ) return 0;
+    if ( x >= gui->map_frame->w || y >= gui->map_frame->h ) return 0;
     /* assign */
     *sx = x;
     *sy = y;
@@ -1349,12 +1349,12 @@ static int engine_get_map_pos( int sx, int sy, int *mx, int *my, int *region )
     */
     if ( ODD( map_x ) && EVEN( x ) )
         total_y_offset = hex_y_offset;
-    y = ( sy - total_y_offset - map_sy ) / hex_h;
+    y = ( sy - 30 - total_y_offset - map_sy ) / hex_h;
     /* compute screen position */
     if ( !engine_get_screen_pos( x + map_x, y + map_y, &screen_x, &screen_y ) ) return 0;
-    /* test mask with  sx - screen_x, sy - screen_y */
+    /* test mask with  sx - screen_x, sy + 30 - screen_y */
     tile_x = sx - screen_x;
-    tile_y = sy - screen_y;
+    tile_y = sy - 30 - screen_y;
     if ( !hex_mask[tile_y * hex_w + tile_x] ) {
         if ( EVEN( map_x ) ) {
             if ( tile_y < hex_y_offset && EVEN( x ) ) y--;
@@ -1556,15 +1556,15 @@ static void engine_draw_map()
         sc_type = SC_NONE;
         /* set buffer offset and height */
         buffer_offset = abs( sc_diff ) * hex_h;
-        buffer_height = sdl.screen->h - buffer_offset;
+        buffer_height = gui->map_frame->h - buffer_offset;
         /* going down */
         if ( sc_diff > 0 ) {
             /* copy screen to buffer */
-            DEST( sc_buffer, 0, 0, sdl.screen->w, buffer_height );
-            SOURCE( sdl.screen, 0, buffer_offset );
+            DEST( sc_buffer, 0, 0, gui->map_frame->w, buffer_height );
+            SOURCE( gui->map_frame, 0, buffer_offset );
             blit_surf();
             /* copy buffer to new pos */
-            DEST( sdl.screen, 0, 0, sdl.screen->w, buffer_height );
+            DEST( gui->map_frame, 0, 0, gui->map_frame->w, buffer_height );
             SOURCE( sc_buffer, 0, 0 );
             blit_surf();
             /* set loop range to redraw lower lines */
@@ -1573,11 +1573,11 @@ static void engine_draw_map()
         /* going up */
         else {
             /* copy screen to buffer */
-            DEST( sc_buffer, 0, 0, sdl.screen->w, buffer_height );
-            SOURCE( sdl.screen, 0, 0 );
+            DEST( sc_buffer, 0, 0, gui->map_frame->w, buffer_height );
+            SOURCE( gui->map_frame, 0, 0 );
             blit_surf();
             /* copy buffer to new pos */
-            DEST( sdl.screen, 0, buffer_offset, sdl.screen->w, buffer_height );
+            DEST( gui->map_frame, 0, buffer_offset, gui->map_frame->w, buffer_height );
             SOURCE( sc_buffer, 0, 0 );
             blit_surf();
             /* set loop range to redraw upper lines */
@@ -1590,16 +1590,16 @@ static void engine_draw_map()
             sc_type = SC_NONE;
             /* set buffer offset and width */
             buffer_offset = abs( sc_diff ) * hex_x_offset;
-            buffer_width = sdl.screen->w - buffer_offset;
-            buffer_height = sdl.screen->h;
+            buffer_width = gui->map_frame->w - buffer_offset;
+            buffer_height = gui->map_frame->h;
             /* going right */
             if ( sc_diff > 0 ) {
                 /* copy screen to buffer */
                 DEST( sc_buffer, 0, 0, buffer_width, buffer_height );
-                SOURCE( sdl.screen, buffer_offset, 0 );
+                SOURCE( gui->map_frame, buffer_offset, 0 );
                 blit_surf();
                 /* copy buffer to new pos */
-                DEST( sdl.screen, 0, 0, buffer_width, buffer_height );
+                DEST( gui->map_frame, 0, 0, buffer_width, buffer_height );
                 SOURCE( sc_buffer, 0, 0 );
                 blit_surf();
                 /* set loop range to redraw right lines */
@@ -1609,10 +1609,10 @@ static void engine_draw_map()
             else {
                 /* copy screen to buffer */
                 DEST( sc_buffer, 0, 0, buffer_width, buffer_height );
-                SOURCE( sdl.screen, 0, 0 );
+                SOURCE( gui->map_frame, 0, 0 );
                 blit_surf();
                 /* copy buffer to new pos */
-                DEST( sdl.screen, buffer_offset, 0, buffer_width, buffer_height );
+                DEST( gui->map_frame, buffer_offset, 0, buffer_width, buffer_height );
                 SOURCE( sc_buffer, 0, 0 );
                 blit_surf();
                 /* set loop range to redraw right lines */
@@ -1636,17 +1636,17 @@ static void engine_draw_map()
                     abs_y = y;
                 switch (stage) {
                     case DrawTerrain:
-                        map_draw_terrain( sdl.screen, i, j, x, abs_y );
+                        map_draw_terrain( gui->map_frame, i, j, x, abs_y );
                         break;
                     case DrawUnits:
                         if ( cur_unit && cur_unit->x == i && cur_unit->y == j && status != STATUS_MOVE && mask[i][j].spot )
-                            map_draw_units( sdl.screen, i, j, x, abs_y, !air_mode, use_frame );
+                            map_draw_units( gui->map_frame, i, j, x, abs_y, !air_mode, use_frame );
                         else
-                            map_draw_units( sdl.screen, i, j, x, abs_y, !air_mode, 0 );
+                            map_draw_units( gui->map_frame, i, j, x, abs_y, !air_mode, 0 );
                         break;
                     case DrawDangerZone:
                         if ( mask[i][j].danger )
-                            map_apply_danger_to_tile( sdl.screen, i, j, x, abs_y );
+                            map_apply_danger_to_tile( gui->map_frame, i, j, x, abs_y );
                         break;
                 }
                 x += hex_x_offset;
@@ -3339,9 +3339,9 @@ static void engine_handle_next_action( int *reinit )
                 gui_adjust();
                 if ( setup.type != SETUP_RUN_TITLE ) {
                     /* reset engine's map size (number of tiles on screen) */
-                    for ( i = map_sx, map_sw = 0; i < sdl.screen->w; i += hex_x_offset )
+                    for ( i = map_sx, map_sw = 0; i < gui->map_frame->w; i += hex_x_offset )
                         map_sw++;
-                    for ( j = map_sy, map_sh = 0; j < sdl.screen->h; j += hex_h )
+                    for ( j = map_sy, map_sh = 0; j < gui->map_frame->h; j += hex_h )
                         map_sh++;
                     /* reset map pos if nescessary */
                     if ( map_x + map_sw >= map_w )
@@ -4358,9 +4358,9 @@ int engine_init()
     map_x = map_y = 0;
     map_sx = -hex_x_offset;
     map_sy = -hex_h;
-    for ( i = map_sx, map_sw = 0; i < sdl.screen->w; i += hex_x_offset )
+    for ( i = map_sx, map_sw = 0; i < gui->map_frame->w; i += hex_x_offset )
         map_sw++;
-    for ( j = map_sy, map_sh = 0; j < sdl.screen->h; j += hex_h )
+    for ( j = map_sy, map_sh = 0; j < gui->map_frame->h; j += hex_h )
         map_sh++;
     /* reset scroll delay */
     set_delay( &scroll_delay, 0 );
