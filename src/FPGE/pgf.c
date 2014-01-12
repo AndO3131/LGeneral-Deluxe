@@ -216,7 +216,9 @@ char **parse_pgbrf_campaign_select( const char *path )
             if ( pos[0] == 'a' )
             {
                 pos++;
-                if ( pos[1] == '-' )
+                while ( pos[0] == ' ' )
+                    pos++;
+                if ( pos[0] == '-' )
                 {
                     pos = strchr( pos, '\"' );
                     pos++;
@@ -227,7 +229,9 @@ char **parse_pgbrf_campaign_select( const char *path )
                     pos = strchr( pos, '\"' );
                     pos++;
                 }
-                if ( pos[1] == 'h' )
+                while ( pos[0] == ' ' )
+                    pos++;
+                if ( pos[0] == 'h' )
                 {
                     pos = strchr( pos, '\"' );
                     pos++;
