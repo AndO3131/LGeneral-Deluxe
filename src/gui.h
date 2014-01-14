@@ -131,7 +131,7 @@ typedef struct {
     Font *font_turn_info;
     Font *font_brief;
     Image *cursors;
-    Label *label, *label2;
+    Label *label_left, *label_center, *label_right;
     Frame *qinfo1, *qinfo2; /* unit quick infos */
     Frame *finfo; /* full unit info */
     Frame *sinfo; /* scenario information */

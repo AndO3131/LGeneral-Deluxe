@@ -83,12 +83,12 @@ void label_write( Label *label, Font *_font, const char *text )
 /*
 ====================================================================
 Create button group. At maximum 'limit' buttons may be added.
-A buttons tooltip is displayed in 'label'.
+A buttons tooltip is displayed in corresponding gui->label.
 An actual button id is computed as base_id + id.
 ====================================================================
 */
 Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int h, int limit, int base_id, 
-                     Label *label, Label *label1, SDL_Surface *surf, int x, int y )
+                     SDL_Surface *surf, int x, int y )
 {
     Group *group = calloc( 1, sizeof( Group ) );
     if ( ( group->frame = frame_create( frame, alpha, surf, x, y ) ) == 0 ) goto failure;
@@ -105,8 +105,6 @@ Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int
         fprintf( stderr, tr("Out of memory\n") );
         goto failure;
     }
-    group->label = label;
-    group->label1 = label1;
     return group;
 failure:
     group_delete( &group );
@@ -157,7 +155,7 @@ int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, i
     group->buttons[group->button_count].button_rect.h = group->h;
     group->buttons[group->button_count].id = id;
     group->buttons[group->button_count].active = 1;
-    strcpy_lt( group->buttons[group->button_count].tooltip, tooltip, 31 );
+    strcpy_lt( group->buttons[group->button_count].tooltip_center, tooltip, 31 );
     group->buttons[group->button_count].lock = lock;
     group->buttons[group->button_count].states = states;
     group->buttons[group->button_count].hidden = 0;
@@ -242,15 +240,15 @@ int group_handle_motion( Group *group, int x, int y )
     if ( x >= group->frame->img->bkgnd->surf_rect.x && y >= group->frame->img->bkgnd->surf_rect.y )
     if ( x < group->frame->img->bkgnd->surf_rect.x + group->frame->img->bkgnd->surf_rect.w )
     if ( y < group->frame->img->bkgnd->surf_rect.y + group->frame->img->bkgnd->surf_rect.h ) {
-        label_hide( group->label, 1 );
-        if (group->label1 != 0)
-            label_hide( group->label1, 1 );
         for ( i = 0; i < group->button_count; i++ )
             if ( group->buttons[i].active && !group->buttons[i].hidden ) {
                 if ( button_focus( &group->buttons[i], x, y ) ) {
-                    label_write( group->label, 0, group->buttons[i].tooltip );
-                    if ( group->label1 != 0 && !STRCMP(group->buttons[i].tooltip1, "") )
-                        label_write( group->label1, 0, group->buttons[i].tooltip1 );
+                    if ( !STRCMP(group->buttons[i].tooltip_left, "") )
+                        label_write( gui->label_left, 0, group->buttons[i].tooltip_left );
+                    if ( !STRCMP(group->buttons[i].tooltip_center, "") )
+                        label_write( gui->label_center, 0, group->buttons[i].tooltip_center );
+                    if ( !STRCMP(group->buttons[i].tooltip_right, "") )
+                        label_write( gui->label_right, 0, group->buttons[i].tooltip_right );
                     if ( !group->buttons[i].down )
                         group->buttons[i].button_rect.x = group->w;
                 }
@@ -531,7 +529,6 @@ NULL by default.
 ====================================================================
 */
 LBox *lbox_create( SDL_Surface *frame, int alpha, int border, SDL_Surface *buttons, int button_w, int button_h, 
-                   Label *label, 
                    int cell_count, int step, int cell_w, int cell_h, int cell_gap, int cell_color,
                    void (*cb)(void*, SDL_Surface*), 
                    SDL_Surface *surf, int x, int y )
@@ -540,7 +537,7 @@ LBox *lbox_create( SDL_Surface *frame, int alpha, int border, SDL_Surface *butto
     LBox *lbox = calloc( 1, sizeof( LBox ) );
     /* group */
     if ( ( lbox->group = group_create( frame , alpha, buttons, button_w, button_h, 2, ID_INTERN_UP,
-           label, 0, surf, x, y ) ) == 0 )
+           surf, x, y ) ) == 0 )
         goto failure;
     /* cells */
     lbox->step = step;
@@ -751,7 +748,6 @@ FDlg *fdlg_create(
                    SDL_Surface *conf_frame,
                    SDL_Surface *conf_buttons, int conf_button_w, int conf_button_h,
                    int id_ok, 
-                   Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, const char*, SDL_Surface* ),
                    SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only, int file_type )
@@ -764,7 +760,6 @@ FDlg *fdlg_create(
     cell_count = ( lbox_frame->h - 2 * border - lbox_button_h ) / ( cell_h + 1 );
     if ( ( dlg->lbox = lbox_create( lbox_frame, alpha, border,
                                     lbox_buttons, lbox_button_w, lbox_button_h, 
-                                    label, 
                                     cell_count, 4, cell_w, cell_h, 1, 0x0000ff, 
                                     lbox_cb, surf, x, y ) ) == 0 )
         goto failure;
@@ -773,13 +768,13 @@ FDlg *fdlg_create(
     switch ( arrangement )
     {
         case ARRANGE_COLUMNS:
-            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
-                                      surf, x + lbox_frame->w, y ) ) == 0 )
+            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count,
+                                              id_ok, surf, x + lbox_frame->w, y ) ) == 0 )
                 goto failure;
             break;
         case ARRANGE_ROWS:
-            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count, id_ok, label, 0,
-                                      surf, x, y + lbox_frame->h ) ) == 0 )
+            if ( ( dlg->group = group_create( conf_frame, alpha, conf_buttons, conf_button_w, conf_button_h, button_count,
+                                              id_ok, surf, x, y + lbox_frame->h ) ) == 0 )
                 goto failure;
             break;
         case ARRANGE_INSIDE:
@@ -1053,7 +1048,6 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
                    int mod_button_w, int mod_button_h, int id_mod,
                    SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    int conf_button_w, int conf_button_h, int id_conf,
-                   Label *label,
                    void (*list_render_cb)(void*,SDL_Surface*),
                    void (*list_select_cb)(void*),
                    SDL_Surface *surf, int x, int y )
@@ -1065,19 +1059,19 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     SDlg *sdlg = calloc( 1, sizeof( SDlg ) );
 
     /* listbox for players */
-    if ( ( sdlg->list = lbox_create( list_frame, alpha, border, list_buttons, list_button_w, list_button_h, label,
+    if ( ( sdlg->list = lbox_create( list_frame, alpha, border, list_buttons, list_button_w, list_button_h,
                                      cell_count, 2, cell_w, cell_h, 1, 0x0000ff, list_render_cb, surf, x, y ) ) == 0 )
         goto failure;
 
     /* group with human/cpu control button */
     if ( ( sdlg->ctrl = group_create( ctrl_frame, alpha, ctrl_buttons, 
-                                      ctrl_button_w, ctrl_button_h, 1, id_ctrl, label, 0, surf, x + list_frame->w - 1, y ) ) == 0 )
+                                      ctrl_button_w, ctrl_button_h, 1, id_ctrl, surf, x + list_frame->w - 1, y ) ) == 0 )
         goto failure;
     group_add_button( sdlg->ctrl, id_ctrl, ctrl_frame->w - border - ctrl_button_w, ( ctrl_frame->h - ctrl_button_h ) / 2, 0, tr("Switch Control"), 2 );
 
     /* group with ai module select button */
     if ( ( sdlg->module = group_create( mod_frame, alpha, mod_buttons, 
-                                        mod_button_w, mod_button_h, 1, id_mod, label, 0, surf, 
+                                        mod_button_w, mod_button_h, 1, id_mod, surf, 
                                         x + list_frame->w - 1, y + ctrl_frame->h ) ) == 0 )
         goto failure;
     group_add_button( sdlg->module, id_mod, ctrl_frame->w - border - ctrl_button_w, ( mod_frame->h - mod_button_h ) / 2, 0, tr("Select AI Module"), 2 );
@@ -1088,7 +1082,7 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 7, id_conf, label, 0, surf, 
+                                         conf_button_w, conf_button_h, 7, id_conf, surf, 
                                          x + list_frame->w - 1, y + ctrl_frame->h + mod_frame->h ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -1125,7 +1119,6 @@ Create campaign setup dialogue.
 */
 SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    int conf_button_w, int conf_button_h, int id_conf,
-                   Label *label,
                    void (*list_render_cb)(void*,SDL_Surface*),
                    void (*list_select_cb)(void*),
                    SDL_Surface *surf, int x, int y )
@@ -1142,7 +1135,7 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 4, id_conf, label, 0, surf, 
+                                         conf_button_w, conf_button_h, 4, id_conf, surf, 
                                          x - 1, y ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -1326,8 +1319,7 @@ SelectDlg *select_dlg_create(
 		goto failure;
 	
 	sdlg->button_group = group_create(conf_frame, 160, conf_buttons,
-				conf_button_w, conf_button_h, 2, id_ok, 
-				gui->label, 0, sdl.screen, 0, 0);
+				conf_button_w, conf_button_h, 2, id_ok, sdl.screen, 0, 0);
 	if (sdlg->button_group == NULL)
 		goto failure;
 	sx = group_get_width( sdlg->button_group ) - 60; 
@@ -1337,7 +1329,7 @@ SelectDlg *select_dlg_create(
 							tr("Cancel"), 2 );
 	
 	sdlg->select_lbox = lbox_create( lbox_frame, 160, 6, 
-			lbox_buttons, lbox_button_w, lbox_button_h, gui->label, 
+			lbox_buttons, lbox_button_w, lbox_button_h,
 			lbox_cell_count, lbox_cell_count/2, 
 			lbox_cell_w, lbox_cell_h, 
 			1, 0x0000ff, lbox_render_cb, sdl.screen, 0, 0);

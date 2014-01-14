@@ -331,13 +331,13 @@ static void engine_set_status( int newstat )
     {
         status = STATUS_TITLE;
         /* re-show main menu */
-        if (!term_game) engine_show_game_menu(10,10);
+        if (!term_game) engine_show_game_menu(10,40);
     }
     /* return from scenario to title screen */
     else if ( newstat == STATUS_TITLE )
     {
         status = STATUS_TITLE;
-        if (!term_game) engine_show_game_menu(10,10);
+        if (!term_game) engine_show_game_menu(10,40);
     }
     else
         status = newstat;
@@ -366,7 +366,6 @@ static void engine_draw_bkgnd()
     log_x = sdl.screen->w - 2;
     log_y = 2;
     gui->font_error->align = ALIGN_X_RIGHT | ALIGN_Y_TOP;
-    snprintf( log_str, MAX_NAME, tr("Mod: %s"), config.mod_name );
     write_line( sdl.screen, gui->font_error, log_str, log_x, &log_y );
     blit_surf();
 }
@@ -546,7 +545,7 @@ static void engine_check_unit_buttons()
         group_set_active( gui->unit_buttons, ID_SUPPLY, 1 );
         /* show supply level */
         sprintf( str, tr("Supply Unit [s] (Rate:%3i%%)"), cur_unit->supply_level );
-        strcpy( group_get_button( gui->unit_buttons, ID_SUPPLY )->tooltip, str );
+        strcpy( group_get_button( gui->unit_buttons, ID_SUPPLY )->tooltip_center, str );
     }
     else
         group_set_active( gui->unit_buttons, ID_SUPPLY, 0 );
@@ -572,10 +571,10 @@ static void engine_check_unit_buttons()
             /* show replacements and supply level */
             unit_check_supply( cur_unit, UNIT_SUPPLY_ANYTHING, 0, 0 );
             sprintf( str, tr("Replacements (Rate:%3i%%)"), cur_unit->supply_level );
-            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip, str );
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_center, str );
             sprintf( str, tr("Str:%2i, Exp:%4i, Prst:%4i"),
                      cur_unit->cur_str_repl, -cur_unit->repl_exp_cost, -cur_unit->repl_prestige_cost );
-            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip1, str );
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_right, str );
         }
         else
             group_set_active( gui->unit_buttons, ID_REPLACEMENTS, 0 );
@@ -585,9 +584,9 @@ static void engine_check_unit_buttons()
             group_set_active( gui->unit_buttons, ID_ELITE_REPLACEMENTS, 1 );
             /* show elite replacements and supply level */
             sprintf( str, tr("Elite Repl. (Rate:%3i%%)"), cur_unit->supply_level );
-            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip, str );
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_center, str );
             sprintf( str, tr("Str:%2i, Prst:%4i"), cur_unit->cur_str_repl, -cur_unit->repl_prestige_cost );
-            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip1, str );
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_right, str );
         }
         else
             group_set_active( gui->unit_buttons, ID_ELITE_REPLACEMENTS, 0 );
@@ -642,6 +641,7 @@ Show/Hide game menu.
 */
 static void engine_show_game_menu( int cx, int cy )
 {
+    char str[MAX_NAME];
     if ( setup.type == SETUP_RUN_TITLE ) {
         status = STATUS_TITLE_MENU;
         if ( cy + gui->main_menu->frame->img->img->h >= sdl.screen->h )
@@ -650,6 +650,10 @@ static void engine_show_game_menu( int cx, int cy )
         group_hide( gui->main_menu, 0 );
         group_set_active( gui->main_menu, ID_SAVE, 0 );
         group_set_active( gui->main_menu, ID_RESTART, 0 );
+        snprintf( str, MAX_NAME, tr("Mod: %s"), config.mod_name );
+        label_write( gui->label_left, gui->font_std, str );
+        label_write( gui->label_center, gui->font_std, "" );
+        label_write( gui->label_right, gui->font_std, "" );
     }
     else {
         engine_check_menu_buttons();
@@ -670,8 +674,6 @@ static void engine_hide_game_menu()
 {
     if ( setup.type == SETUP_RUN_TITLE ) {
         status = STATUS_TITLE;
-        label_hide( gui->label, 1 );
-        label_hide( gui->label2, 1 );
     }
     else
         engine_set_status( STATUS_NONE );
@@ -699,7 +701,6 @@ static void engine_hide_unit_menu()
     engine_set_status( STATUS_NONE );
     group_hide( gui->unit_buttons, 1 );
     group_hide( gui->split_menu, 1 );
-    label_hide( gui->label2, 1 );
     old_mx = old_my = -1;
 }
 
@@ -1352,7 +1353,7 @@ static int engine_get_map_pos( int sx, int sy, int *mx, int *my, int *region )
     y = ( sy - 30 - total_y_offset - map_sy ) / hex_h;
     /* compute screen position */
     if ( !engine_get_screen_pos( x + map_x, y + map_y, &screen_x, &screen_y ) ) return 0;
-    /* test mask with  sx - screen_x, sy - 30 - screen_y */
+    /* test mask with  sx - screen_x, sy - screen_y */
     tile_x = sx - screen_x;
     tile_y = sy - screen_y;
     if ( !hex_mask[tile_y * hex_w + tile_x] ) {
@@ -1770,8 +1771,9 @@ static void engine_update_info( int mx, int my, int region )
     /* no infos when cpu is acting */
     if ( cur_ctrl == PLAYER_CTRL_CPU ) {
         image_hide( gui->cursors, 1 );
-        label_hide( gui->label, 1 );
-        label_hide( gui->label2, 1 );
+        label_write( gui->label_left, gui->font_std, "" );
+        label_write( gui->label_center, gui->font_status, "" );
+        label_write( gui->label_right, gui->font_std, "" );
         frame_hide( gui->qinfo1, 1 );
         frame_hide( gui->qinfo2, 1 );
         return;
@@ -1782,26 +1784,34 @@ static void engine_update_info( int mx, int my, int region )
     /* entered a new tile so update the terrain info */
     if (status == STATUS_PURCHASE) {
         snprintf( str, MAX_LINE, tr("Prestige: %d"), cur_player->cur_prestige );
-        label_write( gui->label, gui->font_std, str );
+        label_write( gui->label_left, gui->font_std, str );
     }
     else if (status==STATUS_DROP)
     {
-        label_write( gui->label, gui->font_std,tr("Select Drop Zone")  );
+        label_write( gui->label_left, gui->font_std,tr("Select Drop Zone")  );
     }
     else if (status==STATUS_SPLIT)
     {
         sprintf( str, tr("Split Up %d Strength"), cur_split_str );
-        label_write( gui->label, gui->font_std, str );
+        label_write( gui->label_left, gui->font_std, str );
     }
     else if (moveCost>0)
     {
-        sprintf( str, "%s (%i,%i) " GS_DISTANCE "%d", map[mx][my].name, mx, my, moveCost );
-        label_write( gui->label, gui->font_status, str );
+        sprintf( str, GS_DISTANCE "%d", moveCost );
+        label_write( gui->label_left, gui->font_status, str );
+        sprintf( str, "%s (%i,%i) ", map[mx][my].name, mx, my );
+        label_write( gui->label_center, gui->font_status, str );
+        snprintf( str, MAX_NAME, tr("Weather: %s"), weather_types[cur_weather].name );
+        label_write( gui->label_right, gui->font_std, str );
     }
     else
     {
+        snprintf( str, MAX_NAME, tr("Mod: %s"), config.mod_name );
+        label_write( gui->label_left, gui->font_std, str );
         sprintf( str, "%s (%i,%i)", map[mx][my].name, mx, my );
-        label_write( gui->label, gui->font_status, str );
+        label_write( gui->label_center, gui->font_status, str );
+        snprintf( str, MAX_NAME, tr("Weather: %s"), weather_types[cur_weather].name );
+        label_write( gui->label_right, gui->font_std, str );
     }
     /* DEBUG: 
     sprintf( str, "(%d,%d), P: %d B: %d I: %d D: %d",mx,my,mask[mx][my].in_range-1,mask[mx][my].blocked,mask[mx][my].vis_infl,mask[mx][my].distance); 
@@ -2277,14 +2287,14 @@ static void engine_handle_button( int id )
             if (cur_unit==0) break;
             engine_hide_unit_menu();
             action_queue_replace(cur_unit);
-            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip1, "" );
+//            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_right, "" );
             draw_map = 1;
             break;
         case ID_ELITE_REPLACEMENTS:
             if (cur_unit==0) break;
             engine_hide_unit_menu();
             action_queue_elite_replace(cur_unit);
-            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip1, "" );
+//            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_right, "" );
             draw_map = 1;
             break;
         case ID_DISBAND:
@@ -2502,12 +2512,10 @@ static void engine_handle_button( int id )
 					sdl.vmodes[i].height, 
 					sdl.vmodes[i].fullscreen);
 		select_dlg_hide( gui->vmode_dlg, 1 );
-		label_hide(gui->label, 1);
 		engine_set_status( STATUS_NONE );
 		break;
 	case ID_VMODE_CANCEL:
 		select_dlg_hide( gui->vmode_dlg, 1 );
-		label_hide(gui->label, 1);
 		engine_set_status( STATUS_NONE );
 		break;
         case ID_MOD_SELECT:
@@ -2597,12 +2605,6 @@ static void engine_check_events(int *reinit)
                 }
             }
             gui_handle_motion( cx, cy );
-	    /* if gui->label is hidden we are on a gui window and there is no
-	     * tooltip; in case of purchase dialogue unhide it to show prestige
-	     * info */
-	    if ( status == STATUS_PURCHASE && 
-					gui->label->frame->img->bkgnd->hide )
-		 label_hide( gui->label, 0 );
         }
         if ( event_get_buttondown( &button, &cx, &cy ) ) {
             /* click */
@@ -3173,13 +3175,17 @@ static int engine_get_next_combatants()
                     sprintf( str, tr("Air-Defense") );
                 else
                     sprintf( str, tr("Interceptors") );
-            label_write( gui->label, gui->font_error, str );
+            label_write( gui->label_center, gui->font_error, str );
         }
     }
     else {
         /* clear info */
-        if ( !blind_cpu_turn ) 
-            label_hide( gui->label, 1 );
+        if ( blind_cpu_turn )
+        {
+            label_hide( gui->label_left, 1 );
+            label_hide( gui->label_center, 1 );
+            label_hide( gui->label_right, 1 );
+        }
         /* normal attack */
         cur_atk = cur_unit;
         cur_def = cur_target;
@@ -3805,6 +3811,9 @@ static void engine_update( int ms )
 #ifdef DEBUG_ATTACK
                     printf( "\n" );
 #endif
+                    label_write( gui->label_left, gui->font_std, "" );
+                    label_write( gui->label_center, gui->font_std, "" );
+                    label_write( gui->label_right, gui->font_std, "" );
                     if ( !blind_cpu_turn ) {
                         if ( MAP_CHECK_VIS( cur_atk->x, cur_atk->y ) ) {
                             /* show attacker cross */
@@ -3814,7 +3823,6 @@ static void engine_update( int ms )
                             anim_play( terrain_icons->cross, 0 );
                         }
                         phase = PHASE_SHOW_ATK_CROSS;
-            		    label_hide( gui->label2, 1 );
                     }
                     else
                         phase = PHASE_COMBAT;
@@ -3868,17 +3876,17 @@ static void engine_update( int ms )
                         if ( atk_result & AR_RUGGED_DEFENSE ) {
                             phase = PHASE_RUGGED_DEF;
                             if ( cur_def->sel_prop->flags & FLYING )
-                                label_write( gui->label, gui->font_error, tr("Out Of The Sun!") );
+                                label_write( gui->label_center, gui->font_error, tr("Out Of The Sun!") );
                             else
                                 if ( cur_def->sel_prop->flags & SWIMMING )
-                                    label_write( gui->label, gui->font_error, tr("Surprise Contact!") );
+                                    label_write( gui->label_center, gui->font_error, tr("Surprise Contact!") );
                                 else
-                                    label_write( gui->label, gui->font_error, tr("Rugged Defense!") );
+                                    label_write( gui->label_center, gui->font_error, tr("Rugged Defense!") );
                             reset_delay( &msg_delay );
                         }
                         else if (atk_result & AR_EVADED) {
                             /* if sub evaded give info */
-                            label_write( gui->label, gui->font_error, tr("Submarine evades!") );
+                            label_write( gui->label_center, gui->font_error, tr("Submarine evades!") );
                             reset_delay( &msg_delay );
                             phase = PHASE_EVASION;
                         }
@@ -3889,13 +3897,11 @@ static void engine_update( int ms )
                 case PHASE_EVASION:
                     if ( timed_out( &msg_delay, ms ) ) {
                         phase = PHASE_PREP_EXPLOSIONS;
-                        label_hide( gui->label, 1 );
                     }
                     break;
                 case PHASE_RUGGED_DEF:
                     if ( timed_out( &msg_delay, ms ) ) {
                         phase = PHASE_PREP_EXPLOSIONS;
-                        label_hide( gui->label, 1 );
                     }
                     break;
                 case PHASE_PREP_EXPLOSIONS:
@@ -4071,14 +4077,14 @@ static void engine_update( int ms )
                         }
                         if ( broken_up ) {
                             phase = PHASE_BROKEN_UP_MSG;
-                            label_write( gui->label, gui->font_error, tr("Attack Broken Up!") );
+                            label_write( gui->label_center, gui->font_error, tr("Attack Broken Up!") );
                             reset_delay( &msg_delay );
                             break;
                         }
                         if ( surrender ) {
                             const char *msg = surrender_unit->sel_prop->flags & SWIMMING ? tr("Ship is scuttled!") : tr("Surrenders!");
                             phase = PHASE_SURRENDER_MSG;
-                            label_write( gui->label, gui->font_error, msg );
+                            label_write( gui->label_center, gui->font_error, msg );
                             reset_delay( &msg_delay );
                             break;
                         }
@@ -4097,13 +4103,11 @@ static void engine_update( int ms )
                         }
                         engine_remove_unit( surrender_unit );
                         phase = PHASE_END_COMBAT;
-                        label_hide( gui->label, 1 );
                     }
                     break;
                 case PHASE_BROKEN_UP_MSG:
                     if ( timed_out( &msg_delay, ms ) ) {
                         phase = PHASE_END_COMBAT;
-                        label_hide( gui->label, 1 );
                     }
                     break;
                 case PHASE_END_COMBAT:    
@@ -4121,7 +4125,6 @@ static void engine_update( int ms )
                         engine_select_unit( cur_unit );
                     /* status */
                     engine_set_status( STATUS_NONE );
-        		    label_hide( gui->label2, 1 );
                     phase = PHASE_NONE;
                     /* allow new human/cpu input */
                     if ( !blind_cpu_turn ) {
@@ -4169,7 +4172,7 @@ static void engine_main_loop( int *reinit )
     int ms;
     if ( status == STATUS_TITLE && !term_game ) {
         engine_draw_bkgnd();
-        engine_show_game_menu(10,10);
+        engine_show_game_menu(10,40);
         refresh_screen( 0, 0, 0, 0 );
     }
     else if ( status == STATUS_CAMP_BRIEFING )
@@ -4208,8 +4211,6 @@ static void engine_main_loop( int *reinit )
     /* hide these windows, so the initial screen looks as original */
     frame_hide(gui->qinfo1, 1);
     frame_hide(gui->qinfo2, 1);
-    label_hide(gui->label, 1);
-    label_hide( gui->label2, 1 );
 }
 
 /*

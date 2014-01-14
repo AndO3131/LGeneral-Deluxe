@@ -626,7 +626,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	pdlg->main_group = group_create( gui_create_frame( 300, 320 ), 160, 
 				load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
 				20, 20, 2, ID_PURCHASE_OK,
-				gui->label, 0, sdl.screen, 0, 0 );
+				sdl.screen, 0, 0 );
 	if (pdlg->main_group == NULL)
 		goto failure;
 	sx = group_get_width( pdlg->main_group ) - 60; 
@@ -646,7 +646,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->nation_lbox = lbox_create( gui_create_frame( 112, 74 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			3, 1, 100, 12, 1, 0x0000ff,
 			render_lbox_nation, sdl.screen, 0, 0);
 	if (pdlg->nation_lbox == NULL)
@@ -656,7 +656,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->uclass_lbox = lbox_create( gui_create_frame( 112, 166 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			10, 2, 100, 12, 1, 0x0000ff,
 			render_lbox_uclass, sdl.screen, 0, 0);
 	if (pdlg->uclass_lbox == NULL)
@@ -666,7 +666,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->unit_lbox = lbox_create( gui_create_frame( 112, 200 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			4, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->unit_lbox == NULL)
@@ -676,7 +676,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->trsp_lbox = lbox_create( gui_create_frame( 112, 120 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			2, 1, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (pdlg->trsp_lbox == NULL)
@@ -686,7 +686,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	pdlg->reinf_lbox = lbox_create( gui_create_frame( 112, 280 ), 160, 6,
-			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, gui->label,
+			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			6, 3, 100, 40, 1, 0x0000ff,
 			render_lbox_reinf, sdl.screen, 0, 0);
 	if (pdlg->reinf_lbox == NULL)

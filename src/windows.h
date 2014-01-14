@@ -83,8 +83,9 @@ typedef struct {
     SDL_Rect button_rect;   /* region in button surface */
     SDL_Rect surf_rect;     /* region in buffer::surface */ 
     int id;                 /* if returned on click */
-    char tooltip[32];       /* displayed as short help */
-    char tooltip1[32];      /* displayed as short help extra field - used to display replacements details */
+    char tooltip_left[32];  /* displayed as short help */
+    char tooltip_center[32];/* displayed as short help */
+    char tooltip_right[32]; /* displayed as short help */
     int active;             /* true if button may be used */
     int down;               /* consecutive numbers are different state positions */
     int lock;               /* keep button down when released */
@@ -99,8 +100,6 @@ typedef struct {
     int button_count;   /* number of buttons */
     int button_limit;   /* limit of buttons */
     int base_id; 
-    Label *label;       /* label for the tooltip */
-    Label *label1;      /* extra label for the tooltip */
 } Group;
 
 /*
@@ -111,7 +110,7 @@ An actual button id is computed as base_id + id.
 ====================================================================
 */
 Group *group_create( SDL_Surface *frame, int alpha, SDL_Surface *img, int w, int h, int limit, int base_id, 
-                     Label *label, Label *label1, SDL_Surface *surf, int x, int y );
+                     SDL_Surface *surf, int x, int y );
 void group_delete( Group **group );
 
 /*
@@ -301,7 +300,6 @@ NULL by default.
 ====================================================================
 */
 LBox *lbox_create( SDL_Surface *frame, int alpha, int border, SDL_Surface *buttons, int button_w, int button_h, 
-                   Label *label, 
                    int cell_count, int step, int cell_w, int cell_h, int cell_gap, int cell_color, 
                    void (*cb)(void*, SDL_Surface*), 
                    SDL_Surface *surf, int x, int y );
@@ -416,7 +414,6 @@ FDlg *fdlg_create(
                    SDL_Surface *conf_frame,
                    SDL_Surface *conf_buttons, int conf_button_w, int conf_button_h,
                    int id_ok,
-                   Label *label, 
                    void (*lbox_cb)( void*, SDL_Surface* ),
                    void (*file_cb)( const char*, const char*, SDL_Surface* ),
                    SDL_Surface *surf, int x, int y, int arrangement, int emptyFile, int dir_only, int file_type );
@@ -495,13 +492,11 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
                    int mod_button_w, int mod_button_h, int id_mod,
                    SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    int conf_button_w, int conf_button_h, int id_conf,
-                   Label *label,
                    void (*list_render_cb)(void*,SDL_Surface*),
                    void (*list_select_cb)(void*),
                    SDL_Surface *surf, int x, int y );
 SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    int conf_button_w, int conf_button_h, int id_conf,
-                   Label *label,
                    void (*list_render_cb)(void*,SDL_Surface*),
                    void (*list_select_cb)(void*),
                    SDL_Surface *surf, int x, int y );

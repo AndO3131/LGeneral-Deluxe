@@ -274,13 +274,10 @@ int gui_load( char *dir )
     if ( ( gui->cursors = image_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 
                 22, 22, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
-    /* info label */
-    if ( ( gui->label = label_create( gui_create_frame( 240, 30 ), 160, gui->font_std, sdl.screen, 0, 0 ) ) == 0 )
-        goto failure;
-    if ( ( gui->label2 = label_create( gui_create_frame( 240, 30 ), 160, gui->font_std, sdl.screen, 0, 0 ) ) == 0 )
-        goto failure;
-    label_hide( gui->label, 1 );
-    label_hide( gui->label2, 1 );
+    /* info labels */
+    gui->label_left = 0;
+    gui->label_center = 0;
+    gui->label_right = 0;
     /* quick unit infos */
     if ( ( gui->qinfo1 = frame_create( gui_create_frame( 240, 60 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -300,7 +297,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/confirm_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->confirm = group_create( gui_create_frame( 200, 80 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 6, ID_OK, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 6, ID_OK, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = gui->confirm->frame->img->img->w - 60; sy = gui->confirm->frame->img->img->h - 30;
     group_add_button( gui->confirm, ID_OK, sx, sy, 0, tr("Accept"), 2 ); sx += 30;
@@ -310,7 +307,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/unit_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->unit_buttons = group_create( gui_create_frame( 30, 230 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 9, ID_SUPPLY, gui->label, gui->label2, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 9, ID_SUPPLY, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->unit_buttons, ID_UNDO, sx, sy, 0, tr("Undo Turn [u]"), 2 ); sy += 40; 
@@ -327,7 +324,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/strength_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->split_menu = group_create( gui_create_frame( 26, 186 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 10, ID_SPLIT_1, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 10, ID_SPLIT_1, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     for ( i = 0; i < 9; i++ ) {
@@ -340,7 +337,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/deploy_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->deploy_window = group_create( gui_create_frame( 80, 440 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 6, ID_APPLY_DEPLOY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20, 6, ID_APPLY_DEPLOY, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = gui->deploy_window->frame->img->img->w - 65;
     sy = gui->deploy_window->frame->img->img->h - 60;
@@ -357,7 +354,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/menu0_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->base_menu = group_create( gui_create_frame( 30, 250 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 8, ID_MENU, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 8, ID_MENU, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->base_menu, ID_AIR_MODE, sx, sy, 0, tr("Switch Air/Ground [t]"), 2 ); sy += 30; 
@@ -373,7 +370,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/menu1_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->main_menu = group_create( gui_create_frame( 30, 240 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 8, ID_SAVE, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 8, ID_SAVE, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->main_menu, ID_SAVE, sx, sy, 0, tr("Save Game"), 2 ); sy += 30;
@@ -396,7 +393,6 @@ int gui_load( char *dir )
                                   gui_create_frame( 600, 46),
                                   load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20,
                                   ID_LOAD_OK, 
-                                  gui->label, 
                                   gui_render_file_name, gui_render_load_menu,
                                   sdl.screen, 0, 0, ARRANGE_ROWS, 0, 0, LIST_ALL );
     fdlg_hide( gui->load_menu, 1 );
@@ -409,7 +405,6 @@ int gui_load( char *dir )
                                   gui_create_frame( 600, 50),
                                   load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                   ID_SAVE_OK, 
-                                  gui->label, 
                                   gui_render_file_name, gui_render_save_menu,
                                   sdl.screen, 0, 0, ARRANGE_ROWS, 1, 0, LIST_ALL );
     sx = 15; sy = 15;
@@ -419,7 +414,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/menu3_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     if ( ( gui->opt_menu = group_create( gui_create_frame( 30, 300 - 60 ), 160, load_surf( path2,
-                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 10, ID_C_SUPPLY, gui->label, 0, sdl.screen, 0, 0 ) ) == 0 )
+                SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24, 10, ID_C_SUPPLY, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     //group_add_button( gui->opt_menu, ID_C_SUPPLY, sx, sy, 1, "Unit Supply" ); sy += 30;
@@ -456,7 +451,6 @@ int gui_load( char *dir )
                                  gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  ID_SCEN_OK, 
-                                 gui->label, 
                                  gui_render_scen_file_name, gui_render_scen_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, LIST_SCENARIOS );
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
@@ -472,7 +466,6 @@ int gui_load( char *dir )
                                  gui_create_frame( 260, 270),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
                                  ID_CAMP_OK, 
-                                 gui->label, 
                                  gui_render_scen_file_name, gui_render_camp_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, LIST_CAMPAIGNS );
     fdlg_add_button( gui->camp_dlg, ID_CAMP_SETUP, 0, tr("Player Setup") );
@@ -495,7 +488,6 @@ int gui_load( char *dir )
                              24, 24, ID_SCEN_SETUP_MODULE,
                              gui_create_frame( 255, 40 ),  load_surf( path4, SDL_SWSURFACE, 0, 0, 0, 0 ),
                              24, 24, ID_SCEN_SETUP_OK,
-                             gui->label,
                              gui_render_player_name, gui_handle_player_select,
                              sdl.screen, 0, 0 );
     sdlg_hide( gui->scen_setup, 1 );
@@ -505,7 +497,6 @@ int gui_load( char *dir )
     gui->camp_setup = sdlg_camp_create( 
                              gui_create_frame( 150, 40 ),  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
                              24, 24, ID_CAMP_SETUP_OK,
-                             gui->label,
                              gui_render_player_name, gui_handle_player_select,
                              sdl.screen, 0, 0 );
     sdlg_hide( gui->camp_setup, 1 );
@@ -520,7 +511,6 @@ int gui_load( char *dir )
                                  gui_create_frame( 220, 240),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20,
                                  ID_MODULE_OK, 
-                                 gui->label, 
                                  gui_render_file_name, gui_render_module_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 0, LIST_ALL );
     fdlg_hide( gui->module_dlg, 1 );
@@ -540,7 +530,6 @@ int gui_load( char *dir )
                                  gui_create_frame( 231, 208),
                                  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 20, 20,
                                  ID_MOD_SELECT_OK, 
-                                 gui->label, 
                                  gui_render_file_name, gui_render_mod_select_info,
                                  sdl.screen, 0, 0, ARRANGE_COLUMNS, 0, 1, LIST_ALL );
     fdlg_hide( gui->mod_select_dlg, 1 );
@@ -584,8 +573,9 @@ void gui_delete()
         free_font( &gui->font_turn_info );
         free_font( &gui->font_brief );
         image_delete( &gui->cursors );
-        label_delete( &gui->label );
-        label_delete( &gui->label2 );
+        label_delete( &gui->label_left );
+        label_delete( &gui->label_center );
+        label_delete( &gui->label_right );
         frame_delete( &gui->qinfo1 );
         frame_delete( &gui->qinfo2 );
         frame_delete( &gui->finfo );
@@ -630,12 +620,19 @@ void gui_adjust()
     gui->map_frame = SDL_CreateRGBSurface( SDL_SWSURFACE, sdl.screen->w, sdl.screen->h- 30,
                                            fmt->BitsPerPixel,
                                            fmt->Rmask,fmt->Gmask,fmt->Bmask,fmt->Amask );
-    int label_top = 10;
-    int label_x = (sdl.screen->w - gui->label->frame->img->img->w ) >> 1;
     /* info labels */
-    label_move( gui->label, label_x, label_top );
-    label_top += gui->label->frame->img->img->h + 5;
-    label_move( gui->label2, label_x, label_top );
+    if ( gui->label_left != 0 )
+        label_delete( &gui->label_left );
+    if ( gui->label_center != 0 )
+        label_delete( &gui->label_center );
+    if ( gui->label_right != 0 )
+        label_delete( &gui->label_right );
+    gui->label_left = label_create( gui_create_frame( sdl.screen->w / 3, 30 ), 160, gui->font_std, sdl.screen, 0, 0 );
+    gui->label_right = label_create( gui_create_frame( sdl.screen->w / 3, 30 ), 160, gui->font_std, sdl.screen, 0, 0 );
+    gui->label_center = label_create( gui_create_frame( sdl.screen->w - 2 * sdl.screen->w / 3, 30 ),
+                                             160, gui->font_std, sdl.screen, 0, 0 );
+    label_move( gui->label_center, sdl.screen->w / 3, 0 );
+    label_move( gui->label_right, sdl.screen->w - sdl.screen->w / 3, 0 );
     /* unit infos */
     frame_move( gui->qinfo1, 10, sdl.screen->h - 10 - gui->qinfo1->img->img->h );
     frame_move( gui->qinfo2, 10, sdl.screen->h - 20 - gui->qinfo1->img->img->h * 2 );
@@ -710,8 +707,9 @@ Hide/draw from/to screen
 */
 void gui_get_bkgnds()
 {
-    label_get_bkgnd( gui->label );
-    label_get_bkgnd( gui->label2 );
+    label_get_bkgnd( gui->label_left );
+    label_get_bkgnd( gui->label_center );
+    label_get_bkgnd( gui->label_right );
     frame_get_bkgnd( gui->qinfo1 );
     frame_get_bkgnd( gui->qinfo2 );
     frame_get_bkgnd( gui->finfo );
@@ -738,8 +736,9 @@ void gui_get_bkgnds()
 }
 void gui_draw_bkgnds()
 {
-    label_draw_bkgnd( gui->label ); 
-    label_draw_bkgnd( gui->label2 ); 
+    label_draw_bkgnd( gui->label_left );
+    label_draw_bkgnd( gui->label_center );
+    label_draw_bkgnd( gui->label_right );
     frame_draw_bkgnd( gui->qinfo1 ); 
     frame_draw_bkgnd( gui->qinfo2 ); 
     frame_draw_bkgnd( gui->finfo ); 
@@ -766,8 +765,9 @@ void gui_draw_bkgnds()
 }
 void gui_draw()
 {
-    label_draw( gui->label ); 
-    label_draw( gui->label2 ); 
+    label_draw( gui->label_left ); 
+    label_draw( gui->label_center ); 
+    label_draw( gui->label_right ); 
     frame_draw( gui->qinfo1 ); 
     frame_draw( gui->qinfo2 ); 
     frame_draw( gui->finfo ); 
@@ -966,24 +966,23 @@ Draw the expected losses to the label.
 void gui_show_expected_losses( Unit *att, Unit *def, int att_dam, int def_dam )
 {
     char str[128];
-    SDL_Surface *contents = gui->label->frame->contents;
+    SDL_Surface *contents = gui->label_left->frame->contents;
     SDL_FillRect( contents, 0, 0x0 );
     /* attacker flag */
     DEST( contents, 10, ( contents->h - nation_flag_height ) >> 1, nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, att->nation->flag_offset );
+    SOURCE( nation_flags, att->nation->flag_offset, 0 );
     blit_surf();
     /* defender flag */
     DEST( contents, contents->w - 10 - nation_flag_width, ( contents->h - nation_flag_height ) >> 1, 
           nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, def->nation->flag_offset );
+    SOURCE( nation_flags, def->nation->flag_offset, 0 );
     blit_surf();
     /* kills */
     sprintf( str, tr("%i   CASUALTIES   %i"), att_dam, def_dam );
     gui->font_error->align = ALIGN_X_CENTER | ALIGN_Y_CENTER;
     write_text( gui->font_error, contents, contents->w >> 1, contents->h >> 1, str, 255 );
     /* show */
-    frame_apply( gui->label->frame );
-    label_hide( gui->label, 0 );
+    frame_apply( gui->label_left->frame );
 }
 
 /*
@@ -995,45 +994,53 @@ void gui_show_actual_losses( Unit *att, Unit *def,
     int att_suppr, int att_dam, int def_suppr, int def_dam )
 {
     char str[128];
-    SDL_Surface *contents = gui->label->frame->contents;
-    SDL_FillRect( contents, 0, 0x0 );
+    SDL_Surface *contents_atk = gui->label_left->frame->contents;
+    SDL_FillRect( contents_atk, 0, 0x0 );
+    SDL_Surface *contents_def = gui->label_right->frame->contents;
+    SDL_FillRect( contents_def, 0, 0x0 );
     /* attacker flag */
-    DEST( contents, 10, ( contents->h - nation_flag_height ) >> 1, nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, att->nation->flag_offset );
+    DEST( contents_atk, 20, ( contents_atk->h - nation_flag_height ) >> 1, nation_flag_width, nation_flag_height );
+    SOURCE( nation_flags, att->nation->flag_offset, 0 );
     blit_surf();
     /* defender flag */
-    DEST( contents, contents->w - 10 - nation_flag_width, ( contents->h - nation_flag_height ) >> 1, 
+    DEST( contents_def, 20, ( contents_def->h - nation_flag_height ) >> 1, 
           nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, def->nation->flag_offset );
+    SOURCE( nation_flags, def->nation->flag_offset, 0 );
     blit_surf();
     /* kills */
-    sprintf( str, tr("%i   CASUALTIES   %i"), att_dam, def_dam );
+    sprintf( str, tr("%i   KILLED"), att_dam );
     gui->font_std->align = ALIGN_X_CENTER | ALIGN_Y_CENTER;
-    write_text( gui->font_std, contents, contents->w >> 1, contents->h >> 1, str, 255 );
+    write_text( gui->font_std, contents_atk, contents_atk->w >> 1, contents_atk->h >> 1, str, 255 );
+    sprintf( str, tr("%i   KILLED"), def_dam );
+    write_text( gui->font_std, contents_def, contents_def->w >> 1, contents_def->h >> 1, str, 255 );
     /* show */
-    frame_apply( gui->label->frame );
-    label_hide( gui->label, 0 );
-    
+    frame_apply( gui->label_left->frame );
+    frame_apply( gui->label_right->frame );
     /* suppression */
     if (att_suppr>0||def_suppr>0)
     {
-        contents = gui->label2->frame->contents; SDL_FillRect( contents, 0, 0x0 );
+        contents_atk = gui->label_left->frame->contents;
+        SDL_FillRect( contents_atk, 0, 0x0 );
+        contents_def = gui->label_right->frame->contents;
+        SDL_FillRect( contents_def, 0, 0x0 );
         /* attacker flag */
-        DEST( contents, 10, ( contents->h - nation_flag_height ) >> 1, nation_flag_width, nation_flag_height );
-        SOURCE( nation_flags, 0, att->nation->flag_offset );
+        DEST( contents_atk, 20, ( contents_atk->h - nation_flag_height ) >> 1, nation_flag_width, nation_flag_height );
+        SOURCE( nation_flags, att->nation->flag_offset, 0 );
         blit_surf();
         /* defender flag */
-        DEST( contents, contents->w - 10 - nation_flag_width, ( contents->h - nation_flag_height ) >> 1, 
+        DEST( contents_def, 20, ( contents_def->h - nation_flag_height ) >> 1, 
               nation_flag_width, nation_flag_height );
-        SOURCE( nation_flags, 0, def->nation->flag_offset );
+        SOURCE( nation_flags, def->nation->flag_offset, 0 );
         blit_surf();
         /* kills */
-        sprintf( str, tr("%i   SURPRESSED   %i"), att_suppr, def_suppr );
+        sprintf( str, tr("%i   SURPRESSED"), att_suppr );
         gui->font_std->align = ALIGN_X_CENTER | ALIGN_Y_CENTER;
-        write_text( gui->font_std, contents, contents->w >> 1, contents->h >> 1, str, 255 );
+        write_text( gui->font_std, contents_atk, contents_atk->w >> 1, contents_atk->h >> 1, str, 255 );
+        sprintf( str, tr("%i   SURPRESSED"), def_suppr );
+        write_text( gui->font_std, contents_def, contents_def->w >> 1, contents_def->h >> 1, str, 255 );
         /* show */
-        frame_apply( gui->label2->frame );
-        label_hide( gui->label2, 0 );
+        frame_apply( gui->label_left->frame );
+        frame_apply( gui->label_right->frame );
     }
 }
 
@@ -1620,7 +1627,7 @@ void gui_render_scen_info( const char *path, const char *camp_entry, SDL_Surface
         SDL_FillRect( buffer, 0, 0x0 );
     }
     else
-    if ( info = scen_load_info( path ) ) {
+    if ( ( info = scen_load_info( path ) ) ) {
         group_set_active( gui->scen_dlg->group, ID_SCEN_SETUP, 1 );
         group_set_active( gui->scen_dlg->group, ID_SCEN_OK, 1 );
         /* render info */
