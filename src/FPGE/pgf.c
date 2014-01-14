@@ -982,6 +982,15 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         {
             if ( !flag_map_loaded )
             {
+                list_reset( players );
+                for ( i = 0; i < players->count; i++ )
+                {
+                    player = list_next( players );
+                    if ( player->air_trsp != 0 )
+                        player->air_trsp->nation = nation_get_index( player->nations[0] );
+                    if ( player->sea_trsp != 0 )
+                        player->sea_trsp->nation = nation_get_index( player->nations[0] );
+                }
                 /* flip icons if scenario demands it */
                 adjust_fixed_icon_orientation();
 
