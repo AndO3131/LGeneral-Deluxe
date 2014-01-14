@@ -2287,14 +2287,12 @@ static void engine_handle_button( int id )
             if (cur_unit==0) break;
             engine_hide_unit_menu();
             action_queue_replace(cur_unit);
-//            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_right, "" );
             draw_map = 1;
             break;
         case ID_ELITE_REPLACEMENTS:
             if (cur_unit==0) break;
             engine_hide_unit_menu();
             action_queue_elite_replace(cur_unit);
-//            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_right, "" );
             draw_map = 1;
             break;
         case ID_DISBAND:

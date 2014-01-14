@@ -633,6 +633,9 @@ void gui_adjust()
                                              160, gui->font_std, sdl.screen, 0, 0 );
     label_move( gui->label_center, sdl.screen->w / 3, 0 );
     label_move( gui->label_right, sdl.screen->w - sdl.screen->w / 3, 0 );
+    char str[MAX_NAME];
+    snprintf( str, MAX_NAME, tr("Mod: %s"), config.mod_name );
+    label_write( gui->label_left, gui->font_std, str );
     /* unit infos */
     frame_move( gui->qinfo1, 10, sdl.screen->h - 10 - gui->qinfo1->img->img->h );
     frame_move( gui->qinfo2, 10, sdl.screen->h - 20 - gui->qinfo1->img->img->h * 2 );
