@@ -678,6 +678,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
     Unit unit_base; /* used to store values for unit */
     int unit_delayed = 0;
 
+    allies_move_first = 0;
     scen_delete();
     player = 0;
     SDL_FillRect( sdl.screen, 0, 0x0 );
@@ -803,7 +804,6 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             if (strcmp(tokens[0],"max unit experience")==0)
                 if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Experience,tokens[1],256);
 */
-            allies_move_first=0;
             if (strcmp(tokens[0],"allies move first")==0)
                 allies_move_first=atoi(tokens[1]);
         }
@@ -1230,6 +1230,7 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
     char line[1024],tokens[20][1024], temp[MAX_PATH];
     int i, block=0,last_line_length=-1,cursor=0,token=0,lines;
     char name[256], desc[1024], turns[10], *info;
+    allies_move_first = 0;
 
     search_file_name( path, 0, fname, temp, 'o' );
     inf=fopen(path,"rb");
@@ -1292,7 +1293,6 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
                 strncpy(desc,tokens[1],1024);
             if (strcmp(tokens[0],"turns")==0)
                 strncpy(turns,tokens[1],10);
-            allies_move_first=0;
             if (strcmp(tokens[0],"allies move first")==0)
             {
                 allies_move_first=atoi(tokens[1]);
@@ -1309,7 +1309,7 @@ char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
             setup.names = calloc( setup.player_count, sizeof( char* ) );
             setup.modules = calloc( setup.player_count, sizeof( char* ) );
             /* load the player ctrls */
-            if ( allies_move_first == 0 )
+            if ( !allies_move_first )
             {
                 setup.names[0] = strdup(trd(domain, "Axis"));
                 setup.names[1] = strdup(trd(domain, "Allies"));
