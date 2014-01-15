@@ -86,6 +86,7 @@ typedef struct {
     char tooltip_left[32];  /* displayed as short help */
     char tooltip_center[32];/* displayed as short help */
     char tooltip_right[32]; /* displayed as short help */
+    char **lock_info;       /* help info for switch buttons */
     int active;             /* true if button may be used */
     int down;               /* consecutive numbers are different state positions */
     int lock;               /* keep button down when released */
@@ -115,20 +116,21 @@ void group_delete( Group **group );
 
 /*
 ====================================================================
-Add a button at x,y in group. If lock is true this button is a switch.
+Add a button at x,y in group. If lock_info is set this button is a switch.
 'id' * group::h is the y_offset of the button.
 ====================================================================
 */
-int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip, int states );
+int group_add_button( Group *group, int id, int x, int y, char **lock_info, const char *tooltip, int states );
 
 /*
 ====================================================================
-Add a button at x,y in group. If lock is true this button is a switch.
+Add a button at x,y in group. If lock_info is set this button is a switch.
 'icon_id' is used for the button icon instead of 'id' (allows
 multiple buttons of the same icon)
 ====================================================================
 */
-int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip, int states );
+int group_add_button_complex( Group *group, int id, int icon_id, int x, int y,
+                              char **lock_info, const char *tooltip, int states );
 
 /*
 ====================================================================
@@ -442,7 +444,7 @@ void fdlg_move( FDlg *fdlg, int x, int y );
 Add button. Graphic is taken from conf_buttons.
 ====================================================================
 */
-void fdlg_add_button( FDlg *fdlg, int id, int lock, const char *tooltip );
+void fdlg_add_button( FDlg *fdlg, int id, char **lock_info, const char *tooltip );
 
 /*
 ====================================================================

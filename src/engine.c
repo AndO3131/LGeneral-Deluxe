@@ -570,7 +570,9 @@ static void engine_check_unit_buttons()
             group_set_active( gui->unit_buttons, ID_REPLACEMENTS, 1 );
             /* show replacements and supply level */
             unit_check_supply( cur_unit, UNIT_SUPPLY_ANYTHING, 0, 0 );
-            sprintf( str, tr("Replacements (Rate:%3i%%)"), cur_unit->supply_level );
+            sprintf( str, tr("Supply Rate:%3i%%"), cur_unit->supply_level );
+            strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_left, str );
+            sprintf( str, tr("Replacements") );
             strcpy( group_get_button( gui->unit_buttons, ID_REPLACEMENTS )->tooltip_center, str );
             sprintf( str, tr("Str:%2i, Exp:%4i, Prst:%4i"),
                      cur_unit->cur_str_repl, -cur_unit->repl_exp_cost, -cur_unit->repl_prestige_cost );
@@ -583,7 +585,9 @@ static void engine_check_unit_buttons()
         {
             group_set_active( gui->unit_buttons, ID_ELITE_REPLACEMENTS, 1 );
             /* show elite replacements and supply level */
-            sprintf( str, tr("Elite Repl. (Rate:%3i%%)"), cur_unit->supply_level );
+            sprintf( str, tr("Supply Rate:%3i%%"), cur_unit->supply_level );
+            strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_left, str );
+            sprintf( str, tr("Elite Replacements") );
             strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_center, str );
             sprintf( str, tr("Str:%2i, Prst:%4i"), cur_unit->cur_str_repl, -cur_unit->repl_prestige_cost );
             strcpy( group_get_button( gui->unit_buttons, ID_ELITE_REPLACEMENTS )->tooltip_right, str );

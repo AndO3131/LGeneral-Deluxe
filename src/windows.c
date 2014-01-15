@@ -122,24 +122,24 @@ void group_delete( Group **group )
 
 /*
 ====================================================================
-Add a button at x,y in group. If lock is true this button is a switch.
+Add a button at x,y in group. If lock_info is set this button is a switch.
 'id' * group::h is the y_offset of the button.
 ====================================================================
 */
-int group_add_button( Group *group, int id, int x, int y, int lock, const char *tooltip, int states )
+int group_add_button( Group *group, int id, int x, int y, char **lock_info, const char *tooltip, int states )
 {
     return group_add_button_complex( group, id, id - group->base_id, 
-                                     x, y, lock, tooltip, states );
+                                     x, y, lock_info, tooltip, states );
 }
 
 /*
 ====================================================================
-Add a button at x,y in group. If lock is true this button is a switch.
+Add a button at x,y in group. If lock_info is set this button is a switch.
 'icon_id' is used for the button icon instead of 'id' (allows
 multiple buttons of the same icon)
 ====================================================================
 */
-int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, int lock, const char *tooltip, int states )
+int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, char **lock_info, const char *tooltip, int states )
 {
     if ( group->button_count == group->button_limit ) {
         fprintf( stderr, tr("This group has reached it's maximum number of buttons.\n") );
@@ -156,7 +156,16 @@ int group_add_button_complex( Group *group, int id, int icon_id, int x, int y, i
     group->buttons[group->button_count].id = id;
     group->buttons[group->button_count].active = 1;
     strcpy_lt( group->buttons[group->button_count].tooltip_center, tooltip, 31 );
-    group->buttons[group->button_count].lock = lock;
+    if ( lock_info == 0 )
+        group->buttons[group->button_count].lock = 0;
+    else
+    {
+        int i;
+        group->buttons[group->button_count].lock = 1;
+        group->buttons[group->button_count].lock_info = calloc( states, sizeof( char * ) );
+        for ( i = 0; i < states; i++ )
+            group->buttons[group->button_count].lock_info[i] = strdup( lock_info[i] );
+    }
     group->buttons[group->button_count].states = states;
     group->buttons[group->button_count].hidden = 0;
     group->button_count++;
@@ -249,6 +258,10 @@ int group_handle_motion( Group *group, int x, int y )
                         label_write( gui->label_center, 0, group->buttons[i].tooltip_center );
                     if ( !STRCMP(group->buttons[i].tooltip_right, "") )
                         label_write( gui->label_right, 0, group->buttons[i].tooltip_right );
+                    if ( group->buttons[i].lock )
+                        label_write( gui->label_right, 0, group->buttons[i].lock_info[group->buttons[i].down] );
+                    else
+                        label_write( gui->label_right, 0, "" );
                     if ( !group->buttons[i].down )
                         group->buttons[i].button_rect.x = group->w;
                 }
@@ -289,6 +302,8 @@ int group_handle_button( Group *group, int button_id, int x, int y, Button **but
                         (*button)->button_rect.x = ( (*button)->down + 1 ) * group->w;
                     else
                         (*button)->button_rect.x = 0;
+                    if ( group->buttons[i].lock )
+                        label_write( gui->label_right, 0, group->buttons[i].lock_info[group->buttons[i].down] );
                     return 1;
                 }
     }
@@ -887,10 +902,10 @@ void fdlg_move( FDlg *fdlg, int x, int y )
 Add button. Graphic is taken from conf_buttons.
 ====================================================================
 */
-void fdlg_add_button( FDlg *fdlg, int id, int lock, const char *tooltip )
+void fdlg_add_button( FDlg *fdlg, int id, char **lock_info, const char *tooltip )
 {
     int x = fdlg->button_x - ( id - fdlg->group->base_id + 1 ) * fdlg->button_dist;
-    group_add_button( fdlg->group, id, x, fdlg->button_y, lock, tooltip, 2 );
+    group_add_button( fdlg->group, id, x, fdlg->button_y, lock_info, tooltip, 2 );
 }
 
 /*
@@ -1055,6 +1070,7 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     int border = 10, alpha = 160, px, py;
     int cell_w = list_frame->w - 2 * border;
     int cell_count = ( list_frame->h - 2 * border ) / ( cell_h + 1 );
+    char **button_temp;
 
     SDlg *sdlg = calloc( 1, sizeof( SDlg ) );
 
@@ -1089,17 +1105,55 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     py = (conf_frame->h - conf_button_h) / 2;
     group_add_button( sdlg->confirm, ID_SCEN_SETUP_OK, px, py, 0, tr("Ok"), 2 );
     px = border;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_FOG, px, py, 1, tr("Fog Of War"), 2 );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Fog: OFF" );
+    button_temp[1] = strdup( "Fog: ON" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_FOG, px, py, button_temp, tr("Fog Of War"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, px, py, 1, tr("Unit Supply"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Supply: OFF" );
+    button_temp[1] = strdup( "Supply: ON" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, px, py, button_temp, tr("Unit Supply"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, 1, tr("Weather Influence"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Weather: OFF" );
+    button_temp[1] = strdup( "Weather: ON" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, button_temp, tr("Weather Influence"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, px, py, 1, tr("Deploy Turn"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Redeploy Turn: OFF" );
+    button_temp[1] = strdup( "Redeploy Turn: ON" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_DEPLOYTURN, px, py, button_temp, tr("Deploy Turn"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, px, py, 1, tr("Purchase Option"), 3 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 3, sizeof( char * ) );
+    button_temp[0] = strdup( "Purchase: OFF" );
+    button_temp[1] = strdup( "Purchase: 1 Turn Delay" );
+    button_temp[2] = strdup( "Purchase: 0 Delay Inactive" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_PURCHASE, px, py, button_temp, tr("Purchase Option"), 3 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp[2] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Merge" );
+    button_temp[1] = strdup( "Replacements" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_MERGE_REPLACEMENTS, px, py, button_temp, tr("Merge/Replacements Option"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_FOG, config.fog_of_war );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_SUPPLY, config.supply );
     group_lock_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, config.weather );
@@ -1124,6 +1178,7 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
                    SDL_Surface *surf, int x, int y )
 {
     int border = 10, alpha = 160, px, py;
+    char **button_temp;
 
     SDlg *sdlg = calloc( 1, sizeof( SDlg ) );
 
@@ -1142,11 +1197,29 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     py = (conf_frame->h - conf_button_h) / 2;
     group_add_button( sdlg->confirm, ID_CAMP_SETUP_OK, px, py, 0, tr("Ok"), 2 );
     px = border;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, px, py, 1, tr("Merge/Replacements Option"), 2 );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Merge" );
+    button_temp[1] = strdup( "Replacements" );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, px, py, button_temp, tr("Merge/Replacements Option"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, 1, tr("Core Units Option"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Core Units: OFF" );
+    button_temp[1] = strdup( "Core Units: ON" );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_CORE, px, py, button_temp, tr("Core Units Option"), 2 );
     px += border + conf_button_w;
-    group_add_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, px, py, 1, tr("Purchase Option"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp[0] = strdup( "Purchase: 1 Turn Delay" );
+    button_temp[1] = strdup( "Purchase: 0 Delay Inactive" );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, px, py, button_temp, tr("Purchase Option"), 2 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.use_core_units );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, config.campaign_purchase );
