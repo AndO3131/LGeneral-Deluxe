@@ -1,3 +1,6 @@
+- GUI redesign - 3 info fields on top, more ingame info displayed
+  (2014/01/15 AndO3131)
+- engine is capable of loading PGF campaign folders (2014/01/14 AndO3131)
 - fix for ground transporter loss when unit sea embarks (2014/01/02 AndO3131)
 - player can choose folder to load game data from (2013/12/19 AndO3131)
 - load/save screen allowing multiple saves (2013/12/18 AndO3131)
