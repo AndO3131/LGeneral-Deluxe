@@ -3707,6 +3707,11 @@ static void engine_update( int ms )
                             engine_get_screen_pos( way[way_pos + 1].x, way[way_pos + 1].y, &end_x, &end_y );
                             end_x += ( ( hex_w - move_unit->sel_prop->icon_w ) >> 1 );
                             end_y += ( ( hex_h - move_unit->sel_prop->icon_h ) >> 1 );
+                            if ( move_unit->sel_prop->flags & FLYING )
+                            {
+                                start_y -= 10;
+                                end_y -= 10;
+                            }
                             unit_vector.x = start_x; unit_vector.y = start_y;
                             move_vector.x = end_x - start_x; move_vector.y = end_y - start_y;
                             len = sqrt( move_vector.x * move_vector.x + move_vector.y * move_vector.y );
