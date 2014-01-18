@@ -126,8 +126,8 @@ void date_add_days( Date *date, int days )
         if ( date->day > month_length[date->month] ) {
             date->day = date->day - month_length[date->month];
             date->month++;
-            if ( date->month == 13 ) {
-                date->month = 1;
+            if ( date->month == 12 ) {
+                date->month = 0;
                 date->year++;
             }
         }

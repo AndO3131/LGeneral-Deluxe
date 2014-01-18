@@ -526,7 +526,7 @@ int gui_load( char *dir )
     sprintf( transitionPath, "Theme/camp_setup_confirm_buttons" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
     gui->camp_setup = sdlg_camp_create( 
-                             gui_create_frame( 150, 40 ),  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
+                             gui_create_frame( 180, 40 ),  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
                              24, 24, ID_CAMP_SETUP_OK,
                              gui_render_player_name, gui_handle_player_select,
                              sdl.screen, 0, 0 );

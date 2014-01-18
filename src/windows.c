@@ -1121,13 +1121,15 @@ SDlg *sdlg_create( SDL_Surface *list_frame, SDL_Surface *list_buttons,
     free( button_temp[0] );
     free( button_temp[1] );
     free( button_temp );
-    button_temp = calloc( 2, sizeof( char * ) );
+    button_temp = calloc( 3, sizeof( char * ) );
     button_temp[0] = strdup( "Weather: OFF" );
-    button_temp[1] = strdup( "Weather: ON" );
-    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, button_temp, tr("Weather Influence"), 2 );
+    button_temp[1] = strdup( "Weather: FIXED" );
+    button_temp[2] = strdup( "Weather: RANDOM" );
+    group_add_button( sdlg->confirm, ID_SCEN_SETUP_WEATHER, px, py, button_temp, tr("Weather Influence"), 3 );
     px += border + conf_button_w;
     free( button_temp[0] );
     free( button_temp[1] );
+    free( button_temp[2] );
     free( button_temp );
     button_temp = calloc( 2, sizeof( char * ) );
     button_temp[0] = strdup( "Redeploy Turn: OFF" );
@@ -1190,7 +1192,7 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     /* group with settings and confirm buttons; id_conf is id of first button
      * in image conf_buttons */
     if ( ( sdlg->confirm = group_create( conf_frame, alpha, conf_buttons, 
-                                         conf_button_w, conf_button_h, 4, id_conf, surf, 
+                                         conf_button_w, conf_button_h, 5, id_conf, surf, 
                                          x - 1, y ) ) == 0 )
         goto failure;
     px = conf_frame->w - (border + conf_button_w);
@@ -1217,12 +1219,23 @@ SDlg *sdlg_camp_create( SDL_Surface *conf_frame, SDL_Surface *conf_buttons,
     button_temp[0] = strdup( "Purchase: 1 Turn Delay" );
     button_temp[1] = strdup( "Purchase: 0 Delay Inactive" );
     group_add_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, px, py, button_temp, tr("Purchase Option"), 2 );
+    px += border + conf_button_w;
     free( button_temp[0] );
     free( button_temp[1] );
+    free( button_temp );
+    button_temp = calloc( 3, sizeof( char * ) );
+    button_temp[0] = strdup( "Weather: OFF" );
+    button_temp[1] = strdup( "Weather: FIXED" );
+    button_temp[2] = strdup( "Weather: RANDOM" );
+    group_add_button( sdlg->confirm, ID_CAMP_SETUP_WEATHER, px, py, button_temp, tr("Weather Influence"), 3 );
+    free( button_temp[0] );
+    free( button_temp[1] );
+    free( button_temp[2] );
     free( button_temp );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_MERGE_REPLACEMENTS, config.merge_replacements );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_CORE, config.use_core_units );
     group_lock_button( sdlg->confirm, ID_CAMP_SETUP_PURCHASE, config.campaign_purchase );
+    group_lock_button( sdlg->confirm, ID_CAMP_SETUP_WEATHER, config.weather );
     sdlg->select_cb = list_select_cb;
     return sdlg;
 failure:

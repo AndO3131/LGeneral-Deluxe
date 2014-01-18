@@ -2403,7 +2403,10 @@ static void engine_handle_button( int id )
             config.supply = !config.supply;
             break;
         case ID_SCEN_SETUP_WEATHER:
-            config.weather = !config.weather;
+            if (config.weather < 2)
+                config.weather = config.weather + 1;
+            else
+                config.weather = 0;
             break;
         case ID_SCEN_SETUP_FOG:
             config.fog_of_war = !config.fog_of_war;

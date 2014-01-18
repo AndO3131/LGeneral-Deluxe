@@ -34,6 +34,11 @@ enum MergeReplacementsOptions {
     OPTION_MERGE = 0,
     OPTION_REPLACEMENTS
 };
+enum WeatherOptions {
+    OPTION_WEATHER_OFF = 0,
+    OPTION_WEATHER_PREDETERMINED = 1,
+    OPTION_WEATHER_RANDOM = 2
+};
 
 /* configure struct */
 typedef struct {

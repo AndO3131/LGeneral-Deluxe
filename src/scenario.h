@@ -79,6 +79,7 @@ typedef struct {
     int turns_per_day;  /* the date string of a turn is computed from these to values 
                            and the inital date */
     int player_count;   /* number of players */
+    int weather_zone;   /* scenario weather zone */
 } Scen_Info;
 
 /*
@@ -243,5 +244,14 @@ Add casualties for unit. Regard unit and transport classes.
 ====================================================================
 */
 int scen_inc_casualties_for_unit( struct _Unit *unit );
+
+/*
+====================================================================
+Panzer General random weather generator using algorithm discovered and
+documented by @Rudankort at
+http://www.panzercentral.com/forum/viewtopic.php?p=577467#p577467
+====================================================================
+*/
+void scen_create_random_weather( int start_water_level, int cur_period );
 
 #endif

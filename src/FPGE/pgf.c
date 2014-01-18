@@ -676,7 +676,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
     Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0, *land_trsp_prop = 0;
     Unit *unit;
     Unit unit_base; /* used to store values for unit */
-    int unit_delayed = 0;
+    int unit_delayed = 0, current_weather;
 
     allies_move_first = 0;
     scen_delete();
@@ -793,13 +793,11 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
             }
             if (strcmp(tokens[0],"current weather")==0)
             {
-                weather = calloc( scen_info->turn_limit, sizeof( int ) );
-                for ( i = 0; i < scen_info->turn_limit; i++ )
-                    weather[i] = (unsigned char)atoi(tokens[1]);
+                current_weather = (unsigned char)atoi(tokens[1]);
             }
-/*            if (strcmp(tokens[0],"weather zone")==0)
-                scn_buffer[SCEN_LOCALE]=(unsigned char)atoi(tokens[1]);
-            if (strcmp(tokens[0],"max unit strength")==0)
+            if (strcmp(tokens[0],"weather zone")==0)
+                scen_info->weather_zone = (unsigned char)atoi(tokens[1]);
+/*            if (strcmp(tokens[0],"max unit strength")==0)
                 if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Strength,tokens[1],256);
             if (strcmp(tokens[0],"max unit experience")==0)
                 if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Experience,tokens[1],256);
@@ -814,6 +812,29 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 fprintf(stderr,"Error. Line %d. Expected no of columns %d while %d columns detected.\n",lines,11,token);
             if (atoi(tokens[0])==0)
             {
+                /* weather settings */
+                int water_level;
+                weather = calloc( scen_info->turn_limit, sizeof( int ) );
+                if ( config.weather == OPTION_WEATHER_OFF )
+                    for ( i = 0; i < scen_info->turn_limit; i++ )
+                        weather[i] = 0;
+                else
+                {
+                    if ( ( scen_info->start_date.month + 1 >= 11 && scen_info->weather_zone > 0 ) ||
+                         ( scen_info->start_date.month <= 2  && scen_info->weather_zone > 0 ) )
+                        water_level = 5;
+                    else
+                        water_level = 0;
+                    if ( config.weather == OPTION_WEATHER_PREDETERMINED )
+                    {
+                        /* starting weather condition stays until the end of scenario */
+                        for ( i = 0; i < scen_info->turn_limit; i++ )
+                            weather[i] = current_weather + 4 * (int)( water_level / 2 );
+                    }
+                    else
+                        scen_create_random_weather( water_level, current_weather );
+                }
+
                 /* players */
                 sprintf( log_str, tr("Loading Players") );
                 write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );

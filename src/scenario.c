@@ -96,6 +96,75 @@ int *casualties;	/* sum of casualties grouped by unit class and player */
 Locals
 ====================================================================
 */
+int zones_weather_table[4][12][4] = {
+{
+//Zone 0 - Desert
+//======
+//AvgClearPeriod   AvgOvercastPeriod   ProbOfSnow   ProbOfPrecip */
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0},
+    {12,               2,                   0,            0}
+},
+{
+//Zone 1 - Mediterranean
+//======
+//AvgClearPeriod   AvgOvercastPeriod   ProbOfSnow   ProbOfPrecip */
+    {5,                5,                   95,           60},
+    {5,                5,                   95,           50},
+    {10,               5,                   35,           40},
+    {10,               5,                   0,            30},
+    {12,               5,                   0,            20},
+    {12,               4,                   0,            20},
+    {12,               4,                   0,            20},
+    {12,               4,                   0,            20},
+    {12,               5,                   5,            20},
+    {10,               5,                   5,            35},
+    {8,                5,                   35,           50},
+    {5,                5,                   75,           60}
+},
+{
+//Zone 2 - Northern Europe
+//======
+//AvgClearPeriod   AvgOvercastPeriod   ProbOfSnow   ProbOfPrecip
+    {5,                5,                   60,           20},
+    {5,                5,                   60,           30},
+    {5,                5,                   15,           50},
+    {5,                5,                   5,            60},
+    {10,               5,                   0,            50},
+    {12,               3,                   0,            20},
+    {12,               3,                   0,            20},
+    {12,               3,                   0,            20},
+    {10,               5,                   0,            20},
+    {5,                5,                   10,           20},
+    {5,                5,                   100,           20},
+    {5,                14,                  100,          75}
+},
+{
+//Zone 3 -  Eastern Europe
+//======
+//AvgClearPeriod   AvgOvercastPeriod   ProbOfSnow   ProbOfPrecip
+    {5,                5,                   100,          60},
+    {3,                6,                   100,          60},
+    {5,                5,                   80,           50},
+    {5,                5,                   60,           40},
+    {10,               5,                   0,            20},
+    {12,               4,                   0,            20},
+    {12,               4,                   0,            20},
+    {12,               4,                   0,            20},
+    {10,               5,                   0,            20},
+    {5,                5,                   80,           40},
+    {5,                5,                   95,           50},
+    {5,                5,                   100,          60}
+} };
 
 /*
 ====================================================================
@@ -287,17 +356,46 @@ int scen_load_lgscn( const char *fname, const char *path )
     sprintf( log_str, tr("Loading Map '%s'"), str );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( !map_load( str ) ) goto failure;
+    if ( !parser_get_int( pd, "weather_zone", &scen_info->weather_zone ) ) goto parser_failure;
     weather = calloc( scen_info->turn_limit, sizeof( int ) );
-    if ( parser_get_values( pd, "weather", &values ) ) {
-        list_reset( values ); i = 0;
-        while ( ( str = list_next( values ) ) ) {
-            if ( i == scen_info->turn_limit ) break;
-            for ( j = 0; j < weather_type_count; j++ )
-                if ( STRCMP( str, weather_types[j].id ) ) {
-                    weather[i] = j;
-                    break;
+    if ( config.weather == OPTION_WEATHER_OFF )
+        for ( i = 0; i < scen_info->turn_limit; i++ )
+            weather[i] = 0;
+    else
+    {
+        if ( config.weather == OPTION_WEATHER_PREDETERMINED )
+        {
+            if ( parser_get_values( pd, "weather", &values ) ) {
+                list_reset( values ); i = 0;
+                while ( ( str = list_next( values ) ) ) {
+                    if ( i == scen_info->turn_limit ) break;
+                    for ( j = 0; j < weather_type_count; j++ )
+                        if ( STRCMP( str, weather_types[j].id ) ) {
+                            weather[i] = j;
+                            break;
+                        }
+                    i++;
                 }
-            i++;
+            }
+        }
+        else
+        {
+            int water_level, start_weather;
+            if ( parser_get_values( pd, "weather", &values ) ) {
+                list_reset( values ); i = 0;
+                str = list_next( values );
+                for ( j = 0; j < weather_type_count; j++ )
+                    if ( STRCMP( str, weather_types[j].id ) )
+                    {
+                        start_weather = j;
+                        break;
+                    }
+            }
+            if ( j > 3 )
+                water_level = 5;
+            else
+                water_level = 0;
+            scen_create_random_weather( water_level, start_weather );
         }
     }
     /* players */
@@ -1162,7 +1260,7 @@ Get current weather/forecast
 */
 int scen_get_weather( void )
 {
-    if ( turn < scen_info->turn_limit && config.weather )
+    if ( turn < scen_info->turn_limit && config.weather != OPTION_WEATHER_OFF )
         return weather[turn];
     else
         return 0;
@@ -1230,4 +1328,83 @@ int scen_inc_casualties_for_unit( Unit *unit )
     if ( unit->trsp_prop.id )
         cnt = scen_inc_casualties( player, unit->trsp_prop.class );
     return cnt;
+}
+
+/*
+====================================================================
+Panzer General random weather generator using algorithm discovered and
+documented by @Rudankort at
+http://www.panzercentral.com/forum/viewtopic.php?p=577467#p577467
+====================================================================
+*/
+void scen_create_random_weather( int start_water_level, int cur_period )
+{
+    /* counter of turns left in current weather period */
+    int period_length = 0;
+    /* changing initial period to the oposite - will be reset on first period_length reading */
+    cur_period = !cur_period;
+
+    int i, precipitation_type;
+    precipitation_type = 0; // used to select rain or snow for overcast period: 0 - rain; 1 - snow
+/*    weather_date.day = scen_info->start_date.day;
+    weather_date.month = scen_info->start_date.month;
+    weather_date.year = scen_info->start_date.year;*/
+//    fprintf(stderr, "%d.%d.%d\n", weather_date.day, weather_date.month, weather_date.year);
+
+    for ( i = 0; i < scen_info->turn_limit; i++ )
+    {
+        Date weather_date = scen_info->start_date;
+        if ( period_length == 0 )
+        {
+            cur_period = !cur_period;
+            if ( zones_weather_table[scen_info->weather_zone][scen_info->start_date.month][cur_period] == 0 ) 
+                cur_period = !cur_period;
+            period_length = ( rand() % zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]
+                            + rand() % zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]
+                            + rand() % zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]
+                            + rand() % zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]
+                            + 2 ) / 2;
+            if ( period_length > 3*zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]/2 )
+                period_length = 3*zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]/2;
+            if ( period_length < zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]/2 )
+                period_length = zones_weather_table[scen_info->weather_zone][weather_date.month][cur_period]/2;
+            period_length--;
+            // precipitation type: 0 - rain; 1 - snow
+            if ( (rand() % 100) + 1 <= zones_weather_table[scen_info->weather_zone][weather_date.month][2] )
+                precipitation_type = 1;
+            else
+                precipitation_type = 0;
+        }
+        else
+            period_length--;
+        weather[i] = cur_period;
+        // determine rain or snow for overcast period only
+        if ( cur_period == 1 )
+            if ( (rand() % 100) + 1 <= zones_weather_table[scen_info->weather_zone][weather_date.month][3] && i > 0 )
+            {
+                weather[i] += precipitation_type + 1;
+                start_water_level += 2;
+            }
+            else
+                start_water_level += -1 + precipitation_type;
+        else
+            start_water_level -= 2;
+        if ( start_water_level < 0 )
+            start_water_level = 0;
+        else if ( start_water_level > 5 )
+            start_water_level = 5;
+        weather[i] += 4 * ( precipitation_type + 1 ) * (int)( start_water_level / 3 );
+
+//        fprintf(stderr, "zone:%d period:%d period length:%d water level:%d  %d\n", scen_info->weather_zone, cur_period, period_length, start_water_level, precipitation_type);
+        if ( scen_info->days_per_turn > 0 )
+            date_add_days( &weather_date, scen_info->days_per_turn * i );
+        else
+            date_add_days( &weather_date, i / scen_info->turns_per_day );
+/*
+        char str[100];
+        date_to_str( str, weather_date, FULL_NAME_DATE );
+        fprintf(stderr, "%s %d\n", str, weather[i]);
+*/
+    }
+//    fprintf(stderr, "\n", period_length);
 }

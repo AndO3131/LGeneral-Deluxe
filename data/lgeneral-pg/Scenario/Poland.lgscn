@@ -13,6 +13,7 @@ main»pg.udb
 >
 map»map01.lgmap
 weather»fair°fair°fair°fair°fair°r°clouds°rain°fair°fair
+weather_zone»3
 <flags
 <flag
 x»2
