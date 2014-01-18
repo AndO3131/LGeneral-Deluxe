@@ -581,6 +581,9 @@ int load_pgf_equipment(char *fullName){
                     }
                     unit->flags |= check_flag( "air_defense", fct_units );
                     unit->flags |= check_flag( "attack_first", fct_units );
+                    // air defense unit can't attack ground units
+                    for ( i = 0; i < trgt_type_count; i++ )
+                        unit->atks[i] = -unit->atks[i];
                     break;
                 case 7: // fortification
                     unit->flags |= check_flag( "low_entr_rate", fct_units );
