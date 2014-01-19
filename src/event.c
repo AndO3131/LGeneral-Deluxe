@@ -97,7 +97,7 @@ int event_filter( const SDL_Event *event )
         case SDL_QUIT:
             buttonup = event->button.button;
             sdl_quit = 1;
-            return 1;
+            return 0;
     }
     return 1;
 }
@@ -169,8 +169,6 @@ int event_get_buttonup( int *button, int *x, int *y )
         buttonup = 0;
         return 1;
     }
-    else
-
     return 0;
 }
 
