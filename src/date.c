@@ -121,8 +121,8 @@ void date_add_days( Date *date, int days )
     /* poor-man's day adder. Add only the lowest amount of days to ensure
      * that no more than one month wraparound occurs per pass.
      */
-    for (; days > 0; days -= 28) {
-        date->day += MINIMUM(days, 28);
+    for (; days > 0; days -= month_length[(date->month + 11) % 12]) {
+        date->day += MINIMUM(days, month_length[date->month]);
         if ( date->day > month_length[date->month] ) {
             date->day = date->day - month_length[date->month];
             date->month++;
