@@ -1102,7 +1102,7 @@ void gui_show_full_info( Unit *unit )
     blit_surf();
     /* nation flag */
     DEST( contents, x, y, nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, unit->nation->flag_offset );
+    SOURCE( nation_flags, unit->nation->flag_offset, 0 );
     blit_surf();
     /* name and type */
     x = border; y = border + hex_h;
