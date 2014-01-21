@@ -21,6 +21,8 @@
 
 #include "unit.h"
 #include "windows.h"
+#include "purchase_dlg.h"
+#include "headquarters_dlg.h"
 
 struct _List;
 
@@ -40,6 +42,7 @@ enum {
     ID_END_TURN,
     ID_CONDITIONS,
     ID_PURCHASE,
+    ID_HEADQUARTERS,
     ID_OK,
     ID_CANCEL,
     ID_SUPPLY,
@@ -116,7 +119,9 @@ enum {
     ID_VMODE_OK,
     ID_VMODE_CANCEL,
     ID_MOD_SELECT_OK,
-    ID_MOD_SELECT_CANCEL
+    ID_MOD_SELECT_CANCEL,
+    ID_HEADQUARTERS_CLOSE,
+    ID_HEADQUARTERS_GO_TO_UNIT
 };
 
 /*
@@ -140,6 +145,7 @@ typedef struct {
     Group *split_menu; /* menu of number of units to split up */
     Group *confirm; /* confirmation window */
     PurchaseDlg *purchase_dlg;
+    HeadquartersDlg *headquarters_dlg;
     Group *deploy_window;
     Edit *edit;
     Group *base_menu; /* basic menu (switch airmode, deploy, end turn, menu ...) */
@@ -171,6 +177,13 @@ typedef struct {
 } GUI;
 
 struct MessagePane;
+
+/*
+====================================================================
+Create a frame surface
+====================================================================
+*/
+SDL_Surface *gui_create_frame( int w, int h );
 
 /*
 ====================================================================
@@ -271,7 +284,7 @@ void gui_show_unit_results( Unit *unit, Label *label, int is_str, int dam );
 Show full info window.
 ====================================================================
 */
-void gui_show_full_info( Unit *unit );
+void gui_show_full_info( Frame *dest, Unit *unit );
 
 /*
 ====================================================================
@@ -304,6 +317,9 @@ void gui_show_unit_buttons( int x, int y );
 
 /** Show unit purchase dialogue. */
 void gui_show_purchase_window();
+
+/** Show unit purchase dialogue. */
+void gui_show_headquarters_window();
 
 /*
 ====================================================================

@@ -28,6 +28,7 @@
 #include "nation.h"
 #include "unit.h"
 #include "purchase_dlg.h"
+#include "headquarters_dlg.h"
 #include "gui.h"
 #include "map.h"
 #include "scenario.h"
@@ -183,7 +184,8 @@ enum {
     STATUS_RUN_MODULE_DLG,     /* select ai module */
     STATUS_CAMP_BRIEFING,      /* run campaign briefing dialogue */
     STATUS_PURCHASE,           /* run unit purchase dialogue */
-    STATUS_VMODE_DLG           /* run video mode selection */
+    STATUS_VMODE_DLG,          /* run video mode selection */
+    STATUS_HEADQUARTERS        /* run headquarters dialogue */
 };
 int status;                    /* statuses defined in engine_tools.h */
 enum {
@@ -621,7 +623,7 @@ Show/Hide full unit info while deploying
 static void engine_show_deploy_unit_info( Unit *unit )
 {
     status = STATUS_DEPLOY_INFO;
-    gui_show_full_info( unit );
+    gui_show_full_info( gui->finfo, unit );
     group_set_active( gui->deploy_window, ID_DEPLOY_UP, 0 );
     group_set_active( gui->deploy_window, ID_DEPLOY_DOWN, 0 );
     group_set_active( gui->deploy_window, ID_APPLY_DEPLOY, 0 );
@@ -1953,7 +1955,7 @@ static void engine_update_info( int mx, int my, int region )
     if ( status == STATUS_INFO || status == STATUS_DEPLOY_INFO ) {
         if ( engine_get_prim_unit( mx, my, region ) )
             if ( mask[mx][my].spot )
-                gui_show_full_info( engine_get_prim_unit( mx, my, region ) );
+                gui_show_full_info( gui->finfo, engine_get_prim_unit( mx, my, region ) );
     }
 }
 
@@ -2541,6 +2543,17 @@ static void engine_handle_button( int id )
             fdlg_hide( gui->mod_select_dlg, 1 );
             engine_set_status( STATUS_NONE );
             break;
+        case ID_HEADQUARTERS:
+            engine_hide_game_menu();
+            engine_select_unit( 0 );
+            gui_show_headquarters_window();
+            status = STATUS_HEADQUARTERS;
+            draw_map = 1;
+            break;
+        case ID_HEADQUARTERS_CLOSE:
+            headquarters_dlg_hide( gui->headquarters_dlg, 1 );
+            engine_set_status( STATUS_NONE );
+            break;
     }
 }
 
@@ -2595,7 +2608,7 @@ static void engine_check_events(int *reinit)
                     gui_handle_deploy_motion( cx, cy, &unit );
                     if ( unit ) {
                         if ( status == STATUS_DEPLOY_INFO )
-                            gui_show_full_info( unit );
+                            gui_show_full_info( gui->finfo, unit );
                         /* display info of this unit */
                         gui_show_quick_info( gui->qinfo1, unit );
                         frame_hide( gui->qinfo2, 1 );
@@ -2873,7 +2886,7 @@ static void engine_check_events(int *reinit)
                                         if ( cur_unit == 0 ) {
                                             if ( mask[mx][my].spot && ( unit = engine_get_prim_unit( mx, my, region ) ) ) {
                                                 /* show unit info */
-                                                gui_show_full_info( unit );
+                                                gui_show_full_info( gui->finfo, unit );
                                                 status = STATUS_INFO;
                                                 gui_set_cursor( CURSOR_STD );
                                             }
@@ -2998,7 +3011,7 @@ static void engine_check_events(int *reinit)
                             engine_focus( cur_unit->x, cur_unit->y, 0 );
                             draw_map = 1;
                             if ( status == STATUS_INFO )
-                                gui_show_full_info( unit );
+                                gui_show_full_info( gui->finfo, unit );
                             gui_show_quick_info( gui->qinfo1, cur_unit );
                             frame_hide( gui->qinfo2, 1 );
                         }
@@ -3041,7 +3054,7 @@ static void engine_check_events(int *reinit)
                             engine_focus( cur_unit->x, cur_unit->y, 0 );
                             draw_map = 1;
                             if ( status == STATUS_INFO )
-                                gui_show_full_info( unit );
+                                gui_show_full_info( gui->finfo, unit );
                             gui_show_quick_info( gui->qinfo1, cur_unit );
                             frame_hide( gui->qinfo2, 1 );
                         }

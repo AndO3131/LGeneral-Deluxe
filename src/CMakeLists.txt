@@ -29,6 +29,8 @@ set ( root_src
   file.h
   gui.c
   gui.h
+  headquarters_dlg.c
+  headquarters_dlg.h
   image.c
   image.h
   list.c
