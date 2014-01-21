@@ -56,7 +56,7 @@ List *file_read_lines( FILE *file )
     if ( !file ) return 0;
 
     list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
-    
+
     /* read lines */
     while( !feof( file ) ) {
         if ( !fgets( buffer, sizeof buffer - 1, file ) ) break;
@@ -93,7 +93,7 @@ static List *file_get_order_list( const char *orderfile )
         fprintf( stderr, tr("%s cannot be opened\n"), orderfile );
         return 0;
     }
-    
+
     l = file_read_lines( f );
     fclose( f );
 
@@ -117,7 +117,7 @@ static List *file_extract_order_list( List *files, List *orderlist, int file_typ
     Name_Entry_Type *name_entry;
 
     if ( !orderlist ) return extracted;
-    
+
     list_reset( orderlist );
     while ( ( ordered = list_next( orderlist ) ) ) {
         list_reset( files );
@@ -311,7 +311,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                 else
                 {
                     snprintf( internal_name, MAX_BUFFER, "%s", file_name );
-                    if ( file_type == LIST_ALL ) 
+                    if ( file_type == LIST_ALL )
                         list_add( list, strdup( file_name ) );
                     else
                     {
@@ -325,7 +325,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
             else
             {
                 snprintf( file_name, MAX_PATH, "%s", dirent->d_name );
-                if ( file_type == LIST_ALL ) 
+                if ( file_type == LIST_ALL )
                     list_add( list, strdup( file_name ) );
                 else
                 {
@@ -350,7 +350,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
     list_reset( list );
     for ( i = 0; i < text->count; i++ )
     {
-        if ( file_type == LIST_ALL ) 
+        if ( file_type == LIST_ALL )
             text->lines[i] = strdup( list_next( list ) );
         else
         {
@@ -368,7 +368,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
     /* transfer directories */
     for ( i = 0; i < text->count && text->lines[i][0] == '*'; i++ )
     {
-        if ( file_type == LIST_ALL ) 
+        if ( file_type == LIST_ALL )
             list_add( list_final, strdup( text->lines[i] ) );
         else
         {
@@ -477,11 +477,15 @@ Create directory if folderName doesn't exist.
 int dir_create( const char *folderName, const char *subdir )
 {
     struct stat st = {0};
-    char dir[MAX_PATH]; 
+    char dir[MAX_PATH];
     snprintf( dir, MAX_PATH, "%s/%s/Save/%s/%s", get_gamedir(), config.mod_name, subdir, folderName );
     if (stat( dir, &st ) == -1)
     {
+#ifndef WIN32
         mkdir( dir, 0777 );
+#else
+        mkdir( dir );
+#endif
         return 1;
     }
     return 0;
@@ -666,7 +670,7 @@ int search_file_name_exact( char *pathFinal, char *path, char *modFolder )
     snprintf( pathFinal, MAX_PATH, "Default/%s", path );
     if ( file_exists( pathFinal ) )
         return 1;
-    return 0; 
+    return 0;
 }
 
 #ifdef TESTFILE
@@ -679,20 +683,20 @@ int main( int argc, char **argv )
     List *l;
     char *name;
     const char *path, *ext, *root;
-    
+
     if ( argc != 2 && argc != 3 && argc != 4 ) {
         fprintf( stderr, "Syntax: testfile path [ext [root]]\n" ); return 1;
     }
-    
+
     path = argv[1];
     ext = argc >= 3 ? argv[2] : 0;
     root = argc >= 4 ? argv[3] : path;
-    
+
     l = dir_get_entries( path, root, ext );
     if ( !l ) {
         fprintf( stderr, "Error reading directory %s\n", path ); return 1;
     }
-    
+
     list_reset(l);
     while ( ( name = list_next(l) ) )
         printf( "%s\n", name );
