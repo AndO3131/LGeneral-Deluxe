@@ -721,33 +721,56 @@ void adjust_fixed_icon_orientation()
                 }
             }
             else
-            {
-                /* image is facing left on image sheet - copy it to the right side */
-                DEST( unit->icon, unit->icon->w / 2, 0, unit->icon->w, unit->icon->h );
-                SOURCE( unit->icon, 0, 0 );
-                blit_surf();
-                /* get format info */
-                byte_size = unit->icon->format->BytesPerPixel;
-                tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
-                y_offset = 0;
-                /* flip image to left side of the surface */
-                for ( j = 0; j < unit->icon_h; j++ )
+                if ( strspn( unit->name, "AF" ) >= 2 )
                 {
-                    for ( i = 0; i < unit->icon_w; i++ )
+                    /* image is facing left on image sheet - copy it to the right side */
+                    DEST( unit->icon, unit->icon->w / 2, 0, unit->icon->w, unit->icon->h );
+                    SOURCE( unit->icon, 0, 0 );
+                    blit_surf();
+                    /* get format info */
+                    byte_size = unit->icon->format->BytesPerPixel;
+                    tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                    y_offset = 0;
+                    /* flip image to left side of the surface */
+                    for ( j = 0; j < unit->icon_h; j++ )
                     {
-                        memcpy( unit->icon->pixels +
-                                y_offset +
-                                i * byte_size,
-                                unit->icon->pixels +
-                                y_offset +
-                                unit->icon_w * byte_size +
-                                ( unit->icon_w - 1 - i ) * byte_size,
-                                byte_size );
+                        for ( i = 0; i < unit->icon_w; i++ )
+                        {
+                            memcpy( unit->icon->pixels +
+                                    y_offset +
+                                    i * byte_size,
+                                    unit->icon->pixels +
+                                    y_offset +
+                                    unit->icon_w * byte_size +
+                                    ( unit->icon_w - 1 - i ) * byte_size,
+                                    byte_size );
+                        }
+                        y_offset += unit->icon->pitch;
                     }
-                    y_offset += unit->icon->pitch;
+                    SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
                 }
-                SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
-            }
+                else
+                {
+                    /* get format info */
+                    byte_size = unit->icon->format->BytesPerPixel;
+                    tempSurface = create_surf( unit->icon_w, unit->icon_h, SDL_SWSURFACE );
+                    y_offset = 0;
+                    /* flip image to right side of the surface */
+                    for ( j = 0; j < unit->icon_h; j++ ) {
+                        for ( i = 0; i < unit->icon_w; i++ ) {
+                            memcpy( unit->icon->pixels +
+                                    y_offset +
+                                    unit->icon_w * byte_size +
+                                    i * byte_size,
+                                    unit->icon->pixels +
+                                    y_offset +
+                                    ( unit->icon_w - 1 - i ) * byte_size,
+                                    byte_size );
+                        }
+                        y_offset += unit->icon->pitch;
+                    }
+                    SDL_SetColorKey( unit->icon, SDL_SRCCOLORKEY, get_pixel( unit->icon, 0, 0 ) );
+                }
             color_key = get_pixel( unit->icon, 0, 0 );
             scale = 1.5;
             unit->icon_tiny = create_surf( unit->icon->w * ( 1.0 / scale ), unit->icon->h * ( 1.0 / scale ), SDL_SWSURFACE );
