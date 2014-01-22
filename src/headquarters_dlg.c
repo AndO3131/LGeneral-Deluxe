@@ -22,6 +22,8 @@
 #include "headquarters_dlg.h"
 #include "gui.h"
 #include "localize.h"
+#include "file.h"
+#include "engine.h"
 
 extern Sdl sdl;
 extern GUI *gui;
@@ -225,18 +227,22 @@ int player_can_purchase_unit( Player *p, Unit_Lib_Entry *unit,
 	return 1;
 }
 
-/** Render info of selected unit (unit, transporter, total cost, ... ) 
- * and enable/disable purchase button depending on whether enough prestige
- * and capacity. *
-static void update_unit_purchase_info( PurchaseDlg *pdlg )
+/** Update buttons state. */
+static void update_headquarters_info( HeadquartersDlg *hdlg )
 {
-	int total_cost = 0;
-	SDL_Surface *contents = pdlg->main_group->frame->contents;
-	Unit_Lib_Entry *unit_entry = NULL, *trsp_entry = NULL;
-	Unit *reinf_unit = NULL;
+//	int total_cost = 0;
+	SDL_Surface *contents = hdlg->main_group->frame->contents;
+//	Unit_Lib_Entry *unit_entry = NULL, *trsp_entry = NULL;
+//	Unit *reinf_unit = NULL;
 	
 	SDL_FillRect( contents, 0, 0x0 );
 	
+	/* if unit is selected, center is possible */
+	if ( lbox_get_selected_item( hdlg->units_lbox ) != 0 )
+		group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 1 );
+	else
+		group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 0 );
+
 	/* get selected objects *
 	reinf_unit = lbox_get_selected_item( pdlg->reinf_lbox );
 	if (reinf_unit) {
@@ -303,8 +309,8 @@ static void update_unit_purchase_info( PurchaseDlg *pdlg )
 	else
 		group_set_active( pdlg->main_group, ID_PURCHASE_OK, 0 );
 
-	/* apply rendered contents *
-	frame_apply( pdlg->main_group->frame );
+	/* apply rendered contents */
+	frame_apply( hdlg->main_group->frame );
 }
 
 /** Modify @pdlg's current unit limit by adding @add and render unit limit. *
@@ -520,6 +526,7 @@ HeadquartersDlg *headquarters_dlg_create( char *theme_path )
 							tr("Close"), 2 );
 	group_add_button( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, sx - 30, sy, 0, 
 							tr("Center On Unit"), 2 );
+		group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 0 );
 	
 	/* create unit limit info frame *
     pdlg->ulimit_frame = frame_create( gui_create_frame( 112, 65 ), 160,
@@ -552,7 +559,7 @@ HeadquartersDlg *headquarters_dlg_create( char *theme_path )
     search_file_name( path, 0, transitionPath, theme_path, 'i' );
 	hdlg->units_lbox = lbox_create( gui_create_frame( 112, 380 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
-			8, 3, 100, 40, 1, 0x0000ff,
+			8, 7, 100, 40, 1, 0x0000ff,
 			render_lbox_unit, sdl.screen, 0, 0);
 	if (hdlg->units_lbox == NULL)
 		goto failure;
@@ -645,7 +652,7 @@ void headquarters_dlg_get_bkgnd( HeadquartersDlg *hdlg)
 	lbox_get_bkgnd(hdlg->units_lbox);
 }
 
-/** Handle mouse motion for purchase dialogue @pdlg by checking all components.
+/** Handle mouse motion for headquarters dialogue @hdlg by checking all components.
  * @cx, @cy is absolute mouse position in screen. Return 1 if action has been
  * handled by some window, 0 otherwise. */
 int headquarters_dlg_handle_motion( HeadquartersDlg *hdlg, int cx, int cy)
@@ -670,10 +677,11 @@ int headquarters_dlg_handle_button( HeadquartersDlg *hdlg, int bid, int cx, int 
 	
 	if (group_handle_button(hdlg->main_group,bid,cx,cy,pbtn)) {
 		/* catch and handle purchase button internally */
-/*		if ((*pbtn)->id == ID_PURCHASE_OK) {
-			handle_purchase_button( hdlg );
+		if ((*pbtn)->id == ID_HEADQUARTERS_GO_TO_UNIT) {
+            Unit *cur_unit = lbox_get_selected_item( hdlg->units_lbox );
+            engine_focus( cur_unit->x, cur_unit->y, 0 );
 			return 0;
-		}*/
+		}
 		return 1;
 	}
 /*	if (lbox_handle_button(pdlg->nation_lbox,bid,cx,cy,pbtn,&item)) {
@@ -693,7 +701,7 @@ int headquarters_dlg_handle_button( HeadquartersDlg *hdlg, int bid, int cx, int 
 	if (lbox_handle_button(hdlg->units_lbox,bid,cx,cy,pbtn,&item)) {
 		if (item) {
 			/* clear reinf selection since we share info window */
-//			lbox_clear_selected_item( pdlg->reinf_lbox );
+			update_headquarters_info( hdlg );
 			gui_show_full_info( hdlg->main_group->frame, lbox_get_selected_item( hdlg->units_lbox ) );
 		}
 		return 0;
@@ -720,8 +728,10 @@ int headquarters_dlg_handle_button( HeadquartersDlg *hdlg, int bid, int cx, int 
 	return 0;
 }
 
-/** Reset purchase dialogue settings for global @cur_player */
+/** Reset headquarters dialogue settings for global @cur_player */
 void headquarters_dlg_reset( HeadquartersDlg *hdlg )
 {
 	lbox_set_items( hdlg->units_lbox, get_active_player_units() );
+    hdlg->units_lbox->cur_item = 0;
+    update_headquarters_info( hdlg );
 }

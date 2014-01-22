@@ -29,9 +29,9 @@ typedef struct {
 HeadquartersDlg *headquarters_dlg_create( char *theme_path );
 void headquarters_dlg_delete( HeadquartersDlg **hdlg );
 
-/*int purchase_dlg_get_width(PurchaseDlg *pdlg); 
-int purchase_dlg_get_height(PurchaseDlg *pdlg);
-*/
+int headquarters_dlg_get_width(HeadquartersDlg *hdlg);
+int headquarters_dlg_get_height(HeadquartersDlg *hdlg);
+
 void headquarters_dlg_move( HeadquartersDlg *hdlg, int px, int py);
 void headquarters_dlg_hide( HeadquartersDlg *hdlg, int value);
 void headquarters_dlg_draw( HeadquartersDlg *hdlg);

@@ -18,6 +18,8 @@
 #ifndef __ENGINE_H
 #define __ENGINE_H
 
+int engine_focus( int x, int y, int use_sc );
+
 /*
 ====================================================================
 Create engine (load resources that are not modified by scenario)

@@ -286,7 +286,7 @@ int gui_load( char *dir )
         goto failure;
     frame_hide( gui->qinfo2, 1 );
     /* full unit info */
-    if ( ( gui->finfo = frame_create( gui_create_frame( 460, 300 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->finfo = frame_create( gui_create_frame( 500, 300 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     frame_hide( gui->finfo, 1 );
     /* scenario info */
@@ -1134,7 +1134,7 @@ void gui_show_full_info( Frame *dest, Unit *unit )
     sprintf( str, tr("%s Target"), trgt_types[unit->prop.trgt_type].name );
     write_line( contents, gui->font_std, str, x, &y );
     /* ammo, fuel, spot, mov, ini, range */
-    x = border + hex_w + 90; y = border;
+    x = border + hex_w + 130; y = border;
     if ( unit->prop.ammo == 0 )
         sprintf( str, tr("Ammo:       N.A.") );
     else
@@ -1166,7 +1166,7 @@ void gui_show_full_info( Frame *dest, Unit *unit )
     sprintf( str, tr("Entrenchment: %i"), unit->entr );
     write_line( contents, gui->font_std, str, x, &y );
     /* attack/defense */
-    x = border + hex_w + 90 + 140; y = border;
+    x = border + hex_w + 130 + 140; y = border;
     for ( i = 0; i < trgt_type_count; i++ ) {
         if ( unit->prop.atks[i] < 0 )
             sprintf( str, tr("%6s Attack:[%2i]"), trgt_types[i].name, -unit->prop.atks[i] );
@@ -1203,7 +1203,7 @@ void gui_show_full_info( Frame *dest, Unit *unit )
         sprintf( str, tr("%s Target"), trgt_types[unit->trsp_prop.trgt_type].name );
         write_line( contents, gui->font_std, str, x, &y );
         /* spt, mov, ini, rng */
-        x = border + hex_w + 90; y = border + offset;
+        x = border + hex_w + 130; y = border + offset;
         if ( cur_player == 0 || player_is_ally( cur_player, unit->player ) )
             sprintf( str, tr("Fuel:     %2i/%2i"), unit->cur_fuel, unit->trsp_prop.fuel );
         else
@@ -1219,7 +1219,7 @@ void gui_show_full_info( Frame *dest, Unit *unit )
         sprintf( str, tr("Range:       %2i"), unit->trsp_prop.rng );
         write_line( contents, gui->font_std, str, x, &y );
         /* attack & defense */
-        x = border + hex_w + 90 + 140; y = border + offset;
+        x = border + hex_w + 130 + 140; y = border + offset;
         for ( i = 0; i < trgt_type_count; i++ ) {
             sprintf( str, tr("%6s Attack:  %2i"), trgt_types[i].name, unit->trsp_prop.atks[i] );
             write_line( contents, gui->font_std, str, x, &y );

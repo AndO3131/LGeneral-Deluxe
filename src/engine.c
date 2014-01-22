@@ -254,7 +254,6 @@ Forwarded
 */          
 static void engine_draw_map();
 static void engine_update_info( int mx, int my, int region );
-static void engine_goto_xy( int x, int y );
 static void engine_set_status( int newstat );
 static void engine_show_final_message( void );
 static void engine_select_player( Player *player, int skip_unit_prep );
@@ -1389,26 +1388,6 @@ static int engine_get_map_pos( int sx, int sy, int *mx, int *my, int *region )
     return 1;
 }
 
-/*
-====================================================================
-If x,y is not on screen center this map tile and check if 
-screencopy is possible (but only if use_sc is True)
-====================================================================
-*/
-static int engine_focus( int x, int y, int use_sc )
-{
-    int new_x, new_y;
-    if ( x <= map_x + 1 || y <= map_y + 1 || x >= map_x + map_sw - 1 - 2 || y >= map_y + map_sh - 1 - 2 ) {
-        new_x = x - ( map_sw >> 1 );
-        new_y = y - ( map_sh >> 1 );
-        if ( new_x & 1 ) new_x++;
-        if ( new_y & 1 ) new_y++;
-        engine_goto_xy( new_x, new_y );
-        if ( !use_sc ) sc_type = SC_NONE; /* no screencopy */
-        return 1;
-    }
-    return 0;
-}
 /*
 ====================================================================
 Move to this position and set 'draw_map' if actually moved.
@@ -4241,6 +4220,27 @@ static void engine_main_loop( int *reinit )
 Publics
 ====================================================================
 */
+
+/*
+====================================================================
+If x,y is not on screen center this map tile and check if 
+screencopy is possible (but only if use_sc is True)
+====================================================================
+*/
+int engine_focus( int x, int y, int use_sc )
+{
+    int new_x, new_y;
+    if ( x <= map_x + 1 || y <= map_y + 1 || x >= map_x + map_sw - 1 - 2 || y >= map_y + map_sh - 1 - 2 ) {
+        new_x = x - ( map_sw >> 1 );
+        new_y = y - ( map_sh >> 1 );
+        if ( new_x & 1 ) new_x++;
+        if ( new_y & 1 ) new_y++;
+        engine_goto_xy( new_x, new_y );
+        if ( !use_sc ) sc_type = SC_NONE; /* no screencopy */
+        return 1;
+    }
+    return 0;
+}
 
 /*
 ====================================================================
