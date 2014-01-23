@@ -29,7 +29,6 @@
 
 extern Sdl sdl;
 extern GUI *gui;
-extern SDL_Surface *gui_create_frame( int w, int h );
 extern Nation *nations;
 extern int nation_count;
 extern int nation_flag_width, nation_flag_height;

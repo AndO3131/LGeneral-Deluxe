@@ -37,11 +37,4 @@ void headquarters_dlg_hide( HeadquartersDlg *hdlg, int value);
 void headquarters_dlg_draw( HeadquartersDlg *hdlg);
 void headquarters_dlg_draw_bkgnd( HeadquartersDlg *hdlg);
 void headquarters_dlg_get_bkgnd( HeadquartersDlg *hdlg);
-/*
-int purchase_dlg_handle_motion( PurchaseDlg *pdlg, int cx, int cy);
-int purchase_dlg_handle_button( PurchaseDlg *pdlg, int bid, int cx, int cy, 
-	Button **pbtn );
-
-void purchase_dlg_reset( PurchaseDlg *pdlg );
-*/
 #endif

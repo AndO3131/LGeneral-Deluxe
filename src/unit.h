@@ -24,7 +24,6 @@
 #include "nation.h"
 #include "player.h"
 #include "terrain.h"
-#include "engine.h"
 
 //#define DEBUG_ATTACK
 

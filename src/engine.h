@@ -5,7 +5,9 @@
     copyright            : (C) 2001 by Michael Speck
     email                : kulkanie@gmx.net
  ***************************************************************************/
-
+/***************************************************************************
+                     Modifications by LGD team 2012+.
+ ***************************************************************************/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,6 +20,20 @@
 #ifndef __ENGINE_H
 #define __ENGINE_H
 
+/*
+====================================================================
+Select this unit and unselect old selection if nescessary.
+Clear the selection if NULL is passed as unit.
+====================================================================
+*/
+void engine_select_unit( Unit *unit );
+
+/*
+====================================================================
+If x,y is not on screen center this map tile and check if 
+screencopy is possible (but only if use_sc is True)
+====================================================================
+*/
 int engine_focus( int x, int y, int use_sc );
 
 /*

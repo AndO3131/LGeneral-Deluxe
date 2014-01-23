@@ -914,45 +914,6 @@ static void engine_remove_unit( Unit *unit )
 
 /*
 ====================================================================
-Select this unit and unselect old selection if nescessary.
-Clear the selection if NULL is passed as unit.
-====================================================================
-*/
-static void engine_select_unit( Unit *unit )
-{
-    /* select unit */
-    cur_unit = unit;
-    engine_clear_danger_mask();
-    if ( cur_unit == 0 ) {
-        /* clear view */
-        if ( modify_fog ) map_set_fog( F_SPOT );
-        engine_clear_backup();
-        return;
-    }
-    /* switch air/ground */
-    if ( unit->sel_prop->flags & FLYING )
-        air_mode = 1;
-    else
-        air_mode = 0;
-    /* get merge partners and set merge_unit mask */
-    map_get_merge_units( cur_unit, merge_units, &merge_unit_count );
-    /* moving range */
-    map_get_unit_move_mask( unit );
-    if ( modify_fog && unit->cur_mov > 0 ) {
-        map_set_fog( F_IN_RANGE );
-        mask[unit->x][unit->y].fog = 0;
-    }
-    else
-        map_set_fog( F_SPOT );
-    /* determine danger zone for air units */
-    if ( modify_fog && config.supply && unit->cur_mov
-         && (unit->sel_prop->flags & FLYING) && unit->sel_prop->fuel)
-        has_danger_zone = map_get_danger_mask( unit );
-    return;
-}
-
-/*
-====================================================================
 Return current units in avail_units to reinf list. Get all valid
 reinforcements for the current player from reinf and put them to
 avail_units. Aircrafts come first.
@@ -4220,6 +4181,45 @@ static void engine_main_loop( int *reinit )
 Publics
 ====================================================================
 */
+
+/*
+====================================================================
+Select this unit and unselect old selection if nescessary.
+Clear the selection if NULL is passed as unit.
+====================================================================
+*/
+void engine_select_unit( Unit *unit )
+{
+    /* select unit */
+    cur_unit = unit;
+    engine_clear_danger_mask();
+    if ( cur_unit == 0 ) {
+        /* clear view */
+        if ( modify_fog ) map_set_fog( F_SPOT );
+        engine_clear_backup();
+        return;
+    }
+    /* switch air/ground */
+    if ( unit->sel_prop->flags & FLYING )
+        air_mode = 1;
+    else
+        air_mode = 0;
+    /* get merge partners and set merge_unit mask */
+    map_get_merge_units( cur_unit, merge_units, &merge_unit_count );
+    /* moving range */
+    map_get_unit_move_mask( unit );
+    if ( modify_fog && unit->cur_mov > 0 ) {
+        map_set_fog( F_IN_RANGE );
+        mask[unit->x][unit->y].fog = 0;
+    }
+    else
+        map_set_fog( F_SPOT );
+    /* determine danger zone for air units */
+    if ( modify_fog && config.supply && unit->cur_mov
+         && (unit->sel_prop->flags & FLYING) && unit->sel_prop->fuel)
+        has_danger_zone = map_get_danger_mask( unit );
+    return;
+}
 
 /*
 ====================================================================
