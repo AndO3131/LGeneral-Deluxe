@@ -24,11 +24,17 @@
 #include "localize.h"
 #include "file.h"
 #include "engine.h"
+#include "campaign.h"
 
 extern Sdl sdl;
 extern GUI *gui;
 extern Player *cur_player;
 extern List *units;
+extern Unit_Info_Icons *unit_info_icons;
+extern int nation_flag_width, nation_flag_height;
+extern SDL_Surface *nation_flags;
+extern Config config;
+extern int camp_loaded;
 
 /****** Private *****/
 
@@ -70,20 +76,39 @@ static void update_headquarters_info( HeadquartersDlg *hdlg )
 	frame_apply( hdlg->main_group->frame );
 }
 
-/** Render icon and name of unit lib entry @data to surface @buffer. */
+/** Render icon and name of unit entry @data to surface @buffer. */
 static void render_lbox_unit( void *data, SDL_Surface *buffer )
 {
-	Unit_Lib_Entry *e = (Unit_Lib_Entry*)data;
+	Unit *e = (Unit*)data;
 	char name[13];
-	
+	int x = (buffer->w - e->sel_prop->icon_w) / 2, y = (buffer->h - e->sel_prop->icon_h)/2;
+
 	SDL_FillRect( buffer, 0, 0x0 );
 	gui->font_std->align = ALIGN_X_CENTER | ALIGN_Y_BOTTOM;
 	
-        DEST( buffer, (buffer->w - e->icon_w)/2, (buffer->h - e->icon_h)/2, 
-							e->icon_w, e->icon_h );
-        SOURCE( e->icon, 0, 0 );
-        blit_surf();
+    /* icon */
+    DEST( buffer, x, y, e->sel_prop->icon_w, e->sel_prop->icon_h );
+    SOURCE( e->sel_prop->icon, 0, 0 );
+    blit_surf();
 	
+    /* nation flag */
+    DEST( buffer, x - 10, y + 6, nation_flag_width, nation_flag_height );
+    SOURCE( nation_flags, e->nation->flag_offset, 0 );
+    blit_surf();
+
+    DEST( buffer, x + e->sel_prop->icon_w - 3, y + 6,
+          unit_info_icons->str_w, unit_info_icons->str_h )
+    if ( (config.use_core_units) && (camp_loaded != NO_CAMPAIGN) && (cur_player->ctrl == PLAYER_CTRL_HUMAN) &&
+        ( e->core == AUXILIARY ) )
+        SOURCE( unit_info_icons->str,
+                unit_info_icons->str_w * ( e->str - 1 ),
+                unit_info_icons->str_h * (e->player->strength_row + 1))
+    else
+        SOURCE( unit_info_icons->str, 
+                unit_info_icons->str_w * ( e->str - 1 ),
+                unit_info_icons->str_h * e->player->strength_row)
+    blit_surf();
+
 	snprintf(name,13,"%s",e->name); /* truncate name */
         write_text( gui->font_std, buffer, buffer->w / 2, buffer->h, name, 255 );
 }
@@ -117,7 +142,7 @@ HeadquartersDlg *headquarters_dlg_create( char *theme_path )
 							tr("Close"), 2 );
 	group_add_button( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, sx - 30, sy, 0, 
 							tr("Center On Unit"), 2 );
-		group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 0 );
+	group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 0 );
 	
 	/* create units listbox */
 	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );

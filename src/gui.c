@@ -492,7 +492,7 @@ int gui_load( char *dir )
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
-    sprintf( transitionPath, "Theme/scen_dlg_buttons" );
+    sprintf( transitionPath, "Theme/camp_dlg_buttons" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
@@ -513,7 +513,7 @@ int gui_load( char *dir )
     search_file_name( path2, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/module_buttons" );
     search_file_name( path3, 0, transitionPath, dir, 'i' );
-    sprintf( transitionPath, "Theme/buttons_large" );
+    sprintf( transitionPath, "Theme/scen_setup_confirm_buttons" );
     search_file_name( path4, 0, transitionPath, dir, 'i' );
     gui->scen_setup = sdlg_create( 
                              gui_create_frame( 120, 120 ), load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
@@ -528,7 +528,7 @@ int gui_load( char *dir )
                              sdl.screen, 0, 0 );
     sdlg_hide( gui->scen_setup, 1 );
     /* campaign setup window */
-    sprintf( transitionPath, "Theme/buttons_large" );
+    sprintf( transitionPath, "Theme/camp_setup_confirm_buttons" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
     gui->camp_setup = sdlg_camp_create( 
                              gui_create_frame( 180, 40 ),  load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),

@@ -78,7 +78,7 @@ static void render_lbox_uclass( void *data, SDL_Surface *buffer )
 }
 
 /** Render icon and name of unit lib entry @data to surface @buffer. */
-static void render_lbox_unit( void *data, SDL_Surface *buffer )
+static void render_lbox_unit_lib_entry( void *data, SDL_Surface *buffer )
 {
 	Unit_Lib_Entry *e = (Unit_Lib_Entry*)data;
 	char name[13];
@@ -100,7 +100,7 @@ static void render_lbox_reinf( void *data, SDL_Surface *buffer )
 {
 	Unit *u = (Unit*)data;
 	
-	render_lbox_unit(&u->prop, buffer);
+	render_lbox_unit_lib_entry(&u->prop, buffer);
 }
 
 /* Select those nations from which player may purchase units. 
@@ -667,7 +667,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	pdlg->unit_lbox = lbox_create( gui_create_frame( 112, 200 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			4, 3, 100, 40, 1, 0x0000ff,
-			render_lbox_unit, sdl.screen, 0, 0);
+			render_lbox_unit_lib_entry, sdl.screen, 0, 0);
 	if (pdlg->unit_lbox == NULL)
 		goto failure;
 	
@@ -677,7 +677,7 @@ PurchaseDlg *purchase_dlg_create( char *theme_path )
 	pdlg->trsp_lbox = lbox_create( gui_create_frame( 112, 120 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			2, 1, 100, 40, 1, 0x0000ff,
-			render_lbox_unit, sdl.screen, 0, 0);
+			render_lbox_unit_lib_entry, sdl.screen, 0, 0);
 	if (pdlg->trsp_lbox == NULL)
 		goto failure;
 	
