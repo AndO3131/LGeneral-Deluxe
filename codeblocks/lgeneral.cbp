@@ -40,6 +40,7 @@
 			<Add directory="..\util" />
 			<Add directory="..\dependencies\include\SDL" />
 			<Add directory="..\" />
+			<Add directory="..\src" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lintl -MD -lSDLmain -lSDL -lSDL_mixer -lSDL_image" />
@@ -50,37 +51,24 @@
 			<Add after="cmd /c xcopy ..\dependencies\bin\*.dll .\  /y" />
 			<Add after="cmd /c xcopy ..\dependencies\lib\*.dll .\  /y" />
 			<Add after="cmd /c xcopy ..\dependencies\lib\x86\*.dll .\ /y" />
-			<Add after="cmd /c xcopy ..\src\ai_modules .\Default\AI_modules\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\campaigns .\pg\Campaigns\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\gfx .\Default\Graphics\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\maps .\pg\Maps\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\music .\Default\Music\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\nations .\pg\Nations\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\scenarios .\pg\Scenario\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\sounds .\Default\Sound\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\themes\default .\Default\Themes\ /e /y" />
-			<Add after="cmd /c xcopy ..\src\units .\pg\Units\ /e /y" />
-			<Add after="cmd /c del Default\AI_modules\Makefile.am" />
-			<Add after="cmd /c del pg\Campaigns\Makefile.am" />
-			<Add after="cmd /c del Default\Graphics\Makefile.am" />
-			<Add after="cmd /c del Default\Graphics\flags\Makefile.am" />
-			<Add after="cmd /c del Default\Graphics\terrain\Makefile.am" />
-			<Add after="cmd /c del Default\Graphics\units\Makefile.am" />
-			<Add after="cmd /c del pg\Maps\Makefile.am" />
-			<Add after="cmd /c del Default\Music\Makefile.am" />
-			<Add after="cmd /c del pg\Nations\Makefile.am" />
-			<Add after="cmd /c del pg\Scenario\Makefile.am" />
-			<Add after="cmd /c del Default\Sound\Makefile.am" />
-			<Add after="cmd /c del Default\Themes\Makefile.am" />
-			<Add after="cmd /c del Default\Themes\default\Makefile.am" />
-			<Add after="cmd /c del pg\Units\Makefile.am" />
-			<Add after="cmd /c mkdir pg\Save" />
+			<Add after="cmd /c xcopy ..\data .\ /e /y" />
+			<Add after="cmd /c mkdir lgeneral-pg\Save" />
 			<Mode after="always" />
 		</ExtraCommands>
 		<Unit filename="lgeneral.ico" />
 		<Unit filename="lgeneral.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="..\src\FPGE\fpge.h" />
+		<Unit filename="..\src\FPGE\load.h" />
+		<Unit filename="..\src\FPGE\pg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\FPGE\pg.h" />
+		<Unit filename="..\src\FPGE\pgf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\FPGE\pgf.h" />
 		<Unit filename="..\src\action.c">
 			<Option compilerVar="CC" />
 		</Unit>

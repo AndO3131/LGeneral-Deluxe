@@ -58,11 +58,8 @@ struct _Font;
 #define MAXIMUM( a, b ) ((a>b)?a:b)
 
 /* compile time assert */
-#ifndef NDEBUG
-#  define COMPILE_TIME_ASSERT( x ) do { switch (0) {case 0: case x:;} } while(0)
-#else
-#  define COMPILE_TIME_ASSERT( x )
-#endif
+#define COMPILE_TIME_ASSERT( x )
+
 /* check for symbol existence at compile-time */
 #ifndef NDEBUG
 #  define COMPILE_TIME_ASSERT_SYMBOL( s ) COMPILE_TIME_ASSERT( sizeof s )
@@ -71,7 +68,9 @@ struct _Font;
 #endif
 
 /* Definition of non-standard function */
+#ifndef WIN32
 void strlwr( char *string);
+#endif
 
 /* Count number of character occurences in input str */
 int count_characters( const char *str, char character );

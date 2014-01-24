@@ -65,7 +65,7 @@ static inline int common_tree_data_deref(struct CommonTreeData *ctd) {
 
 /*
 ====================================================================
-This buffer is used to fully load resource files when the 
+This buffer is used to fully load resource files when the
 compact format is used.
 ====================================================================
 */
@@ -131,7 +131,7 @@ inline static int parser_is_valid_string_char(char ch)
 
 /*
 ====================================================================
-Find next newline in cbuffer and replace it with \0 and return the 
+Find next newline in cbuffer and replace it with \0 and return the
 pointer to the current line.
 ====================================================================
 */
@@ -141,6 +141,8 @@ static char* parser_get_next_line(ParserState *st)
     char *newpos;
     if ( cbuffer_pos[0] == 0 )
         return 0; /* completely read. no more lines. */
+    if ( ( newpos = strchr( cbuffer_pos, 13 ) ) == 0 )
+        cbuffer_pos++;
     if ( ( newpos = strchr( cbuffer_pos, 10 ) ) == 0 )
         cbuffer_pos += strlen( cbuffer_pos ); /* last line */
     else {
@@ -183,12 +185,12 @@ static ParserToken parser_read_token(ParserState *st) {
     /* consume whitespace and comments */
     int comment_nesting = 0;
     while (!feof(st->file) && (ch == ' ' || ch == '\t' || ch == '\n'
-           || comment_nesting > 0 || ch == PARSER_COMMENT_BEGIN 
+           || comment_nesting > 0 || ch == PARSER_COMMENT_BEGIN
            || (comment_nesting >= 0 && ch == PARSER_COMMENT_END))) {
         if (ch == PARSER_COMMENT_BEGIN) comment_nesting++;
         else if (ch == PARSER_COMMENT_END) comment_nesting--;
         FILE_READCHAR(st, ch);
-    } 
+    }
     if (feof(st->file)) {
         st->tok = PARSER_EOI;
         strcpy(st->tokbuf, tr("<EndOfInput>"));
@@ -263,7 +265,7 @@ static int is_symbol( int c, const char *symbols )
     int i = 0;
     if ( symbols[0] == ' ' && c <= 32 ) return 1;
     while ( symbols[i] != 0 )
-        if ( c == symbols[i++] ) 
+        if ( c == symbols[i++] )
             return 1;
     return 0;
 }
@@ -307,9 +309,9 @@ Reads in one pdata entry from the current input position
 static PData* parser_parse_entry( ParserState *st )
 {
     PData *pd = 0, *sub = 0;
-    
+
     if (st->tok == PARSER_EOI) return 0;
-    
+
     /* get name */
     if ( st->tok != PARSER_STRING ) {
         sprintf( parser_sub_error, tr("parse error before '%s'"), st->tokbuf );
@@ -347,7 +349,7 @@ parse_error:
             *parser_sub_error = 0;
             while ( st->tok == PARSER_STRING ) {
                 sub = parser_parse_entry( st );
-                if ( sub ) 
+                if ( sub )
                     list_add( pd->entries, sub );
                 if (*parser_sub_error)
                     goto failure;
@@ -377,7 +379,7 @@ Publics
 ====================================================================
 This function splits a string into tokens using the characters
 found in symbols as breakpoints. If the first symbol is ' ' all
-whitespaces are used as breakpoints though NOT added as a token 
+whitespaces are used as breakpoints though NOT added as a token
 (thus removed from string).
 ====================================================================
 */
@@ -388,11 +390,11 @@ List* parser_split_string( const char *string, const char *symbols )
     List *list = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
     while ( string[0] != 0 ) {
         if ( symbols[0] == ' ' )
-            string = string_ignore_whitespace( string ); 
+            string = string_ignore_whitespace( string );
         if ( string[0] == 0 ) break;
         pos = 1; /* 'read in' first character */
         while ( string[pos - 1] != 0 && !is_symbol( string[pos - 1], symbols ) && string[pos - 1] != '"' ) pos++;
-        if ( pos > 1 ) 
+        if ( pos > 1 )
             pos--;
         else
             if ( string[pos - 1] == '"' ) {
@@ -415,7 +417,7 @@ List* parser_split_string( const char *string, const char *symbols )
 /*
 ====================================================================
 This is the light version of parser_split_string which checks for
-just one character and does not add this glue characters to the 
+just one character and does not add this glue characters to the
 list. It's about 2% faster. Wow.
 ====================================================================
 */
@@ -443,7 +445,7 @@ List *parser_explode_string( const char *string, char c )
 /*
 ====================================================================
 This function reads in a whole file and converts it into a
-PData tree struct. If an error occurs NULL is returned and 
+PData tree struct. If an error occurs NULL is returned and
 parser_error is set.
 ====================================================================
 */
@@ -456,13 +458,13 @@ static int parser_read_file_full( ParserState *st, PData *top )
         if ( ( sub = parser_parse_entry( st ) ) != 0 )
             list_add( top->entries, sub );
         if (*parser_sub_error)
-            return 0; 
+            return 0;
     } while (st->tok != PARSER_EOI);
     return 1;
 }
 static int parser_read_file_compact( ParserState *st, PData *section )
 {
-    /* section is the parent pdata that needs some 
+    /* section is the parent pdata that needs some
        entries */
     PData *pd = 0;
     char *line, *cur;
@@ -613,8 +615,8 @@ int parser_get_linenumber( PData *pd )
 
 /*
 ====================================================================
-Functions to access a PData tree. 
-'name' is the pass within tree 'pd' where subtrees are separated 
+Functions to access a PData tree.
+'name' is the pass within tree 'pd' where subtrees are separated
 by '/' (e.g.: name = 'config/graphics/animations')
 parser_get_pdata   : get pdata entry associated with 'name'
 parser_get_entries : get list of subtrees (PData structs) in 'name'
@@ -703,7 +705,7 @@ int parser_get_value  ( PData *pd, const char *name, char   **result, int index 
         return 0;
     }
     if ( index >= values->count ) {
-        sprintf( parser_error, tr("parser_get_value: %s/%s: index %i out of range (%i elements)"), 
+        sprintf( parser_error, tr("parser_get_value: %s/%s: index %i out of range (%i elements)"),
                  pd->name, name, index, values->count );
         return 0;
     }
