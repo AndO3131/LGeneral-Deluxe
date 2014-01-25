@@ -23,6 +23,7 @@
 #include "windows.h"
 #include "purchase_dlg.h"
 #include "headquarters_dlg.h"
+#include "message_dlg.h"
 
 struct _List;
 
@@ -121,7 +122,9 @@ enum {
     ID_MOD_SELECT_OK,
     ID_MOD_SELECT_CANCEL,
     ID_HEADQUARTERS_CLOSE,
-    ID_HEADQUARTERS_GO_TO_UNIT
+    ID_HEADQUARTERS_GO_TO_UNIT,
+    ID_MESSAGE_LIST_UP,
+    ID_MESSAGE_LIST_DOWN
 };
 
 /*
@@ -148,6 +151,7 @@ typedef struct {
     HeadquartersDlg *headquarters_dlg;
     Group *deploy_window;
     Edit *edit;
+    MessageDlg *message_dlg; /* message console */
     Group *base_menu; /* basic menu (switch airmode, deploy, end turn, menu ...) */
     Group *main_menu; /* main game menu */
     Group *opt_menu;  /* options */

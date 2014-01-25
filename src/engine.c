@@ -29,6 +29,7 @@
 #include "unit.h"
 #include "purchase_dlg.h"
 #include "headquarters_dlg.h"
+#include "message_dlg.h"
 #include "gui.h"
 #include "map.h"
 #include "scenario.h"
@@ -501,7 +502,7 @@ static void engine_check_menu_buttons()
     else
         group_set_active( gui->base_menu, ID_SCEN_INFO, 1 );
     /* purchase */
-    if ( (config.purchase != NO_PURCHASE) && cur_ctrl != PLAYER_CTRL_NOBODY && (!deploy_turn  && status == STATUS_NONE ) )
+    if ( (config.purchase != NO_PURCHASE) && cur_ctrl != PLAYER_CTRL_NOBODY && (!deploy_turn && status == STATUS_NONE ) )
         group_set_active( gui->base_menu, ID_PURCHASE, 1 );
     else
         group_set_active( gui->base_menu, ID_PURCHASE, 0 );
@@ -2912,9 +2913,53 @@ static void engine_check_events(int *reinit)
                     gui_mirror_asymm_windows();
                     keypressed = 1;
                 }
-                if ( status == STATUS_NONE || status == STATUS_INFO || status == STATUS_UNIT_MENU ) {
+                if (event.key.keysym.sym==SDLK_BACKQUOTE)
+                {
+                    if ( !gui->message_dlg->edit_box->label->frame->img->bkgnd->hide )
+                    {
+                        message_dlg_reset( gui->message_dlg );
+                        if ( status == STATUS_NONE )
+                        {
+                            old_mx = old_my = -1;
+                            scroll_block_keys = 0;
+                        }
+                    }
+                    message_dlg_hide(gui->message_dlg, !gui->message_dlg->edit_box->label->frame->img->bkgnd->hide);
+                    keypressed = 1;
+                }
+                if ( !gui->message_dlg->edit_box->label->frame->img->bkgnd->hide ) {
+                    if ( event.key.keysym.sym == SDLK_RETURN ) {
+                        //FIXME add functional message code
+//                        if ( strcmp( gui->message_dlg->edit_box->text, "hide" ) == 0 )
+                        message_dlg_reset( gui->message_dlg );
+                    }
+                    if ( event.key.keysym.sym == SDLK_ESCAPE )
+                    {
+                        hide_edit = 1;
+                    }
+                    if ( hide_edit ) {
+                        message_dlg_reset( gui->message_dlg );
+                        engine_set_status( STATUS_NONE );
+                        message_dlg_hide( gui->message_dlg, 1 );
+                        old_mx = old_my = -1;
+                        scroll_block_keys = 0;
+                    }
+                    else
+                    {
+                        if ( event.key.keysym.sym != SDLK_BACKQUOTE )
+                        {
+                            edit_handle_key( gui->message_dlg->edit_box, event.key.keysym.sym,
+                                             event.key.keysym.mod, event.key.keysym.unicode );
+#ifdef WITH_SOUND
+                            wav_play( gui->wav_edit );
+#endif
+                        }
+                    }
+                } else if ( status == STATUS_NONE || status == STATUS_INFO || status == STATUS_UNIT_MENU ||
+                     status == STATUS_HEADQUARTERS ) {
                     int shiftPressed = event.key.keysym.mod&KMOD_LSHIFT||event.key.keysym.mod&KMOD_RSHIFT;
-                    if ( (status != STATUS_UNIT_MENU) && (event.key.keysym.sym == SDLK_n || 
+                    if ( (status != STATUS_UNIT_MENU) && (status != STATUS_HEADQUARTERS) && 
+                         (event.key.keysym.sym == SDLK_n || 
                          (event.key.keysym.sym == SDLK_f&&!shiftPressed) || 
                          (event.key.keysym.sym == SDLK_m&&!shiftPressed) ) ) {
                         int stype = (event.key.keysym.sym==SDLK_n)?0:(event.key.keysym.sym==SDLK_f)?1:2;
@@ -2957,7 +3002,8 @@ static void engine_check_events(int *reinit)
                         }
                         keypressed = 1;
                     } else
-                    if ( (status != STATUS_UNIT_MENU) && (event.key.keysym.sym == SDLK_p ||
+                    if ( (status != STATUS_UNIT_MENU) && (status != STATUS_HEADQUARTERS) &&
+                         (event.key.keysym.sym == SDLK_p ||
                          (event.key.keysym.sym == SDLK_f&&shiftPressed) || 
                          (event.key.keysym.sym == SDLK_m&&shiftPressed) ) ) {
                         int stype = (event.key.keysym.sym==SDLK_p)?0:(event.key.keysym.sym==SDLK_f)?1:2;
@@ -3016,6 +3062,7 @@ static void engine_check_events(int *reinit)
                             case SDLK_u: engine_handle_button(ID_UNDO); break;
                             case SDLK_s: engine_handle_button(ID_SUPPLY); break;
                             case SDLK_j: engine_handle_button(ID_MERGE); break;
+                            case SDLK_h: engine_handle_button(ID_HEADQUARTERS); break;
                             case SDLK_1:
                             case SDLK_2:
                             case SDLK_3:
@@ -3025,10 +3072,13 @@ static void engine_check_events(int *reinit)
                             case SDLK_7:
                             case SDLK_8:
                             case SDLK_9:
-                                keystate = SDL_GetKeyState(&numkeys);
-                                if (keystate[SDLK_x])
+                                if ( config.merge_replacements == OPTION_MERGE )
+                                {
+                                    keystate = SDL_GetKeyState(&numkeys);
+                                    if (keystate[SDLK_x])
                                         engine_handle_button(ID_SPLIT_1+event.key.keysym.sym-SDLK_1); 
-                                break;
+                                    break;
+                                }
                             case SDLK_MINUS:
                                 if (cur_unit) cur_unit->is_guarding = !cur_unit->is_guarding;
                                 draw_map = 1;

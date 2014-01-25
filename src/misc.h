@@ -28,6 +28,7 @@ struct _Font;
 #define MAX_LINE_SHORT 1024
 #define MAX_PATH 512
 #define MAX_LINE 256
+#define MAX_MESSAGE_LINE 100
 #define MAX_NAME 50
 #define MAX_EXTENSION 10
 

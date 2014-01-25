@@ -1,5 +1,5 @@
 /***************************************************************************
-                          headquartes.h  -  description
+                          headquartes_dlg.h  -  description
                              -------------------
     begin                : Mon Jan 20 2014
     copyright            : (C) 2014 by Andrzej Owsiejczuk

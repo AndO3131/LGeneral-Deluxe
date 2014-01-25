@@ -188,7 +188,7 @@ SDL_Surface *gui_create_frame( int w, int h )
 
 /*
 ====================================================================
-Create the gui and use the graphics in <dir>/Default/Theme/...
+Create the gui and use the graphics in <dir>/Theme/...
 ====================================================================
 */
 int gui_load( char *dir )
@@ -355,6 +355,8 @@ int gui_load( char *dir )
     if ( ( gui->edit = edit_create( gui_create_frame( 440, 30 ), 160, gui->font_std, MAX_NAME, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     edit_hide( gui->edit, 1 );
+    /* message dialogue */
+    gui->message_dlg = 0;
     /* base menu */
     sprintf( transitionPath, "Theme/menu0_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
@@ -492,7 +494,7 @@ int gui_load( char *dir )
     fdlg_add_button( gui->scen_dlg, ID_SCEN_SETUP, 0, tr("Player Setup") );
     fdlg_hide( gui->scen_dlg, 1 );
     /* campaign dialogue */
-    sprintf( transitionPath, "Theme/camp_dlg_buttons" );
+    sprintf( transitionPath, "Theme/scen_dlg_buttons" );
     search_file_name( path, 0, transitionPath, dir, 'i' );
     sprintf( transitionPath, "Theme/scroll_buttons" );
     search_file_name( path2, 0, transitionPath, dir, 'i' );
@@ -633,6 +635,7 @@ void gui_delete()
         fdlg_delete( &gui->module_dlg );
         fdlg_delete( &gui->mod_select_dlg );
         edit_delete( &gui->edit );
+        message_dlg_delete( &gui->message_dlg );
         purchase_dlg_delete( &gui->purchase_dlg );
         headquarters_dlg_delete( &gui->headquarters_dlg );
 #ifdef WITH_SOUND
@@ -690,6 +693,14 @@ void gui_adjust()
                 ( sdl.screen->h - gui->deploy_window->frame->img->img->h ) / 2 );
     /* edit */
     edit_move( gui->edit, (sdl.screen->w - gui->edit->label->frame->img->img->w ) >> 1, 50 );
+    /* message dialogue */
+    if ( gui->message_dlg != 0 )
+        message_dlg_delete( &gui->message_dlg );
+    char path[MAX_PATH];
+    sprintf( path, "Default/Theme" );
+    gui->message_dlg = message_dlg_create( path );
+    message_dlg_move( gui->message_dlg, 2, sdl.screen->h - message_dlg_get_height(gui->message_dlg) - 2);
+    message_dlg_hide( gui->message_dlg, 1 );
     /* select dialogs */
     select_dlg_move( gui->vmode_dlg, 
                     (sdl.screen->w - select_dlg_get_width(gui->vmode_dlg)) /2,
@@ -767,6 +778,7 @@ void gui_get_bkgnds()
     group_get_bkgnd( gui->unit_buttons);
     group_get_bkgnd( gui->split_menu );
     edit_get_bkgnd( gui->edit );
+    message_dlg_get_bkgnd( gui->message_dlg );
     group_get_bkgnd( gui->confirm );
     group_get_bkgnd( gui->deploy_window );
     select_dlg_get_bkgnd( gui->vmode_dlg );
@@ -797,6 +809,7 @@ void gui_draw_bkgnds()
     group_draw_bkgnd( gui->unit_buttons);
     group_draw_bkgnd( gui->split_menu );
     edit_draw_bkgnd( gui->edit );
+    message_dlg_draw_bkgnd( gui->message_dlg );
     group_draw_bkgnd( gui->confirm );
     group_draw_bkgnd( gui->deploy_window );
     select_dlg_draw_bkgnd( gui->vmode_dlg );
@@ -827,6 +840,7 @@ void gui_draw()
     group_draw( gui->unit_buttons);
     group_draw( gui->split_menu );
     edit_draw( gui->edit );
+    message_dlg_draw( gui->message_dlg );
     group_draw( gui->confirm ); 
     group_draw( gui->deploy_window );
     select_dlg_draw( gui->vmode_dlg );
@@ -896,6 +910,7 @@ int gui_handle_motion( int cx, int cy )
     if ( !group_handle_motion( gui->unit_buttons, cx, cy ) )
     if ( !group_handle_motion( gui->split_menu, cx, cy ) )
     if ( !group_handle_motion( gui->confirm, cx, cy ) )
+    if ( !message_dlg_handle_motion( gui->message_dlg, cx, cy ) )
     if ( !select_dlg_handle_motion( gui->vmode_dlg, cx, cy ) )
     if ( !fdlg_handle_motion( gui->scen_dlg, cx, cy  ) )
     if ( !fdlg_handle_motion( gui->camp_dlg, cx, cy  ) )
@@ -924,6 +939,7 @@ int  gui_handle_button( int button_id, int cx, int cy, Button **button )
     if ( !group_handle_button( gui->split_menu, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->confirm, button_id, cx, cy, button ) )
     if ( !group_handle_button( gui->deploy_window, button_id, cx, cy, button ) )
+    if ( !message_dlg_handle_button( gui->message_dlg, button_id, cx, cy, button ) )
     if ( !select_dlg_handle_button( gui->vmode_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->scen_dlg, button_id, cx, cy, button ) )
     if ( !fdlg_handle_button( gui->camp_dlg, button_id, cx, cy, button ) )

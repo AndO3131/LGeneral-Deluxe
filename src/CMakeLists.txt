@@ -37,6 +37,8 @@ set ( root_src
   list.h
   map.c
   map.h
+  message_dlg.c
+  message_dlg.h
   misc.c
   misc.h
   nation.c
