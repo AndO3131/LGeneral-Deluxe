@@ -701,6 +701,7 @@ void gui_adjust()
     gui->message_dlg = message_dlg_create( path );
     message_dlg_move( gui->message_dlg, 2, sdl.screen->h - message_dlg_get_height(gui->message_dlg) - 2);
     message_dlg_hide( gui->message_dlg, 1 );
+    message_dlg_draw_text( gui->message_dlg );
     /* select dialogs */
     select_dlg_move( gui->vmode_dlg, 
                     (sdl.screen->w - select_dlg_get_width(gui->vmode_dlg)) /2,

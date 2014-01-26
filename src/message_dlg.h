@@ -36,5 +36,12 @@ void message_dlg_hide( MessageDlg *mdlg, int value);
 void message_dlg_draw( MessageDlg *mdlg);
 void message_dlg_draw_bkgnd( MessageDlg *mdlg);
 void message_dlg_get_bkgnd( MessageDlg *mdlg);
+
+int message_dlg_handle_motion( MessageDlg *mdlg, int cx, int cy);
+int message_dlg_handle_button( MessageDlg *mdlg, int bid, int cx, int cy,
+		Button **mbtn );
+
 void message_dlg_reset( MessageDlg *mdlg );
+void message_dlg_draw_text( MessageDlg *mdlg );
+void message_dlg_add_text( MessageDlg *mdlg );
 #endif

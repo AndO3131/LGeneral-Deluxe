@@ -1442,7 +1442,8 @@ static void engine_check_scroll(int by_wheel)
     }
     /* scroll */
     if ( !( scroll_vert == SCROLL_NONE && scroll_hori == SCROLL_NONE ) &&
-          ( gui->save_menu->group->frame->img->bkgnd->hide && gui->load_menu->group->frame->img->bkgnd->hide ) )
+          ( gui->message_dlg->main_group->frame->img->bkgnd->hide &&
+            gui->save_menu->group->frame->img->bkgnd->hide && gui->load_menu->group->frame->img->bkgnd->hide ) )
     {
         if ( scroll_vert == SCROLL_UP )
             engine_goto_xy( map_x, map_y - 2 );
@@ -2931,6 +2932,7 @@ static void engine_check_events(int *reinit)
                     if ( event.key.keysym.sym == SDLK_RETURN ) {
                         //FIXME add functional message code
 //                        if ( strcmp( gui->message_dlg->edit_box->text, "hide" ) == 0 )
+                        message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }
                     if ( event.key.keysym.sym == SDLK_ESCAPE )

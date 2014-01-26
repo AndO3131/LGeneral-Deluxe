@@ -23,11 +23,16 @@
 #include "gui.h"
 #include "localize.h"
 #include "file.h"
+#include "event.h"
 
 extern Sdl sdl;
 extern GUI *gui;
+extern int hex_h;
+extern Player *cur_player;
 
-char messages[MAX_MESSAGE_LINE][MAX_MESSAGE_LINE]; /* message dialogue box previous text */
+char messages[MAX_NAME][MAX_MESSAGE_LINE]; /* message dialogue box previous text */
+int messages_count = 0;                    /* number of messages stored */
+int last_selected_message = 0;             /* last message to display */
 
 /****** Public *****/
 
@@ -61,7 +66,8 @@ MessageDlg *message_dlg_create( char *theme_path )
 							tr("Scroll Down"), 2 );
 	
 	/* create edit box */
-	mdlg->edit_box = edit_create( gui_create_frame( sdl.screen->w - 4, 30 ), 160, gui->font_std, MAX_NAME, sdl.screen, 0, 0 );
+	mdlg->edit_box = edit_create( gui_create_frame( sdl.screen->w - 4, 30 ), 160, gui->font_std, MAX_MESSAGE_LINE,
+                                  sdl.screen, 0, 0 );
 	if (mdlg->edit_box == NULL)
 		goto failure;
 	
@@ -87,7 +93,7 @@ void message_dlg_delete( MessageDlg **mdlg )
 /** Return height of message dialogue @mdlg by adding up all components. */
 int message_dlg_get_height(MessageDlg *mdlg)
 {
-	return group_get_height( mdlg->main_group ) + 30;
+	return group_get_height( mdlg->main_group ) + mdlg->edit_box->label->frame->frame->h;
 }
 
 /** Move message dialogue @mdlg to position @px, @py by moving all separate
@@ -143,8 +149,48 @@ int message_dlg_handle_motion( MessageDlg *mdlg, int cx, int cy)
 int message_dlg_handle_button( MessageDlg *mdlg, int bid, int cx, int cy,
 		Button **mbtn )
 {
-	if (group_handle_button(mdlg->main_group,bid,cx,cy,mbtn)) {
-		return 1;
+	group_handle_button(mdlg->main_group,bid,cx,cy,mbtn);
+        /* handle button/wheel */
+    if ( !mdlg->main_group->frame->img->bkgnd->hide )
+    {
+        int x = 5, y = 5, i;
+        if ( ( *mbtn && (*mbtn)->id == ID_MESSAGE_LIST_UP ) || bid == WHEEL_UP ) {
+            /* scroll up */
+            last_selected_message -= 6;
+            if ( last_selected_message < 6 )
+                last_selected_message = 6;
+
+            /* draw text */
+            SDL_Surface *contents = mdlg->main_group->frame->contents;
+            SDL_FillRect( contents, 0, 0x0 );
+            gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+            for ( i = last_selected_message - 7; i <= last_selected_message; i++ )
+            {
+                if ( i >= 0 )
+                    write_line( contents, gui->font_std, messages[i], x, &y );
+            }
+            frame_apply( mdlg->main_group->frame );
+            return 0;
+        }
+        else
+            if ( ( *mbtn && (*mbtn)->id == ID_MESSAGE_LIST_DOWN ) || bid == WHEEL_DOWN ) {
+                /* scroll down */
+                last_selected_message += 6;
+                if ( last_selected_message >= messages_count )
+                    last_selected_message = messages_count;
+
+                /* draw text */
+                SDL_Surface *contents = mdlg->main_group->frame->contents;
+                SDL_FillRect( contents, 0, 0x0 );
+                gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+                for ( i = last_selected_message - 7; i <= last_selected_message; i++ )
+                {
+                    if ( i >= 0 )
+                        write_line( contents, gui->font_std, messages[i], x, &y );
+                }
+                frame_apply( mdlg->main_group->frame );
+                return 0;
+            }
 	}
 	return 0;
 }
@@ -157,4 +203,62 @@ void message_dlg_reset( MessageDlg *mdlg )
     mdlg->edit_box->cursor_pos = 0;
     mdlg->edit_box->cursor_x = mdlg->edit_box->label->frame->img->img->w / 2;
     edit_show( mdlg->edit_box, mdlg->edit_box->text );
+}
+
+/** Handle adding new text to message box */
+void message_dlg_draw_text( MessageDlg *mdlg )
+{
+    int x = 5, y = 5, i;
+    SDL_Surface *contents = mdlg->main_group->frame->contents;
+    SDL_FillRect( contents, 0, 0x0 );
+    gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+    for ( i = last_selected_message - 7; i <= last_selected_message; i++ )
+    {
+        if ( i >= 0 )
+            write_line( contents, gui->font_std, messages[i], x, &y );
+    }
+    frame_apply( mdlg->main_group->frame );
+}
+
+/** Handle adding new text to message box */
+void message_dlg_add_text( MessageDlg *mdlg )
+{
+    if ( messages_count < MAX_NAME )
+    {
+        messages_count++;
+        /* add message */
+        if ( cur_player )
+            snprintf( messages[messages_count - 1], MAX_MESSAGE_LINE, "%s: %s", cur_player->name, mdlg->edit_box->text );
+        else
+            snprintf( messages[messages_count - 1], MAX_MESSAGE_LINE, "nobody: %s", mdlg->edit_box->text );
+        /* draw text */
+        if ( messages_count - 1 == last_selected_message )
+        {
+            last_selected_message++;
+            message_dlg_draw_text( mdlg );
+        }
+    }
+    else
+    {
+        int i;
+        /* remove last message */
+        for ( i = 1; i < MAX_NAME; i++ )
+            snprintf( messages[i - 1], MAX_MESSAGE_LINE, "%s", messages[i] );
+        /* add message */
+        if ( cur_player )
+            snprintf( messages[messages_count - 1], MAX_MESSAGE_LINE, "%s: %s", cur_player->name, mdlg->edit_box->text );
+        else
+            snprintf( messages[messages_count - 1], MAX_MESSAGE_LINE, "nobody: %s", mdlg->edit_box->text );
+        /* draw last text */
+        if ( messages_count == last_selected_message )
+        {
+            message_dlg_draw_text( mdlg );
+        }
+        else
+            /* redraw first text */
+            if ( last_selected_message == 6 )
+            {
+                message_dlg_draw_text( mdlg );
+            }
+    }
 }

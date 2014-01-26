@@ -37,4 +37,10 @@ void headquarters_dlg_hide( HeadquartersDlg *hdlg, int value);
 void headquarters_dlg_draw( HeadquartersDlg *hdlg);
 void headquarters_dlg_draw_bkgnd( HeadquartersDlg *hdlg);
 void headquarters_dlg_get_bkgnd( HeadquartersDlg *hdlg);
+
+int headquarters_dlg_handle_motion( HeadquartersDlg *hdlg, int cx, int cy);
+int headquarters_dlg_handle_button( HeadquartersDlg *hdlg, int bid, int cx, int cy,
+		Button **hbtn );
+
+void headquarters_dlg_reset( HeadquartersDlg *hdlg );
 #endif
