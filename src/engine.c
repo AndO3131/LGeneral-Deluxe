@@ -1983,6 +1983,7 @@ static void engine_handle_button( int id )
         /* save */
         case ID_SAVE_OK:
             fdlg_hide( gui->save_menu, 1 );
+            message_dlg_hide( gui->message_dlg, 1 );
             action_queue_overwrite( gui->save_menu->current_name );
             if ( strcmp ( gui->save_menu->current_name, tr( "<empty file>" ) ) != 0 )
                 engine_confirm_action( tr("Overwrite saved game?") );
@@ -1993,6 +1994,7 @@ static void engine_handle_button( int id )
             break;
         case ID_NEW_FOLDER:
             fdlg_hide( gui->save_menu, 1 );
+            message_dlg_hide( gui->message_dlg, 1 );
             edit_show( gui->edit, tr( "new folder" ) );
             engine_set_status( STATUS_NEW_FOLDER );
             scroll_block_keys = 1;
@@ -2930,8 +2932,16 @@ static void engine_check_events(int *reinit)
                 }
                 if ( !gui->message_dlg->edit_box->label->frame->img->bkgnd->hide ) {
                     if ( event.key.keysym.sym == SDLK_RETURN ) {
-                        //FIXME add functional message code
-//                        if ( strcmp( gui->message_dlg->edit_box->text, "hide" ) == 0 )
+                        /* checking various cheat codes */
+                        if ( strspn( gui->message_dlg->edit_box->text, "/prestige" ) == 9  && cur_player != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            temp++;
+                            cur_player->cur_prestige += atoi( temp );
+//                            fprintf( stderr, "prestige %s %d\n", temp, atoi( temp ) );
+                            sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - PRESTIGE activated" );
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }

@@ -188,6 +188,12 @@ the menu, the key is shown in brackets behind the description, e.g., 'u' for
 undo a unit's move.
   'TAB' allows you to flip the layout of asymmetrically positioned windows (like
 the unit quick infos or the deploy window) to see clearly what lies behind.
+  '`' (backquote) opens message box allowing to write short text messages. At the
+moment it's used only for entering cheat codes. Here is a list of supported codes
+(#N means an integer number).
+
+  /prestige #N
+  Adds #N to prestige (can be negative)
 
 6. Unit Menu
 ------------
@@ -263,15 +269,8 @@ reinforcements defined yet so most of the time this means you just play without
 reinforcements. Any submissions for predefined reinforcements are still very
 welcome!
   2) Core Units:
-There will be none. It is nice to have a fully experienced killer troop you
-brought all the way from Poland to Washington but how did you manage that? You
-loaded and saved to get good combat results with this unit at a low damage 
-rate. Anyone must admit that this is a very untactical way of using a unit.
-Much better going with the auxiliaries: If there was a town to be taken they
-had to go for it at any cost thus they were used to their full tactical extent.
-And that is what should be done with all units on the battle field. With core
-units that are treated like being on holidays this can't be done, so there 
-simply will be no way to re-use units in the next scenario of a campaign.
+Player is given a choice between standard use of core units or not using core
+army. 
 
 8. Bugs
 -------
