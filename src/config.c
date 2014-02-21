@@ -39,9 +39,9 @@ void check_config_dir_name()
 #ifndef INSTALLDIR
     /* if no installation store config to current directory not home */
     sprintf( config.dir_name, "." );
-#else    
+#else
     sprintf( config.dir_name, "%s/.lgames", getenv( "HOME" ) );
-#endif    
+#endif
     if ( stat( config.dir_name, &info ) != 0 ) {
         int res;
 
@@ -87,13 +87,14 @@ void reset_config()
     config.sound_volume = 96;
     config.music_on = 1;
     config.music_volume = 96;
+    config.mod_name = strdup( "lgeneral-pg" );
 }
 
 /* load config */
 void load_config( )
 {
     char file_name[MAX_PATH];
-    PData *pd; 
+    PData *pd;
     /* set to defaults */
     check_config_dir_name();
     reset_config();
