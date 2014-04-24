@@ -151,6 +151,9 @@ void strat_map_create()
         scale = hori_scale;
     else
         scale = vert_scale;
+    /* scale must be at least 2 */
+    if ( scale < 2 )
+        scale = 2;
     /* get strat map tile size */
     strat_tile_width = hex_w / scale;
     strat_tile_height = hex_h / scale;
