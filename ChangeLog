@@ -1,3 +1,4 @@
+- fix small map on high screen display resolution crash
 - message box allows displaying and writing ingame text (2014/01/26 AndO3131)
 - GUI redesign - 3 info fields on top, more ingame info displayed
   (2014/01/15 AndO3131)
