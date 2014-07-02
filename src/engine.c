@@ -2937,10 +2937,25 @@ static void engine_check_events(int *reinit)
                         {
                             char *temp;
                             temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
-                            temp++;
-                            cur_player->cur_prestige += atoi( temp );
-//                            fprintf( stderr, "prestige %s %d\n", temp, atoi( temp ) );
-                            sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - PRESTIGE activated" );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_player->cur_prestige += atoi( temp );
+//                                fprintf( stderr, "prestige %s %d\n", temp, atoi( temp ) );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - PRESTIGE activated" );
+                            }
+                        }
+                        if ( strspn( gui->message_dlg->edit_box->text, "/core" ) == 5  && cur_player != 0 && config.use_core_units )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_player->core_limit += atoi( temp );
+                                fprintf( stderr, "core units %d\n", atoi( temp ) );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - CORE UNITS activated" );
+                            }
                         }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
