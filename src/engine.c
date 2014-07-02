@@ -2941,11 +2941,10 @@ static void engine_check_events(int *reinit)
                             {
                                 temp++;
                                 cur_player->cur_prestige += atoi( temp );
-//                                fprintf( stderr, "prestige %s %d\n", temp, atoi( temp ) );
-                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - PRESTIGE activated" );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d PRESTIGE activated", atoi( temp ) );
                             }
                         }
-                        if ( strspn( gui->message_dlg->edit_box->text, "/core" ) == 5  && cur_player != 0 && config.use_core_units )
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/core" ) == 5  && cur_player != 0 && config.use_core_units )
                         {
                             char *temp;
                             temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
@@ -2953,8 +2952,105 @@ static void engine_check_events(int *reinit)
                             {
                                 temp++;
                                 cur_player->core_limit += atoi( temp );
-                                fprintf( stderr, "core units %d\n", atoi( temp ) );
-                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - CORE UNITS activated" );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d CORE UNITS activated", atoi( temp ) );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/aux" ) == 4  && cur_player != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_player->unit_limit += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d AUXILIARY UNITS activated", atoi( temp ) );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/sea" ) == 4  && cur_player != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_player->sea_trsp_count += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d SEA TRANSPORTS activated", atoi( temp ) );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/sea" ) == 4  && cur_player != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_player->sea_trsp_count += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d SEA TRANSPORTS activated", atoi( temp ) );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/exp" ) == 4  && cur_unit != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                unit_add_exp( cur_unit, atoi( temp ) );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT EXPERIENCE activated", atoi( temp ) );
+                                engine_draw_map();
+                                gui_show_quick_info( gui->qinfo1, cur_unit );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/str" ) == 4  && cur_unit != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_unit->str += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT STRENGTH activated", atoi( temp ) );
+                                engine_draw_map();
+                                gui_show_quick_info( gui->qinfo1, cur_unit );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/ent" ) == 4  && cur_unit != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_unit->entr += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT ENTRENCHMENT activated", atoi( temp ) );
+                                engine_draw_map();
+                                gui_show_quick_info( gui->qinfo1, cur_unit );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/fuel" ) == 5  && cur_unit != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_unit->cur_fuel += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT FUEL activated", atoi( temp ) );
+                                engine_draw_map();
+                                gui_show_quick_info( gui->qinfo1, cur_unit );
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/ammo" ) == 5  && cur_unit != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                cur_unit->cur_ammo += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT AMMO activated", atoi( temp ) );
+                                engine_draw_map();
+                                gui_show_quick_info( gui->qinfo1, cur_unit );
                             }
                         }
                         message_dlg_add_text( gui->message_dlg );

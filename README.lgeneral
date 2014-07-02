@@ -198,6 +198,30 @@ moment it's used only for entering cheat codes. Here is a list of supported code
   /core #N
   Adds #N to core units count, if campaign allows core units (can be negative)
 
+  /aux #N
+  Adds #N to aux slots (can be negative)
+
+  /sea #N
+  Adds #N to sea transports number (can be negative)
+
+  /air #N
+  Adds #N to air transports number (can be negative)
+
+  /exp #N
+  Sets experience of the selected unit to #N
+
+  /str #N
+  Sets strength of the selected unit to #N
+
+  /ent #N
+  Sets entrenchment of the selected unit to #N
+
+  /fuel #N
+  Sets fuel of the selected unit to #N
+
+  /ammo #N
+  Sets ammo of the selected unit to #N
+
 6. Unit Menu
 ------------
 
