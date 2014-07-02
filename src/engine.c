@@ -2995,6 +2995,7 @@ static void engine_check_events(int *reinit)
                             if (temp != NULL)
                             {
                                 temp++;
+                                cur_unit->exp = 0;
                                 unit_add_exp( cur_unit, atoi( temp ) );
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT EXPERIENCE activated", atoi( temp ) );
                                 engine_draw_map();
@@ -3008,7 +3009,7 @@ static void engine_check_events(int *reinit)
                             if (temp != NULL)
                             {
                                 temp++;
-                                cur_unit->str += atoi( temp );
+                                cur_unit->str = atoi( temp );
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT STRENGTH activated", atoi( temp ) );
                                 engine_draw_map();
                                 gui_show_quick_info( gui->qinfo1, cur_unit );
@@ -3021,7 +3022,7 @@ static void engine_check_events(int *reinit)
                             if (temp != NULL)
                             {
                                 temp++;
-                                cur_unit->entr += atoi( temp );
+                                cur_unit->entr = atoi( temp );
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT ENTRENCHMENT activated", atoi( temp ) );
                                 engine_draw_map();
                                 gui_show_quick_info( gui->qinfo1, cur_unit );
@@ -3034,7 +3035,7 @@ static void engine_check_events(int *reinit)
                             if (temp != NULL)
                             {
                                 temp++;
-                                cur_unit->cur_fuel += atoi( temp );
+                                cur_unit->cur_fuel = atoi( temp );
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT FUEL activated", atoi( temp ) );
                                 engine_draw_map();
                                 gui_show_quick_info( gui->qinfo1, cur_unit );
@@ -3047,7 +3048,7 @@ static void engine_check_events(int *reinit)
                             if (temp != NULL)
                             {
                                 temp++;
-                                cur_unit->cur_ammo += atoi( temp );
+                                cur_unit->cur_ammo = atoi( temp );
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d UNIT AMMO activated", atoi( temp ) );
                                 engine_draw_map();
                                 gui_show_quick_info( gui->qinfo1, cur_unit );

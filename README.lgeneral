@@ -222,6 +222,9 @@ moment it's used only for entering cheat codes. Here is a list of supported code
   /ammo #N
   Sets ammo of the selected unit to #N
 
+  /turns #N
+  Adds #N to scenario turn count. Can be negative.
+
 6. Unit Menu
 ------------
 
