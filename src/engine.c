@@ -3053,6 +3053,17 @@ static void engine_check_events(int *reinit)
                                 gui_show_quick_info( gui->qinfo1, cur_unit );
                             }
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/turns" ) == 6  && scen_info != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                turn += atoi( temp );
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d SCENARIO TURN COUNT activated", atoi( temp ) );
+                            }
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }
@@ -3454,6 +3465,10 @@ static void engine_handle_next_action( int *reinit )
             snprintf( config.mod_name, MAX_NAME, "%s", gui->mod_select_dlg->current_name );
             frame_hide( gui->qinfo1, 1 );
             frame_hide( gui->qinfo2, 1 );
+            scen_delete();
+            players_delete();
+            map_delete();
+            cur_player = 0;
             setup.type = SETUP_RUN_TITLE;
             engine_set_status( STATUS_TITLE );
             break;
