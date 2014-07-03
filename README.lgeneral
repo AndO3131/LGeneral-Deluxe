@@ -231,6 +231,12 @@ moment it's used only for entering cheat codes. Here is a list of supported code
   /ground #N
   Sets ground state (0=dry, 1=muddy, 2=frozen)
 
+  /fog of war
+  Shows enemy's units on the map. Entering the code again disables this mode.
+
+  /all eqp
+  Allows to buy any future equipment. Entering the code again disables this mode.
+
 6. Unit Menu
 ------------
 

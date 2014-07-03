@@ -180,7 +180,7 @@ List *get_purchasable_unit_lib_entries( const char *nationid,
 			continue;
 		if (uclassid && strcmp(unit_classes[e->class].id, uclassid))
 			continue;
-		if (date ) {
+		if (date && !config.all_equipment) {
 			if (e->start_year > date->year)
 				continue;
 			if (e->start_year == date->year && e->start_month > 

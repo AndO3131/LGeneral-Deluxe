@@ -82,6 +82,7 @@ void reset_config()
     config.ai_debug = 0;
     config.merge_replacements = 1; /* 0 - merge; 1 - replacements */
     config.use_core_units = 0;
+    config.all_equipment = 0;
     /* audio stuff */
     config.sound_on = 1;
     config.sound_volume = 96;

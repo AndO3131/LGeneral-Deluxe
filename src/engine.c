@@ -3094,6 +3094,27 @@ static void engine_check_events(int *reinit)
                                 }
                             }
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/fog of war" ) == 11  && scen_info != 0 )
+                        {
+                            config.fog_of_war = !config.fog_of_war;
+                            if ( config.fog_of_war )
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FOG OF WAR activated" );
+                            else
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FOG OF WAR deactivated" );
+                            map_set_spot_mask();
+                            map_set_fog_by_player( cur_player );
+                            draw_map = 1;
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/all eqp" ) == 8  && scen_info != 0 )
+                        {
+                            config.all_equipment = !config.all_equipment;
+                            if ( config.all_equipment )
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - ALL EQUIPMENT activated" );
+                            else
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - ALL EQUIPMENT deactivated" );
+                            purchase_dlg_hide( gui->purchase_dlg, 1 );
+                            engine_set_status( STATUS_NONE );
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }

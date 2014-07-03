@@ -63,6 +63,7 @@ typedef struct {
                                                          by prestige (1) */
     int use_core_units; /* enable core army purchased by player move through campaign */
     int ai_debug; /* level of information about AI move */
+    int all_equipment; /* variable may be used to enable buying of any future equipment */
     /* audio stuff */
     int sound_on;
     int sound_volume;
