@@ -68,6 +68,7 @@ extern VCond *vconds;
 extern int vcond_count;
 extern Config config;
 extern int camp_loaded;
+extern int cur_weather;
 
 /*
 ====================================================================
@@ -1358,9 +1359,9 @@ void gui_show_scen_info()
     y += 10;
     sprintf( str, tr("Weather:  %s (%s)"),
             (( turn < scen_info->turn_limit ) ?
-             weather_types[scen_get_weather()].name : tr("n/a")),
+             weather_types[cur_weather].name : tr("n/a")),
              ( turn < scen_info->turn_limit ) ?
-             weather_types[scen_get_weather()].ground_conditions : tr("n/a") );
+             weather_types[cur_weather].ground_conditions : tr("n/a") );
     write_line( contents, gui->font_std, str, x, &y );
     sprintf( str, tr("Forecast: %s (%s)"),
             ((turn+1 < scen_info->turn_limit ) ?

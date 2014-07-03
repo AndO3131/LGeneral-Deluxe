@@ -3065,6 +3065,35 @@ static void engine_check_events(int *reinit)
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %d SCENARIO TURN COUNT activated", atoi( temp ) );
                             }
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/weather" ) == 8  && scen_info != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                if ( atoi( temp ) >= 0 && atoi( temp ) <= 3 )
+                                {
+                                    cur_weather = atoi( temp ) + 4 * (int)( cur_weather / 4 );
+                                    sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %s WEATHER activated", weather_types[cur_weather].name );
+                                }
+                            }
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/ground" ) == 7  && scen_info != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                if ( atoi( temp ) >= 0 && atoi( temp ) <= 2 )
+                                {
+                                    cur_weather = ( cur_weather % 4 ) + 4 * atoi( temp );
+                                    sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %s GROUND CONDITIONS activated", weather_types[cur_weather].ground_conditions );
+                                    draw_map = 1;
+                                }
+                            }
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }
