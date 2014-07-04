@@ -3115,6 +3115,25 @@ static void engine_check_events(int *reinit)
                             purchase_dlg_hide( gui->purchase_dlg, 1 );
                             engine_set_status( STATUS_NONE );
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/no zoc" ) == 7  && scen_info != 0 )
+                        {
+                            config.zones_of_control = !config.zones_of_control;
+                            if ( config.zones_of_control )
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - ZONES OF CONTROL activated" );
+                            else
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - ZONES OF CONTROL deactivated" );
+                            cur_unit = 0;
+                            map_set_fog_by_player( cur_player );
+                            draw_map = 1;
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/uber units" ) == 11  && scen_info != 0 )
+                        {
+                            config.uber_units = !config.uber_units;
+                            if ( config.uber_units )
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - UBER UNITS activated" );
+                            else
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - UBER UNITS deactivated" );
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }

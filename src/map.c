@@ -534,13 +534,16 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
     if (base==-1) { *cost = points; return 1; }
     /* entering an influenced tile costs all remaining points */
     *cost = base;
-    if ( unit->sel_prop->flags & FLYING ) {
-        if ( mask[x][y].vis_air_infl > 0 )
-            *cost = points;
-    }
-    else {
-        if ( mask[x][y].vis_infl > 0 )
-            *cost = points;
+    if ( config.zones_of_control )
+    {
+        if ( unit->sel_prop->flags & FLYING ) {
+            if ( mask[x][y].vis_air_infl > 0 )
+                *cost = points;
+        }
+        else {
+            if ( mask[x][y].vis_infl > 0 )
+                *cost = points;
+        }
     }
     return 1;
 }

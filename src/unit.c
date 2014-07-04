@@ -905,40 +905,47 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
             kill_chance = 0.05*(max_roll-MAXIMUM(13,min_roll)+1);
     }
     if (suppr_chance<0) suppr_chance=0; if (kill_chance<0) kill_chance=0;
-    if ( real ) {
-#ifdef DEBUG_ATTACK
-        printf( "Roll: D20 + %i (Kill: %i%%, Suppr: %i%%)\n", 
-                diff <= 4 ? diff : 4 + 2 * ( diff - 4 ) / 5,
-                (int)(100 * kill_chance), (int)(100 * suppr_chance) );
-#endif
-        while ( atk_strength-- > 0 ) {
-            if ( diff <= 4 )
-                result = DICE(20) + diff;
-            else
-                result = DICE(20) + 4 + 2 * ( diff - 4 ) / 5;
-            if ( unit->sel_prop->flags & SUPPR_FIRE ) {
-                int limit = (type==UNIT_DEFENSIVE_ATTACK)?20:18;
-                if ( result >= 11 && result <= limit )
-                    (*suppr)++;
-                else
-                    if ( result >= limit+1 )
-                        (*damage)++;
-            }
-            else {
-                if ( result >= 11 && result <= 12 )
-                    (*suppr)++;
-                else
-                    if ( result >= 13 )
-                        (*damage)++;
-            }
-        }
-#ifdef DEBUG_ATTACK
-        printf( "Kills: %i, Suppression: %i\n\n", *damage, *suppr );
-#endif
+    if ( config.uber_units ) {
+        *suppr = 0;
+        *damage = target->str;
     }
-    else {
-        *suppr = (int)(suppr_chance * atk_strength);
-        *damage = (int)(kill_chance * atk_strength);
+    else
+    {
+        if ( real ) {
+#ifdef DEBUG_ATTACK
+            printf( "Roll: D20 + %i (Kill: %i%%, Suppr: %i%%)\n", 
+                    diff <= 4 ? diff : 4 + 2 * ( diff - 4 ) / 5,
+                    (int)(100 * kill_chance), (int)(100 * suppr_chance) );
+#endif
+            while ( atk_strength-- > 0 ) {
+                if ( diff <= 4 )
+                    result = DICE(20) + diff;
+                else
+                    result = DICE(20) + 4 + 2 * ( diff - 4 ) / 5;
+                if ( unit->sel_prop->flags & SUPPR_FIRE ) {
+                    int limit = (type==UNIT_DEFENSIVE_ATTACK)?20:18;
+                    if ( result >= 11 && result <= limit )
+                        (*suppr)++;
+                    else
+                        if ( result >= limit+1 )
+                            (*damage)++;
+                }
+                else {
+                    if ( result >= 11 && result <= 12 )
+                        (*suppr)++;
+                    else
+                        if ( result >= 13 )
+                            (*damage)++;
+                }
+            }
+#ifdef DEBUG_ATTACK
+            printf( "Kills: %i, Suppression: %i\n\n", *damage, *suppr );
+#endif
+        }
+        else {
+            *suppr = (int)(suppr_chance * atk_strength);
+            *damage = (int)(kill_chance * atk_strength);
+        }
     }
 }
 
