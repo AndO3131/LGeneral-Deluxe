@@ -3128,8 +3128,8 @@ static void engine_check_events(int *reinit)
                         }
                         else if ( strspn( gui->message_dlg->edit_box->text, "/uber units" ) == 11  && scen_info != 0 )
                         {
-                            config.uber_units = !config.uber_units;
-                            if ( config.uber_units )
+                            cur_player->uber_units = !cur_player->uber_units;
+                            if ( cur_player->uber_units )
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - UBER UNITS activated" );
                             else
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - UBER UNITS deactivated" );

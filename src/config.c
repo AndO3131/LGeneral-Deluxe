@@ -84,7 +84,6 @@ void reset_config()
     config.use_core_units = 0;
     config.all_equipment = 0;
     config.zones_of_control = 1;
-    config.uber_units = 0;
     /* audio stuff */
     config.sound_on = 1;
     config.sound_volume = 96;

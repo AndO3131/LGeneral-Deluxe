@@ -847,10 +847,12 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 player = calloc( 1, sizeof( Player ) );
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
+                player->uber_units = 0;
                 player_add( player ); player = 0;
                 player = calloc( 1, sizeof( Player ) );
                 player->nations = calloc( 6, sizeof( Nation* ) );
                 player->nation_count = 0;
+                player->uber_units = 0;
                 player_add( player ); player = 0;
 
                 list_reset( players );

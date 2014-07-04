@@ -58,6 +58,7 @@ typedef struct {
     int no_init_deploy; /* whether current scenario provided any initial 
                            hex tiles where deployment is okay */
     /* ai callbacks loaded from module ai_fname */
+    int uber_units; /* variable used to enable/disable uber units */
     void (*ai_init)(void);
     void (*ai_run)(void);
     void (*ai_finalize)(void);

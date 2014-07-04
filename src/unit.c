@@ -41,6 +41,7 @@ extern Unit *cur_target;
 extern Map_Tile **map;
 extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
+extern Player *cur_player;
 
 /*
 ====================================================================
@@ -905,12 +906,11 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
             kill_chance = 0.05*(max_roll-MAXIMUM(13,min_roll)+1);
     }
     if (suppr_chance<0) suppr_chance=0; if (kill_chance<0) kill_chance=0;
-    if ( config.uber_units ) {
+    if ( cur_player->uber_units && target->player != cur_player ) {
         *suppr = 0;
         *damage = target->str;
     }
-    else
-    {
+    else {
         if ( real ) {
 #ifdef DEBUG_ATTACK
             printf( "Roll: D20 + %i (Kill: %i%%, Suppr: %i%%)\n", 
