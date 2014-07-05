@@ -112,6 +112,7 @@ typedef struct _Unit {
     int cur_fuel;               /* current fuel */
     int cur_ammo;               /* current ammo */
     int cur_mov;                /* movement points this turn */
+    int cur_mov_saved;          /* saved movement points state for 'turbo units' cheat code */
     int cur_atk_count;          /* number of attacks this turn */
     int unused;                 /* unit didn't take an action this turn so far */
     int damage_bar_width;       /* current life bar width in map->life_icons */

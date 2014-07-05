@@ -63,8 +63,9 @@ typedef struct {
                                                          by prestige (1) */
     int use_core_units; /* enable core army purchased by player move through campaign */
     int ai_debug; /* level of information about AI move */
-    int all_equipment; /* variable used to enable/disable buying of any future equipment */
-    int zones_of_control; /* variable used to enable/disable zones of control */
+    int all_equipment; /* variable used to enable/disable buying of any future equipment cheat code */
+    int zones_of_control; /* variable used to enable/disable zones of control cheat code */
+    int turbo_units; /* variable used to enable/disable turbo units cheat code */
     /* audio stuff */
     int sound_on;
     int sound_volume;

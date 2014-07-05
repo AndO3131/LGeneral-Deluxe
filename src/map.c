@@ -633,7 +633,7 @@ void map_get_unit_move_mask( Unit *unit )
         }
         map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0);
         /* fix for crashing when don't have enough fuel to use the land transport's full range -trip */
-        maxpoints = unit->trsp_prop.mov;
+        maxpoints = unit->cur_mov;
         if ((unit->prop.fuel || unit->trsp_prop.fuel) && 
                                                 unit->cur_fuel < maxpoints) {
             maxpoints = unit->cur_fuel;
@@ -749,7 +749,7 @@ Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit *
     /* allocate memory */
     /* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
     int maxpoints = unit->cur_mov;
-    if (mask[x][y].mount == 1) maxpoints = (unit->trsp_prop.mov>unit->prop.mov?unit->trsp_prop.mov:unit->prop.mov);
+    if (mask[x][y].mount == 1) maxpoints = (unit->trsp_prop.mov>unit->prop.mov?unit->cur_mov:unit->prop.mov);
     way = calloc( maxpoints + 1, sizeof( Way_Point ) );
     reverse = calloc( maxpoints + 1, sizeof( Way_Point ) );
     /* end patch */

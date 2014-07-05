@@ -3134,6 +3134,28 @@ static void engine_check_events(int *reinit)
                             else
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - UBER UNITS deactivated" );
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/turbo units" ) == 12  && scen_info != 0 )
+                        {
+                            config.turbo_units = !config.turbo_units;
+                            if ( config.turbo_units ) {
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - TURBO UNITS activated" );
+                                list_reset( units );
+                                while ( ( unit = list_next( units ) ) ) {
+                                    unit->cur_mov_saved = unit->cur_mov;
+                                    unit->cur_mov = 50;
+                                }
+                            }
+                            else {
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - TURBO UNITS deactivated" );
+                                list_reset( units );
+                                while ( ( unit = list_next( units ) ) ) {
+                                    unit->cur_mov = unit->cur_mov_saved;
+                                }
+                            }
+                            cur_unit = 0;
+                            map_set_fog_by_player( cur_player );
+                            draw_map = 1;
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }
