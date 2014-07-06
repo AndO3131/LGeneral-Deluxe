@@ -72,6 +72,11 @@ extern Camp_Entry *camp_cur_scen;
 extern Setup setup;
 extern int  term_game, sdl_quit;
 extern char *camp_first;
+extern char scen_result[64];
+extern char scen_message[128];
+extern VCond *vconds;
+extern int vcond_count;
+extern int cheat_endscn;
 
 /*
 ====================================================================
@@ -3163,6 +3168,23 @@ static void engine_check_events(int *reinit)
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FORCE RETREAT activated" );
                             else
                                 sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FORCE RETREAT deactivated" );
+                        }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/endscn" ) == 7  && scen_info != 0 )
+                        {
+                            char *temp;
+                            temp = strrchr( gui->message_dlg->edit_box->text, ' ' );
+                            if (temp != NULL)
+                            {
+                                temp++;
+                                if ( atoi( temp ) >= 0 && atoi( temp ) < vcond_count )
+                                {
+                                    cheat_endscn = 1;
+                                    strcpy( scen_result, vconds[atoi( temp )].result );
+                                    strcpy( scen_message, vconds[atoi( temp )].message );
+                                    sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - %s END SCENARIO activated", scen_result );
+                                    
+                                }
+                            }
                         }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );

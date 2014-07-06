@@ -89,6 +89,7 @@ char scen_message[128] = ""; /* the final scenario message is saved here */
 int vcond_check_type = 0;   /* test victory conditions this turn */
 VCond *vconds = 0;          /* victory conditions */
 int vcond_count = 0;
+int cheat_endscn = 0;       /* variable used to determine end scenario by cheat code */
 int *casualties;	/* sum of casualties grouped by unit class and player */
 
 /*
@@ -1174,28 +1175,34 @@ int scen_check_result( int after_last_turn )
         if (len > 0) return 1;
     }
 #endif
-    if ( vcond_check_type == VCOND_CHECK_EVERY_TURN || after_last_turn ) {
-        for ( i = 1; i < vcond_count; i++ ) {
-            /* AND binding */
-            and_okay = 1;
-            for ( j = 0; j < vconds[i].sub_and_count; j++ )
-                if ( !subcond_check( &vconds[i].subconds_and[j] ) ) {
-                    and_okay = 0;
-                    break;
-            }
-            /* OR binding */
-            or_okay = 0;
-            for ( j = 0; j < vconds[i].sub_or_count; j++ )
-                if ( subcond_check( &vconds[i].subconds_or[j] ) ) {
-                    or_okay = 1;
-                    break;
+    if ( cheat_endscn ) {
+        cheat_endscn = 0;
+        return 1;
+    }
+    else {
+        if ( vcond_check_type == VCOND_CHECK_EVERY_TURN || after_last_turn ) {
+            for ( i = 1; i < vcond_count; i++ ) {
+                /* AND binding */
+                and_okay = 1;
+                for ( j = 0; j < vconds[i].sub_and_count; j++ )
+                    if ( !subcond_check( &vconds[i].subconds_and[j] ) ) {
+                        and_okay = 0;
+                        break;
                 }
-            if ( vconds[i].sub_or_count == 0 ) 
-                or_okay = 1;
-            if ( or_okay && and_okay ) {
-                strcpy( scen_result, vconds[i].result );
-                strcpy( scen_message, vconds[i].message );
-                return 1;
+                /* OR binding */
+                or_okay = 0;
+                for ( j = 0; j < vconds[i].sub_or_count; j++ )
+                    if ( subcond_check( &vconds[i].subconds_or[j] ) ) {
+                        or_okay = 1;
+                        break;
+                    }
+                if ( vconds[i].sub_or_count == 0 ) 
+                    or_okay = 1;
+                if ( or_okay && and_okay ) {
+                    strcpy( scen_result, vconds[i].result );
+                    strcpy( scen_message, vconds[i].message );
+                    return 1;
+                }
             }
         }
     }

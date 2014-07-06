@@ -246,6 +246,9 @@ moment it's used only for entering cheat codes. Here is a list of supported code
   /force retreat
   Any attack by our units forces the enemy to retreat. Entering the code again disables this mode.
 
+  /endscn #N
+  Ends current scenario with outcome #N (in stock campaigns 0=loss, 1=major, 2=minor).
+
 6. Unit Menu
 ------------
 
