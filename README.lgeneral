@@ -243,6 +243,9 @@ moment it's used only for entering cheat codes. Here is a list of supported code
   /uber units
   Every attack of our units completely kills the opponent. Entering the code again disables this mode.
 
+  /force retreat
+  Any attack by our units forces the enemy to retreat. Entering the code again disables this mode.
+
 6. Unit Menu
 ------------
 

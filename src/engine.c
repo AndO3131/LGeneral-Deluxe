@@ -3156,6 +3156,14 @@ static void engine_check_events(int *reinit)
                             map_set_fog_by_player( cur_player );
                             draw_map = 1;
                         }
+                        else if ( strspn( gui->message_dlg->edit_box->text, "/force retreat" ) == 14  && scen_info != 0 )
+                        {
+                            cur_player->force_retreat = !cur_player->force_retreat;
+                            if ( cur_player->force_retreat )
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FORCE RETREAT activated" );
+                            else
+                                sprintf( gui->message_dlg->edit_box->text, "CHEAT CODE - FORCE RETREAT deactivated" );
+                        }
                         message_dlg_add_text( gui->message_dlg );
                         message_dlg_reset( gui->message_dlg );
                     }
@@ -3448,7 +3456,7 @@ static void engine_handle_suppr( Unit *unit, int *type, int *x, int *y )
     *type = UNIT_STAYS;
     if ( unit->sel_prop->mov == 0 ) return;
     /* 80% chance that unit wants to flee */
-    if ( DICE(10) <= 8 ) {
+    if ( DICE(10) <= 8 || ( cur_player->force_retreat && unit->player != cur_player ) ) {
         unit->cur_mov = 1;
         map_get_unit_move_mask( unit );
         /* get best close hex. if none: surrender */
@@ -4273,9 +4281,9 @@ static void engine_update( int ms )
                                 if (!(cur_atk->sel_prop->flags&FLYING)&&
                                     !(cur_def->sel_prop->flags&FLYING))
                                 {
-                                    if ( atk_result & AR_UNIT_SUPPRESSED && 
+                                    if ( ( atk_result & AR_UNIT_SUPPRESSED && 
                                          !(atk_result & AR_TARGET_SUPPRESSED) &&
-                                         cur_def->sel_prop->rng==0 ) {
+                                         cur_def->sel_prop->rng==0 ) || ( cur_player->force_retreat && cur_atk->player != cur_player ) ) {
                                         /* cur_unit is suppressed */
                                         engine_handle_suppr( cur_atk, &type, &dx, &dy );
                                         if ( type == UNIT_FLEES ) {
@@ -4293,9 +4301,9 @@ static void engine_update( int ms )
                                             }
                                     }
                                     else
-                                        if ( atk_result & AR_TARGET_SUPPRESSED && 
+                                        if ( ( atk_result & AR_TARGET_SUPPRESSED && 
                                              !(atk_result & AR_UNIT_SUPPRESSED) &&
-                                             cur_atk->sel_prop->rng==0 ) {
+                                             cur_atk->sel_prop->rng==0 ) || ( cur_player->force_retreat && cur_def->player != cur_player  ) ) {
                                             /* cur_target is suppressed */
                                             engine_handle_suppr( cur_def, &type, &dx, &dy );
                                             if ( type == UNIT_FLEES ) {

@@ -473,6 +473,7 @@ int scen_load_lgscn( const char *fname, const char *path )
 		player->cur_prestige = 0; /* will be adjusted on turn begin */
 	    
 		player->uber_units = 0;
+        player->force_retreat = 0;
         player_add( player ); player = 0;
     }
     /* flip icons if scenario demands it */

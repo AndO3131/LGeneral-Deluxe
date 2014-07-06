@@ -906,6 +906,7 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
             kill_chance = 0.05*(max_roll-MAXIMUM(13,min_roll)+1);
     }
     if (suppr_chance<0) suppr_chance=0; if (kill_chance<0) kill_chance=0;
+    /* uber units cheat code attack kills target */
     if ( cur_player->uber_units && target->player != cur_player ) {
         *suppr = 0;
         *damage = target->str;
