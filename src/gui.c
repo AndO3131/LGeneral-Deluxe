@@ -69,6 +69,7 @@ extern int vcond_count;
 extern Config config;
 extern int camp_loaded;
 extern int cur_weather;
+extern StrToFlag fct_units[];
 
 /*
 ====================================================================
@@ -287,7 +288,7 @@ int gui_load( char *dir )
         goto failure;
     frame_hide( gui->qinfo2, 1 );
     /* full unit info */
-    if ( ( gui->finfo = frame_create( gui_create_frame( 500, 300 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->finfo = frame_create( gui_create_frame( 500, 350 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     frame_hide( gui->finfo, 1 );
     /* scenario info */
@@ -1019,7 +1020,8 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
             len = sprintf( str, GS_AMMO "%i " GS_FUEL "- " GS_ENTR "%i  " GS_NOEXP GS_NOEXP GS_NOEXP GS_NOEXP GS_NOEXP " ", unit->cur_ammo, unit->entr );
     for ( i = 0; i < unit->exp_level; i++ )
         str[len - 6 + i] = (char)CharExp;
-    str[len - 6 + i] = (char)(CharExpGrowth + (unit->exp % 100 / 20));
+    if ( unit->exp_level < 5 )
+        str[len - 6 + i] = (char)(CharExpGrowth + (unit->exp % 100 / 20));
     write_text( gui->font_status, qinfo->contents, 12 + hex_w, 36, str, 255 );
     /* show */
     frame_apply( qinfo );
@@ -1253,10 +1255,10 @@ void gui_show_full_info( Frame *dest, Unit *unit )
     /* battle honors */
     if (config.use_core_units && (camp_loaded != NO_CAMPAIGN) && unit->core)
     {
-        x = border + 25; y = border + 255;
+        x = border; y = border + 255;
         sprintf( str, tr("Battle Honors:") );
         write_line( contents, gui->font_std, str, x, &y );
-        x = border + hex_w + 90; y = border;
+        x = border + 120; y = border + 255;
         int i = 0, j, stars_number = 0, len;
         char mem_str[128];
         /* calculate stars */
@@ -1267,15 +1269,17 @@ void gui_show_full_info( Frame *dest, Unit *unit )
                     stars_number++;
                 else
                 {
-                    strcpy(mem_str, "%20s ");
-                    for (j = 0;j < stars_number;j++)
+                    x = border + 120;
+                    strcpy(mem_str, "%s ");
+                    for (j = 1;j < stars_number;j++)
                     {
                         strcat(mem_str,GS_STAR);
                         strcat(mem_str," ");
                     }
                     len = sprintf( str, mem_str, unit->star[i - 1] );
-                    for (j = 0;j < stars_number;j++)
-                        str[len - (j * 2) - 2] = (char)CharStar;
+                    for (j = 1;j < stars_number;j++)
+                        str[len - (j * 2)] = (char)CharStar;
+
                     write_line( contents, gui->font_status, str, x, &y );
                     stars_number = 1;
                 }
@@ -1286,18 +1290,31 @@ void gui_show_full_info( Frame *dest, Unit *unit )
         /* last line printed in info window */
         if (i > 0)
         {
-            strcpy(mem_str, "%20s ");
-            for (j = 0;j < stars_number;j++)
+            x = border + 120;
+            strcpy(mem_str, "%s ");
+            for (j = 1;j < stars_number;j++)
             {
                 strcat(mem_str,GS_STAR);
                 strcat(mem_str," ");
             }
             len = sprintf( str, mem_str, unit->star[i - 1] );
-            for (j = 0;j < stars_number;j++)
-                str[len - (j * 2) - 2] = (char)CharStar;
+            for (j = 1;j < stars_number;j++)
+                str[len - (j * 2)] = (char)CharStar;
             write_line( contents, gui->font_status, str, x, &y );
         }
     }
+    /* unit flags */
+    sprintf( str, tr("Flags: ") );
+    i = 0;
+    while ( fct_units[i].string[0] != 'X' ) {
+        if ( unit->sel_prop->flags & fct_units[i].flag && i > 27 ) {
+            strcat( str, fct_units[i].string );
+            strcat( str, " " );
+        }
+        i++;
+    }
+    x = border + 25; y = 265 + offset;
+    write_line( contents, gui->font_status, str, x, &y );
     /* show */
     frame_apply( dest );
     frame_hide( dest, 0 );

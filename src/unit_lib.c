@@ -101,6 +101,17 @@ StrToFlag fct_units[] = {
     { "turn_suppr", TURN_SUPPR },
     { "jet", JET },
     { "ground_trsp_ok", GROUND_TRSP_OK },
+    { "bunker_killer", BUNKER_KILLER },
+    { "torpedo_bomber", TORPEDO_BOMBER },
+    { "radar", RADAR },
+    { "night_optics", NIGHT_OPTICS },
+    { "banzai", BANZAI },
+    { "guide", GUIDE },
+    { "ranger", RANGER },
+    { "fearless", FEARLESS },
+    { "sonar", SONAR },
+    { "kamikazi", KAMIKAZI },
+    { "guard", GUARD },
     { "X", 0}
 };
 

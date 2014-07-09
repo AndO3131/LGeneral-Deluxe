@@ -1134,20 +1134,12 @@ static void engine_begin_turn( Player *forced_player, int skip_unit_prep )
     if (!deploy_turn && !skip_unit_prep)
         cur_player->cur_prestige += cur_player->prestige_per_turn[turn];
 
-#if DEBUG_CAMPAIGN
     if ( scen_check_result(0) ) {
-        blind_cpu_turn = 0;
-        engine_show_final_message();
-        draw_map = 1;
-        image_hide( gui->cursors, 0 );
-        gui_set_cursor( CURSOR_STD );
-        engine_select_player( 0, skip_unit_prep );
-        engine_set_status( STATUS_NONE ); 
-        phase = PHASE_NONE;
+        engine_finish_scenario();
         end_scen = 1;
         return;
     }
-#endif
+
     /* init ai turn if any */
     if ( cur_player && cur_player->ctrl == PLAYER_CTRL_CPU )
         (cur_player->ai_init)();

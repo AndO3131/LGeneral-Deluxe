@@ -26,31 +26,42 @@ Unit flags.
 ====================================================================
 */
 enum {
-    SWIMMING       = ( 1L << 1 ),   /* ship */
-    DIVING         = ( 1L << 2 ),   /* submarine */
-    FLYING         = ( 1L << 3 ),   /* aircraft */
-    PARACHUTE      = ( 1L << 4 ),   /* may air debark anywhere */
-    TRANSPORTER    = ( 1L << 7 ),   /* is a transporter */
-    RECON          = ( 1L << 8 ),   /* multiple movements a round */
-    ARTILLERY      = ( 1L << 9 ),   /* defensive fire */
-    INTERCEPTOR    = ( 1L << 10 ),  /* protects close bombers */
-    AIR_DEFENSE    = ( 1L << 11 ),  /* defensive fire */
-    BRIDGE_ENG     = ( 1L << 12 ),  /* builds a bridge over rivers */
-    INFANTRY       = ( 1L << 13 ),  /* is infantry */
-    AIR_TRSP_OK    = ( 1L << 14 ),  /* may use air transporter */
-    DESTROYER      = ( 1L << 15 ),  /* may attack submarines */
-    IGNORE_ENTR    = ( 1L << 16 ),  /* ignore entrenchment of target */
-    CARRIER        = ( 1L << 17 ),  /* aircraft carrier */
-    CARRIER_OK     = ( 1L << 18 ),  /* may supply at aircraft carrier */
-    BOMBER         = ( 1L << 19 ),  /* receives protection by interceptors */
-    ATTACK_FIRST   = ( 1L << 20 ),  /* unit looses it's attack when moving */
-    LOW_ENTR_RATE  = ( 1L << 21 ),  /* entrenchment rate is 1 */
-    TANK           = ( 1L << 22 ),  /* is a tank */
-    ANTI_TANK      = ( 1L << 23 ),  /* anti-tank (bonus against tanks) */
-    SUPPR_FIRE     = ( 1L << 24 ),  /* unit primarily causes suppression when firing */
-    TURN_SUPPR     = ( 1L << 25 ),  /* causes lasting suppression */
-    JET            = ( 1L << 26 ),  /* airplane is a jet */
-    GROUND_TRSP_OK = ( 1L << 27 ),  /* may have transporter (for purchase) */
+    SWIMMING       = ( 1LL << 1 ),   /* ship */
+    DIVING         = ( 1LL << 2 ),   /* submarine */
+    FLYING         = ( 1LL << 3 ),   /* aircraft */
+    PARACHUTE      = ( 1LL << 4 ),   /* may air debark anywhere */
+    TRANSPORTER    = ( 1LL << 7 ),   /* is a transporter */
+    RECON          = ( 1LL << 8 ),   /* multiple movements a round */
+    ARTILLERY      = ( 1LL << 9 ),   /* defensive fire */
+    INTERCEPTOR    = ( 1LL << 10 ),  /* protects close bombers */
+    AIR_DEFENSE    = ( 1LL << 11 ),  /* defensive fire */
+    BRIDGE_ENG     = ( 1LL << 12 ),  /* builds a bridge over rivers */
+    INFANTRY       = ( 1LL << 13 ),  /* is infantry */
+    AIR_TRSP_OK    = ( 1LL << 14 ),  /* may use air transporter */
+    DESTROYER      = ( 1LL << 15 ),  /* may attack submarines */
+    IGNORE_ENTR    = ( 1LL << 16 ),  /* ignore entrenchment of target */
+    CARRIER        = ( 1LL << 17 ),  /* aircraft carrier */
+    CARRIER_OK     = ( 1LL << 18 ),  /* may supply at aircraft carrier */
+    BOMBER         = ( 1LL << 19 ),  /* receives protection by interceptors */
+    ATTACK_FIRST   = ( 1LL << 20 ),  /* unit looses it's attack when moving */
+    LOW_ENTR_RATE  = ( 1LL << 21 ),  /* entrenchment rate is 1 */
+    TANK           = ( 1LL << 22 ),  /* is a tank */
+    ANTI_TANK      = ( 1LL << 23 ),  /* anti-tank (bonus against tanks) */
+    SUPPR_FIRE     = ( 1LL << 24 ),  /* unit primarily causes suppression when firing */
+    TURN_SUPPR     = ( 1LL << 25 ),  /* causes lasting suppression */
+    JET            = ( 1LL << 26 ),  /* airplane is a jet */
+    GROUND_TRSP_OK = ( 1LL << 27 ),  /* may have transporter (for purchase) */
+    BUNKER_KILLER  = ( 1LL << 28 ),  /* +4 attack against fort units */
+    TORPEDO_BOMBER = ( 1LL << 29 ),  /* can attack naval units from adjacent hex */
+    RADAR          = ( 1LL << 30 ),  /* ignore most restrictions caused by night turns */
+    NIGHT_OPTICS   = ( 1LL << 31 ),  /* ignore spotting reduction at night turns and gain initiative over non-radar units */
+    BANZAI         = ( 1LL << 32 ),  /* unit possibly gains attack bonus in exchange for defense strength */
+    GUIDE          = ( 1LL << 33 ),  /* this and adjacent units ignore movement costs for jungle, forest and bamboo */
+    RANGER         = ( 1LL << 34 ),  /* immune to “Rugged Defense” and have 20% bonus to their ability to inflict "Rugged Defense" */
+    FEARLESS       = ( 1LL << 35 ),  /* unit never retreat. If a retreat result occurs, suffers +1 strength loss instead */
+    SONAR          = ( 1LL << 36 ),  /* increases the chance to spot submarines traveling submerged by 20% */
+    KAMIKAZI       = ( 1LL << 37 ),  /* at the end of any attack unit performs it is destroyed */
+    GUARD          = ( 1LL << 38 ),  /* unit is more likely to cause unit it faces to retreat */
 };
 
 /*
@@ -138,7 +149,7 @@ typedef struct {
     int def_air;    /* air defense */
     int def_cls;    /* close defense (infantry against non-infantry) */
     int entr_rate;  /* default is 2, if flag LOW_ENTR_RATE is set it's only 1 and
-                       if INFANTRY is set it's 3, this modifies the rugged defense
+                       if INFANTRY is set it's 3, this modifies the rugged defensem
                        chance */
     int ammo;       /* max ammunition */
     int fuel;       /* max fuel (0 if not used) */
@@ -147,7 +158,7 @@ typedef struct {
     int icon_type;          /* either single or all_dirs */
     int icon_w, icon_h;     /* single icon size */
     int icon_tiny_w, icon_tiny_h; /* single icon size */
-    int flags;
+    long int flags;
     int start_year, start_month, last_year; /* time of usage */
     int cost; /* purchase cost in prestige points */
 

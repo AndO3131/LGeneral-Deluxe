@@ -598,10 +598,11 @@ int unit_add_exp( Unit *unit, int exp )
     unit->exp_level = unit->exp / 100;
     if ( old_level < unit->exp_level && config.use_core_units && (camp_loaded != NO_CAMPAIGN) && unit->core)
     {
-        int i = 0;
-        while ( strcmp(unit->star[i],"") )
+        int i = old_level;
+        while ( i < unit->exp_level ) {
+            strcpy_lt(unit->star[i], camp_cur_scen->scen, 20);
             i++;
-        strcpy_lt(unit->star[i], camp_cur_scen->scen,20);
+        }
     }
     return ( old_level < unit->exp_level );
 }

@@ -323,30 +323,26 @@ int scen_load_lgscn( const char *fname, const char *path )
     if ( !parser_get_value( pd, "nation_db", &str, 0 ) ) goto parser_failure;
     snprintf( temp, MAX_PATH, "Scenario/%s", str );
     if ( !nations_load( temp ) ) goto failure;
-    /* unit libs NOT reloaded if continuing campaign */
-    if (camp_loaded <= 1)
-    {
     /* unit libs */
-        if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
-            /* check the scenario file itself but only for the main entry */
-            sprintf(str, "../scenarios/%s", fname); 
-            sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
-            write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-            if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
-        }
-        else {
-            if ( !parser_get_value( sub, "main", &str, 0 ) ) goto parser_failure;
-            sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
-            write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-            if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
-            if ( parser_get_values( sub, "add", &values ) ) {
-                list_reset( values );
-                while ( ( lib = list_next( values ) ) ) {
-                    sprintf( log_str, tr("Loading Additional Unit Library '%s'"), lib );
-                    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-                    if ( !unit_lib_load( lib, UNIT_LIB_ADD ) )
-                        goto failure;
-                }
+    if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
+        /* check the scenario file itself but only for the main entry */
+        sprintf(str, "../scenarios/%s", fname); 
+        sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
+        write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+        if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
+    }
+    else {
+        if ( !parser_get_value( sub, "main", &str, 0 ) ) goto parser_failure;
+        sprintf( log_str, tr("Loading Main Unit Library '%s'"), str );
+        write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+        if ( !unit_lib_load( str, UNIT_LIB_MAIN ) ) goto parser_failure;
+        if ( parser_get_values( sub, "add", &values ) ) {
+            list_reset( values );
+            while ( ( lib = list_next( values ) ) ) {
+                sprintf( log_str, tr("Loading Additional Unit Library '%s'"), lib );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !unit_lib_load( lib, UNIT_LIB_ADD ) )
+                    goto failure;
             }
         }
     }
