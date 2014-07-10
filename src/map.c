@@ -497,7 +497,7 @@ transporter. Return the fuel cost (<=points) of this. If entering
 is not possible, 'cost' is undefined.
 ====================================================================
 */
-int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int *points, int mounted, int *cost, int *FinishMove )
+int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int mounted, int *cost, int *FinishMove )
 {
     int base = terrain_get_mov( map[x][y].terrain, unit->sel_prop->mov_type, cur_weather );
     /* if we check the mounted case, we'll have to use the ground transporter's cost */
@@ -513,7 +513,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int *points, int
     /* cost's all but not close? */
     if (base==-1&&!is_close) return 0;
     /* not enough points left? */
-    if (base>0&&*points<base) return 0;
+    if (base>0&&points<base) return 0;
     /* you can move over allied units but then mask::blocked must be set
      * because you must not stop at this tile */
     if ( ( x != unit->x  || y != unit->y ) && mask[x][y].spot ) {
@@ -531,7 +531,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int *points, int
         }
     }
     /* if we already have to spent all; we are done */
-    if (base==-1) { *cost = *points; return 1; }
+    if (base==-1) { *cost = points; return 1; }
     /* entering an influenced tile reduces remaining points to last tile entry cost */
     *cost = base;
     if ( config.zones_of_control )
@@ -568,7 +568,7 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
     /* the outer map tiles may not be entered */
     if ( x <= 0 || y <= 0 || x >= map_w - 1 || y >= map_h - 1 ) return;
     /* can we enter? if yes, how much does it cost? */
-    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),&points,mounted,&cost,&FinishMove))
+    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),points,mounted,&cost,&FinishMove))
     {
         /* remember distance */
         if (mask[x][y].distance==-1||distance<mask[x][y].distance)
