@@ -497,7 +497,7 @@ transporter. Return the fuel cost (<=points) of this. If entering
 is not possible, 'cost' is undefined.
 ====================================================================
 */
-int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int mounted, int *cost )
+int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int *points, int mounted, int *cost, int *FinishMove )
 {
     int base = terrain_get_mov( map[x][y].terrain, unit->sel_prop->mov_type, cur_weather );
     /* if we check the mounted case, we'll have to use the ground transporter's cost */
@@ -513,7 +513,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
     /* cost's all but not close? */
     if (base==-1&&!is_close) return 0;
     /* not enough points left? */
-    if (base>0&&points<base) return 0;
+    if (base>0&&*points<base) return 0;
     /* you can move over allied units but then mask::blocked must be set
      * because you must not stop at this tile */
     if ( ( x != unit->x  || y != unit->y ) && mask[x][y].spot ) {
@@ -531,18 +531,20 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
         }
     }
     /* if we already have to spent all; we are done */
-    if (base==-1) { *cost = points; return 1; }
-    /* entering an influenced tile costs all remaining points */
+    if (base==-1) { *cost = *points; return 1; }
+    /* entering an influenced tile reduces remaining points to last tile entry cost */
     *cost = base;
     if ( config.zones_of_control )
     {
         if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
-            if ( mask[x][y].vis_air_infl > 0 )
-                *cost = points;
+            if ( mask[x][y].vis_air_infl > 0 ) {
+                (*FinishMove)++;
+            }
         }
         else {
-            if ( mask[x][y].vis_infl > 0 )
-                *cost = points;
+            if ( mask[x][y].vis_infl > 0 ) {
+                (*FinishMove)++;
+            }
         }
     }
     return 1;
@@ -557,7 +559,7 @@ And to set mask[x][y].mount if a tile came in reach that was
 previously not.
 ====================================================================
 */
-void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int points, int mounted )
+void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int points, int mounted, int FinishMove )
 {
     int i, next_x, next_y, cost = 0;
     /* break if this tile is already checked */
@@ -566,7 +568,7 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
     /* the outer map tiles may not be entered */
     if ( x <= 0 || y <= 0 || x >= map_w - 1 || y >= map_h - 1 ) return;
     /* can we enter? if yes, how much does it cost? */
-    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),points,mounted,&cost))
+    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),&points,mounted,&cost,&FinishMove))
     {
         /* remember distance */
         if (mask[x][y].distance==-1||distance<mask[x][y].distance)
@@ -577,20 +579,29 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
         if ( mask[x][y].in_range >= points-cost ) return;
         /* enter tile new or with more points */
         points -= cost;
-        if (mounted&&mask[x][y].in_range==-1)
+        if (mounted)
         {
-            mask[x][y].mount = 1;
+            if (mask[x][y].in_range==-1)
+            {
+                mask[x][y].mount = 1;
+            }
+            /* get total move costs (mounted) */
             mask[x][y].moveCost = unit->trsp_prop.mov-points;
         }
-        mask[x][y].in_range = points;
-        /* get total move costs (basic unmounted) */
-        if (!mounted)
+        else
+        {
+            /* get total move costs (basic unmounted) */
             mask[x][y].moveCost = unit->sel_prop->mov-points;
+        }            
+        if (FinishMove)
+            mask[x][y].in_range = 0;
+        else
+            mask[x][y].in_range = points;
     }
     else
         points = 0;
     /* all points consumed? if so, we can't go any further */
-    if (points==0) return;
+    if ( points==0 || FinishMove ) return;
     /* check whether close hexes in range */
     for ( i = 0; i < 6; i++ )
         if ( get_close_hex_pos( x, y, i, &next_x, &next_y ) )
@@ -605,12 +616,12 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
                 mask[next_x][next_y].sea_embark = 1;
                 continue;
             }
-            map_add_unit_move_mask_rec( unit, next_x, next_y, distance+1, points, mounted );
+            map_add_unit_move_mask_rec( unit, next_x, next_y, distance+1, points, mounted, FinishMove );
         }
 }
 void map_get_unit_move_mask( Unit *unit )
 {
-    int x,y;
+    int x,y, FinishMove;
     map_clear_unit_move_mask();
     /* we keep the semantic change of in_range local by doing a manual adjustment */
     for (x=0;x<map_w;x++) for(y=0;y<map_h;y++)
@@ -631,7 +642,8 @@ void map_get_unit_move_mask( Unit *unit )
             maxpoints = unit->cur_fuel;
             //printf("limiting movement because fuel = %d\n", unit->cur_fuel);
         }
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0);
+        FinishMove = 0;
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0, FinishMove);
         /* fix for crashing when don't have enough fuel to use the land transport's full range -trip */
         maxpoints = unit->cur_mov;
         if ((unit->prop.fuel || unit->trsp_prop.fuel) && 
@@ -639,12 +651,16 @@ void map_get_unit_move_mask( Unit *unit )
             maxpoints = unit->cur_fuel;
             //printf("limiting expansion of movement via transport because fuel = %d\n", unit->cur_fuel);
         }
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1);
+        FinishMove = 0;
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1, FinishMove);
         //end of patch -trip
         
     }
     else
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->cur_mov,0);
+    {
+        FinishMove = 0;
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->cur_mov,0, FinishMove);
+    }
     for (x=0;x<map_w;x++) for(y=0;y<map_h;y++)
         mask[x][y].in_range++;
 }
@@ -719,7 +735,7 @@ int map_get_danger_mask( Unit *unit )
     for ( x = 0; x < map_w; x++ )
         for ( y = 0; y < map_h; y++ )
             if (!mask[x][y].fog) {
-                int left = unit->cur_fuel - unit_calc_fuel_usage(unit, mask[x][y].distance);
+                int left = unit->cur_fuel - unit_calc_fuel_usage(unit, mask[x][y].moveCost);
                 retval |=
                 mask[x][y].danger =
                     /* First compare distance to prospected fuel qty. If it's
@@ -764,9 +780,10 @@ Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit *
     for ( i = 0; i < *count; i++ ) {
         way[i].x = reverse[(*count) - 1 - i].x;
         way[i].y = reverse[(*count) - 1 - i].y;
+        way[i].cost = mask[way[i].x][way[i].y].moveCost;
     }
     free( reverse );
-    /* debug way points
+    /* debug way points 
     printf( "'%s': %i,%i", unit->name, way[0].x, way[0].y );
     for ( i = 1; i < *count; i++ )
         printf( " -> %i,%i", way[i].x, way[i].y );

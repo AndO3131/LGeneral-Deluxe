@@ -212,6 +212,7 @@ Surprise Contact).
 */
 typedef struct {
     int x, y;
+    int cost;
 } Way_Point;
 Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit **ambush_unit );
 

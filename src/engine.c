@@ -4029,7 +4029,7 @@ static void engine_update( int ms )
 #endif
                     /* decrease fuel for way_pos hex tiles of movement */
                     if ( unit_check_fuel_usage( move_unit ) && config.supply ) {
-                        move_unit->cur_fuel -= unit_calc_fuel_usage( move_unit, way_pos );
+                        move_unit->cur_fuel -= unit_calc_fuel_usage( move_unit, way[way_pos].cost );
                         if ( move_unit->cur_fuel < 0 )
                             move_unit->cur_fuel = 0;
                     }
