@@ -169,7 +169,7 @@ This function checks if 'name' occurs in fct and return the flag
 or 0 if not found.
 ====================================================================
 */
-int check_flag( const char *name, StrToFlag *fct );
+int check_flag( const char *name, StrToFlag *fct, int *NumberInArray );
 
 /*
 ====================================================================

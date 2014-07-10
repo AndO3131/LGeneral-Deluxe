@@ -92,12 +92,12 @@ static int hex_df_unit( int x, int y, void *_ctx )
 {
     DefCtx *ctx = _ctx;
     if ( map[x][y].g_unit ) {
-        if ( ctx->unit->sel_prop->flags & FLYING ) {
-            if ( map[x][y].g_unit->sel_prop->flags & AIR_DEFENSE )
+        if ( unit_has_flag( ctx->unit->sel_prop, "flying" ) ) {
+            if ( unit_has_flag( map[x][y].g_unit->sel_prop, "air_defense" ) )
                 ctx->count++;
         }
         else {
-            if ( map[x][y].g_unit->sel_prop->flags & ARTILLERY )
+            if ( unit_has_flag( map[x][y].g_unit->sel_prop, "artillery" ) )
                 ctx->count++;
         }
     }
@@ -107,7 +107,7 @@ static void ai_count_df_units( Unit *unit, int x, int y, int *result )
 {
     DefCtx ctx = { unit, 0 };
     *result = 0;
-    if ( unit->sel_prop->flags & ARTILLERY )
+    if ( unit_has_flag( unit->sel_prop, "artillery" ) )
         return;
     ai_eval_hexes( x, y, 3, hex_df_unit, &ctx );
     /* only three defenders are taken in account */
@@ -174,7 +174,7 @@ static int unit_evaluate_attack( Unit *unit, Unit *target, int score_base, int s
             target_dam * score_kill,
             unit_dam * score_loss, *result );
     /* if target is a df unit give a small bonus */
-    if ( target->sel_prop->flags & ARTILLERY || target->sel_prop->flags & AIR_DEFENSE )
+    if ( unit_has_flag( target->sel_prop, "artillery" ) || unit_has_flag( target->sel_prop, "air_defense" ) )
         *result += score_kill;
     return 1;
 }
@@ -271,9 +271,9 @@ int ai_evaluate_hex( AI_Eval *eval )
     eval->target = 0;
     eval->mov_score = eval->atk_score = 0;
     /* terrain modifications which only apply for ground units */
-    if ( !(eval->unit->sel_prop->flags & FLYING ) ) {
+    if ( !unit_has_flag( eval->unit->sel_prop, "flying" ) ) {
         /* entrenchment bonus. infantry receives more than others. */
-        eval->mov_score += ((eval->unit->sel_prop->flags&INFANTRY)?2:1) *
+        eval->mov_score += ( unit_has_flag( eval->unit->sel_prop, "infantry" )?2:1) *
                            ( map[eval->x][eval->y].terrain->min_entr * 2 + 
                              map[eval->x][eval->y].terrain->max_entr );
         /* if the unit looses initiative on this terrain we give a malus */
@@ -288,7 +288,7 @@ int ai_evaluate_hex( AI_Eval *eval )
         /* inf_close_def will benefit an infantry while disadvantaging
            other units */
         if ( map[eval->x][eval->y].terrain->flags[cur_weather] & INF_CLOSE_DEF ) {
-            if ( eval->unit->sel_prop->flags & INFANTRY )
+            if ( unit_has_flag( eval->unit->sel_prop, "infantry" ) )
                 eval->mov_score += 30;
             else
                 eval->mov_score -= 20;
@@ -321,20 +321,20 @@ int ai_evaluate_hex( AI_Eval *eval )
         }
     }
     /* modifications on flying units */
-    if ( eval->unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( eval->unit->sel_prop, "flying" ) ) {
         /* if interceptor covers an uncovered bomber on this tile give bonus */
-        if ( eval->unit->sel_prop->flags & INTERCEPTOR ) {
+        if ( unit_has_flag( eval->unit->sel_prop, "interceptor" ) ) {
             for ( i = 0; i < 6; i++ )
                 if ( get_close_hex_pos( eval->x, eval->y, i, &nx, &ny ) )
                 if ( map[nx][ny].a_unit )
                 if ( player_is_ally( cur_player, map[nx][ny].a_unit->player ) )
-                if ( map[nx][ny].a_unit->sel_prop->flags & BOMBER ) {
+                if ( unit_has_flag( map[nx][ny].a_unit->sel_prop, "bomber" ) ) {
                     covered = 0;
                     for ( j = 0; j < 6; j++ )
                         if ( get_close_hex_pos( nx, ny, j, &nx2, &ny2 ) )
                         if ( map[nx2][ny2].a_unit )
                         if ( player_is_ally( cur_player, map[nx2][ny2].a_unit->player ) )
-                        if ( map[nx2][ny2].a_unit->sel_prop->flags & INTERCEPTOR ) 
+                        if ( unit_has_flag( map[nx2][ny2].a_unit->sel_prop, "interceptor" ) ) 
                         if ( map[nx2][ny2].a_unit != eval->unit ) {
                             covered = 1;
                             break;
@@ -350,7 +350,7 @@ int ai_evaluate_hex( AI_Eval *eval )
        to this center is honored. */
     if ( eval->group->x == -1 ) {
         /* proceed to the nearest flag */
-        if ( !(eval->unit->sel_prop->flags & FLYING ) ) {
+        if ( !unit_has_flag( eval->unit->sel_prop, "flying" ) ) {
             if ( eval->group->order > 0 ) {
                 if ( ai_get_dist( eval->unit, eval->x, eval->y, AI_FIND_ENEMY_OBJ, &ox, &oy, &odist ) )
                     eval->mov_score -= odist * 100;
@@ -371,7 +371,7 @@ int ai_evaluate_hex( AI_Eval *eval )
     /* check for the best target and save the result to atk_score */
     eval->atk_score = eval->mov_score;
     if ( !mask[eval->x][eval->y].mount )
-    if ( !( eval->unit->sel_prop->flags & ATTACK_FIRST ) || 
+    if ( !unit_has_flag( eval->unit->sel_prop, "attack_first" ) || 
           ( eval->unit->x == eval->x && eval->unit->y == eval->y ) )
     if ( ai_get_best_target( eval->unit, eval->x, eval->y, eval->group, &eval->target, &result ) )
         eval->atk_score += result;
@@ -407,7 +407,7 @@ void ai_handle_unit( Unit *unit, AI_Group *group )
             }
             /* movement + attack evaluation. ignore for attack_first
              * units which already fired */
-            if ( !(unit->sel_prop->flags & ATTACK_FIRST) )
+            if ( !unit_has_flag( unit->sel_prop, "attack_first" ) )
             if ( eval->target && eval->atk_score > score ) {
                 score = eval->atk_score;
                 target = eval->target;
@@ -491,8 +491,8 @@ void ai_group_add_unit( AI_Group *group, Unit *unit )
      * thus artillery comes last in this list. that it fires first
      * is handled by ai_group_handle_next_unit. list order is: 
      * bombers, ground units, fighters, artillery */
-    if ( unit->prop.flags & ARTILLERY || 
-         unit->prop.flags & AIR_DEFENSE )
+    if ( unit_has_flag( &unit->prop, "artillery" ) || 
+         unit_has_flag( &unit->prop, "air_defense" ) )
         list_add( group->units, unit );
     else
     if ( unit->prop.class == 9 || unit->prop.class == 10 )
@@ -502,7 +502,7 @@ void ai_group_add_unit( AI_Group *group, Unit *unit )
         group->bomber_count++;
     }
     else
-    if ( unit->prop.flags & FLYING )
+    if ( unit_has_flag( &unit->prop, "flying" ) )
     {
         /* airborne ground units are not in this section ... */
         list_insert( group->units, unit, 
@@ -518,8 +518,8 @@ void ai_group_add_unit( AI_Group *group, Unit *unit )
     /* HACK: set hold_pos flag for those units that should not move due
        to high entrenchment or being close to artillery and such; but these
        units will attack, too and may move if's really worth it */
-    if (!(unit->sel_prop->flags&FLYING))
-    if (!(unit->sel_prop->flags&SWIMMING))
+    if (!unit_has_flag( unit->sel_prop, "flying" ))
+    if (!unit_has_flag( unit->sel_prop, "swimming" ))
     {
         int i,nx,ny,no_move = 0;
         if (map[unit->x][unit->y].obj) no_move = 1;
@@ -527,18 +527,18 @@ void ai_group_add_unit( AI_Group *group, Unit *unit )
         {
             if (map[unit->x][unit->y].nation) no_move = 1;
             if (unit->entr>=6) no_move = 1;
-            if (unit->sel_prop->flags&ARTILLERY) no_move = 1;
-            if (unit->sel_prop->flags&AIR_DEFENSE) no_move = 1;
+            if ( unit_has_flag( unit->sel_prop, "artillery" ) ) no_move = 1;
+            if ( unit_has_flag( unit->sel_prop, "air_defense" ) ) no_move = 1;
             for (i=0;i<6;i++) 
                 if (get_close_hex_pos(unit->x,unit->y,i,&nx,&ny))
                     if (map[nx][ny].g_unit)
                     {
-                        if (map[nx][ny].g_unit->sel_prop->flags&ARTILLERY)
+                        if ( unit_has_flag( map[nx][ny].g_unit->sel_prop, "artillery" ) )
                         {
                             no_move = 1;
                             break;
                         }
-                        if (map[nx][ny].g_unit->sel_prop->flags&AIR_DEFENSE)
+                        if ( unit_has_flag( map[nx][ny].g_unit->sel_prop, "air_defense" ) )
                         {
                             no_move = 1;
                             break;
@@ -555,8 +555,8 @@ void ai_group_delete_unit( AI_Group *group, Unit *unit )
     if ( !contained_unit ) return;
     
     /* update respective counter */
-    if ( unit->prop.flags & ARTILLERY || 
-         unit->prop.flags & AIR_DEFENSE )
+    if ( unit_has_flag( &unit->prop, "artillery" ) || 
+         unit_has_flag( &unit->prop, "air_defense" ) )
         /* nothing to be done */;
     else
     if ( unit->prop.class == 9 || unit->prop.class == 10 )
@@ -565,7 +565,7 @@ void ai_group_delete_unit( AI_Group *group, Unit *unit )
         group->bomber_count--;
     }
     else
-    if ( unit->prop.flags & FLYING )
+    if ( unit_has_flag( &unit->prop, "flying" ) )
     {
         /* airborne ground units are not in this section ... */
         group->aircraft_count--;
@@ -618,7 +618,7 @@ int ai_group_handle_next_unit( AI_Group *group )
     }
     if ( group->state == GS_ART_FIRE )
     {
-        if ( unit->sel_prop->flags & ATTACK_FIRST )
+        if ( unit_has_flag( unit->sel_prop, "attack_first" ) )
             ai_fire_artillery( unit, group ); /* does not check optimal 
                                                  movement but simply 
                                                  fires */

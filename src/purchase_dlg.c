@@ -390,7 +390,7 @@ static void update_unit_purchase_info( PurchaseDlg *pdlg )
 		 * but list empty, fill it. */
 		if (reinf_unit)
 			; /* unit/trsp has been cleared already */
-		else if(!(unit_entry->flags & GROUND_TRSP_OK)) {
+		else if(!unit_has_flag( unit_entry, "ground_trsp_ok" )) {
 			lbox_clear_items(pdlg->trsp_lbox);
 			trsp_entry = NULL;
 		} else if (lbox_is_empty(pdlg->trsp_lbox) && pdlg->trsp_uclass)

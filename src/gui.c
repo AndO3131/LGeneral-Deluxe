@@ -1280,7 +1280,7 @@ void gui_show_full_info( Frame *dest, Unit *unit )
                     for (j = 1;j < stars_number;j++)
                         str[len - (j * 2)] = (char)CharStar;
 
-                    write_line( contents, gui->font_status, str, x, &y );
+                    write_line( contents, gui->font_std, str, x, &y );
                     stars_number = 1;
                 }
             else
@@ -1300,21 +1300,23 @@ void gui_show_full_info( Frame *dest, Unit *unit )
             len = sprintf( str, mem_str, unit->star[i - 1] );
             for (j = 1;j < stars_number;j++)
                 str[len - (j * 2)] = (char)CharStar;
-            write_line( contents, gui->font_status, str, x, &y );
+            write_line( contents, gui->font_std, str, x, &y );
         }
     }
     /* unit flags */
-    sprintf( str, tr("Flags: ") );
+    x = border + 240; y = border + 255;
+    sprintf( str, tr("Abilities: ") );
+    write_line( contents, gui->font_std, str, x, &y );
+    x = border + 240 + 100; y = border + 255;
     i = 0;
     while ( fct_units[i].string[0] != 'X' ) {
-        if ( unit->sel_prop->flags & fct_units[i].flag && i > 27 ) {
-            strcat( str, fct_units[i].string );
-            strcat( str, " " );
+        if ( unit_has_flag( unit->sel_prop, fct_units[i].string ) ) {
+            strcpy( str, fct_units[i].string );
+            x = border + 270 + 70;
+            write_line( contents, gui->font_std, str, x, &y );
         }
         i++;
     }
-    x = border + 25; y = 265 + offset;
-    write_line( contents, gui->font_status, str, x, &y );
     /* show */
     frame_apply( dest );
     frame_hide( dest, 0 );
@@ -1636,7 +1638,7 @@ void gui_remove_deploy_unit( Unit *unit )
 }
 void gui_add_deploy_unit( Unit *unit )
 {
-    if ( unit->sel_prop->flags & FLYING )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) )
         list_insert( left_deploy_units, unit, 0 );
     else
         list_add( left_deploy_units, unit );

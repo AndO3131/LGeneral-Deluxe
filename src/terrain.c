@@ -116,8 +116,10 @@ int terrain_load( char *fname )
         weather_types[i].ground_conditions = strdup( str );
         if ( !parser_get_values( sub, "flags", &flags ) ) goto parser_failure;
         list_reset( flags );
-        while ( ( flag = list_next( flags ) ) )
-            weather_types[i].flags |= check_flag( flag, fct_terrain );
+        while ( ( flag = list_next( flags ) ) ) {
+            int NumberInArray;
+            weather_types[i].flags |= check_flag( flag, fct_terrain, &NumberInArray );
+        }
         i++;
     }
     /* hex tile geometry */
@@ -265,8 +267,10 @@ int terrain_load( char *fname )
         for ( j = 0; j < weather_type_count; j++ ) {
             if ( !parser_get_values( subsub, weather_types[j].id, &flags ) ) goto parser_failure;
             list_reset( flags );
-            while ( ( flag = list_next( flags ) ) )
-                terrain_types[i].flags[j] |= check_flag( flag, fct_terrain );
+            while ( ( flag = list_next( flags ) ) ) {
+                int NumberInArray;
+                terrain_types[i].flags[j] |= check_flag( flag, fct_terrain, &NumberInArray );
+            }
         }
         /* next terrain */
         i++;

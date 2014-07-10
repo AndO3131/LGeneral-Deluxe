@@ -107,7 +107,7 @@ Add a unit's influence to the (vis_)infl mask.
 static void map_add_vis_unit_infl( Unit *unit )
 {
     int i, next_x, next_y;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         mask[unit->x][unit->y].vis_air_infl++;
         for ( i = 0; i < 6; i++ )
             if ( get_close_hex_pos( unit->x, unit->y, i, &next_x, &next_y ) )
@@ -322,7 +322,7 @@ Swap units. Returns the previous unit or 0 if none.
 Unit *map_swap_unit( Unit *unit )
 {
     Unit *old;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         old = map_tile( unit->x, unit->y )->a_unit;
         map_tile( unit->x, unit->y )->a_unit = unit;
     }
@@ -351,7 +351,7 @@ void map_insert_unit( Unit *unit )
 }
 void map_remove_unit( Unit *unit )
 {
-    if ( unit->sel_prop->flags & FLYING )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) )
         map_tile( unit->x, unit->y )->a_unit = 0;
     else
         map_tile( unit->x, unit->y )->g_unit = 0;
@@ -505,7 +505,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
         base = terrain_get_mov( map[x][y].terrain, unit->trsp_prop.mov_type, cur_weather );
     /* allied bridge engineers on river? */
     if ( map[x][y].terrain->flags[cur_weather] & RIVER )
-        if ( map[x][y].g_unit && map[x][y].g_unit->sel_prop->flags & BRIDGE_ENG )
+        if ( map[x][y].g_unit && unit_has_flag( map[x][y].g_unit->sel_prop, "bridge_eng" ) )
             if ( player_is_ally( unit->player, map[x][y].g_unit->player ) )
                 base = 1;
     /* impassable? */
@@ -517,13 +517,13 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
     /* you can move over allied units but then mask::blocked must be set
      * because you must not stop at this tile */
     if ( ( x != unit->x  || y != unit->y ) && mask[x][y].spot ) {
-        if ( map[x][y].a_unit && ( unit->sel_prop->flags & FLYING ) ) {
+        if ( map[x][y].a_unit && unit_has_flag( unit->sel_prop, "flying" ) ) {
             if ( !player_is_ally( unit->player, map[x][y].a_unit->player ) )
                 return 0;
             else
                 map_mask_tile( x, y )->blocked = 1;
         }
-        if ( map[x][y].g_unit && !( unit->sel_prop->flags & FLYING ) ) {
+        if ( map[x][y].g_unit && !unit_has_flag( unit->sel_prop, "flying" ) ) {
             if ( !player_is_ally( unit->player, map[x][y].g_unit->player ) )
                 return 0;
             else
@@ -536,7 +536,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
     *cost = base;
     if ( config.zones_of_control )
     {
-        if ( unit->sel_prop->flags & FLYING ) {
+        if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
             if ( mask[x][y].vis_air_infl > 0 )
                 *cost = points;
         }
@@ -781,19 +781,19 @@ Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit *
         /* if mask::blocked is set it's an own unit so don't check for ambush */
         if ( !map_mask_tile( way[i].x, way[i].y )->blocked ) {
             if ( map_tile( way[i].x, way[i].y )->g_unit )
-                if ( !( unit->sel_prop->flags & FLYING ) ) {
+                if ( !unit_has_flag( unit->sel_prop, "flying" ) ) {
                     *ambush_unit = map_tile( way[i].x, way[i].y )->g_unit;
                     break;
                 }
             if ( map_tile( way[i].x, way[i].y )->a_unit )
-                if ( unit->sel_prop->flags & FLYING ) {
+                if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
                     *ambush_unit = map_tile( way[i].x, way[i].y )->a_unit;
                     break;
                 }
         }
         /* if we get here there is no unit waiting but maybe close too the tile */
         /* therefore check tile of moving unit if it is influenced by a previously unspotted unit */
-        if ( unit->sel_prop->flags & FLYING ) {
+        if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
             if ( map_mask_tile( way[i - 1].x, way[i - 1].y )->air_infl && !map_mask_tile( way[i - 1].x, way[i - 1].y )->vis_air_infl )
                 break;
         }
@@ -879,8 +879,8 @@ int map_check_unit_split( Unit *unit, int str, int x, int y, Unit *dest )
     {
         if (str<4) return 0;
         if (!is_close(unit->x,unit->y,x,y)) return 0;
-        if ((unit->sel_prop->flags&FLYING)&&map[x][y].a_unit) return 0;
-        if (!(unit->sel_prop->flags&FLYING)&&map[x][y].g_unit) return 0;
+        if ( unit_has_flag( unit->sel_prop, "flying" ) && map[x][y].a_unit) return 0;
+        if (!unit_has_flag( unit->sel_prop, "flying" ) && map[x][y].g_unit) return 0;
         if (!terrain_get_mov(map[x][y].terrain,unit->sel_prop->mov_type,cur_weather)) return 0;
     }
     return 1;
@@ -1271,7 +1271,7 @@ Modify the various influence masks.
 void map_add_unit_infl( Unit *unit )
 {
     int i, next_x, next_y;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         mask[unit->x][unit->y].air_infl++;
         for ( i = 0; i < 6; i++ )
             if ( get_close_hex_pos( unit->x, unit->y, i, &next_x, &next_y ) )
@@ -1287,7 +1287,7 @@ void map_add_unit_infl( Unit *unit )
 void map_remove_unit_infl( Unit *unit )
 {
     int i, next_x, next_y;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         mask[unit->x][unit->y].air_infl--;
         for ( i = 0; i < 6; i++ )
             if ( get_close_hex_pos( unit->x, unit->y, i, &next_x, &next_y ) )
@@ -1303,7 +1303,7 @@ void map_remove_unit_infl( Unit *unit )
 void map_remove_vis_unit_infl( Unit *unit )
 {
     int i, next_x, next_y;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         mask[unit->x][unit->y].vis_air_infl--;
         for ( i = 0; i < 6; i++ )
             if ( get_close_hex_pos( unit->x, unit->y, i, &next_x, &next_y ) )
@@ -1354,22 +1354,22 @@ int map_check_unit_embark( Unit *unit, int x, int y, int type, int init )
     int i, nx, ny;
     if ( x < 0 || y < 0 || x >= map_w || y >= map_h ) return 0;
     if ( type == EMBARK_AIR ) {
-        if ( unit->sel_prop->flags & FLYING ) return 0;
-        if ( unit->sel_prop->flags & SWIMMING ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "flying" ) ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "swimming" ) ) return 0;
         if ( cur_player->air_trsp == 0 ) return 0;
         if ( unit->embark != EMBARK_NONE ) return 0;
         if ( !init && map[x][y].a_unit ) return 0;
         if ( unit->player->air_trsp_used >= unit->player->air_trsp_count ) return 0;
         if ( !init && !unit->unused ) return 0;
         if ( !init && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
-        if ( init && !(unit->sel_prop->flags&PARACHUTE) && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
-        if ( !( unit->sel_prop->flags & AIR_TRSP_OK ) ) return 0;
-        if ( init && unit->trsp_prop.flags & TRANSPORTER ) return 0;
+        if ( init && !unit_has_flag( unit->sel_prop, "parachute" ) && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
+        if ( !unit_has_flag( unit->sel_prop, "air_trsp_ok" ) ) return 0;
+        if ( init && unit_has_flag( &unit->trsp_prop, "transporter" ) ) return 0;
         return 1;
     }
     if ( type == EMBARK_SEA ) {
-        if ( unit->sel_prop->flags & FLYING ) return 0;
-        if ( unit->sel_prop->flags & SWIMMING ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "flying" ) ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "swimming" ) ) return 0;
         if ( cur_player->sea_trsp == 0 ) return 0;
         if ( unit->embark != EMBARK_NONE || ( !init && unit->sel_prop->mov == 0 ) ) return 0;
         if ( !init && map[x][y].g_unit ) return 0;
@@ -1406,7 +1406,7 @@ int map_check_unit_debark( Unit *unit, int x, int y, int type, int init )
         if ( !init && map[x][y].g_unit ) return 0;
         if ( !init && !unit->unused ) return 0;
         if ( !init && terrain_get_mov( map[x][y].terrain, unit->prop.mov_type, cur_weather ) == 0 ) return 0;
-        if ( !init && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) && !( unit->prop.flags & PARACHUTE ) )
+        if ( !init && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) && !unit_has_flag( &unit->prop, "parachute" ) )
             return 0;
         return 1;
     }
@@ -1649,7 +1649,7 @@ static int map_check_deploy_center( Player *player, Unit *unit, int mx, int my )
     {
         if (terrain_get_mov(map[mx][my].terrain,unit->sel_prop->mov_type,cur_weather)==0)
             return 0;
-        if (unit->sel_prop->flags&FLYING)
+        if ( unit_has_flag( unit->sel_prop, "flying" ) )
             if (!(map[mx][my].terrain->flags[cur_weather]&SUPPLY_AIR))
                 return 0;
         if (map[mx][my].nation!=unit->nation) 
@@ -1782,7 +1782,7 @@ void map_get_deploy_mask( Player *player, Unit *unit, int init )
     {
         for ( x = 0; x < map_w; x++ )
             for ( y = 0; y < map_h; y++ )
-                if (unit->sel_prop->flags&FLYING)
+                if ( unit_has_flag( unit->sel_prop, "flying" ) )
                 {
                     if (map[x][y].a_unit) mask[x][y].deploy = 0;
                 } else {
@@ -1833,8 +1833,8 @@ int map_get_unit_supply_level( int mx, int my, Unit *unit )
     int x, y, w, h, i, j;
     int flag_supply_level, supply_level;
     /* flying and swimming units get a 100% supply if near an airfield or a harbour */
-    if ( ( unit->sel_prop->flags & SWIMMING )
-         || ( unit->sel_prop->flags & FLYING ) ) {
+    if ( unit_has_flag( unit->sel_prop, "swimming" )
+         || unit_has_flag( unit->sel_prop, "flying" ) ) {
         supply_level = map_supplied_by_depot( mx, my, unit )*100;
     }
     else {
@@ -1863,7 +1863,7 @@ int map_get_unit_supply_level( int mx, int my, Unit *unit )
     }
     /* air: if hostile influence is 1 supply is 50%, if influence >1 supply is not possible */
     /* ground: if hostile influence is 1 supply is at 75%, if influence >1 supply is at 50% */
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         if ( mask[ mx][ my ].air_infl > 1 || mask[ mx][ my ].infl > 1 )
             supply_level = 0;
         else
@@ -1890,19 +1890,19 @@ int map_is_allied_depot( Map_Tile *tile, Unit *unit )
     if ( tile == 0 ) return 0;
     /* maybe it's an aircraft carrier */
     if ( tile->g_unit )
-        if ( tile->g_unit->sel_prop->flags & CARRIER )
+        if ( unit_has_flag( tile->g_unit->sel_prop, "carrier" ) )
             if ( player_is_ally( tile->g_unit->player, unit->player ) )
-                if ( unit->sel_prop->flags & CARRIER_OK )
+                if ( unit_has_flag( unit->sel_prop, "carrier_ok" ) )
                     return 1;
     /* check for depot */
     if ( tile->player == 0 ) return 0;
     if ( !player_is_ally( unit->player, tile->player ) ) return 0;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         if ( !(tile->terrain->flags[cur_weather] & SUPPLY_AIR) )
             return 0;
     }
     else
-        if ( unit->sel_prop->flags & SWIMMING ) {
+        if ( unit_has_flag( unit->sel_prop, "swimming" ) ) {
             if ( !(tile->terrain->flags[cur_weather] & SUPPLY_SHIPS) )
                 return 0;
         }

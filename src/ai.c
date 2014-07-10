@@ -195,12 +195,12 @@ static void ai_eval_units()
                                              MINIMUM( 5, unit->prop.ammo ) );
         }
         if ( unit->prop.fuel > 0 ) {
-            if ( (  (unit->sel_prop->flags & FLYING) && unit->cur_fuel >= 20 ) ||
-                 ( !(unit->sel_prop->flags & FLYING) && unit->cur_fuel >= 10 ) )
+            if ( ( unit_has_flag( unit->sel_prop, "flying" ) && unit->cur_fuel >= 20 ) ||
+                 ( !unit_has_flag( unit->sel_prop, "flying" ) && unit->cur_fuel >= 10 ) )
                 /* a unit with this range is considered 100% operable */
                 unit->eval_score += 1000;
             else {
-                if ( unit->sel_prop->flags & FLYING )
+                if ( unit_has_flag( unit->sel_prop, "flying" ) )
                     unit->eval_score += get_rel( unit->cur_fuel, MINIMUM( 20, unit->prop.fuel ) );
                 else
                     unit->eval_score += get_rel( unit->cur_fuel, MINIMUM( 10, unit->prop.fuel ) );
@@ -260,7 +260,7 @@ void ai_get_ctrl_masks()
         /* build context */
         ctx.unit = unit;
         ctx.score = (player_is_ally( unit->player, cur_player ))?unit->eval_score:-unit->eval_score;
-        ctx.op_region = (unit->sel_prop->flags&FLYING)?1:(unit->sel_prop->flags&SWIMMING)?2:0;
+        ctx.op_region = ( unit_has_flag( unit->sel_prop, "flying" ) )?1:( unit_has_flag( unit->sel_prop, "swimming" ) )?2:0;
         /* work through move mask and modify ctrl mask by adding score
            for all tiles in movement and attack range once */
         for ( i  = MAXIMUM( 0, unit->x - unit->cur_mov ); 
@@ -284,13 +284,13 @@ void ai_get_ctrl_masks()
 /** Find unit in reduced unit lib entry list @ulist which has flag @flag set
  * and is best regarding ratio of eval score and cost. Return NULL if no such
  * unit found. */
-Unit_Lib_Entry *get_cannonfodder( List *ulist, int flag )
+Unit_Lib_Entry *get_cannonfodder( List *ulist, char *flag )
 {
 	Unit_Lib_Entry *e, *u = NULL;
 	
 	list_reset(ulist);
 	while ((e = list_next(ulist))) {
-		if (!(e->flags & flag))
+		if (! unit_has_flag( e, flag ))
 			continue;
 		if (u == NULL) {
 			u = e;
@@ -305,13 +305,13 @@ Unit_Lib_Entry *get_cannonfodder( List *ulist, int flag )
 /** Find unit in reduced unit lib entry list @ulist which has flag @flag set
  * and is best regarding eval score slightly penalized by high cost.
  * Return NULL if no such unit found. */
-Unit_Lib_Entry *get_good_unit( List *ulist, int flag )
+Unit_Lib_Entry *get_good_unit( List *ulist, char *flag )
 {
 	Unit_Lib_Entry *e, *u = NULL;
 	
 	list_reset(ulist);
 	while ((e = list_next(ulist))) {
-		if (!(e->flags & flag))
+		if (!( unit_has_flag( e, flag ) ))
 			continue;
 		if (u == NULL) {
 			u = e;
@@ -388,25 +388,25 @@ static void ai_purchase_units()
 	 * for attack: buy good tank (40%), infantry with transporter (15%),
 	 * good artillery (15%), fighter (10%) or bomber (20%) */
 	if (cur_player->strat < 0) {
-		buy_options[0].unit = get_cannonfodder( ulist, INFANTRY );
+		buy_options[0].unit = get_cannonfodder( ulist, "infantry" );
 		buy_options[0].weight = 30;
-		buy_options[1].unit = get_cannonfodder( ulist, ANTI_TANK );
+		buy_options[1].unit = get_cannonfodder( ulist, "anti_tank" );
 		buy_options[1].weight = 30;
-		buy_options[2].unit = get_cannonfodder( ulist, AIR_DEFENSE );
+		buy_options[2].unit = get_cannonfodder( ulist, "air_defense" );
 		buy_options[2].weight = 20;
-		buy_options[3].unit = get_cannonfodder( ulist, TANK );
+		buy_options[3].unit = get_cannonfodder( ulist, "tank" );
 		buy_options[3].weight = 20;
 		num_buy_options = 4;
 	} else {
-		buy_options[0].unit = get_good_unit( ulist, INFANTRY );
+		buy_options[0].unit = get_good_unit( ulist, "infantry" );
 		buy_options[0].weight = 15;
-		buy_options[1].unit = get_good_unit( ulist, TANK );
+		buy_options[1].unit = get_good_unit( ulist, "tank" );
 		buy_options[1].weight = 40;
-		buy_options[2].unit = get_good_unit( ulist, ARTILLERY );
+		buy_options[2].unit = get_good_unit( ulist, "artillery" );
 		buy_options[2].weight = 15;
-		buy_options[3].unit = get_good_unit( ulist, INTERCEPTOR );
+		buy_options[3].unit = get_good_unit( ulist, "interceptor" );
 		buy_options[3].weight = 10;
-		buy_options[4].unit = get_good_unit( ulist, BOMBER );
+		buy_options[4].unit = get_good_unit( ulist, "bomber" );
 		buy_options[4].weight = 20;
 		num_buy_options = 5;
 	}
@@ -487,7 +487,7 @@ void ai_init( void )
     ai_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
     list_reset( list );
     while ( ( unit = list_next( list ) ) )
-        if ( unit->sel_prop->flags & ARTILLERY || unit->sel_prop->flags & AIR_DEFENSE ) {
+        if ( unit_has_flag( unit->sel_prop, "artillery" ) || unit_has_flag( unit->sel_prop, "air_defense" ) ) {
             list_add( ai_units, unit );
             list_delete_item( list, unit );
         }

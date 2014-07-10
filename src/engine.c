@@ -939,7 +939,7 @@ static void engine_update_avail_reinf_list()
         list_reset( reinf );
         for ( i = 0; i < reinf->count; i++ ) {
             unit = list_next( reinf );
-            if ( unit->sel_prop->flags & FLYING && unit->player == cur_player && unit->delay <= turn ) {
+            if ( unit_has_flag( unit->sel_prop, "flying" ) && unit->player == cur_player && unit->delay <= turn ) {
                 list_transfer( reinf, avail_units, unit );
                 /* index must be reset if unit was added */
                 i--;
@@ -951,7 +951,7 @@ static void engine_update_avail_reinf_list()
         list_reset( reinf );
         for ( i = 0; i < reinf->count; i++ ) {
             unit = list_next( reinf );
-            if ( !(unit->sel_prop->flags & FLYING) && unit->player == cur_player && unit->delay <= turn ) {
+            if ( !unit_has_flag( unit->sel_prop, "flying" ) && unit->player == cur_player && unit->delay <= turn ) {
                 list_transfer( reinf, avail_units, unit );
                 /* index must be reset if unit was added */
                 i--;
@@ -1207,7 +1207,7 @@ static void engine_end_turn()
            any aircraft with the updated supply level */
         if (config.supply && unit_check_fuel_usage( unit ))
         {
-            if (unit->prop.flags & FLYING)
+            if ( unit_has_flag( &unit->prop, "flying" ) )
             {
                 /* loose half fuel even if not moved */
                 if (unit->cur_mov>0) /* FIXME: this goes wrong if units may move multiple times */
@@ -2166,7 +2166,7 @@ static void engine_handle_button( int id )
             else
             {
                 int drop = 0;
-                if (cur_unit->prop.flags&PARACHUTE) 
+                if ( unit_has_flag( &cur_unit->prop, "parachute" ) ) 
                 {    
                     int x = cur_unit->x, y = cur_unit->y;
                     drop = 1;
@@ -3424,10 +3424,10 @@ static int engine_get_next_combatants()
         defFire = 1;
         /* set message if seen */
         if ( !blind_cpu_turn ) {
-            if ( cur_atk->sel_prop->flags & ARTILLERY )
+            if ( unit_has_flag( cur_atk->sel_prop, "artillery" ) )
                 sprintf( str, tr("Defensive Fire") );
             else
-                if ( cur_atk->sel_prop->flags & AIR_DEFENSE )
+                if ( unit_has_flag( cur_atk->sel_prop, "air_defense" ) )
                     sprintf( str, tr("Air-Defense") );
                 else
                     sprintf( str, tr("Interceptors") );
@@ -3493,8 +3493,8 @@ it. Return True if the flag was captured.
 ====================================================================
 */
 static int engine_capture_flag( Unit *unit ) {
-    if ( !( unit->sel_prop->flags & FLYING ) )
-        if ( !( unit->sel_prop->flags & SWIMMING ) )
+    if ( !unit_has_flag( unit->sel_prop, "flying" ) )
+        if ( !unit_has_flag( unit->sel_prop, "swimming" ) )
             if ( map[unit->x][unit->y].nation != 0 )
                 if ( !player_is_ally( map[unit->x][unit->y].player, unit->player ) ) {
                     /* capture */
@@ -3861,7 +3861,7 @@ static void engine_update( int ms )
                     /* unit's used */
                     move_unit->unused = 0;
                     /* artillery looses ability to attack */
-                    if ( move_unit->sel_prop->flags & ATTACK_FIRST )
+                    if ( unit_has_flag( move_unit->sel_prop, "attack_first" ) )
                         move_unit->cur_atk_count = 0;
                     /* decrease moving points */
 /*                    if ( ( move_unit->sel_prop->flags & RECON ) && surp_unit == 0 )
@@ -3965,7 +3965,7 @@ static void engine_update( int ms )
                             engine_get_screen_pos( way[way_pos + 1].x, way[way_pos + 1].y, &end_x, &end_y );
                             end_x += ( ( hex_w - move_unit->sel_prop->icon_w ) >> 1 );
                             end_y += ( ( hex_h - move_unit->sel_prop->icon_h ) >> 1 );
-                            if ( move_unit->sel_prop->flags & FLYING )
+                            if ( unit_has_flag( move_unit->sel_prop, "flying" ) )
                             {
                                 start_y -= 10;
                                 end_y -= 10;
@@ -4140,10 +4140,10 @@ static void engine_update( int ms )
                         /* if rugged defense add a pause */
                         if ( atk_result & AR_RUGGED_DEFENSE ) {
                             phase = PHASE_RUGGED_DEF;
-                            if ( cur_def->sel_prop->flags & FLYING )
+                            if ( unit_has_flag( cur_def->sel_prop, "flying" ) )
                                 label_write( gui->label_center, gui->font_error, tr("Out Of The Sun!") );
                             else
-                                if ( cur_def->sel_prop->flags & SWIMMING )
+                                if ( unit_has_flag( cur_def->sel_prop, "swimming" ) )
                                     label_write( gui->label_center, gui->font_error, tr("Surprise Contact!") );
                                 else
                                     label_write( gui->label_center, gui->font_error, tr("Rugged Defense!") );
@@ -4176,7 +4176,7 @@ static void engine_update( int ms )
                                                 atk_suppr_delta, atk_damage_delta );
                     else
                     {
-                        if (cur_atk->sel_prop->flags & TURN_SUPPR)
+                        if ( unit_has_flag( cur_atk->sel_prop, "turn_suppr" ) )
                             gui_show_actual_losses( cur_atk, cur_def, atk_suppr_delta, atk_damage_delta,
                                                     def_suppr_delta, def_damage_delta );
                         else
@@ -4292,8 +4292,8 @@ static void engine_update( int ms )
                                    have range 0 (melee)
                                    inf -> fort (fort may surrender)
                                    fort -> adjacent inf (inf will not flee) */
-                                if (!(cur_atk->sel_prop->flags&FLYING)&&
-                                    !(cur_def->sel_prop->flags&FLYING))
+                                if (!unit_has_flag( cur_atk->sel_prop, "flying" )&&
+                                    !unit_has_flag( cur_def->sel_prop, "flying" ))
                                 {
                                     if ( ( atk_result & AR_UNIT_SUPPRESSED && 
                                          !(atk_result & AR_TARGET_SUPPRESSED) &&
@@ -4347,7 +4347,7 @@ static void engine_update( int ms )
                             break;
                         }
                         if ( surrender ) {
-                            const char *msg = surrender_unit->sel_prop->flags & SWIMMING ? tr("Ship is scuttled!") : tr("Surrenders!");
+                            const char *msg = unit_has_flag( surrender_unit->sel_prop, "swimming" ) ? tr("Ship is scuttled!") : tr("Surrenders!");
                             phase = PHASE_SURRENDER_MSG;
                             label_write( gui->label_center, gui->font_error, msg );
                             reset_delay( &msg_delay );
@@ -4502,7 +4502,7 @@ void engine_select_unit( Unit *unit )
         return;
     }
     /* switch air/ground */
-    if ( unit->sel_prop->flags & FLYING )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) )
         air_mode = 1;
     else
         air_mode = 0;
@@ -4518,7 +4518,7 @@ void engine_select_unit( Unit *unit )
         map_set_fog( F_SPOT );
     /* determine danger zone for air units */
     if ( modify_fog && config.supply && unit->cur_mov
-         && (unit->sel_prop->flags & FLYING) && unit->sel_prop->fuel)
+         && unit_has_flag( unit->sel_prop, "flying" ) && unit->sel_prop->fuel)
         has_danger_zone = map_get_danger_mask( unit );
     return;
 }

@@ -1119,7 +1119,7 @@ void scen_prep_unit( Unit *unit, int type )
         /* if we have bad weather the relation between mov : fuel is 1 : 2 
          * for ground units
          */
-        if ( !(unit->sel_prop->flags & SWIMMING) && !(unit->sel_prop->flags & FLYING)
+        if ( !unit_has_flag( unit->sel_prop, "swimming" ) && !unit_has_flag( unit->sel_prop, "flying" )
              && (weather_types[scen_get_weather()].flags & DOUBLE_FUEL_COST) )
         {
             if ( unit_check_fuel_usage( unit ) && unit->cur_fuel < unit->cur_mov * 2 )
@@ -1131,7 +1131,7 @@ void scen_prep_unit( Unit *unit, int type )
         unit->cur_atk_count = unit->sel_prop->atk_count;
     }
     /* if unit is preparded normally check entrenchment */
-    if ( type == SCEN_PREP_UNIT_NORMAL && !(unit->sel_prop->flags & FLYING) ) {
+    if ( type == SCEN_PREP_UNIT_NORMAL && !unit_has_flag( unit->sel_prop, "flying" ) ) {
         min_entr = map_tile( unit->x, unit->y )->terrain->min_entr;
         max_entr = map_tile( unit->x,unit->y )->terrain->max_entr;
         if ( unit->entr < min_entr )

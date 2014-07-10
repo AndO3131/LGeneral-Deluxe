@@ -100,7 +100,7 @@ static int unit_apply_damage( Unit *unit, int damage, int suppr, Unit *attacker 
         unit->str = 0;
         return 0;
     }
-    if ( attacker && attacker->sel_prop->flags & TURN_SUPPR ) {
+    if ( attacker && unit_has_flag( attacker->sel_prop, "turn_suppr" ) ) {
         unit->turn_suppr += suppr;
         if ( unit->str - unit->turn_suppr - unit->suppr < 0 ) {
             unit->turn_suppr = unit->str - unit->suppr;
@@ -199,7 +199,7 @@ static int unit_attack( Unit *unit, Unit *target, int type, int real, int force_
        ( exp_level + 1 ) / 2 + D3 */
     /* against aircrafts the initiative is used since terrain does not matter */
     /* target's terrain is used for fight */
-    if ( !(unit->sel_prop->flags & FLYING) && !(target->sel_prop->flags & FLYING) )
+    if ( !unit_has_flag( unit->sel_prop, "flying" ) && !unit_has_flag( target->sel_prop, "flying" ) )
     {
         unit->sel_prop->ini = MINIMUM( unit->sel_prop->ini, target->terrain->max_ini );
         target->sel_prop->ini = MINIMUM( target->sel_prop->ini, target->terrain->max_ini );
@@ -215,21 +215,21 @@ static int unit_attack( Unit *unit, Unit *target, int type, int real, int force_
        rugged defense: atk 0
        air unit attacks air defense: atk = def 
        non-art vs art: atk 0, def 99 */
-    if ( unit->sel_prop->flags & ANTI_TANK )
-        if ( target->sel_prop->flags & TANK ) {
+    if ( unit_has_flag( unit->sel_prop, "anti_tank" ) )
+        if ( unit_has_flag( target->sel_prop, "tank" ) ) {
             unit->sel_prop->ini = 0;
             target->sel_prop->ini = 99;
         }
-    if ( (unit->sel_prop->flags&DIVING) || 
-         (unit->sel_prop->flags&ARTILLERY) || 
-         (unit->sel_prop->flags&AIR_DEFENSE) || 
+    if ( unit_has_flag( unit->sel_prop, "diving" ) || 
+         unit_has_flag( unit->sel_prop, "artillery" ) || 
+         unit_has_flag( unit->sel_prop, "air_defense" ) || 
          type == UNIT_DEFENSIVE_ATTACK
     ) {
         unit->sel_prop->ini = 99;
         target->sel_prop->ini = 0;
     }
-    if ( unit->sel_prop->flags & FLYING )
-        if ( target->sel_prop->flags & AIR_DEFENSE )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) )
+        if ( unit_has_flag( target->sel_prop, "air_defense" ) )
             unit->sel_prop->ini = target->sel_prop->ini;
     if ( rugged_def )
         unit->sel_prop->ini = 0;
@@ -251,7 +251,7 @@ static int unit_attack( Unit *unit, Unit *target, int type, int real, int force_
     }
 #endif
     /* in a real combat a submarine may evade */
-    if ( real && type == UNIT_ACTIVE_ATTACK && ( target->sel_prop->flags & DIVING ) ) { 
+    if ( real && type == UNIT_ACTIVE_ATTACK && unit_has_flag( target->sel_prop, "diving" ) ) { 
         if ( DICE(10) <= 7 + ( target->exp_level - unit->exp_level ) / 2 )
         {
             strike = ATK_NO_STRIKE;
@@ -385,16 +385,16 @@ Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop,
     unit->sel_prop = &unit->prop; 
     unit->embark = EMBARK_NONE;
     /* assign the passed transporter without any check */
-    if ( trsp_prop && !( prop->flags & FLYING ) && !( prop->flags & SWIMMING ) ) {
+    if ( trsp_prop && !unit_has_flag( prop, "flying" ) && !unit_has_flag( prop, "swimming" ) ) {
         memcpy( &unit->trsp_prop, trsp_prop, sizeof( Unit_Lib_Entry ) );
         /* a sea/air ground transporter is active per default */
-        if ( trsp_prop->flags & SWIMMING ) {
+        if ( unit_has_flag( trsp_prop, "swimming" ) ) {
             unit->embark = EMBARK_SEA;
             unit->sel_prop = &unit->trsp_prop;
             if ( land_trsp_prop )
                 memcpy( &unit->land_trsp_prop, land_trsp_prop, sizeof( Unit_Lib_Entry ) );
         }
-        if ( trsp_prop->flags & FLYING ) {
+        if ( unit_has_flag( trsp_prop, "flying" ) ) {
             unit->embark = EMBARK_AIR;
             unit->sel_prop = &unit->trsp_prop;
         }
@@ -656,21 +656,21 @@ int unit_check_attack( Unit *unit, Unit *target, int type )
 {
     if ( target == 0 || unit == target ) return 0;
     if ( player_is_ally( unit->player, target->player ) ) return 0;
-    if ( unit->sel_prop->flags & FLYING && !( target->sel_prop->flags & FLYING ) )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) && !unit_has_flag( target->sel_prop, "flying" ) )
         if ( unit->sel_prop->rng == 0 )
             if ( unit->x != target->x || unit->y != target->y )
                 return 0; /* range 0 means above unit for an aircraft */
     /* if the target flys and the unit is ground with a range of 0 the aircraft
        may only be harmed when above unit */
-    if ( !(unit->sel_prop->flags & FLYING) && ( target->sel_prop->flags & FLYING ) )
+    if ( !unit_has_flag( unit->sel_prop, "flying" ) && unit_has_flag( target->sel_prop, "flying" ) )
         if ( unit->sel_prop->rng == 0 )
             if ( unit->x != target->x || unit->y != target->y )
                 return 0;
     /* only destroyers may harm submarines */
-    if ( target->sel_prop->flags & DIVING && !( unit->sel_prop->flags & DESTROYER ) ) return 0;
+    if ( unit_has_flag( target->sel_prop, "diving" ) && !unit_has_flag( unit->sel_prop, "destroyer" ) ) return 0;
     if ( weather_types[cur_weather].flags & NO_AIR_ATTACK ) {
-        if ( unit->sel_prop->flags & FLYING ) return 0;
-        if ( target->sel_prop->flags & FLYING ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "flying" ) ) return 0;
+        if ( unit_has_flag( target->sel_prop, "flying" ) ) return 0;
     }
     if ( type == UNIT_ACTIVE_ATTACK ) {
         /* agressor */
@@ -684,9 +684,11 @@ int unit_check_attack( Unit *unit, Unit *target, int type )
         /* defensive fire */
         if ( unit->sel_prop->atks[target->sel_prop->trgt_type] <= 0 ) return 0;
         if ( unit->cur_ammo <= 0 ) return 0;
-        if ( ( unit->sel_prop->flags & ( INTERCEPTOR | ARTILLERY | AIR_DEFENSE ) ) == 0 ) return 0;
-        if ( target->sel_prop->flags & ( ARTILLERY | AIR_DEFENSE | SWIMMING ) ) return 0;
-        if ( unit->sel_prop->flags & INTERCEPTOR ) {
+        if ( !unit_has_flag( unit->sel_prop, "interceptor" ) && !unit_has_flag( unit->sel_prop, "artillery" ) &&
+             !unit_has_flag( unit->sel_prop, "air_defense" ) ) return 0;
+        if ( unit_has_flag( target->sel_prop, "artillery" ) || unit_has_flag( target->sel_prop, "air_defense" ) ||
+             unit_has_flag( target->sel_prop, "swimming" ) ) return 0;
+        if ( unit_has_flag( unit->sel_prop, "interceptor" ) ) {
             /* the interceptor is propably not beside the attacker so the range check is different
              * can't be done here because the unit the target attacks isn't passed so 
              *  unit_get_df_units() must have a look itself 
@@ -701,11 +703,11 @@ int unit_check_attack( Unit *unit, Unit *target, int type )
         if ( !unit_is_close( unit, target ) && get_dist( unit->x, unit->y, target->x, target->y ) > unit->sel_prop->rng ) return 0;
         if ( unit->sel_prop->atks[target->sel_prop->trgt_type] == 0 ) return 0;
         /* artillery may only defend against close units */
-        if ( unit->sel_prop->flags & ARTILLERY )
+        if ( unit_has_flag( unit->sel_prop, "artillery" ) )
             if ( !unit_is_close( unit, target ) )
                 return 0;
         /* you may defend against artillery only when close */
-        if ( target->sel_prop->flags & ARTILLERY )
+        if ( unit_has_flag( target->sel_prop, "artillery" ) )
             if ( !unit_is_close( unit, target ) )
                 return 0;
     }
@@ -742,7 +744,7 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
     /* experience */
     atk_grade += unit->exp_level;
     /* target on a river? */
-    if ( !(target->sel_prop->flags & FLYING ) )
+    if ( !unit_has_flag( target->sel_prop, "flying" ) )
     if ( target->terrain->flags[cur_weather] & RIVER ) {
         atk_grade += 4;
 #ifdef DEBUG_ATTACK
@@ -760,15 +762,15 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
     if ( real ) printf( "---\n%s defends:\n", target->name );
 #endif
     /* basic defense */
-    if ( unit->sel_prop->flags & FLYING )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) )
         def_grade = target->sel_prop->def_air;
     else {
         def_grade = target->sel_prop->def_grnd;
         /* apply close defense? */
-        if ( unit->sel_prop->flags & INFANTRY )
-            if ( !( target->sel_prop->flags & INFANTRY ) )
-                if ( !( target->sel_prop->flags & FLYING ) )
-                    if ( !( target->sel_prop->flags & SWIMMING ) )
+        if ( unit_has_flag( unit->sel_prop, "infantry" ) )
+            if ( !unit_has_flag( target->sel_prop, "infantry" ) )
+                if ( !unit_has_flag( target->sel_prop, "flying" ) )
+                    if ( !unit_has_flag( target->sel_prop, "swimming" ) )
                     {
                         if ( target == aggressor )
                         if ( unit->terrain->flags[cur_weather]&INF_CLOSE_DEF )
@@ -785,9 +787,9 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
     /* experience */
     def_grade += target->exp_level;
     /* attacker on a river or swamp? */
-    if ( !(unit->sel_prop->flags & FLYING) )
-    if ( !(unit->sel_prop->flags & SWIMMING) )
-    if ( !(target->sel_prop->flags & FLYING) )
+    if ( !unit_has_flag( unit->sel_prop, "flying" ) )
+    if ( !unit_has_flag( unit->sel_prop, "swimming" ) )
+    if ( !unit_has_flag( target->sel_prop, "flying" ) )
     {
         if ( unit->terrain->flags[cur_weather] & SWAMP ) 
         {
@@ -811,22 +813,22 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
 #endif
     }
     /* entrenchment */
-    if ( unit->sel_prop->flags & IGNORE_ENTR )
+    if ( unit_has_flag( unit->sel_prop, "ignore_entr" ) )
         def_grade += 0;
     else {
-        if ( unit->sel_prop->flags & INFANTRY )
+        if ( unit_has_flag( unit->sel_prop, "infantry" ) )
             def_grade += target->entr / 2;
         else
             def_grade += target->entr;
 #ifdef DEBUG_ATTACK
         if ( real ) printf( "  entr:   +%i\n", 
-                (unit->sel_prop->flags & INFANTRY) ? target->entr / 2 : target->entr );
+                (unit_has_flag( unit->sel_prop, "infantry" )) ? target->entr / 2 : target->entr );
 #endif
     }
     /* naval vs ground unit */
-    if ( !(unit->sel_prop->flags & SWIMMING ) )
-        if ( !(unit->sel_prop->flags & FLYING) )
-            if ( target->sel_prop->flags & SWIMMING ) {
+    if ( !unit_has_flag( unit->sel_prop, "swimming" ) )
+        if ( !unit_has_flag( unit->sel_prop, "flying" ) )
+            if ( unit_has_flag( target->sel_prop, "swimming" ) ) {
                 def_grade += 8;
 #ifdef DEBUG_ATTACK
                 if ( real ) printf( "  naval: +8\n" );
@@ -842,15 +844,15 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
         }
     /* initiating attack against artillery? */
     if ( type == UNIT_PASSIVE_ATTACK )
-        if ( unit->sel_prop->flags & ARTILLERY ) {
+        if ( unit_has_flag( unit->sel_prop, "artillery" ) ) {
             def_grade += 3;
 #ifdef DEBUG_ATTACK
             if ( real ) printf( "  def vs art: +3\n" );
 #endif
         }
     /* infantry versus anti_tank? */
-    if ( target->sel_prop->flags & INFANTRY )
-        if ( unit->sel_prop->flags & ANTI_TANK ) {
+    if ( unit_has_flag( target->sel_prop, "infantry" ) )
+        if ( unit_has_flag( unit->sel_prop, "anti_tank" ) ) {
             def_grade += 2;
 #ifdef DEBUG_ATTACK
             if ( real ) printf( "  antitnk:+2\n" );
@@ -893,7 +895,7 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
     die_mod = ( diff <= 4 ? diff : 4 + 2 * ( diff - 4 ) / 5 );
     min_roll = 1 + die_mod; max_roll = 20 + die_mod;
     /* get chances for suppression and kills */
-    if ( unit->sel_prop->flags & SUPPR_FIRE ) {
+    if ( unit_has_flag( unit->sel_prop, "suppr_fire" ) ) {
         int limit = (type==UNIT_DEFENSIVE_ATTACK)?20:18;
         if (limit-min_roll>=0)
             suppr_chance = 0.05*(MINIMUM(limit,max_roll)-MAXIMUM(11,min_roll)+1);
@@ -924,7 +926,7 @@ void unit_get_damage( Unit *aggressor, Unit *unit, Unit *target,
                     result = DICE(20) + diff;
                 else
                     result = DICE(20) + 4 + 2 * ( diff - 4 ) / 5;
-                if ( unit->sel_prop->flags & SUPPR_FIRE ) {
+                if ( unit_has_flag( unit->sel_prop, "suppr_fire" ) ) {
                     int limit = (type==UNIT_DEFENSIVE_ATTACK)?20:18;
                     if ( result >= 11 && result <= limit )
                         (*suppr)++;
@@ -1023,28 +1025,28 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
 {
     Unit *entry;
     list_clear( df_units );
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         list_reset( units );
         while ( ( entry = list_next( units ) ) ) {
             if ( entry->killed > 1 ) continue;
             if ( entry == target ) continue;
             if ( entry == unit ) continue;
             /* bombers -- intercepting impossibly covered by unit_check_attack() */
-            if ( !(target->sel_prop->flags & INTERCEPTOR) )
+            if ( !unit_has_flag( target->sel_prop, "interceptor" ) )
                 if ( unit_is_close( target, entry ) )
-                    if ( entry->sel_prop->flags & INTERCEPTOR )
+                    if ( unit_has_flag( entry->sel_prop, "interceptor" ) )
                         if ( player_is_ally( entry->player, target->player ) )
                             if ( entry->cur_ammo > 0 ) {
                                 list_add( df_units, entry );
                                 continue;
                             }
             /* air-defense */
-            if ( entry->sel_prop->flags & AIR_DEFENSE )
+            if ( unit_has_flag( entry->sel_prop, "air_defense" ) )
                 /* FlaK will not give support when an air-to-air attack is
                  * taking place. First, in reality it would prove distastrous,
                  * second, Panzer General doesn't allow it, either.
                  */
-                if ( !(target->sel_prop->flags & FLYING) )
+                if ( !unit_has_flag( target->sel_prop, "flying" ) )
                     if ( unit_is_close( target, entry ) ) /* adjacent help only */
                         if ( unit_check_attack( entry, unit, UNIT_DEFENSIVE_ATTACK ) )
                             list_add( df_units, entry );
@@ -1061,7 +1063,7 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
             /* HACK: An artillery with range 1 cannot support adjacent units but
                should do so. So we allow to give defensive fire on a range of 2
                like a normal artillery */
-            if ( entry->sel_prop->flags & ARTILLERY && entry->sel_prop->rng == 1 )
+            if ( unit_has_flag( entry->sel_prop, "artillery" ) && entry->sel_prop->rng == 1 )
                 if ( unit_is_close( target, entry ) )
                     if ( player_is_ally( entry->player, target->player ) )
                         if ( entry->cur_ammo > 0 ) {
@@ -1069,7 +1071,7 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
                             continue;
                         }
             /* normal artillery */
-            if ( entry->sel_prop->flags & ARTILLERY )
+            if ( unit_has_flag( entry->sel_prop, "artillery" ) )
                 if ( unit_is_close( target, entry ) ) /* adjacent help only */
                     if ( unit_check_attack( entry, unit, UNIT_DEFENSIVE_ATTACK ) )
                         list_add( df_units, entry );
@@ -1106,7 +1108,7 @@ int unit_check_merge( Unit *unit, Unit *source )
     /* fortresses (unit-class 7) could not merge */
     if ( unit->prop.class == 7 ) return 0;
     /* artillery with different ranges may not merge */
-    if (unit->prop.flags&ARTILLERY && unit->prop.rng!=source->prop.rng) return 0;
+    if ( unit_has_flag( &unit->prop, "artillery" ) && unit->prop.rng!=source->prop.rng) return 0;
     /* not failed so far: allow merge */
     return 1;
 }
@@ -1133,9 +1135,9 @@ int unit_check_replacements( Unit *unit, int type )
         if ( unit->str >= unit->max_str + unit->exp_level ) return 0;
     }
     /* unit is airborne and not on airfield */
-    if ( (unit->prop.flags & FLYING) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
+    if ( unit_has_flag( &unit->prop, "flying" ) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
     /* unit is naval and not in port */
-    if ( (unit->prop.flags & SWIMMING) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
+    if ( unit_has_flag( &unit->prop, "swimming" ) && ( map_is_allied_depot(&map[unit->x][unit->y],unit) == 0) ) return 0;
     /* unit recieves 0 strength by calculations */
     if ( unit_get_replacement_strength(unit,type) < 1 ) return 0;
     /* not failed so far: allow replacements */
@@ -1220,7 +1222,8 @@ void unit_merge( Unit *unit, Unit *source )
     unit->prop.fuel = (int)( weight1 * unit->prop.fuel + weight2 * source->prop.fuel );
     unit->cur_fuel = (int)( weight1 * unit->cur_fuel + weight2 * source->cur_fuel );
     /* merge flags */
-    unit->prop.flags |= source->prop.flags;
+    unit->prop.flags[0] |= source->prop.flags[0];
+    unit->prop.flags[1] |= source->prop.flags[1];
     /* sounds, picture are kept */
     /* unit::trans_prop isn't updated so far: */
     /* transporter of first unit is kept if any else second unit's transporter is used */
@@ -1260,8 +1263,8 @@ int unit_get_replacement_strength( Unit *unit, int type )
         replacement_number = 1;
     else
     /* for naval units */
-        if (unit->prop.flags & SWIMMING)
-            if ( (unit->prop.flags & DIVING) || (unit->prop.flags & DESTROYER) )
+        if ( unit_has_flag( &unit->prop, "swimming" ) )
+            if ( unit_has_flag( &unit->prop, "diving" ) || unit_has_flag( &unit->prop, "destroyer" ) )
                 replacement_number = MINIMUM( 2, unit->max_str - unit->str );
             else
                 replacement_number = MINIMUM( 1, unit->max_str - unit->str );
@@ -1332,8 +1335,8 @@ Return True if unit uses a ground transporter.
 int unit_check_ground_trsp( Unit *unit )
 {
     if ( unit->trsp_prop.id == 0 ) return 0;
-    if ( unit->trsp_prop.flags & FLYING ) return 0;
-    if ( unit->trsp_prop.flags & SWIMMING ) return 0;
+    if ( unit_has_flag( &unit->trsp_prop, "flying" ) ) return 0;
+    if ( unit_has_flag( &unit->trsp_prop, "swimming" ) ) return 0;
     return 1;
 }
 
@@ -1363,12 +1366,12 @@ Check if target may do rugged defense
 */
 int unit_check_rugged_def( Unit *unit, Unit *target )
 {
-    if ( ( unit->sel_prop->flags & FLYING ) || ( target->sel_prop->flags & FLYING ) )
+    if ( unit_has_flag( unit->sel_prop, "flying" ) || unit_has_flag( target->sel_prop, "flying" ) )
         return 0;
-    if ( ( unit->sel_prop->flags & SWIMMING ) || ( target->sel_prop->flags & SWIMMING ) )
+    if ( unit_has_flag( unit->sel_prop, "swimming" ) || unit_has_flag( target->sel_prop, "swimming" ) )
         return 0;
-    if (unit->sel_prop->flags & ARTILLERY ) return 0; /* no rugged def against range attack */
-    if (unit->sel_prop->flags&IGNORE_ENTR) return 0; /* no rugged def for pioneers and such */
+    if ( unit_has_flag( unit->sel_prop, "artillery" ) ) return 0; /* no rugged def against range attack */
+    if ( unit_has_flag( unit->sel_prop, "ignore_entr" ) ) return 0; /* no rugged def for pioneers and such */
     if ( !unit_is_close( unit, target ) ) return 0;
     if ( target->entr == 0 ) return 0;
     return 1;
@@ -1402,14 +1405,14 @@ int unit_calc_fuel_usage( Unit *unit, int cost )
     
     /* air units use up *at least* the half of their initial movement points.
      */
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         int half = unit->sel_prop->mov / 2;
         if ( used < half ) used = half;
     }
     
     /* ground units face a penalty during bad weather */
-    if ( !(unit->sel_prop->flags & SWIMMING)
-         && !(unit->sel_prop->flags & FLYING)
+    if ( !unit_has_flag( unit->sel_prop, "swimming" )
+         && !unit_has_flag( unit->sel_prop, "flying" )
          && weather_types[scen_get_weather()].flags & DOUBLE_FUEL_COST )
         used *= 2;
     return used;
@@ -1467,7 +1470,7 @@ int unit_low_fuel( Unit *unit )
 {
     if ( !unit_check_fuel_usage( unit ) )
         return 0;
-    if ( unit->sel_prop->flags & FLYING ) {
+    if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
         if ( unit->cur_fuel <= 20 )
             return 1;
         return 0;
@@ -1493,7 +1496,7 @@ Check whether unit can be considered for deployment.
 */
 int unit_supports_deploy( Unit *unit )
 {
-    return !(unit->prop.flags & SWIMMING) /* ships and */
+    return !unit_has_flag( &unit->prop, "swimming" ) /* ships and */
            && !(unit->killed) /* killed units and */
            && unit->prop.mov > 0; /* fortresses cannot be deployed */
 }

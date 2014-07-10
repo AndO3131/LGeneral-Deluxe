@@ -389,7 +389,7 @@ int load_pgf_equipment(char *fullName){
     int i,cursor=0,token=0,lines, icon_id;
     int token_len, token_write;
     unsigned short file_type_probe;
-    int utf16 = 0;
+    int utf16 = 0, NumberInArray;
 
     inf=fopen(fullName,"rb");
     if (!inf)
@@ -540,106 +540,106 @@ int load_pgf_equipment(char *fullName){
             switch ( unit->class )
             {
                 case 0: // infantry (check cavalry flags)
-                    unit->flags |= check_flag( "infantry", fct_units );
-                    unit->flags |= check_flag( "air_trsp_ok", fct_units );
-                    unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "infantry", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
                     break;
                 case 1: //tank
-                    unit->flags |= check_flag( "low_entr_rate", fct_units );
-                    unit->flags |= check_flag( "tank", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "tank", fct_units, &NumberInArray );
                     break;
                 case 2: // recon
-                    unit->flags |= check_flag( "recon", fct_units );
-                    unit->flags |= check_flag( "tank", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "recon", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "tank", fct_units, &NumberInArray );
                     break;
                 case 3: // anti-tank
                     if ( unit->mov_type == 4 ) // towed anti-tanks
                     {
-                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
-                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                        unit->flags[NumberInArray / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
+                        unit->flags[NumberInArray / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
                     }
-                    unit->flags |= check_flag( "anti_tank", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "anti_tank", fct_units, &NumberInArray );
                     break;
                 case 4: // artillery
                     if ( unit->mov_type == 4 ) // towed artillery
                     {
-                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
-                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                        unit->flags[NumberInArray / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
+                        unit->flags[NumberInArray / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
                     }
-                    unit->flags |= check_flag( "artillery", fct_units );
-                    unit->flags |= check_flag( "suppr_fire", fct_units );
-                    unit->flags |= check_flag( "attack_first", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "artillery", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "attack_first", fct_units, &NumberInArray );
                     break;
                 case 5: // anti-aircraft
-                    unit->flags |= check_flag( "low_entr_rate", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
                     break;
                 case 6: // air defense
                     if ( unit->mov_type == 4 ) // towed air defense
                     {
-                        unit->flags |= check_flag( "air_trsp_ok", fct_units );
-                        unit->flags |= check_flag( "ground_trsp_ok", fct_units );
+                        unit->flags[NumberInArray / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
+                        unit->flags[NumberInArray / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
                     }
-                    unit->flags |= check_flag( "air_defense", fct_units );
-                    unit->flags |= check_flag( "attack_first", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "air_defense", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "attack_first", fct_units, &NumberInArray );
                     // air defense unit can't attack ground units
                     for ( i = 0; i < trgt_type_count; i++ )
                         unit->atks[i] = -unit->atks[i];
                     break;
                 case 7: // fortification
-                    unit->flags |= check_flag( "low_entr_rate", fct_units );
-                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
                     break;
                 case 8: // fighter
-                    unit->flags |= check_flag( "interceptor", fct_units );
-                    unit->flags |= check_flag( "carrier_ok", fct_units );
-                    unit->flags |= check_flag( "flying", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "interceptor", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "carrier_ok", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "flying", fct_units, &NumberInArray );
                     break;
                 case 9: // tactical bomber
-                    unit->flags |= check_flag( "bomber", fct_units );
-                    unit->flags |= check_flag( "carrier_ok", fct_units );
-                    unit->flags |= check_flag( "flying", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "bomber", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "carrier_ok", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "flying", fct_units, &NumberInArray );
                     break;
                 case 10: // level bomber
-                    unit->flags |= check_flag( "suppr_fire", fct_units );
-                    unit->flags |= check_flag( "turn_suppr", fct_units );
-                    unit->flags |= check_flag( "flying", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "turn_suppr", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "flying", fct_units, &NumberInArray );
                     break;
                 case 11: // submarine
-                    unit->flags |= check_flag( "swimming", fct_units );
-                    unit->flags |= check_flag( "diving", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "diving", fct_units, &NumberInArray );
                     break;
                 case 12: // destroyer
-                    unit->flags |= check_flag( "destroyer", fct_units );
-                    unit->flags |= check_flag( "swimming", fct_units );
-                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "destroyer", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
                     break;
                 case 13: // capital ship
-                    unit->flags |= check_flag( "swimming", fct_units );
-                    unit->flags |= check_flag( "suppr_fire", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
                     break;
                 case 14: // aircraft carrier
-                    unit->flags |= check_flag( "swimming", fct_units );
-                    unit->flags |= check_flag( "carrier", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "carrier", fct_units, &NumberInArray );
                     break;
                 case 15: // land transport
-                    unit->flags |= check_flag( "transporter", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
                     break;
                 case 16: // air transport
-                    unit->flags |= check_flag( "transporter", fct_units );
-                    unit->flags |= check_flag( "flying", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "flying", fct_units, &NumberInArray );
                     break;
                 case 17: // sea transport
-                    unit->flags |= check_flag( "transporter", fct_units );
-                    unit->flags |= check_flag( "swimming", fct_units );
+                    unit->flags[NumberInArray / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
+                    unit->flags[NumberInArray / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
                     break;
             }
             // flags from equipment.pgeqp
             if ( atoi(tokens[25]) )
-                unit->flags |= check_flag( "ignore_entr", fct_units );
+                unit->flags[NumberInArray / 32] |= check_flag( "ignore_entr", fct_units, &NumberInArray );
             if ( atoi(tokens[30]) )
-                unit->flags |= check_flag( "bridge_eng", fct_units );
+                unit->flags[NumberInArray / 32] |= check_flag( "bridge_eng", fct_units, &NumberInArray );
             if ( atoi(tokens[31]) )
-                unit->flags |= check_flag( "jet", fct_units );
+                unit->flags[NumberInArray / 32] |= check_flag( "jet", fct_units, &NumberInArray );
 //            fprintf( stderr, "%s: flags %d\n", unit->name, unit->flags );
 
 #ifdef WITH_SOUND

@@ -89,6 +89,7 @@ enum StorageVersion {
     StoreNewFolderStructure, /* scenarios have new folder structure */
     StoreLandTransportData, /* land transporter on sea embarked units is saved */
     StoreCampaignEntryName, /* store campaign entry name */
+    StoreAdditionalFlags, /* store additional flags variable */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -276,7 +277,8 @@ static void save_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
     /* icon_tiny_h */
     save_int(file, entry->icon_tiny_h);
     /* flags */
-    save_int(file, entry->flags);
+    save_int(file, entry->flags[0]);
+    save_int(file, entry->flags[1]);
     /* start_year */
     save_int(file, entry->start_year);
     /* start_month */
@@ -464,7 +466,9 @@ static void load_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
     /* icon_tiny_h */
     entry->icon_tiny_h = load_int(file);
     /* flags */
-    entry->flags = load_int(file);
+    entry->flags[0] = load_int(file);
+    if (store_version >= StoreAdditionalFlags)
+        entry->flags[1] = load_int(file);
     /* start_year */
     entry->start_year = load_int(file);
     /* start_month */

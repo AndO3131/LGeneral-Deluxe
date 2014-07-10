@@ -337,14 +337,14 @@ This function checks if 'name' occurs in fct and return the flag
 or 0 if not found.
 ====================================================================
 */
-int check_flag( const char *name, StrToFlag *fct )
+int check_flag( const char *name, StrToFlag *fct, int *NumberInArray )
 {
     /* get flags */
-    int i = 0;
-    while ( fct[i].string[0] != 'X' ) {
-        if ( STRCMP( fct[i].string, name ) )
-            return fct[i].flag;
-        i++;
+    *NumberInArray = 0;
+    while ( fct[*NumberInArray].string[0] != 'X' ) {
+        if ( STRCMP( fct[*NumberInArray].string, name ) )
+            return fct[*NumberInArray].flag;
+        (*NumberInArray)++;
     }
     if ( !STRCMP( "none", name ) )
         fprintf( stderr, tr("%s: unknown flag\n"), name );

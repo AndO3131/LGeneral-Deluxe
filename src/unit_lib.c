@@ -192,13 +192,13 @@ void unit_lib_eval_unit( Unit_Lib_Entry *unit )
        into categories. The subscores are added with different
        weights. */
     /* The first category covers the attack skills. */
-    if ( unit->flags & FLYING ) {
+    if ( unit_has_flag( unit, "flying" ) ) {
         attack = unit->atks[0] + unit->atks[1] + /* ground */
                  2 * MAXIMUM( unit->atks[2], abs( unit->atks[2] ) / 2 ) + /* air */
                  unit->atks[3]; /* sea */
     }
     else {
-        if ( unit->flags & SWIMMING ) {
+        if ( unit_has_flag( unit, "swimming" ) ) {
             attack = unit->atks[0] + unit->atks[1] + /* ground */
                      unit->atks[2] + /* air */
                      2 * unit->atks[3]; /* sea */
@@ -213,11 +213,11 @@ void unit_lib_eval_unit( Unit_Lib_Entry *unit )
     attack += unit->ini;
     attack += 2 * unit->rng;
     /* The second category covers defensive skills. */
-    if ( unit->flags & FLYING )
+    if ( unit_has_flag( unit, "flying" ) )
         defense = unit->def_grnd + 2 * unit->def_air;
     else {
         defense = 2 * unit->def_grnd + unit->def_air;
-        if ( unit->flags & INFANTRY )
+        if ( unit_has_flag( unit, "infantry" ) )
             /* hype infantry a bit as it doesn't need the
                close defense value */
             defense += 5;
@@ -225,7 +225,7 @@ void unit_lib_eval_unit( Unit_Lib_Entry *unit )
             defense += unit->def_cls;
     }
     /* The third category covers miscellany skills. */
-    if ( unit->flags & FLYING )
+    if ( unit_has_flag( unit, "flying" ) )
         misc = MINIMUM( 12, unit->ammo ) + MINIMUM( unit->fuel, 80 ) / 5 + unit->mov / 2;
     else
         misc = MINIMUM( 12, unit->ammo ) + MINIMUM( unit->fuel, 60 ) / 4 + unit->mov;
@@ -448,15 +448,18 @@ int unit_lib_load( char *fname, int main )
             /* flags */
             if ( parser_get_values( sub, "flags", &flags ) ) {
                 list_reset( flags ); 
-                while ( ( flag = list_next( flags ) ) )
-                    unit->flags |= check_flag( flag, fct_units );
+                while ( ( flag = list_next( flags ) ) ) {
+                    int NumberInArray, Flag;
+                    Flag = check_flag( flag, fct_units, &NumberInArray );
+                    unit->flags[(int) (NumberInArray + 1) / 32] |= Flag;
+                }
             }
             /* set the entrenchment rate */
             unit->entr_rate = 2;
-            if ( unit->flags & LOW_ENTR_RATE )
+            if ( unit_has_flag( unit, "low_entr_rate" ) )
                 unit->entr_rate = 1;
             else
-                if ( unit->flags & INFANTRY )
+                if ( unit_has_flag( unit, "infantry" ) )
                     unit->entr_rate = 3;
             /* time period of usage (0 == cannot be purchased) */
             unit->start_year = unit->start_month = unit->last_year = 0;
@@ -811,10 +814,10 @@ void relative_evaluate_units()
         best_sea = 0; /* used to relativate evaluations */
     list_reset( unit_lib );
     while ( ( unit = list_next( unit_lib ) ) ) {
-        if ( unit->flags & FLYING )
+        if ( unit_has_flag( unit, "flying" ) )
             best_air = MAXIMUM( unit->eval_score, best_air );
         else {
-            if ( unit->flags & SWIMMING )
+            if ( unit_has_flag( unit, "swimming" ) )
                 best_sea = MAXIMUM( unit->eval_score, best_sea );
             else
                 best_ground = MAXIMUM( unit->eval_score, best_ground );
@@ -823,13 +826,28 @@ void relative_evaluate_units()
     list_reset( unit_lib );
     while ( ( unit = list_next( unit_lib ) ) ) {
         unit->eval_score *= 1000;
-        if ( unit->flags & FLYING )
+        if ( unit_has_flag( unit, "flying" ) )
             unit->eval_score /= best_air;
         else {
-            if ( unit->flags & SWIMMING )
+            if ( unit_has_flag( unit, "swimming" ) )
                 unit->eval_score /= best_sea;
             else
                 unit->eval_score /= best_ground;
         }
     }
 }
+
+/*
+====================================================================
+Check whether a unit has specific flag, portraying special ability.
+====================================================================
+*/
+int unit_has_flag( Unit_Lib_Entry *unit, char *flag )
+{
+    int NumberInArray, Flag;
+    Flag = check_flag( flag, fct_units, &NumberInArray );
+    if ( ( NumberInArray < 31 && unit->flags[0] & Flag ) || ( NumberInArray >= 31 && unit->flags[1] & Flag ) )
+        return 1;
+    return 0;
+}
+
