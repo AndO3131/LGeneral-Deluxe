@@ -592,6 +592,7 @@ int load_pgf_equipment(char *fullName){
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "turn_suppr", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "flying", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 11: // submarine
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
