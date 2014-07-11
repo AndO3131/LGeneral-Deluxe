@@ -482,15 +482,15 @@ int load_pgf_equipment(char *fullName){
                 }
             //attack
             for ( i = 0; i < trgt_type_count; i++ )
-                unit->atks[i] = (unsigned char) atoi(tokens[i + 3]);
+                unit->atks[i] = atoi(tokens[i + 3]);
             /* attack count */
             unit->atk_count = 1;
             /* ground defense */
-            unit->def_grnd = (unsigned char) atoi(tokens[7]);
+            unit->def_grnd = atoi(tokens[7]);
             /* air defense */
-            unit->def_air = (unsigned char) atoi(tokens[8]);
+            unit->def_air = atoi(tokens[8]);
             /* close defense */
-            unit->def_cls = (unsigned char) atoi(tokens[9]);
+            unit->def_cls = atoi(tokens[9]);
             /* move type id */
             unit->mov_type = 0;
             for ( i = 0; i < mov_type_count; i++ )
@@ -499,11 +499,11 @@ int load_pgf_equipment(char *fullName){
                     break;
                 }
             /* initiative */
-            unit->ini = (unsigned char) atoi(tokens[11]);
+            unit->ini = atoi(tokens[11]);
             /* range */
-            unit->rng = (unsigned char) atoi(tokens[12]);
+            unit->rng = atoi(tokens[12]);
             /* spotting */
-            unit->spt = (unsigned char) atoi(tokens[13]);
+            unit->spt = atoi(tokens[13]);
             /* target type id */
             unit->trgt_type = 0;
             for ( i = 0; i < trgt_type_count; i++ )
@@ -512,13 +512,13 @@ int load_pgf_equipment(char *fullName){
                     break;
                 }
             /* movement */
-            unit->mov = (unsigned char) atoi(tokens[15]);
+            unit->mov = atoi(tokens[15]);
             /* fuel */
-            unit->fuel = (unsigned char) atoi(tokens[16]);
+            unit->fuel = atoi(tokens[16]);
             /* ammo */
-            unit->ammo = (unsigned char) atoi(tokens[17]);
+            unit->ammo = atoi(tokens[17]);
             /* cost of unit (0 == cannot be purchased) */
-            unit->cost = (unsigned char) atoi(tokens[18]);
+            unit->cost = atoi(tokens[18]);
             /* icon id */
             icon_id = atoi(tokens[19]);
             /* icon_type */
@@ -541,49 +541,38 @@ int load_pgf_equipment(char *fullName){
             {
                 case 0: // infantry (check cavalry flags)
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "infantry", fct_units, &NumberInArray );
-                    unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
-                    unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 1: //tank
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "tank", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 2: // recon
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "recon", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "tank", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 3: // anti-tank
-                    if ( unit->mov_type == 4 ) // towed anti-tanks
-                    {
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
-                    }
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "anti_tank", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 4: // artillery
-                    if ( unit->mov_type == 4 ) // towed artillery
-                    {
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
-                    }
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "artillery", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "attack_first", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 5: // anti-aircraft
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
                     break;
                 case 6: // air defense
-                    if ( unit->mov_type == 4 ) // towed air defense
-                    {
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
-                        unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
-                    }
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_defense", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "attack_first", fct_units, &NumberInArray );
                     // air defense unit can't attack ground units
                     for ( i = 0; i < trgt_type_count; i++ )
-                        unit->atks[i] = -unit->atks[i];
+                        if ( i != 2)
+                            unit->atks[i] = -unit->atks[i];
                     break;
                 case 7: // fortification
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "low_entr_rate", fct_units, &NumberInArray );
@@ -607,35 +596,50 @@ int load_pgf_equipment(char *fullName){
                 case 11: // submarine
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "diving", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 12: // destroyer
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "destroyer", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 13: // capital ship
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "suppr_fire", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 14: // aircraft carrier
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "carrier", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 15: // land transport
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 16: // air transport
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "flying", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
                 case 17: // sea transport
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "transporter", fct_units, &NumberInArray );
                     unit->flags[(NumberInArray + 1) / 32] |= check_flag( "swimming", fct_units, &NumberInArray );
+                    unit->atks[2] = -unit->atks[2];
                     break;
             }
             // flags from equipment.pgeqp
             if ( atoi(tokens[25]) )
                 unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ignore_entr", fct_units, &NumberInArray );
+            if ( atoi(tokens[26]) )
+                unit->flags[(NumberInArray + 1) / 32] |= check_flag( "ground_trsp_ok", fct_units, &NumberInArray );
+//            if ( atoi(tokens[27]) )
+//                unit->flags[(NumberInArray + 1) / 32] |= check_flag( "sea_trsp_ok", fct_units, &NumberInArray );
+            if ( atoi(tokens[28]) )
+                unit->flags[(NumberInArray + 1) / 32] |= check_flag( "air_trsp_ok", fct_units, &NumberInArray );
+            if ( atoi(tokens[29]) )
+                unit->flags[(NumberInArray + 1) / 32] |= check_flag( "parachute", fct_units, &NumberInArray );
             if ( atoi(tokens[30]) )
                 unit->flags[(NumberInArray + 1) / 32] |= check_flag( "bridge_eng", fct_units, &NumberInArray );
             if ( atoi(tokens[31]) )
@@ -779,27 +783,27 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 snprintf( STM_file, MAX_PATH, "Scenario/%s", tokens[1] );
             }
             if (strcmp(tokens[0],"turns")==0)
-                scen_info->turn_limit=(unsigned char)atoi(tokens[1]);
+                scen_info->turn_limit=atoi(tokens[1]);
             if (strcmp(tokens[0],"year")==0)
-                scen_info->start_date.year=(unsigned char)atoi(tokens[1]) + 1900;
+                scen_info->start_date.year=atoi(tokens[1]) + 1900;
             if (strcmp(tokens[0],"month")==0)
-                scen_info->start_date.month=(unsigned char)atoi(tokens[1]) - 1;
+                scen_info->start_date.month=atoi(tokens[1]) - 1;
             if (strcmp(tokens[0],"day")==0)
-                scen_info->start_date.day=(unsigned char)atoi(tokens[1]);
+                scen_info->start_date.day=atoi(tokens[1]);
             if (strcmp(tokens[0],"days per turn")==0)
-                scen_info->days_per_turn=(unsigned char)atoi(tokens[1]);
+                scen_info->days_per_turn=atoi(tokens[1]);
             if (strcmp(tokens[0],"turns per day")==0)
             {
-                scen_info->turns_per_day=(unsigned char)atoi(tokens[1]);
+                scen_info->turns_per_day=atoi(tokens[1]);
                 if ( scen_info->turns_per_day == 0 )
                     scen_info->turns_per_day = 1; // fix for some scenarios
             }
             if (strcmp(tokens[0],"current weather")==0)
             {
-                current_weather = (unsigned char)atoi(tokens[1]);
+                current_weather = atoi(tokens[1]);
             }
             if (strcmp(tokens[0],"weather zone")==0)
-                scen_info->weather_zone = (unsigned char)atoi(tokens[1]);
+                scen_info->weather_zone = atoi(tokens[1]);
 /*            if (strcmp(tokens[0],"max unit strength")==0)
                 if (probe_file_only!=SCAN_FOR_MAP_NUMBER) strncpy(block1_Max_Unit_Strength,tokens[1],256);
             if (strcmp(tokens[0],"max unit experience")==0)
@@ -870,7 +874,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                     player->ctrl = PLAYER_CTRL_HUMAN;
                     if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
                     {
-                        player->core_limit = (unsigned char)atoi(tokens[2]);
+                        player->core_limit = atoi(tokens[2]);
                     }
                     else
                         player->core_limit = -1;
@@ -882,9 +886,9 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 player->ai_fname = strdup( "default" );
                 player->strength_row = 0;
 
-                player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
+                player->unit_limit = atoi(tokens[2]) + atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
-                if ( (unsigned char)atoi(tokens[4]) == 0)
+                if ( atoi(tokens[4]) == 0)
                     player->strat = -1;
                 else
                     player->strat = 1;
@@ -918,7 +922,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                     player->ctrl = PLAYER_CTRL_HUMAN;
                     if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
                     {
-                        player->core_limit = (unsigned char)atoi(tokens[2]);
+                        player->core_limit = atoi(tokens[2]);
                     }
                     else
                         player->core_limit = -1;
@@ -936,28 +940,28 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 player->ai_fname = strdup( "default" );
                 player->strength_row = 2;
 
-                player->unit_limit = (unsigned char)atoi(tokens[2]) + (unsigned char)atoi(tokens[3]);
+                player->unit_limit = atoi(tokens[2]) + atoi(tokens[3]);
 //                fprintf( stderr, "Unit limit:%d\n", player->unit_limit );
-                if ( (unsigned char)atoi(tokens[4]) == 0)
+                if ( atoi(tokens[4]) == 0)
                     player->strat = -1;
                 else
                     player->strat = 1;
 //                fprintf( stderr, "Strategy:%d\n", player->strat );
 
-                player->air_trsp_count = (unsigned char)atoi(tokens[8]);
+                player->air_trsp_count = atoi(tokens[8]);
 //                fprintf( stderr, "Air transport count: %d\n", player->air_trsp_count );
                 player->air_trsp = unit_lib_find( tokens[9] );
 //                fprintf( stderr, "Air transport type: %d\n", air_trsp_player1 );
 //                s4_buffer[ALLIED_AIR_TYPE+1]=(unsigned chaallies_move_firstr)(atoi(tokens[9])>>8);
 
-                player->sea_trsp_count = (unsigned char)atoi(tokens[6]);
+                player->sea_trsp_count = atoi(tokens[6]);
 //                fprintf( stderr, "Sea transport count: %d\n", player->sea_trsp_count );
                 player->sea_trsp = unit_lib_find( tokens[7] );
 //                fprintf( stderr, "Sea transport type: %d\n", sea_trsp_player1 );
 //                s4_buffer[ALLIED_SEA_TYPE+1]=(unsigned char)(atoi(tokens[7])>>8);
 
                 player->prestige_per_turn = calloc( scen_info->turn_limit, sizeof(int));
-                player->prestige_per_turn[0] = (unsigned char)atoi(tokens[1]);
+                player->prestige_per_turn[0] = atoi(tokens[1]);
 //                fprintf( stderr, "Prestige: %d\n", player->prestige_per_turn[0] );
 //                s4_buffer[ALLIED_PRESTIGE+1]=(unsigned char)(atoi(tokens[1])>>8);
 
