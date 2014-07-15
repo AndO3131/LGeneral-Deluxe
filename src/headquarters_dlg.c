@@ -128,8 +128,7 @@ HeadquartersDlg *headquarters_dlg_create( char *theme_path )
 		return NULL;
 	
 	/* create main group (= main window) */
-	snprintf( transitionPath, MAX_PATH, "headquarters_buttons" );
-    search_file_name( path, 0, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, "headquarters_buttons", theme_path, "", 'i' );
 	hdlg->main_group = group_create( gui_create_frame( 500, 400 ), 160, 
 				load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
 				20, 20, 2, ID_HEADQUARTERS_CLOSE,
@@ -145,8 +144,7 @@ HeadquartersDlg *headquarters_dlg_create( char *theme_path )
 	group_set_active( hdlg->main_group, ID_HEADQUARTERS_GO_TO_UNIT, 0 );
 	
 	/* create units listbox */
-	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
-    search_file_name( path, 0, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, "scroll_buttons", theme_path, "", 'i' );
 	hdlg->units_lbox = lbox_create( gui_create_frame( 112, 380 ), 160, 6,
 			load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 24, 24,
 			8, 7, 100, 40, 1, 0x0000ff,

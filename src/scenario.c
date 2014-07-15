@@ -321,8 +321,7 @@ int scen_load_lgscn( const char *fname, const char *path )
     sprintf( log_str, tr("Loading Nations") );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( !parser_get_value( pd, "nation_db", &str, 0 ) ) goto parser_failure;
-    snprintf( temp, MAX_PATH, "Scenario/%s", str );
-    if ( !nations_load( temp ) ) goto failure;
+    if ( !nations_load( str ) ) goto failure;
     /* unit libs */
     if ( !parser_get_pdata( pd, "unit_db", &sub ) ) {
         /* check the scenario file itself but only for the main entry */
@@ -921,8 +920,7 @@ int scen_load( char *fname )
     char *path, *extension, temp[256];
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
-    snprintf( temp, 256, "%s/Scenario", config.mod_name );
-    search_file_name( path, extension, fname, temp, 'o' );
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
         return scen_load_lgscn( fname, path );
     else if ( strcmp( extension, "pgscn" ) == 0 )
@@ -939,7 +937,7 @@ char *scen_load_info( char *fname )
 {
     char path[MAX_PATH], extension[10], temp[MAX_PATH];
     snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-    search_file_name( path, extension, fname, temp, 'o' );
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'o' );
     if ( strcmp( extension, "lgscn" ) == 0 )
     {
         return scen_load_lgscn_info( fname, path );

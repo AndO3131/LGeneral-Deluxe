@@ -281,11 +281,10 @@ Load campaign.
 */
 int camp_load( const char *fname, const char *camp_entry )
 {
-    char *path, *extension, temp[256];
+    char *path, *extension;
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
-    snprintf( temp, 256, "%s/Scenario", config.mod_name );
-    search_file_name( path, extension, fname, temp, 'c' );
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'c' );
     if ( strcmp( extension, "lgcam" ) == 0 )
         return camp_load_lgcam( fname, path );
     else if ( strcmp( extension, "pgcam" ) == 0 )
@@ -300,9 +299,8 @@ Load a campaign description.
 */
 char *camp_load_info( char *fname, char *camp_entry )
 {
-    char path[MAX_PATH], extension[10], temp[MAX_PATH];
-    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-    search_file_name( path, extension, fname, temp, 'c' );
+    char path[MAX_PATH], extension[10];
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'c' );
     if ( strcmp( extension, "lgcam" ) == 0 )
     {
         return camp_load_lgcam_info( fname, path );

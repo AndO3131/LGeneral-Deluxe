@@ -38,10 +38,12 @@ const int extension_image_length = 4;
 const int extension_sound_length = 3;
 const int extension_scenario_length = 2;
 const int extension_campaign_length = 2;
+const int extension_nations_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
 const char *extension_campaign[] = { "lgcam", "pgcam" };
+const char *extension_nations[] = { "lgdndb", "ndb" };
 
 /*
 ====================================================================
@@ -283,8 +285,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                 if ( strcmp( strrchr( dirent->d_name, '.' ), ".pgscn" ) == 0 )
                 {
                     char temp[MAX_BUFFER];
-                    snprintf( temp, MAX_BUFFER, "%s/Scenario", config.mod_name );
-                    search_file_name( temp, 0, file_name, temp, 'o' );
+                    search_file_name( temp, 0, file_name, config.mod_name, "Scenario", 'o' );
                     snprintf( internal_name, MAX_BUFFER, "%s", load_pgf_pgscn_info( file_name, temp, 1 ) );
                     /* add one scenario entry */
                     name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
@@ -295,8 +296,7 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                 else if ( strcmp( strrchr( dirent->d_name, '.' ), ".pgcam" ) == 0 )
                 {
                     char temp[MAX_BUFFER];
-                    snprintf( temp, MAX_BUFFER, "%s/Scenario", config.mod_name );
-                    search_file_name( temp, 0, file_name, temp, 'c' );
+                    search_file_name( temp, 0, file_name, config.mod_name, "Scenario", 'c' );
                     List *campaign_entries;
                     campaign_entries = list_create( LIST_AUTO_DELETE, delete_name_entry );
                     parse_pgcam_info( campaign_entries, file_name, temp, 0 );
@@ -500,9 +500,10 @@ for further use.
 's' - sounds (wav, ogg, mp3)
 'o' - scenarios (lgscn, pgscn)
 'c' - campaigns (lgcam, pgcam)
+'n' - nations (ndb, lgdndb)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type )
+int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, char *subFolder, const char type )
 {
     int i = 0;
     char pathTemp[MAX_PATH];
@@ -514,7 +515,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
             {
                 while ( i < extension_image_length )
                 {
-                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_image[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_image[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
@@ -531,7 +532,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
             {
                 while ( i < extension_sound_length )
                 {
-                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_sound[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_sound[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
@@ -548,7 +549,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
             {
                 while ( i < extension_scenario_length )
                 {
-                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_scenario[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_scenario[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
@@ -565,7 +566,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
             {
                 while ( i < extension_campaign_length )
                 {
-                    snprintf( pathTemp, MAX_PATH, "%s/%s.%s", modFolder, name, extension_campaign[i] );
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_campaign[i] );
                     if ( file_exists( pathTemp ) )
                     {
                         if ( pathFinal != 0 )
@@ -578,15 +579,33 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                 }
                 break;
             }
+            case 'n':
+            {
+                while ( i < extension_nations_length )
+                {
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_nations[i] );
+                    if ( file_exists( pathTemp ) )
+                    {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_nations[i] );
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
         }
     }
+    i = 0;
     switch (type)
     {
         case 'i':
         {
             while ( i < extension_image_length )
             {
-                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_image[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_image[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
@@ -603,7 +622,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
         {
             while ( i < extension_sound_length )
             {
-                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_sound[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_sound[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
@@ -620,7 +639,7 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
         {
             while ( i < extension_scenario_length )
             {
-                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_scenario[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_scenario[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
@@ -637,13 +656,30 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
         {
             while ( i < extension_campaign_length )
             {
-                snprintf( pathTemp, MAX_PATH, "Default/%s.%s", name, extension_campaign[i] );
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_campaign[i] );
                 if ( file_exists( pathTemp ) )
                 {
                     if ( pathFinal != 0 )
                         snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
                         snprintf( extension, MAX_EXTENSION, "%s", extension_campaign[i] );
+                    return 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 'n':
+        {
+            while ( i < extension_nations_length )
+            {
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_nations[i] );
+                if ( file_exists( pathTemp ) )
+                {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_nations[i] );
                     return 1;
                 }
                 i++;

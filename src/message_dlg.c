@@ -41,7 +41,7 @@ int last_selected_message = 0;             /* last message to display */
 MessageDlg *message_dlg_create( char *theme_path )
 {
 	MessageDlg *mdlg = NULL;
-	char path[MAX_PATH], transitionPath[MAX_PATH];
+	char path[MAX_PATH];
 	int sx, sy;
 	
 	mdlg = calloc( 1, sizeof(MessageDlg) );
@@ -49,8 +49,7 @@ MessageDlg *message_dlg_create( char *theme_path )
 		return NULL;
 	
 	/* create main group (= main window) */
-	snprintf( transitionPath, MAX_PATH, "scroll_buttons" );
-    search_file_name( path, 0, transitionPath, theme_path, 'i' );
+    search_file_name( path, 0, "scroll_buttons", theme_path, "", 'i' );
 	mdlg->main_group = group_create( gui_create_frame( sdl.screen->w - 4, 100 ), 160, 
 				load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ),
 				24, 24, 2, ID_MESSAGE_LIST_UP,

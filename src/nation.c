@@ -29,6 +29,7 @@
 #include "parser.h"
 #include "localize.h"
 #include "config.h"
+#include "FPGE/pgf.h"
 
 /*
 ====================================================================
@@ -51,18 +52,34 @@ int outside_nation_flag_width = 0, outside_nation_flag_height = 0;
 
 /*
 ====================================================================
-Read nations from SRCDIR/nations/fname.
+Load nations database.
 ====================================================================
 */
 int nations_load( char *fname )
 {
+    char *path, *extension;
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'n' );
+    if ( strcmp( extension, "ndb" ) == 0 )
+        return nations_load_ndb( fname, path );
+    else if ( strcmp( extension, "lgdndb" ) == 0 )
+        return nations_load_lgdndb( fname, path );
+    return 0;
+}
+
+/*
+====================================================================
+Read nations from SRCDIR/fname.
+====================================================================
+*/
+int nations_load_ndb( char *fname, char *path )
+{
     int i;
     PData *pd, *sub;
     List *entries;
-    char path[MAX_PATH];
     char *str;
     char *domain = 0;
-    search_file_name_exact( path, fname, config.mod_name );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -98,6 +115,140 @@ parser_failure:
 failure:
     nations_delete();
     if ( pd ) parser_free( &pd );
+    free(domain);
+    return 0;
+}
+
+/*
+====================================================================
+Read nations from SRCDIR/fname.
+====================================================================
+*/
+int nations_load_lgdndb( char *fname, char *path )
+{
+    int i;
+    char str[MAX_LINE_SHORT];
+    char *domain = 0;
+
+    FILE *inf;
+    char line[1024],tokens[20][256];
+    int j=0,block=0,last_line_length=-1,cursor=0,token=0;
+    int utf16 = 0, lines=0;
+    nation_count = 0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open nation database file\n");
+        return 0;
+    }
+
+    //find number of countries
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23) { line[i]=0; break; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+        if (block == 3)
+            nation_count++;
+    }
+    nations = calloc( nation_count, sizeof( Nation ) );
+
+    fclose(inf);
+
+    block=0;last_line_length=-1;cursor=0;token=0;lines=0;
+    inf=fopen(path,"rb");
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x23) { line[i]=0; break; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#2 icon data
+        if (block == 2)
+        {
+            if ( strcmp( tokens[0], "icons_file" ) == 0 )
+            {
+                strncpy(str,tokens[1],256);
+            }
+            if ( strcmp( tokens[0], "icon_width" ) == 0 )
+            {
+                outside_nation_flag_width = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "icon_height" ) == 0 )
+            {
+                outside_nation_flag_height = atoi( tokens[1] );
+            }
+            if ( strcmp( str, "" ) != 0 && outside_nation_flag_width != 0 && outside_nation_flag_height != 0 )
+            {
+                search_file_name_exact( path, str, config.mod_name );
+                if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE, 
+                       outside_nation_flag_width, outside_nation_flag_height, nation_flag_width, nation_flag_height ) ) == 0 )
+                {
+                    fprintf( stderr, "%s: %s\n", path, SDL_GetError() );
+                    goto failure;
+                }
+            }
+        }
+        //Block#3 nations
+        if (block == 3)
+        {
+            nations[j].id = strdup( tokens[0] );
+            nations[j].name = strdup( tokens[1] );
+            nations[j].flag_offset = atoi( tokens[2] ) * nation_flag_width;
+            j++;
+        }
+    }    
+    fclose(inf);
+    return 1;
+failure:
+    fclose(inf);
+    nations_delete();
     free(domain);
     return 0;
 }

@@ -80,9 +80,10 @@ Extensions are added according to type given.
 's' - sounds (wav, ogg, mp3)
 'o' - scenarios (lgscn, pgscn)
 'c' - campaigns (lgcam, pgcam)
+'n' - nations (ndb, lgdndb)
 ====================================================================
 */
-int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, const char type );
+int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, char *subFolder, const char type );
 
 /*
 ====================================================================

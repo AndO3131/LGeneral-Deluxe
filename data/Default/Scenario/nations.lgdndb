@@ -1,0 +1,37 @@
+# This is a LGeneral Deluxe nations description file		
+# It is a UNICODE tab-separated text file		
+# You can modify it in any text editor (Notepad will do)		
+# You can also open it in Microsoft Excel and edit in a convenient table format		
+# Comments start with '#' and are completely ignored		
+# Empty lines separate sectons of the file and so are very important. DO NOT DELETE THEM!		
+		
+# Basic icon data		
+icons_file	Graphics/flags.bmp	
+icon_width	60	
+icon_height	50	
+		
+# nation_id	name	icon_id
+aus	Austria	0
+bel	Belgia	1
+bul	Bulgaria	2
+lux	Luxemburg	3
+den	Denmark	4
+fin	Finnland	5
+fra	France	6
+ger	Germany	7
+gre	Greece	8
+usa	USA	9
+hun	Hungary	10
+tur	Turkey	11
+it	Italy	12
+net	Netherlands	13
+nor	Norway	14
+pol	Poland	15
+por	Portugal	16
+rum	Rumania	17
+esp	Spain	18
+so	Sovjetunion	19
+swe	Sweden	20
+swi	Switzerland	21
+eng	Great Britain	22
+yug	Yugoslavia	23
