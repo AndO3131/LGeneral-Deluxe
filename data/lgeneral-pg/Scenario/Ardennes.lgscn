@@ -7,9 +7,9 @@ turns»32
 turns_per_day»2
 days_per_turn»0
 domain»pg
-nation_db»nations.ndb
+nation_db»nations
 <unit_db
-main»pg.udb
+main»pg
 >
 map»map17.lgmap
 weather»snow°I°snow°snow°snow°snow°snow°snow°snow°I°I°snow°I°snow°snow°i°fair°fair°s°snow°snow°snow°snow°I°snow°snow°snow°I°snow°snow°I°I

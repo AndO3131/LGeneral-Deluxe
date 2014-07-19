@@ -7,9 +7,9 @@ turns»14
 turns_per_day»0
 days_per_turn»8
 domain»pg
-nation_db»nations.ndb
+nation_db»nations
 <unit_db
-main»pg.udb
+main»pg
 >
 map»map14.lgmap
 weather»fair°fair°fair°fair°clouds°r°clouds°fair°fair°fair°fair°fair°fair°fair

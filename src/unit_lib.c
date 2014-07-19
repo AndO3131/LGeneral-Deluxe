@@ -26,6 +26,7 @@
 #include "config.h"
 #include "player.h"
 #include "unit.h"
+#include "FPGE/pgf.h"
 
 /*
 ====================================================================
@@ -235,23 +236,17 @@ void unit_lib_eval_unit( Unit_Lib_Entry *unit )
 
 /*
 ====================================================================
-Publics
-====================================================================
-*/
-
-/*
-====================================================================
-Load a unit library. If UNIT_LIB_MAIN is passed target_types,
+Load a unit library in 'udb' format. If UNIT_LIB_MAIN is passed target_types,
 mov_types and unit classes will be loaded (may only happen once)
 ====================================================================
 */
-int unit_lib_load( char *fname, int main )
+int unit_lib_load_udb( char *fname, char *path, int main )
 {
     int i, icon_id;
     Unit_Lib_Entry *unit;
     List *entries, *flags;
     PData *pd, *sub, *subsub;
-    char path[512], transitionPath[512];
+    char transitionPath[512];
     char *str, *flag;
     char *domain = 0;
     /* log info */
@@ -268,8 +263,6 @@ int unit_lib_load( char *fname, int main )
     }
     /* parse file */
     
-    sprintf( transitionPath, "Scenario/%s", fname );
-    search_file_name_exact( path, transitionPath, config.mod_name );
     sprintf( log_str, tr("  Parsing '%s'"), fname );
     write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
@@ -529,6 +522,373 @@ failure:
     if ( pd ) parser_free( &pd );
     free(domain);
     SDL_FreeSurface(icons);
+    return 0;
+}
+
+/*
+====================================================================
+Load a unit library in 'lgdudb' format.
+====================================================================
+*/
+int unit_lib_load_lgdudb( char *fname, char *path )
+{
+    int i;
+    char str[MAX_LINE_SHORT];
+    char *domain = 0;
+
+    FILE *inf;
+    Unit_Lib_Entry *unit;
+    char line[1024], tokens[100][256], log_str[128], transitionPath[512];
+    int j, block=0, last_line_length=-1, cursor=0, token=0, cur_trgt_type=0, cur_mov_type=0, cur_unit_class=0;
+    int utf16 = 0, lines=0;
+    trgt_type_count = 0;
+    mov_type_count = 0;
+    unit_class_count = 0;
+
+    sprintf( log_str, tr("  Parsing '%s'"), fname );
+    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+    write_line( sdl.screen, log_font, tr("  Loading Main Definitions"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+    unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open nation database file\n");
+        return 0;
+    }
+
+    //find number of countries
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+        if (block == 2 && strlen(line)>0)
+            trgt_type_count++;
+        if (block == 3 && strlen(line)>0)
+            mov_type_count++;
+        if (block == 4 && strlen(line)>0)
+            unit_class_count++;
+        if (block == 5)
+        {
+            fclose(inf);
+            break;
+        }
+    }
+    if ( trgt_type_count > TARGET_TYPE_LIMIT ) {
+        fprintf( stderr, tr("%i target types is the limit!\n"), TARGET_TYPE_LIMIT );
+        trgt_type_count = TARGET_TYPE_LIMIT;
+    }
+    trgt_types = calloc( trgt_type_count, sizeof( Trgt_Type ) );
+    mov_types = calloc( mov_type_count, sizeof( Mov_Type ) );
+    unit_classes = calloc( unit_class_count, sizeof( Unit_Class ) );
+    unit_info_icons = calloc( 1, sizeof( Unit_Info_Icons ) );
+    unit_info_icons->str_w = 16;
+    unit_info_icons->str_h = 12;
+
+    block=0;last_line_length=-1;cursor=0;token=0;lines=0;
+    inf=fopen(path,"rb");
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#1 icon files data
+        if (block == 1 && strlen(line)>0)
+        {
+/*            if ( strcmp( tokens[0], "domain" ) == 0 )
+            {
+                domain = determine_domain(tokens[1], fname);
+            }*/
+            if ( strcmp( tokens[0], "icon_type" ) == 0 )
+            {
+                if ( STRCMP( tokens[1], "fixed" ) )
+                    icon_type = UNIT_ICON_FIXED;
+                else if ( STRCMP( tokens[1], "single" ) )
+                    icon_type = UNIT_ICON_SINGLE;
+                else
+                    icon_type = UNIT_ICON_ALL_DIRS;
+            }
+            if ( strcmp( tokens[0], "icon_height" ) == 0 )
+            {
+                icon_height = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "icon_width" ) == 0 )
+            {
+                icon_width = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "icon_columns" ) == 0 )
+            {
+                icon_columns = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "icons" ) == 0 )
+            {
+                sprintf( transitionPath, "Graphics/%s", tokens[1] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                write_line( sdl.screen, log_font, tr("  Loading Tactical Icons"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( ( icons = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
+            }
+            if ( strcmp( tokens[0], "strength_icon_width" ) == 0 )
+            {
+                outside_icon_width = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "strength_icon_height" ) == 0 )
+            {
+                outside_icon_height = atoi( tokens[1] );
+            }
+            if ( strcmp( tokens[0], "strength_icons" ) == 0 )
+            {
+                sprintf( transitionPath, "Graphics/%s", tokens[1] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE, outside_icon_width, outside_icon_height,
+                                                         unit_info_icons->str_w, unit_info_icons->str_h ) ) == 0 ) goto failure; 
+            }
+            if ( strcmp( tokens[0], "attack_icon" ) == 0 )
+            {
+                sprintf( transitionPath, "Theme/%s", tokens[1] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
+            }
+            if ( strcmp( tokens[0], "move_icon" ) == 0 )
+            {
+                sprintf( transitionPath, "Theme/%s", tokens[1] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
+            }
+            if ( strcmp( tokens[0], "guard_icon" ) == 0 )
+            {
+                sprintf( transitionPath, "Theme/%s", tokens[1] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
+            }
+        }
+
+        //Block#2 target types description
+        if (block == 2 && strlen(line)>0)
+        {
+            trgt_types[cur_trgt_type].id = strdup( tokens[0] );
+            trgt_types[cur_trgt_type].name = strdup(trd(domain, tokens[1]));
+            cur_trgt_type++;
+        }
+
+        //Block#3 movement types description
+        if (block == 3 && strlen(line)>0)
+        {
+            mov_types[cur_mov_type].id = strdup( tokens[0] );
+            mov_types[cur_mov_type].name = strdup(trd(domain, tokens[1]));
+#ifdef WITH_SOUND
+            snprintf( transitionPath, 512, "Sound/%s", tokens[2] );
+            search_file_name_exact( path, transitionPath, config.mod_name );
+            mov_types[cur_mov_type].wav_move = wav_load( path, 0 );
+#endif
+            cur_mov_type++;
+        }
+
+        //Block#4 unit classes description
+        if (block == 4 && strlen(line)>0)
+        {
+            unit_classes[cur_unit_class].id = strdup( tokens[0] );
+            unit_classes[cur_unit_class].name = strdup(trd(domain, tokens[1]));
+            unit_classes[cur_unit_class].purchase = UC_PT_NONE;
+            if (strcmp(tokens[2],"trsp") == 0)
+                unit_classes[cur_unit_class].purchase = UC_PT_TRSP;
+            else if (strcmp(tokens[2],"normal") == 0)
+                unit_classes[cur_unit_class].purchase = UC_PT_NORMAL;
+            cur_unit_class++;
+        }
+
+        //Block#5 unit data
+        if (block == 5 && strlen(line)>0)
+        {
+            /* read unit entry */
+            unit = calloc( 1, sizeof( Unit_Lib_Entry ) );
+            /* identification */
+            unit->id = strdup( tokens[0] );
+            /* name */
+            unit->name = strdup(trd(domain, tokens[1]));
+            /* nation (if not found or 'none' unit can't be purchased) */
+            unit->nation = -1; /* undefined */
+            if ( strcmp(tokens[2],"none") ) {
+                Nation *n = nation_find( tokens[2] );
+                if (n)
+                    unit->nation = nation_get_index( n );
+            }
+            /* class id */
+            unit->class = 0;
+            for ( j = 0; j < unit_class_count; j++ )
+                if ( STRCMP( tokens[3], unit_classes[j].id ) ) {
+                    unit->class = j;
+                    break;
+                }
+            /* target type id */
+            unit->trgt_type = 0;
+            for ( j = 0; j < trgt_type_count; j++ )
+                if ( STRCMP( tokens[4], trgt_types[j].id ) ) {
+                    unit->trgt_type = j;
+                    break;
+                }
+            /* initiative */
+            unit->ini = atoi( tokens[5] );
+            /* spotting */
+            unit->spt = atoi( tokens[6] );
+            /* movement */
+            unit->mov = atoi( tokens[7] );
+            /* move type id */
+            unit->mov_type = 0;
+            for ( j = 0; j < mov_type_count; j++ )
+                if ( STRCMP( tokens[8], mov_types[j].id ) ) {
+                    unit->mov_type = j;
+                    break;
+                }
+            /* fuel */
+            unit->fuel = atoi( tokens[9] );
+            /* range */
+            unit->rng = atoi( tokens[10] );
+            /* ammo */
+            unit->ammo = atoi( tokens[11] );
+            /* attack count */
+            unit->atk_count = atoi( tokens[21] );
+            /* attack values */
+            for ( j = 0; j < trgt_type_count; j++ )
+                unit->atks[j] = atoi( tokens[j + 22] );
+            /* ground defense */
+            unit->def_grnd = atoi( tokens[18] );
+            /* air defense */
+            unit->def_air = atoi( tokens[19] );
+            /* close defense */
+            unit->def_cls = atoi( tokens[20] );
+            /* flags */
+            for ( j = 22 + trgt_type_count; j < token; j++ )
+            {
+                if ( atoi( tokens[j] ) == 1 )
+                {
+                    int NumberInArray, Flag;
+                    Flag = check_flag( fct_units[j - 22 - trgt_type_count].string, fct_units, &NumberInArray );
+                    unit->flags[(int) (NumberInArray + 1) / 32] |= Flag;
+                }
+            }
+            /* set the entrenchment rate */
+            unit->entr_rate = 2;
+            if ( unit_has_flag( unit, "low_entr_rate" ) )
+                unit->entr_rate = 1;
+            else
+                if ( unit_has_flag( unit, "infantry" ) )
+                    unit->entr_rate = 3;
+            /* time period of usage (0 == cannot be purchased) */
+            unit->start_year = unit->start_month = unit->last_year = 0;
+            unit->start_year = atoi( tokens[15] );
+            unit->start_month = atoi( tokens[16] );
+            unit->last_year = atoi( tokens[17] );
+            /* cost of unit (0 == cannot be purchased) */
+            unit->cost = 0;
+            unit->cost = atoi( tokens[13] );
+            /* icon */
+            /* icon_type */
+            unit->icon_type = icon_type;
+            /* set small and large icons */
+            lib_entry_set_icons( atoi( tokens[12] ), unit );
+            /* read sounds -- well as there are none so far ... */
+#ifdef WITH_SOUND
+            // FIXME reloading the same sound more than once is a
+            // big waste of loadtime, runtime, and memory
+            if ( strcmp( tokens[14], "" ) != 0 )
+            {
+                snprintf( transitionPath, 512, "Sound/%s", tokens[14] );
+                search_file_name_exact( path, transitionPath, config.mod_name );
+                if ( ( unit->wav_move = wav_load( path, 0 ) ) )
+                    unit->wav_alloc = 1;
+                else {
+                    unit->wav_move = mov_types[unit->mov_type].wav_move;
+                    unit->wav_alloc = 0;
+                }
+            }
+#endif      
+            /* add unit to database */
+            list_add( unit_lib, unit );
+            /* absolute evaluation */
+            unit_lib_eval_unit( unit );
+        }
+    }    
+    fclose(inf);
+    /* LOG */
+    relative_evaluate_units();
+    free(domain);
+    SDL_FreeSurface(icons);
+    return 1;
+failure:
+    unit_lib_delete();
+    free(domain);
+    SDL_FreeSurface(icons);
+    return 0;
+}
+
+/*
+====================================================================
+Publics
+====================================================================
+*/
+
+/*
+====================================================================
+Load a unit library. If UNIT_LIB_MAIN is passed target_types,
+mov_types and unit classes will be loaded (may only happen once)
+====================================================================
+*/
+int unit_lib_load( char *fname, int main )
+{
+    char *path, *extension;
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'u' );
+    if ( strcmp( extension, "udb" ) == 0 )
+        return unit_lib_load_udb( fname, path, main );
+    else if ( strcmp( extension, "lgdudb" ) == 0 )
+        return unit_lib_load_lgdudb( fname, path );
     return 0;
 }
 

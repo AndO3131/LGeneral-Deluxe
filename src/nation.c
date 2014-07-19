@@ -147,8 +147,7 @@ int nations_load_lgdndb( char *fname, char *path )
     while (load_line(inf,line,utf16)>=0)
     {
         //strip comments
-        for(i=0;i<strlen(line);i++)
-            if (line[i]==0x23) { line[i]=0; break; }
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
         if (strlen(line)>0 && last_line_length==0)
         {
             block++;
@@ -170,7 +169,7 @@ int nations_load_lgdndb( char *fname, char *path )
             }
         tokens[token][cursor]=0;
         token++;
-        if (block == 3)
+        if (block == 2 && strlen(line)>0)
             nation_count++;
     }
     nations = calloc( nation_count, sizeof( Nation ) );
@@ -185,8 +184,7 @@ int nations_load_lgdndb( char *fname, char *path )
         lines++;
 
         //strip comments
-        for(i=0;i<strlen(line);i++)
-            if (line[i]==0x23) { line[i]=0; break; }
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
         if (strlen(line)>0 && last_line_length==0)
         {
             block++;
@@ -209,8 +207,8 @@ int nations_load_lgdndb( char *fname, char *path )
         tokens[token][cursor]=0;
         token++;
 
-        //Block#2 icon data
-        if (block == 2)
+        //Block#1 icon data
+        if (block == 1 && strlen(line)>0)
         {
             if ( strcmp( tokens[0], "icons_file" ) == 0 )
             {
@@ -235,8 +233,8 @@ int nations_load_lgdndb( char *fname, char *path )
                 }
             }
         }
-        //Block#3 nations
-        if (block == 3)
+        //Block#2 nations
+        if (block == 2 && strlen(line)>0)
         {
             nations[j].id = strdup( tokens[0] );
             nations[j].name = strdup( tokens[1] );

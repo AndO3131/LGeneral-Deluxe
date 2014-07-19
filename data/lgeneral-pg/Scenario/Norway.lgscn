@@ -9,7 +9,7 @@ days_per_turn»1
 domain»pg
 nation_db»nations
 <unit_db
-main»pg.udb
+main»pg
 >
 map»map03.lgmap
 weather»fair°fair°fair°fair°clouds°r°rain°rain°rain°m°fair°fair°fair°fair°clouds°r°rain°rain°O°fair°fair°fair°fair°fair°fair

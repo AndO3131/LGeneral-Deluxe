@@ -1,0 +1,479 @@
+# Icon files data																																																		
+domain	pg																																																	
+icon_type	single																																																	
+icon_width	0																																																	
+icon_height	0																																																	
+icon_columns	1																																																	
+icons	units/pg.bmp																																																	
+strength_icon_width	60																																																	
+strength_icon_height	50																																																	
+strength_icons	strength.bmp																																																	
+attack_icon	pg_attack.bmp																																																	
+move_icon	pg_move.bmp																																																	
+guard_icon	pg_guard.bmp																																																	
+																																																		
+# Target types description																																																		
+# type_id	type_name																																																	
+soft	Soft																																																	
+hard	Hard																																																	
+air	Air																																																	
+naval	Naval																																																	
+																																																		
+# Movement types description																																																		
+# movement_id	movement_name	movement_sound																																																
+tracked	Tracked	tracked.wav																																																
+halftracked	Halftracked	tracked.wav																																																
+wheeled	Wheeled	wheeled.wav																																																
+leg	Leg	leg.wav																																																
+towed	Towed	leg.wav																																																
+air	Air	air.wav																																																
+naval	Naval	naval.wav																																																
+allterrain	All Terrain	wheeled.wav																																																
+																																																		
+# Unit classes description																																																		
+# class_id	class_name	purchase_flag																																																
+inf	Infantry	normal																																																
+tank	Tank	normal																																																
+recon	Recon	normal																																																
+antitank	Anti-Tank	normal																																																
+art	Artillery	normal																																																
+antiair	Anti-Aircraft	normal																																																
+airdef	Air-Defense	normal																																																
+fort	Fortification	none																																																
+fighter	Fighter	normal																																																
+tacbomb	Tactical Bomber	normal																																																
+levbomb	Level Bomber	normal																																																
+sub	Submarine	none																																																
+dest	Destroyer	none																																																
+cap	Capital Ship	none																																																
+carrier	Aircraft Carrier	none																																																
+landtrp	Land Transport	trsp																																																
+airtrp	Air Transport	none																																																
+seatrp	Sea Transport	none																																																
+																																																		
+# Unit library																																																		
+# ID	name	nation	class	target_type	initiative	spotting	movement	move_type	fuel	range	ammo	icon_id	cost	move_sound	start_year	start_month	last_year	def_ground	def_air	def_close	count	soft	hard	air	naval	swimming	flying	diving	parachute	transporter	recon	artillery	interceptor	air_defense	bridge_eng	infantry	air_trsp_ok	destroyer	ignore_entr	carrier	carrier_ok	bomber	attack_first	low_entr_rate	tank	anti_tank	suppr_fire	turn_suppr	jet	ground_trsp_ok
+0	BF109e	ger	fighter	air	5	3	13	air	42	0	7	1	336		1939	9	1946	7	10	0	1	2	2	14	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+1	BF109f	ger	fighter	air	6	3	14	air	72	0	7	1	360		1940	7	1946	7	12	0	1	1	2	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+2	BF109g	ger	fighter	air	5	3	14	air	81	0	8	1	372		1942	5	1946	7	12	0	1	2	2	14	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+3	BF109k	ger	fighter	air	6	3	14	air	81	0	6	1	384		1945	1	1946	8	14	0	1	2	3	16	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+4	FW190a	ger	fighter	air	6	3	14	air	117	0	8	2	444		1940	9	1946	8	14	0	1	2	3	20	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+5	FW190d9	ger	fighter	air	6	3	14	air	90	0	13	2	480		1944	1	1946	8	15	0	1	2	3	24	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+6	ME262A1	ger	fighter	air	7	3	14	air	108	0	6	3	516	jet.wav	1945	4	1946	9	17	0	1	3	3	28	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0
+7	ME163B/Komet	ger	fighter	air	8	3	14	air	34	0	4	4	384	jet.wav	1945	4	1946	11	6	0	1	1	3	24	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0
+8	HE219	ger	fighter	air	5	6	14	air	128	0	10	5	468		1943	11	1946	11	12	0	1	3	3	18	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+9	HE162	ger	fighter	air	8	3	14	air	99	0	6	6	528	jet.wav	1945	4	1946	8	16	0	1	3	3	30	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0
+10	DO335	ger	fighter	air	7	3	14	air	90	0	8	7	480		1945	4	1946	8	17	0	1	1	2	28	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+11	BF110c	ger	tacbomb	air	4	5	13	air	96	0	6	8	348		1940	1	1946	8	8	0	1	5	5	8	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+12	BF110d	ger	tacbomb	air	4	5	13	air	90	0	8	8	348		1941	3	1946	8	8	0	1	5	5	8	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+13	BF110e	ger	tacbomb	air	4	5	13	air	108	0	8	8	384		1941	12	1946	8	8	0	1	7	7	8	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+14	BF110g	ger	tacbomb	air	4	5	13	air	72	0	10	8	384		1943	7	1946	8	8	0	1	7	7	10	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+15	ME210c	ger	tacbomb	air	5	5	14	air	153	0	8	9	468		1942	4	1946	9	10	0	1	7	7	10	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+16	ME410a	ger	tacbomb	air	5	5	14	air	153	0	8	9	468		1942	12	1946	9	10	0	1	7	7	12	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+17	FW190g	ger	tacbomb	air	6	4	14	air	99	0	7	2	456		1943	2	1946	7	14	0	1	7	7	16	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+18	FW190f	ger	tacbomb	air	6	4	14	air	90	0	7	2	444		1943	2	1946	8	15	0	1	5	5	18	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+19	JU87B	ger	tacbomb	air	2	2	11	air	54	0	5	10	252		1939	9	1946	6	4	0	1	9	8	-4	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+20	JU87R	ger	tacbomb	air	2	2	11	air	96	0	5	10	276		1941	3	1946	6	4	0	1	9	8	-4	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+21	JU87D	ger	tacbomb	air	2	2	12	air	99	0	7	10	360		1941	2	1946	8	6	0	1	11	10	-6	6	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+22	Ju188a	ger	levbomb	air	3	2	13	air	126	0	7	11	324		1943	6	1946	14	10	0	1	1	4	-12	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+23	DO17z	ger	levbomb	air	1	2	12	air	144	0	5	13	240		1940	1	1946	9	8	0	1	1	4	-8	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+24	He111 H2	ger	levbomb	air	2	2	12	air	132	0	6	14	288		1940	1	1946	11	8	0	1	1	4	-8	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+25	Ju88A	ger	levbomb	air	2	2	12	air	192	0	7	15	312		1939	9	1946	11	9	0	1	1	4	-11	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+26	DO217e	ger	levbomb	air	3	2	13	air	138	0	6	13	288		1940	11	1946	11	10	0	1	1	4	-10	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+27	HE177a	ger	levbomb	air	4	2	13	air	216	0	9	17	372		1942	3	1946	15	12	0	1	1	4	-12	16	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+28	Ju52g5e	ger	airtrp	air	0	1	10	air	0	0	4	18	120		1940	1	1946	5	4	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+29	ME323d	ger	airtrp	air	0	1	10	air	0	0	4	18	120		1942	7	1946	5	4	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+30	PzIA	ger	tank	hard	2	3	5	tracked	40	0	4	19	12		1935	1	1941	6	7	2	1	2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+31	PzIB	ger	tank	hard	2	3	5	tracked	39	0	5	19	24		1935	8	1941	7	7	2	1	2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+32	PzIIA	ger	tank	hard	6	3	5	tracked	44	0	8	20	84		1937	3	1943	7	8	3	1	2	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+33	PzIID	ger	tank	hard	6	3	6	tracked	45	0	8	20	96		1938	3	1943	7	9	3	1	2	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+34	PzIIF	ger	tank	hard	6	3	5	tracked	45	0	10	21	108		1940	1	1943	8	8	3	1	2	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+35	8.8 FK18 ATG	ger	antitank	soft	11	1	1	towed	0	0	10	215	228		1940	6	1946	4	8	0	1	13	18	-10	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+36	Lynx	ger	recon	hard	6	4	8	tracked	54	0	12	22	96		1943	9	1946	8	9	3	1	3	6	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+37	Pz 35(t)	ger	tank	hard	3	3	5	tracked	50	0	8	25	84		1939	3	1942	8	8	2	1	3	6	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+38	Pz38(t)A	ger	tank	hard	6	3	5	tracked	50	0	9	26	120		1939	5	1942	8	8	2	1	3	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+39	Pz38(t)F	ger	tank	hard	6	3	5	tracked	50	0	11	24	132		1940	11	1944	9	9	2	1	3	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+40	Pz38(t)G	ger	tank	hard	6	3	5	tracked	50	0	11	24	132		1941	10	1943	9	8	2	1	3	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+41	SdKfz 7/1	ger	antiair	soft	6	2	6	halftracked	45	0	16	64	168		1942	1	1946	2	16	1	1	6	4	11	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+42	PzIIIE	ger	tank	hard	6	2	5	tracked	42	0	14	29	120		1939	9	1942	8	9	2	1	3	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+43	PzIIIG	ger	tank	hard	7	2	5	tracked	42	0	13	28	168		1940	4	1943	9	9	2	1	5	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+44	PzIIIH	ger	tank	hard	8	2	5	tracked	42	0	13	28	168		1941	1	1944	10	9	2	1	7	9	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+45	PzIIIJ	ger	tank	hard	9	2	5	tracked	41	0	11	28	192		1941	7	1944	10	9	2	1	7	11	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+46	PzIIIN	ger	tank	hard	5	2	5	tracked	41	0	8	28	168		1942	9	1946	10	9	3	1	11	12	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+47	Pioniere Inf	ger	inf	soft	2	2	2	leg	0	0	7	212	240		1939	9	1946	8	8	0	1	8	5	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+48	PzIVD	ger	tank	hard	5	2	5	tracked	46	0	11	31	132		1940	1	1943	8	8	2	1	11	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+49	PzIVG	ger	tank	hard	10	2	5	tracked	46	0	11	32	228		1942	7	1945	10	8	2	1	11	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+50	PzIVH	ger	tank	hard	10	2	5	tracked	46	0	11	33	228		1943	6	1946	10	8	2	1	11	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+51	PzIVJ	ger	tank	hard	10	2	5	tracked	57	0	11	33	264		1944	8	1946	11	9	5	1	11	15	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+52	Panther D	ger	tank	hard	11	2	6	tracked	28	0	10	34	288		1943	7	1946	16	9	2	1	11	21	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+53	Panther A	ger	tank	hard	11	2	6	tracked	34	0	11	34	312		1943	9	1946	17	9	5	1	11	21	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+54	Panther G	ger	tank	hard	12	2	6	tracked	40	0	11	34	336		1944	4	1946	18	10	5	1	11	21	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+55	Tiger I	ger	tank	hard	11	2	5	tracked	28	0	13	35	300		1942	8	1946	15	11	4	1	13	18	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+56	Tiger II	ger	tank	hard	12	2	4	tracked	29	0	11	36	384		1944	6	1946	21	14	5	1	13	25	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+57	StuGIIIb	ger	art	hard	5	1	5	tracked	41	1	6	38	108		1940	3	1943	10	8	0	1	11	8	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+58	StuGIIIF	ger	antitank	hard	10	1	5	tracked	39	0	7	39	120		1942	3	1945	10	8	1	1	11	14	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+59	StuGIIIF/8	ger	antitank	hard	10	1	5	tracked	41	0	7	37	132		1942	9	1945	11	9	1	1	11	15	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+60	StuGIIIG	ger	antitank	hard	10	1	5	tracked	40	0	8	40	144		1942	12	1946	11	9	4	1	11	15	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+61	StuH42	ger	art	hard	5	1	5	tracked	40	2	7	41	240		1942	10	1946	11	9	4	1	15	8	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+62	Hetzer	ger	antitank	hard	10	1	5	tracked	43	0	8	27	144		1944	4	1946	14	8	1	1	11	15	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+63	Jagdpanzer 38	ger	antitank	hard	11	1	5	tracked	47	0	8	27	192		1945	1	1946	15	8	1	1	11	21	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+64	Jp Elefant	ger	antitank	hard	12	1	3	tracked	24	0	7	46	228		1943	7	1946	18	12	1	1	13	25	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+65	StuG IV	ger	art	hard	10	1	5	tracked	46	1	8	45	228		1943	12	1946	11	8	2	1	14	15	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+66	Jagdpz IV/48	ger	antitank	hard	10	1	5	tracked	46	0	9	44	156		1944	1	1946	13	9	3	1	11	15	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+67	Jagdpz IV/70	ger	antitank	hard	11	1	5	tracked	46	0	7	44	204		1944	8	1946	15	9	3	1	11	21	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+68	JagdPanther	ger	antitank	hard	12	1	6	tracked	37	0	8	42	264		1944	6	1946	18	11	4	1	13	25	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+69	JagdTiger	ger	antitank	hard	11	1	3	tracked	28	0	8	47	312		1944	12	1946	22	14	4	1	17	31	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+70	PzJager IB	ger	antitank	hard	8	1	5	tracked	39	0	9	48	24		1940	3	1943	6	6	0	1	5	9	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+71	Marder II	ger	antitank	hard	10	1	5	tracked	40	0	4	49	72		1942	1	1945	6	6	0	1	11	15	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+72	Marder IIIH	ger	antitank	hard	10	1	5	tracked	44	0	5	50	84		1942	3	1945	7	6	0	1	11	15	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+73	Marder IIIM	ger	antitank	hard	10	1	5	tracked	49	0	6	51	96		1943	3	1946	7	6	0	1	11	15	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+74	Nashorn	ger	antitank	hard	12	1	5	tracked	47	0	5	52	168		1943	2	1946	7	6	0	1	13	25	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+75	sIG IB	ger	art	hard	4	1	5	tracked	35	3	3	54	264		1940	5	1943	5	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+76	sIG II	ger	art	hard	4	1	5	tracked	41	3	3	53	276		1942	1	1945	8	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+77	sIG 38(t)M	ger	art	hard	4	1	4	tracked	38	3	5	55	312		1943	3	1946	13	6	0	1	19	14	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+78	Wespe	ger	art	hard	5	1	5	tracked	39	3	6	56	252		1943	7	1946	6	6	0	1	15	8	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+79	Hummel	ger	art	hard	5	1	5	tracked	47	3	4	57	288		1943	7	1946	7	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+80	FlaKPz 38(t)	ger	antiair	hard	6	2	5	tracked	46	0	7	59	96		1944	1	1946	6	12	0	1	2	3	7	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+81	37 FlaKPz IV	ger	antiair	hard	6	2	5	tracked	45	0	8	58	156		1944	5	1946	9	14	0	1	4	7	9	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+82	Wirbelwind	ger	antiair	hard	6	2	5	tracked	45	0	19	60	192		1944	9	1946	7	14	1	1	6	4	11	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+83	Ostwind I	ger	airdef	hard	2	2	5	tracked	45	2	23	61	252		1944	12	1946	9	16	1	1	-4	-7	9	-1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+84	SdKfz 10/4	ger	antiair	soft	5	2	6	halftracked	40	0	12	62	84		1939	9	1946	2	12	1	1	3	2	8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+85	Opel 6700	ger	landtrp	soft	1	1	8	wheeled	55	0	4	228	24		1936	9	1946	1	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+86	SPW 250/1	ger	landtrp	hard	2	2	7	halftracked	45	0	6	69	72		1941	9	1946	8	0	1	1	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+87	SPW 251/1	ger	landtrp	hard	2	2	6	halftracked	55	0	7	229	60		1939	9	1946	7	0	1	1	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+88	PSW 222/4r	ger	recon	hard	6	4	8	wheeled	55	0	8	65	60		1939	9	1946	7	6	1	1	2	3	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+89	PSW 231/6r	ger	recon	hard	6	4	8	wheeled	55	0	9	66	60		1938	1	1946	6	7	1	1	3	3	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+90	PSW 233/8r	ger	recon	hard	5	4	8	allterrain	55	0	3	67	84		1943	6	1946	7	6	0	1	11	12	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+91	PSW 234/1-8r	ger	recon	hard	6	4	8	allterrain	115	0	16	89	132		1944	7	1946	8	6	1	1	2	3	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+92	3.7 PaK35/36	ger	antitank	soft	6	2	1	towed	0	0	10	230	24		1939	1	1942	8	8	0	1	2	7	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+93	5 PaK38	ger	antitank	soft	9	2	1	towed	0	0	9	230	84		1941	1	1944	8	8	0	1	4	11	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+94	7.5 PaK40	ger	antitank	soft	10	2	1	towed	0	0	8	230	120		1942	1	1946	8	8	0	1	8	15	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+95	8.8 PaK43/41	ger	antitank	soft	12	2	1	towed	0	0	8	230	168		1944	6	1946	8	8	0	1	10	25	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+96	PzIVF2	ger	tank	hard	10	2	5	tracked	45	0	12	32	228		1942	6	1945	10	8	2	1	11	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+97	7.5 leFk 16nA	ger	art	soft	2	1	1	towed	0	2	9	216	84		1938	9	1946	2	6	0	1	11	5	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+98	10.5 leFH 18	ger	art	soft	2	1	1	towed	0	3	8	216	180		1940	1	1946	2	6	0	1	15	8	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+99	15 sFH 18	ger	art	soft	2	1	1	towed	0	3	7	216	228		1940	4	1946	2	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+100	17 K18	ger	art	soft	2	1	1	towed	0	3	6	216	240		1942	1	1946	2	6	0	1	19	14	0	2	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+101	2 FlaK38 (4)	ger	airdef	soft	2	2	1	towed	0	2	20	217	60		1939	9	1946	2	6	0	1	-7	-4	7	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+102	3.7 FlaK36	ger	airdef	soft	2	2	1	towed	0	2	24	217	84		1940	1	1946	2	6	0	1	-4	-7	7	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+103	8.8 FlaK 18	ger	airdef	soft	11	1	1	towed	0	3	10	217	228		1939	9	1946	2	6	0	1	-13	-18	10	-2	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+104	39 Wehr Inf	ger	inf	soft	1	2	3	leg	0	0	7	210	60		1938	6	1946	6	7	0	1	6	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+105	43 Wehr Inf	ger	inf	soft	1	2	3	leg	0	0	7	210	84		1943	1	1946	6	7	0	1	7	8	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+106	40 Wehr HW	ger	inf	soft	2	2	2	leg	0	0	7	212	84		1940	1	1946	8	8	0	1	8	3	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+107	43 Wehr HW	ger	inf	soft	2	2	2	leg	0	0	7	212	120		1943	1	1946	8	8	0	1	8	8	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+108	40 LuftW FJ	ger	inf	soft	0	2	3	leg	0	0	8	213	132		1940	1	1946	8	7	0	1	8	2	0	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+109	43 LuftW FJ	ger	inf	soft	0	2	3	leg	0	0	8	213	156		1943	1	1946	8	7	0	1	8	6	0	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+110	PSW 234/2-8r	ger	recon	hard	9	4	8	allterrain	115	0	10	68	192		1943	10	1946	8	8	2	1	7	11	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+111	PSW 232/8r	ger	recon	hard	6	4	8	allterrain	55	0	10	67	72		1942	7	1946	7	7	2	1	2	3	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+112	PO PZL P11c	pol	fighter	air	3	3	11	air	48	0	6	185	192		1939	9	1941	6	6	0	1	1	1	6	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+113	PO PZL P24g	pol	fighter	air	3	3	12	air	48	0	6	186	228		1939	9	1941	6	8	0	1	1	1	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+114	PO PZL P23b	pol	tacbomb	air	1	3	11	air	72	0	5	188	264		1939	9	1941	9	6	0	1	7	6	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+115	PO PZL P37b	pol	tacbomb	air	2	3	12	air	96	0	5	187	300		1939	9	1941	9	6	0	1	7	6	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+116	PO TK3	pol	tank	hard	2	3	6	tracked	45	0	6	189	24		1939	3	1941	6	7	1	1	2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+117	PO 7TP	pol	tank	hard	6	3	4	tracked	41	0	8	190	84		1939	9	1941	7	7	1	1	1	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+118	PO Infantry	pol	inf	soft	0	1	2	leg	0	0	5	191	24		1938	11	1941	3	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+119	PO Cavalry	pol	inf	soft	1	2	5	leg	60	0	7	192	96		1938	11	1941	2	5	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+120	AF 75mm Gun	none	art	soft	1	1	1	towed	0	2	9	197	72		1939	9	1942	2	6	0	1	11	5	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+121	GB Inf 43	eng	inf	soft	1	2	3	leg	0	0	6	191	60		1943	1	1946	6	7	0	1	7	6	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+122	GB HW Inf 43	eng	inf	soft	2	2	2	leg	0	0	6	193	72		1943	1	1946	8	8	0	1	8	6	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+123	AF 37mm ATG	none	antitank	soft	6	2	1	towed	0	0	9	196	24		1939	9	1942	8	8	0	1	1	7	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+124	AF Truck	none	landtrp	soft	0	1	8	wheeled	60	0	4	209	24		1939	9	1946	2	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+125	FR Potez 63	fra	tacbomb	air	4	4	12	air	96	0	5	84	300		1939	9	1942	9	6	0	1	4	3	-10	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+126	FR CHk 75A-1	fra	fighter	air	5	3	13	air	60	0	6	85	288		1940	2	1942	7	10	0	1	1	2	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+127	FR MS 406	fra	fighter	air	3	3	12	air	48	0	5	86	228		1939	9	1942	7	10	0	1	1	2	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+128	FR D520S	fra	fighter	air	5	3	13	air	66	0	8	87	324		1940	2	1942	8	10	0	1	1	2	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+129	FFR M5	fra	tank	hard	7	4	7	tracked	41	0	14	119	180		1943	1	1946	10	8	3	1	5	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+130	FFR M4A1	fra	tank	hard	9	2	5	tracked	45	0	12	120	228		1943	1	1945	12	9	3	1	11	12	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+131	FR Bloch 174	fra	tacbomb	air	3	4	13	air	90	0	4	90	360		1941	3	1942	10	10	0	1	6	5	-10	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+132	FR Amiot 143	fra	levbomb	air	1	2	11	air	114	0	4	91	204		1939	9	1942	9	4	0	1	1	4	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+133	FR Ch Lr H35	fra	tank	hard	3	3	4	tracked	40	0	14	93	84		1939	9	1942	10	9	1	1	1	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+134	FR CL AMX R40	fra	tank	hard	3	3	3	tracked	39	0	14	96	84		1940	6	1942	11	9	1	1	1	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+135	FR AMC 35	fra	tank	hard	6	3	5	tracked	41	0	10	94	96		1939	9	1942	8	7	1	1	3	6	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+136	FR Ch D1 IG	fra	tank	hard	3	1	3	tracked	38	0	14	95	60		1939	9	1942	8	9	1	1	1	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+137	FR Ch S35	fra	tank	hard	7	1	5	tracked	51	0	14	96	156		1939	9	1942	10	11	1	1	3	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+138	FR Ch B1-bis	fra	tank	hard	7	2	4	tracked	40	0	14	97	180		1939	9	1942	11	11	2	1	11	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+139	FR Truck	fra	landtrp	soft	1	1	8	wheeled	60	0	4	209	24		1939	9	1942	2	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+140	FR Infantry	fra	inf	soft	1	1	2	leg	0	0	5	191	36		1939	9	1942	5	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+141	FR 25mm ATG	fra	antitank	soft	6	2	1	towed	0	0	12	196	24		1939	9	1942	8	8	0	1	1	5	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+142	FR 47mm ATG	fra	antitank	soft	7	2	1	towed	0	0	9	196	36		1939	9	1942	8	8	0	1	1	8	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+143	FR 75mm ATG	fra	antitank	soft	8	2	1	towed	0	0	8	196	84		1939	9	1942	8	8	0	1	8	12	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+144	FR 75mm Gun	fra	art	soft	1	1	1	towed	0	2	9	197	72		1939	9	1942	2	6	0	1	11	5	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+145	FR 105mm Gun	fra	art	soft	1	1	1	towed	0	3	8	197	168		1939	9	1942	2	6	0	1	15	8	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+146	FR 155mm Gun	fra	art	soft	1	1	1	towed	0	3	5	197	204		1939	9	1942	2	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+147	FR 40mm AD	fra	airdef	soft	2	2	1	towed	0	2	10	198	96		1940	5	1942	2	6	0	1	-9	-12	8	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+148	NOR F-DXXIII	nor	fighter	air	4	3	13	air	66	0	8	102	300		1939	9	1946	6	8	0	1	1	2	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+149	NOR Infantry	nor	inf	soft	1	2	2	leg	0	0	5	191	36		1939	9	1942	5	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+150	NOR 75mm Gun	nor	art	soft	1	1	1	towed	0	2	9	197	72		1939	9	1942	2	6	0	1	11	5	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+151	AD Mk I SP	none	fort	hard	2	4	0	towed	0	0	50	206	180		1939	1	1946	8	6	2	1	8	12	-6	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+152	AD Mk II SP	none	fort	hard	2	4	0	towed	0	0	50	206	180		1943	1	1946	10	8	2	1	8	16	-6	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+153	AD Mk I Fort	none	fort	hard	1	4	0	towed	0	2	50	207	240		1939	1	1946	16	14	3	1	15	18	-7	13	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+154	AD Mk II Fort	none	fort	hard	1	4	0	towed	0	2	10	207	360		1943	1	1946	14	12	3	1	12	15	-9	13	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+155	LC CR42	bel	fighter	air	3	3	12	air	48	0	10	99	240		1940	1	1941	6	6	0	1	1	2	6	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+156	LC PZLP24	bel	fighter	air	3	3	12	air	48	0	6	186	228		1940	6	1941	6	8	0	1	1	1	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+157	LC F-DXX1	bel	fighter	air	4	3	12	air	36	0	6	102	216		1939	9	1941	6	8	0	1	1	1	6	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+158	LC Infantry	bel	inf	soft	0	1	2	leg	0	0	5	191	24		1939	9	1941	5	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+159	SdKfz 6/2	ger	airdef	soft	2	2	6	halftracked	55	2	5	63	144		1940	5	1946	3	14	0	1	-1	-4	6	-1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+160	FR HFII	fra	fighter	air	4	3	13	air	30	0	6	83	264		1940	2	1941	7	10	0	1	1	2	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+161	GB Hur I	eng	fighter	air	4	3	13	air	48	0	6	104	276		1937	1	1942	7	10	0	1	1	1	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+162	GB Spit I	eng	fighter	air	5	3	13	air	48	0	6	105	312		1938	1	1941	7	10	0	1	1	1	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+163	GB Spit II	eng	fighter	air	5	3	13	air	54	0	6	105	312		1940	4	1943	7	12	0	1	1	1	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+164	GB Hur IID	eng	tacbomb	air	4	4	12	air	72	0	4	104	288		1942	3	1945	7	8	0	1	2	8	6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+165	GB Spit VB	eng	fighter	air	5	3	13	air	90	0	3	105	324		1941	6	1944	7	12	0	1	2	2	14	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+166	GB Hur IV	eng	tacbomb	air	4	4	13	air	72	0	4	104	312		1943	10	1946	7	10	0	1	5	5	6	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+167	GB Spit IX	eng	fighter	air	6	3	14	air	81	0	4	105	372		1942	3	1945	8	14	0	1	2	2	16	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+168	GB Meteor III	eng	fighter	air	7	3	14	air	90	0	4	106	456	jet.wav	1945	4	1946	9	16	0	1	3	2	28	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0
+169	GB Spit XIV	eng	fighter	air	6	3	14	air	81	0	4	105	396		1944	11	1946	8	14	0	1	2	2	20	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+170	GB Spit XVII	eng	fighter	air	6	3	14	air	117	0	4	105	432		1945	1	1946	8	15	0	1	2	2	22	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+171	GB Blen MkI	eng	tacbomb	air	3	3	12	air	120	0	4	107	324		1936	8	1943	9	6	0	1	7	6	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+172	GB Blen MkIV	eng	tacbomb	air	3	3	12	air	144	0	5	107	360		1939	7	1943	9	8	0	1	7	6	-8	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+173	GB Mosq VI	eng	tacbomb	air	5	3	14	air	132	0	5	108	468		1941	3	1946	11	14	0	1	7	6	14	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+174	GB Typhoon IB	eng	tacbomb	air	5	4	14	air	108	0	4	104	384		1942	11	1946	8	12	0	1	2	5	14	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+175	GB Stir MkI	eng	levbomb	air	6	2	11	air	108	0	6	110	252		1940	5	1943	11	6	0	1	1	4	-8	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+176	GB Lancaster	eng	levbomb	air	4	2	12	air	236	0	9	111	336		1941	10	1946	15	11	0	1	1	4	-11	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+177	GB C-47	eng	airtrp	air	0	1	12	air	0	0	0	205	120		1939	9	1946	5	8	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+178	GB Matilda I	eng	tank	hard	2	2	3	tracked	38	0	13	112	48		1940	4	1943	11	8	1	1	2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+179	GB Matilda II	eng	tank	hard	7	2	3	tracked	51	0	10	112	156		1940	5	1943	14	9	2	1	2	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+180	GB Mk I A9	eng	tank	hard	7	2	5	tracked	49	0	12	113	132		1940	5	1943	6	7	2	1	5	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+181	GB Mk III A13	eng	tank	hard	7	2	6	tracked	43	0	12	113	120		1940	6	1943	6	7	2	1	3	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+182	GB Crdr I	eng	tank	hard	7	2	5	tracked	41	0	14	114	144		1941	6	1944	9	7	2	1	3	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+183	GB Crdr II	eng	tank	hard	7	2	5	tracked	41	0	14	114	144		1941	11	1944	10	8	2	1	2	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+184	GB Crdr III	eng	tank	hard	8	2	5	tracked	41	0	8	114	156		1942	6	1945	10	8	2	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+185	GB Crom IV	eng	tank	hard	9	2	7	tracked	53	0	8	115	216		1943	11	1946	11	7	2	1	11	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+186	GB Crom VII	eng	tank	hard	9	2	6	tracked	53	0	9	115	216		1944	6	1946	12	8	2	1	11	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+187	GB Crom VI	eng	art	hard	4	2	5	tracked	55	3	7	115	312		1944	6	1946	11	8	2	1	14	6	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+188	GB Grant	eng	tank	hard	7	2	5	tracked	45	0	14	116	192		1941	10	1944	11	8	3	1	11	11	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+189	GB Chal A30	eng	tank	hard	11	2	5	tracked	47	0	7	117	252		1944	7	1946	10	8	2	1	11	21	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+190	GB Comet	eng	tank	hard	10	2	6	tracked	45	0	9	118	252		1944	7	1946	12	11	2	1	11	17	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+191	GB M3 Stuart	eng	tank	hard	7	4	6	tracked	35	0	12	174	156		1941	8	1946	9	8	2	1	3	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+192	GB Sherman	eng	tank	hard	9	2	5	tracked	45	0	11	120	216		1942	10	1946	12	9	2	1	11	12	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+193	GB Sh Firefly	eng	tank	hard	11	2	5	tracked	45	0	9	121	276		1944	5	1946	12	9	2	1	11	21	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+194	GB M5 Stuart	eng	tank	hard	4	4	7	tracked	41	0	14	119	180		1942	11	1945	14	9	2	1	11	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+195	GB Church III	eng	tank	hard	8	2	4	tracked	40	0	11	175	180		1942	8	1945	14	9	2	1	2	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+196	GB Church IV	eng	tank	hard	9	2	4	tracked	40	0	10	175	216		1942	10	1945	14	9	2	1	11	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+197	GB Church VI	eng	tank	hard	9	2	4	tracked	40	0	10	175	216		1944	4	1946	14	9	2	1	11	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+198	GB Church VII	eng	tank	hard	9	2	3	tracked	39	0	11	175	240		1944	6	1946	17	11	2	1	11	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+199	GB Achilles	eng	antitank	hard	11	1	6	tracked	51	0	7	122	120		1944	5	1946	10	6	0	1	1	21	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+200	GB Archer	eng	antitank	hard	11	1	4	tracked	48	0	6	123	96		1944	9	1946	8	6	0	1	0	21	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+201	GB M7 Priest	eng	art	hard	7	1	5	tracked	45	3	12	124	276		1942	9	1946	7	6	0	1	12	6	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+202	GB Sexton	eng	art	hard	7	1	3	tracked	40	3	5	125	276		1944	6	1946	9	8	1	1	16	6	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+203	GB 40mm SPAD	eng	airdef	soft	2	2	7	wheeled	60	0	6	126	96		1943	2	1946	2	6	0	1	-9	-10	8	-1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+204	GB AEC I	eng	recon	hard	7	4	7	wheeled	65	0	8	129	96		1942	10	1945	10	7	2	1	2	8	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+205	GB AEC II	eng	recon	hard	8	4	7	wheeled	65	0	7	129	120		1943	6	1946	9	7	2	1	2	13	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+206	GB Humber SC	eng	recon	hard	3	4	8	allterrain	65	0	10	129	48		1943	6	1946	6	8	2	1	2	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+207	GB Daimler SC	eng	recon	hard	7	4	8	allterrain	65	0	8	129	108		1941	4	1946	6	8	1	1	5	9	-1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+208	GB AEC III	eng	recon	hard	9	4	7	wheeled	65	0	6	129	156		1944	5	1946	9	7	2	1	11	12	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+209	GB Ram Kg	eng	landtrp	hard	3	1	6	tracked	45	0	6	250	36		1944	6	1946	2	0	1	1	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+210	GB Bren Ca	eng	landtrp	hard	0	1	8	tracked	60	0	4	250	72		1939	1	1946	7	0	0	1	2	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+211	GB 3 Tn Lorry	eng	landtrp	hard	0	1	8	wheeled	69	0	4	209	24		1939	1	1946	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+212	GB Inf 39	eng	inf	soft	1	2	3	leg	0	0	6	191	48		1939	12	1946	6	7	0	1	6	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+213	GB HW Inf 39	eng	inf	soft	1	2	2	leg	0	0	6	193	60		1939	12	1946	7	8	0	1	6	2	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+214	GB Bridge Eng	eng	inf	soft	2	2	2	leg	0	0	6	195	276		1939	12	1946	7	8	0	1	6	4	-2	1	0	0	0	0	0	0	0	0	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+215	GB Para 39	eng	inf	soft	0	2	3	leg	0	0	7	194	144		1939	12	1946	9	8	0	1	8	2	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+216	GB 2 Pdr ATG	eng	antitank	soft	7	2	1	towed	0	0	10	196	36		1940	5	1946	8	8	0	1	1	8	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+217	GB 6 Pdr ATG	eng	antitank	soft	8	2	1	towed	0	0	9	196	72		1942	4	1945	8	8	0	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+218	GB 17 Pdr ATG	eng	antitank	soft	11	2	1	towed	0	0	7	196	144		1943	4	1946	8	8	0	1	1	21	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+219	GB 25 Pdr Gun	eng	art	soft	1	1	1	towed	0	3	9	197	156		1940	4	1946	2	6	0	1	13	6	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+220	GB 5.5 Inches Gun	eng	art	soft	1	1	1	towed	0	3	7	197	192		1942	5	1946	2	6	0	1	17	10	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+221	GB 6 Inches Gun	eng	art	soft	1	1	1	towed	0	3	7	197	192		1940	5	1946	2	6	0	1	17	12	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+222	GB 7.2 Inches Gun	eng	art	soft	1	1	1	towed	0	3	6	197	228		1943	6	1946	2	6	0	1	19	14	0	6	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+223	GB 20mm SPAA	eng	antiair	soft	6	2	7	wheeled	0	0	12	127	36		1943	6	1946	2	6	0	1	1	3	6	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+224	GB 40mm AD	eng	airdef	soft	2	2	1	towed	0	2	10	198	96		1940	4	1946	2	6	0	1	-9	-12	8	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+225	GB 3 Inches AD	eng	airdef	soft	2	1	1	towed	0	2	8	198	108		1940	5	1946	2	6	0	1	-11	-14	9	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+226	GB Para 43	eng	inf	soft	0	2	3	leg	0	0	7	194	156		1943	1	1946	9	8	0	1	8	6	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+227	ST I-16	so	fighter	air	3	3	12	air	54	0	6	131	228		1939	9	1941	6	6	0	1	1	2	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+228	ST YaK-1	so	fighter	air	4	3	13	air	54	0	7	134	288		1941	6	1943	7	10	0	1	1	2	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+229	ST MiG-3	so	fighter	air	4	3	14	air	78	0	8	132	324		1941	3	1946	7	10	0	1	1	1	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+230	ST La-3	so	fighter	air	4	3	13	air	42	0	7	133	264		1941	4	1943	6	8	0	1	1	1	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+231	ST YaK-9M	so	fighter	air	6	3	13	air	60	0	7	134	336		1943	1	1946	7	13	0	1	1	2	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+232	ST YaK-1M	so	fighter	air	5	3	13	air	48	0	8	134	300		1941	10	1943	7	12	0	1	1	1	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+233	ST YaK-7B	so	fighter	air	5	3	13	air	54	0	8	134	312		1943	6	1945	7	12	0	1	1	2	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+234	ST La-5	so	fighter	air	5	3	13	air	36	0	12	135	312		1943	4	1945	7	10	0	1	1	2	10	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+235	ST YaK-9	so	fighter	air	6	3	13	air	60	0	7	134	336		1944	4	1946	7	13	0	1	1	2	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+236	ST La-7	so	fighter	air	6	3	14	air	42	0	6	135	348		1944	7	1946	8	12	0	1	1	2	16	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+237	ST Il-4	so	levbomb	air	1	2	12	air	168	0	6	136	288		1943	2	1946	11	8	0	1	1	4	-6	14	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+238	ST PE-2	so	tacbomb	air	4	3	13	air	78	0	4	137	360		1941	3	1944	10	8	0	1	3	5	-8	12	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+239	ST Il-2	so	tacbomb	air	3	3	12	air	48	0	4	138	300		1941	7	1944	12	10	0	1	3	5	-8	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+240	ST Il-2M3	so	tacbomb	air	3	3	12	air	48	0	5	136	312		1942	3	1945	13	10	0	1	3	7	-8	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+241	ST Il-10	so	tacbomb	air	4	3	12	air	54	0	5	138	336		1945	1	1946	14	12	0	1	3	5	-8	2	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+242	ST PE-8	so	levbomb	air	2	2	12	air	222	0	9	138	288		1944	6	1946	13	12	0	1	1	4	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+243	ST SU-152 AT	so	antitank	hard	5	1	5	tracked	57	0	3	234	288		1943	7	1946	14	13	0	1	19	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+244	ST Z25mm SPAA	so	antiair	soft	5	2	6	wheeled	60	0	5	139	60		1940	9	1946	2	6	1	1	2	5	7	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+245	ST BA-10	so	recon	hard	5	3	7	wheeled	55	0	7	142	60		1939	1	1944	8	7	1	1	1	7	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+246	ST BA-64	so	recon	hard	2	4	8	wheeled	85	0	10	235	48		1941	10	1946	7	6	1	1	2	1	-1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+247	ST BT-5	so	tank	hard	7	1	8	tracked	55	0	11	144	132		1939	9	1942	9	8	2	1	1	7	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+248	ST BT-7	so	tank	hard	6	2	8	tracked	75	0	6	144	156		1939	9	1946	9	8	3	1	8	6	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+249	ST T-28M1	so	tank	hard	6	2	3	tracked	34	0	9	145	132		1939	9	1941	12	10	3	1	8	6	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+250	ST T-34/40	so	tank	hard	7	2	6	tracked	55	0	9	146	192		1941	1	1943	13	10	2	1	8	9	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+251	ST T-34/41	so	tank	hard	8	2	6	tracked	55	0	9	146	204		1941	10	1944	14	9	2	1	8	10	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+252	ST T-34/43	so	tank	hard	8	2	6	tracked	54	0	10	146	216		1942	10	1945	14	10	2	1	8	10	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+253	ST T-34/85	so	tank	hard	8	2	6	tracked	55	0	8	147	228		1944	4	1946	15	10	2	1	10	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+254	ST T-70	so	tank	hard	8	3	6	tracked	70	0	8	151	168		1941	10	1946	12	8	1	1	1	7	-3	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+255	ST T-60	so	tank	hard	7	2	5	tracked	87	0	25	150	156		1941	8	1944	10	7	2	1	1	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+256	ST T-40	so	tank	hard	5	2	6	tracked	61	0	6	150	60		1942	4	1945	8	7	1	1	2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+257	ST SU-85	so	antitank	hard	7	1	6	tracked	55	0	6	156	132		1943	9	1946	14	10	0	1	10	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+258	ST SU-122	so	art	hard	4	1	6	tracked	54	2	4	232	240		1943	2	1946	14	10	0	1	17	9	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+259	ST SU-152	so	art	hard	5	1	5	tracked	57	2	3	237	288		1943	7	1946	14	13	0	1	19	13	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+260	ST KV-1/39	so	tank	hard	7	2	5	tracked	38	0	13	153	204		1939	9	1942	14	14	3	1	8	9	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+261	ST KV-1/41	so	tank	hard	8	2	5	tracked	45	0	13	153	228		1941	7	1943	15	13	3	1	8	10	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+262	ST KV-1/42	so	tank	hard	8	2	4	tracked	45	0	13	153	240		1942	6	1944	17	14	3	1	8	10	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+263	ST KV-2	so	tank	hard	7	1	3	tracked	33	0	3	154	204		1941	1	1943	14	14	2	1	16	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+264	ST KV-85	so	tank	hard	9	2	5	tracked	50	0	9	155	240		1943	10	1944	14	12	3	1	10	13	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+265	ST IS-2	so	tank	hard	10	2	5	tracked	49	0	4	157	312		1944	3	1946	18	12	2	1	14	21	0	4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+266	ST SU-100	so	antitank	hard	10	1	6	tracked	57	0	6	177	180		1944	12	1946	14	10	0	1	1	22	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+267	ST ISU-122	so	antitank	hard	8	1	5	tracked	47	0	6	152	240		1944	3	1946	17	14	1	1	14	21	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+268	ST ISU-152 	so	art	hard	5	1	5	tracked	47	2	3	237	312		1944	3	1946	17	11	1	1	19	16	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+269	ST ISU-152 AT	so	antitank	hard	5	1	5	tracked	47	0	3	234	312		1944	3	1946	17	11	1	1	19	16	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+270	ST Para	so	inf	soft	0	2	3	leg	0	0	7	194	120		1939	9	1946	6	8	0	1	7	2	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+271	ST Truck	so	landtrp	soft	0	1	8	wheeled	60	0	4	209	24		1939	9	1946	2	0	0	1	2	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+272	ST SMG Inf	so	inf	soft	0	1	3	leg	0	0	6	191	60		1939	9	1946	5	7	0	1	8	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+273	ST Infantry	so	inf	soft	1	1	3	leg	0	0	6	191	36		1939	9	1946	5	7	0	1	6	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+274	ST Cavalry	so	inf	soft	1	2	5	leg	60	0	6	192	96		1939	9	1946	2	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+275	ST Bridge Eng	so	inf	soft	2	2	2	leg	0	0	6	195	264		1939	9	1946	8	7	0	1	8	4	-1	1	0	0	0	0	0	0	0	0	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+276	ST 45mm ATG	so	antitank	soft	5	2	1	towed	0	0	10	196	24		1939	9	1946	8	8	0	1	1	8	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+277	ST 57mm ATG	so	antitank	soft	6	2	1	towed	0	0	9	196	60		1941	1	1946	8	8	0	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+278	ST 76mm ATG	so	antitank	soft	6	2	1	towed	0	0	7	196	60		1939	11	1946	8	8	0	1	3	14	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+279	ST 12.2cm Gun	so	art	soft	0	1	1	towed	0	3	8	197	192		1939	12	1946	2	6	0	1	17	10	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+280	ST 15.2cm Gun	so	art	soft	0	1	1	towed	0	3	6	197	204		1939	12	1946	2	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+281	ST 7.6cm AD	so	airdef	soft	2	1	1	towed	0	2	7	198	60		1939	12	1946	2	6	0	1	-8	-14	9	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+282	AF Carrier	none	carrier	naval	9	5	4	naval	200	0	30	202	276		1939	12	1946	5	5	8	1	0	0	-4	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0
+283	AF Battleship	none	cap	naval	12	1	4	naval	200	5	40	199	300		1939	12	1946	12	12	12	1	13	9	-9	18	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+284	AF BtCruiser	none	cap	naval	12	1	5	naval	200	5	40	199	276		1939	12	1946	8	8	9	1	13	9	-7	18	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+285	AF HvyCruiser	none	cap	naval	10	1	5	naval	200	4	40	221	240		1939	12	1946	7	8	8	1	11	7	-7	14	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+286	AF LtCruiser	none	cap	naval	9	1	5	naval	200	4	40	221	180		1939	12	1946	6	7	6	1	10	6	-6	12	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+287	AF Destroyer	none	dest	naval	6	2	6	naval	200	0	30	201	120		1939	12	1946	3	4	7	1	9	5	-5	16	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+288	AF T-Boat	none	dest	naval	5	2	7	naval	60	0	2	200	60		1939	12	1946	2	6	10	1	0	0	-1	16	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+289	AF Submarine	none	sub	naval	6	3	3	naval	200	0	40	203	96		1939	12	1946	2	0	0	1	0	0	0	10	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+290	AF Transport	none	seatrp	naval	2	1	4	naval	0	0	40	204	60		1939	12	1946	2	2	2	1	0	0	2	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+291	Battleship Bk	ger	cap	naval	12	1	5	naval	200	5	40	218	300		1939	12	1946	12	12	12	1	13	9	-9	18	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+292	Battleship Dl	ger	cap	naval	12	1	5	naval	200	5	40	218	276		1939	12	1946	9	9	9	1	12	8	-8	16	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+293	Heavy Cruiser	ger	cap	naval	10	1	5	naval	200	4	40	231	240		1939	12	1946	7	8	8	1	11	7	-7	14	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+294	Light Cruiser	ger	cap	naval	9	1	5	naval	200	4	40	231	180		1939	12	1946	6	7	6	1	10	6	-6	12	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+295	Z-Destroyer	ger	dest	naval	6	2	6	naval	200	0	30	220	120		1939	12	1946	3	4	7	1	9	5	-5	16	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+296	T-Destroyer	ger	dest	naval	6	2	7	naval	120	0	25	220	96		1939	12	1946	3	3	8	1	8	5	-3	14	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+297	U-Boat	ger	sub	naval	6	3	3	naval	200	0	40	222	96		1939	12	1946	2	0	0	1	0	0	0	10	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+298	Transport	ger	seatrp	naval	2	1	4	naval	0	0	40	223	60		1939	12	1946	2	2	2	1	0	0	2	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+299	S-Boat	ger	dest	naval	5	2	7	naval	60	0	2	219	60		1939	12	1946	2	6	10	1	0	0	-1	16	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+300	IT Re2000/F1	it	fighter	air	3	3	13	air	60	0	8	70	264		1940	6	1943	7	8	0	1	1	2	8	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+301	IT Re2005/S	it	fighter	air	5	4	14	air	66	0	7	70	384		1943	1	1946	9	13	0	1	5	4	14	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+302	IT Centauro	it	fighter	air	7	3	14	air	84	0	8	71	396		1942	6	1946	7	14	0	1	3	2	14	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+303	IT Ma C202/F	it	fighter	air	5	3	14	air	54	0	11	72	348		1942	3	1946	7	10	0	1	1	2	12	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+304	IT Ma C205/O	it	fighter	air	6	3	14	air	72	0	8	70	384		1943	3	1946	7	13	0	1	2	2	15	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+305	IT BA65	it	tacbomb	air	1	2	12	air	36	0	6	73	240		1940	6	1946	9	4	0	1	7	6	-4	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+306	IT CA309	it	levbomb	air	1	2	12	air	36	0	6	74	204		1940	6	1946	9	4	0	1	1	4	-4	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+307	IT P108 Bi	it	levbomb	air	4	2	12	air	180	0	8	74	408		1940	6	1946	17	12	0	1	1	4	-12	16	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+308	IT SM 82	it	airtrp	air	0	1	10	air	198	0	4	76	120		1940	6	1946	5	8	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+309	IT AB-40	it	recon	hard	4	3	8	wheeled	65	0	17	247	48		1941	1	1946	6	6	3	1	1	2	-1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+310	IT AB-41	it	recon	hard	6	4	8	wheeled	70	0	15	251	84		1941	8	1946	7	7	2	1	1	3	-1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+311	IT Sem L-47	it	antitank	hard	7	1	5	tracked	45	0	7	248	12		1942	7	1945	8	6	0	1	5	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+312	IT Sem M-40	it	art	hard	5	1	4	tracked	45	1	7	249	132		1942	1	1946	9	8	1	1	14	8	-1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+313	IT Sem M-41M	it	antitank	hard	10	1	4	tracked	45	0	4	248	120		1943	7	1946	9	6	0	1	13	18	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+314	IT Sem M-42	it	antitank	hard	7	1	5	tracked	48	0	7	248	84		1942	1	1945	9	9	1	1	11	12	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+315	IT Sem M-42M	it	art	hard	7	1	5	tracked	43	1	7	249	204		1943	9	1946	12	9	2	1	18	8	-1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+316	IT L6/40	it	tank	hard	6	3	5	tracked	45	0	10	77	84		1941	4	1943	8	7	1	1	1	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+317	IT M13/40	it	tank	hard	7	1	4	tracked	45	0	11	78	120		1940	12	1943	8	9	2	1	3	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+318	IT M14/41	it	tank	hard	8	2	4	tracked	45	0	11	78	144		1942	1	1945	8	9	3	1	3	8	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+319	IT M15/42	it	tank	hard	8	2	5	tracked	47	0	12	79	168		1943	9	1946	9	9	3	1	5	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+320	IT 75mm SPAD	it	airdef	soft	2	1	5	wheeled	60	2	4	246	144		1941	11	1946	2	5	0	1	-11	-8	9	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+321	IT 90mm Breda	it	antitank	soft	10	1	6	wheeled	60	0	4	245	120		1942	5	1946	2	5	0	1	10	18	-10	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+322	IT 47mm ATG	it	antitank	soft	7	2	1	towed	40	0	9	230	72		1938	1	1946	8	8	0	1	2	8	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+323	IT Fiat Truck	it	landtrp	soft	0	1	8	wheeled	60	0	4	228	24		1938	1	1946	1	0	0	1	2	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+324	IT Infantry	it	inf	soft	0	1	2	leg	0	0	6	210	24		1940	6	1946	5	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+325	IT Bersglri 	it	inf	soft	1	2	3	leg	0	0	8	210	72		1940	6	1946	7	8	0	1	6	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+326	IT 75mm Gun	it	art	soft	1	1	1	towed	0	2	9	216	60		1940	6	1946	2	6	0	1	9	4	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+327	IT 105mm Gun	it	art	soft	1	1	1	towed	0	3	8	216	144		1940	6	1946	2	6	0	1	12	7	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+328	IT 155mm Gun	it	art	soft	1	1	1	towed	0	3	7	216	180		1942	1	1946	2	6	0	1	15	11	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+329	Bridge Eng	ger	inf	soft	2	2	2	leg	0	0	7	214	288		1939	9	1946	8	8	0	1	8	5	-1	1	0	0	0	0	0	0	0	0	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+330	AF Partisans	none	inf	soft	3	3	3	leg	0	0	2	191	24		1939	9	1946	3	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+331	Bulgarian Inf	bul	inf	soft	1	1	2	leg	0	0	6	210	24		1940	6	1946	4	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+332	Hungarian Inf	hun	inf	soft	1	1	3	leg	0	0	6	210	36		1940	6	1946	5	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+333	Rumanian Inf	rum	inf	soft	1	1	3	leg	0	0	6	210	36		1940	6	1946	6	7	0	1	5	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+334	Greek Inf	gre	inf	soft	1	1	3	leg	0	0	6	191	48		1940	6	1946	6	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+335	Yugoslav Inf	yug	inf	soft	0	1	3	leg	0	0	6	191	24		1940	6	1946	4	7	0	1	4	1	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+336	US P38 Ltng	usa	fighter	air	4	4	14	air	150	0	7	162	456		1942	10	1946	9	14	0	1	7	7	16	3	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+337	US P40 Whwk	usa	fighter	air	5	3	13	air	78	0	7	161	312		1941	12	1943	7	10	0	1	1	2	10	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+338	US P51B Mustg	usa	fighter	air	6	3	14	air	84	0	9	163	408		1943	1	1946	8	14	0	1	1	2	18	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+339	US P51D Mustg	usa	fighter	air	6	3	14	air	96	0	11	165	444		1944	1	1946	8	14	0	1	2	2	20	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+340	US P51H Mustg	usa	fighter	air	6	3	14	air	78	0	11	165	456		1944	6	1946	8	15	0	1	2	2	24	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+341	US P47B Tbolt	usa	fighter	air	5	3	14	air	72	0	8	164	372		1943	1	1946	9	14	0	1	3	2	14	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+342	US P47D Tbolt	usa	fighter	air	5	4	14	air	72	0	4	164	384		1943	9	1946	10	14	0	1	5	5	16	2	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+343	US P47N Tbolt	usa	fighter	air	5	5	14	air	108	0	5	164	456		1945	1	1946	10	16	0	1	7	7	20	3	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+344	US B25B Mitch	usa	tacbomb	air	2	2	13	air	126	0	6	167	360		1942	1	1946	11	10	0	1	5	5	-6	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+345	US B25H Mitch	usa	tacbomb	air	3	2	12	air	126	0	10	167	420		1943	10	1946	11	10	0	1	6	6	-10	10	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+346	US B26C Mardr	usa	tacbomb	air	4	3	12	air	102	0	5	168	420		1941	12	1946	10	10	0	1	13	9	-12	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+347	US A26 Inv	usa	tacbomb	air	5	3	14	air	132	0	9	169	528		1943	12	1946	11	13	0	1	13	9	-14	5	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0
+348	US B17F FF	usa	levbomb	air	5	2	13	air	222	0	10	170	372		1942	8	1946	18	14	0	1	1	4	-12	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+349	US B17G FF	usa	levbomb	air	5	2	13	air	222	0	10	170	384		1943	1	1946	18	14	0	1	1	4	-14	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+350	US B24D Lib	usa	levbomb	air	4	2	12	air	240	0	10	171	336		1942	6	1946	15	12	0	1	1	4	-10	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+351	US B29 SF	usa	levbomb	air	6	2	13	air	240	0	18	169	468		1944	6	1946	21	16	0	1	1	4	-20	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+352	US B32 Dom	usa	levbomb	air	6	2	14	air	240	0	20	172	492		1944	11	1946	21	14	0	1	1	4	-14	3	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0
+353	US C47	usa	airtrp	air	0	1	12	air	150	0	0	205	120		1941	12	1946	5	6	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+354	US M2 Halftrk	usa	landtrp	hard	2	2	8	halftracked	45	0	10	173	84		1941	12	1946	7	1	1	1	3	3	4	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+355	US M2A4	usa	tank	hard	7	4	7	tracked	35	0	12	174	144		1941	12	1945	9	8	1	1	3	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+356	US M3 GMC	usa	art	hard	3	1	8	halftracked	57	2	7	239	156		1942	11	1945	6	6	0	1	11	5	-2	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+357	US M3 	usa	tank	hard	7	4	7	tracked	35	0	14	174	156		1941	12	1945	9	8	1	1	3	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+358	US M4	usa	tank	hard	9	2	5	tracked	45	0	13	120	228		1942	10	1945	11	9	3	1	11	12	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+359	US M4A1	usa	tank	hard	9	2	5	tracked	45	0	12	120	228		1942	12	1945	12	9	3	1	11	12	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+360	US M5	usa	tank	hard	7	4	7	tracked	41	0	14	119	180		1942	11	1946	10	8	3	1	5	9	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+361	US M4A3	usa	tank	hard	9	2	6	tracked	46	0	13	120	228		1943	7	1946	11	9	3	1	11	12	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+362	US M4A3 (105)	usa	art	hard	4	2	6	tracked	46	3	10	244	324		1944	7	1946	12	9	3	1	15	8	-2	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+363	US M4A3E2	usa	tank	hard	9	2	5	tracked	41	0	14	120	264		1944	6	1946	18	9	3	1	11	12	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+364	US M4A3E2(76)	usa	tank	hard	10	2	5	tracked	41	0	14	178	276		1944	12	1946	18	9	3	1	9	15	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+365	US M4A1(76)W	usa	tank	hard	10	2	5	tracked	41	0	11	178	240		1944	7	1946	12	9	3	1	9	15	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+366	US M4A3(76)W	usa	tank	hard	10	2	6	tracked	41	0	11	178	264		1944	7	1946	12	9	3	1	9	15	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+367	US M7	usa	art	hard	4	1	5	tracked	52	3	7	238	252		1942	11	1946	7	6	0	1	15	8	-2	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+368	US M8 HMC	usa	art	hard	3	1	7	tracked	46	2	7	182	156		1943	9	1946	7	6	1	1	11	5	-2	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+369	US GM Truck	usa	landtrp	hard	0	1	8	wheeled	75	0	4	209	24		1939	1	1946	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+370	US M10 	usa	antitank	hard	10	1	6	tracked	57	0	7	122	120		1943	3	1946	10	6	0	1	9	15	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+371	US M12 GMC	usa	art	hard	5	1	5	tracked	48	3	2	183	288		1944	6	1946	7	6	0	1	19	14	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+372	US M15A1 MGMC	usa	antiair	hard	6	2	8	halftracked	57	0	5	184	144		1942	11	1946	6	12	0	1	3	7	8	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+373	US M16 MGMC	usa	antiair	hard	4	2	8	halftracked	57	0	6	240	156		1944	6	1946	6	14	0	1	7	1	12	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+374	US M18 	usa	antitank	hard	10	1	8	tracked	42	0	6	243	108		1944	8	1946	7	6	0	1	9	15	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+375	US M24	usa	recon	hard	9	3	7	tracked	41	0	7	176	132		1944	12	1946	10	8	3	1	11	12	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+376	US M26 	usa	tank	hard	11	2	5	tracked	41	0	10	180	312		1945	3	1946	18	9	3	1	13	19	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+377	US M36	usa	antitank	hard	11	1	5	tracked	41	0	7	179	156		1944	8	1946	10	6	0	1	13	19	-2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+378	US Inf 41	usa	inf	soft	1	1	3	leg	0	0	6	191	60		1941	12	1946	6	9	0	1	6	2	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+379	US Inf 43	usa	inf	soft	1	1	3	leg	0	0	6	191	84		1943	1	1946	6	9	0	1	6	6	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+380	US Inf HW 41	usa	inf	soft	2	2	2	leg	0	0	6	193	96		1941	12	1946	8	11	0	1	8	3	-2	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+381	US Inf HW 43	usa	inf	soft	2	2	2	leg	0	0	6	193	108		1943	1	1946	8	11	0	1	9	6	-2	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+382	US Para 41	usa	inf	soft	0	2	3	leg	0	0	5	194	144		1941	6	1946	9	10	0	1	8	2	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+383	US Para 43	usa	inf	soft	1	2	3	leg	0	0	5	194	168		1943	1	1946	9	10	0	1	8	6	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+384	US Rangers 43	usa	inf	soft	2	3	3	leg	0	0	5	191	180		1943	6	1946	9	10	0	1	8	6	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+385	US Eng 41	usa	inf	soft	2	2	2	leg	0	0	7	193	240		1941	12	1946	9	9	0	1	8	3	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+386	US Eng 43	usa	inf	soft	2	2	2	leg	0	0	7	193	252		1943	1	1946	9	9	0	1	9	6	-1	1	0	0	0	0	0	0	0	0	0	0	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+387	US Bridge Eng	usa	inf	soft	2	2	2	leg	0	0	7	195	300		1941	12	1946	9	9	0	1	9	6	-1	1	0	0	0	0	0	0	0	0	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+388	US 37mm ATG	usa	antitank	soft	7	2	1	towed	0	0	10	196	48		1942	11	1945	8	8	0	1	1	9	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+389	US 57mm ATG	usa	antitank	soft	8	2	1	towed	0	0	9	196	72		1943	7	1946	8	8	0	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+390	US 3 Inches ATG	usa	antitank	soft	10	2	1	towed	0	0	7	196	120		1943	7	1946	8	8	0	1	6	15	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+391	US 75mm Gun	usa	art	soft	0	1	1	towed	0	2	9	197	72		1941	12	1946	2	6	0	1	12	5	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+392	US 105mm Gun	usa	art	soft	0	1	1	towed	0	3	8	197	168		1943	9	1946	2	6	0	1	16	8	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+393	US 155mm Gun	usa	art	soft	0	1	1	towed	0	3	7	197	216		1944	6	1946	2	6	0	1	20	14	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+394	US 8 Inches Gun	usa	art	soft	0	1	1	towed	0	3	6	197	240		1944	7	1946	2	6	0	1	21	16	0	6	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+395	US 40mm AD	usa	airdef	soft	2	2	1	towed	0	2	10	198	96		1944	6	1946	2	6	0	1	-9	-12	8	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+396	US 3 Inches AD	usa	airdef	soft	2	1	1	towed	0	2	7	198	132		1941	12	1946	2	6	0	1	-11	-15	9	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+397	US 90mm AD	usa	airdef	soft	2	1	1	towed	0	3	6	198	228		1944	6	1946	2	6	0	1	-13	-18	10	-1	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1
+398	US M8 Ghd LAC	usa	recon	hard	7	5	8	allterrain	81	0	9	241	120		1943	6	1946	7	6	1	1	3	9	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+399	US M20 LAC	usa	recon	hard	7	5	8	allterrain	81	0	9	242	108		1943	6	1946	7	6	1	1	3	3	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+400	FFR Infantry	fra	inf	soft	1	1	3	leg	0	0	6	191	84		1943	1	1946	6	9	0	1	6	6	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+401	FFR Mtn Inf	fra	inf	soft	1	2	3	leg	0	0	6	191	84		1943	1	1946	8	9	0	1	6	6	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+402	FFR 75mm Gun	fra	art	soft	0	1	1	towed	0	2	9	197	72		1943	1	1946	2	6	0	1	12	5	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+403	FFR 105mm Gun	fra	art	soft	0	1	1	towed	0	3	8	197	168		1943	9	1946	2	6	0	1	16	8	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+404	FFR 57mm ATG	fra	antitank	soft	8	2	1	towed	0	0	9	196	72		1943	7	1946	8	8	0	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+405	FFR M2 Hftrk	fra	landtrp	hard	2	2	8	halftracked	45	0	10	173	84		1943	1	1946	7	1	1	1	3	3	2	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+406	FFR GM Truck	fra	landtrp	hard	0	1	8	wheeled	75	0	4	209	24		1939	1	1946	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+407	FFR M8 LAC	fra	recon	hard	7	5	8	allterrain	81	0	9	241	120		1943	6	1946	7	6	1	1	3	9	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+408	FFR M20 LAC	fra	recon	hard	7	5	8	allterrain	81	0	9	242	108		1943	6	1946	7	6	1	1	3	3	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+409	FPO M5 Stuart	pol	tank	hard	4	4	7	tracked	41	0	14	119	180		1943	1	1945	14	9	2	1	11	8	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+410	FPO Sherman	pol	tank	hard	9	2	5	tracked	45	0	11	120	216		1943	1	1946	12	9	2	1	11	12	-1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0
+411	FPO M8 LAC	pol	recon	hard	7	5	8	allterrain	81	0	9	241	120		1943	6	1946	7	6	1	1	3	9	-2	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+412	FPO Bren Ca	pol	landtrp	hard	0	1	8	tracked	60	0	4	250	72		1943	1	1946	7	0	0	1	2	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+413	FPO Truck	pol	landtrp	hard	0	1	8	wheeled	69	0	4	209	24		1943	1	1946	1	0	0	1	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+414	FPO Infantry	pol	inf	soft	1	2	3	leg	0	0	6	191	60		1943	1	1946	6	7	0	1	7	6	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+415	FPO Para	pol	inf	soft	0	2	3	leg	0	0	7	194	156		1943	1	1946	9	8	0	1	8	6	-1	1	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+416	FPO 6 Pdr ATG	pol	antitank	soft	8	2	1	towed	0	0	9	196	72		1943	1	1945	8	8	0	1	1	13	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1
+417	FPO 25 Pdr	pol	art	soft	1	1	1	towed	0	3	9	197	156		1943	1	1946	2	6	0	1	13	6	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+418	FPO 6 Inches Gun	pol	art	soft	1	1	1	towed	0	3	7	197	192		1943	1	1946	2	6	0	1	17	12	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	1
+419	Strongpoint	ger	fort	hard	2	4	0	towed	0	0	50	225	180		1939	9	1946	10	8	2	1	8	16	-6	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+420	Fort	ger	fort	hard	1	4	0	towed	0	2	10	226	360		1939	9	1946	14	12	3	1	12	15	-9	13	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0
+421	Nebelwerfer	ger	art	hard	0	2	6	halftracked	55	2	4	252	300		1941	3	1946	7	1	1	1	23	11	-1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+422	Katyusha BM13	so	art	soft	0	1	5	wheeled	60	2	4	158	36		1942	1	1946	2	0	0	1	5	6	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0
+423	Katyusha BM31	so	art	soft	0	1	5	wheeled	60	2	4	159	72		1943	3	1946	2	0	0	1	8	9	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0

@@ -404,7 +404,7 @@ int load_pgf_equipment(char *fullName){
     fseek(inf,0,SEEK_SET);
     unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
 
-    if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
+    if ( !unit_lib_load( "basic_unit_data", UNIT_LIB_BASE_DATA ) )
         return 0;
 
     while (load_line(inf,line,utf16)>=0)

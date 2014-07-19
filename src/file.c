@@ -39,11 +39,13 @@ const int extension_sound_length = 3;
 const int extension_scenario_length = 2;
 const int extension_campaign_length = 2;
 const int extension_nations_length = 2;
+const int extension_unit_library_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
 const char *extension_campaign[] = { "lgcam", "pgcam" };
 const char *extension_nations[] = { "lgdndb", "ndb" };
+const char *extension_unit_library[] = { "lgdudb", "udb" };
 
 /*
 ====================================================================
@@ -500,7 +502,8 @@ for further use.
 's' - sounds (wav, ogg, mp3)
 'o' - scenarios (lgscn, pgscn)
 'c' - campaigns (lgcam, pgcam)
-'n' - nations (ndb, lgdndb)
+'n' - nations (lgdndb, ndb)
+'u' - unit library (lgdudb, udb)
 ====================================================================
 */
 int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, char *subFolder, const char type )
@@ -596,6 +599,23 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                 }
                 break;
             }
+            case 'u':
+            {
+                while ( i < extension_unit_library_length )
+                {
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_unit_library[i] );
+                    if ( file_exists( pathTemp ) )
+                    {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_unit_library[i] );
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
         }
     }
     i = 0;
@@ -680,6 +700,23 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                         snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
                         snprintf( extension, MAX_EXTENSION, "%s", extension_nations[i] );
+                    return 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 'u':
+        {
+            while ( i < extension_unit_library_length )
+            {
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_unit_library[i] );
+                if ( file_exists( pathTemp ) )
+                {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_unit_library[i] );
                     return 1;
                 }
                 i++;

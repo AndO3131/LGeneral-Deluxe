@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include "list.h"
 
+int load_line(FILE *inf, char *line, int isUTF16);
 int read_utf16_line_convert_to_utf8(FILE *inf, char *line);
 int load_pgf_pgscn(char *fname, char *fullName, int scenNumber);
 char *load_pgf_pgscn_info( const char *fname, char *path, int name_only );
