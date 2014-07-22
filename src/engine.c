@@ -2170,7 +2170,7 @@ static void engine_handle_button( int id )
                 {    
                     int x = cur_unit->x, y = cur_unit->y;
                     drop = 1;
-                    if (map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR)
+                    if ( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & SUPPLY_AIR)
                     if (player_is_ally(map[x][y].player,cur_unit->player))
                     if (map[x][y].g_unit==0)
                         drop = 0;
@@ -3698,7 +3698,7 @@ static void engine_handle_next_action( int *reinit )
                     Unit *newUnit = unit_duplicate( action->unit, 1 );
                     newUnit->str = action->str;
                     newUnit->x = action->x; newUnit->y = action->y;
-                    newUnit->terrain = map[newUnit->x][newUnit->y].terrain;
+                    newUnit->terrain = terrain_type_find( map[newUnit->x][newUnit->y].terrain_id[0] );
                     action->unit->str -= action->str;
                     list_add(units,newUnit); map_insert_unit(newUnit);
                     unit_set_as_used(action->unit); unit_set_as_used(newUnit);

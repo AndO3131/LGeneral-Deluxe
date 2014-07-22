@@ -25,6 +25,8 @@
 #include "player.h"
 #include "unit.h"
 
+#define MAX_LAYERS 5
+
 enum { FAIR = 0, CLOUDS, RAIN, SNOW };
 
 /*
@@ -34,8 +36,7 @@ Map tile
 */
 typedef struct {
     char *name;             /* name of this map tile */
-    Terrain_Type *terrain;  /* terrain properties */
-    int terrain_id;         /* id of terrain properties */
+    int terrain_id[MAX_LAYERS]; /* id of terrain properties */
     int image_offset_x;     /* image offset in prop->image */
     int image_offset_y;     /* image offset in prop->image */
     int strat_image_offset; /* offset in the list of strategic tiny terrain images */
@@ -45,6 +46,7 @@ typedef struct {
     int deploy_center;      /* deploy allowed? */
     Unit *g_unit;           /* ground/naval unit pointer */
     Unit *a_unit;           /* air unit pointer */
+    int layers[MAX_LAYERS]; /* layers of this map tile; layer 1 - roads */
 } Map_Tile;
 
 /*

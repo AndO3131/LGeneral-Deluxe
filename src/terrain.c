@@ -743,3 +743,18 @@ int ground_conditions_get_index( char *ground_condition )
             return i;
     return -1;
 }
+
+/*
+====================================================================
+Find terrain type by id
+====================================================================
+*/
+Terrain_Type *terrain_type_find( char terrain_type )
+{
+    int i;
+    for ( i = 0; i < terrain_type_count; i++ )
+        if ( terrain_types[i].id == terrain_type )
+            return &terrain_types[i];
+    return 0;
+}
+

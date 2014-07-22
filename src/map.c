@@ -70,6 +70,8 @@ Locals
 ====================================================================
 */
 
+int DirectionToNumber[6] = { 0, 1, 3, 4, 5, 7 };
+
 enum { DIST_AIR_MAX = SHRT_MAX };
 
 typedef struct {
@@ -169,18 +171,14 @@ int map_load( char *fname )
             map[x][y].deploy_center = 0;
             /* default is no mil target */
             map[x][y].obj = 0;
-            /* check tile type */
+            /* check tile type; if tile not found, first one is used */
             for ( j = 0; j < terrain_type_count; j++ ) {
                 if ( terrain_types[j].id == tile[0] ) {
-                    map[x][y].terrain = &terrain_types[j];
-                    map[x][y].terrain_id = j;
+                    map[x][y].terrain_id[0] = terrain_types[j].id;
                 }
             }
-            /* tile not found, used first one */
-            if ( map[x][y].terrain == 0 )
-                map[x][y].terrain = &terrain_types[0];
             /* check image id -- set offset */
-            limit = map[x][y].terrain->images[0]->w / hex_w - 1;
+            limit = terrain_type_find( map[x][y].terrain_id[0] )->images[0]->w / hex_w - 1;
             if ( tile[1] == '?' )
             {
                 /* set offset by random */
@@ -193,7 +191,7 @@ int map_load( char *fname )
                 map[x][y].image_offset_y = atoi( tile + 1 ) / terrain_columns * hex_h;
             }
             /* set name */
-            map[x][y].name = strdup( map[x][y].terrain->name );
+            map[x][y].name = strdup( terrain_type_find( map[x][y].terrain_id[0] )->name );
         }
     /* map names */
     if ( parser_get_values( pd, "names", &names ) ) {
@@ -330,7 +328,7 @@ Unit *map_swap_unit( Unit *unit )
         old = map_tile( unit->x, unit->y )->g_unit;
         map_tile( unit->x, unit->y )->g_unit = unit;
     }
-    unit->terrain = map[unit->x][unit->y].terrain;
+    unit->terrain = terrain_type_find( map[unit->x][unit->y].terrain_id[0] );
     return old;
 }
 
@@ -383,12 +381,12 @@ void map_add_unit_spot_mask_rec( Unit *unit, int x, int y, int points )
     /* spot tile */
     mask[x][y].aux = points;
     /* substract points */
-    points -= map[x][y].terrain->spt[cur_weather];
+    points -= terrain_type_find( map[x][y].terrain_id[0] )->spt[cur_weather];
     /* if there are points remaining continue spotting */
     if ( points > 0 )
         for ( i = 0; i < 6; i++ )
             if ( get_close_hex_pos( x, y, i, &next_x, &next_y ) )
-                if ( !( map[next_x][next_y].terrain->flags[cur_weather] & NO_SPOTTING ) )
+                if ( !( terrain_type_find( map[next_x][next_y].terrain_id[0] )->flags[cur_weather] & NO_SPOTTING ) )
                     map_add_unit_spot_mask_rec( unit, next_x, next_y, points );
 }
 void map_add_unit_spot_mask( Unit *unit )
@@ -494,20 +492,63 @@ void map_get_unit_move_mask( Unit *unit )
 Check whether unit can enter (x,y) provided it has 'points' move
 points remaining. 'mounted' means, to use the base cost for the 
 transporter. Return the fuel cost (<=points) of this. If entering
-is not possible, 'cost' is undefined.
+is not possible, 'cost' is undefined. Direction is used by directional map layers.
 ====================================================================
 */
-int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int mounted, int *cost, int *FinishMove )
+int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int mounted, int *cost, int *FinishMove, int direction )
 {
-    int base = terrain_get_mov( map[x][y].terrain, unit->sel_prop->mov_type, cur_weather );
+    int i, temp, prev_x, prev_y;//, cur_terrain = 0;
+    int base = terrain_get_mov( terrain_type_find( map[x][y].terrain_id[0] ), unit->sel_prop->mov_type, cur_weather );
+    /* checking additional layers */
+    if ( direction >= 0 )
+        for ( i = 1; i < MAX_LAYERS; i++)
+        {
+            if ( map[x][y].terrain_id[i] != 0 && get_close_hex_pos( x, y, (direction + 3) % 6, &prev_x, &prev_y ) )
+            {
+//fprintf(stderr,"%d,%d:%d -> %d,%d:%d  %d (%d -> %d) \n", prev_x,prev_y, map[prev_x][prev_y].layers[i],x,y,map[x][y].layers[i], direction, map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]),map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) );
+                if ( ( map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]) ) > 0 && 
+                     ( map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) ) > 0 )
+                {
+                    temp = terrain_get_mov( terrain_type_find( map[x][y].terrain_id[i] ), unit->sel_prop->mov_type, cur_weather );
+                    if ( temp < base )
+                    {
+                        base = temp;
+//                    cur_terrain = i;
+                    }
+                }
+            }
+            else
+                break;
+        }
     /* if we check the mounted case, we'll have to use the ground transporter's cost */
     if ( mounted && unit->trsp_prop.id )
-        base = terrain_get_mov( map[x][y].terrain, unit->trsp_prop.mov_type, cur_weather );
+    {
+        base = terrain_get_mov( terrain_type_find( map[x][y].terrain_id[0] ), unit->trsp_prop.mov_type, cur_weather );
+        /* checking additional layers */
+        if ( direction >= 0 )
+            for ( i = 1; i < MAX_LAYERS; i++)
+            {
+                if ( map[x][y].terrain_id[i] != 0 && get_close_hex_pos( x, y, (direction + 3) % 6, &prev_x, &prev_y ) )
+                {
+                    if ( ( map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]) ) > 0 && 
+                         ( map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) ) > 0 )
+                    {
+                        temp = terrain_get_mov( terrain_type_find( map[x][y].terrain_id[i] ), unit->trsp_prop.mov_type, cur_weather );
+                        if ( temp < base )
+                        {
+                            base = temp;
+                        }
+                    }
+                }
+                else
+                    break;
+            }
+    }
     /* allied bridge engineers on river? */
-    if ( map[x][y].terrain->flags[cur_weather] & RIVER )
+    if ( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & RIVER )
         if ( map[x][y].g_unit && unit_has_flag( map[x][y].g_unit->sel_prop, "bridge_eng" ) )
             if ( player_is_ally( unit->player, map[x][y].g_unit->player ) )
-                base = 1;
+                base = 1; /* check on weather conditions */
     /* impassable? */
     if (base==0) return 0;
     /* cost's all but not close? */
@@ -556,10 +597,10 @@ distance to the hex, the unit is standing on. 'points' is the number
 of points the unit has remaining before trying to enter (x,y).
 'mounted' means to re-check with the move mask of the transporter.
 And to set mask[x][y].mount if a tile came in reach that was 
-previously not.
+previously not. Direction is used by directional map layers.
 ====================================================================
 */
-void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int points, int mounted, int FinishMove )
+void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int points, int mounted, int FinishMove, int direction )
 {
     int i, next_x, next_y, cost = 0;
     /* break if this tile is already checked */
@@ -568,7 +609,7 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
     /* the outer map tiles may not be entered */
     if ( x <= 0 || y <= 0 || x >= map_w - 1 || y >= map_h - 1 ) return;
     /* can we enter? if yes, how much does it cost? */
-    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),points,mounted,&cost,&FinishMove))
+    if (distance==0||unit_can_enter_hex(unit,x,y,(distance==1),points,mounted,&cost,&FinishMove, direction))
     {
         /* remember distance */
         if (mask[x][y].distance==-1||distance<mask[x][y].distance)
@@ -616,7 +657,7 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
                 mask[next_x][next_y].sea_embark = 1;
                 continue;
             }
-            map_add_unit_move_mask_rec( unit, next_x, next_y, distance+1, points, mounted, FinishMove );
+            map_add_unit_move_mask_rec( unit, next_x, next_y, distance+1, points, mounted, FinishMove, i );
         }
 }
 void map_get_unit_move_mask( Unit *unit )
@@ -643,7 +684,7 @@ void map_get_unit_move_mask( Unit *unit )
             //printf("limiting movement because fuel = %d\n", unit->cur_fuel);
         }
         FinishMove = 0;
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0, FinishMove);
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,0, FinishMove, -1);
         /* fix for crashing when don't have enough fuel to use the land transport's full range -trip */
         maxpoints = unit->cur_mov;
         if ((unit->prop.fuel || unit->trsp_prop.fuel) && 
@@ -652,14 +693,14 @@ void map_get_unit_move_mask( Unit *unit )
             //printf("limiting expansion of movement via transport because fuel = %d\n", unit->cur_fuel);
         }
         FinishMove = 0;
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1, FinishMove);
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,maxpoints,1, FinishMove, -1);
         //end of patch -trip
         
     }
     else
     {
         FinishMove = 0;
-        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->cur_mov,0, FinishMove);
+        map_add_unit_move_mask_rec(unit,unit->x,unit->y,0,unit->cur_mov,0, FinishMove, -1);
     }
     for (x=0;x<map_w;x++) for(y=0;y<map_h;y++)
         mask[x][y].in_range++;
@@ -898,7 +939,7 @@ int map_check_unit_split( Unit *unit, int str, int x, int y, Unit *dest )
         if (!is_close(unit->x,unit->y,x,y)) return 0;
         if ( unit_has_flag( unit->sel_prop, "flying" ) && map[x][y].a_unit) return 0;
         if (!unit_has_flag( unit->sel_prop, "flying" ) && map[x][y].g_unit) return 0;
-        if (!terrain_get_mov(map[x][y].terrain,unit->sel_prop->mov_type,cur_weather)) return 0;
+        if (!terrain_get_mov(terrain_type_find( map[x][y].terrain_id[0] ),unit->sel_prop->mov_type,cur_weather)) return 0;
     }
     return 1;
 }
@@ -971,10 +1012,10 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
     /* terrain */
     DEST( surf, x, y, hex_w, hex_h );
     if ( mask[map_x][map_y].fog )
-        SOURCE( tile->terrain->images_fogged[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
+        SOURCE( terrain_type_find( tile->terrain_id[0] )->images_fogged[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
                 tile->image_offset_x, tile->image_offset_y )
     else
-        SOURCE( tile->terrain->images[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
+        SOURCE( terrain_type_find( tile->terrain_id[0] )->images[ground_conditions_get_index( weather_types[cur_weather].ground_conditions )],
                 tile->image_offset_x, tile->image_offset_y )
     blit_surf();
     /* nation flag */
@@ -1378,8 +1419,8 @@ int map_check_unit_embark( Unit *unit, int x, int y, int type, int init )
         if ( !init && map[x][y].a_unit ) return 0;
         if ( unit->player->air_trsp_used >= unit->player->air_trsp_count ) return 0;
         if ( !init && !unit->unused ) return 0;
-        if ( !init && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
-        if ( init && !unit_has_flag( unit->sel_prop, "parachute" ) && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
+        if ( !init && !( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
+        if ( init && !unit_has_flag( unit->sel_prop, "parachute" ) && !( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & SUPPLY_AIR ) ) return 0;
         if ( !unit_has_flag( unit->sel_prop, "air_trsp_ok" ) ) return 0;
         if ( init && unit_has_flag( &unit->trsp_prop, "transporter" ) ) return 0;
         return 1;
@@ -1392,16 +1433,16 @@ int map_check_unit_embark( Unit *unit, int x, int y, int type, int init )
         if ( !init && map[x][y].g_unit ) return 0;
         if ( unit->player->sea_trsp_used >= unit->player->sea_trsp_count ) return 0;
         if ( !init && !unit->unused ) return 0;
-        if ( terrain_get_mov( map[x][y].terrain, unit->player->sea_trsp->mov_type, cur_weather ) == 0 ) return 0;
+        if ( terrain_get_mov( terrain_type_find( map[x][y].terrain_id[0] ), unit->player->sea_trsp->mov_type, cur_weather ) == 0 ) return 0;
         /* basically we must be close to an harbor but a town that is just
            near the water is also okay because else it would be too
            restrictive. */
         if ( !init ) {
-            if ( map[x][y].terrain->flags[cur_weather] & SUPPLY_GROUND )
+            if ( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & SUPPLY_GROUND )
                 return 1;
             for ( i = 0; i < 6; i++ )
                 if ( get_close_hex_pos( x, y, i, &nx, &ny ) )
-                    if ( map[nx][ny].terrain->flags[cur_weather] & SUPPLY_GROUND )
+                    if ( terrain_type_find( map[nx][ny].terrain_id[0] )->flags[cur_weather] & SUPPLY_GROUND )
                         return 1;
         }
         return init;
@@ -1415,15 +1456,15 @@ int map_check_unit_debark( Unit *unit, int x, int y, int type, int init )
         if ( unit->embark != EMBARK_SEA ) return 0;
         if ( !init && map[x][y].g_unit ) return 0;
         if ( !init && !unit->unused ) return 0;
-        if ( !init && terrain_get_mov( map[x][y].terrain, unit->prop.mov_type, cur_weather ) == 0 ) return 0;
+        if ( !init && terrain_get_mov( terrain_type_find( map[x][y].terrain_id[0] ), unit->prop.mov_type, cur_weather ) == 0 ) return 0;
         return 1;
     }
     if ( type == EMBARK_AIR ) {
         if ( unit->embark != EMBARK_AIR ) return 0;
         if ( !init && map[x][y].g_unit ) return 0;
         if ( !init && !unit->unused ) return 0;
-        if ( !init && terrain_get_mov( map[x][y].terrain, unit->prop.mov_type, cur_weather ) == 0 ) return 0;
-        if ( !init && !( map[x][y].terrain->flags[cur_weather] & SUPPLY_AIR ) && !unit_has_flag( &unit->prop, "parachute" ) )
+        if ( !init && terrain_get_mov( terrain_type_find( map[x][y].terrain_id[0] ), unit->prop.mov_type, cur_weather ) == 0 ) return 0;
+        if ( !init && !( terrain_type_find( map[x][y].terrain_id[0] )->flags[cur_weather] & SUPPLY_AIR ) && !unit_has_flag( &unit->prop, "parachute" ) )
             return 0;
         return 1;
     }
@@ -1566,13 +1607,13 @@ void map_debark_unit( Unit *unit, int x, int y, int type, int *enemy_spotted )
                 for (i=0;i<6;i++)
                     if (get_close_hex_pos(x,y,i,&nx,&ny))
                         if (map[nx][ny].g_unit==0)
-                            if (terrain_get_mov(map[nx][ny].terrain,unit->prop.mov_type,cur_weather)!=0)
+                            if (terrain_get_mov(terrain_type_find( map[nx][ny].terrain_id[0] ),unit->prop.mov_type,cur_weather)!=0)
                                 c++;
                 j = DICE(c)-1;
                 for (i=0,c=0;i<6;i++)
                     if (get_close_hex_pos(x,y,i,&nx,&ny))
                         if (map[nx][ny].g_unit==0)
-                            if (terrain_get_mov(map[nx][ny].terrain,unit->prop.mov_type,cur_weather)!=0)
+                            if (terrain_get_mov(terrain_type_find( map[nx][ny].terrain_id[0] ),unit->prop.mov_type,cur_weather)!=0)
                             {
                                 if (j==c)
                                 {
@@ -1664,10 +1705,10 @@ static int map_check_deploy_center( Player *player, Unit *unit, int mx, int my )
     if (!player_is_ally(map[mx][my].player,player)) return 0;
     if (unit)
     {
-        if (terrain_get_mov(map[mx][my].terrain,unit->sel_prop->mov_type,cur_weather)==0)
+        if (terrain_get_mov(terrain_type_find( map[mx][my].terrain_id[0] ),unit->sel_prop->mov_type,cur_weather)==0)
             return 0;
         if ( unit_has_flag( unit->sel_prop, "flying" ) )
-            if (!(map[mx][my].terrain->flags[cur_weather]&SUPPLY_AIR))
+            if (!(terrain_type_find( map[mx][my].terrain_id[0] )->flags[cur_weather]&SUPPLY_AIR))
                 return 0;
         if (map[mx][my].nation!=unit->nation) 
             return 0;
@@ -1731,7 +1772,7 @@ static void map_add_default_deploy_fields( Player *player, List *fields )
                             {
                                 okay = 0; break;
                             }
-                    if (map[next_x][next_y].terrain->flags[cur_weather]&RIVER) okay = 0;
+                    if (terrain_type_find( map[next_x][next_y].terrain_id[0] )->flags[cur_weather]&RIVER) okay = 0;
                     mask[next_x][next_y].deploy = okay;
                 }
         }
@@ -1915,12 +1956,12 @@ int map_is_allied_depot( Map_Tile *tile, Unit *unit )
     if ( tile->player == 0 ) return 0;
     if ( !player_is_ally( unit->player, tile->player ) ) return 0;
     if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
-        if ( !(tile->terrain->flags[cur_weather] & SUPPLY_AIR) )
+        if ( !(terrain_type_find( tile->terrain_id[0] )->flags[cur_weather] & SUPPLY_AIR) )
             return 0;
     }
     else
         if ( unit_has_flag( unit->sel_prop, "swimming" ) ) {
-            if ( !(tile->terrain->flags[cur_weather] & SUPPLY_SHIPS) )
+            if ( !(terrain_type_find( tile->terrain_id[0] )->flags[cur_weather] & SUPPLY_SHIPS) )
                 return 0;
         }
     return 1;
@@ -1954,9 +1995,9 @@ void map_get_dropzone_mask( Unit *unit )
     for (i=0;i<6;i++)
         if (get_close_hex_pos(unit->x,unit->y,i,&x,&y))
             if (map[x][y].g_unit==0)
-                if (terrain_get_mov(map[x][y].terrain,unit->prop.mov_type,cur_weather)!=0)
+                if (terrain_get_mov(terrain_type_find( map[x][y].terrain_id[0] ),unit->prop.mov_type,cur_weather)!=0)
                     mask[x][y].deploy = 1;
     if (map[unit->x][unit->y].g_unit==0)
-        if (terrain_get_mov(map[unit->x][unit->y].terrain,unit->prop.mov_type,cur_weather)!=0)
+        if (terrain_get_mov(terrain_type_find( map[unit->x][unit->y].terrain_id[0] ),unit->prop.mov_type,cur_weather)!=0)
             mask[unit->x][unit->y].deploy = 1; 
 }

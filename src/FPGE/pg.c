@@ -44,11 +44,11 @@ char stm_fname[16];
 char tile_type[] = {
     'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 
     'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'c',
-    'c', 'o', 'o', 'o', 'h', 'h', 'h', 'h', 'r', 'o', 'r',
-    'c', 'c', 'c', 'c', 'r', 'c', 'c', 'r', 'r', 'o', 'c',
-    'c', 'c', 'c', 'r', 'r', 'r', 'o', 'o', 'R', 'R', 'R',
-    'R', 'r', 'r', 'r', 'r', 'r', 'R', 'R', 'R', 'R', 'R',
-    'r', 'r', 'r', 'r', 'r', 'R', 'R', 'o', 'r', 'm', 'm',
+    'c', 'o', 'o', 'o', 'h', 'h', 'h', 'h', 'c', 'o', 'c',
+    'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'o', 'c',
+    'c', 'c', 'c', 'c', 'c', 'c', 'o', 'o', 'R', 'R', 'R',
+    'R', 'c', 'c', 'c', 'c', 'c', 'R', 'R', 'R', 'R', 'R',
+    'c', 'c', 'c', 'c', 'c', 'R', 'R', 'o', 'c', 'm', 'm',
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 
@@ -56,16 +56,16 @@ char tile_type[] = {
     'm', 'm', 'm', 's', 't', 't', 't', 'a', 'c', 'c', '~',
     '~', 's', 's', 'f', 'f', 'f', 'f', 'c', '~', '~', '~',
     '~', 's', 'f', 'f', 'f', 'c', 'c', 'c', 'F', 'F', 'F',
-    'r', 'r', 'r', '@', 'F', 'F', 'F', 'F', 'R', 'F', 'r',
-    'R', 'r', '@', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'r',
-    'r', '@', 'F', 'F', 'F', 'm', 'm', 'd', 'm', 'm', 'd',
+    'c', 'c', 'c', '@', 'F', 'F', 'F', 'F', 'R', 'F', 'c',
+    'R', 'c', '@', 'F', 'F', 'F', 'F', 'F', 'F', 'c', 'c',
+    'c', '@', 'F', 'F', 'F', 'm', 'm', 'd', 'm', 'm', 'd',
     'm', 'm', 'm', 'd', 'm', 'm', 'm', 'd', 'd', 'm', 'm',
     'm', 'm', 'D', 'D', 'D', 'D', 'D', 't', 'F', 
     /* ??? -- really mountains ??? */
     'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm', 'm',
     'm', 'm', 'm', 'm', 'm', 'm',
     /* ??? */
-    'r', 'r', 'r', 'r', 'R', 'R', 'R', 'c', 'h', 'h', 'd',
+    'c', 'c', 'c', 'c', 'R', 'R', 'R', 'c', 'h', 'h', 'd',
     'd', 'd', 'd'
 };
 
@@ -137,19 +137,11 @@ int parse_set_file(FILE *inf, int offset)
             map[x][y].deploy_center = 0;
             /* default is no mil target */
             map[x][y].obj = 0;
-            c+=fread(&(map[x][y].terrain_id), 2, 1, inf);
-            for ( i = 0; i < terrain_type_count; i++ ) {
-                if ( terrain_types[i].id == tile_type[map[x][y].terrain_id] )
-                {
-                    map[x][y].terrain = &terrain_types[i];
-                }
-            }
-            /* tile not found, used first one */
-            if ( map[x][y].terrain == 0 )
-                map[x][y].terrain = &terrain_types[0];
+            c+=fread(&(map[x][y].terrain_id[0]), 2, 1, inf);
             /* check image id -- set offset */
-            map[x][y].image_offset_x = ( map[x][y].terrain_id ) % terrain_columns * hex_w;
-            map[x][y].image_offset_y = ( map[x][y].terrain_id ) / terrain_columns * hex_h;
+            map[x][y].image_offset_x = ( map[x][y].terrain_id[0] ) % terrain_columns * hex_w;
+            map[x][y].image_offset_y = ( map[x][y].terrain_id[0] ) / terrain_columns * hex_h;
+            map[x][y].terrain_id[0] = tile_type[map[x][y].terrain_id[0]];
             /* clear units on this tile */
             map[x][y].g_unit = 0;
             map[x][y].a_unit = 0;
@@ -188,16 +180,18 @@ int parse_set_file(FILE *inf, int offset)
             tile_get_name( name_file, i, name_buf );
             map[x][y].name = strdup( name_buf );
         }
-/*
+
     //get the road connectivity
     fseek(inf,offset+MAP_LAYERS_START + 2 * map_w * map_h, SEEK_SET);
     for (y = 0; y < map_h; ++y)
         for (x = 0; x < map_w; ++x){
-            fread(&(map[x][y].rc), 1, 1, inf);
-            if (map[x][y].rc&(~0xBB)) printf("WARNING: Wrong road at %d,%d !\n",x,y);
+            map[x][y].terrain_id[1] = 'r';
+            fread(&(map[x][y].layers[1]), 1, 1, inf);
+            if ( map[x][y].terrain_id[0] == 'a' || map[x][y].terrain_id[0] == 't' || map[x][y].terrain_id[0] == 'h' )
+                map[x][y].layers[1] = 255;
+            if (map[x][y].layers[0]&(~0xBB)) printf("WARNING: Wrong road at %d,%d !\n",x,y);
 
         }
-*/
     return 1;
 }
 

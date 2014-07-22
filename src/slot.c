@@ -616,7 +616,7 @@ Unit* load_unit( FILE *file )
     if ( store_version >= StoreCoreVersionData )
     {
 		/* patch by Galland 2012 http://sourceforge.net/tracker/?group_id=23757&atid=379520 */
-		unit->terrain = map[unit->x][unit->y].terrain;
+		unit->terrain = terrain_type_find( map[unit->x][unit->y].terrain_id[0] );
 		/* end patch */
 		val = load_int(file);
 		/* max_str (since StoreCoreVersionData) */
@@ -986,9 +986,9 @@ int slot_load( char *name )
         for ( j = 0; j < map_h; j++ ) {
             load_map_tile_units( file, &map[i][j].g_unit, &map[i][j].a_unit );
             if ( map[i][j].g_unit )
-                map[i][j].g_unit->terrain = map[i][j].terrain;
+                map[i][j].g_unit->terrain = terrain_type_find( map[i][j].terrain_id[0] );
             if ( map[i][j].a_unit )
-                map[i][j].a_unit->terrain = map[i][j].terrain;
+                map[i][j].a_unit->terrain = terrain_type_find( map[i][j].terrain_id[0] );
         }
     for ( i = 0; i < map_w; i++ )
         for ( j = 0; j < map_h; j++ )

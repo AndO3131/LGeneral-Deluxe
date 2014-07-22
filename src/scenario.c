@@ -1128,10 +1128,10 @@ void scen_prep_unit( Unit *unit, int type )
                 unit->cur_mov = unit->cur_fuel;
         unit->cur_atk_count = unit->sel_prop->atk_count;
     }
-    /* if unit is preparded normally check entrenchment */
+    /* if unit is prepared normally check entrenchment */
     if ( type == SCEN_PREP_UNIT_NORMAL && !unit_has_flag( unit->sel_prop, "flying" ) ) {
-        min_entr = map_tile( unit->x, unit->y )->terrain->min_entr;
-        max_entr = map_tile( unit->x,unit->y )->terrain->max_entr;
+        min_entr = terrain_type_find( map_tile( unit->x, unit->y )->terrain_id[0] )->min_entr;
+        max_entr = terrain_type_find( map_tile( unit->x, unit->y )->terrain_id[0] )->max_entr;
         if ( unit->entr < min_entr )
             unit->entr = min_entr;
         else

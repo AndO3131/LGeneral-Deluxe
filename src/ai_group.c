@@ -274,20 +274,20 @@ int ai_evaluate_hex( AI_Eval *eval )
     if ( !unit_has_flag( eval->unit->sel_prop, "flying" ) ) {
         /* entrenchment bonus. infantry receives more than others. */
         eval->mov_score += ( unit_has_flag( eval->unit->sel_prop, "infantry" )?2:1) *
-                           ( map[eval->x][eval->y].terrain->min_entr * 2 + 
-                             map[eval->x][eval->y].terrain->max_entr );
+                           ( terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->min_entr * 2 + 
+                             terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->max_entr );
         /* if the unit looses initiative on this terrain we give a malus */
-        if ( map[eval->x][eval->y].terrain->max_ini < eval->unit->sel_prop->ini )
+        if ( terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->max_ini < eval->unit->sel_prop->ini )
             eval->mov_score -= 5 * ( eval->unit->sel_prop->ini - 
-                                      map[eval->x][eval->y].terrain->max_ini );
+                                     terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->max_ini );
         /* rivers should be avoided */
-        if ( map[eval->x][eval->y].terrain->flags[cur_weather] & RIVER )
+        if ( terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->flags[cur_weather] & RIVER )
             eval->mov_score -= 50;
-        if ( map[eval->x][eval->y].terrain->flags[cur_weather] & SWAMP )
+        if ( terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->flags[cur_weather] & SWAMP )
             eval->mov_score -= 30;
         /* inf_close_def will benefit an infantry while disadvantaging
            other units */
-        if ( map[eval->x][eval->y].terrain->flags[cur_weather] & INF_CLOSE_DEF ) {
+        if ( terrain_type_find( map[eval->x][eval->y].terrain_id[0] )->flags[cur_weather] & INF_CLOSE_DEF ) {
             if ( unit_has_flag( eval->unit->sel_prop, "infantry" ) )
                 eval->mov_score += 30;
             else

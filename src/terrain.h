@@ -155,4 +155,11 @@ Get weather's ground conditions id (number)
 */
 int ground_conditions_get_index( char *ground_condition );
 
+/*
+====================================================================
+Find terrain type by id
+====================================================================
+*/
+Terrain_Type *terrain_type_find( char terrain_type );
+
 #endif

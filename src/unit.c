@@ -1275,7 +1275,7 @@ int unit_get_replacement_strength( Unit *unit, int type )
     list_delete(close_units);
 
     /* desert terrain influence */
-    if ( *(map[unit->x][unit->y].terrain->flags) & DESERT ){
+    if ( *(terrain_type_find( map[unit->x][unit->y].terrain_id[0] )->flags) & DESERT ){
         if ( replacement_number / 4 < 1 )
             replacement_number = 1;
         else
