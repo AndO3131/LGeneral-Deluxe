@@ -1,0 +1,377 @@
+# basic terrain data													
+domain	pg												
+hex_width	60												
+hex_height	50												
+hex_x_offset	45												
+hex_y_offset	25												
+fog	fog.bmp												
+danger	danger.bmp												
+grid	grid.bmp												
+frame	select_frame.bmp												
+crosshair	crosshair.bmp												
+explosion	explode.bmp												
+explosion_sound	explode.wav												
+select_sound	select.wav												
+													
+# ground conditions data													
+# ground conditions id	ground conditions image												
+Dry	tacmap_dry.bmp												
+Mud	tacmap_muddy.bmp												
+Ice	tacmap_frozen.bmp												
+													
+# weather types													
+# weather_id	name	ground_cond	no_air_attack	double_fuel_cost	cut_strength	bad_sight							
+fair	Fair	Dry	0	0	0	0							
+clouds	Overcast	Dry	0	0	0	0							
+r	Raining	Dry	1	0	0	1							
+s	Snowing	Dry	1	0	0	1							
+m	Fair	Mud	0	0	0	0							
+M	Overcast	Mud	0	0	0	0							
+rain	Raining	Mud	1	0	0	1							
+x	Snowing	Mud	1	0	0	1							
+i	Fair	Ice	0	1	0	0							
+I	Overcast	Ice	0	1	0	0							
+X	Raining	Ice	1	1	0	1							
+snow	Snowing	Ice	1	1	0	1							
+													
+# terrain types													
+# terrain_id	terrain_name												
+c	Clear												
+r	Road												
+@	Fields												
+~	Rough												
+R	River												
+f	Forest												
+F	Fortification												
+a	Airfield												
+t	Town												
+o	Ocean												
+m	Mountain												
+s	Swamp												
+d	Desert												
+D	Rough Desert												
+h	Harbor												
+													
+# spot costs													
+# terrain_id	fair	clouds	r	s	m	M	rain	x	i	I	X	snow	
+c	1	1	2	2	1	1	2	2	1	1	2	2	
+r	1	1	2	2	1	1	2	2	1	1	2	2	
+@	1	1	2	2	1	1	2	2	1	1	2	2	
+~	1	1	2	2	1	1	2	2	1	1	2	2	
+R	1	1	2	2	1	1	2	2	1	1	2	2	
+f	2	2	2	2	2	2	2	2	2	2	2	2	
+F	1	1	2	2	1	1	2	2	1	1	2	2	
+a	1	1	2	2	1	1	2	2	1	1	2	2	
+t	2	2	2	2	2	2	2	2	2	2	2	2	
+o	1	1	2	2	1	1	2	2	1	1	2	2	
+m	2	2	2	2	2	2	2	2	2	2	2	2	
+s	1	1	2	2	1	1	2	2	1	1	2	2	
+d	1	1	2	2	1	1	2	2	1	1	2	2	
+D	1	1	2	2	1	1	2	2	1	1	2	2	
+h	1	1	2	2	1	1	2	2	1	1	2	2	
+													
+# terrain flags by weather_id													
+# terrain_id	weather_id	supply_air	supply_ground	supply_ships	river	no_spotting	inf_close_def	swamp	desert				
+c	fair	0	0	0	0	0	0	0	0				
+c	clouds	0	0	0	0	0	0	0	0				
+c	r	0	0	0	0	0	0	0	0				
+c	s	0	0	0	0	0	0	0	0				
+c	m	0	0	0	0	0	0	0	0				
+c	M	0	0	0	0	0	0	0	0				
+c	rain	0	0	0	0	0	0	0	0				
+c	x	0	0	0	0	0	0	0	0				
+c	i	0	0	0	0	0	0	0	0				
+c	I	0	0	0	0	0	0	0	0				
+c	X	0	0	0	0	0	0	0	0				
+c	snow	0	0	0	0	0	0	0	0				
+r	fair	0	0	0	0	0	0	0	0				
+r	clouds	0	0	0	0	0	0	0	0				
+r	r	0	0	0	0	0	0	0	0				
+r	s	0	0	0	0	0	0	0	0				
+r	m	0	0	0	0	0	0	0	0				
+r	M	0	0	0	0	0	0	0	0				
+r	rain	0	0	0	0	0	0	0	0				
+r	x	0	0	0	0	0	0	0	0				
+r	i	0	0	0	0	0	0	0	0				
+r	I	0	0	0	0	0	0	0	0				
+r	X	0	0	0	0	0	0	0	0				
+r	snow	0	0	0	0	0	0	0	0				
+@	fair	0	0	0	0	0	0	0	0				
+@	clouds	0	0	0	0	0	0	0	0				
+@	r	0	0	0	0	0	0	0	0				
+@	s	0	0	0	0	0	0	0	0				
+@	m	0	0	0	0	0	0	0	0				
+@	M	0	0	0	0	0	0	0	0				
+@	rain	0	0	0	0	0	0	0	0				
+@	x	0	0	0	0	0	0	0	0				
+@	i	0	0	0	0	0	0	0	0				
+@	I	0	0	0	0	0	0	0	0				
+@	X	0	0	0	0	0	0	0	0				
+@	snow	0	0	0	0	0	0	0	0				
+~	fair	0	0	0	0	0	0	0	0				
+~	clouds	0	0	0	0	0	0	0	0				
+~	r	0	0	0	0	0	0	0	0				
+~	s	0	0	0	0	0	0	0	0				
+~	m	0	0	0	0	0	0	0	0				
+~	M	0	0	0	0	0	0	0	0				
+~	rain	0	0	0	0	0	0	0	0				
+~	x	0	0	0	0	0	0	0	0				
+~	i	0	0	0	0	0	0	0	0				
+~	I	0	0	0	0	0	0	0	0				
+~	X	0	0	0	0	0	0	0	0				
+~	snow	0	0	0	0	0	0	0	0				
+R	fair	0	0	0	1	0	0	0	0				
+R	clouds	0	0	0	1	0	0	0	0				
+R	r	0	0	0	1	0	0	0	0				
+R	s	0	0	0	1	0	0	0	0				
+R	m	0	0	0	1	0	0	0	0				
+R	M	0	0	0	1	0	0	0	0				
+R	rain	0	0	0	1	0	0	0	0				
+R	x	0	0	0	1	0	0	0	0				
+R	i	0	0	0	0	0	0	0	0				
+R	I	0	0	0	0	0	0	0	0				
+R	X	0	0	0	0	0	0	0	0				
+R	snow	0	0	0	0	0	0	0	0				
+f	fair	0	0	0	0	0	1	0	0				
+f	clouds	0	0	0	0	0	1	0	0				
+f	r	0	0	0	0	0	1	0	0				
+f	s	0	0	0	0	0	1	0	0				
+f	m	0	0	0	0	0	1	0	0				
+f	M	0	0	0	0	0	1	0	0				
+f	rain	0	0	0	0	0	1	0	0				
+f	x	0	0	0	0	0	1	0	0				
+f	i	0	0	0	0	0	1	0	0				
+f	I	0	0	0	0	0	1	0	0				
+f	X	0	0	0	0	0	1	0	0				
+f	snow	0	0	0	0	0	1	0	0				
+F	fair	0	0	0	0	0	1	0	0				
+F	clouds	0	0	0	0	0	1	0	0				
+F	r	0	0	0	0	0	1	0	0				
+F	s	0	0	0	0	0	1	0	0				
+F	m	0	0	0	0	0	1	0	0				
+F	M	0	0	0	0	0	1	0	0				
+F	rain	0	0	0	0	0	1	0	0				
+F	x	0	0	0	0	0	1	0	0				
+F	i	0	0	0	0	0	1	0	0				
+F	I	0	0	0	0	0	1	0	0				
+F	X	0	0	0	0	0	1	0	0				
+F	snow	0	0	0	0	0	1	0	0				
+a	fair	1	1	0	0	0	0	0	0				
+a	clouds	1	1	0	0	0	0	0	0				
+a	r	1	1	0	0	0	0	0	0				
+a	s	1	1	0	0	0	0	0	0				
+a	m	1	1	0	0	0	0	0	0				
+a	M	1	1	0	0	0	0	0	0				
+a	rain	1	1	0	0	0	0	0	0				
+a	x	1	1	0	0	0	0	0	0				
+a	i	1	1	0	0	0	0	0	0				
+a	I	1	1	0	0	0	0	0	0				
+a	X	1	1	0	0	0	0	0	0				
+a	snow	1	1	0	0	0	0	0	0				
+t	fair	0	1	0	0	0	1	0	0				
+t	clouds	0	1	0	0	0	1	0	0				
+t	r	0	1	0	0	0	1	0	0				
+t	s	0	1	0	0	0	1	0	0				
+t	m	0	1	0	0	0	1	0	0				
+t	M	0	1	0	0	0	1	0	0				
+t	rain	0	1	0	0	0	1	0	0				
+t	x	0	1	0	0	0	1	0	0				
+t	i	0	1	0	0	0	1	0	0				
+t	I	0	1	0	0	0	1	0	0				
+t	X	0	1	0	0	0	1	0	0				
+t	snow	0	1	0	0	0	1	0	0				
+o	fair	0	0	0	0	0	0	0	0				
+o	clouds	0	0	0	0	0	0	0	0				
+o	r	0	0	0	0	0	0	0	0				
+o	s	0	0	0	0	0	0	0	0				
+o	m	0	0	0	0	0	0	0	0				
+o	M	0	0	0	0	0	0	0	0				
+o	rain	0	0	0	0	0	0	0	0				
+o	x	0	0	0	0	0	0	0	0				
+o	i	0	0	0	0	0	0	0	0				
+o	I	0	0	0	0	0	0	0	0				
+o	X	0	0	0	0	0	0	0	0				
+o	snow	0	0	0	0	0	0	0	0				
+m	fair	0	0	0	0	0	1	0	0				
+m	clouds	0	0	0	0	0	1	0	0				
+m	r	0	0	0	0	0	1	0	0				
+m	s	0	0	0	0	0	1	0	0				
+m	m	0	0	0	0	0	1	0	0				
+m	M	0	0	0	0	0	1	0	0				
+m	rain	0	0	0	0	0	1	0	0				
+m	x	0	0	0	0	0	1	0	0				
+m	i	0	0	0	0	0	1	0	0				
+m	I	0	0	0	0	0	1	0	0				
+m	X	0	0	0	0	0	1	0	0				
+m	snow	0	0	0	0	0	1	0	0				
+s	fair	0	0	0	0	0	0	1	0				
+s	clouds	0	0	0	0	0	0	1	0				
+s	r	0	0	0	0	0	0	1	0				
+s	s	0	0	0	0	0	0	1	0				
+s	m	0	0	0	0	0	0	1	0				
+s	M	0	0	0	0	0	0	1	0				
+s	rain	0	0	0	0	0	0	1	0				
+s	x	0	0	0	0	0	0	1	0				
+s	i	0	0	0	0	0	0	0	0				
+s	I	0	0	0	0	0	0	0	0				
+s	X	0	0	0	0	0	0	0	0				
+s	snow	0	0	0	0	0	0	0	0				
+d	fair	0	0	0	0	0	0	0	0				
+d	clouds	0	0	0	0	0	0	0	0				
+d	r	0	0	0	0	0	0	0	0				
+d	s	0	0	0	0	0	0	0	0				
+d	m	0	0	0	0	0	0	0	0				
+d	M	0	0	0	0	0	0	0	0				
+d	rain	0	0	0	0	0	0	0	0				
+d	x	0	0	0	0	0	0	0	0				
+d	i	0	0	0	0	0	0	0	0				
+d	I	0	0	0	0	0	0	0	0				
+d	X	0	0	0	0	0	0	0	0				
+d	snow	0	0	0	0	0	0	0	0				
+D	fair	0	0	0	0	0	0	0	0				
+D	clouds	0	0	0	0	0	0	0	0				
+D	r	0	0	0	0	0	0	0	0				
+D	s	0	0	0	0	0	0	0	0				
+D	m	0	0	0	0	0	0	0	0				
+D	M	0	0	0	0	0	0	0	0				
+D	rain	0	0	0	0	0	0	0	0				
+D	x	0	0	0	0	0	0	0	0				
+D	i	0	0	0	0	0	0	0	0				
+D	I	0	0	0	0	0	0	0	0				
+D	X	0	0	0	0	0	0	0	0				
+D	snow	0	0	0	0	0	0	0	0				
+h	fair	0	1	1	0	0	1	0	0				
+h	clouds	0	1	1	0	0	1	0	0				
+h	r	0	1	1	0	0	1	0	0				
+h	s	0	1	1	0	0	1	0	0				
+h	m	0	1	1	0	0	1	0	0				
+h	M	0	1	1	0	0	1	0	0				
+h	rain	0	1	1	0	0	1	0	0				
+h	x	0	1	1	0	0	1	0	0				
+h	i	0	1	1	0	0	1	0	0				
+h	I	0	1	1	0	0	1	0	0				
+h	X	0	1	1	0	0	1	0	0				
+h	snow	0	1	1	0	0	1	0	0				
+													
+# mv cost by mv type													
+# terrain_id	move_type	fair	clouds	r	s	m	M	rain	x	i	I	X	snow
+c	0	1	1	1	1	2	2	2	2	1	1	1	1
+c	1	1	1	1	1	3	3	3	3	2	2	2	2
+c	2	2	2	2	2	3	3	3	3	2	2	2	2
+c	3	1	1	1	1	1	1	1	1	1	1	1	1
+c	4	A	A	A	A	A	A	A	A	A	A	A	A
+c	5	1	1	1	1	1	1	1	1	1	1	1	1
+c	6	X	X	X	X	X	X	X	X	X	X	X	X
+c	7	1	1	1	1	2	2	2	2	2	2	2	2
+r	0	1	1	1	1	1	1	1	1	1	1	1	1
+r	1	1	1	1	1	1	1	1	1	1	1	1	1
+r	2	1	1	1	1	2	2	2	2	2	2	2	2
+r	3	1	1	1	1	1	1	1	1	1	1	1	1
+r	4	A	A	A	A	A	A	A	A	A	A	A	A
+r	5	1	1	1	1	1	1	1	1	1	1	1	1
+r	6	X	X	X	X	X	X	X	X	X	X	X	X
+r	7	1	1	1	1	1	1	1	1	1	1	1	1
+@	0	4	4	4	4	A	A	A	A	A	A	A	A
+@	1	A	A	A	A	A	A	A	A	A	A	A	A
+@	2	A	A	A	A	A	A	A	A	A	A	A	A
+@	3	2	2	2	2	2	2	2	2	2	2	2	2
+@	4	A	A	A	A	A	A	A	A	A	A	A	A
+@	5	1	1	1	1	1	1	1	1	1	1	1	1
+@	6	X	X	X	X	X	X	X	X	X	X	X	X
+@	7	3	3	3	3	A	A	A	A	3	3	3	3
+~	0	2	2	2	2	3	3	3	3	2	2	2	2
+~	1	2	2	2	2	4	4	4	4	3	3	3	3
+~	2	4	4	4	4	A	A	A	A	A	A	A	A
+~	3	2	2	2	2	2	2	2	2	3	3	3	3
+~	4	A	A	A	A	A	A	A	A	A	A	A	A
+~	5	1	1	1	1	1	1	1	1	1	1	1	1
+~	6	X	X	X	X	X	X	X	X	X	X	X	X
+~	7	3	3	3	3	A	A	A	A	3	3	3	3
+R	0	A	A	A	A	X	X	X	X	2	2	2	2
+R	1	A	A	A	A	X	X	X	X	2	2	2	2
+R	2	A	A	A	A	X	X	X	X	3	3	3	3
+R	3	A	A	A	A	A	A	A	A	2	2	2	2
+R	4	A	A	A	A	A	A	A	A	A	A	A	A
+R	5	1	1	1	1	1	1	1	1	1	1	1	1
+R	6	X	X	X	X	X	X	X	X	X	X	X	X
+R	7	A	A	A	A	X	X	X	X	2	2	2	2
+f	0	2	2	2	2	3	3	3	3	2	2	2	2
+f	1	2	2	2	2	3	3	3	3	2	2	2	2
+f	2	3	3	3	3	A	A	A	A	A	A	A	A
+f	3	2	2	2	2	2	2	2	2	2	2	2	2
+f	4	A	A	A	A	A	A	A	A	A	A	A	A
+f	5	1	1	1	1	1	1	1	1	1	1	1	1
+f	6	X	X	X	X	X	X	X	X	X	X	X	X
+f	7	3	3	3	3	4	4	4	4	4	4	4	4
+F	0	1	1	1	1	2	2	2	2	1	1	1	1
+F	1	1	1	1	1	2	2	2	2	1	1	1	1
+F	2	2	2	2	2	4	4	4	4	3	3	3	3
+F	3	1	1	1	1	1	1	1	1	1	1	1	1
+F	4	A	A	A	A	A	A	A	A	A	A	A	A
+F	5	1	1	1	1	1	1	1	1	1	1	1	1
+F	6	X	X	X	X	X	X	X	X	X	X	X	X
+F	7	1	1	1	1	3	3	3	3	2	2	2	2
+a	0	1	1	1	1	1	1	1	1	1	1	1	1
+a	1	1	1	1	1	1	1	1	1	1	1	1	1
+a	2	1	1	1	1	2	2	2	2	2	2	2	2
+a	3	1	1	1	1	1	1	1	1	1	1	1	1
+a	4	A	A	A	A	A	A	A	A	A	A	A	A
+a	5	1	1	1	1	1	1	1	1	1	1	1	1
+a	6	X	X	X	X	X	X	X	X	X	X	X	X
+a	7	1	1	1	1	1	1	1	1	1	1	1	1
+t	0	1	1	1	1	1	1	1	1	1	1	1	1
+t	1	1	1	1	1	1	1	1	1	1	1	1	1
+t	2	1	1	1	1	2	2	2	2	2	2	2	2
+t	3	1	1	1	1	1	1	1	1	1	1	1	1
+t	4	A	A	A	A	A	A	A	A	A	A	A	A
+t	5	1	1	1	1	1	1	1	1	1	1	1	1
+t	6	X	X	X	X	X	X	X	X	X	X	X	X
+t	7	1	1	1	1	1	1	1	1	1	1	1	1
+o	0	X	X	X	X	X	X	X	X	X	X	X	X
+o	1	X	X	X	X	X	X	X	X	X	X	X	X
+o	2	X	X	X	X	X	X	X	X	X	X	X	X
+o	3	X	X	X	X	X	X	X	X	X	X	X	X
+o	4	X	X	X	X	X	X	X	X	X	X	X	X
+o	5	1	1	1	1	1	1	1	1	1	1	1	1
+o	6	1	1	1	1	1	1	1	1	1	1	1	1
+o	7	X	X	X	X	X	X	X	X	X	X	X	X
+m	0	A	A	A	A	A	A	A	A	A	A	A	A
+m	1	A	A	A	A	A	A	A	A	A	A	A	A
+m	2	A	A	A	A	A	A	A	A	A	A	A	A
+m	3	A	A	A	A	A	A	A	A	A	A	A	A
+m	4	A	A	A	A	A	A	A	A	A	A	A	A
+m	5	1	1	1	1	1	1	1	1	1	1	1	1
+m	6	X	X	X	X	X	X	X	X	X	X	X	X
+m	7	A	A	A	A	A	A	A	A	A	A	A	A
+s	0	4	4	4	4	X	X	X	X	2	2	2	2
+s	1	4	4	4	4	X	X	X	X	2	2	2	2
+s	2	A	A	A	A	X	X	X	X	3	3	3	3
+s	3	2	2	2	2	A	A	A	A	1	1	1	1
+s	4	X	X	X	X	X	X	X	X	X	X	X	X
+s	5	1	1	1	1	1	1	1	1	1	1	1	1
+s	6	X	X	X	X	X	X	X	X	X	X	X	X
+s	7	A	A	A	A	X	X	X	X	3	3	3	3
+d	0	1	1	1	1	1	1	1	1	1	1	1	1
+d	1	1	1	1	1	1	1	1	1	1	1	1	1
+d	2	3	3	3	3	3	3	3	3	3	3	3	3
+d	3	2	2	2	2	2	2	2	2	2	2	2	2
+d	4	A	A	A	A	A	A	A	A	A	A	A	A
+d	5	1	1	1	1	1	1	1	1	1	1	1	1
+d	6	X	X	X	X	X	X	X	X	X	X	X	X
+d	7	2	2	2	2	2	2	2	2	2	2	2	2
+D	0	2	2	2	2	3	3	3	3	2	2	2	2
+D	1	2	2	2	2	4	4	4	4	3	3	3	3
+D	2	4	4	4	4	A	A	A	A	A	A	A	A
+D	3	2	2	2	2	2	2	2	2	3	3	3	3
+D	4	A	A	A	A	A	A	A	A	A	A	A	A
+D	5	1	1	1	1	1	1	1	1	1	1	1	1
+D	6	X	X	X	X	X	X	X	X	X	X	X	X
+D	7	3	3	3	3	3	3	3	3	3	3	3	3
+h	0	1	1	1	1	1	1	1	1	1	1	1	1
+h	1	1	1	1	1	1	1	1	1	1	1	1	1
+h	2	1	1	1	1	2	2	2	2	2	2	2	2
+h	3	1	1	1	1	1	1	1	1	1	1	1	1
+h	4	A	A	A	A	A	A	A	A	A	A	A	A
+h	5	1	1	1	1	1	1	1	1	1	1	1	1
+h	6	1	1	1	1	1	1	1	1	1	1	1	1
+h	7	1	1	1	1	1	1	1	1	1	1	1	1

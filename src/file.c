@@ -40,12 +40,14 @@ const int extension_scenario_length = 2;
 const int extension_campaign_length = 2;
 const int extension_nations_length = 2;
 const int extension_unit_library_length = 2;
+const int extension_terrain_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgscn", "pgscn" };
 const char *extension_campaign[] = { "lgcam", "pgcam" };
 const char *extension_nations[] = { "lgdndb", "ndb" };
 const char *extension_unit_library[] = { "lgdudb", "udb" };
+const char *extension_terrain[] = { "lgdtdb", "tdb" };
 
 /*
 ====================================================================
@@ -504,12 +506,14 @@ for further use.
 'c' - campaigns (lgcam, pgcam)
 'n' - nations (lgdndb, ndb)
 'u' - unit library (lgdudb, udb)
+'t' - terrain (lgdtdb, tdb)
 ====================================================================
 */
 int search_file_name( char *pathFinal, char *extension, const char *name, const char *modFolder, char *subFolder, const char type )
 {
     int i = 0;
     char pathTemp[MAX_PATH];
+    /* searching for file in 'modFolder'/'subFolder' directory */
     if ( !STRCMP( modFolder, "" ) )
     {
         switch (type)
@@ -616,8 +620,26 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                 }
                 break;
             }
+            case 't':
+            {
+                while ( i < extension_terrain_length )
+                {
+                    snprintf( pathTemp, MAX_PATH, "%s/%s/%s.%s", modFolder, subFolder, name, extension_terrain[i] );
+                    if ( file_exists( pathTemp ) )
+                    {
+                        if ( pathFinal != 0 )
+                            snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                        if ( extension != 0 )
+                            snprintf( extension, MAX_EXTENSION, "%s", extension_terrain[i] );
+                        return 1;
+                    }
+                    i++;
+                }
+                break;
+            }
         }
     }
+    /* searching for file in Default/'subFolder' directory */
     i = 0;
     switch (type)
     {
@@ -717,6 +739,23 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
                         snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
                     if ( extension != 0 )
                         snprintf( extension, MAX_EXTENSION, "%s", extension_unit_library[i] );
+                    return 1;
+                }
+                i++;
+            }
+            break;
+        }
+        case 't':
+        {
+            while ( i < extension_terrain_length )
+            {
+                snprintf( pathTemp, MAX_PATH, "Default/%s/%s.%s", subFolder, name, extension_terrain[i] );
+                if ( file_exists( pathTemp ) )
+                {
+                    if ( pathFinal != 0 )
+                        snprintf( pathFinal, MAX_PATH, "%s", pathTemp );
+                    if ( extension != 0 )
+                        snprintf( extension, MAX_EXTENSION, "%s", extension_terrain[i] );
                     return 1;
                 }
                 i++;

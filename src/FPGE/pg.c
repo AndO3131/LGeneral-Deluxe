@@ -56,9 +56,9 @@ char tile_type[] = {
     'm', 'm', 'm', 's', 't', 't', 't', 'a', 'c', 'c', '~',
     '~', 's', 's', 'f', 'f', 'f', 'f', 'c', '~', '~', '~',
     '~', 's', 'f', 'f', 'f', 'c', 'c', 'c', 'F', 'F', 'F',
-    'r', 'r', 'r', '#', 'F', 'F', 'F', 'F', 'R', 'F', 'r',
-    'R', 'r', '#', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'r',
-    'r', '#', 'F', 'F', 'F', 'm', 'm', 'd', 'm', 'm', 'd',
+    'r', 'r', 'r', '@', 'F', 'F', 'F', 'F', 'R', 'F', 'r',
+    'R', 'r', '@', 'F', 'F', 'F', 'F', 'F', 'F', 'r', 'r',
+    'r', '@', 'F', 'F', 'F', 'm', 'm', 'd', 'm', 'm', 'd',
     'm', 'm', 'm', 'd', 'm', 'm', 'm', 'd', 'd', 'm', 'm',
     'm', 'm', 'D', 'D', 'D', 'D', 'D', 't', 'F', 
     /* ??? -- really mountains ??? */
@@ -101,7 +101,7 @@ int parse_set_file(FILE *inf, int offset)
     fread(&map_h, 2, 1, inf);
     ++map_w;
     ++map_h; //PG sets this to one less than size i.e. last index
-    if ( !terrain_load( "terrain.tdb" ) )
+    if ( !terrain_load( "terrain" ) )
     {
         map_delete();
         return 0;

@@ -33,7 +33,8 @@ enum {
     NO_AIR_ATTACK  = ( 1L << 1 ), /* flying units can't and can't be
                                      attacked */
     DOUBLE_FUEL_COST = ( 1L << 2 ), /* guess what! */
-    CUT_STRENGTH = ( 1L << 3) /* cut strength in half due to bad weather */
+    CUT_STRENGTH = ( 1L << 3), /* cut strength in half due to bad weather */
+    BAD_SIGHT = ( 1L << 4 ) /* ranged attack is harder */
 }; 
 /*
 ====================================================================
@@ -69,9 +70,8 @@ enum {
     SUPPLY_AIR     = ( 1L << 4 ), /* flying units may supply */
     SUPPLY_GROUND  = ( 1L << 5 ), /* ground units may supply */
     SUPPLY_SHIPS   = ( 1L << 6 ), /* swimming units may supply */
-    BAD_SIGHT      = ( 1L << 7 ), /* ranged attack is harder */
-    SWAMP          = ( 1L << 8 ), /* attack penalty */
-    DESERT         = ( 1L << 9 )  /* supply penalty */
+    SWAMP          = ( 1L << 7 ), /* attack penalty */
+    DESERT         = ( 1L << 8 )  /* supply penalty */
 };
 /*
 ====================================================================
@@ -118,7 +118,7 @@ Terrain images
 ====================================================================
 */
 typedef struct {
-    char *ground_conditions;
+    char **ground_conditions;
     SDL_Surface **images;
     SDL_Surface **images_fogged;
 } Terrain_Images;

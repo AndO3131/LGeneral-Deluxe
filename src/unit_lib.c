@@ -557,7 +557,7 @@ int unit_lib_load_lgdudb( char *fname, char *path )
         return 0;
     }
 
-    //find number of countries
+    //find number of target types, movement types and unit classes
     while (load_line(inf,line,utf16)>=0)
     {
         lines++;
@@ -1209,5 +1209,21 @@ int unit_has_flag( Unit_Lib_Entry *unit, char *flag )
     if ( ( NumberInArray < 31 && unit->flags[0] & Flag ) || ( NumberInArray >= 31 && unit->flags[1] & Flag ) )
         return 1;
     return 0;
+}
+
+/*
+====================================================================
+Get movement type's id (number)
+====================================================================
+*/
+int movement_type_get_index( char *movement_type )
+{
+    int i;
+    for ( i = 0; i < mov_type_count; i++ )
+    {
+        if ( strcmp( movement_type, mov_types[i].id ) == 0 )
+            return i;
+    }
+    return -1;
 }
 

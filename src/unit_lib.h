@@ -240,4 +240,11 @@ Check whether a unit has specific ability.
 */
 int unit_has_flag( Unit_Lib_Entry *unit, char *flag );
 
+/*
+====================================================================
+Get movement type's id (number)
+====================================================================
+*/
+int movement_type_get_index( char *movement_type );
+
 #endif
