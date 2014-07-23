@@ -771,15 +771,15 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
 Find file name in directories. Extension already given.
 ====================================================================
 */
-int search_file_name_exact( char *pathFinal, char *path, char *modFolder )
+int search_file_name_exact( char *pathFinal, char *path, char *modFolder, char *subFolder )
 {
     if ( !STRCMP( modFolder, "" ) )
     {
-        snprintf( pathFinal, MAX_PATH, "%s/%s", modFolder, path );
+        snprintf( pathFinal, MAX_PATH, "%s/%s/%s", modFolder, subFolder, path );
         if ( file_exists( pathFinal ) )
             return 1;
     }
-    snprintf( pathFinal, MAX_PATH, "Default/%s", path );
+    snprintf( pathFinal, MAX_PATH, "Default/%s/%s", subFolder, path );
     if ( file_exists( pathFinal ) )
         return 1;
     return 0;

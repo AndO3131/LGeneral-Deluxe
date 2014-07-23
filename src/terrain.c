@@ -114,7 +114,6 @@ int terrain_load_tdb( char *fname, char *path )
     int i, j, k;
     PData *pd, *sub, *subsub, *subsubsub;
     List *entries, *flags;
-    char transitionPath[512];
     char *flag, *str;
     char *domain = 0;
     int count;
@@ -152,30 +151,24 @@ int terrain_load_tdb( char *fname, char *path )
     /* terrain icons */
     terrain_icons = calloc( 1, sizeof( Terrain_Icons ) );
     if ( !parser_get_value( pd, "fog", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->fog = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "danger", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->danger = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "grid", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->grid = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "frame", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->select = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
     if ( !parser_get_value( pd, "crosshair", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->cross = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 1000/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->cross, 1 );
     if ( !parser_get_value( pd, "explosion", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     if ( ( terrain_icons->expl1 = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     anim_hide( terrain_icons->expl1, 1 );
@@ -186,14 +179,12 @@ int terrain_load_tdb( char *fname, char *path )
 #ifdef WITH_SOUND    
     if ( parser_get_value( pd, "explosion_sound", &str, 0 ) )
     {
-        snprintf( transitionPath, 512, "Sound/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Sound" );
         terrain_icons->wav_expl = wav_load( path, 2 );
     }
     if ( parser_get_value( pd, "select_sound", &str, 0 ) )
     {
-        snprintf( transitionPath, 512, "Sound/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Sound" );
         terrain_icons->wav_select = wav_load( path, 1 );
     }
 #endif
@@ -215,8 +206,7 @@ int terrain_load_tdb( char *fname, char *path )
             terrain_images->images[j] = terrain_images->images[0];
         }
         else {
-            sprintf( transitionPath, "Graphics/%s", str );
-            search_file_name_exact( path, transitionPath, config.mod_name );
+            search_file_name_exact( path, str, config.mod_name, "Graphics" );
             if ( ( terrain_images->images[j] = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto parser_failure;
             SDL_SetColorKey( terrain_images->images[j], SDL_SRCCOLORKEY, 
                              get_pixel( terrain_images->images[j], 0, 0 ) );
@@ -329,7 +319,7 @@ int terrain_load_lgdtdb( char *fname, char *path )
     char *domain = 0;
 
     FILE *inf;
-    char line[1024], tokens[100][256], log_str[128], transitionPath[512];
+    char line[1024], tokens[100][256], log_str[128];
     int j, k, block=0, last_line_length=-1, cursor=0, token=0;
     int utf16 = 0, lines=0, cur_ground_condition = 0, cur_weather_type = 0, cur_terrain_type = 0, count;
     weather_type_count = 0;
@@ -450,40 +440,34 @@ int terrain_load_lgdtdb( char *fname, char *path )
             /* terrain icons */
             if ( strcmp( tokens[0], "fog" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->fog = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "danger" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->danger = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "grid" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->grid = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "frame" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->select = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "crosshair" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->cross = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 1000/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
                     goto failure;
                 anim_hide( terrain_icons->cross, 1 );
             }
             if ( strcmp( tokens[0], "explosion" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_icons->expl1 = anim_create( load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ), 50/config.anim_speed, hex_w, hex_h, sdl.screen, 0, 0 ) ) == 0 )
                     goto failure;
                 anim_hide( terrain_icons->expl1, 1 );
@@ -496,14 +480,12 @@ int terrain_load_lgdtdb( char *fname, char *path )
 #ifdef WITH_SOUND    
             if ( strcmp( tokens[0], "explosion_sound" ) == 0 )
             {
-                snprintf( transitionPath, 512, "Sound/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Sound" );
                 terrain_icons->wav_expl = wav_load( path, 2 );
             }
             if ( strcmp( tokens[0], "select_sound" ) == 0 )
             {
-                snprintf( transitionPath, 512, "Sound/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Sound" );
                 terrain_icons->wav_select = wav_load( path, 1 );
             }
 #endif
@@ -520,8 +502,7 @@ int terrain_load_lgdtdb( char *fname, char *path )
                 terrain_images->images[cur_ground_condition] = terrain_images->images[0];
             }
             else {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( terrain_images->images[cur_ground_condition] = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
                 SDL_SetColorKey( terrain_images->images[cur_ground_condition], SDL_SRCCOLORKEY, 
                                  get_pixel( terrain_images->images[cur_ground_condition], 0, 0 ) );
@@ -653,7 +634,9 @@ int terrain_load( char *fname )
     char *path, *extension;
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
-    search_file_name( path, extension, fname, config.mod_name, "Scenario", 't' );
+    search_file_name_exact( path, fname, config.mod_name, "Scenario" );
+    extension = strrchr(fname,'.');
+    extension++;
     if ( strcmp( extension, "tdb" ) == 0 )
         return terrain_load_tdb( fname, path );
     else if ( strcmp( extension, "lgdtdb" ) == 0 )

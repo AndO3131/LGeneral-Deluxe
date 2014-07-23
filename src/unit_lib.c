@@ -246,7 +246,6 @@ int unit_lib_load_udb( char *fname, char *path, int main )
     Unit_Lib_Entry *unit;
     List *entries, *flags;
     PData *pd, *sub, *subsub;
-    char transitionPath[512];
     char *str, *flag;
     char *domain = 0;
     /* log info */
@@ -298,8 +297,7 @@ int unit_lib_load_udb( char *fname, char *path, int main )
 #ifdef WITH_SOUND                
             if ( parser_get_value( sub, "sound", &str, 0 ) )
             {
-                snprintf( transitionPath, 512, "Sound/%s", str );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, str, config.mod_name, "Sound" );
                 mov_types[mov_type_count].wav_move = wav_load( path, 0 );
             }
 #endif            
@@ -326,8 +324,7 @@ int unit_lib_load_udb( char *fname, char *path, int main )
         /* unit map tile icons */
         unit_info_icons = calloc( 1, sizeof( Unit_Info_Icons ) );
         if ( !parser_get_value( pd, "strength_icons", &str, 0 ) ) goto parser_failure;
-        sprintf( transitionPath, "Graphics/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Graphics" );
         unit_info_icons->str_w = 16;
         unit_info_icons->str_h = 12;
         if ( !parser_get_int( pd, "strength_icon_width", &outside_icon_width ) ) goto parser_failure;
@@ -335,19 +332,16 @@ int unit_lib_load_udb( char *fname, char *path, int main )
         if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE, outside_icon_width, outside_icon_height,
                                                  unit_info_icons->str_w, unit_info_icons->str_h ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "attack_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( transitionPath, "Theme/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Theme" );
         if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "move_icon", &str, 0 ) ) goto parser_failure;
-        sprintf( transitionPath, "Theme/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Theme" );
         if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
         if ( !parser_get_value( pd, "guard_icon", &str, 0 ) )
         {
             search_file_name( str, 0, "pg_guard", "", "", 'i' );
         }
-        sprintf( transitionPath, "Theme/%s", str );
-        search_file_name_exact( path, transitionPath, config.mod_name );
+        search_file_name_exact( path, str, config.mod_name, "Theme" );
         if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
     }
     /* icons */
@@ -359,8 +353,7 @@ int unit_lib_load_udb( char *fname, char *path, int main )
     else
         icon_type = UNIT_ICON_ALL_DIRS;
     if ( !parser_get_value( pd, "icons", &str, 0 ) ) goto parser_failure;
-    sprintf( transitionPath, "Graphics/%s", str );
-    search_file_name_exact( path, transitionPath, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "Graphics" );
     write_line( sdl.screen, log_font, tr("  Loading Tactical Icons"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
     if ( !parser_get_int( pd, "icon_width", &icon_width ) ) goto parser_failure;
     if ( !parser_get_int( pd, "icon_height", &icon_height ) ) goto parser_failure;
@@ -474,8 +467,7 @@ int unit_lib_load_udb( char *fname, char *path, int main )
             if ( parser_get_value( sub, "move_sound", &str, 0 ) ) {
                 // FIXME reloading the same sound more than once is a
                 // big waste of loadtime, runtime, and memory
-                snprintf( transitionPath, 512, "Sound/%s", str );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, str, config.mod_name, "Sound" );
                 if ( ( unit->wav_move = wav_load( path, 0 ) ) )
                     unit->wav_alloc = 1;
                 else {
@@ -533,12 +525,11 @@ Load a unit library in 'lgdudb' format.
 int unit_lib_load_lgdudb( char *fname, char *path )
 {
     int i;
-    char str[MAX_LINE_SHORT];
     char *domain = 0;
 
     FILE *inf;
     Unit_Lib_Entry *unit;
-    char line[1024], tokens[100][256], log_str[128], transitionPath[512];
+    char line[1024], tokens[100][256], log_str[128];
     int j, block=0, last_line_length=-1, cursor=0, token=0, cur_trgt_type=0, cur_mov_type=0, cur_unit_class=0;
     int utf16 = 0, lines=0;
     trgt_type_count = 0;
@@ -668,8 +659,7 @@ int unit_lib_load_lgdudb( char *fname, char *path )
             }
             if ( strcmp( tokens[0], "icons" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 write_line( sdl.screen, log_font, tr("  Loading Tactical Icons"), log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
                 if ( ( icons = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure; 
             }
@@ -683,27 +673,23 @@ int unit_lib_load_lgdudb( char *fname, char *path )
             }
             if ( strcmp( tokens[0], "strength_icons" ) == 0 )
             {
-                sprintf( transitionPath, "Graphics/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Graphics" );
                 if ( ( unit_info_icons->str = load_surf( path, SDL_SWSURFACE, outside_icon_width, outside_icon_height,
                                                          unit_info_icons->str_w, unit_info_icons->str_h ) ) == 0 ) goto failure; 
             }
             if ( strcmp( tokens[0], "attack_icon" ) == 0 )
             {
-                sprintf( transitionPath, "Theme/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Theme" );
                 if ( ( unit_info_icons->atk = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "move_icon" ) == 0 )
             {
-                sprintf( transitionPath, "Theme/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Theme" );
                 if ( ( unit_info_icons->mov = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
             if ( strcmp( tokens[0], "guard_icon" ) == 0 )
             {
-                sprintf( transitionPath, "Theme/%s", tokens[1] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[1], config.mod_name, "Theme" );
                 if ( ( unit_info_icons->guard = load_surf( path, SDL_SWSURFACE, 0, 0, 0, 0 ) ) == 0 ) goto failure;
             }
         }
@@ -722,8 +708,7 @@ int unit_lib_load_lgdudb( char *fname, char *path )
             mov_types[cur_mov_type].id = strdup( tokens[0] );
             mov_types[cur_mov_type].name = strdup(trd(domain, tokens[1]));
 #ifdef WITH_SOUND
-            snprintf( transitionPath, 512, "Sound/%s", tokens[2] );
-            search_file_name_exact( path, transitionPath, config.mod_name );
+            search_file_name_exact( path, tokens[2], config.mod_name, "Sound" );
             mov_types[cur_mov_type].wav_move = wav_load( path, 0 );
 #endif
             cur_mov_type++;
@@ -838,14 +823,17 @@ int unit_lib_load_lgdudb( char *fname, char *path )
             // big waste of loadtime, runtime, and memory
             if ( strcmp( tokens[14], "" ) != 0 )
             {
-                snprintf( transitionPath, 512, "Sound/%s", tokens[14] );
-                search_file_name_exact( path, transitionPath, config.mod_name );
+                search_file_name_exact( path, tokens[14], config.mod_name, "Sound" );
                 if ( ( unit->wav_move = wav_load( path, 0 ) ) )
                     unit->wav_alloc = 1;
                 else {
                     unit->wav_move = mov_types[unit->mov_type].wav_move;
                     unit->wav_alloc = 0;
                 }
+            }
+            else {
+                unit->wav_move = mov_types[unit->mov_type].wav_move;
+                unit->wav_alloc = 0;
             }
 #endif      
             /* add unit to database */
@@ -884,7 +872,9 @@ int unit_lib_load( char *fname, int main )
     char *path, *extension;
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
-    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'u' );
+    search_file_name_exact( path, fname, config.mod_name, "Scenario" );
+    extension = strrchr(fname,'.');
+    extension++;
     if ( strcmp( extension, "udb" ) == 0 )
         return unit_lib_load_udb( fname, path, main );
     else if ( strcmp( extension, "lgdudb" ) == 0 )

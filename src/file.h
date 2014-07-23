@@ -90,6 +90,6 @@ int search_file_name( char *pathFinal, char *extension, const char *name, const 
 Find file name in directories. Extension already given.
 ====================================================================
 */
-int search_file_name_exact( char *pathFinal, char *path, char *modFolder );
+int search_file_name_exact( char *pathFinal, char *path, char *modFolder, char *subFolder );
 
 #endif

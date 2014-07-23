@@ -60,7 +60,9 @@ int nations_load( char *fname )
     char *path, *extension;
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
-    search_file_name( path, extension, fname, config.mod_name, "Scenario", 'n' );
+    search_file_name_exact( path, fname, config.mod_name, "Scenario" );
+    extension = strrchr(fname,'.');
+    extension++;
     if ( strcmp( extension, "ndb" ) == 0 )
         return nations_load_ndb( fname, path );
     else if ( strcmp( extension, "lgdndb" ) == 0 )
@@ -88,7 +90,7 @@ int nations_load_ndb( char *fname, char *path )
     if ( !parser_get_int( pd, "icon_height", &outside_nation_flag_height ) ) goto parser_failure;
     /* icons */
     if ( !parser_get_value( pd, "icons", &str, 0 ) ) goto parser_failure;
-    search_file_name_exact( path, str, config.mod_name );
+    search_file_name_exact( path, str, config.mod_name, "" );
     if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE, 
            outside_nation_flag_width, outside_nation_flag_height, nation_flag_width, nation_flag_height ) ) == 0 )
     {
@@ -224,7 +226,7 @@ int nations_load_lgdndb( char *fname, char *path )
             }
             if ( strcmp( str, "" ) != 0 && outside_nation_flag_width != 0 && outside_nation_flag_height != 0 )
             {
-                search_file_name_exact( path, str, config.mod_name );
+                search_file_name_exact( path, str, config.mod_name, "" );
                 if ( ( nation_flags = load_surf( path,  SDL_SWSURFACE, 
                        outside_nation_flag_width, outside_nation_flag_height, nation_flag_width, nation_flag_height ) ) == 0 )
                 {

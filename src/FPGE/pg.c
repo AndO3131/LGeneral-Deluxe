@@ -101,12 +101,12 @@ int parse_set_file(FILE *inf, int offset)
     fread(&map_h, 2, 1, inf);
     ++map_w;
     ++map_h; //PG sets this to one less than size i.e. last index
-    if ( !terrain_load( "terrain" ) )
+    if ( !terrain_load( "terrain.lgdtdb" ) )
     {
         map_delete();
         return 0;
     }
-    search_file_name_exact( path, "Scenario/mapnames.str", config.mod_name );
+    search_file_name_exact( path, "mapnames.str", config.mod_name, "Scenario" );
     if ( (name_file = fopen( path, "r" )) == NULL )
     {
         return 0;

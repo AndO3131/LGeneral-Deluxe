@@ -404,7 +404,7 @@ int load_pgf_equipment(char *fullName){
     fseek(inf,0,SEEK_SET);
     unit_lib = list_create( LIST_AUTO_DELETE, unit_lib_delete_entry );
 
-    if ( !unit_lib_load( "basic_unit_data", UNIT_LIB_BASE_DATA ) )
+    if ( !unit_lib_load( "basic_unit_data.udb", UNIT_LIB_BASE_DATA ) )
         return 0;
 
     while (load_line(inf,line,utf16)>=0)
@@ -816,7 +816,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 /* nations */
                 sprintf( log_str, tr("Loading Nations") );
                 write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
-                if ( !nations_load( "nations" ) )
+                if ( !nations_load( "nations.lgdndb" ) )
                 {
                     terrain_delete();
                     scen_delete();
@@ -827,7 +827,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 /* unit libs NOT reloaded if continuing campaign */
                 if (camp_loaded <= 1)
                 {
-                    search_file_name_exact( SET_file, "Scenario/equipment.pgeqp", config.mod_name );
+                    search_file_name_exact( SET_file, "equipment.pgeqp", config.mod_name, "Scenario" );
                     if ( !load_pgf_equipment( SET_file ) )
                     {
                         terrain_delete();
@@ -836,7 +836,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                         return 0;
                     }
                 }
-                snprintf( STM_file, MAX_PATH, "Scenario/%s", tokens[1] );
+                snprintf( STM_file, MAX_PATH, "%s", tokens[1] );
             }
             if (strcmp(tokens[0],"turns")==0)
                 scen_info->turn_limit=atoi(tokens[1]);
@@ -1083,7 +1083,7 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
                 adjust_fixed_icon_orientation();
 
                 /* map and weather */
-                search_file_name_exact( SET_file, STM_file, config.mod_name );
+                search_file_name_exact( SET_file, STM_file, config.mod_name, "Scenario" );
                 sprintf( log_str, tr("Loading Map '%s'"), SET_file );
                 write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
                 if ( !load_map_pg( SET_file ) )
@@ -1130,10 +1130,9 @@ int load_pgf_pgscn(char *fname, char *fullName, int scenNumber){
         //Block#7   : Victory conditions: 3 col, rows 2
         if (block == 7 && token > 1 && !flag_vict_cond_loaded )
         {
-            char camp_file_path[MAX_PATH], scenario_name[MAX_NAME], temp[MAX_PATH];
+            char camp_file_path[MAX_PATH], scenario_name[MAX_NAME];
             snprintf( scenario_name, MAX_NAME, "%s.pgscn", fname );
-            snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-            search_file_name_exact( camp_file_path, "pg.pgcam", temp );
+            search_file_name_exact( camp_file_path, "pg.pgcam", config.mod_name, "Scenario" );
             load_pgf_victory_conditions( camp_file_path, scenario_name );
             flag_vict_cond_loaded = 1;
         }
@@ -1324,7 +1323,7 @@ failure:
 char *load_pgf_pgscn_info( const char *fname, char *path, int name_only )
 {
     FILE *inf;
-    char line[1024],tokens[20][1024], temp[MAX_PATH];
+    char line[1024],tokens[20][1024];
     int i, block=0,last_line_length=-1,cursor=0,token=0,lines;
     char name[256], desc[1024], turns[10], *info;
     allies_move_first = 0;
@@ -1440,7 +1439,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
     FILE *inf;
     char brfnametmp[256];
     char outcomes[10][256];
-    char line[1024],tokens[20][256], temp[MAX_PATH], brf_path[MAX_PATH];
+    char line[1024],tokens[20][256], brf_path[MAX_PATH];
     char str[MAX_LINE_SHORT];
     int j,i,block=0,last_line_length=-1,cursor=0,token=0, current_outcome = 0;
     int lines=0;
@@ -1526,8 +1525,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
             if (strlen(tokens[1])>0)
             {
                 strncpy(brfnametmp,tokens[1],256);
-                snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-                search_file_name_exact( brf_path, brfnametmp, temp );
+                search_file_name_exact( brf_path, brfnametmp, config.mod_name, "Scenario" );
                 centry->brief = strdup( parse_pgbrf( brf_path ) );
             }
 
@@ -1537,8 +1535,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                 if ( strcmp( tokens[current_outcome * ( j + 1 )], "" ) == 0 )
                 {
                     strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
-                    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-                    search_file_name_exact( brf_path, brfnametmp, temp );
+                    search_file_name_exact( brf_path, brfnametmp, config.mod_name, "Scenario" );
                     char **camp_option = parse_pgbrf_campaign_select( brf_path );
                     // TODO implement prestige costs
                     // selection entry
@@ -1581,8 +1578,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                     Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
                     end_entry->id = strdup( tokens[current_outcome * ( j + 1 ) + 2] );
                     strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
-                    snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-                    search_file_name_exact( brf_path, brfnametmp, temp );
+                    search_file_name_exact( brf_path, brfnametmp, config.mod_name, "Scenario" );
                     end_entry->brief = strdup( parse_pgbrf( brf_path ) );
                     // checking if ending entry already exists in campaign memory
                     Camp_Entry *search_entry;
@@ -1611,8 +1607,7 @@ int parse_pgcam( const char *fname, const char *full_name, const char *info_entr
                 // debriefings
                 centry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
                 strncpy(brfnametmp,tokens[current_outcome * ( j + 1 ) + 2],256);
-                snprintf( temp, MAX_PATH, "%s/Scenario", config.mod_name );
-                search_file_name_exact( brf_path, brfnametmp, temp );
+                search_file_name_exact( brf_path, brfnametmp, config.mod_name, "Scenario" );
                 snprintf( str, sizeof(str), "%s>%s", outcomes[j], strdup( parse_pgbrf( brf_path ) ) );
                 list_add( centry->descs, strdup( str ) );
 //                fprintf(stderr, "%s\n", str );
