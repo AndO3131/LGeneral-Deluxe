@@ -11,7 +11,7 @@ nation_db»nations.lgdndb
 <unit_db
 main»pg.lgdudb
 >
-map»map14.lgmap
+map»map14.lgdmap
 weather»fair°fair°fair°fair°clouds°r°clouds°fair°fair°fair°fair°fair°fair°fair
 weather_zone»1
 <flags

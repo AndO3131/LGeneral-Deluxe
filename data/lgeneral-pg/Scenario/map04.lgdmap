@@ -1,0 +1,87 @@
+# terrain database																																															
+terrain_db	terrain.lgdtdb																																														
+																																															
+# map layer 0 – terrain																																															
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c43	c129	c129	c129	c129	c129	c129	c130	R72	c129	c129	c130	c74	c129	R64	R62	c57	c130	c139	c129	c129	c129	c139	c47	F180	c130	R71	R72	R55	c129	c139	c130	c129
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o8	o73	o73	o73	o6	c35	c67	t125	c56	s134	~131	c129	c129	c129	R63	c129	c57	c48	R71	R54	a128	c47	c48	c67	c56	c58	c48	c139	c67	c74	F170	R61	F180	c139	R65	c129	c129	c129	c129
+o73	o73	o73	o73	o73	o73	o73	o7	o73	c43	o13	o18	o4	c74	c48	s144	c56	c69	c69	c48	~142	c129	c139	R71	c47	c32	R64	~132	c139	c129	c74	c139	c129	c130	c129	c130	c56	c139	c69	F180	R71	F170	c129	c129	R72	c139	c130	c129
+o73	o73	o73	o73	o8	o13	o3	c39	o6	c139	c139	h27	c43	c69	s124	s134	a128	c47	c129	c139	c69	c40	R64	R72	R63	c74	c129	~141	~142	c129	c69	c139	~143	~140	c130	c139	c129	c130	c47	F170	R62	F180	c129	c129	R63	c129	c129	c130
+o73	o73	o73	o4	c43	c74	h29	c48	R53	R55	c37	c69	s124	c47	s133	~140	~143	c74	c139	R61	c129	R62	t125	c66	R54	c59	c129	c130	c139	c130	c47	c129	c139	~141	c130	c130	c139	c67	c74	F180	R72	F170	c139	c139	R71	c130	c139	c129
+o73	o73	o73	o20	c37	a128	~140	c129	c69	c30	c74	c74	s133	c74	s124	~141	c67	c139	c129	R71	R65	R65	c139	c129	c48	c69	c130	~141	~132	c74	c57	c130	c129	c139	c129	c139	f136	c69	F158	R71	R54	F180	c139	c139	R65	R62	c139	c130
+o73	o73	o73	c43	c47	c49	c139	c139	c74	R71	~132	c59	~143	c69	s144	c129	c59	c139	R61	c139	c139	R61	R62	c129	c129	c129	c66	c48	c67	c58	c130	c139	c129	c58	~132	c66	f146	c47	F180	R72	F168	c129	c129	c129	c129	R65	c129	c58
+o73	o73	o10	c33	c139	c59	c129	c129	c59	R65	c129	c69	c139	c74	t127	c129	c69	c40	R54	c129	c129	R54	c129	c129	c129	c129	a128	c37	t126	c129	c66	c48	c67	c129	c57	~141	c48	c68	t125	c40	F178	F178	c129	a128	c129	c74	c30	f138
+o73	o73	o73	o20	t125	c139	c130	c129	c69	c66	R62	c74	c129	c68	c66	c40	R64	F159	c69	c49	R63	c67	c129	c58	c129	c129	c129	c57	c56	c69	c129	c129	c129	c129	~143	c139	c129	~132	F170	R72	c69	c66	F170	c74	c48	f135	R63	R64
+o73	o73	o73	c43	c74	~141	c129	c129	c129	c47	c30	R54	R55	R71	R64	c58	c69	t125	F153	c68	c40	c130	c56	c129	c66	c48	c74	c129	~141	c47	c130	c129	c139	~140	~132	c139	~143	a128	F180	R54	c47	c49	t126	c59	f145	~131	f137	f147
+o73	o10	o6	c139	c59	~131	c129	c139	c129	c129	c66	c48	R65	c48	c67	a128	c57	c69	F170	c139	R52	F180	c130	c130	c47	c129	c69	c49	~131	~142	c48	c69	c129	~132	c139	c58	c129	c74	c40	t125	F153	f136	F180	c69	f138	~141	~142	f136
+o73	o73	c33	c21	c69	c66	~142	c129	c130	c139	c74	c130	c68	c129	~132	~143	c139	c57	c49	f137	f138	F170	c129	c67	c74	c129	c139	c69	c129	c129	c129	c139	c48	F152	c67	c58	c48	R64	R62	F172	F170	f146	F170	c139	c49	f138	~143	f146
+o73	o73	o14	o20	c47	c66	c48	c56	c58	c66	c69	c48	c139	c129	c129	c37	c74	c129	c56	c69	f147	c74	c48	c129	c59	c129	c139	c139	c48	c56	c58	c66	c139	t125	F153	R71	c32	c57	c48	c59	f136	f137	F178	F153	c59	f137	~140	~132
+o73	o73	o73	o20	c139	c21	c49	c130	c129	c47	c57	c129	c69	c66	c129	c74	~143	c130	c129	c74	c48	c129	c129	c129	c69	F170	c129	c129	c129	t125	c69	c40	c60	c32	R64	c67	c74	f137	f138	c69	f146	f135	f147	F180	c69	f138	f147	f136
+o73	o73	o73	o14	o15	c43	c59	c129	c129	c129	c49	c130	c129	c74	t127	c56	c130	c129	~132	c59	c130	c129	c129	a128	t125	R71	R64	R72	c139	R71	R64	R65	c68	c47	c48	c56	c58	c66	f147	c74	f145	f138	F180	f138	c47	c49	f136	f146
+o73	o73	o73	c35	o50	R55	c69	a128	c129	c129	c69	c129	c129	c59	a128	~143	c59	c129	c130	c69	~143	c129	c129	R64	c41	c69	F180	c129	R55	R62	c129	c139	R62	c74	c139	f138	~131	~143	c48	c69	f137	f147	F170	f145	f135	c69	f146	f138
+o73	o7	o5	c129	t125	R72	t126	c48	c129	c67	c74	c37	c67	c130	c139	~132	c69	c48	c129	c47	~141	R61	R71	c129	c129	c74	c129	f135	R65	c129	c129	c47	c30	t125	c139	~141	f137	f147	f138	c47	c129	c48	F180	f138	f136	c47	f138	f135
+o6	c39	c43	c129	c129	c47	c60	R64	c56	c139	c69	c57	c139	c129	c129	~140	~141	~142	c69	t127	c129	R63	c139	c129	c130	c59	f145	f136	f137	f147	c129	c74	R71	f136	c59	~143	~140	f145	f135	c74	c57	~132	F152	c66	f146	c74	f145	c129
+c139	c129	c129	c129	c129	c129	c49	c129	R72	c60	t127	R64	c129	R71	R64	R72	~132	c139	c74	c139	c69	c40	c129	~141	~132	c69	f138	f146	f147	f136	c37	c139	R62	f146	c69	f138	~131	~142	c37	f137	f138	~143	F170	F159	c48	c69	a128	f136
+c129	c129	c129	c139	c139	c129	c69	c139	c47	c66	R54	c58	R65	c66	c130	c139	R55	c37	c59	c130	R61	c129	c69	c66	c129	t127	c129	f145	f135	f146	c74	c139	R72	~141	c74	f145	f135	c74	c57	f136	f147	f135	~131	~142	F170	c74	t125	f146
+c139	c139	c129	c129	c139	c37	c74	c129	c129	c129	c48	c69	c57	c130	c48	c69	R72	c74	c130	R64	R71	c129	c129	c129	c57	c130	c69	f138	f137	f147	F152	R63	R54	~132	c69	c48	c67	f137	f138	f146	f145	f137	~140	c74	F163	F170	f137	f147
+c130	c129	c139	c130	c139	c47	c130	c129	c129	c130	c130	c47	c129	c129	c130	c129	c40	t125	R71	c129	c129	c129	c129	~131	c139	~143	c47	c66	f138	c48	F161	F170	R55	c47	c57	f145	f135	c58	f147	c67	f138	c58	f147	c59	f138	F180	f138	~132
+c129	c130	c129	c129	c129	c130	c66	c129	c139	c129	c130	c130	c66	c129	c129	f137	R72	R64	R62	c139	c129	~143	c139	c129	~142	c129	~132	c129	c57	f137	F152	F173	R62	t125	c66	c48	c67	f138	c48	f137	c56	~143	t125	f145	f135	F170	~141	~143
+c129	c139	c129	c139	c129	c129	c47	c129	c139	c139	c139	c129	c47	c66	c139	f138	f147	f136	R62	c129	~132	c139	c129	c129	c129	c129	c129	c139	c129	c129	f147	c129	c30	R54	R55	F180	f136	f145	f135	f136	f147	~141	f136	f138	F169	F180	~131	f136
+c129	c129	c129	c129	c129	c129	c74	c129	c139	c139	c129	c130	c130	c47	c129	f145	f135	f146	R72	~140	~141	c129	c129	c129	c139	c129	c139	c129	c129	c129	c129	c129	a128	c129	R62	c129	f146	f137	f145	f146	~131	~142	f146	f137	f138	F170	~132	f146
+c129	c129	c129	c129	c129	c129	c59	c129	c129	c129	c129	c129	c129	c74	c129	c129	f137	f147	R63	c129	c129	c129	c129	c139	c129	c129	c129	c129	c129	c129	c129	c129	c129	c129	R72	c129	c129	f138	f147	f135	~141	f145	f135	f137	f147	F180	f137	f147
+																																															
+# map names																																															
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escout	x	x	x	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	Meuse	Roer	Roer	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Ostend	x	x	x	x	x	x	Escout	x	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	Roer	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escout	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	Dunkirk	x	x	x	x	x	x	x	x	x	Escout	Escout	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
+x	x	x	x	x	x	Calais	x	Leie	Leie	x	x	x	x	x	x	x	x	x	Leie	x	Escout	Ghent	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
+x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	x	x	Leie	Leie	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	Roer	Roer	x	x
+x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	x	Leie	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	Roer	x	x
+x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	Ypres	x	x	Leie	Leie	x	x	Escout	x	x	x	x	x	x	Brussels	x	x	x	x	x	x	x	x	x	Mastricht	Meuse	x	x	x	x	x	x	Roer	x
+x	x	x	x	Boulogne	x	x	x	x	x	Leie	x	x	x	x	Leie	Leie	x	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	Roer	Roer
+x	x	x	x	x	x	x	x	x	x	Leie	Leie	Leie	Leie	Leie	x	x	Lille	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	Aachen	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Liege	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Namur	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Charleroi	x	Meuse	Meuse	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	Arras	x	x	x	x	x	x	x	x	x	Maubeuge	Sambre	Sambre	Sambre	x	Sambre	Sambre	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	Somme	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	Sambre	x	x	x	Sambre	Sambre	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	St. Valery	Somme	Abbeville	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	Sambre	x	x	x	x	x	Sambre	x	x	x	Meuse	Givet	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	Somme	Somme	x	x	x	x	x	x	x	x	x	x	x	St. Quentin	x	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	Somme	Somme	Amiens	Somme	x	Somme	Somme	Somme	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	Somme	x	Somme	x	x	x	Somme	x	x	x	Sambre	x	x	x	x	Hirshon	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	Bittem	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	x	x	Sambre	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Noyon	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Somme	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Sedan	x	x	x	x	x	x	x	x	Luxembourg	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
+																																															
+# map layer 1 – roads																																															
+terrain_id	r																																														
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	33	0	0	0	33	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	42	255	136	0	0	0	0	0	0	0	34	34	0	0	255	26	162	40	130	40	136	0	42	49	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	18	34	0	137	144	136	136	0	0	0	0	10	144	0	0	0	0	19	0	0	0	0	0	130	0	145	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	255	0	17	0	0	255	17	0	0	136	136	0	0	0	17	0	0	0	0	17	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	34	255	136	0	0	26	145	0	17	0	0	0	33	0	0	0	0	255	136	0	49	0	0	0	0	17	0	0	0	0	0	0	18	33	0	0	0	0	0	0	0	0	0
+0	0	0	0	18	255	0	0	152	162	35	17	0	17	0	0	18	0	0	0	0	0	0	0	138	137	0	0	0	34	33	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	9	144	0	0	19	0	0	17	0	25	0	0	17	0	0	0	0	0	0	0	0	0	136	138	50	40	0	0	0	40	0	40	0	25	0	0	0	0	0	0	0	0	0	40
+0	0	0	0	0	33	0	0	17	0	0	17	0	19	255	0	9	136	0	0	0	0	0	0	0	0	255	26	255	0	136	130	34	0	130	0	136	131	255	136	0	0	0	255	0	34	34	0
+0	0	0	0	255	0	0	0	9	152	0	33	0	3	40	136	0	0	136	176	0	40	0	40	0	0	0	33	137	144	0	0	0	0	0	0	0	0	0	0	152	168	0	50	34	0	0	0
+0	0	0	0	17	0	0	0	0	11	162	0	0	0	0	40	152	255	42	131	34	0	130	0	152	170	50	0	0	9	0	0	0	0	0	0	0	255	0	0	11	160	255	145	0	0	0	0
+0	0	0	0	17	0	0	0	0	0	152	168	0	34	34	255	131	25	0	0	0	0	0	0	19	0	137	144	0	0	136	136	0	0	0	40	0	34	40	255	34	0	0	9	0	0	0	0
+0	0	0	0	25	168	0	0	0	0	19	0	130	0	0	0	0	35	176	0	0	0	0	42	49	0	0	9	0	0	0	0	136	144	18	40	130	0	0	49	0	0	0	0	144	0	0	0
+0	0	0	0	11	136	136	130	40	152	25	168	0	0	0	18	34	0	9	152	0	34	34	0	145	0	0	0	136	138	56	136	0	255	34	0	152	162	42	145	0	0	0	42	49	0	0	0
+0	0	0	0	0	0	144	0	0	11	163	0	136	152	0	49	0	0	0	19	162	0	0	0	17	0	0	0	0	255	137	136	130	56	0	50	35	0	0	17	0	0	0	0	145	0	0	0
+0	0	0	0	0	0	17	0	0	0	144	0	0	0	255	137	0	0	0	17	0	0	0	255	255	0	0	0	0	0	0	0	130	19	170	131	40	136	0	49	0	0	0	0	9	144	0	0
+0	0	0	0	0	0	17	255	0	0	17	0	0	33	255	0	144	0	0	17	0	0	0	0	9	144	0	0	0	0	0	0	0	49	0	0	0	0	138	145	0	0	0	0	0	17	0	0
+0	0	0	0	255	0	255	168	0	42	49	18	34	0	0	0	9	136	0	17	0	0	0	0	0	17	0	0	0	0	0	18	42	255	0	0	0	0	0	25	0	40	0	0	0	17	0	0
+0	0	0	0	0	10	35	0	130	0	153	161	0	0	0	0	0	0	152	255	0	0	0	0	0	17	0	0	0	0	0	33	0	0	144	0	0	0	0	35	162	0	136	136	0	49	0	0
+0	0	0	0	0	0	144	0	0	34	255	0	0	0	0	0	0	0	19	0	136	136	0	0	0	17	0	0	0	0	18	0	0	0	17	0	0	0	18	0	0	0	0	0	138	153	255	0
+0	0	0	0	0	0	17	0	10	136	0	56	0	40	0	0	0	18	33	0	0	0	136	136	0	255	0	0	0	0	17	0	0	0	17	0	0	34	33	0	0	0	0	0	0	35	255	0
+0	0	0	0	0	18	33	0	0	0	138	145	130	0	136	136	0	49	0	0	0	0	0	0	130	0	144	0	0	0	17	0	0	0	25	162	34	0	0	0	0	0	0	18	34	0	0	0
+0	0	0	0	0	9	0	0	0	0	0	9	0	0	0	0	138	255	0	0	0	0	0	0	0	0	9	136	0	42	49	0	0	26	35	0	0	40	0	40	0	40	0	33	0	0	0	0
+0	0	0	0	0	0	144	0	0	0	0	0	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	130	0	137	136	0	255	168	130	34	0	130	0	130	0	255	0	0	0	0	0
+0	0	0	0	0	0	17	0	0	0	0	0	9	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	130	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	17	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0

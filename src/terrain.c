@@ -106,6 +106,20 @@ int terrain_type_get_index( char terrain_type )
 
 /*
 ====================================================================
+Get weather type's id (number)
+====================================================================
+*/
+int weather_type_get_index( char *weather_type )
+{
+    int i;
+    for ( i = 0; i < weather_type_count; i++ )
+        if ( strcmp( weather_types[i].id, weather_type ) == 0 )
+            return i;
+    return -1;
+}
+
+/*
+====================================================================
 Load terrain types, weather information and hex tile icons in 'tdb' format.
 ====================================================================
 */
@@ -592,7 +606,7 @@ int terrain_load_lgdtdb( char *fname, char *path )
                 {
                     int NumberInArray, Flag;
                     Flag = check_flag( fct_terrain[j - 2].string, fct_terrain, &NumberInArray );
-                    terrain_types[terrain_type_get_index( tokens[0][0] )].flags[j - 2] |= Flag;
+                    terrain_types[terrain_type_get_index( tokens[0][0] )].flags[weather_type_get_index( tokens[1] )] |= Flag;
                 }
             }
         }

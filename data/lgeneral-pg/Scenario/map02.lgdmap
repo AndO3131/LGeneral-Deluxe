@@ -1,0 +1,63 @@
+# terrain database																				
+terrain_db	terrain.lgdtdb																			
+																				
+# map layer 0 – terrain																				
+c129	c130	c139	s134	c129	c139	c129	f145	f135	f136	f138	f135	R72	s124	s133	s124	c69	c130	c139	c129	c130
+R72	R64	s124	s133	c130	c130	c139	c139	f138	f146	f145	R71	R54	s134	s144	s134	c47	c130	c139	c130	c129
+s124	s133	R65	R62	c139	c129	c139	F158	F159	R63	R64	R72	R61	R72	s133	c48	c74	R54	R64	R72	c139
+s144	s124	s134	R72	c130	R64	c139	F178	t125	c32	R55	c129	R54	c74	c60	R64	R71	c139	c139	c130	R55
+s133	s133	s144	s134	R54	c66	R72	R64	R71	F161	R65	c70	c67	f136	c129	f145	f135	c139	t125	c130	R72
+s134	s144	c139	c48	c74	f136	c66	c48	c67	F171	t126	F180	R72	f146	c139	c130	c139	c130	a128	c130	c129
+s124	c47	c57	c130	f138	f146	f136	f147	c56	f138	F172	c139	R71	f138	f137	f147	c130	c139	s133	s144	s133
+c139	c74	c139	s144	s134	s144	f146	f137	f137	c67	c59	R61	R62	f145	f135	f138	c139	c129	s124	s133	s134
+c67	c139	c139	s124	s133	R71	R55	f138	f147	c59	c139	R71	c139	c139	s144	s134	s133	c139	f137	f147	f136
+c130	R54	R55	R71	R64	c130	R52	c67	c67	c59	f138	R65	c129	s124	s133	s124	s144	c129	c139	f136	f146
+R71	c139	R65	c130	c139	~142	c139	c59	f138	c69	f136	f147	R72	c129	s134	c129	c139	c139	f137	f146	f138
+R62	c129	c139	t125	~131	~132	c67	c130	c139	c47	f146	R64	R71	c139	c139	c129	c129	c130	c139	c139	c129
+t125	c130	~132	~140	~142	~131	c69	c139	c130	R71	c32	f138	R62	c139	c129	c130	c130	c139	f138	f135	c130
+F158	t126	~131	~141	~132	~142	c74	R71	R64	f138	c74	f137	R65	R72	c129	c130	c129	c129	f145	f136	f137
+F171	~131	a128	~143	~142	~131	t125	R72	f137	f147	c59	c129	f147	R71	f136	f147	c129	f138	f137	f146	f147
+c59	c130	~142	~140	~131	~132	c56	c41	R55	c139	c69	f137	c130	R72	f146	f138	c139	c130	f138	c139	f138
+c139	c139	~131	~132	~143	~132	~140	R62	c59	c129	c47	f136	f147	R63	f136	f137	c129	c130	c129	c129	c129
+c139	c129	c139	c129	c129	~131	R61	c130	c59	c139	c74	f146	f147	R71	f146	f138	f147	c139	c139	c139	c130
+																				
+# map names																				
+x	x	x	x	x	x	x	x	x	x	x	x	Narew River	x	x	x	x	x	x	x	x
+Vistula River	Vistula River	x	x	x	x	x	x	x	x	x	Narew River	Narew River	x	x	x	x	x	x	x	x
+x	x	Vistula River	Vistula River	x	x	x	x	x	River	River	Bug River	Bug River	Bug River	x	x	x	Bug River	Bug River	Bug River	x
+x	x	x	Vistula River	x	Vistula River	x	x	Modlin	Vistula River	Vistula River	x	Bug River	x	Bug River	Bug River	Bug River	x	x	x	Bug River
+x	x	x	x	Vistula River	x	Vistula River	Vistula River	Vistula River	x	Vistula River	Vistula River	x	x	x	x	x	x	Siedice	x	Bug River
+x	x	x	x	x	x	x	x	x	x	Warsaw	x	Vistula River	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	Vistula River	Vistula River	x	x	x	x	x	x	x	x
+x	x	x	x	x	Bzura River	Bzura River	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x	x
+x	Bzura River	Bzura River	Bzura River	Bzura River	x	Bzura River	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x	x
+Bzura River	x	Bzura River	x	x	x	x	x	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x
+Bzura River	x	x	Brzeziny	x	x	x	x	x	x	x	Pilica River	Vistula River	x	x	x	x	x	x	x	x
+Ozorkow	x	x	x	x	x	x	x	x	Pilica River	Pilica River	x	Vistula River	x	x	x	x	x	x	x	x
+x	Lodz	x	x	x	x	x	Pilica River	Pilica River	x	x	x	Vistula River	River	x	x	x	x	x	x	x
+x	x	x	x	x	x	Tomaszow	Pilica River	x	x	x	x	x	River	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	Pilica River	Pilica River	x	x	x	x	River	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	Pilica River	x	x	x	x	x	River	x	x	x	x	x	x	x
+x	x	x	x	x	x	Pilica River	x	x	x	x	x	x	River	x	x	x	x	x	x	x
+																				
+# map layer 1 – roads																				
+terrain_id	r																			
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	34	33	0	0	0	0
+0	0	0	0	0	0	0	0	255	144	0	0	0	34	34	0	0	0	0	0	0
+0	0	0	0	0	40	0	0	0	33	0	34	34	0	0	0	0	0	255	0	0
+0	0	0	34	34	0	136	138	50	34	255	0	0	0	0	0	0	0	255	0	0
+0	18	34	0	0	0	0	0	131	0	17	0	0	0	0	0	0	0	0	0	0
+0	33	0	0	0	0	0	0	0	18	33	0	0	0	0	0	0	0	0	0	0
+34	0	0	0	0	0	0	0	0	49	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	18	42	145	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	33	0	17	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	255	0	0	18	0	0	9	0	0	0	0	0	0	0	0	0	0	0
+255	0	0	0	0	0	17	0	0	0	144	0	0	0	0	0	0	0	0	0	0
+0	255	0	0	0	0	17	0	0	0	17	0	0	0	0	0	0	0	0	0	0
+18	0	255	0	0	0	255	0	0	0	17	0	0	0	0	0	0	0	0	0	0
+33	0	0	0	0	0	9	136	0	0	17	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	144	0	17	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	17	0	17	0	0	0	0	0	0	0	0	0	0

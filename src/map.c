@@ -30,6 +30,7 @@
 #include "misc.h"
 #include "localize.h"
 #include "campaign.h"
+#include "FPGE/pgf.h"
 
 #include <assert.h>
 #include <limits.h>
@@ -86,16 +87,19 @@ Check the surrounding tiles and get the one with the highest
 in_range value.
 ====================================================================
 */
-static void map_get_next_unit_point( int x, int y, int *next_x, int *next_y )
+static void map_get_next_unit_point( Unit *unit, int x, int y, int *next_x, int *next_y )
 {
     int high_x, high_y;
     int i;
     high_x = x; high_y = y;
     for ( i = 0; i < 6; i++ )
         if ( get_close_hex_pos( x, y, i, next_x, next_y ) )
-            if ( mask[*next_x][*next_y].in_range > mask[high_x][high_y].in_range ) {
-                high_x = *next_x;
-                high_y = *next_y;
+            if ( mask[*next_x][*next_y].in_range > mask[high_x][high_y].in_range )
+                /* check zones of control */
+                if ( !( config.zones_of_control && ( ( unit_has_flag( unit->sel_prop, "flying" ) && mask[*next_x][*next_y].vis_air_infl > 0 ) ||
+                                                     ( !unit_has_flag( unit->sel_prop, "flying" ) &&  mask[*next_x][*next_y].vis_infl > 0 ) ) ) ) {
+                    high_x = *next_x;
+                    high_y = *next_y;
             }
     *next_x = high_x;
     *next_y = high_y;
@@ -125,24 +129,16 @@ static void map_add_vis_unit_infl( Unit *unit )
 
 /*
 ====================================================================
-Publics
+Load map in old lgmap format.
 ====================================================================
 */
-
-/*
-====================================================================
-Load map.
-====================================================================
-*/
-int map_load( char *fname )
+int map_load_lgmap( char *fname, char *path )
 {
     int i, x, y, j, limit;
     PData *pd;
-    char path[MAX_PATH];
     char *str, *tile;
     char *domain = 0;
     List *tiles, *names;
-    sprintf( path, "%s/%s/Scenario/%s", get_gamedir(), config.mod_name, fname );
     if ( ( pd = parser_read_file( fname, path ) ) == 0 ) goto parser_failure;
     domain = determine_domain(pd, fname);
     locale_load_domain(domain, 0/*FIXME*/);
@@ -213,6 +209,232 @@ failure:
     map_delete();
     if ( pd ) parser_free( &pd );
     free(domain);
+    return 0;
+}
+
+/*
+====================================================================
+Load map in new lgdmap format.
+====================================================================
+*/
+int map_load_lgdmap( char *fname, char *path )
+{
+    int i;
+    char *domain = 0;
+
+    FILE *inf;
+    char line[1024], tokens[100][256];
+    int j, block=0, last_line_length=-1, cursor=0, token=0;
+    int utf16 = 0, lines=0, cur_map_h = 0, x, limit;
+    map_w = 0;
+    map_h = 0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open '%s' map file\n", fname);
+        return 0;
+    }
+
+    //find map width and height
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+        if (block == 2 && strlen(line)>0)
+        {
+            if ( map_w == 0)
+                map_w = token;
+            map_h++;
+        }
+        if (block == 3)
+        {
+            fclose(inf);
+            break;
+        }
+    }
+
+    /* allocate map memory */
+    map = calloc( map_w, sizeof( Map_Tile* ) );
+    for ( i = 0; i < map_w; i++ )
+        map[i] = calloc( map_h, sizeof( Map_Tile ) );
+    mask = calloc( map_w, sizeof( Mask_Tile* ) );
+    for ( i = 0; i < map_w; i++ )
+        mask[i] = calloc( map_h, sizeof( Mask_Tile ) );
+
+    block=0;last_line_length=-1;cursor=0;token=0;lines=0;
+    inf=fopen(path,"rb");
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //count lines so error can be displayed with line number
+        lines++;
+
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#1 terrain file
+        if (block == 1 && strlen(line)>0)
+        {
+            /* load terrains */
+            if ( !terrain_load( tokens[1] ) ) goto failure;
+        }
+
+        //Block#2 map layer 0 - terrain
+        if (block == 2 && strlen(line)>0)
+        {
+            /* map itself */
+            for ( x = 0; x < token; x++ )
+            {
+                /* default is no flag */
+                map[x][cur_map_h].nation = 0;
+                map[x][cur_map_h].player = 0;
+                map[x][cur_map_h].deploy_center = 0;
+                /* default is no mil target */
+                map[x][cur_map_h].obj = 0;
+                /* check tile type; if tile not found, first one is used */
+                map[x][cur_map_h].terrain_id[0] = 0;
+                for ( j = 0; j < terrain_type_count; j++ ) {
+                    if ( terrain_types[j].id == tokens[x][0] ) {
+                        map[x][cur_map_h].terrain_id[0] = terrain_types[j].id;
+                    }
+                }
+                /* check image id -- set offset */
+                limit = terrain_type_find( map[x][cur_map_h].terrain_id[0] )->images[0]->w / hex_w - 1;
+                if ( tokens[x][1] == '?' )
+                {
+                    /* set offset by random */
+                    map[x][cur_map_h].image_offset_x = RANDOM( 0, limit ) * hex_w;
+                    map[x][cur_map_h].image_offset_y = 0;
+                }
+                else
+                {
+                    map[x][cur_map_h].image_offset_x = atoi( tokens[x] + 1 ) % terrain_columns * hex_w;
+                    map[x][cur_map_h].image_offset_y = atoi( tokens[x] + 1 ) / terrain_columns * hex_h;
+                }
+                /* set name */
+                map[x][cur_map_h].name = strdup( terrain_type_find( map[x][cur_map_h].terrain_id[0] )->name );
+            }
+            cur_map_h++;
+            if ( cur_map_h == map_h )
+                cur_map_h = 0;
+        }
+
+        //Block#3 map tile names
+        if (block == 3 && strlen(line)>0)
+        {
+            /* map names */
+            for ( x = 0; x < token; x++ )
+            {
+                if ( tokens[x][0] != 'x' )
+                {
+                    free( map[x][cur_map_h].name );
+                    map[x][cur_map_h].name = strdup( tokens[x] );
+                }
+            }
+            cur_map_h++;
+            if ( cur_map_h == map_h )
+                cur_map_h = -1;
+        }
+
+        //Block#4, 5, etc. subsequent map layers
+        if (block >= 4 && strlen(line)>0)
+        {
+            if ( cur_map_h != -1 )
+            {
+                /* new map layer connections */
+                for ( x = 0; x < token; x++ )
+                {
+                    map[x][cur_map_h].layers[block - 3] = atoi( tokens[x] );
+                }
+            }
+            else
+            {
+                /* new map layer terrain_id */
+                int y;
+                for (y = 0; y < map_h; ++y)
+                    for (x = 0; x < map_w; ++x)
+                        map[x][y].terrain_id[block - 3] = tokens[1][0];
+            }
+            cur_map_h++;
+            if ( cur_map_h == map_h )
+                cur_map_h = -1;
+        }
+    }
+    fclose(inf);
+    free(domain);
+    return 1;
+failure:
+    map_delete();
+    free(domain);
+    return 0;
+}
+
+/*
+====================================================================
+Publics
+====================================================================
+*/
+
+/*
+====================================================================
+Load map.
+====================================================================
+*/
+int map_load( char *fname )
+{
+    char *path, *extension;
+    path = calloc( 256, sizeof( char ) );
+    extension = calloc( 10, sizeof( char ) );
+    search_file_name_exact( path, fname, config.mod_name, "Scenario" );
+    extension = strrchr(fname,'.');
+    extension++;
+    if ( strcmp( extension, "lgmap" ) == 0 )
+        return map_load_lgmap( fname, path );
+    else if ( strcmp( extension, "lgdmap" ) == 0 )
+        return map_load_lgdmap( fname, path );
     return 0;
 }
 
@@ -505,7 +727,7 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
         {
             if ( map[x][y].terrain_id[i] != 0 && get_close_hex_pos( x, y, (direction + 3) % 6, &prev_x, &prev_y ) )
             {
-//fprintf(stderr,"%d,%d:%d -> %d,%d:%d  %d (%d -> %d) \n", prev_x,prev_y, map[prev_x][prev_y].layers[i],x,y,map[x][y].layers[i], direction, map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]),map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) );
+// DEBUG fprintf(stderr,"%d,%d:%d -> %d,%d:%d  %d (%d -> %d) \n", prev_x,prev_y, map[prev_x][prev_y].layers[i],x,y,map[x][y].layers[i], direction, map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]),map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) );
                 if ( ( map[prev_x][prev_y].layers[i] & (1L << DirectionToNumber[direction]) ) > 0 && 
                      ( map[x][y].layers[i] & (1L << DirectionToNumber[(direction + 3) % 6]) ) > 0 )
                 {
@@ -513,7 +735,6 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
                     if ( temp < base )
                     {
                         base = temp;
-//                    cur_terrain = i;
                     }
                 }
             }
@@ -573,8 +794,8 @@ int unit_can_enter_hex( Unit *unit, int x, int y, int is_close, int points, int 
     }
     /* if we already have to spent all; we are done */
     if (base==-1) { *cost = points; return 1; }
-    /* entering an influenced tile reduces remaining points to last tile entry cost */
     *cost = base;
+    /* entering an finishes your move */
     if ( config.zones_of_control )
     {
         if ( unit_has_flag( unit->sel_prop, "flying" ) ) {
@@ -615,9 +836,9 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
         if (mask[x][y].distance==-1||distance<mask[x][y].distance)
             mask[x][y].distance = distance;
         distance = mask[x][y].distance;
-        /* re-check: after substracting the costs, there must be more points left
-           than previously */
-        if ( mask[x][y].in_range >= points-cost ) return;
+        /* re-check: after substracting the costs, there must be more points left or equal
+           to previousl state (fuel usage according to transport) */
+        if ( mask[x][y].in_range > points-cost ) return;
         /* enter tile new or with more points */
         points -= cost;
         if (mounted)
@@ -634,10 +855,7 @@ void map_add_unit_move_mask_rec( Unit *unit, int x, int y, int distance, int poi
             /* get total move costs (basic unmounted) */
             mask[x][y].moveCost = unit->sel_prop->mov-points;
         }            
-        if (FinishMove)
-            mask[x][y].in_range = 0;
-        else
-            mask[x][y].in_range = points;
+        mask[x][y].in_range = points;
     }
     else
         points = 0;
@@ -814,7 +1032,7 @@ Way_Point* map_get_unit_way_points( Unit *unit, int x, int y, int *count, Unit *
     next_x = x; next_y = y; *count = 0;
     while ( next_x != unit->x || next_y != unit->y ) {
         reverse[*count].x = next_x; reverse[*count].y = next_y;
-        map_get_next_unit_point( next_x, next_y, &next_x, &next_y );
+        map_get_next_unit_point( unit, next_x, next_y, &next_x, &next_y );
         (*count)++;
     }
     reverse[*count].x = unit->x; reverse[*count].y = unit->y; (*count)++;

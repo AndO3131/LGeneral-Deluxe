@@ -1,0 +1,57 @@
+# terrain database																	
+terrain_db	terrain.lgdtdb																
+																	
+# map layer 0 – terrain																	
+c139	c139	c129	R72	c129	c130	c47	c129	c130	c57	s144	s133	s134	s133	c129	c48	c74	c129
+c129	c130	c129	R63	c139	c74	c57	c67	c74	c129	c129	s124	s144	c47	c57	c129	c129	c139
+f137	f147	t125	c40	c67	c68	c48	c130	c69	c49	c129	c130	c129	c74	c129	s133	s124	s124
+f136	c37	c74	c70	c59	c139	c139	R55	c74	c69	c130	c48	t125	c129	c129	s133	s134	R71
+f146	c74	c56	c69	R72	R64	R71	c70	c59	c74	c57	c74	c57	R54	R55	R71	R64	c130
+c130	c69	c129	c47	c139	c139	c67	c129	R62	c69	s133	c59	R71	c129	R65	c129	c129	~131
+c130	c129	c66	c66	c66	c66	c69	c130	R72	c47	c48	R64	R62	c139	c129	t125	~132	~140
+c130	c67	c74	c47	c57	t125	c57	R63	R54	c74	R71	c130	t125	c129	~142	~131	~141	~131
+c129	c69	c129	c139	c66	c49	c66	c40	c129	c59	R65	R52	c129	t126	~143	~140	~132	~142
+c130	c74	c129	f145	f135	c69	R61	R64	c56	c69	c129	c130	c37	~131	~142	~143	~132	~142
+c139	c59	c139	f138	f136	c47	c129	c130	R65	R72	c66	c48	c74	c129	~140	~141	~141	~132
+c130	c226	R227	R65	f146	c74	c66	c129	c130	c139	R55	c129	c130	c129	~132	~142	~131	~141
+R71	c56	c58	c57	c30	c139	c47	c48	c129	c139	R72	c67	c129	c139	c129	c129	c129	~132
+c139	c130	t125	c130	R71	f137	c130	c129	c69	c57	c40	c129	c56	c69	~143	~142	c129	~142
+f138	f138	c129	c139	R72	R64	f147	c129	c129	c130	R65	R62	~132	~131	t127	~140	~131	~143
+~131	~132	f135	f146	f147	f136	R72	R55	c139	c129	c139	R72	~142	~141	~143	~131	~142	~140
+																	
+# map names																	
+x	x	x	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	Posen	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	Warta River	x	x	x	Warta River	x	x	x	x	Kutno	x	x	x	x	Bzura River
+x	x	x	x	Warta River	Warta River	Warta River	Warta River	x	x	x	x	x	Bzura River	Bzura River	Bzura River	Bzura River	x
+x	x	x	x	x	x	x	x	Warta River	x	x	x	Bzura River	x	Bzura River	x	x	x
+x	x	x	x	x	x	x	x	Warta River	x	x	Bzura River	Bzura River	x	x	Brzeziny	x	x
+x	x	x	x	x	Kalisz	x	Warta River	Warta River	x	Bzura River	x	Ozorkow	x	x	x	x	x
+x	x	x	x	x	x	x	Warta River	x	x	Bzura River	Bzura River	x	Lodz	x	x	x	x
+x	x	x	x	x	x	Warta River	Warta River	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	Warta River	Warta River	x	x	x	x	x	x	x	x
+x	Oder River	Oder River	Oder River	x	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
+Oder River	x	x	x	Oder River	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
+x	x	Breslau	x	Oder River	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
+x	x	x	x	Oder River	Oder River	x	x	x	x	Warta River	Warta River	x	x	Rodomsko	x	x	x
+x	x	x	x	x	x	Oder River	Oder River	x	x	x	Warta River	x	x	x	x	x	x
+																	
+# map layer 1 – roads																	
+terrain_id	r																
+0	0	0	0	0	0	17	0	0	33	0	0	0	0	0	34	33	0
+0	0	0	0	0	50	33	42	50	0	0	0	0	18	34	0	0	0
+0	0	0	170	58	131	34	0	153	176	0	0	0	33	0	0	0	0
+0	26	51	50	161	0	0	0	19	25	0	34	0	0	0	0	0	0
+0	17	139	145	0	0	0	34	33	19	162	18	33	0	0	0	0	0
+0	9	0	9	0	0	18	0	0	25	0	33	0	0	0	0	0	0
+0	0	152	184	152	184	17	0	0	19	162	0	0	0	0	0	0	0
+0	18	35	11	163	0	161	0	0	17	0	0	0	0	0	0	0	0
+0	17	0	0	136	144	136	136	0	49	0	0	0	0	0	0	0	0
+0	17	0	0	0	17	0	0	138	137	0	0	18	0	0	0	0	0
+0	17	0	0	0	25	0	0	0	0	136	130	33	0	0	0	0	0
+0	17	0	0	0	35	176	0	0	0	0	0	0	0	0	0	0	0
+0	11	40	162	34	0	9	136	0	0	0	40	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	136	130	34	0	136	136	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
