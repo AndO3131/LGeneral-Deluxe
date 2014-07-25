@@ -1,0 +1,135 @@
+# terrain database																																																																				
+terrain_db	terrain.lgdtdb																																																																			
+																																																																				
+# map layer 0 – terrain																																																																				
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o7	o8	o18	o73	c35	o7	o6	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o5	o6	c39	c43	c39	o6	~132	c39	c58	c44	o13	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c43	~141	c57	t127	c56	a128	t126	c67	c139	c48	c69	c36	o18	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o4	o7	o6	c35	c67	c74	m181	m182	m184	c68	m112	c139	~141	c139	a128	c49	o17	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o20	c39	c57	c48	~132	~143	m191	m192	m122	m185	m122	m114	~131	d186	c139	c59	c44	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	c43	c47	m215	~143	~141	~140	~143	m193	~143	m116	~140	~143	d194	~142	c139	c69	c66	c36	o13	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o5	d190	c74	m208	~131	~142	c139	c139	~141	~142	~141	c130	~132	c129	c130	d190	d183	d186	t125	F151	c36	o18	o73	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o20	c37	c59	m210	~140	c129	c139	~143	c130	c129	c139	d194	t125	~131	d195	d194	d186	a128	d194	d195	t126	h27	o6	c39	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o2	h26	a128	c129	c130	c139	~140	~141	d186	d190	~141	d195	d186	d194	~142	d183	d183	d183	m213	d190	F178	F179	F173	c66	c44	o13	o73	o73	o73	o73	o73	o73	o73	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	c43	c59	m215	~143	d183	d190	~132	d195	d186	d190	d194	d186	d190	d186	c129	d186	d183	m207	~132	~143	~141	~132	m221	c48	a128	c36	o18	o73	o73	o73	o5	o6	c44	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o3	s133	c56	c69	d186	d235	d194	d186	d190	c129	c139	c130	c139	c129	c130	d186	c139	c130	~140	d183	d183	d186	~140	~131	m222	m214	c69	o17	o73	o7	o73	c43	t125	a128	c36	o9	o73	o7	o73	o73	o73	c35	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o8	o18	o8	o31	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o0	o11	s144	c74	d190	d194	d233	d190	d183	c139	d190	d186	d186	d183	d186	d233	d190	d186	c139	t125	d190	d183	~143	d183	~142	d186	c47	h27	o6	c39	c35	c74	c57	~141	c49	c39	o6	c39	o7	c35	o6	c139	c44	o18	o73	o7	o73	c35	o7	o73	o73	o8	o73	o4	c43	c44	o20	R62	o31	o19	o73	c35	o7
+o73	o73	o73	o73	o73	o73	o73	o73	c33	c69	a128	c139	d186	c130	c130	d186	d194	d233	d235	d233	d234	d235	d236	d183	~143	d190	d183	~140	~143	d195	d183	d183	~132	d186	t125	c57	c48	~140	~143	~132	c69	c48	c58	c48	h27	c58	c139	d186	c139	c39	o6	c39	o6	c130	c44	o19	o73	c43	o31	h29	d186	a128	c230	R65	R62	c39	o6	R229	o24
+o73	o73	o73	o73	o73	o73	o73	o73	o20	c47	d186	d183	c129	d194	d186	d234	d236	d234	d236	d235	d236	d234	d195	~141	~141	~132	d183	~143	d194	d233	d234	d233	d186	d190	d195	m221	~141	~132	~142	m221	~141	d190	d194	d195	c56	d190	c48	c68	c66	c48	c67	c68	t125	c56	c139	c39	o6	d183	R72	c60	c48	c69	s133	s134	R72	s144	R63	c39	o6
+o73	o73	o73	o73	o73	o73	o73	o6	c43	c74	d190	d186	c129	~132	d195	d186	d236	d235	d233	d236	d233	d235	d183	d186	d183	d183	d186	~132	d195	d186	d194	d186	d235	d234	d186	d190	m222	m212	m217	d183	m214	d195	d234	d186	~132	d186	d194	d194	d195	d186	~132	~143	~141	~142	c69	c66	d190	c67	c74	d194	R64	R65	c66	c48	R63	R55	R71	s144	s144
+o73	o73	o73	o73	o73	o4	c35	s144	s124	c59	d183	c130	c139	d186	~143	~132	d186	d195	d236	d186	d186	d195	d235	d195	~143	d186	d195	d186	d190	d186	~132	d183	d233	d236	d233	d234	d186	d186	d194	d235	d186	d235	d236	d233	d194	d235	d236	d235	d234	d233	d186	~140	~132	~143	c47	~141	c48	a128	c69	c66	s144	d183	R62	s133	c69	R72	R72	s124	s133
+o73	o8	o73	o5	o7	c43	s134	s133	c37	d194	c129	d190	d195	d233	d190	d183	~140	d183	d235	d186	~132	d194	d233	d235	d190	d233	d235	d236	d234	d236	d194	d234	d235	d233	d234	d233	d186	d235	d233	d235	d234	d235	d234	d233	d234	d236	d234	d236	d234	d233	d186	d190	d186	d195	c74	~132	~131	~142	d186	c47	d190	s124	R72	R55	c74	R71	R54	s134	s144
+o73	c43	o13	c230	c39	s133	s144	c67	c74	c130	c139	d194	d186	d186	d236	d186	~132	d186	d234	d190	d183	d183	d234	d236	d233	d236	d234	d183	d235	d234	d235	d234	d236	d234	d235	d234	d236	d233	d234	d236	d236	d233	d236	d235	D200	d233	d236	m221	d235	m215	m221	m222	~141	d194	c59	d186	~140	d186	d190	d186	c49	d186	s134	R65	c41	c59	s133	d183	d186
+o6	a128	t125	c48	s124	c57	t127	c130	c129	~143	~141	d195	~132	~140	d194	~143	~141	d194	d233	d186	~140	~131	d186	d183	d235	d233	d186	~140	d186	d234	d233	d195	d195	d183	d236	d233	d235	d236	d235	D203	d233	d236	d234	d233	d236	m219	m217	D203	m222	m207	D203	D202	m213	m221	c56	c59	d194	d233	d235	d183	c56	c59	d186	s133	R62	c69	s124	d186	d235
+d190	d190	t127	d190	c68	~140	d186	d195	~132	d195	~132	~141	~131	~142	~141	~132	~131	~142	d186	d195	d194	~141	~142	d186	d183	d190	d186	~131	d195	d183	d234	d186	~132	d186	d233	d235	d236	d233	D202	d236	d234	d233	D200	d236	m218	D203	D202	D200	D201	D202	D200	D200	m209	D203	m212	c69	d186	d186	d186	d194	~141	c69	d194	d195	R72	c47	s144	d195	d234
+d183	~132	d186	d183	d195	d194	d183	d190	d183	d190	d194	~131	~143	d194	d186	d194	d186	~140	d194	~141	d194	~131	~143	~132	~140	~141	~132	d186	~142	d186	d235	D201	D204	d233	d233	d236	d234	d236	D201	d234	d234	d235	d236	m215	m211	D200	D201	D200	D203	D200	D203	D200	D202	D204	D200	d186	c48	c56	~132	d183	d190	d186	c66	c49	R63	c74	d194	d233	d236
+d195	d186	~141	d194	d235	D202	d195	~143	d194	D200	d186	d190	d195	d236	d233	d194	~143	d186	~132	d186	~143	d195	~142	d190	~143	d186	d190	d233	d186	d236	d234	d183	D203	d234	d235	d233	d234	d233	d235	d190	d194	d195	d234	m208	D203	D203	D201	D203	D202	D201	D202	D201	D201	D203	D201	d190	d186	d186	c69	c66	d195	c58	d194	c41	R71	t125	d186	d194	d234
+d234	d233	d186	d236	D200	D203	~131	~142	D201	D203	D204	d186	d183	d186	d235	d236	d186	d235	d194	d233	d194	d235	d186	d234	d195	d235	d234	d186	d234	d190	d186	~131	d190	d194	d236	d233	d235	d233	d236	d186	~132	d186	d235	m211	D201	D200	D202	D203	D200	D204	D203	D202	D200	D200	D202	d186	d235	d233	d183	d186	c48	d194	c66	c30	t125	t205	a128	d183	d233
+d235	d234	d235	d233	d234	D202	D200	D203	D200	D200	D202	d183	~132	d183	d234	d194	d233	d234	d236	d235	d236	d186	d190	d194	d233	d195	d190	~143	D204	d183	~141	~132	~142	d183	D204	d235	d234	d190	d234	d234	d183	d236	m217	D202	D203	D202	D201	D201	D200	D200	D201	D203	D203	D200	d186	d235	d236	d186	d234	d194	~141	d183	d190	a128	R55	d183	s133	d190	d235
+d233	d235	d236	d234	d236	d233	D204	D201	D204	D203	D201	d233	d190	d186	~143	d183	d236	d186	d194	d186	d234	d186	~132	d186	d234	d186	~140	D202	D201	d186	~143	~140	d186	d234	D200	d233	d183	m221	d194	d194	d235	d233	d194	D200	D201	D200	D202	D200	D201	D204	D202	D200	D202	d233	d236	d234	d190	~143	d183	d195	d186	d233	d195	d186	R62	d194	s134	d186	d236
+d236	d236	d233	d236	d235	d234	d236	D201	D202	D204	D200	d234	d236	d235	d186	d236	d234	d186	~141	D201	D203	D204	d190	d233	d235	d233	d186	D204	d236	d233	d186	d186	d190	d236	d235	d183	d186	d186	m222	m213	d186	D202	D203	D201	D202	D203	D201	D204	D200	D200	D203	D202	D203	D200	d235	d233	d183	~140	d186	~131	d186	d194	d234	d186	R65	R72	d190	d233	d234
+d235	d236	d234	d235	d236	d235	d234	d233	D200	d236	d235	d233	d234	d233	d234	d235	d234	d236	d194	d236	d235	d233	d236	d234	d235	d236	d236	d233	d235	d236	d234	d236	d234	d233	d183	~140	~131	~142	d190	m210	D200	D201	D200	D201	D200	D201	D200	D203	D203	D201	D201	D203	D202	D201	d234	d236	d194	d194	~132	d194	~142	d195	d236	d234	d186	R71	d195	d234	d235
+d233	d235	d233	d236	d234	d236	d233	d236	d234	d236	d234	d233	d233	d236	d236	d235	d233	d234	d235	d233	d235	d234	d235	d236	d233	d234	d234	d235	d234	d233	d235	d233	d235	d234	d183	d194	d186	d186	d194	d186	d186	d234	D200	d234	D201	D201	D202	D201	D204	D202	D200	D200	D204	d233	d233	d235	d234	d233	d186	d234	d186	d235	d233	d235	d186	R65	d186	d195	d236
+d234	d235	d234	d236	d233	d236	d236	d233	d235	d236	d235	d236	d236	d233	d234	d234	d235	d236	d235	d234	d236	d235	d234	d234	d235	d234	d233	d234	d236	d235	d236	d186	d236	d233	d234	d235	d234	d236	d235	d234	d233	d235	d236	D202	D200	D200	D203	D204	D200	D203	D204	D202	D201	D203	d234	d233	d236	d234	d235	d233	d236	d234	d236	d233	d190	d186	R62	d183	d235
+																																																																				
+# map names																																																																				
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	Cyrene	x	x	Berta	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Gazala	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	Mechili	x	x	x	x	x	x	x	Tobruk	Tobruk	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	Benghazi	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	Escarpment	x	x	x	x	x	x	Sidi Barrani	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Bir Hacheim	x	x	x	x	x	x	x	Bardia	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sollum	x	x	x	x	x	x	x	x	x	Mersa Matruh	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Alexandria	x	x	x	Nile	Nile	x	x	River	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	El Alamein	x	x	x	x	x	Nile	Nile	x	x	x	x	Nile	x	River	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	Escarpment	Escarpment	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	Nile	x	x	Nile	Nile	Nile	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	Nile	Nile	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	Nile	x	Nile	Nile	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	Escarpment	Escarpment	Escarpment	x	x	x	x	x	x	x	x	x	x	x	Nile	Nile	x	x	x	x
+x	x	El Agheila	x	x	x	Mersa Brega	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	Escarpment	x	Escarpment	Escarpment	x	x	Escarpment	Escarpment	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x
+x	x	Italian Camp	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	Escarpment	x	Escarpment	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	Nile	Cairo	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	Cairo	Cairo	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	Nile	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escarpment	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nile	x	x
+																																																																				
+# map layer 1 – roads																																																																				
+terrain_id	r																																																																			
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	40	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	34	255	136	255	255	34	0	136	136	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	34	34	0	0	0	130	0	0	0	0	255	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	34	34	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	18	0	0	0	0	0	0	0	0	0	0	0	0	0	9	136	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	136	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	18	33	0	0	0	0	0	0	0	0	0	255	0	0	0	0	255	0	0	255	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	255	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	136	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	9	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	144	0	0	0	0	0	255	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0	0	0	0	9	255	0	0	0	34	33	0	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	17	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	130	34	0	0	0	9	130	40	138	255	40	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	255	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	131	0	136	130	40	130	40	130	255	136	0	0	0	0	0	35	168	136	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	152	168	0	42	50	0	0	0	136	136	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	33	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	19	0	130	255	137	144	0	0	0	0	144	0	0	0	0
+0	0	0	0	0	0	0	0	18	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0	9	0	0	0	0	17	0	0	0	0
+0	0	0	0	0	0	0	34	33	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	144	0	0	0	9	144	0	0	0
+0	255	255	168	0	34	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	9	144	0	0	0	0	9	144	0	0	0	17	0	0	0
+0	0	255	0	130	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	9	0	0	0	0	0	9	0	0	0	17	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	136	0	0	0	0	136	144	0	17	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	136	0	40	0	9	0	255	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	130	0	136	130	255	255	255	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0

@@ -1,0 +1,63 @@
+# terrain database																																			
+terrain_db	terrain.lgdtdb																																		
+																																			
+# map layer 0 – terrain																																			
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o8	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c43	o9	o6	o7	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o7	o73	o7	o73	o73	o73	o73	o73	o73	o73	o73	o73	o8	o73	o73	o73	o5	o7	o7	o73	o6	c35	c139	h27	c139	c44	o23	o73	o6	o7	o73	o73	o73
+o73	o5	c35	h27	o6	c44	o73	o73	o73	o7	o73	o73	o73	c35	o7	c43	c36	o13	o73	o20	c39	c44	o3	c129	c139	c129	c129	R71	R229	o6	c35	c129	c44	o18	o73	o73
+o8	c230	c130	c74	c49	c130	o18	o6	c35	c44	o73	o4	o6	c129	c39	c130	c139	t126	c36	c230	c139	c130	h29	m102	s134	c40	R64	t126	h27	a128	c129	c129	c139	o24	o73	o73
+c43	c74	t127	a128	c59	a128	c39	c48	c58	c48	c36	c230	t126	c48	c58	c57	c48	c68	c66	c48	c58	c57	c48	c68	c57	R62	a128	c57	a128	c66	c139	c46	o15	o73	o73	o73
+c67	m76	~132	~141	c69	c48	c74	m80	c69	c66	c56	c68	c57	m116	m117	c129	c129	m102	c129	~143	m80	m83	c129	R64	R227	c67	c74	c129	c129	c47	c34	o73	o73	o73	o73	o73
+m95	m86	~140	m106	m97	m83	c69	m95	m83	c139	c49	c58	c139	c67	c58	c48	t126	c66	c129	c58	m95	c40	R54	c57	c48	c129	c129	c139	c129	c74	c44	o13	o73	o73	o73	o73
+m99	m96	~143	~132	m118	c129	c47	c49	c139	c139	c56	~141	c48	m105	c139	c129	c139	c139	c48	c74	c57	R62	c68	c139	~141	m78	c139	~143	~132	c59	t125	c129	c36	o18	o73	o73
+m103	m105	~141	m95	m76	~141	c130	c59	c129	~143	c139	c139	~143	m115	~132	c67	~141	c48	c67	c139	R227	t126	c129	c139	m99	m94	m82	m83	~140	c69	c129	c129	c139	o17	o73	o73
+m114	m115	~132	m106	m86	~132	c67	c139	c129	~141	~132	c129	~140	c58	c37	~140	c68	c139	c129	m80	R52	~141	a128	~140	m109	m115	m95	c129	c139	c47	c129	c129	c139	o24	o73	o73
+m78	m82	~141	~143	m115	c139	c69	c129	c129	c139	c129	c139	t126	a128	c57	m99	m97	m83	c129	m87	m82	m83	~143	c129	t126	c139	~132	c129	c129	c57	t126	o15	c46	o73	o73	o73
+m89	m118	m83	~141	c139	~143	c47	t126	m76	~143	c139	c139	c69	~132	~143	m109	m118	c139	c129	c129	m92	~132	c129	c129	m102	c139	c139	c67	c74	c129	c34	o73	o73	o73	o73	o73
+m77	m108	~143	~140	~132	m117	c74	m85	m86	c139	c129	c129	c47	~140	~141	~132	c129	c129	c139	c129	~140	~131	c139	c139	c139	c129	c139	c59	c139	c46	o25	o73	o73	o73	o73	o73
+m98	m118	m82	m83	m116	c48	c59	m103	m96	c139	c129	c37	c74	c129	~142	c129	c129	c139	c129	c139	~141	~143	~142	a128	~143	c139	c129	c69	c34	o73	o73	o73	o73	o73	o73	o73
+m83	t126	m92	~141	c74	~143	m80	m83	c139	c129	c129	c47	c139	~132	c129	c129	c129	c139	c139	c129	c129	c129	c139	c129	t126	~132	a128	t125	c44	o19	o73	o73	o73	o73	o73	o73
+m82	m108	~140	m100	c59	c139	m92	c129	c139	c129	c129	c139	c66	c129	c139	c129	c129	c129	c129	c139	c129	c139	c129	c139	c139	c139	c129	c130	c130	o25	o73	o73	o73	o73	o73	o73
+																																			
+# map names																																			
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Bizerta	x	x	x	x	x	x	x	x	x
+x	x	x	Algiers	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	Medjerda River	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Phillippeville	x	x	x	x	Bone	x	x	Medjerda River	Medjerda River	Tunis	Tunis	x	x	x	x	x	x	x
+x	x	British Camp	x	x	x	x	x	x	x	x	x	Djidjelli	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	Medjerda River	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Constantine	x	x	x	x	Medjerda River	Medjerda River	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	x	x	x	x	x	x	x	x	Sousse	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	Tebessa	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Medjerda River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	Biskra	x	x	x	x	x	x	x	x	x	x	x	Kasserine	x	x	x	x	x	Sfax	x	x	x	x	x
+x	x	x	x	x	x	x	Djelfa	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+x	Aflou	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Gafsa	x	x	Gabes	x	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+																																			
+# map layer 1 – roads																																			
+terrain_id	r																																		
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0	0	0	0	0	0	0
+0	0	0	255	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	35	176	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0	0	255	0	0	40	0	255	255	255	0	0	0	0	0	0
+0	34	255	255	17	255	0	42	40	136	0	0	255	34	40	130	42	130	168	130	40	130	40	130	34	0	255	33	255	144	0	0	0	0	0	0
+34	0	0	0	9	138	50	0	137	136	136	130	35	0	0	0	0	0	0	0	0	0	0	0	0	34	34	0	0	17	0	0	0	0	0	0
+0	0	0	0	0	0	145	0	0	0	144	40	0	34	40	130	255	136	0	56	0	40	0	34	34	0	0	0	0	17	0	0	0	0	0	0
+0	0	0	0	0	0	9	144	0	0	3	0	130	0	0	0	0	0	130	35	162	0	130	0	0	0	0	0	0	17	255	0	0	0	0	0
+0	0	0	0	0	0	0	33	0	0	0	0	0	0	0	40	0	34	34	0	0	255	0	0	0	0	0	0	0	17	0	0	0	0	0	0
+0	0	0	0	0	0	18	0	0	0	0	0	0	40	18	0	130	0	0	0	0	0	255	0	0	0	0	0	0	25	0	0	0	0	0	0
+0	0	0	0	0	0	17	0	0	0	0	0	255	255	129	0	0	0	0	0	0	0	0	0	255	0	0	0	0	33	255	0	0	0	0	0
+0	0	0	0	0	0	25	255	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	18	34	0	0	0	0	0	0	0
+0	0	0	0	0	0	19	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0
+0	0	0	0	0	34	33	0	0	0	0	18	33	0	0	0	0	0	0	0	0	0	0	255	0	0	0	17	0	0	0	0	0	0	0	0
+0	255	0	0	18	0	0	0	0	0	0	9	0	0	0	0	0	0	0	0	0	0	0	0	255	0	255	255	0	0	0	0	0	0	0	0
+0	0	0	0	17	0	0	0	0	0	0	0	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
