@@ -22,24 +22,24 @@ c139	c139	~131	~132	~143	~132	~140	R62	c59	c129	c47	f136	f147	R63	f136	f137	c129
 c139	c129	c139	c129	c129	~131	R61	c130	c59	c139	c74	f146	f147	R71	f146	f138	f147	c139	c139	c139	c130
 																				
 # map names																				
-x	x	x	x	x	x	x	x	x	x	x	x	Narew River	x	x	x	x	x	x	x	x
-Vistula River	Vistula River	x	x	x	x	x	x	x	x	x	Narew River	Narew River	x	x	x	x	x	x	x	x
-x	x	Vistula River	Vistula River	x	x	x	x	x	River	River	Bug River	Bug River	Bug River	x	x	x	Bug River	Bug River	Bug River	x
-x	x	x	Vistula River	x	Vistula River	x	x	Modlin	Vistula River	Vistula River	x	Bug River	x	Bug River	Bug River	Bug River	x	x	x	Bug River
-x	x	x	x	Vistula River	x	Vistula River	Vistula River	Vistula River	x	Vistula River	Vistula River	x	x	x	x	x	x	Siedice	x	Bug River
-x	x	x	x	x	x	x	x	x	x	Warsaw	x	Vistula River	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Vistula River	Vistula River	x	x	x	x	x	x	x	x
-x	x	x	x	x	Bzura River	Bzura River	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x	x
-x	Bzura River	Bzura River	Bzura River	Bzura River	x	Bzura River	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x	x
-Bzura River	x	Bzura River	x	x	x	x	x	x	x	x	x	Vistula River	x	x	x	x	x	x	x	x
-Bzura River	x	x	Brzeziny	x	x	x	x	x	x	x	Pilica River	Vistula River	x	x	x	x	x	x	x	x
-Ozorkow	x	x	x	x	x	x	x	x	Pilica River	Pilica River	x	Vistula River	x	x	x	x	x	x	x	x
-x	Lodz	x	x	x	x	x	Pilica River	Pilica River	x	x	x	Vistula River	River	x	x	x	x	x	x	x
-x	x	x	x	x	x	Tomaszow	Pilica River	x	x	x	x	x	River	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Pilica River	Pilica River	x	x	x	x	River	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Pilica River	x	x	x	x	x	River	x	x	x	x	x	x	x
-x	x	x	x	x	x	Pilica River	x	x	x	x	x	x	River	x	x	x	x	x	x	x
+0	0	0	0	0	0	0	0	0	0	0	0	Narew River	0	0	0	0	0	0	0	0
+Vistula River	Vistula River	0	0	0	0	0	0	0	0	0	Narew River	Narew River	0	0	0	0	0	0	0	0
+0	0	Vistula River	Vistula River	0	0	0	0	0	River	River	Bug River	Bug River	Bug River	0	0	0	Bug River	Bug River	Bug River	0
+0	0	0	Vistula River	0	Vistula River	0	0	Modlin	Vistula River	Vistula River	0	Bug River	0	Bug River	Bug River	Bug River	0	0	0	Bug River
+0	0	0	0	Vistula River	0	Vistula River	Vistula River	Vistula River	0	Vistula River	Vistula River	0	0	0	0	0	0	Siedice	0	Bug River
+0	0	0	0	0	0	0	0	0	0	Warsaw	0	Vistula River	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	Vistula River	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Vistula River	Vistula River	0	0	0	0	0	0	0	0
+0	0	0	0	0	Bzura River	Bzura River	0	0	0	0	Vistula River	0	0	0	0	0	0	0	0	0
+0	Bzura River	Bzura River	Bzura River	Bzura River	0	Bzura River	0	0	0	0	Vistula River	0	0	0	0	0	0	0	0	0
+Bzura River	0	Bzura River	0	0	0	0	0	0	0	0	0	Vistula River	0	0	0	0	0	0	0	0
+Bzura River	0	0	Brzeziny	0	0	0	0	0	0	0	Pilica River	Vistula River	0	0	0	0	0	0	0	0
+Ozorkow	0	0	0	0	0	0	0	0	Pilica River	Pilica River	0	Vistula River	0	0	0	0	0	0	0	0
+0	Lodz	0	0	0	0	0	Pilica River	Pilica River	0	0	0	Vistula River	River	0	0	0	0	0	0	0
+0	0	0	0	0	0	Tomaszow	Pilica River	0	0	0	0	0	River	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Pilica River	Pilica River	0	0	0	0	River	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Pilica River	0	0	0	0	0	River	0	0	0	0	0	0	0
+0	0	0	0	0	0	Pilica River	0	0	0	0	0	0	River	0	0	0	0	0	0	0
 																				
 # map layer 1 – roads																				
 terrain_id	r																			

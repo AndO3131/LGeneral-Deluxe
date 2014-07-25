@@ -20,22 +20,22 @@ f138	f138	c129	c139	R72	R64	f147	c129	c129	c130	R65	R62	~132	~131	t127	~140	~131
 ~131	~132	f135	f146	f147	f136	R72	R55	c139	c129	c139	R72	~142	~141	~143	~131	~142	~140
 																	
 # map names																	
-x	x	x	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	Posen	Warta River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	Warta River	x	x	x	Warta River	x	x	x	x	Kutno	x	x	x	x	Bzura River
-x	x	x	x	Warta River	Warta River	Warta River	Warta River	x	x	x	x	x	Bzura River	Bzura River	Bzura River	Bzura River	x
-x	x	x	x	x	x	x	x	Warta River	x	x	x	Bzura River	x	Bzura River	x	x	x
-x	x	x	x	x	x	x	x	Warta River	x	x	Bzura River	Bzura River	x	x	Brzeziny	x	x
-x	x	x	x	x	Kalisz	x	Warta River	Warta River	x	Bzura River	x	Ozorkow	x	x	x	x	x
-x	x	x	x	x	x	x	Warta River	x	x	Bzura River	Bzura River	x	Lodz	x	x	x	x
-x	x	x	x	x	x	Warta River	Warta River	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	Warta River	Warta River	x	x	x	x	x	x	x	x
-x	Oder River	Oder River	Oder River	x	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
-Oder River	x	x	x	Oder River	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
-x	x	Breslau	x	Oder River	x	x	x	x	x	Warta River	x	x	x	x	x	x	x
-x	x	x	x	Oder River	Oder River	x	x	x	x	Warta River	Warta River	x	x	Rodomsko	x	x	x
-x	x	x	x	x	x	Oder River	Oder River	x	x	x	Warta River	x	x	x	x	x	x
+0	0	0	Warta River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	Warta River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	Posen	Warta River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	Warta River	0	0	0	Warta River	0	0	0	0	Kutno	0	0	0	0	Bzura River
+0	0	0	0	Warta River	Warta River	Warta River	Warta River	0	0	0	0	0	Bzura River	Bzura River	Bzura River	Bzura River	0
+0	0	0	0	0	0	0	0	Warta River	0	0	0	Bzura River	0	Bzura River	0	0	0
+0	0	0	0	0	0	0	0	Warta River	0	0	Bzura River	Bzura River	0	0	Brzeziny	0	0
+0	0	0	0	0	Kalisz	0	Warta River	Warta River	0	Bzura River	0	Ozorkow	0	0	0	0	0
+0	0	0	0	0	0	0	Warta River	0	0	Bzura River	Bzura River	0	Lodz	0	0	0	0
+0	0	0	0	0	0	Warta River	Warta River	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	Warta River	Warta River	0	0	0	0	0	0	0	0
+0	Oder River	Oder River	Oder River	0	0	0	0	0	0	Warta River	0	0	0	0	0	0	0
+Oder River	0	0	0	Oder River	0	0	0	0	0	Warta River	0	0	0	0	0	0	0
+0	0	Breslau	0	Oder River	0	0	0	0	0	Warta River	0	0	0	0	0	0	0
+0	0	0	0	Oder River	Oder River	0	0	0	0	Warta River	Warta River	0	0	Rodomsko	0	0	0
+0	0	0	0	0	0	Oder River	Oder River	0	0	0	Warta River	0	0	0	0	0	0
 																	
 # map layer 1 – roads																	
 terrain_id	r																

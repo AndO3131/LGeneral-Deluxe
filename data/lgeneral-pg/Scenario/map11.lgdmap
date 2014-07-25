@@ -49,51 +49,51 @@ o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o1	c
 o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c33	c139	c129	c139	c130	o25	o73	o73	o5	c139	c129	c130	c139	c129	c130	c130	c139	c130	c130	c139	c139	c129	f145	f136	f146	f138	f147
 																																														
 # map names																																														
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Manchester	x	x	x	x	x	x	x	x	x	x	x	Hull	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Liverpool	x	Mersey	x	x	Manchester	x	x	x	x	x	Aire	Aire	Aire	Aire	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Anglesey	x	x	x	x	x	x	x	x	x	x	x	Mersey	Mersey	x	x	x	x	x	Sheffield	x	x	x	x	x	Aire	Aire	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Mersey	Mersey	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Menai Strait	Menai Strait	x	x	x	x	x	x	Chester	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Mablethorpe	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Stoke	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nottingham	x	x	x	Weiland	Weiland	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	Port	x	x	x	x	x	x	x	Shrewbury	x	x	x	x	x	x	x	x	x	x	x	Weiland	Weiland	Weiland	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Weiland	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Weiland	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Great Vermouth	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Birmingham	x	x	x	x	x	x	x	x	x	x	Peterborough	x	x	x	x	x	x	x	Norwich	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	Cardigan	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Cambridge	x	Stour	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Worcester	x	x	x	x	x	x	x	x	x	x	Bedford	x	x	x	x	x	x	x	Stour	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Avon	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Stour	Stour	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	Merthyr	x	x	x	x	x	Avon	Avon	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Stour	Harwich	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Avon	x	x	x	x	x	Oxford	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Avon	Avon	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Avon	x	x	x	x	x	x	x	x	x	x	x	Thames	Thames	x	London	London	London	x	Thames	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	Cardiff	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Thames	Thames	x	x	London	London	London	x	x	Thames	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Bristol	x	x	x	x	x	x	Thames	Newbury	Thames	Thames	x	x	x	x	x	London	x	x	x	x	x	Chatham	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Thames	x	x	x	x	x	x	x	x	x	x	Tunbridge Wells	x	x	x	x	Canterbury	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Horsham	x	x	x	x	x	x	x	x	x	x	x	Dover	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	Taunton	x	x	x	x	x	x	x	x	x	x	Winchester	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Hastings	x	x	x	x	x	x	x	Calais	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Portsmouth	x	x	x	x	Newhaven	x	x	x	x	x	x	x	x	x	x	x	x	Boulogne	x	x	x
-x	x	x	x	x	x	Okehampton	x	x	Exeter	x	x	x	x	x	x	x	x	x	x	Bournemouth	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	Tamar	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	Tamar	Tamar	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Plymouth	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Dieppe	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Cherbourg	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Le Havre	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Manchester	0	0	0	0	0	0	0	0	0	0	0	Hull	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Liverpool	0	Mersey	0	0	Manchester	0	0	0	0	0	Aire	Aire	Aire	Aire	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Anglesey	0	0	0	0	0	0	0	0	0	0	0	Mersey	Mersey	0	0	0	0	0	Sheffield	0	0	0	0	0	Aire	Aire	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Mersey	Mersey	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Menai Strait	Menai Strait	0	0	0	0	0	0	Chester	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Mablethorpe	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Stoke	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Nottingham	0	0	0	Weiland	Weiland	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	Port	0	0	0	0	0	0	0	Shrewbury	0	0	0	0	0	0	0	0	0	0	0	Weiland	Weiland	Weiland	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Weiland	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Weiland	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Great Vermouth	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Birmingham	0	0	0	0	0	0	0	0	0	0	Peterborough	0	0	0	0	0	0	0	Norwich	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	Cardigan	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Cambridge	0	Stour	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Worcester	0	0	0	0	0	0	0	0	0	0	Bedford	0	0	0	0	0	0	0	Stour	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Avon	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Stour	Stour	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	Merthyr	0	0	0	0	0	Avon	Avon	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Stour	Harwich	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Avon	0	0	0	0	0	Oxford	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Avon	Avon	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Avon	0	0	0	0	0	0	0	0	0	0	0	Thames	Thames	0	London	London	London	0	Thames	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	Cardiff	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Thames	Thames	0	0	London	London	London	0	0	Thames	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Bristol	0	0	0	0	0	0	Thames	Newbury	Thames	Thames	0	0	0	0	0	London	0	0	0	0	0	Chatham	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Thames	0	0	0	0	0	0	0	0	0	0	Tunbridge Wells	0	0	0	0	Canterbury	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Horsham	0	0	0	0	0	0	0	0	0	0	0	Dover	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	Taunton	0	0	0	0	0	0	0	0	0	0	Winchester	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Hastings	0	0	0	0	0	0	0	Calais	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Portsmouth	0	0	0	0	Newhaven	0	0	0	0	0	0	0	0	0	0	0	0	Boulogne	0	0	0
+0	0	0	0	0	0	Okehampton	0	0	Exeter	0	0	0	0	0	0	0	0	0	0	Bournemouth	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	Tamar	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	Tamar	Tamar	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Plymouth	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Dieppe	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Cherbourg	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Le Havre	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 																																														
 # map layer 1 – roads																																														
 terrain_id	r																																													

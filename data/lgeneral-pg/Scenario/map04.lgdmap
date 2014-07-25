@@ -30,32 +30,32 @@ c129	c129	c129	c129	c129	c129	c74	c129	c139	c139	c129	c130	c130	c47	c129	f145	f1
 c129	c129	c129	c129	c129	c129	c59	c129	c129	c129	c129	c129	c129	c74	c129	c129	f137	f147	R63	c129	c129	c129	c129	c139	c129	c129	c129	c129	c129	c129	c129	c129	c129	c129	R72	c129	c129	f138	f147	f135	~141	f145	f135	f137	f147	F180	f137	f147
 																																															
 # map names																																															
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escout	x	x	x	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	Meuse	Roer	Roer	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Ostend	x	x	x	x	x	x	Escout	x	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	Roer	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Escout	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Dunkirk	x	x	x	x	x	x	x	x	x	Escout	Escout	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
-x	x	x	x	x	x	Calais	x	Leie	Leie	x	x	x	x	x	x	x	x	x	Leie	x	Escout	Ghent	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	Roer	x	x	x
-x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	x	x	Leie	Leie	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	Roer	Roer	x	x
-x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	x	Leie	x	x	Escout	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	Roer	x	x
-x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	Ypres	x	x	Leie	Leie	x	x	Escout	x	x	x	x	x	x	Brussels	x	x	x	x	x	x	x	x	x	Mastricht	Meuse	x	x	x	x	x	x	Roer	x
-x	x	x	x	Boulogne	x	x	x	x	x	Leie	x	x	x	x	Leie	Leie	x	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	Roer	Roer
-x	x	x	x	x	x	x	x	x	x	Leie	Leie	Leie	Leie	Leie	x	x	Lille	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	Aachen	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	Leie	x	x	x	x	x	x	x	Escout	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Liege	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Namur	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Charleroi	x	Meuse	Meuse	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	Arras	x	x	x	x	x	x	x	x	x	Maubeuge	Sambre	Sambre	Sambre	x	Sambre	Sambre	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	Somme	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	Sambre	x	x	x	Sambre	Sambre	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	St. Valery	Somme	Abbeville	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	Sambre	x	x	x	x	x	Sambre	x	x	x	Meuse	Givet	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	Somme	Somme	x	x	x	x	x	x	x	x	x	x	x	St. Quentin	x	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	Somme	Somme	Amiens	Somme	x	Somme	Somme	Somme	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Somme	x	Somme	x	x	x	Somme	x	x	x	Sambre	x	x	x	x	Hirshon	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	Bittem	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	x	x	Sambre	Sambre	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Noyon	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Somme	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Sedan	x	x	x	x	x	x	x	x	Luxembourg	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	Meuse	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sambre	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Meuse	x	x	x	x	x	x	x	x	x	x	x	x	x
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Escout	0	0	0	0	0	Escout	Escout	0	0	0	0	0	0	0	0	0	0	Meuse	Roer	Roer	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Ostend	0	0	0	0	0	0	Escout	0	0	0	Escout	Escout	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	Roer	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Escout	0	Escout	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	Roer	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Dunkirk	0	0	0	0	0	0	0	0	0	Escout	Escout	Escout	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	Roer	0	0	0
+0	0	0	0	0	0	Calais	0	Leie	Leie	0	0	0	0	0	0	0	0	0	Leie	0	Escout	Ghent	0	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	Roer	0	0	0
+0	0	0	0	0	0	0	0	0	Leie	0	0	0	0	0	0	0	0	0	Leie	Leie	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	Meuse	0	0	0	Roer	Roer	0	0
+0	0	0	0	0	0	0	0	0	Leie	0	0	0	0	0	0	0	0	Leie	0	0	Escout	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	Roer	0	0
+0	0	0	0	0	0	0	0	0	Leie	0	0	0	0	Ypres	0	0	Leie	Leie	0	0	Escout	0	0	0	0	0	0	Brussels	0	0	0	0	0	0	0	0	0	Mastricht	Meuse	0	0	0	0	0	0	Roer	0
+0	0	0	0	Boulogne	0	0	0	0	0	Leie	0	0	0	0	Leie	Leie	0	0	0	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	Roer	Roer
+0	0	0	0	0	0	0	0	0	0	Leie	Leie	Leie	Leie	Leie	0	0	Lille	0	0	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	Aachen	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	Leie	0	0	0	0	0	0	0	Escout	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	Liege	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	Meuse	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Namur	0	Meuse	Meuse	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Charleroi	0	Meuse	Meuse	Meuse	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	Arras	0	0	0	0	0	0	0	0	0	Maubeuge	Sambre	Sambre	Sambre	0	Sambre	Sambre	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	Somme	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sambre	Sambre	0	0	0	Sambre	Sambre	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	St. Valery	Somme	Abbeville	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sambre	Sambre	0	0	0	0	0	Sambre	0	0	0	Meuse	Givet	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Somme	Somme	0	0	0	0	0	0	0	0	0	0	0	St. Quentin	0	Sambre	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	Somme	Somme	Amiens	Somme	0	Somme	Somme	Somme	0	0	0	0	0	Sambre	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Somme	0	Somme	0	0	0	Somme	0	0	0	Sambre	0	0	0	0	Hirshon	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	Bittem	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	0	0	Sambre	Sambre	0	0	0	0	0	0	0	0	0	0	Meuse	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	Noyon	Sambre	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	Somme	Sambre	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	Sedan	0	0	0	0	0	0	0	0	Luxembourg	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sambre	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	Meuse	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sambre	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sambre	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Meuse	0	0	0	0	0	0	0	0	0	0	0	0	0
 																																															
 # map layer 1 – roads																																															
 terrain_id	r																																														

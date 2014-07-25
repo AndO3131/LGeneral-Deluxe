@@ -368,7 +368,7 @@ int map_load_lgdmap( char *fname, char *path )
             /* map names */
             for ( x = 0; x < token; x++ )
             {
-                if ( tokens[x][0] != 'x' )
+                if ( tokens[x][0] != '0' )
                 {
                     free( map[x][cur_map_h].name );
                     map[x][cur_map_h].name = strdup( tokens[x] );

@@ -52,54 +52,54 @@ c129	c129	c129	c129	c129	c139	c130	c129	c59	c139	c129	c130	c129	c129	c139	c139	c
 c129	c129	c129	c129	c129	~132	~141	~143	c69	c130	c130	c139	c130	c130	c130	c129	c129	c129	c129	c129	c129	c129	c129	c129	c129	c129	c139	c139	c129	c139	c130	c129	c130	c129	c130	c130	c139	c129	c139	c130	c130	~143	c130	c139	f136	c139	c129	R62	c139
 																																																
 # map names																																																
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Abbeville	x	x	x	x	x	x	x	x	x	x	Ham	x	Somme	Somme	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Somme	x	x	x	x	x	Somme	Somme	Somme	x	Somme	Somme	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	Somme	Somme	Amiens	x	Somme	x	x	Somme	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Somme	x	Somme	Somme	Somme	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Reims	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Dieppe	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Chalons	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Beauvais	x	x	x	x	x	x	x	x	x	x	Thierry	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Le Havre	x	x	x	x	x	x	x	Rouen	x	x	x	Seine	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	Seine	x	x	x	Seine	Seine	Seine	x	Seine	Seine	x	Seine	Seine	x	x	x	Seine	x	Paris	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Seine	Seine	x	Seine	Seine	Seine	x	x	x	Seine	x	x	x	x	Mantes	Seine	Seine	Seine	x	Seine	Seine	Seine	Seine	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Seine	x	x	x	x	x	Seine	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Seine	x	x	x	x	x	x	x	x	x	Troyes	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Seine	Seine	x	Seine	Seine	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Seine	x	Seine	Seine	x	x	x	x	x	x	x	x	x
-x	x	x	Bocage	x	x	x	x	Caen	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Seine	x	x	x	x	x	x	x	x	x
-x	x	x	Bocage	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Chartres	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	x	x	Bocage	x	x	x	x	Argentan	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Montargis	x	x	x	x	x	x	x	x	x	x
-x	x	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	x	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	Bocage	Bocage	Bocage	x	Bocage	x	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	Bocage	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Orleans	x	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	Bocage	x	Bocage	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Le Mans	x	x	x	x	x	x	x	x	x	x	x	Loire	x	Loire	x	x	x	x	Loire	Loire	x	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	Laval	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	Loire	x	x	x	x	x	x	Loire	Loire	Loire	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	Loire	x	x	x	x	x	x	x	x	Loire	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	Loire	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Tours	x	Vienne	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x	Loire	Loire	Vienne	Vienne	Vienne	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	Angers	Loire	x	Loire	x	Loire	Loire	Loire	x	Loire	Loire	x	Vienne	x	x	x	Vienne	x	Vienne	Vienne	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	Loire	Loire	x	Loire	Loire	x	x	Loire	x	x	x	x	x	x	x	Vienne	Vienne	Vienne	x	Vienne	Vienne	x	Vienne	Vienne	x	x	x	x	Loire	Loire	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x	x	x	x	x	Saumur	x	x	x	x	x	x	x	x	x	x	x	x	x	Vienne	Vienne	x	Vienne	Vienne	x	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Loire	Loire	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Vienne	x	Bourges	x	Vienne	x	x	Loire	x	x	x	x	x	x	x
-x	x	x	x	x	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Vienne	x	x	x	Loire	x	x	x	x	x	x
-x	x	x	Loire	Loire	Loire	Loire	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Chateauroux	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x	x	x	x	x
-x	Loire	Loire	x	x	x	x	x	x	x	x	Cholet	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Nevers	Loire	x	x	x	x	x
-Loire	x	x	Nantes	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	Loire	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Vichy	Loire	Loire
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Loire	x
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	Abbeville	0	0	0	0	0	0	0	0	0	0	Ham	0	Somme	Somme	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	Somme	0	0	0	0	0	Somme	Somme	Somme	0	Somme	Somme	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	Somme	Somme	Amiens	0	Somme	0	0	Somme	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Somme	0	Somme	Somme	Somme	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Reims	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Dieppe	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Chalons	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Beauvais	0	0	0	0	0	0	0	0	0	0	Thierry	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Le Havre	0	0	0	0	0	0	0	Rouen	0	0	0	Seine	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	Seine	0	0	0	Seine	Seine	Seine	0	Seine	Seine	0	Seine	Seine	0	0	0	Seine	0	Paris	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Seine	Seine	0	Seine	Seine	Seine	0	0	0	Seine	0	0	0	0	Mantes	Seine	Seine	Seine	0	Seine	Seine	Seine	Seine	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Seine	0	0	0	0	0	Seine	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Seine	0	0	0	0	0	0	0	0	0	Troyes	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Seine	Seine	0	Seine	Seine	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Seine	0	Seine	Seine	0	0	0	0	0	0	0	0	0
+0	0	0	Bocage	0	0	0	0	Caen	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Seine	0	0	0	0	0	0	0	0	0
+0	0	0	Bocage	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Chartres	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	0	0	Bocage	0	0	0	0	Argentan	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Montargis	0	0	0	0	0	0	0	0	0	0
+0	0	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	Bocage	0	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	Bocage	Bocage	Bocage	0	Bocage	0	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Bocage	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Orleans	0	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Bocage	0	Bocage	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Le Mans	0	0	0	0	0	0	0	0	0	0	0	Loire	0	Loire	0	0	0	0	Loire	Loire	0	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	Laval	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	Loire	0	0	0	0	0	0	Loire	Loire	Loire	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	Loire	0	0	0	0	0	0	0	0	Loire	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	Loire	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Tours	0	Vienne	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0	Loire	Loire	Vienne	Vienne	Vienne	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	Angers	Loire	0	Loire	0	Loire	Loire	Loire	0	Loire	Loire	0	Vienne	0	0	0	Vienne	0	Vienne	Vienne	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	Loire	Loire	0	Loire	Loire	0	0	Loire	0	0	0	0	0	0	0	Vienne	Vienne	Vienne	0	Vienne	Vienne	0	Vienne	Vienne	0	0	0	0	Loire	Loire	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0	0	0	0	0	Saumur	0	0	0	0	0	0	0	0	0	0	0	0	0	Vienne	Vienne	0	Vienne	Vienne	0	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Loire	Loire	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Vienne	0	Bourges	0	Vienne	0	0	Loire	0	0	0	0	0	0	0
+0	0	0	0	0	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Vienne	0	0	0	Loire	0	0	0	0	0	0
+0	0	0	Loire	Loire	Loire	Loire	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Chateauroux	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0	0	0	0	0
+0	Loire	Loire	0	0	0	0	0	0	0	0	Cholet	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Nevers	Loire	0	0	0	0	0
+Loire	0	0	Nantes	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	Loire	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Vichy	Loire	Loire
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Loire	0
 																																																
 # map layer 1 – roads																																																
 terrain_id	r																																															

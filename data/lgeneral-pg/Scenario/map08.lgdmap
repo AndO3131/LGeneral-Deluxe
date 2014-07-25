@@ -37,39 +37,39 @@ d235	d235	d234	d234	d236	d235	d236	d235	d234	d190	~141	d194	d194	d194	~141	d195	
 d233	d234	d236	d235	d233	d236	d233	d234	d236	d235	d186	d236	d234	d233	d183	d234	d233	d236	d233	d236	d235	d234	d236	d233	d235	d234	d236	d233	d235	d234	d236	d233	d235	d236	d234	d233	d236	d235	d233	d234	d235	d234	d235	d233	d236	d235	d234	d236	d233	d236	d235	d233	d233	d236	d233	d235	d234	d233	d236	d234	d186	d194	o13	o73	o73	o73	o73	o73	o73
 																																																																				
 # map names																																																																				
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	Euphrates River	x	x	x	x	x	x	x	x	Lake	Lake	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	x	Lake	Lake	Lake	x	x	Samarra	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	Lake	Lake	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	An Nabk	x	x	x	x	x	x	x	x	x	x	x	x	x	Anah	Euphrates River	x	x	Euphrates River	Euphrates River	x	x	Lake	Lake	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	Euphrates River	x	Euphrates River	Euphrates River	Lake	Euphrates River	x	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Bierut	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Hit	x	Euphrates River	x	Euphrates River	Euphrates River	x	x	Al Kazimayah	Tigris River	Baghdad	Baghdad	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	Bierut	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	x	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	Damascus	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	x	x	x	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	Damascus	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	x	x	Euphrates River	Euphrates River	x	x	x	x	Tigris River	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	Lake	x	x	x	Euphrates River	x	x	x	x	x	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	Lake	x	x	x	Euphrates River	x	x	x	x	x	x	x	x	Tigris River	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	x	x	x	Al Maffraq	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	Lake	x	x	x	Euphrates River	x	x	x	x	x	x	x	x	x	Tigris River	Tigris River	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	Lake	x	x	x	Euphrates River	x	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	Haifa	x	x	x	x	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Lake	Lake	x	x	Karbala	Euphrates River	Euphrates River	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	x	Euphrates River	Euphrates River	x	x	Al Hillah	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	x	x	Tigris River	Tigris River	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	An Najaf	x	Euphrates River	x	x	x	Euphrates River	Euphrates River	x	Euphrates River	Tigris River	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Jerusalem	Jordan River	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Kaf	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	Euphrates River	x	Euphrates River	x	Tigris River	x	x	x	x	x	x	Ahvaz	x
-x	x	x	x	x	x	x	x	x	x	Jerusalem	Jordan River	x	x	Amman	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	x	Euphrates River	Euphrates River	x	x	x	Tigris River	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	Dead Sea	Dead Sea	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Euphrates River	Euphrates River	x	x	x	Basra	Tigris River	Tigris River	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	Dead Sea	Dead Sea	Dead Sea	Dead Sea	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	Abadan	x	x	x	x
-x	x	x	x	x	x	x	x	x	Dead Sea	Dead Sea	Dead Sea	Dead Sea	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Tigris River	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Dead Sea	Dead Sea	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	Dead Sea	Dead Sea	x	x	x	Karak	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	German Camp	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Sakakah	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	Italian Camp	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	Al Kuwait	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
-x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x	x
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	Euphrates River	0	0	0	0	0	0	0	0	Lake	Lake	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	0	Lake	Lake	Lake	0	0	Samarra	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	Lake	Lake	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	An Nabk	0	0	0	0	0	0	0	0	0	0	0	0	0	Anah	Euphrates River	0	0	Euphrates River	Euphrates River	0	0	Lake	Lake	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	Euphrates River	0	Euphrates River	Euphrates River	Lake	Euphrates River	0	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Bierut	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Hit	0	Euphrates River	0	Euphrates River	Euphrates River	0	0	Al Kazimayah	Tigris River	Baghdad	Baghdad	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	Bierut	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	0	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	Damascus	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	0	0	0	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	Damascus	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	0	0	Euphrates River	Euphrates River	0	0	0	0	Tigris River	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	Lake	0	0	0	Euphrates River	0	0	0	0	0	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	Lake	0	0	0	Euphrates River	0	0	0	0	0	0	0	0	Tigris River	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	0	0	0	Al Maffraq	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	Lake	0	0	0	Euphrates River	0	0	0	0	0	0	0	0	0	Tigris River	Tigris River	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	Lake	0	0	0	Euphrates River	0	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Haifa	0	0	0	0	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Lake	Lake	0	0	Karbala	Euphrates River	Euphrates River	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	0	Euphrates River	Euphrates River	0	0	Al Hillah	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	0	0	Tigris River	Tigris River	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	An Najaf	0	Euphrates River	0	0	0	Euphrates River	Euphrates River	0	Euphrates River	Tigris River	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Jerusalem	Jordan River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Kaf	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	Euphrates River	0	Euphrates River	0	Tigris River	0	0	0	0	0	0	Ahvaz	0
+0	0	0	0	0	0	0	0	0	0	Jerusalem	Jordan River	0	0	Amman	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	0	Euphrates River	Euphrates River	0	0	0	Tigris River	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	Dead Sea	Dead Sea	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Euphrates River	Euphrates River	0	0	0	Basra	Tigris River	Tigris River	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	Dead Sea	Dead Sea	Dead Sea	Dead Sea	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	Abadan	0	0	0	0
+0	0	0	0	0	0	0	0	0	Dead Sea	Dead Sea	Dead Sea	Dead Sea	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Tigris River	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Dead Sea	Dead Sea	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	Dead Sea	Dead Sea	0	0	0	Karak	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	German Camp	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Sakakah	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	Italian Camp	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Al Kuwait	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 																																																																				
 # map layer 1 – roads																																																																				
 terrain_id	r																																																																			
