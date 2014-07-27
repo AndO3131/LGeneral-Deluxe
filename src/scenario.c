@@ -270,7 +270,7 @@ void update_nations_purchase_flag()
 
 /*
 ====================================================================
-Load a scenario in LGD format.
+Load a scenario in old lgscn format.
 ====================================================================
 */
 int scen_load_lgscn( const char *fname, const char *path )
@@ -843,7 +843,633 @@ failure:
 
 /*
 ====================================================================
-Load a scenario description in LGD format.
+Load a scenario in new lgdscn format.
+====================================================================
+*/
+int scen_load_lgdscn( const char *fname, const char *path )
+{
+    char log_str[256];
+    int unit_ref = 0;
+    int i, j, x, y;
+    Nation *nation;
+    Unit_Lib_Entry *unit_prop = 0, *trsp_prop = 0, *land_trsp_prop = 0;
+    Unit *unit;
+    Unit unit_base; /* used to store values for unit */
+    int unit_delayed = 0;
+
+    FILE *inf;
+    char line[1024],tokens[20][256];
+    int block=0,last_line_length=-1,cursor=0,token=0;
+    int utf16 = 0, lines=0, cur_player_count = 0, cur_flag = 0, cur_vic_cond = 0, cur_unit = 0, auxiliary_units_count = 0;
+	vcond_count = -1;
+
+    scen_delete();
+    /* reset vic conds may not be done in scen_delete() as this is called
+       before the check */
+    scen_result[0] = 0;
+    scen_message[0] = 0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open scenario file\n");
+        return 0;
+    }
+
+    free(scen_domain);
+    SDL_FillRect( sdl.screen, 0, 0x0 );
+    log_font->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+    log_x = 2; log_y = 2;
+    sprintf( log_str, tr("*** Loading scenario '%s' ***"), fname );
+    write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+
+    scen_info = calloc( 1, sizeof( Scen_Info ) );
+    scen_info->fname = strdup( fname );
+    scen_info->mod_name = strdup( config.mod_name );
+    scen_info->player_count = 0;
+
+    //find number of players
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        if (block == 2 && strlen(line)>0)
+        {
+            scen_info->player_count++;
+        }
+
+        if (block == 7 && strlen(line)>0)
+        {
+            vcond_count++;
+        }
+
+        if (block == 8)
+        {
+            fclose(inf);
+            break;
+        }
+    }
+    vconds = calloc( vcond_count, sizeof( VCond ) );
+
+    block=0;last_line_length=-1;cursor=0;token=0;lines=0;
+    inf=fopen(path,"rb");
+
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                if ( line[i + 1] != 0x09 )
+                {
+                    token++;
+                    cursor=0;
+                }
+                else
+                    break;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+
+        //Block#1 general scenario data
+        if (block == 1 && strlen(line)>0)
+        {
+            if ( strcmp( tokens[0], "name" ) == 0 )
+                scen_info->name = strdup( tokens[1] );
+            if ( strcmp( tokens[0], "desc" ) == 0 )
+                scen_info->desc = strdup( tokens[1] );
+            if ( strcmp( tokens[0], "turns" ) == 0 )
+                scen_info->turn_limit = atoi( tokens[1] );
+            if ( strcmp( tokens[0], "authors" ) == 0 )
+                scen_info->authors = strdup( tokens[1] );
+            if (strcmp(tokens[0],"year")==0)
+                scen_info->start_date.year=atoi(tokens[1]);
+            if (strcmp(tokens[0],"month")==0)
+                scen_info->start_date.month=atoi(tokens[1]) - 1;
+            if (strcmp(tokens[0],"day")==0)
+                scen_info->start_date.day=atoi(tokens[1]);
+            if (strcmp(tokens[0],"turns_per_day")==0)
+                scen_info->turns_per_day = atoi( tokens[1] );
+            if (strcmp(tokens[0],"days_per_turn")==0)
+                scen_info->days_per_turn = atoi( tokens[1] );;
+
+            if ( strcmp( tokens[0], "nation_db" ) == 0 )
+            {
+                /* nations */
+                sprintf( log_str, tr("Loading Nations") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !nations_load( tokens[1] ) ) goto failure;
+            }
+
+            if ( strcmp( tokens[0], "unit_db" ) == 0 )
+            {
+                /* unit lib */
+                sprintf( log_str, tr("Loading Main Unit Library '%s'"), tokens[1] );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !unit_lib_load( tokens[1], UNIT_LIB_MAIN ) )
+                    return 0;
+            }
+
+            if ( strcmp( tokens[0], "map file" ) == 0 )
+            {
+                /* map */
+                sprintf( log_str, tr("Loading Map '%s'"), tokens[1] );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                if ( !map_load( tokens[1] ) ) goto failure;
+            }
+
+            if ( strcmp( tokens[0], "weather_zone" ) == 0 )
+            {
+                scen_info->weather_zone = atoi( tokens[1] );
+            }
+
+            if ( strcmp( tokens[0], "weather" ) == 0 )
+            {
+                /* weather */
+                weather = calloc( scen_info->turn_limit, sizeof( int ) );
+                if ( config.weather == OPTION_WEATHER_OFF )
+                    for ( i = 0; i < scen_info->turn_limit; i++ )
+                        weather[i] = 0;
+                else
+                {
+                    if ( config.weather == OPTION_WEATHER_PREDETERMINED )
+                    {
+                        for ( i = 1; i <= token; i++ )
+                        {
+                            if ( i - 1 == scen_info->turn_limit ) break;
+                            for ( j = 0; j < weather_type_count; j++ )
+                                if ( strcmp( tokens[i], weather_types[j].id ) == 0 ) {
+                                    weather[i - 1] = j;
+                                    break;
+                                }
+                        }
+                    }
+                    else
+                    {
+                        int water_level, start_weather;
+                        for ( j = 0; j < weather_type_count; j++ )
+                        {
+                            if ( strcmp( tokens[1], weather_types[j].id ) == 0 )
+                            {
+                                start_weather = j;
+                                break;
+                            }
+                        }
+                        if ( j > 3 )
+                            water_level = 5;
+                        else
+                            water_level = 0;
+                        scen_create_random_weather( water_level, start_weather );
+                    }
+                }
+            }
+        }
+
+        //Block#2 players
+        if (block == 2 && strlen(line)>0)
+        {
+            Player *pl;
+            if ( cur_player_count == 0 )
+            {
+                sprintf( log_str, tr("Loading Players") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+            }
+            /* create player */
+            pl = calloc( 1, sizeof( Player ) );
+
+            pl->id = strdup( tokens[0] );
+            pl->name = strdup( tokens[1] );
+
+            /* unit limit (0 = no limit) */
+            pl->unit_limit = atoi( tokens[2] );
+
+            if ((camp_loaded != NO_CAMPAIGN) && config.use_core_units)
+            {
+                pl->core_limit = atoi( tokens[3] );
+            }
+            else
+                pl->core_limit = -1;
+
+            if ( strcmp( tokens[4], "right" ) == 0 ) /* alldirs not implemented yet */
+                pl->orient = UNIT_ORIENT_RIGHT;
+            else
+                pl->orient = UNIT_ORIENT_LEFT;
+
+            if ( strcmp( tokens[5], "cpu" ) == 0 )
+            {
+                pl->ctrl = PLAYER_CTRL_CPU;
+                pl->core_limit = -1;
+            }
+            else
+                pl->ctrl = PLAYER_CTRL_HUMAN;
+
+            pl->ai_fname = strdup( "default" );
+            pl->strat = atoi( tokens[6] );
+            pl->strength_row = atoi( tokens[7] );
+
+            pl->air_trsp = unit_lib_find( tokens[8] );
+            pl->air_trsp_count = atoi( tokens[9] );
+            pl->sea_trsp = unit_lib_find( tokens[10] );
+            pl->sea_trsp_count = atoi( tokens[11] );
+
+            player_add( pl );
+            cur_player_count++;
+        }
+
+        //Block#3 allied players
+        if (block == 3 && strlen(line)>0)
+        {
+            Player *pl;
+            pl = player_get_by_id( tokens[0] );
+            pl->allies = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
+            for ( i = 1; i <= token; i++ )
+                list_add( pl->allies, player_get_by_id( tokens[i] ) );
+        }
+
+        //Block#4 prestige allocation
+        if (block == 4 && strlen(line)>0)
+        {
+            Player *pl;
+            pl = player_get_by_id( tokens[0] );
+			pl->prestige_per_turn = calloc( scen_info->turn_limit, sizeof(int));
+			if (!pl->prestige_per_turn) {
+				fprintf( stderr, tr("Out of memory\n") );
+				goto failure;
+			}
+			for ( i = 1; i <= token; i++ ) {
+				pl->prestige_per_turn[i - 1] = atoi( tokens[i] );
+			}
+			pl->cur_prestige = 0; /* will be adjusted on turn begin */
+
+			pl->uber_units = 0;
+            pl->force_retreat = 0;
+        }
+
+        //Block#5 player nations
+        if (block == 5 && strlen(line)>0)
+        {
+            Player *pl;
+            pl = player_get_by_id( tokens[0] );
+            pl->nation_count = token;
+            pl->nations = calloc( pl->nation_count, sizeof( Nation* ) );
+            for ( i = 1; i <= token; i++ )
+                pl->nations[i - 1] = nation_find( tokens[i] );
+       }
+
+        //Block#6 flags
+        if (block == 6 && strlen(line)>0)
+        {
+            if ( cur_flag == 0 )
+            {
+                sprintf( log_str, tr("Loading Flags") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+            }
+            x = atoi( tokens[0] );
+            y = atoi( tokens[1] );
+            nation = nation_find( tokens[2] );
+            map[x][y].nation = nation;
+            map[x][y].player = player_get_by_nation( nation );
+            if ( map[x][y].nation )
+                map[x][y].deploy_center = 1;
+            map[x][y].obj = atoi( tokens[3] );
+            cur_flag++;
+        }
+
+        //Block#7 victory conditions
+        if (block == 7 && strlen(line)>0)
+        {
+            if ( strcmp( tokens[0], "vcond_check_type" ) == 0 )
+            {
+                sprintf( log_str, tr("Loading Victory Conditions") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                /* check type */
+                vcond_check_type = VCOND_CHECK_EVERY_TURN;
+                if ( strcmp( tokens[1], "last_turn" ) == 0 )
+                    vcond_check_type = VCOND_CHECK_LAST_TURN;
+            }
+            else
+            {
+                /* result & message */
+                strcpy_lt( vconds[cur_vic_cond].result, tokens[0], 63 );
+                strcpy_lt( vconds[cur_vic_cond].message, tokens[1], 127 );
+                /* and linkage */
+                if ( strcmp( tokens[2], "and" ) == 0 )
+                {
+                    vconds[cur_vic_cond].sub_and_count = (int)token / 6;
+                    /* create subconditions */
+                    vconds[cur_vic_cond].subconds_and = calloc( vconds[cur_vic_cond].sub_and_count, sizeof( VSubCond ) );
+                    for ( j = 0; j < vconds[cur_vic_cond].sub_and_count; j++ ) {
+                        /* get subconds */
+                        if ( strcmp( tokens[3 + j * 6], "control_all_hexes" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_CTRL_ALL_HEXES;
+                            vconds[cur_vic_cond].subconds_and[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "control_hex" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_CTRL_HEX;
+                            vconds[cur_vic_cond].subconds_and[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            vconds[cur_vic_cond].subconds_and[j].x = atoi( tokens[3 + 2 + j * 6] );
+                            vconds[cur_vic_cond].subconds_and[j].y = atoi( tokens[3 + 3 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "turns_left" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_TURNS_LEFT;
+                            vconds[cur_vic_cond].subconds_and[j].count = atoi( tokens[3 + 4 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "control_hex_num" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_CTRL_HEX_NUM;
+                            vconds[cur_vic_cond].subconds_and[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            vconds[cur_vic_cond].subconds_and[j].count = atoi( tokens[3 + 4 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "units_killed" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_UNITS_KILLED;
+                            vconds[cur_vic_cond].subconds_and[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            strcpy_lt( vconds[cur_vic_cond].subconds_and[j].tag, tokens[3 + 5 + j * 6], 31 );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "units_saved" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_and[j].type = VSUBCOND_UNITS_SAVED;
+                            vconds[cur_vic_cond].subconds_and[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            strcpy_lt( vconds[cur_vic_cond].subconds_and[j].tag, tokens[3 + 5 + j * 6], 31 );
+                            vconds[cur_vic_cond].subconds_and[j].count = 0; /* units will be counted */
+                        }
+                    }
+                }
+                /* or linkage */
+                if ( strcmp( tokens[2], "or" ) == 0 )
+                {
+                    vconds[cur_vic_cond].sub_or_count = (int)token / 6;
+                    /* create subconditions */
+                    vconds[cur_vic_cond].subconds_or = calloc( vconds[cur_vic_cond].sub_or_count, sizeof( VSubCond ) );
+                    for ( j = 0; j < vconds[cur_vic_cond].sub_or_count; j++ ) {
+                        /* get subconds */
+                        if ( strcmp( tokens[3 + j * 6], "control_all_hexes" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_CTRL_ALL_HEXES;
+                            vconds[cur_vic_cond].subconds_or[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "control_hex" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_CTRL_HEX;
+                            vconds[cur_vic_cond].subconds_or[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            vconds[cur_vic_cond].subconds_or[j].x = atoi( tokens[3 + 2 + j * 6] );
+                            vconds[cur_vic_cond].subconds_or[j].y = atoi( tokens[3 + 3 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "turns_left" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_TURNS_LEFT;
+                            vconds[cur_vic_cond].subconds_or[j].count = atoi( tokens[3 + 4 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "control_hex_num" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_CTRL_HEX_NUM;
+                            vconds[cur_vic_cond].subconds_or[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            vconds[cur_vic_cond].subconds_or[j].count = atoi( tokens[3 + 4 + j * 6] );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "units_killed" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_UNITS_KILLED;
+                            vconds[cur_vic_cond].subconds_or[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            strcpy_lt( vconds[cur_vic_cond].subconds_or[j].tag, tokens[3 + 5 + j * 6], 31 );
+                        }
+                        else
+                        if ( strcmp( tokens[3 + j * 6], "units_saved" ) == 0 ) {
+                            vconds[cur_vic_cond].subconds_or[j].type = VSUBCOND_UNITS_SAVED;
+                            vconds[cur_vic_cond].subconds_or[j].player = player_get_by_id( tokens[3 + 1 + j * 6] );
+                            strcpy_lt( vconds[cur_vic_cond].subconds_or[j].tag, tokens[3 + 5 + j * 6], 31 );
+                            vconds[cur_vic_cond].subconds_or[j].count = 0; /* units will be counted */
+                        }
+                    }
+                }
+                cur_vic_cond++;
+            }
+        }
+
+        //Block#8 deployment hexes
+        if (block == 8 && strlen(line)>0)
+        {
+            Player *pl;
+            int plidx;
+            pl = player_get_by_id( tokens[0] );
+            plidx = player_get_index( pl );
+            for ( i = 1; i <= token / 2; i+=2 )
+            {
+                if ( strcmp(tokens[i], "default") == 0)
+                {
+                    x=-1;
+                    y=-1;
+                }
+                else if ( strcmp(tokens[i], "none") == 0 )
+                {
+                    pl->no_init_deploy = 1;
+                    continue;
+                }
+                else
+                {
+                    x = atoi( tokens[i] );
+                    y = atoi( tokens[i + 1] );
+                }
+                map_set_deploy_field( x, y, plidx );
+            }
+        }
+
+        //Block#9 units
+        if (block == 9 && strlen(line)>0)
+        {
+            if ( cur_unit == 0 )
+            {
+                sprintf( log_str, tr("Loading Units") );
+                write_line( sdl.screen, log_font, log_str, log_x, &log_y ); refresh_screen( 0, 0, 0, 0 );
+                units = list_create( LIST_AUTO_DELETE, unit_delete );
+
+                /* load core units from earlier scenario or create reinf list - unit status is checked elsewhere */
+                if (camp_loaded > 1 && config.use_core_units)
+                {
+                    Unit *entry;
+                    list_reset( reinf );
+                    while ( ( entry = list_next( reinf ) ) )
+                        if ( (camp_loaded == CONTINUE_CAMPAIGN) || ((camp_loaded == RESTART_CAMPAIGN) && entry->core == STARTING_CORE) )
+                        {
+                            if ( ( entry->nation = nation_find_by_id( entry->prop.nation ) ) == 0 ) {
+                                fprintf( stderr, tr("%d: not a nation\n"), entry->prop.nation );
+                                goto failure;
+                            }
+                            if ( ( entry->player = player_get_by_nation( entry->nation ) ) == 0 ) {
+                                fprintf( stderr, tr("%s: no player controls this nation\n"), entry->nation->name );
+                                goto failure;
+                            }
+                            entry->orient = entry->player->orient;
+                            entry->core = STARTING_CORE;
+                            unit_reset_attributes(entry);
+                            if (camp_loaded != NO_CAMPAIGN)
+                            {
+                                unit = unit_duplicate( entry,0 );
+                                unit->killed = 2;
+                                /* put unit to available units list */
+                                list_add( units, unit );
+                            }
+                            entry->core = CORE;
+                        }
+                }
+                else
+                    reinf = list_create( LIST_AUTO_DELETE, unit_delete );
+                avail_units = list_create( LIST_AUTO_DELETE, unit_delete );
+                vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
+            }
+            /* unit type */
+            if ( ( unit_prop = unit_lib_find( tokens[0] ) ) == 0 ) {
+                fprintf( stderr, tr("%s: unit entry not found\n"), tokens[0] );
+                goto failure;
+            }
+            memset( &unit_base, 0, sizeof( Unit ) );
+            /* nation & player */
+            if ( ( unit_base.nation = nation_find( tokens[1] ) ) == 0 ) {
+                fprintf( stderr, tr("%s: not a nation\n"), tokens[1] );
+                goto failure;
+            }
+            if ( ( unit_base.player = player_get_by_nation( unit_base.nation ) ) == 0 ) {
+                fprintf( stderr, tr("%s: no player controls this nation\n"), unit_base.nation->name );
+                goto failure;
+            }
+            /* name */
+            unit_set_generic_name( &unit_base, unit_ref + 1, unit_prop->name );
+            /* delay */
+            unit_base.delay = 0;
+            /* position */
+            unit_base.x = atoi( tokens[2] );
+            unit_base.y = atoi( tokens[3] );
+            if ( !unit_delayed && ( unit_base.x <= 0 || unit_base.y <= 0 || unit_base.x >= map_w - 1 || unit_base.y >= map_h - 1 ) ) {
+                fprintf( stderr, tr("%s: out of map: ignored\n"), unit_base.name );
+                continue;  
+            }
+            /* strength, entrenchment, experience */
+            unit_base.str = atoi( tokens[4] );
+            if (unit_base.str > 10 )
+                unit_base.max_str = 10;
+            else
+                unit_base.max_str = unit_base.str;
+            unit_base.entr = atoi( tokens[5] );
+            unit_base.exp_level = atoi( tokens[6] );
+            /* transporter */
+            trsp_prop = 0;
+            if ( strcmp( tokens[7], "none" ) != 0 )
+                trsp_prop = unit_lib_find( tokens[7] );
+            land_trsp_prop = 0;
+            if ( strcmp( tokens[8], "none" ) != 0 )
+                land_trsp_prop = unit_lib_find( tokens[8] );
+            /* core */
+            unit_base.core = atoi( tokens[9] );
+            if ( !config.use_core_units )
+                unit_base.core = 0;
+            /* orientation */
+            unit_base.orient = unit_base.player->orient;
+            /* tag if set */
+            unit_base.tag[0] = 0;
+            if ( strcmp( tokens[10], "0" ) != 0 )
+            {
+                strcpy_lt( unit_base.tag, tokens[10], 31 );
+                /* check all subconds for UNITS_SAVED and increase the counter
+                   if this unit is allied */
+                for ( i = 1; i < vcond_count; i++ ) {
+                    for ( j = 0; j < vconds[i].sub_and_count; j++ )
+                        if ( vconds[i].subconds_and[j].type == VSUBCOND_UNITS_SAVED )
+                            if ( strcmp( unit_base.tag, vconds[i].subconds_and[j].tag ) == 0 )
+                                vconds[i].subconds_and[j].count++;
+                    for ( j = 0; j < vconds[i].sub_or_count; j++ )
+                        if ( vconds[i].subconds_or[j].type == VSUBCOND_UNITS_SAVED )
+                            if ( strcmp( unit_base.tag, vconds[i].subconds_or[j].tag ) == 0 )
+                                vconds[i].subconds_or[j].count++;
+                }
+            }
+            /* actual unit */
+            if ( !(unit_base.player->ctrl == PLAYER_CTRL_HUMAN && auxiliary_units_count >= 
+                   unit_base.player->unit_limit - unit_base.player->core_limit) ||
+                   ( (camp_loaded != NO_CAMPAIGN) && STRCMP(camp_cur_scen->id, camp_first) && config.use_core_units ) )
+            {
+                unit = unit_create( unit_prop, trsp_prop, land_trsp_prop, &unit_base );
+                /* put unit to active or reinforcements list or available units list */
+                if ( !unit_delayed ) {
+                    list_add( units, unit );
+                    /* add unit to map */
+                    map_insert_unit( unit );
+                }
+            }
+            else if (config.purchase == NO_PURCHASE) /* no fixed reinfs with purchase enabled */
+                list_add( reinf, unit );
+            /* adjust transporter count */
+            if ( unit->embark == EMBARK_SEA ) {
+                unit->player->sea_trsp_count++;
+                unit->player->sea_trsp_used++;
+            }
+            else
+                if ( unit->embark == EMBARK_AIR ) {
+                    unit->player->air_trsp_count++;
+                    unit->player->air_trsp_used++;
+                }
+            unit_ref++;
+            if (unit_base.player->ctrl == PLAYER_CTRL_HUMAN)
+                auxiliary_units_count++;
+            cur_unit++;
+        }
+    }
+
+    fclose(inf);
+    casualties = calloc( scen_info->player_count * unit_class_count, sizeof casualties[0] );
+    deploy_turn = config.deploy_turn;
+
+    /* flip icons if scenario demands it */
+    adjust_fixed_icon_orientation();
+    /* check which nations may do purchase for this scenario */
+    update_nations_purchase_flag();
+    
+    return 1;
+failure:
+    terrain_delete();
+    scen_delete();
+    if ( player ) player_delete( player );
+    return 0;
+}
+
+/*
+====================================================================
+Load a scenario description in old lgscn format.
 ====================================================================
 */
 char* scen_load_lgscn_info( const char *fname, const char *path )
@@ -906,6 +1532,151 @@ failure:
 
 /*
 ====================================================================
+Load a scenario description in new lgdscn format.
+====================================================================
+*/
+char* scen_load_lgdscn_info( const char *fname, const char *path )
+{
+    int i;
+    char *domain = 0;
+    char *name, *desc, *turns, count[4];
+    char *info = 0;
+
+    FILE *inf;
+    char line[1024],tokens[20][256];
+    int block=0,last_line_length=-1,cursor=0,token=0;
+    int utf16 = 0, lines=0, cur_player_count = 0;
+
+    scen_clear_setup();
+    strcpy( setup.fname, fname );
+    strcpy( setup.camp_entry_name, "" );
+    setup.player_count = 0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open scenario file\n");
+        return 0;
+    }
+
+    scen_clear_setup();
+    strcpy( setup.fname, fname );
+    strcpy( setup.camp_entry_name, "" );
+    //find number of players
+    while (load_line(inf,line,utf16)>=0)
+    {
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        if (block == 2 && strlen(line)>0)
+        {
+            setup.player_count++;
+        }
+
+        if (block == 3)
+        {
+            fclose(inf);
+            break;
+        }
+    }
+    setup.ctrl = calloc( setup.player_count, sizeof( int ) );
+    setup.names = calloc( setup.player_count, sizeof( char* ) );
+    setup.modules = calloc( setup.player_count, sizeof( char* ) );
+
+    block=0;last_line_length=-1;cursor=0;token=0;lines=0;
+    inf=fopen(path,"rb");
+
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        if (block == 1 && strlen(line)>0)
+        {
+            if ( strcmp( tokens[0], "name" ) == 0 )
+                name = strdup( tokens[1] );
+            if ( strcmp( tokens[0], "desc" ) == 0 )
+                desc = strdup( tokens[1] );
+            if ( strcmp( tokens[0], "turns" ) == 0 )
+                turns = strdup( tokens[1] );
+        }
+
+        if (block == 2 && strlen(line)>0)
+        {
+            setup.names[cur_player_count] = strdup( tokens[1] );
+            if ( strcmp( tokens[5], "cpu" ) == 0 )
+                setup.ctrl[cur_player_count] = PLAYER_CTRL_CPU;
+            else
+                setup.ctrl[cur_player_count] = PLAYER_CTRL_HUMAN;
+            setup.modules[cur_player_count] = strdup( tokens[8] );
+            cur_player_count++;
+        }
+
+        if (block == 3)
+        {
+            fclose(inf);
+            break;
+        }
+    }
+
+    sprintf( count, "%i", setup.player_count );
+    if ( ( info = calloc( strlen( name ) + strlen( desc ) + strlen( count ) + strlen( turns ) + 30, sizeof( char ) ) ) == 0 ) {
+        fprintf( stderr, tr("Out of memory\n") );
+        goto failure;
+    }
+    sprintf( info, tr("%s##%s##%s Turns#%s Players"), name, desc, turns, count );
+    return info;
+failure:
+    if ( info ) free( info );
+    free(domain);
+    return 0;
+}
+
+/*
+====================================================================
 Publics
 ====================================================================
 */
@@ -917,7 +1688,7 @@ Load a scenario.
 */
 int scen_load( char *fname )
 {
-    char *path, *extension, temp[256];
+    char *path, *extension;
     path = calloc( 256, sizeof( char ) );
     extension = calloc( 10, sizeof( char ) );
     search_file_name( path, extension, fname, config.mod_name, "Scenario", 'o' );
@@ -925,6 +1696,8 @@ int scen_load( char *fname )
         return scen_load_lgscn( fname, path );
     else if ( strcmp( extension, "pgscn" ) == 0 )
         return load_pgf_pgscn( fname, path, atoi( fname ) );
+    else if ( strcmp( extension, "lgdscn" ) == 0 )
+        return scen_load_lgdscn( fname, path );
     return 0;
 }
 
@@ -945,6 +1718,10 @@ char *scen_load_info( char *fname )
     else if ( strcmp( extension, "pgscn" ) == 0 )
     {
         return load_pgf_pgscn_info( fname, path, 0 );
+    }
+    else if ( strcmp( extension, "lgdscn" ) == 0 )
+    {
+        return scen_load_lgdscn_info( fname, path );
     }
     return 0;
 }
@@ -1178,6 +1955,7 @@ int scen_check_result( int after_last_turn )
             for ( i = 1; i < vcond_count; i++ ) {
                 /* AND binding */
                 and_okay = 1;
+fprintf(stderr,"%d ",vcond_count);
                 for ( j = 0; j < vconds[i].sub_and_count; j++ )
                     if ( !subcond_check( &vconds[i].subconds_and[j] ) ) {
                         and_okay = 0;
