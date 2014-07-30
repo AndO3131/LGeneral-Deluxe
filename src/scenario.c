@@ -858,10 +858,10 @@ int scen_load_lgdscn( const char *fname, const char *path )
     int unit_delayed = 0;
 
     FILE *inf;
-    char line[1024],tokens[20][256];
+    char line[1024],tokens[100][256];
     int block=0,last_line_length=-1,cursor=0,token=0;
     int utf16 = 0, lines=0, cur_player_count = 0, cur_flag = 0, cur_vic_cond = 0, cur_unit = 0, auxiliary_units_count = 0;
-	vcond_count = -1;
+    vcond_count = -1;
 
     scen_delete();
     /* reset vic conds may not be done in scen_delete() as this is called
@@ -1289,23 +1289,19 @@ int scen_load_lgdscn( const char *fname, const char *path )
             int plidx;
             pl = player_get_by_id( tokens[0] );
             plidx = player_get_index( pl );
-            for ( i = 1; i <= token / 2; i+=2 )
+            if ( strcmp(tokens[1], "default") == 0)
             {
-                if ( strcmp(tokens[i], "default") == 0)
-                {
-                    x=-1;
-                    y=-1;
-                }
-                else if ( strcmp(tokens[i], "none") == 0 )
-                {
-                    pl->no_init_deploy = 1;
-                    continue;
-                }
-                else
-                {
-                    x = atoi( tokens[i] );
-                    y = atoi( tokens[i + 1] );
-                }
+                x=-1;
+                y=-1;
+            }
+            else if ( strcmp(tokens[1], "none") == 0 )
+            {
+                pl->no_init_deploy = 1;
+                continue;
+            }
+            for ( i = 2; i <= token; i++ )
+            {
+                get_coord( tokens[i], &x, &y );
                 map_set_deploy_field( x, y, plidx );
             }
         }
@@ -1389,11 +1385,19 @@ int scen_load_lgdscn( const char *fname, const char *path )
             unit_base.exp_level = atoi( tokens[6] );
             /* transporter */
             trsp_prop = 0;
-            if ( strcmp( tokens[7], "none" ) != 0 )
-                trsp_prop = unit_lib_find( tokens[7] );
             land_trsp_prop = 0;
-            if ( strcmp( tokens[8], "none" ) != 0 )
-                land_trsp_prop = unit_lib_find( tokens[8] );
+            if ( strcmp( tokens[7], "none" ) != 0 )
+            {
+                if ( strcmp( tokens[8], "none" ) != 0 )
+                {
+                    trsp_prop = unit_lib_find( tokens[8] );
+                    land_trsp_prop = unit_lib_find( tokens[7] );
+                }
+                else
+                    trsp_prop = unit_lib_find( tokens[8] );
+            }
+            else
+                trsp_prop = unit_lib_find( tokens[7] );
             /* core */
             unit_base.core = atoi( tokens[9] );
             if ( !config.use_core_units )
@@ -1543,7 +1547,7 @@ char* scen_load_lgdscn_info( const char *fname, const char *path )
     char *info = 0;
 
     FILE *inf;
-    char line[1024],tokens[20][256];
+    char line[1024],tokens[100][256];
     int block=0,last_line_length=-1,cursor=0,token=0;
     int utf16 = 0, lines=0, cur_player_count = 0;
 
@@ -1955,7 +1959,6 @@ int scen_check_result( int after_last_turn )
             for ( i = 1; i < vcond_count; i++ ) {
                 /* AND binding */
                 and_okay = 1;
-fprintf(stderr,"%d ",vcond_count);
                 for ( j = 0; j < vconds[i].sub_and_count; j++ )
                     if ( !subcond_check( &vconds[i].subconds_and[j] ) ) {
                         and_okay = 0;

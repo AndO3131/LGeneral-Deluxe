@@ -1,0 +1,177 @@
+# General scenario data																																																										
+name	BARBAROSSA																																																									
+desc	June 22, 1941: Germany launches a surprise attack on its ally, the Soviet Union.																																																									
+authors	SSI																																																									
+year	1941																																																									
+month	6																																																									
+day	22																																																									
+turns	23																																																									
+turns_per_day	0																																																									
+days_per_turn	2																																																									
+domain	pg																																																									
+nation_db	nations.lgdndb																																																									
+unit_db	pg.lgdudb																																																									
+map file	map23.lgdmap																																																									
+weather	fair	fair	fair	fair	fair	fair	fair	fair	clouds	clouds	r	clouds	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair																																			
+weather_zone	1																																																									
+																																																										
+# Players																																																										
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																																														
+axis	Axis	34	32	right	human	1	0	28	1	298	0	default																																														
+allies	Allies	60	-1	left	cpu	-1	2	353	1	290	0	default																																														
+																																																										
+# Allied_players																																																										
+# player_id	allied players id's																																																									
+axis																																																										
+allies																																																										
+																																																										
+# Prestige allocation																																																										
+# player_id	prestige on subsequent turns																																																									
+axis	777	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0																																			
+allies	908	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60	60																																			
+																																																										
+# Player nations																																																										
+# player_id	nation_id's																																																									
+axis	ger	aus	it	hun	bul	rum	fin	esp																																																		
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug																																										
+																																																										
+# Flags																																																										
+# x	y	nation	objective flag																																																							
+52	1	so	0																																																							
+15	2	ger	1																																																							
+28	2	so	1																																																							
+39	2	so	1																																																							
+28	3	so	0																																																							
+3	5	ger	0																																																							
+53	5	so	1																																																							
+18	7	so	0																																																							
+27	7	so	0																																																							
+42	7	so	0																																																							
+20	8	so	0																																																							
+42	8	so	0																																																							
+3	9	ger	0																																																							
+58	9	so	0																																																							
+12	10	so	0																																																							
+57	10	so	0																																																							
+58	10	so	1																																																							
+2	12	ger	0																																																							
+3	12	ger	1																																																							
+20	12	so	1																																																							
+34	12	so	1																																																							
+2	13	ger	0																																																							
+34	13	so	0																																																							
+29	15	so	0																																																							
+12	16	so	0																																																							
+28	16	so	1																																																							
+12	17	so	0																																																							
+46	17	so	1																																																							
+2	19	ger	1																																																							
+25	20	so	0																																																							
+26	20	so	0																																																							
+																																																										
+# Results																																																										
+# result	message	logical check	type	player	x	y	count	tag																																																		
+vcond_check_type	every_turn																																																									
+defeat	Axis Defeat																																																									
+major	Axis Major Victory	and	control_all_hexes	axis	0	0	0	0	turns_left	0	0	0	10	0																																												
+minor	Axis Minor Victory	or	control_all_hexes	axis	0	0	0	0																																																		
+																																																										
+# Deploy hexes																																																										
+# player_id	deploy_type	coordinates																																																								
+axis	default	9,2	9,19	8,19	9,18	10,19	10,18	9,17	8,18	9,16	8,15	6,14	9,15	7,14	2,13	2,14	3,12	3,13	3,14	4,14	4,13	4,12	4,11	5,12	5,13	5,14	5,9	7,8	10,8	12,7	14,8	14,7	15,7	16,6	16,5	16,4	16,3	16,2	15,2	15,3	15,4	14,4	14,3	14,2	13,2	13,3	15,6	13,7	11,7	4,15	3,11	4,1	6,9	8,8	9,8	15,1	14,5	3,1
+allies	default																																																									
+																																																										
+# Units																																																										
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																																																
+42	ger	16	3	12	0	2	none	none	1	0																																																
+44	ger	16	4	10	0	2	none	none	1	0																																																
+106	ger	15	3	10	0	2	87	none	1	0																																																
+75	ger	15	2	10	3	2	none	none	1	0																																																
+104	ger	16	2	10	2	2	none	none	1	0																																																
+48	ger	15	4	10	2	1	none	none	1	0																																																
+1	ger	13	3	10	0	2	none	none	1	0																																																
+21	ger	13	2	10	0	2	none	none	1	0																																																
+12	ger	14	2	10	0	2	none	none	1	0																																																
+98	ger	14	4	10	0	2	85	none	1	0																																																
+106	ger	15	7	10	2	2	none	none	1	0																																																
+104	ger	14	8	10	0	2	none	none	1	0																																																
+44	ger	5	12	12	0	2	none	none	1	0																																																
+39	ger	10	18	10	0	1	none	none	1	0																																																
+48	ger	4	14	10	0	2	none	none	1	0																																																
+98	ger	4	13	10	0	2	85	none	1	0																																																
+106	ger	6	14	10	0	2	none	none	1	0																																																
+104	ger	4	11	10	2	1	none	none	1	0																																																
+104	ger	9	16	10	1	2	none	none	1	0																																																
+39	ger	5	13	11	0	2	none	none	1	0																																																
+44	ger	10	19	10	0	2	none	none	1	0																																																
+106	ger	9	20	10	0	2	none	none	1	0																																																
+98	ger	9	18	10	0	2	85	none	1	0																																																
+57	ger	9	17	10	0	2	none	none	1	0																																																
+104	ger	9	19	10	0	1	87	none	1	0																																																
+89	ger	3	13	10	0	1	none	none	1	0																																																
+1	ger	3	12	10	0	2	none	none	1	0																																																
+21	ger	2	14	10	0	2	none	none	1	0																																																
+19	ger	2	13	10	0	2	none	none	1	0																																																
+0	ger	3	14	10	0	2	none	none	1	0																																																
+104	ger	5	14	10	0	2	87	none	1	0																																																
+104	ger	2	12	10	0	0	none	none	0	0																																																
+104	ger	2	19	10	0	0	none	none	0	0																																																
+278	so	18	2	10	5	0	271	none	0	0																																																
+273	so	18	3	10	5	0	none	none	0	0																																																
+273	so	18	7	10	5	0	none	none	0	0																																																
+273	so	27	7	10	5	0	none	none	0	0																																																
+273	so	16	9	10	5	0	none	none	0	0																																																
+273	so	12	10	10	5	0	none	none	0	0																																																
+273	so	7	11	10	5	0	none	none	0	0																																																
+273	so	7	12	10	5	0	none	none	0	0																																																
+273	so	25	20	10	5	0	none	none	0	0																																																
+273	so	11	16	10	5	0	none	none	0	0																																																
+273	so	12	17	10	5	0	none	none	0	0																																																
+273	so	12	18	10	5	0	none	none	0	0																																																
+273	so	12	19	10	5	0	none	none	0	0																																																
+273	so	20	12	10	5	0	none	none	0	0																																																
+273	so	28	2	10	5	0	none	none	0	0																																																
+273	so	28	16	10	5	0	none	none	0	0																																																
+273	so	34	12	10	5	0	none	none	0	0																																																
+273	so	39	2	10	5	0	none	none	0	0																																																
+273	so	53	5	10	5	0	none	none	0	0																																																
+273	so	46	17	10	5	0	none	none	0	0																																																
+273	so	58	10	10	5	0	none	none	0	0																																																
+279	so	8	12	10	5	0	none	none	0	0																																																
+279	so	13	18	10	5	0	none	none	0	0																																																
+281	so	13	17	10	5	0	none	none	0	0																																																
+244	so	9	11	10	5	0	none	none	0	0																																																
+280	so	19	5	10	5	0	none	none	0	0																																																
+281	so	18	6	10	5	0	none	none	0	0																																																
+260	so	20	7	10	2	0	none	none	0	0																																																
+248	so	13	13	10	2	0	none	none	0	0																																																
+250	so	13	12	10	2	0	none	none	0	0																																																
+249	so	14	13	10	2	0	none	none	0	0																																																
+280	so	40	2	10	5	0	271	none	0	0																																																
+250	so	34	13	10	2	0	none	none	0	0																																																
+281	so	39	1	10	5	0	none	none	0	0																																																
+280	so	57	9	10	5	0	271	none	0	0																																																
+277	so	56	10	10	5	0	none	none	0	0																																																
+281	so	58	9	10	5	0	none	none	0	0																																																
+227	so	28	15	10	0	0	none	none	0	0																																																
+228	so	30	15	10	0	0	none	none	0	0																																																
+238	so	29	15	10	0	0	none	none	0	0																																																
+229	so	33	12	10	0	0	none	none	0	0																																																
+277	so	18	13	10	5	0	none	none	0	0																																																
+279	so	21	11	10	5	0	none	none	0	0																																																
+274	so	20	14	10	5	0	none	none	0	0																																																
+238	so	21	7	10	0	0	none	none	0	0																																																
+230	so	20	8	10	0	0	none	none	0	0																																																
+238	so	29	2	10	0	0	none	none	0	0																																																
+229	so	28	3	10	0	0	none	none	0	0																																																
+238	so	13	15	10	0	0	none	none	0	0																																																
+228	so	12	16	10	0	0	none	none	0	0																																																
+263	so	52	9	10	2	0	none	none	0	0																																																
+273	so	57	10	10	5	0	none	none	0	0																																																
+273	so	42	8	10	5	0	none	none	0	0																																																
+273	so	18	5	10	5	0	none	none	0	0																																																
+280	so	47	17	10	5	0	271	none	0	0																																																
+280	so	35	11	10	5	0	271	none	0	0																																																
+280	so	54	6	10	0	0	271	none	0	0																																																
+273	so	54	5	10	5	0	none	none	0	0																																																
+281	so	35	12	10	5	0	none	none	0	0																																																

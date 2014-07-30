@@ -1,0 +1,407 @@
+# General scenario data																																																																																																			
+name	BERLIN																																																																																																		
+desc	April 1, 1945: The Last Stand.																																																																																																		
+authors	SSI																																																																																																		
+year	1945																																																																																																		
+month	4																																																																																																		
+day	1																																																																																																		
+turns	13																																																																																																		
+turns_per_day	0																																																																																																		
+days_per_turn	3																																																																																																		
+domain	pg																																																																																																		
+nation_db	nations.lgdndb																																																																																																		
+unit_db	pg.lgdudb																																																																																																		
+map file	map35.lgdmap																																																																																																		
+weather	fair	fair	fair	r	clouds	rain	clouds	fair	fair	fair	r	rain	M																																																																																						
+weather_zone	2																																																																																																		
+																																																																																																			
+# Players																																																																																																			
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																																																																																							
+axis	Axis	82	50	left	human	-1	0	28	3	298	0	default																																																																																							
+allies	Allies	140	-1	right	cpu	1	2	353	4	290	4	default																																																																																							
+																																																																																																			
+# Allied_players																																																																																																			
+# player_id	allied players id's																																																																																																		
+axis																																																																																																			
+allies																																																																																																			
+																																																																																																			
+# Prestige allocation																																																																																																			
+# player_id	prestige on subsequent turns																																																																																																		
+axis	900	82	82	82	82	82	82	82	82	82	82	82	82																																																																																						
+allies	1118	0	0	0	0	0	0	0	0	0	0	0	0																																																																																						
+																																																																																																			
+# Player nations																																																																																																			
+# player_id	nation_id's																																																																																																		
+axis	ger	aus	it	hun	bul	rum	fin	esp																																																																																											
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug																																																																																			
+																																																																																																			
+# Flags																																																																																																			
+# x	y	nation	objective flag																																																																																																
+17	1	ger	0																																																																																																
+55	1	so	0																																																																																																
+62	1	so	0																																																																																																
+22	2	ger	1																																																																																																
+34	2	ger	0																																																																																																
+46	3	so	1																																																																																																
+20	4	ger	0																																																																																																
+25	4	ger	0																																																																																																
+30	4	ger	0																																																																																																
+17	5	ger	0																																																																																																
+35	5	ger	0																																																																																																
+15	6	ger	0																																																																																																
+21	6	ger	1																																																																																																
+22	6	ger	0																																																																																																
+27	6	ger	0																																																																																																
+33	6	ger	0																																																																																																
+35	6	ger	0																																																																																																
+62	6	so	0																																																																																																
+12	7	ger	0																																																																																																
+40	7	ger	0																																																																																																
+7	8	ger	0																																																																																																
+13	8	ger	0																																																																																																
+42	8	so	0																																																																																																
+17	9	ger	1																																																																																																
+48	9	so	1																																																																																																
+28	10	ger	0																																																																																																
+52	10	so	0																																																																																																
+55	10	so	0																																																																																																
+43	12	so	0																																																																																																
+4	13	ger	0																																																																																																
+35	13	ger	0																																																																																																
+10	14	ger	0																																																																																																
+13	14	ger	0																																																																																																
+14	14	ger	0																																																																																																
+31	14	ger	0																																																																																																
+34	14	ger	0																																																																																																
+35	14	ger	1																																																																																																
+36	14	ger	0																																																																																																
+1	15	ger	0																																																																																																
+20	15	ger	0																																																																																																
+23	15	ger	0																																																																																																
+32	15	ger	0																																																																																																
+35	15	ger	0																																																																																																
+39	15	ger	0																																																																																																
+49	15	so	1																																																																																																
+65	15	so	0																																																																																																
+1	16	ger	0																																																																																																
+2	16	ger	0																																																																																																
+64	16	so	0																																																																																																
+66	16	so	0																																																																																																
+4	17	ger	0																																																																																																
+10	17	ger	0																																																																																																
+15	17	ger	0																																																																																																
+28	17	ger	1																																																																																																
+9	18	ger	0																																																																																																
+5	19	usa	0																																																																																																
+30	19	ger	0																																																																																																
+39	19	ger	0																																																																																																
+61	19	so	0																																																																																																
+2	20	usa	1																																																																																																
+8	20	ger	0																																																																																																
+9	20	ger	1																																																																																																
+10	20	ger	0																																																																																																
+18	20	ger	0																																																																																																
+28	20	ger	0																																																																																																
+6	21	fra	1																																																																																																
+8	21	ger	0																																																																																																
+9	21	ger	0																																																																																																
+10	21	ger	0																																																																																																
+30	21	ger	1																																																																																																
+43	21	ger	0																																																																																																
+66	21	so	0																																																																																																
+31	22	ger	0																																																																																																
+8	23	ger	0																																																																																																
+26	23	ger	0																																																																																																
+36	23	ger	1																																																																																																
+50	23	so	0																																																																																																
+7	24	eng	0																																																																																																
+64	24	so	0																																																																																																
+4	25	eng	1																																																																																																
+47	25	ger	0																																																																																																
+49	25	ger	0																																																																																																
+59	25	so	0																																																																																																
+2	26	fra	0																																																																																																
+32	26	ger	0																																																																																																
+54	26	ger	0																																																																																																
+10	28	usa	0																																																																																																
+57	28	ger	0																																																																																																
+58	28	ger	0																																																																																																
+59	28	so	0																																																																																																
+14	29	ger	0																																																																																																
+15	29	ger	0																																																																																																
+62	29	so	0																																																																																																
+12	30	usa	0																																																																																																
+13	30	usa	0																																																																																																
+16	30	ger	1																																																																																																
+39	30	ger	0																																																																																																
+13	31	fra	0																																																																																																
+55	31	ger	0																																																																																																
+5	32	eng	0																																																																																																
+15	32	ger	0																																																																																																
+20	32	ger	0																																																																																																
+35	32	ger	0																																																																																																
+3	33	fra	0																																																																																																
+63	33	so	0																																																																																																
+15	34	ger	0																																																																																																
+25	34	ger	0																																																																																																
+52	34	ger	0																																																																																																
+3	35	fra	0																																																																																																
+7	35	fra	0																																																																																																
+26	35	ger	0																																																																																																
+2	36	fra	0																																																																																																
+14	37	ger	0																																																																																																
+29	37	ger	0																																																																																																
+39	37	ger	0																																																																																																
+49	37	ger	0																																																																																																
+3	38	eng	0																																																																																																
+18	38	ger	0																																																																																																
+26	38	ger	0																																																																																																
+11	39	usa	0																																																																																																
+35	40	ger	0																																																																																																
+20	41	ger	0																																																																																																
+39	41	ger	0																																																																																																
+24	42	ger	0																																																																																																
+27	43	ger	0																																																																																																
+28	43	ger	0																																																																																																
+49	43	ger	0																																																																																																
+65	43	so	0																																																																																																
+12	44	ger	0																																																																																																
+26	44	ger	0																																																																																																
+28	44	ger	0																																																																																																
+48	44	ger	1																																																																																																
+49	44	ger	0																																																																																																
+52	44	ger	0																																																																																																
+33	45	ger	0																																																																																																
+54	46	so	0																																																																																																
+10	47	swi	0																																																																																																
+15	47	swi	0																																																																																																
+60	47	so	0																																																																																																
+10	50	swi	0																																																																																																
+26	50	ger	0																																																																																																
+44	50	ger	0																																																																																																
+																																																																																																			
+# Results																																																																																																			
+# result	message	logical check	type	player	x	y	count	tag																																																																																											
+vcond_check_type	every_turn																																																																																																		
+minor	Axis Minor Victory																																																																																																		
+defeat	Axis Defeat	or	control_hex	allies	36	14	0	0																																																																																											
+major	Axis Major Victory	or	control_all_hexes	axis	0	0	0	0																																																																																											
+																																																																																																			
+# Deploy hexes																																																																																																			
+# player_id	deploy_type	coordinates																																																																																																	
+axis	default	6,18	7,18	7,17	8,19	9,2	9,21	8,22	7,22	8,23	9,23	8,17	9,24	9,22	9,18	8,18	9,19	42,5	42,6	41,5	41,6	40,7	40,6	39,6	39,7	38,8	39,8	38,9	38,1	37,1	37,11	37,12	37,9	36,12	36,13	36,14	36,15	37,14	37,13	38,14	38,13	38,15	39,15	39,16	38,16	40,16	40,18	39,19	10,2	10,21	10,22	10,14	9,13	9,14	10,15	11,14	11,13	10,13	14,14	13,13	13,14	14,15	15,14	15,13	14,13	35,6	35,5	34,6	34,7	35,7	36,7	36,6	33,6	33,7	36,9	37,8	36,1	35,8	36,8	37,7	38,7	34,14	35,14	35,13	35,15	32,15	31,14	32,14	31,15	30,15	31,13	30,14	39,17	39,18	40,19	30,14	39,17	39,18	40,19
+allies	default																																																																																																		
+																																																																																																			
+# Units																																																																																																			
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																																																																																									
+53	ger	39	19	10	2	1	none	none	1	0																																																																																									
+95	ger	38	14	10	5	1	none	none	1	0																																																																																									
+105	ger	6	18	10	5	1	none	none	1	0																																																																																									
+68	ger	8	22	10	5	2	none	none	1	0																																																																																									
+105	ger	8	23	10	6	1	none	none	1	0																																																																																									
+107	ger	8	19	10	6	2	none	none	1	0																																																																																									
+107	ger	41	6	10	5	2	none	none	1	0																																																																																									
+103	ger	37	11	10	5	1	none	none	1	0																																																																																									
+103	ger	39	7	10	5	1	none	none	1	0																																																																																									
+50	ger	38	9	10	2	1	none	none	1	0																																																																																									
+53	ger	36	10	10	2	2	none	none	1	0																																																																																									
+69	ger	38	15	10	2	2	none	none	1	0																																																																																									
+105	ger	37	12	10	6	1	none	none	1	0																																																																																									
+107	ger	36	13	10	9	2	none	none	1	0																																																																																									
+105	ger	42	6	10	5	1	none	none	1	0																																																																																									
+105	ger	40	7	10	8	2	none	none	1	0																																																																																									
+105	ger	39	8	10	5	2	none	none	1	0																																																																																									
+105	ger	37	10	10	5	1	none	none	1	0																																																																																									
+105	ger	38	13	10	5	1	none	none	1	0																																																																																									
+105	ger	40	18	10	6	1	none	none	1	0																																																																																									
+107	ger	38	10	10	5	1	none	none	1	0																																																																																									
+98	ger	37	8	10	5	1	none	none	1	0																																																																																									
+103	ger	36	9	10	5	1	none	none	1	0																																																																																									
+50	ger	35	6	10	2	1	none	none	1	0																																																																																									
+53	ger	36	15	10	2	2	none	none	1	0																																																																																									
+105	ger	55	41	10	5	1	none	none	1	0																																																																																									
+95	ger	36	12	10	6	1	none	none	1	0																																																																																									
+105	ger	39	15	10	8	2	none	none	1	0																																																																																									
+9	ger	32	15	10	0	2	none	none	1	0																																																																																									
+6	ger	35	15	10	0	1	none	none	1	0																																																																																									
+7	ger	34	14	10	0	1	none	none	1	0																																																																																									
+98	ger	7	17	10	6	1	none	none	1	0																																																																																									
+98	ger	9	21	10	5	1	none	none	1	0																																																																																									
+98	ger	9	20	10	5	1	none	none	1	0																																																																																									
+103	ger	10	21	10	5	1	none	none	1	0																																																																																									
+5	ger	14	14	10	0	1	none	none	1	0																																																																																									
+103	ger	10	20	10	5	1	none	none	1	0																																																																																									
+103	ger	8	17	10	5	1	none	none	1	0																																																																																									
+56	ger	7	18	10	2	2	none	none	1	0																																																																																									
+98	ger	39	16	10	6	1	none	none	1	0																																																																																									
+98	ger	39	6	10	5	1	none	none	1	0																																																																																									
+98	ger	37	13	10	6	1	none	none	1	0																																																																																									
+103	ger	38	16	10	5	1	none	none	1	0																																																																																									
+103	ger	38	7	10	5	1	none	none	1	0																																																																																									
+103	ger	36	14	10	5	1	none	none	1	0																																																																																									
+56	ger	35	14	10	2	2	none	none	1	0																																																																																									
+69	ger	35	13	10	2	1	none	none	1	0																																																																																									
+10	ger	10	14	10	0	2	none	none	1	0																																																																																									
+51	ger	9	22	10	2	2	none	none	1	0																																																																																									
+105	ger	48	50	10	6	1	none	none	0	0																																																																																									
+105	ger	49	46	10	5	1	none	none	0	0																																																																																									
+105	ger	52	44	10	6	1	none	none	0	0																																																																																									
+105	ger	49	43	10	6	1	none	none	0	0																																																																																									
+105	ger	59	34	10	6	1	none	none	0	0																																																																																									
+105	ger	58	28	10	6	1	none	none	0	0																																																																																									
+105	ger	54	26	10	6	1	none	none	0	0																																																																																									
+105	ger	49	25	10	6	1	none	none	0	0																																																																																									
+105	ger	47	25	10	6	1	none	none	0	0																																																																																									
+105	ger	43	21	10	6	1	none	none	0	0																																																																																									
+105	ger	41	18	10	6	1	none	none	0	0																																																																																									
+105	ger	12	44	10	6	1	none	none	0	0																																																																																									
+105	ger	12	41	10	5	1	none	none	0	0																																																																																									
+105	ger	14	37	10	6	1	none	none	0	0																																																																																									
+105	ger	15	34	10	6	1	none	none	0	0																																																																																									
+105	ger	16	33	10	6	1	none	none	0	0																																																																																									
+98	ger	16	30	10	5	1	none	none	0	0																																																																																									
+105	ger	15	29	10	6	1	none	none	0	0																																																																																									
+103	ger	16	29	10	5	1	none	none	0	0																																																																																									
+105	ger	14	28	10	5	1	none	none	0	0																																																																																									
+105	ger	13	25	10	6	1	none	none	0	0																																																																																									
+105	ger	11	23	10	6	1	none	none	0	0																																																																																									
+105	ger	1	16	10	6	1	none	none	0	0																																																																																									
+105	ger	4	17	10	6	1	none	none	0	0																																																																																									
+98	ger	4	16	10	5	1	none	none	0	0																																																																																									
+103	ger	5	15	10	5	1	none	none	0	0																																																																																									
+107	ger	48	44	10	6	1	none	none	0	0																																																																																									
+100	ger	47	43	10	5	1	none	none	0	0																																																																																									
+105	ger	17	9	10	0	1	none	none	0	0																																																																																									
+105	ger	28	17	10	0	1	none	none	0	0																																																																																									
+105	ger	8	20	10	6	1	none	none	0	0																																																																																									
+105	ger	8	21	10	6	1	none	none	0	0																																																																																									
+193	eng	1	18	12	0	2	none	none	0	0																																																																																									
+121	eng	2	19	10	0	2	210	none	0	0																																																																																									
+122	eng	3	18	10	0	2	210	none	0	0																																																																																									
+121	eng	5	19	10	0	2	210	none	0	0																																																																																									
+214	eng	4	19	12	0	2	210	none	0	0																																																																																									
+190	eng	5	21	12	0	2	none	none	0	0																																																																																									
+193	eng	6	20	10	0	2	none	none	0	0																																																																																									
+202	eng	1	19	10	0	2	none	none	0	0																																																																																									
+202	eng	5	20	10	0	2	none	none	0	0																																																																																									
+202	eng	3	19	10	0	2	none	none	0	0																																																																																									
+199	eng	4	22	10	0	2	none	none	0	0																																																																																									
+401	fra	6	21	12	5	2	405	none	0	0																																																																																									
+379	usa	7	25	10	0	2	354	none	0	0																																																																																									
+121	eng	3	20	10	0	2	210	none	0	0																																																																																									
+130	fra	11	37	10	0	2	none	none	0	0																																																																																									
+130	fra	11	39	10	0	2	none	none	0	0																																																																																									
+130	fra	10	40	10	0	2	none	none	0	0																																																																																									
+393	usa	9	39	10	0	2	354	none	0	0																																																																																									
+376	usa	6	24	10	0	2	none	none	0	0																																																																																									
+376	usa	12	36	10	0	2	none	none	0	0																																																																																									
+364	usa	13	34	10	0	2	none	none	0	0																																																																																									
+364	usa	7	24	12	0	2	none	none	0	0																																																																																									
+376	usa	13	30	12	0	2	none	none	0	0																																																																																									
+364	usa	12	32	10	0	2	none	none	0	0																																																																																									
+393	usa	10	37	10	0	2	354	none	0	0																																																																																									
+393	usa	5	23	12	0	2	354	none	0	0																																																																																									
+393	usa	13	31	12	0	2	354	none	0	0																																																																																									
+367	usa	10	39	10	0	2	none	none	0	0																																																																																									
+367	usa	6	25	10	0	2	none	none	0	0																																																																																									
+367	usa	13	32	10	0	2	none	none	0	0																																																																																									
+386	usa	12	35	10	0	2	354	none	0	0																																																																																									
+386	usa	5	22	10	0	2	354	none	0	0																																																																																									
+386	usa	8	27	10	0	2	354	none	0	0																																																																																									
+386	usa	12	33	10	0	2	354	none	0	0																																																																																									
+379	usa	4	23	10	0	2	354	none	0	0																																																																																									
+379	usa	13	35	10	0	2	354	none	0	0																																																																																									
+379	usa	12	30	10	0	2	354	none	0	0																																																																																									
+379	usa	9	27	10	0	2	354	none	0	0																																																																																									
+387	usa	10	28	10	0	2	354	none	0	0																																																																																									
+387	usa	5	24	10	0	2	354	none	0	0																																																																																									
+387	usa	7	26	10	0	2	354	none	0	0																																																																																									
+373	usa	6	26	10	0	2	none	none	0	0																																																																																									
+373	usa	12	34	10	0	2	none	none	0	0																																																																																									
+393	usa	13	33	10	0	2	354	none	0	0																																																																																									
+343	usa	10	33	13	0	3	none	none	0	0																																																																																									
+343	usa	3	23	13	0	3	none	none	0	0																																																																																									
+343	usa	10	32	13	0	3	none	none	0	0																																																																																									
+347	usa	3	24	13	0	3	none	none	0	0																																																																																									
+347	usa	4	25	13	0	3	none	none	0	0																																																																																									
+346	usa	9	31	13	0	3	none	none	0	0																																																																																									
+346	usa	9	32	13	0	3	none	none	0	0																																																																																									
+343	usa	4	24	13	0	3	none	none	0	0																																																																																									
+170	eng	3	21	13	0	3	none	none	0	0																																																																																									
+170	eng	2	21	13	0	3	none	none	0	0																																																																																									
+174	eng	1	21	13	0	3	none	none	0	0																																																																																									
+174	eng	2	22	13	0	3	none	none	0	0																																																																																									
+273	so	51	49	10	0	2	271	none	0	0																																																																																									
+273	so	44	6	10	0	2	271	none	0	0																																																																																									
+273	so	43	7	10	0	2	271	none	0	0																																																																																									
+273	so	40	10	12	0	2	271	none	0	0																																																																																									
+273	so	40	13	10	0	2	271	none	0	0																																																																																									
+273	so	40	14	12	0	2	271	none	0	0																																																																																									
+273	so	42	17	12	0	2	271	none	0	0																																																																																									
+273	so	45	18	10	0	2	271	none	0	0																																																																																									
+273	so	48	21	12	0	2	271	none	0	0																																																																																									
+273	so	50	23	10	0	2	271	none	0	0																																																																																									
+273	so	54	24	10	0	2	271	none	0	0																																																																																									
+273	so	58	26	10	0	2	271	none	0	0																																																																																									
+273	so	59	29	10	0	2	271	none	0	0																																																																																									
+273	so	63	33	10	0	2	271	none	0	0																																																																																									
+273	so	62	37	10	0	2	271	none	0	0																																																																																									
+273	so	65	43	10	0	2	271	none	0	0																																																																																									
+273	so	59	41	10	0	2	271	none	0	0																																																																																									
+273	so	55	43	10	0	2	271	none	0	0																																																																																									
+273	so	51	46	10	0	2	271	none	0	0																																																																																									
+265	so	51	45	10	0	2	none	none	0	0																																																																																									
+265	so	51	47	10	0	2	none	none	0	0																																																																																									
+270	so	52	46	10	0	2	none	none	0	0																																																																																									
+253	so	54	46	10	0	2	none	none	0	0																																																																																									
+253	so	51	48	10	0	2	none	none	0	0																																																																																									
+258	so	53	46	10	0	2	none	none	0	0																																																																																									
+246	so	59	42	10	0	2	none	none	0	0																																																																																									
+269	so	60	42	10	0	2	none	none	0	0																																																																																									
+253	so	63	35	10	0	2	none	none	0	0																																																																																									
+253	so	62	36	10	0	2	none	none	0	0																																																																																									
+265	so	59	26	10	0	2	none	none	0	0																																																																																									
+280	so	59	25	10	0	2	271	none	0	0																																																																																									
+280	so	60	28	10	0	2	271	none	0	0																																																																																									
+265	so	59	28	10	0	2	none	none	0	0																																																																																									
+253	so	47	19	12	0	2	none	none	0	0																																																																																									
+253	so	55	24	10	0	2	none	none	0	0																																																																																									
+280	so	55	23	10	0	2	271	none	0	0																																																																																									
+280	so	50	24	10	0	2	271	none	0	0																																																																																									
+275	so	40	11	12	0	2	271	none	0	0																																																																																									
+275	so	46	19	12	0	2	271	none	0	0																																																																																									
+267	so	44	4	10	0	2	none	none	0	0																																																																																									
+267	so	41	15	12	0	2	none	none	0	0																																																																																									
+265	so	43	4	12	0	2	none	none	0	0																																																																																									
+265	so	43	14	10	0	2	none	none	0	0																																																																																									
+265	so	41	8	12	0	2	none	none	0	0																																																																																									
+265	so	42	16	10	0	2	none	none	0	0																																																																																									
+253	so	43	12	10	0	2	none	none	0	0																																																																																									
+253	so	42	4	12	0	2	none	none	0	0																																																																																									
+253	so	42	8	10	0	2	none	none	0	0																																																																																									
+280	so	42	15	12	0	2	271	none	0	0																																																																																									
+280	so	41	9	12	0	2	271	none	0	0																																																																																									
+280	so	41	14	12	0	2	271	none	0	0																																																																																									
+268	so	41	16	12	0	2	none	none	0	0																																																																																									
+268	so	44	7	12	0	2	none	none	0	0																																																																																									
+268	so	40	12	10	0	2	none	none	0	0																																																																																									
+253	so	49	23	10	0	2	none	none	0	0																																																																																									
+273	so	44	5	10	0	2	271	none	0	0																																																																																									
+244	so	43	15	10	0	2	none	none	0	0																																																																																									
+244	so	42	9	10	0	2	none	none	0	0																																																																																									
+273	so	62	29	10	0	2	271	none	0	0																																																																																									
+236	so	50	19	10	0	2	none	none	0	0																																																																																									
+236	so	45	8	10	0	2	none	none	0	0																																																																																									
+236	so	45	14	10	0	2	none	none	0	0																																																																																									
+236	so	51	19	10	0	2	none	none	0	0																																																																																									
+236	so	44	9	10	0	2	none	none	0	0																																																																																									
+236	so	45	15	10	0	2	none	none	0	0																																																																																									
+242	so	46	16	12	0	2	none	none	0	0																																																																																									
+242	so	44	8	12	0	2	none	none	0	0																																																																																									
+242	so	45	7	12	0	2	none	none	0	0																																																																																									
+242	so	51	18	12	0	2	none	none	0	0																																																																																									
+242	so	46	15	12	0	2	none	none	0	0																																																																																									
+242	so	50	18	12	0	2	none	none	0	0																																																																																									
+241	so	53	48	10	0	2	none	none	0	0																																																																																									
+241	so	54	48	10	0	2	none	none	0	0																																																																																									
+241	so	53	47	10	0	2	none	none	0	0																																																																																									

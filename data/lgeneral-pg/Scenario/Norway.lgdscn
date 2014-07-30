@@ -1,0 +1,166 @@
+# General scenario data																																																																																							
+name	NORWAY																																																																																						
+desc	April 9, 1940: Wanting Norwegian iron, and northern air bases to deny British access to the Baltic Sea, the Germans launch a surprise attack on Norway.																																																																																						
+authors	SSI																																																																																						
+year	1940																																																																																						
+month	4																																																																																						
+day	9																																																																																						
+turns	25																																																																																						
+turns_per_day	0																																																																																						
+days_per_turn	1																																																																																						
+domain	pg																																																																																						
+nation_db	nations.lgdndb																																																																																						
+unit_db	pg.lgdudb																																																																																						
+map file	map03.lgdmap																																																																																						
+weather	fair	fair	fair	fair	clouds	r	rain	rain	rain	m	fair	fair	fair	fair	clouds	r	rain	rain	O	fair	fair	fair	fair	fair	fair																																																														
+weather_zone	2																																																																																						
+																																																																																							
+# Players																																																																																							
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																																																																											
+axis	Axis	37	27	left	human	1	0	28	3	298	26	default																																																																											
+allies	Allies	40	-1	right	cpu	-1	2	353	1	290	4	default																																																																											
+																																																																																							
+# Allied_players																																																																																							
+# player_id	allied players id's																																																																																						
+axis																																																																																							
+allies																																																																																							
+																																																																																							
+# Prestige allocation																																																																																							
+# player_id	prestige on subsequent turns																																																																																						
+axis	1014	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0																																																														
+allies	1276	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40	40																																																														
+																																																																																							
+# Player nations																																																																																							
+# player_id	nation_id's																																																																																						
+axis	ger	aus	it	hun	bul	rum	fin	esp																																																																															
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug																																																																							
+																																																																																							
+# Flags																																																																																							
+# x	y	nation	objective flag																																																																																				
+30	1	nor	0																																																																																				
+35	1	nor	0																																																																																				
+37	1	swe	0																																																																																				
+37	2	swe	0																																																																																				
+34	3	eng	0																																																																																				
+35	3	eng	0																																																																																				
+28	7	nor	0																																																																																				
+30	11	nor	0																																																																																				
+26	15	nor	0																																																																																				
+22	18	eng	1																																																																																				
+23	18	eng	0																																																																																				
+24	21	nor	0																																																																																				
+17	23	nor	1																																																																																				
+17	24	nor	0																																																																																				
+18	24	nor	1																																																																																				
+8	26	nor	0																																																																																				
+10	27	eng	0																																																																																				
+4	28	nor	0																																																																																				
+17	28	nor	0																																																																																				
+21	30	nor	1																																																																																				
+27	31	nor	0																																																																																				
+20	33	nor	0																																																																																				
+26	33	nor	0																																																																																				
+5	34	nor	0																																																																																				
+23	34	nor	0																																																																																				
+25	35	nor	0																																																																																				
+21	36	nor	0																																																																																				
+25	36	nor	1																																																																																				
+27	37	nor	0																																																																																				
+10	42	nor	0																																																																																				
+20	42	nor	0																																																																																				
+10	43	nor	1																																																																																				
+17	46	nor	0																																																																																				
+31	48	ger	0																																																																																				
+31	49	ger	0																																																																																				
+32	49	ger	1																																																																																				
+33	49	ger	0																																																																																				
+																																																																																							
+# Results																																																																																							
+# result	message	logical check	type	player	x	y	count	tag																																																																															
+vcond_check_type	every_turn																																																																																						
+defeat	Axis Defeat																																																																																						
+major	Axis Major Victory	and	control_all_hexes	axis	0	0	0	0	turns_left	0	0	0	5	0																																																																										
+minor	Axis Minor Victory	and	control_all_hexes	axis	0	0	0	0																																																																															
+																																																																																							
+# Deploy hexes																																																																																							
+# player_id	deploy_type	coordinates																																																																																					
+axis	default	32,49	32,48	33,48	31,48	31,49	33,49	30,49	34,49	8,21	8,22	8,23	9,21	9,22	9,2	5,22	6,24	5,23	5,24	7,46	8,47	9,47	17,48	18,48	19,47	19,46	10,2	6,22	6,23	19,45	7,21	7,22	7,23	29,41	28,41	6,47	29,4	9,48	30,41	7,47	8,48	10,48	10,49	16,49	17,49	11,48	11,49	18,49	19,48	20,48	12,49	20,47	20,46	13,48	13,49	21,45	22,45	14,48	14,49	23,44	20,45	15,48	15,49	21,44	22,44	30,4	31,4	25,43	10,21	10,22	26,43	27,42	28,42	25,42	26,42	27,41	24,44	23,43	24,43	25,42	26,42	27,41	24,44	23,43	24,43	24,43	6,46
+allies	default																																																																																						
+																																																																																							
+# Units																																																																																							
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																																																																													
+104	ger	6	22	10	0	2	none	298	0	0																																																																													
+104	ger	7	22	10	0	1	none	298	0	0																																																																													
+106	ger	8	22	10	0	2	85	298	0	0																																																																													
+104	ger	9	21	10	0	1	none	298	0	0																																																																													
+42	ger	7	21	10	0	2	none	298	0	0																																																																													
+84	ger	8	21	10	0	0	none	298	0	0																																																																													
+104	ger	7	47	10	0	1	none	298	0	0																																																																													
+104	ger	9	48	10	0	1	none	298	0	0																																																																													
+57	ger	8	48	10	0	1	none	298	0	0																																																																													
+106	ger	10	49	10	0	2	85	298	0	0																																																																													
+104	ger	30	40	10	0	2	85	298	0	0																																																																													
+104	ger	24	43	10	0	1	none	298	0	0																																																																													
+104	ger	29	40	10	0	1	none	298	0	0																																																																													
+48	ger	26	42	10	0	1	none	298	0	0																																																																													
+19	ger	22	45	10	0	1	none	none	0	0																																																																													
+19	ger	21	45	10	0	0	none	none	0	0																																																																													
+0	ger	21	44	10	0	0	none	none	0	0																																																																													
+0	ger	22	44	10	0	0	none	none	0	0																																																																													
+104	ger	27	41	10	0	1	none	298	0	0																																																																													
+0	ger	20	45	10	0	1	none	none	0	0																																																																													
+292	ger	26	41	10	0	1	none	none	0	0																																																																													
+293	ger	24	42	10	0	0	none	none	0	0																																																																													
+295	ger	29	39	10	0	0	none	none	0	0																																																																													
+293	ger	5	46	10	0	0	none	none	0	0																																																																													
+295	ger	5	45	10	0	0	none	none	0	0																																																																													
+295	ger	3	46	10	0	0	none	none	0	0																																																																													
+294	ger	8	19	10	0	0	none	none	0	0																																																																													
+295	ger	6	19	10	0	0	none	none	0	0																																																																													
+295	ger	10	19	10	0	0	none	none	0	0																																																																													
+297	ger	4	20	10	0	1	none	none	0	0																																																																													
+297	ger	12	9	10	0	1	none	none	0	0																																																																													
+297	ger	14	7	10	0	1	none	none	0	0																																																																													
+295	ger	7	44	10	0	0	none	none	0	0																																																																													
+108	ger	20	44	10	0	2	none	28	0	0																																																																													
+108	ger	21	43	10	0	2	none	28	0	0																																																																													
+149	nor	25	36	10	8	0	none	none	0	0																																																																													
+149	nor	21	30	10	3	0	none	none	0	0																																																																													
+149	nor	17	23	10	8	0	none	none	0	0																																																																													
+149	nor	18	24	10	8	0	none	none	0	0																																																																													
+149	nor	10	42	10	1	0	none	none	0	0																																																																													
+149	nor	10	43	10	0	0	none	none	0	0																																																																													
+150	nor	23	33	10	2	0	none	none	0	0																																																																													
+150	nor	20	30	10	0	0	none	none	0	0																																																																													
+224	nor	25	35	10	5	0	none	none	0	0																																																																													
+148	nor	10	43	10	0	0	none	none	0	0																																																																													
+148	nor	25	35	10	0	0	none	none	0	0																																																																													
+212	eng	35	3	10	0	0	none	none	0	0																																																																													
+212	eng	34	3	10	1	0	none	none	0	0																																																																													
+212	eng	23	18	10	0	1	211	none	0	0																																																																													
+213	eng	22	18	10	1	0	none	none	0	0																																																																													
+212	eng	24	20	10	2	0	none	none	0	0																																																																													
+213	eng	24	21	10	3	0	211	none	0	0																																																																													
+224	eng	24	18	10	2	0	none	none	0	0																																																																													
+161	eng	23	18	10	0	0	none	none	0	0																																																																													
+163	eng	35	3	10	0	0	none	none	0	0																																																																													
+172	eng	22	19	10	0	0	none	none	0	0																																																																													
+283	eng	31	3	10	0	1	none	none	0	0																																																																													
+282	eng	30	4	10	0	1	none	none	0	0																																																																													
+286	eng	10	14	10	0	1	none	none	0	0																																																																													
+287	eng	8	14	10	0	0	none	none	0	0																																																																													
+287	eng	12	14	10	0	1	none	none	0	0																																																																													
+285	eng	27	5	10	0	1	none	none	0	0																																																																													
+285	eng	24	2	10	0	1	none	none	0	0																																																																													
+286	eng	26	6	10	0	1	none	none	0	0																																																																													
+286	eng	24	3	10	0	1	none	none	0	0																																																																													
+287	eng	27	6	10	0	1	none	none	0	0																																																																													
+287	eng	25	5	10	0	1	none	none	0	0																																																																													
+287	eng	24	4	10	0	1	none	none	0	0																																																																													
+287	eng	23	4	10	0	1	none	none	0	0																																																																													
+172	eng	30	4	10	0	0	none	none	0	0																																																																													
+288	nor	18	23	11	0	1	none	none	0	0																																																																													
+288	nor	9	41	10	0	1	none	none	0	0																																																																													
+288	nor	17	46	11	0	1	none	none	0	0																																																																													
+149	nor	17	24	10	0	0	none	none	0	0																																																																													
+153	nor	25	37	3	0	0	none	none	0	0																																																																													

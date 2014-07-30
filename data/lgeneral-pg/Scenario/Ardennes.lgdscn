@@ -1,0 +1,224 @@
+# General scenario data																																																				
+name	ARDENNES																																																			
+desc	Dec 16, 1944: Wacht Am Rhein... Germany's last gamble in the West.																																																			
+authors	SSI																																																			
+year	1944																																																			
+month	12																																																			
+day	16																																																			
+turns	32																																																			
+turns_per_day	2																																																			
+days_per_turn	0																																																			
+domain	pg																																																			
+nation_db	nations.lgdndb																																																			
+unit_db	pg.lgdudb																																																			
+map file	map17.lgdmap																																																			
+weather	snow	I	snow	snow	snow	snow	snow	snow	snow	I	I	snow	I	snow	snow	i	fair	fair	s	snow	snow	snow	snow	I	snow	snow	snow	I	snow	snow	I	I																				
+weather_zone	2																																																			
+																																																				
+# Players																																																				
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																																								
+axis	Axis	58	48	left	human	1	0	28	1	298	0	default																																								
+allies	Allies	75	-1	right	cpu	-1	2	353	1	290	0	default																																								
+																																																				
+# Allied_players																																																				
+# player_id	allied players id's																																																			
+axis																																																				
+allies																																																				
+																																																				
+# Prestige allocation																																																				
+# player_id	prestige on subsequent turns																																																			
+axis	1106	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0																				
+allies	1288	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75	75																				
+																																																				
+# Player nations																																																				
+# player_id	nation_id's																																																			
+axis	ger	aus	it	hun	bul	rum	fin	esp																																												
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug																																				
+																																																				
+# Flags																																																				
+# x	y	nation	objective flag																																																	
+35	1	usa	0																																																	
+39	1	usa	0																																																	
+48	1	ger	0																																																	
+7	2	eng	0																																																	
+23	2	usa	0																																																	
+6	3	eng	0																																																	
+17	4	usa	0																																																	
+25	4	usa	0																																																	
+26	4	usa	1																																																	
+32	4	usa	0																																																	
+41	4	usa	0																																																	
+44	4	ger	0																																																	
+26	5	usa	0																																																	
+40	5	usa	0																																																	
+7	6	eng	0																																																	
+33	6	usa	0																																																	
+39	6	usa	0																																																	
+12	7	usa	0																																																	
+49	7	ger	0																																																	
+1	8	eng	0																																																	
+42	8	usa	0																																																	
+48	8	ger	1																																																	
+1	9	eng	0																																																	
+36	9	usa	0																																																	
+37	9	usa	0																																																	
+1	10	eng	1																																																	
+23	10	usa	0																																																	
+24	10	usa	0																																																	
+8	11	usa	0																																																	
+31	11	usa	0																																																	
+38	11	usa	0																																																	
+20	13	usa	0																																																	
+33	13	usa	0																																																	
+11	14	usa	0																																																	
+12	14	usa	0																																																	
+15	14	usa	0																																																	
+53	14	ger	0																																																	
+54	14	ger	1																																																	
+16	16	usa	1																																																	
+46	16	ger	0																																																	
+38	17	usa	0																																																	
+43	17	usa	0																																																	
+4	18	usa	0																																																	
+33	18	usa	0																																																	
+48	18	usa	0																																																	
+59	18	ger	1																																																	
+23	19	usa	0																																																	
+28	19	usa	0																																																	
+43	19	usa	0																																																	
+43	20	usa	0																																																	
+54	20	usa	0																																																	
+10	21	usa	0																																																	
+27	21	usa	1																																																	
+39	21	usa	1																																																	
+3	22	usa	0																																																	
+4	22	usa	0																																																	
+20	22	usa	0																																																	
+48	22	usa	0																																																	
+32	24	usa	0																																																	
+59	24	ger	0																																																	
+1	25	usa	0																																																	
+41	25	usa	0																																																	
+59	25	ger	0																																																	
+21	26	usa	0																																																	
+22	26	usa	0																																																	
+15	27	usa	0																																																	
+33	27	usa	0																																																	
+34	27	usa	0																																																	
+36	28	usa	0																																																	
+50	28	usa	0																																																	
+52	28	usa	0																																																	
+8	29	usa	0																																																	
+9	29	usa	0																																																	
+44	29	usa	0																																																	
+4	30	usa	0																																																	
+																																																				
+# Results																																																				
+# result	message	logical check	type	player	x	y	count	tag																																												
+vcond_check_type	last_turn																																																			
+defeat	Axis Defeat																																																			
+minor	Axis Minor Victory	and	control_hex	axis	16	16	0	0	control_hex	axis	26	4	0	0	control_hex	axis	27	21	0	0	control_hex	axis	39	21	0	0	control_hex	axis	48	8	0	0	control_hex	axis	54	14	0	0	control_hex	axis	59	12	0	0								
+major	Axis Major Victory	or	control_all_hexes	axis	0	0	0	0																																												
+																																																				
+# Deploy hexes																																																				
+# player_id	deploy_type	coordinates																																																		
+axis	default	48,1	47,1	48,2	47,2	48,3	48,4	47,3	46,4	47,4	45,3	45,4	46,5	47,5	46,6	47,6	48,6	48,5	48,7	47,7	48,8	47,8	46,8	46,9	47,9	48,9	47,1	46,11	47,11	46,12	46,13	47,13	47,14	47,15	47,16	46,16	48,16	48,15	48,14	49,13	49,14	49,15	49,16	50,16	50,17	51,18	50,18	51,17	49,5	49,6	49,7	49,8
+allies	default																																																			
+																																																				
+# Units																																																				
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																																										
+2	ger	49	6	10	0	2	none	none	1	0																																										
+21	ger	49	7	10	0	2	none	none	1	0																																										
+105	ger	45	4	10	2	2	86	none	1	0																																										
+105	ger	47	9	10	3	2	86	none	1	0																																										
+105	ger	47	11	10	0	2	86	none	1	0																																										
+105	ger	47	14	10	1	2	86	none	1	0																																										
+105	ger	51	18	10	2	2	86	none	1	0																																										
+105	ger	46	6	10	1	2	none	none	1	0																																										
+105	ger	46	9	10	1	2	none	none	1	0																																										
+105	ger	48	9	10	0	2	none	none	1	0																																										
+56	ger	48	15	10	0	2	none	none	1	0																																										
+56	ger	48	5	10	0	2	none	none	1	0																																										
+105	ger	50	17	10	0	2	86	none	1	0																																										
+53	ger	49	14	10	0	2	none	none	1	0																																										
+53	ger	46	11	10	2	2	none	none	1	0																																										
+69	ger	49	15	10	1	2	none	none	1	0																																										
+67	ger	49	5	10	1	2	none	none	1	0																																										
+79	ger	48	14	10	2	2	none	none	1	0																																										
+78	ger	48	1	10	3	2	none	none	1	0																																										
+79	ger	47	4	10	0	2	none	none	1	0																																										
+110	ger	47	1	10	2	2	none	none	1	0																																										
+98	ger	46	4	10	0	2	85	none	1	0																																										
+98	ger	47	8	10	1	2	85	none	1	0																																										
+98	ger	47	13	10	2	2	85	none	1	0																																										
+98	ger	50	18	10	2	2	85	none	1	0																																										
+159	ger	48	4	10	0	2	none	none	1	0																																										
+159	ger	49	13	10	0	2	none	none	1	0																																										
+53	ger	47	2	10	2	2	none	none	1	0																																										
+110	ger	47	15	10	0	2	none	none	1	0																																										
+110	ger	47	5	10	0	2	none	none	1	0																																										
+82	ger	48	8	10	0	2	none	none	1	0																																										
+55	ger	48	2	10	0	2	none	none	1	0																																										
+50	ger	48	3	10	0	2	none	none	1	0																																										
+47	ger	49	16	10	1	2	87	none	1	0																																										
+47	ger	46	16	10	3	2	87	none	1	0																																										
+47	ger	47	7	10	0	2	87	none	1	0																																										
+107	ger	47	16	10	1	2	86	none	1	0																																										
+107	ger	45	3	10	0	2	86	none	1	0																																										
+107	ger	47	10	10	0	2	86	none	1	0																																										
+4	ger	49	8	10	0	2	none	none	1	0																																										
+105	ger	47	6	10	0	2	none	none	1	0																																										
+109	ger	51	17	10	1	2	87	none	1	0																																										
+50	ger	48	16	10	2	2	none	none	1	0																																										
+105	ger	46	5	10	2	2	86	none	1	0																																										
+50	ger	48	7	10	0	2	none	none	1	0																																										
+53	ger	48	6	10	0	2	none	none	1	0																																										
+55	ger	46	8	10	0	2	none	none	1	0																																										
+47	ger	44	1	10	2	2	87	none	0	0																																										
+105	ger	44	2	10	2	2	86	none	0	0																																										
+98	ger	45	2	10	1	2	85	none	0	0																																										
+105	ger	45	1	10	0	2	86	none	0	0																																										
+105	ger	59	18	10	3	2	86	none	0	0																																										
+105	ger	59	24	10	3	2	86	none	0	0																																										
+47	ger	56	18	10	0	2	87	none	0	0																																										
+98	ger	55	17	10	2	2	85	none	0	0																																										
+105	ger	54	17	10	0	2	86	none	0	0																																										
+109	ger	53	16	10	2	2	87	none	0	0																																										
+379	usa	39	6	12	8	2	none	none	0	0																																										
+379	usa	39	1	10	5	2	none	none	0	0																																										
+379	usa	42	2	10	4	2	none	none	0	0																																										
+379	usa	45	9	10	5	2	none	none	0	0																																										
+379	usa	43	3	10	4	2	none	none	0	0																																										
+379	usa	41	4	10	5	2	none	none	0	0																																										
+375	usa	45	6	10	2	2	none	none	0	0																																										
+392	usa	43	12	10	4	2	354	none	0	0																																										
+379	usa	42	3	10	4	2	none	none	0	0																																										
+361	usa	39	4	10	2	2	none	none	0	0																																										
+392	usa	38	2	10	4	2	354	none	0	0																																										
+379	usa	48	22	10	0	2	none	none	0	0																																										
+379	usa	45	11	10	5	2	none	none	0	0																																										
+379	usa	45	8	10	5	2	none	none	0	0																																										
+379	usa	45	14	10	5	2	none	none	0	0																																										
+392	usa	42	8	10	4	2	354	none	0	0																																										
+360	usa	42	17	10	2	2	none	none	0	0																																										
+379	usa	4	22	10	5	2	none	none	0	0																																										
+379	usa	48	18	10	5	2	none	none	0	0																																										
+379	usa	54	20	10	5	2	none	none	0	0																																										
+342	usa	25	3	10	0	3	none	none	0	0																																										
+347	usa	24	5	10	0	3	none	none	0	0																																										
+347	usa	24	4	10	0	3	none	none	0	0																																										
+342	usa	25	5	10	0	3	none	none	0	0																																										
+383	usa	39	21	15	8	5	none	none	0	0																																										
+379	usa	26	4	10	5	2	none	none	0	0																																										
+379	usa	50	20	10	2	2	none	none	0	0																																										
+379	usa	52	28	10	0	2	none	none	0	0																																										
+379	usa	50	25	10	0	2	none	none	0	0																																										
+379	usa	44	17	10	3	2	none	none	0	0																																										
+379	usa	27	21	10	5	2	none	none	0	0																																										
+189	eng	2	11	10	0	0	none	none	0	0																																										
+121	eng	1	10	10	5	3	209	none	0	0																																										
+121	eng	1	9	10	5	2	209	none	0	0																																										
+121	eng	1	8	10	5	3	209	none	0	0																																										
+379	usa	25	4	10	5	2	none	none	0	0																																										
+379	usa	16	16	10	5	2	none	none	0	0																																										
+379	usa	3	22	10	5	2	none	none	0	0																																										

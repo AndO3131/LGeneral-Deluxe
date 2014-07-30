@@ -1,0 +1,90 @@
+# General scenario data																													
+name	WARSAW																												
+desc	September 10, 1939: The Germans must capture Warsaw and end Polish resistance before the Allies react. 																												
+authors	SSI																												
+year	1939																												
+month	9																												
+day	10																												
+turns	20																												
+turns_per_day	0																												
+days_per_turn	1																												
+domain	pg																												
+nation_db	nations.lgdndb																												
+unit_db	pg.lgdudb																												
+map file	map02.lgdmap																												
+weather	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	r	clouds	clouds	clouds	r	rain	fair	fair									
+weather_zone	3																												
+																													
+# Players																													
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																	
+axis	Axis	20	20	right	human	1	0	28	2	298	0	default																	
+allies	Allies	15	-1	left	cpu	-1	2	353	0	290	0	default																	
+																													
+# Allied_players																													
+# player_id	allied players id's																												
+axis																													
+allies																													
+																													
+# Prestige allocation																													
+# player_id	prestige on subsequent turns																												
+axis	600	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0									
+allies	240	20	20	20	20	20	20	20	20	20	20	20	20	20	20	20	20	20	20	20									
+																													
+# Player nations																													
+# player_id	nation_id's																												
+axis	ger	aus	it	hun	bul	rum	fin	esp																					
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug													
+																													
+# Flags																													
+# x	y	nation	objective flag																										
+8	3	pol	1																										
+18	4	pol	1																										
+10	5	pol	1																										
+18	5	pol	0																										
+3	11	ger	0																										
+0	12	ger	0																										
+1	13	ger	1																										
+2	14	ger	0																										
+6	14	pol	0																										
+																													
+# Results																													
+# result	message	logical check	type	player	x	y	count	tag																					
+vcond_check_type	every_turn																												
+defeat	Axis Defeat																												
+major	Axis Major Victory	and	control_all_hexes	axis	0	0	0	0	turns_left	0	0	0	7	0																
+minor	Axis Minor Victory	and	control_all_hexes	axis	0	0	0	0																					
+																													
+# Deploy hexes																													
+# player_id	deploy_type	coordinates																												
+axis	default	1,6	1,7	1,8	1,9	1,1	1,11	1,12	1,13	2,7	2,8	2,9	2,1	2,11	2,12	2,13	2,14	3,1	3,11	3,13	3,14	4,9	4,1	4,11	4,13	4,14	3,12	4,12	3,9
+allies	default																												
+																													
+# Units																													
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																			
+104	ger	1	8	10	0	0	85	none	1	0																			
+88	ger	3	11	10	0	1	none	none	1	0																			
+98	ger	1	12	10	0	0	85	none	1	0																			
+104	ger	1	13	10	0	0	85	none	1	0																			
+104	ger	2	14	10	0	1	none	none	1	0																			
+19	ger	2	14	10	0	0	none	none	1	0																			
+104	ger	1	10	10	0	1	85	none	1	0																			
+32	ger	2	11	10	0	0	none	none	1	0																			
+104	ger	4	14	10	0	2	none	none	1	0																			
+37	ger	4	10	10	0	1	none	none	1	0																			
+37	ger	1	7	10	0	1	none	none	1	0																			
+37	ger	1	6	10	0	1	none	none	1	0																			
+118	pol	18	4	10	0	0	none	none	0	0																			
+112	pol	18	5	10	0	0	none	none	0	0																			
+120	pol	10	5	10	0	0	none	none	0	0																			
+123	pol	9	5	10	0	0	none	none	0	0																			
+118	pol	10	6	10	0	0	none	none	0	0																			
+118	pol	11	5	10	0	0	none	none	0	0																			
+118	pol	7	3	10	0	0	none	none	0	0																			
+119	pol	6	5	10	0	0	none	none	0	0																			
+118	pol	8	2	10	0	0	none	none	0	0																			
+120	pol	8	3	10	0	0	none	none	0	0																			
+119	pol	8	10	10	0	0	none	none	0	0																			
+118	pol	6	14	10	0	0	none	none	0	0																			
+118	pol	4	6	10	0	0	none	none	0	0																			
+118	pol	7	8	10	0	0	none	none	0	0																			
+117	pol	9	7	10	0	0	none	none	0	0																			

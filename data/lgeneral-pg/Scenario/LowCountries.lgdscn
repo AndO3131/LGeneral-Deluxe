@@ -1,0 +1,179 @@
+# General scenario data																																										
+name	LOW COUNTRIES																																									
+desc	May 10, 1940: Flanking the heavy fortifications of the Maginot Line, the Germans invade France through Belgium, Luxembourg, and the Netherlands.																																									
+authors	SSI																																									
+year	1940																																									
+month	5																																									
+day	10																																									
+turns	30																																									
+turns_per_day	0																																									
+days_per_turn	1																																									
+domain	pg																																									
+nation_db	nations.lgdndb																																									
+unit_db	pg.lgdudb																																									
+map file	map04.lgdmap																																									
+weather	fair	fair	fair	fair	fair	fair	fair	r	rain	O	clouds	clouds	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	clouds	clouds	r	clouds	fair	fair	fair	fair												
+weather_zone	2																																									
+																																										
+# Players																																										
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module																														
+axis	Axis	42	26	left	human	1	0	28	3	298	0	default																														
+allies	Allies	49	-1	right	cpu	-1	2	353	0	290	0	default																														
+																																										
+# Allied_players																																										
+# player_id	allied players id's																																									
+axis																																										
+allies																																										
+																																										
+# Prestige allocation																																										
+# player_id	prestige on subsequent turns																																									
+axis	625	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0												
+allies	1150	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48	48												
+																																										
+# Player nations																																										
+# player_id	nation_id's																																									
+axis	ger	aus	it	hun	bul	rum	fin	esp																																		
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug																										
+																																										
+# Flags																																										
+# x	y	nation	objective flag																																							
+16	1	bel	0																																							
+29	1	bel	0																																							
+11	3	fra	0																																							
+16	3	bel	0																																							
+6	4	fra	1																																							
+22	4	bel	0																																							
+5	5	fra	0																																							
+14	7	fra	0																																							
+26	7	bel	0																																							
+28	7	bel	1																																							
+38	7	bel	0																																							
+43	7	ger	0																																							
+4	8	fra	0																																							
+17	9	fra	1																																							
+37	9	bel	0																																							
+42	9	ger	1																																							
+15	10	fra	0																																							
+39	10	bel	1																																							
+33	12	bel	1																																							
+29	13	bel	0																																							
+14	14	fra	0																																							
+23	14	fra	0																																							
+24	14	fra	1																																							
+7	15	fra	0																																							
+14	15	fra	0																																							
+4	16	fra	0																																							
+6	16	fra	1																																							
+33	16	fra	0																																							
+19	17	fra	0																																							
+10	18	fra	0																																							
+46	18	ger	0																																							
+25	19	fra	0																																							
+46	19	ger	1																																							
+17	21	fra	0																																							
+33	22	fra	1																																							
+42	22	lux	1																																							
+32	24	fra	0																																							
+																																										
+# Results																																										
+# result	message	logical check	type	player	x	y	count	tag																																		
+vcond_check_type	every_turn																																									
+defeat	Axis Defeat																																									
+major	Axis Major Victory	and	control_all_hexes	axis	0	0	0	0	turns_left	0	0	0	6	0																												
+minor	Axis Minor Victory	and	control_all_hexes	axis	0	0	0	0																																		
+																																										
+# Deploy hexes																																										
+# player_id	deploy_type	coordinates																																								
+axis	default	44,2	42,1	42,11	42,12	42,14	42,15	42,16	42,17	42,18	43,1	43,11	43,12	43,13	43,14	43,15	43,16	43,17	43,18	44,11	44,12	44,13	44,14	44,15	44,16	44,17	44,18	44,19	45,11	45,12	45,13	45,14	45,15	45,16	45,17	45,18	45,19	46,12	46,13	46,14	46,15	46,16
+allies	default																																									
+																																										
+# Units																																										
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																																
+98	ger	46	19	10	3	0	85	none	1	0
+104	ger	42	17	10	6	2	85	none	1	0
+104	ger	42	16	10	6	1	85	none	1	0
+19	ger	46	15	10	0	1	none	none	1	0
+11	ger	46	13	10	0	0	none	none	1	0
+43	ger	45	15	10	0	1	none	none	1	0
+33	ger	45	14	10	0	0	none	none	1	0
+89	ger	44	18	10	0	0	none	none	1	0
+104	ger	43	17	10	0	1	85	none	1	0
+104	ger	45	19	10	0	0	none	none	1	0
+104	ger	44	20	10	6	0	none	none	1	0
+104	ger	43	18	10	6	0	none	none	1	0
+104	ger	42	18	10	6	2	85	none	1	0
+25	ger	46	16	10	0	0	none	none	1	0
+104	ger	42	10	10	6	2	none	none	1	0
+104	ger	42	11	10	6	0	none	none	1	0
+104	ger	42	12	10	6	0	none	none	1	0
+32	ger	43	10	10	0	1	none	none	1	0
+104	ger	42	14	10	6	0	none	none	1	0
+104	ger	43	12	10	6	0	none	none	1	0
+37	ger	44	12	10	0	0	none	none	1	0
+70	ger	44	13	10	0	0	none	none	1	0
+42	ger	45	17	10	0	2	none	none	1	0
+48	ger	45	16	10	0	0	none	none	1	0
+98	ger	43	7	10	0	0	85	none	0	0
+104	ger	40	7	10	6	0	none	none	0	0
+104	ger	40	6	10	6	0	none	none	0	0
+104	ger	41	4	10	6	0	none	none	0	0
+104	ger	41	2	10	6	0	none	none	0	0
+103	ger	42	8	10	6	0	87	none	0	0
+31	ger	44	7	10	2	0	none	none	0	0
+23	ger	46	6	10	0	0	none	none	0	0
+0	ger	46	8	10	0	2	none	none	0	0
+0	ger	46	17	10	0	2	none	none	0	0
+104	ger	46	20	10	4	0	none	none	0	0
+24	ger	46	10	10	0	0	none	none	0	0
+104	ger	42	9	10	5	2	85	none	0	0
+34	ger	43	9	10	0	0	none	none	0	0
+23	ger	46	11	10	0	0	none	none	0	0
+103	ger	46	18	10	0	0	87	none	0	0
+140	fra	6	4	10	3	0	none	none	0	0
+140	fra	11	3	10	3	0	none	none	0	0
+140	fra	6	16	10	3	0	none	none	0	0
+140	fra	14	14	10	3	0	none	none	0	0
+140	fra	19	17	10	3	0	none	none	0	0
+140	fra	24	14	10	3	0	none	none	0	0
+140	fra	33	16	10	3	0	none	none	0	0
+125	fra	15	14	10	0	0	none	none	0	0
+147	fra	23	14	10	3	0	139	none	0	0
+140	fra	33	22	10	3	0	none	none	0	0
+154	fra	35	23	5	0	0	none	none	0	0
+137	fra	12	3	10	2	0	none	none	0	0
+140	fra	12	7	10	3	0	none	none	0	0
+142	fra	12	8	10	3	0	139	none	0	0
+140	fra	20	13	10	3	0	none	none	0	0
+140	fra	19	12	10	3	0	none	none	0	0
+138	fra	19	13	10	2	0	none	none	0	0
+145	fra	23	13	10	3	0	139	none	0	0
+151	fra	25	13	10	3	0	none	none	0	0
+140	fra	25	16	10	3	0	none	none	0	0
+140	fra	25	19	10	3	0	none	none	0	0
+144	fra	33	24	10	3	0	none	none	0	0
+154	fra	31	22	5	0	0	none	none	0	0
+127	fra	32	23	10	0	0	none	none	0	0
+212	eng	17	9	10	3	0	210	none	0	0
+286	eng	12	1	10	0	0	none	none	0	0
+221	eng	17	10	10	3	0	211	none	0	0
+161	eng	16	10	10	0	1	none	none	0	0
+216	eng	18	10	10	3	0	211	none	0	0
+179	eng	18	9	10	0	0	none	none	0	0
+158	bel	28	7	10	3	0	none	none	0	0
+158	bel	29	13	10	3	0	none	none	0	0
+158	bel	33	12	10	3	0	none	none	0	0
+158	bel	38	7	10	3	0	none	none	0	0
+158	bel	39	11	10	3	0	none	none	0	0
+158	bel	14	1	10	3	0	none	none	0	0
+158	bel	22	4	10	3	0	none	none	0	0
+157	bel	30	1	10	0	0	none	none	0	0
+158	bel	38	9	10	3	0	none	none	0	0
+158	bel	26	1	10	3	0	none	none	0	0
+145	bel	27	7	10	3	0	none	none	0	0
+151	bel	39	2	5	3	0	none	none	0	0
+158	bel	38	17	10	3	0	none	none	0	0
+146	bel	39	10	10	3	0	none	none	0	0
+158	bel	39	4	10	3	0	none	none	0	0
+154	fra	40	11	3	0	0	none	none	0	0
+147	fra	32	24	10	3	0	none	none	0	0
+154	fra	40	10	3	0	0	none	none	0	0

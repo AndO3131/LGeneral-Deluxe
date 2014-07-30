@@ -1,0 +1,206 @@
+# General scenario data																										
+name	MIDDLE EAST																									
+desc	Septempter 1, 1941: Axis attempts to seize the oil fields of Persia.																									
+authors	SSI																									
+year	1941																									
+month	9																									
+day	1																									
+turns	26																									
+turns_per_day	0																									
+days_per_turn	3																									
+domain	pg																									
+nation_db	nations.lgdndb																									
+unit_db	pg.lgdudb																									
+map file	map08.lgdmap																									
+weather	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair	fair
+weather_zone	0																									
+																										
+# Players																										
+# id	name	unit_limit	core_limit	orientation	control	strategy	strength_row	air_trsp_unit	air_trsp_number	sea_trsp_unit	sea_trsp_number	ai_module														
+axis	Axis	56	34	right	human	1	0	28	3	298	0	default														
+allies	Allies	70	-1	left	cpu	-1	2	353	3	290	0	default														
+																										
+# Allied_players																										
+# player_id	allied players id's																									
+axis																										
+allies																										
+																										
+# Prestige allocation																										
+# player_id	prestige on subsequent turns																									
+axis	500	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+allies	890	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70	70
+																										
+# Player nations																										
+# player_id	nation_id's																									
+axis	ger	aus	it	hun	bul	rum	fin	esp																		
+allies	bel	lux	den	fra	gre	usa	tur	net	nor	pol	por	so	swe	swi	eng	yug										
+																										
+# Flags																										
+# x	y	nation	objective flag																							
+42	4	eng	0																							
+16	6	eng	0																							
+30	6	eng	1																							
+7	7	eng	0																							
+47	7	eng	0																							
+7	8	eng	0																							
+36	8	eng	0																							
+44	8	eng	0																							
+46	8	eng	0																							
+47	8	eng	1																							
+7	9	eng	1																							
+16	9	eng	0																							
+48	9	eng	0																							
+14	10	eng	0																							
+42	10	eng	0																							
+14	11	eng	1																							
+15	14	eng	0																							
+6	16	eng	1																							
+8	16	eng	0																							
+43	16	eng	0																							
+49	16	eng	0																							
+50	17	eng	0																							
+6	18	eng	0																							
+49	19	eng	0																							
+50	20	eng	0																							
+10	21	eng	1																							
+26	21	eng	0																							
+67	21	eng	0																							
+9	22	eng	0																							
+10	22	eng	0																							
+14	22	eng	0																							
+15	22	eng	0																							
+59	23	eng	0																							
+64	24	eng	0																							
+61	25	eng	0																							
+15	27	eng	0																							
+2	28	ger	1																							
+4	28	ger	0																							
+30	28	eng	0																							
+1	29	it	0																							
+2	29	it	1																							
+59	29	eng	0																							
+																										
+# Results																										
+# result	message	logical check	type	player	x	y	count	tag																		
+vcond_check_type	every_turn																									
+defeat	Axis Defeat																									
+major	Axis Major Victory	and	control_all_hexes	axis	0	0	0	0	turns_left	0	0	0	5	0												
+minor	Axis Minor Victory	and	control_all_hexes	axis	0	0	0	0																		
+																										
+# Deploy hexes																										
+# player_id	deploy_type	coordinates																								
+axis	default	4,23	5,23	6,24	6,25	5,24	4,24	3,24	4,25	5,25	6,26	5,26	4,26	3,25	2,26	3,26	4,27	5,27	5,28	4,28	3,27	2,27	2,28			
+allies	default																									
+																										
+# Units																										
+# unit_id	nation_id	x	y	strength	entrenchment	experience	organic_transport_id	air/sea_transport_id	core unit flag	tag																
+45	ger	3	24	10	0	2	none	none	1	0																
+45	ger	4	25	10	0	2	none	none	1	0																
+34	ger	5	25	10	0	1	none	none	1	0																
+88	ger	4	24	10	0	1	none	none	1	0																
+89	ger	5	24	10	0	2	none	none	1	0																
+48	ger	4	26	10	0	2	none	none	1	0																
+33	ger	3	25	10	0	1	none	none	1	0																
+106	ger	6	25	10	0	2	86	none	1	0																
+108	ger	4	28	10	0	2	none	none	1	0																
+104	ger	3	26	10	0	2	87	none	1	0																
+104	ger	2	26	10	0	1	86	none	1	0																
+75	ger	2	27	10	0	1	none	none	1	0																
+57	ger	2	28	10	3	1	none	none	1	0																
+98	ger	3	27	10	0	2	85	none	1	0																
+104	ger	4	23	10	0	2	87	none	1	0																
+0	ger	4	27	10	0	2	none	none	1	0																
+4	ger	5	27	10	0	2	none	none	1	0																
+19	ger	3	26	10	0	2	none	none	1	0																
+21	ger	2	27	10	0	2	none	none	1	0																
+11	ger	3	27	10	0	2	none	none	1	0																
+25	ger	4	28	10	0	2	none	none	1	0																
+1	ger	2	26	10	0	2	none	none	1	0																
+0	ger	5	28	10	0	2	none	none	1	0																
+12	ger	4	26	10	0	2	none	none	1	0																
+20	ger	3	25	10	0	2	none	none	1	0																
+106	ger	5	23	10	0	2	87	none	1	0																
+104	ger	6	24	10	0	1	86	none	1	0																
+44	ger	5	26	10	0	2	none	none	1	0																
+307	it	1	28	10	0	2	none	none	0	0																
+300	it	3	29	10	0	2	none	none	0	0																
+305	it	1	29	10	0	2	none	none	0	0																
+300	it	2	29	10	0	2	none	none	0	0																
+306	it	3	28	10	0	2	none	none	0	0																
+309	it	1	26	10	0	2	none	none	0	0																
+324	it	4	29	10	0	2	323	none	0	0																
+75	ger	3	29	10	0	0	none	none	0	0																
+325	it	2	29	10	6	2	323	none	0	0																
+327	it	1	29	10	0	0	323	none	0	0																
+324	it	2	30	10	0	0	323	none	0	0																
+324	it	1	30	10	0	0	323	none	0	0																
+291	it	1	21	10	0	1	none	none	0	0																
+293	it	1	20	10	0	0	none	none	0	0																
+296	it	2	21	10	0	1	none	none	0	0																
+294	it	3	21	10	0	2	none	none	0	0																
+299	it	3	20	10	0	0	none	none	0	0																
+297	it	2	19	10	0	0	none	none	0	0																
+75	ger	1	27	10	0	1	none	none	0	0																
+57	ger	1	28	10	0	1	none	none	0	0																
+179	eng	6	22	10	2	1	none	none	0	0																
+181	eng	8	23	10	2	1	none	none	0	0																
+216	eng	7	21	10	7	1	211	none	0	0																
+213	eng	9	23	10	6	1	211	none	0	0																
+221	eng	8	22	10	7	1	211	none	0	0																
+225	eng	9	22	10	6	1	none	none	0	0																
+212	eng	10	22	10	4	1	none	none	0	0																
+213	eng	10	21	10	4	1	none	none	0	0																
+221	eng	14	10	10	0	1	none	none	0	0																
+221	eng	9	20	10	6	1	none	none	0	0																
+225	eng	8	21	10	0	1	none	none	0	0																
+213	eng	15	27	10	0	1	none	none	0	0																
+179	eng	15	26	10	0	1	none	none	0	0																
+219	eng	16	27	10	0	1	none	none	0	0																
+224	eng	16	28	10	0	1	none	none	0	0																
+212	eng	14	22	10	0	1	none	none	0	0																
+180	eng	15	21	10	0	1	none	none	0	0																
+120	eng	15	22	10	0	1	none	none	0	0																
+224	eng	16	22	10	0	1	none	none	0	0																
+212	eng	6	16	10	4	1	none	none	0	0																
+212	eng	7	16	10	7	1	none	none	0	0																
+207	eng	8	18	10	0	1	none	none	0	0																
+213	eng	8	17	10	0	1	none	none	0	0																
+120	eng	7	15	10	0	1	none	none	0	0																
+182	eng	12	16	10	0	1	none	none	0	0																
+212	eng	15	14	10	4	1	none	none	0	0																
+212	eng	14	11	10	4	1	none	none	0	0																
+179	eng	14	12	10	0	1	none	none	0	0																
+182	eng	8	11	10	0	1	none	none	0	0																
+216	eng	8	14	10	0	1	none	none	0	0																
+213	eng	7	9	10	4	1	none	none	0	0																
+221	eng	7	8	10	4	1	none	none	0	0																
+224	eng	7	7	10	0	1	none	none	0	0																
+213	eng	16	6	10	0	1	none	none	0	0																
+181	eng	30	8	10	0	1	none	none	0	0																
+181	eng	29	6	10	0	1	none	none	0	0																
+213	eng	30	6	10	0	1	none	none	0	0																
+221	eng	30	7	10	0	1	none	none	0	0																
+225	eng	31	7	10	0	1	none	none	0	0																
+212	eng	36	8	10	0	1	none	none	0	0																
+212	eng	44	8	10	0	1	none	none	0	0																
+213	eng	47	8	10	0	1	none	none	0	0																
+212	eng	46	8	10	0	1	none	none	0	0																
+221	eng	47	7	10	0	1	none	none	0	0																
+225	eng	48	8	10	0	1	none	none	0	0																
+212	eng	49	16	10	0	1	none	none	0	0																
+212	eng	50	17	10	0	1	none	none	0	0																
+191	eng	56	24	12	0	2	none	none	0	0																
+207	eng	57	24	12	0	2	none	none	0	0																
+182	eng	57	23	10	0	1	none	none	0	0																
+288	eng	4	17	10	0	2	none	none	0	0																
+286	eng	2	17	10	0	2	none	none	0	0																
+287	eng	3	17	10	0	2	none	none	0	0																
+283	eng	3	16	10	0	2	none	none	0	0																
+284	eng	2	16	10	0	2	none	none	0	0																
+165	eng	48	17	12	0	2	none	none	0	0																
+163	eng	48	16	10	0	1	none	none	0	0																
+162	eng	49	17	10	0	1	none	none	0	0																
+173	eng	49	15	10	0	1	none	none	0	0																
+172	eng	50	16	10	0	1	none	none	0	0																
+171	eng	41	9	12	0	2	none	none	0	0																
+163	eng	41	10	12	0	2	none	none	0	0																
