@@ -1,0 +1,163 @@
+# terrain database																																		
+terrain_db	terrain.lgdtdb																																	
+																																		
+# map layer 0 – terrain																																		
+c139	~143	~140	m79	~141	R71	c139	c59	c139	f145	f135	f138	c69	c130	m98	m85	m76	c59	~143	~140	~141	~140	m105	m111	m112	m118	m82	m108	m103	~143	~131	~142	f137	f147	c139
+f136	~132	m95	m115	~143	R65	c139	c69	a128	c139	c129	~143	c47	c48	~131	m95	m86	c69	m105	~141	~132	~143	m115	m103	m122	~143	m92	m118	m82	m108	m102	~132	f136	c139	c129
+f146	c129	m109	f135	c130	f136	R72	c47	c130	c129	~141	c67	c74	R227	c56	c69	m115	c47	m115	m99	m100	m108	~141	~140	~132	m111	~131	~142	m92	m118	m82	m83	f146	c129	c130
+f137	f147	f145	c130	c139	f146	R71	t125	f137	f147	c37	R63	R64	~140	R62	c47	~143	c74	~140	m109	m110	m95	m82	m108	~143	m103	m114	c67	c58	c66	m92	f138	~141	c130	c139
+f136	f138	c129	c139	c129	c139	R62	c74	c129	f138	c74	R71	f136	~131	R52	t126	c48	m116	m117	~141	m120	~143	m92	m118	m82	m83	c37	f137	f138	f136	c48	c69	a128	t126	c129
+f146	f145	f135	c129	c130	c129	R72	c226	c130	R71	c226	c129	f146	m99	m76	c56	~143	~140	~132	m80	~132	m105	~131	~142	m92	c48	c74	m112	f147	f146	f147	c47	c48	R63	R54
+f137	f147	f136	R53	f138	c130	R63	t125	R65	c48	c59	m102	~143	m85	m86	~141	c69	~132	~141	m95	m83	m115	~140	t125	c57	m112	m113	m122	m114	f145	f135	c130	c66	R71	c139
+f138	~140	f146	R63	c129	f138	R71	c47	c57	c139	f137	f147	~141	m103	m96	~143	c47	c66	~143	m187	m188	m189	c67	R53	m111	m122	m123	~143	~132	~140	f136	s144	c74	R62	c129
+~132	f135	c130	f137	R64	R65	R62	c74	c48	c69	c130	R64	~132	~140	f136	m80	f138	c47	~141	m197	m198	m199	c69	R71	m103	m99	m100	m108	~141	~132	f146	R71	c226	c129	c130
+f145	c58	c139	a128	f147	c130	R72	c226	c139	R227	c40	c59	R62	c66	f146	m95	m108	m79	c49	~132	m196	~140	c47	R72	m111	m122	m110	m118	m83	R53	R61	t125	c59	c130	c139
+c67	~143	t125	c48	f138	c224	R54	c59	R65	c139	c129	c56	c223	R64	c48	c69	m118	m115	c59	~141	~143	c48	c74	R71	m103	m108	m120	~140	~143	~131	R54	c69	a128	s133	c129
+~141	c37	c74	f135	c68	R62	t126	c129	c130	~132	c130	c129	f136	~143	R52	t125	c66	c48	t126	c68	c57	R54	R64	~143	m106	m95	m82	m108	f137	f147	~142	c47	s144	c129	c130
+~132	c47	f145	f137	c139	R72	c59	c130	c139	c130	c139	R61	f146	R53	~140	c59	m102	R61	R227	R65	R71	f138	~132	~141	~141	~140	m92	m118	m82	m108	f138	c130	c66	c48	c58
+c129	c74	f136	f138	f147	R63	c69	c139	f136	t125	c129	R54	R72	R54	~132	c56	f138	R63	f136	m111	m112	m114	~140	~142	t125	m97	~143	~132	m92	m118	m83	s124	t125	c139	c129
+c130	c59	f146	f135	c130	R71	c74	c139	f146	R227	R71	f137	~141	f136	f137	f147	c69	R71	f146	m103	m122	~131	f138	~143	m99	m118	m108	m82	~141	~143	f138	m105	c130	~131	c130
+c139	c69	f145	c130	c139	c30	c59	c130	R61	c130	c139	~143	f147	f146	~143	c47	c57	R65	f138	~143	~141	m116	m117	~140	m109	R53	m95	m92	m83	m78	~140	m115	f138	m99	m76
+c129	t125	c48	c56	c74	R63	c69	c224	R54	c139	~132	~141	~140	f145	f135	c74	c66	t125	R62	c58	f138	~143	~132	m76	~141	R71	~143	~132	R53	m87	m82	m83	~141	m85	m86
+c130	c129	f137	f147	c69	c224	R64	t125	c49	c47	c48	c56	c58	c57	c48	m102	~132	c57	c30	~132	t125	c49	m99	m86	f136	R65	f137	f147	R63	~143	m92	~141	~143	m103	m96
+f147	f145	f135	R55	c74	R65	c48	c37	c59	t125	f138	~140	~143	~141	~140	f136	c74	R61	R71	~141	R53	c59	m85	m96	f146	~132	R72	R64	R71	~132	~140	~142	~132	~131	c139
+R64	R65	R71	c30	c59	f138	R72	t126	c48	R55	a128	c139	f136	~132	f138	f146	c59	R63	~140	R227	R71	c69	m103	~143	~131	m117	~131	~142	R62	~141	m102	f138	f136	f147	~142
+f138	c67	t126	c56	R64	R72	R63	R64	c224	R65	c130	c129	f146	f136	f137	f147	c69	c224	R64	c129	m80	m83	t125	c56	m116	~141	f137	f147	R72	~143	~131	~142	f146	c48	c67
+c48	c130	c139	s124	c59	R71	R54	c67	c74	c139	R62	c130	f138	f146	~143	c130	R227	c47	c139	c130	m95	~131	~141	m102	c69	~140	m80	m83	R63	a128	f138	t126	c57	c46	c21
+c129	s144	s133	R64	c41	t125	c48	s133	c69	c66	R72	R64	R227	R72	c129	R64	R62	c74	f138	f135	f137	f147	~142	f136	c47	c48	m95	R227	R71	h232	c74	c34	o15	o73	o14
+s124	s134	R71	s124	R65	R72	s144	s134	c130	c129	c48	c56	f137	f147	R54	c74	c48	f137	f145	f136	c130	a128	c130	f146	f137	f147	c69	c30	c67	o25	o11	o12	o73	o73	o73
+s133	s124	R62	s134	s133	s144	R55	c22	s133	s144	R61	R65	c69	t125	c67	c56	f138	f137	f147	f146	c139	R227	t125	c130	c139	c139	s133	t125	R229	o73	o73	o73	o73	o73	o73
+c129	c139	R72	s133	s124	s134	R72	c44	o11	R228	R71	c139	c223	R64	R227	R52	c69	c66	f147	R53	R61	f136	R72	R54	R64	c70	c74	c46	o24	o73	o73	o73	o73	o73	o73
+c45	o42	R54	c139	c22	c45	R63	R55	o31	c230	c130	a128	c59	c129	f138	c129	f137	f147	t125	c69	R54	f146	f137	f147	c37	c34	o51	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	c33	o15	o25	o73	R228	c22	R72	c22	c139	c22	h232	h26	c139	f145	f135	f138	f136	c130	c66	c48	f138	c67	c74	o17	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o14	o73	o73	o73	o1	o12	o42	o12	c45	o12	o12	o1	c56	c69	c129	c139	f146	c48	c74	f135	c56	f145	f135	o25	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c33	c21	c48	h231	c57	c129	f145	c46	c21	o15	c46	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o14	o14	o15	o2	c22	o11	c34	o73	o14	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o12	o73	o12	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o8	c36	o73	o73	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o20	a128	o13	o18	o73
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o1	h26	a128	h27	o7
+o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	o73	c43	c130	c139	o17
+																																		
+# map names																																		
+0	0	0	0	0	Rhone River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Rhone River	0	0	0	0	0	0	Isere River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Rhone River	St. Vallier	0	0	0	Isere River	Isere River	0	Isere River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Rhone River	0	0	0	0	Isere River	0	0	Isere River	Grenoble	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Turin	0
+0	0	0	0	0	0	Rhone River	Isere River	0	Isere River	Isere River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Po River	Po River
+0	0	0	Erteux River	0	0	Rhone River	Valence	Isere River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Briancon	0	0	0	0	0	0	0	0	0	Po River	0
+0	0	0	Erteux River	0	0	Rhone River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	0	0	Po River	0
+0	0	0	0	Erteux River	Erteux River	Rhone River	0	0	0	0	Drome River	0	0	0	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	Po River	Po River	0	0
+0	0	0	0	0	0	Rhone River	Drome River	0	Drome River	Drome River	0	Drome River	0	0	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	Po River	Po River	Saluzzo	0	0	0
+0	0	Aubenas	0	0	Rhone River	Rhone River	0	Drome River	0	0	0	Drome River	Drome River	0	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	Po River	0	0	0	0
+0	0	0	0	0	Rhone River	Montelimar	0	0	0	0	0	0	0	Drome River	Aspres	0	0	Gap	0	0	Durance River	Durance River	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	0	0	0	0	0	Aygues River	0	Aygues River	0	0	0	Durance River	Durance River	Durance River	Durance River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	0	0	0	Nyons	0	Aygues River	Aygues River	Aygues River	0	0	0	Durance River	0	0	0	0	0	0	Barcellonette	0	0	0	0	0	0	0	Cuneo	0	0
+0	0	0	0	0	Rhone River	0	0	0	Aygues River	Aygues River	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	0	0	Aygues River	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	Var River	0	0	0	0	0	0	0	0	0
+0	Ales	0	0	0	Rhone River	0	Aygues River	Aygues River	0	0	0	0	0	0	0	0	Sisteron	Durance River	0	0	0	0	0	0	Var River	0	0	Linee River	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	Aygues River	Orange	0	0	0	0	0	0	0	0	0	0	Durance River	0	Digne	0	0	0	0	Var River	0	0	Linee River	0	0	0	0	0	0
+0	0	0	Gard River	0	Rhone River	0	0	0	Carpentras	0	0	0	0	0	0	0	Durance River	Durance River	0	Asse River	0	0	0	0	0	Var River	Var River	Linee River	0	0	0	0	0	0
+Gard River	Gard River	Gard River	Gard River	0	0	Rhone River	Avignon	0	Durance River	0	0	0	0	0	0	0	Durance River	0	Asse River	Asse River	0	0	0	0	0	0	0	Linee River	0	0	0	0	0	0
+0	0	Nimes	0	Gard River	Gard River	Rhone River	Durance River	Durance River	Durance River	0	0	0	0	0	0	0	Durance River	Asse River	0	0	0	Castellane	0	0	0	0	0	Linee River	0	0	0	0	0	0
+0	0	0	0	0	Rhone River	Rhone River	0	0	0	Durance River	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	0	0	0	0	Linee River	0	0	Monaco	0	0	0
+0	0	0	Petit Rhone River	Rhone River	Arles	0	0	0	0	Durance River	Durance River	Durance River	Durance River	0	Durance River	Durance River	0	0	0	0	0	0	0	0	0	0	Linee River	Linee River	Nice	0	0	0	0	0
+0	0	Petit Rhone River	0	Grand Rhone River	Grand Rhone River	0	0	0	0	0	0	0	0	Durance River	0	0	0	0	0	0	0	0	0	0	0	0	Linee River	0	0	0	0	0	0	0
+0	0	Petit Rhone River	0	0	0	Grand Rhone River	0	0	0	Arc River	Arc River	0	Aix-en-Provence	0	0	0	0	0	0	0	Argens River	Draguigan	0	0	0	0	Cannes	Linee River	0	0	0	0	0	0
+0	0	Petit Rhone River	0	0	0	Grand Rhone River	0	0	Arc River	Arc River	0	Arc River	Arc River	Arc River	Arc River	0	0	0	Argens River	Argens River	0	Argens River	Argens River	Argens River	Argens River	0	0	0	0	0	0	0	0	0
+0	0	Petit Rhone River	0	0	0	Grand Rhone River	Grand Rhone River	0	0	0	0	0	0	0	0	0	0	Brignoles	0	Argens River	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	Grand Rhone River	0	River	0	0	0	Marseilles	Marseilles	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	Toulon	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	German Camp	0	German Camp	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+																																		
+																																		
+# map layer 1 – roads																																		
+terrain_id	r																																	
+0	0	0	0	0	0	0	17	0	0	0	0	17	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	17	255	0	0	0	25	168	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	17	0	0	0	34	35	0	136	144	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	255	0	0	18	0	0	0	0	25	0	33	0	0	0	0	0	0	0	0	0	34	40	136	0	0	0	0	0
+0	0	0	0	0	0	0	17	0	0	17	0	0	0	0	255	162	0	0	0	0	0	0	0	0	0	18	0	0	0	136	152	255	255	0
+0	0	0	0	0	0	0	17	0	0	17	0	0	0	0	9	0	0	0	0	0	0	0	0	0	34	33	0	0	0	0	11	162	0	0
+0	0	0	0	0	0	0	255	0	34	33	0	0	0	0	0	144	0	0	0	0	0	0	255	34	0	0	0	0	0	0	0	144	0	0
+0	0	0	0	0	0	0	27	162	0	0	0	0	0	0	0	9	144	0	0	0	0	18	0	0	0	0	0	0	0	0	0	17	0	0
+0	0	0	0	0	0	0	19	168	136	0	0	0	0	0	0	0	9	0	0	0	0	17	0	0	0	0	0	0	0	0	0	17	0	0
+0	40	0	255	0	0	0	17	0	0	136	144	0	40	0	0	0	0	144	0	0	0	17	0	0	0	0	0	0	0	0	255	33	0	0
+34	0	255	168	0	40	0	33	0	0	0	3	34	0	136	152	0	0	17	0	0	34	33	0	0	0	0	0	0	0	0	17	255	0	0
+0	18	35	0	130	0	255	0	0	0	0	0	0	0	0	255	168	130	255	130	34	0	0	0	0	0	0	0	0	0	0	9	0	0	0
+0	17	0	0	0	0	17	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	152	162	40
+0	17	0	0	0	0	17	0	0	255	0	0	0	0	0	9	0	0	0	0	0	0	0	0	255	0	0	0	0	0	0	0	255	0	0
+0	17	0	0	0	0	17	0	0	0	0	0	0	0	0	0	144	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	25	0	0	0	42	49	0	0	0	0	0	0	0	0	26	33	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	255	168	138	50	0	137	152	0	0	0	0	0	0	0	35	168	255	0	40	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	153	168	0	255	176	18	40	130	40	130	34	0	0	35	162	0	255	144	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	19	0	130	26	161	255	0	0	0	0	0	0	18	0	0	0	0	17	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	34	33	0	0	255	162	0	255	0	0	0	0	0	17	0	0	0	0	9	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	34	255	136	0	0	0	0	144	0	0	0	0	0	0	0	9	144	0	0	0	0	255	136	0	0	0	0	0	0	0	0	0	34	34
+130	0	0	0	144	0	0	42	49	0	0	0	0	0	0	0	0	17	0	0	0	0	0	0	144	0	0	0	0	255	0	255	34	0	0
+0	0	0	0	9	255	34	0	137	136	0	0	0	0	0	0	0	33	0	0	0	0	0	0	9	136	0	0	0	255	34	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	136	136	0	0	0	50	34	0	0	0	0	255	0	0	0	0	136	130	34	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	152	255	42	137	0	0	0	0	0	0	255	0	0	0	0	255	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	19	0	0	0	136	136	0	0	0	0	0	0	0	34	34	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	255	17	0	0	0	0	0	255	136	0	0	0	0	18	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	255	255	0	0	0	0	0	0	152	168	0	34	33	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	136	0	0	0	34	35	0	130	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	136	255	34	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	255	255	255	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
