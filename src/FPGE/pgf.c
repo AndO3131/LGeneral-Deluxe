@@ -124,8 +124,10 @@ int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
 			return eof;
 		}
-		line[gcursor]=(unsigned char)digit;
-		gcursor++;
+		if (digit>0 && digit<0x80) {
+			line[gcursor]=(unsigned char)digit;
+			gcursor++;
+		}
 		//big char
 		if (digit>=0x80 && digit<0x7ff){
 			//we encode to UTF-8
