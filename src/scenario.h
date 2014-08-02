@@ -24,6 +24,9 @@ struct _Unit;
 
 #define DEBUG_CAMPAIGN 1
 
+#define MAX_TOKENS 500
+#define MAX_SCENARIO_LINE 5000
+
 /*
 ====================================================================
 Engine setup. 'name' is the name of the scenario or savegame 

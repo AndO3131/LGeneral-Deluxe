@@ -124,25 +124,17 @@ int read_utf16_line_convert_to_utf8(FILE *inf, char *line){
 
 			return eof;
 		}
-		//normal char
-		if (digit>0 && digit<0x80) {
-		  //protect from longlines
-		  if (gcursor<1024){
-			  line[gcursor]=(unsigned char)digit;
-			  gcursor++;
-		  }
-		}
+		line[gcursor]=(unsigned char)digit;
+		gcursor++;
 		//big char
 		if (digit>=0x80 && digit<0x7ff){
 			//we encode to UTF-8
 			u1 = (digit & 0x03F) | 0x80;
 			u2 = ((digit & 0x007C0) | 0x3000) >> 6;
-			  if (gcursor<1024-2){
-				  line[gcursor]=(unsigned char)u2;
-				  gcursor++;
-				  line[gcursor]=(unsigned char)u1;
-				  gcursor++;
-			  }
+			line[gcursor]=(unsigned char)u2;
+			gcursor++;
+			line[gcursor]=(unsigned char)u1;
+			gcursor++;
 			  //printf("%d=%2x%2x\n",digit,line[gcursor-2],line[gcursor-1]);
 		}
 		//printf("eof=%d eol=%d digit=%d\n",eof,eol,digit);
@@ -172,10 +164,8 @@ int read_utf8_line_convert_to_utf8(FILE *inf, char *line){
 		//normal char
 		//if (digit>=0 && digit<=0xFF) {
 		  //protect from longlines
-		  if (gcursor<1024){
-			  line[gcursor]=(unsigned char)digit;
-			  gcursor++;
-		  }
+		line[gcursor]=(unsigned char)digit;
+		gcursor++;
 		//}
 	}
 

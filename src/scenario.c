@@ -858,7 +858,7 @@ int scen_load_lgdscn( const char *fname, const char *path )
     int unit_delayed = 0;
 
     FILE *inf;
-    char line[1024],tokens[100][256];
+    char line[MAX_SCENARIO_LINE],tokens[MAX_TOKENS][256];
     int block=0,last_line_length=-1,cursor=0,token=0;
     int utf16 = 0, lines=0, cur_player_count = 0, cur_flag = 0, cur_vic_cond = 0, cur_unit = 0, auxiliary_units_count = 0;
     vcond_count = -1;
@@ -1394,10 +1394,11 @@ int scen_load_lgdscn( const char *fname, const char *path )
                     land_trsp_prop = unit_lib_find( tokens[7] );
                 }
                 else
-                    trsp_prop = unit_lib_find( tokens[8] );
+                    trsp_prop = unit_lib_find( tokens[7] );
             }
             else
-                trsp_prop = unit_lib_find( tokens[7] );
+                if ( strcmp( tokens[8], "none" ) != 0 )
+                    trsp_prop = unit_lib_find( tokens[8] );
             /* core */
             unit_base.core = atoi( tokens[9] );
             if ( !config.use_core_units )
@@ -1547,7 +1548,7 @@ char* scen_load_lgdscn_info( const char *fname, const char *path )
     char *info = 0;
 
     FILE *inf;
-    char line[1024],tokens[100][256];
+    char line[MAX_SCENARIO_LINE],tokens[MAX_TOKENS][256];
     int block=0,last_line_length=-1,cursor=0,token=0;
     int utf16 = 0, lines=0, cur_player_count = 0;
 
