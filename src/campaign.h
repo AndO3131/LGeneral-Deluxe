@@ -18,6 +18,8 @@
 #ifndef __CAMPAIGN_H
 #define __CAMPAIGN_H
 
+#define MAX_CAMPAIGN_TOKEN_LENGTH 2048
+
 /* ascii-codes of game-related symbols */
 enum CampaignState {
     NO_CAMPAIGN = 0,
@@ -37,9 +39,10 @@ typedef struct {
                        a selection) */
     char *title;    /* title string, will be displayed at the top */
     char *brief;    /* briefing for this scenario */
-    List *nexts;    /* list of strings: result>next_id
+    List *nexts;    /* list of strings: result>next_id>prestige
                        (if not set this is a final message) */
     List *descs;    /* textual descriptions for result: result>description */
+    List *prestige; /* prestige costs for result: result>prestige */
 } Camp_Entry;
 
 /*
@@ -61,10 +64,17 @@ int camp_load( const char *fname, const char *camp_entry );
 
 /*
 ====================================================================
-Load a campaign description.
+Load a campaign description from lgcam format.
 ====================================================================
 */
 char* camp_load_info( char *fname, char *camp_entry );
+
+/*
+====================================================================
+Load a campaign description from lgdcam format.
+====================================================================
+*/
+char* camp_load_lgdcam_info( List *campaign_entries, const char *fname, const char *path, char *info_entry_name );
 
 void camp_delete();
 

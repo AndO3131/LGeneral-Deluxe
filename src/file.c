@@ -29,6 +29,7 @@
 #include "localize.h"
 #include "sdl.h"
 #include "config.h"
+#include "campaign.h"
 #include "FPGE/pgf.h"
 
 extern Config config;
@@ -36,15 +37,15 @@ extern Config config;
 //#define FILE_DEBUG
 const int extension_image_length = 4;
 const int extension_sound_length = 3;
-const int extension_scenario_length = 2;
-const int extension_campaign_length = 2;
+const int extension_scenario_length = 3;
+const int extension_campaign_length = 3;
 const int extension_nations_length = 2;
 const int extension_unit_library_length = 2;
 const int extension_terrain_length = 2;
 const char *extension_image[] = { "bmp", "png", "jpg", "jpeg" };
 const char *extension_sound[] = { "wav", "ogg", "mp3" };
 const char *extension_scenario[] = { "lgdscn", "lgscn", "pgscn" };
-const char *extension_campaign[] = { "lgcam", "pgcam" };
+const char *extension_campaign[] = { "lgdcam", "lgcam", "pgcam" };
 const char *extension_nations[] = { "lgdndb", "ndb" };
 const char *extension_unit_library[] = { "lgdudb", "udb" };
 const char *extension_terrain[] = { "lgdtdb", "tdb" };
@@ -304,6 +305,21 @@ List* dir_get_entries( const char *path, const char *root, int file_type, int em
                     List *campaign_entries;
                     campaign_entries = list_create( LIST_AUTO_DELETE, delete_name_entry );
                     parse_pgcam_info( campaign_entries, file_name, temp, 0 );
+                    /* add several campaign entries */
+                    list_reset( campaign_entries );
+                    while ( ( name_entry = list_next( campaign_entries ) ) )
+                    {
+                        list_transfer( campaign_entries, list, name_entry );
+                    }
+                    list_delete( campaign_entries );
+                }
+                else if ( strcmp( strrchr( dirent->d_name, '.' ), ".lgdcam" ) == 0 )
+                {
+                    char temp[MAX_BUFFER];
+                    search_file_name( temp, 0, file_name, config.mod_name, "Scenario", 'c' );
+                    List *campaign_entries;
+                    campaign_entries = list_create( LIST_AUTO_DELETE, delete_name_entry );
+                    camp_load_lgdcam_info( campaign_entries, file_name, temp, 0 );
                     /* add several campaign entries */
                     list_reset( campaign_entries );
                     while ( ( name_entry = list_next( campaign_entries ) ) )

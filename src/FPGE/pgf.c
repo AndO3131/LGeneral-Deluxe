@@ -162,7 +162,7 @@ int read_utf8_line_convert_to_utf8(FILE *inf, char *line){
 			if (gcursor==0) eof-=1;// eof may be 1 or 0 -> 0 or -1
 			return eof;
 		}
-		if (digit==59) digit=9; //convert ; to tabs
+//		if (digit==59) digit=9; //convert ; to tabs
 		//normal char
 		//if (digit>=0 && digit<=0xFF) {
 		  //protect from longlines

@@ -107,7 +107,7 @@ inline static char *camp_resolve_ref_localized(PData *entries, const char *key, 
 
 /*
 ====================================================================
-Load campaign in LGD format.
+Load campaign in old lgcam format.
 ====================================================================
 */
 int camp_load_lgcam( const char *fname, const char *path )
@@ -186,7 +186,239 @@ parser_failure:
 
 /*
 ====================================================================
-Load a campaign description in LGD format (newly allocated string)
+Load campaign in new lgdcam format.
+====================================================================
+*/
+int camp_load_lgdcam( const char *fname, const char *path, const char *info_entry_name )
+{
+    List *temp_list;
+    Camp_Entry *centry = 0;
+    FILE *inf;
+    char outcomes[10][256];
+    char line[MAX_SCENARIO_LINE],tokens[MAX_TOKENS][MAX_CAMPAIGN_TOKEN_LENGTH];
+    char str[MAX_LINE_SHORT];
+    int j,i,block=0,last_line_length=-1,cursor=0,token=0, current_outcome = 0;
+    int utf16 = 0, lines = 0;
+    camp_delete();
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open campaign file\n");
+        return 0;
+    }
+
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //Block#1 entry points
+        if (block == 1 && token > 1)
+        {
+            if ( strcmp( tokens[0], info_entry_name ) == 0 )
+            {
+                /* name, desc */
+                camp_fname = strdup( fname );
+                camp_name = strdup( tokens[0] );
+                camp_desc = strdup( tokens[2] );
+                temp_list = list_create( LIST_AUTO_DELETE, camp_delete_entry );
+                camp_first = strdup( tokens[1] );
+            }
+        }
+
+        //Block#2 outcomes
+        if (block == 2 && token > 1)
+        {
+            snprintf( outcomes[current_outcome], 256, "%s", tokens[0] );
+            current_outcome++;
+        }
+
+        //Block#3 path
+        if (block == 3 && token > 1)
+        {
+            /* selection entry check */
+            if ( atoi( tokens[1] ) == 0 )
+            {
+                /* entries */
+                centry = calloc( 1, sizeof( Camp_Entry ) );
+                centry->id = strdup( tokens[0] );
+                centry->scen = strdup( tokens[2] );
+                //check initial briefing
+                if (strlen(tokens[3])>0)
+                {
+                    centry->brief = strdup( tokens[3] );
+                }
+
+                centry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                centry->prestige = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                for (j = 0; j < current_outcome; j++)
+                {
+                    if ( strstr( tokens[current_outcome * j + 4], "END" ) )
+                    {
+                        // ending entry
+                        Camp_Entry *end_entry = calloc( 1, sizeof( Camp_Entry ) );
+                        end_entry->id = strdup( tokens[current_outcome * j + 4] );
+                        end_entry->brief = strdup( tokens[current_outcome * j + 4 + 2] );
+                        // checking if ending entry already exists in campaign memory
+                        Camp_Entry *search_entry;
+                        int found = 0;
+                        list_reset( temp_list );
+                        while ( ( search_entry = list_next( temp_list ) ) )
+                        {
+                            if ( strcmp( search_entry->id, end_entry->id ) == 0 )
+                                found = 1;
+                        }
+                        if ( !found )
+                        {
+                            list_add( temp_list, end_entry );
+//                        fprintf(stderr, "%s\n", end_entry->brief );
+                        }
+                        // ending entry for current scenario 'outcome'>'next_scen_id'
+                        snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * j + 4] );
+                        list_add( centry->nexts, strdup( str ) );
+                        snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * j + 4 + 1] );
+                        list_add( centry->prestige, strdup( str ) );
+                    }
+                    else
+                    {
+                        // linear next scenario 'outcome'>'next_scen_id'
+                        snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * j + 4] );
+                        list_add( centry->nexts, strdup( str ) );
+                        // linear next scenario prestige
+                        snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * j + 4 + 1] );
+                        list_add( centry->prestige, strdup( str ) );
+                    }
+                    // debriefings
+                    centry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                    snprintf( str, sizeof(str), "%s>%s", outcomes[j], tokens[current_outcome * j + 4 + 2] );
+                    list_add( centry->descs, strdup( str ) );
+//                    fprintf(stderr, "%s\n", str );
+                }
+                list_add( temp_list, centry );
+            }
+            else
+            {
+                /* selection path */
+                // TODO implement prestige costs
+                // selection entry
+                Camp_Entry *select_entry = calloc( 1, sizeof( Camp_Entry ) );
+                select_entry->id = strdup( tokens[0] );
+                // select next scenarios
+                select_entry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                snprintf( str, sizeof(str), "%s>%s", tokens[0], tokens[4] );
+                list_add( select_entry->nexts, strdup( str ) );
+                snprintf( str, sizeof(str), "%s>%s", tokens[0], tokens[7] );
+                list_add( select_entry->nexts, strdup( str ) );
+                // select descriptions
+                select_entry->descs = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                snprintf( str, sizeof(str), "%s>%s", tokens[0], tokens[3] );
+                list_add( select_entry->descs, strdup( str ) );
+                snprintf( str, sizeof(str), "%s>%s", tokens[0], tokens[6] );
+                list_add( select_entry->descs, strdup( str ) );
+                // select prestige gain/cost
+                select_entry->prestige = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+                snprintf( str, sizeof(str), "%s>%s", tokens[0], tokens[5] );
+                list_add( select_entry->prestige, strdup( str ) );
+                snprintf( str, sizeof(str), "%s>0", tokens[0] );
+                list_add( select_entry->prestige, strdup( str ) );
+                // checking if selection entry already exists in campaign memory
+                Camp_Entry *search_entry;
+                int found = 0;
+                list_reset( temp_list );
+                while ( ( search_entry = list_next( temp_list ) ) )
+                {
+                    if ( strcmp( search_entry->id, select_entry->id ) == 0 )
+                        found = 1;
+                }
+                if ( !found )
+                {
+                    list_add( temp_list, select_entry );
+//                 fprintf(stderr, "%s\n", select_entry->id );
+                }
+                // select entry for current scenario
+                snprintf( str, sizeof(str), "%s>%s", outcomes[j], select_entry->id );
+                list_add( centry->nexts, strdup( str ) );
+            }
+        }
+    }
+
+    //end node
+    fclose(inf);
+
+    /* build campaign starting at selected entry point */
+    camp_entries = list_create( LIST_AUTO_DELETE, camp_delete_entry );
+    list_reset( temp_list );
+    /* searching for entry point */
+    for ( i = 0; i < temp_list->count; i++ )
+    {
+        centry = list_next( temp_list );
+        if ( strcmp( centry->id, camp_first ) == 0 )
+        {
+            list_transfer( temp_list, camp_entries, centry );
+            break;
+        }
+    }
+
+    Camp_Entry *final_entry;
+    char *next = 0, *ptr;
+    list_reset( camp_entries );
+    /* searching for subsequent entries */
+    while ( ( final_entry = list_next( camp_entries ) ) )
+    {
+        if ( final_entry->nexts && final_entry->nexts->count > 0 )
+        {
+            list_reset( final_entry->nexts );
+            while ( (next = list_next( final_entry->nexts )) )
+            {
+                ptr = strchr( next, '>' ); 
+                if ( ptr ) 
+                {
+//fprintf(stderr, "%s\n", next );
+                    ptr++; 
+                    list_reset( temp_list );
+                    while ( ( centry = list_next( temp_list ) ) )
+                        if ( strcmp( ptr, centry->id ) == 0 )
+                        {
+                            list_transfer( temp_list, camp_entries, centry );
+                        }
+                }
+            }
+        }
+    }
+
+    /* cleanup */
+    camp_loaded = FIRST_SCENARIO;
+    camp_verify_tree();
+
+    return 1;
+}
+
+/*
+====================================================================
+Load a campaign description in old lgcam format (newly allocated string)
 and setup the setup :) except the type which is set when the 
 engine performs the load action.
 ====================================================================
@@ -221,6 +453,95 @@ failure:
     parser_free( &pd );
     free(domain);
     return 0;
+}
+
+/*
+====================================================================
+Load a campaign description in new lgdcam format (newly allocated string)
+and setup the setup :) except the type which is set when the 
+engine performs the load action.
+====================================================================
+*/
+char* camp_load_lgdcam_info( List *campaign_entries, const char *fname, const char *path, char *info_entry_name )
+{
+    FILE *inf;
+    char line[MAX_SCENARIO_LINE],tokens[MAX_TOKENS][MAX_CAMPAIGN_TOKEN_LENGTH];
+    int i,block=0,last_line_length=-1,cursor=0,token=0;
+    int utf16 = 0, lines=0;
+
+    inf=fopen(path,"rb");
+    if (!inf)
+    {
+        fprintf( stderr, "Couldn't open scenario file\n");
+        return 0;
+    }
+
+    while (load_line(inf,line,utf16)>=0)
+    {
+        lines++;
+        //strip comments
+        if (line[0]==0x23 || line[0]==0x09) { line[0]=0; }
+        if (strlen(line)>0 && last_line_length==0)
+        {
+            block++;
+        }
+        last_line_length=strlen(line);
+        token=0;
+        cursor=0;
+        for(i=0;i<strlen(line);i++)
+            if (line[i]==0x09)
+            {
+                tokens[token][cursor]=0;
+                token++;
+                cursor=0;
+            }
+            else
+            {
+                tokens[token][cursor]=line[i];
+                cursor++;
+            }
+        tokens[token][cursor]=0;
+        token++;
+
+        //entry points
+        if (block == 1 && token > 1)
+        {
+            if ( campaign_entries != 0 )
+            {
+                Name_Entry_Type *name_entry;
+                name_entry = calloc( 1, sizeof( Name_Entry_Type ) );
+                name_entry->file_name = strdup( fname );
+                name_entry->internal_name = strdup( tokens[0] );
+                list_add( campaign_entries, name_entry );
+            }
+            else if ( info_entry_name != 0 )
+            {
+                if ( strcmp( tokens[0], info_entry_name ) == 0 )
+                {
+                    fclose(inf);
+                    char *info = calloc( strlen( tokens[0] ) + strlen( tokens[2] ) + 3, sizeof( char ) );
+                    sprintf( info, "%s##%s", tokens[0], tokens[2] );
+                    strcpy( setup.fname, fname );
+                    strcpy( setup.camp_entry_name, info_entry_name );
+                    setup.scen_state = 0;
+                    return info;
+                }
+            }
+        }
+        //Block#5  path
+        if (block == 2)
+        {
+            if ( campaign_entries != 0 )
+            {
+                fclose(inf);
+                return "1";
+            }
+        }
+    }
+
+    fclose(inf);
+
+    return "1";
 }
 
 /*
@@ -289,6 +610,8 @@ int camp_load( const char *fname, const char *camp_entry )
         return camp_load_lgcam( fname, path );
     else if ( strcmp( extension, "pgcam" ) == 0 )
         return parse_pgcam( fname, path, camp_entry );
+    else if ( strcmp( extension, "lgdcam" ) == 0 )
+        return camp_load_lgdcam( fname, path, camp_entry );
     return 0;
 }
 
@@ -308,6 +631,10 @@ char *camp_load_info( char *fname, char *camp_entry )
     else if ( strcmp( extension, "pgcam" ) == 0 )
     {
         return parse_pgcam_info( 0, fname, path, camp_entry );
+    }
+    else if ( strcmp( extension, "lgdcam" ) == 0 )
+    {
+        return camp_load_lgdcam_info( 0, fname, path, camp_entry );
     }
     return 0;
 }
