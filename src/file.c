@@ -227,8 +227,8 @@ List* dir_get_entries( const char *path, const char *root, const char *ext )
 
 #ifdef TESTFILE
 int map_w, map_h;	/* shut up linker in misc.c */
-void char_width() {}
-void parser_get_string() {}
+int char_width() { return 0;}
+int parser_get_string() { return 0;}
 
 int main( int argc, char **argv )
 {
