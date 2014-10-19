@@ -1,3 +1,4 @@
+1.2.4:
 - fixed bad test function declarations (2014/10/18 Michael Tautschnig)
 - improved man pages (2012/11/4 Markus Koschany)
 - fix broken pg road tile by mirroring counterpart (2012/11/01 MS)
