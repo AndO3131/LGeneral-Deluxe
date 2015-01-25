@@ -28,6 +28,7 @@ enum {
     ACTION_END_TURN,
     ACTION_MOVE,
     ACTION_ATTACK,
+    ACTION_STRATEGIC_ATTACK,
     ACTION_SUPPLY,
     ACTION_EMBARK_SEA,
     ACTION_DEBARK_SEA,
@@ -124,5 +125,6 @@ void action_queue_load( int id );
 void action_queue_overwrite( int id );
 void action_queue_start_scen();
 void action_queue_start_camp();
+void action_queue_strategic_attack( Unit *unit);
 
 #endif

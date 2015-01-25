@@ -158,6 +158,7 @@ int map_load( char *fname )
             map[x][y].nation = 0;
             map[x][y].player = 0;
             map[x][y].deploy_center = 0;
+            map[x][y].supply_center = 0;
             /* default is no mil target */
             map[x][y].obj = 0;
             /* check tile type */
@@ -934,7 +935,7 @@ void map_draw_terrain( SDL_Surface *surf, int map_x, int map_y, int x, int y )
         SOURCE( tile->terrain->images[cur_weather], tile->image_offset, 0 )
     blit_surf();
     /* nation flag */
-    if ( tile->nation != 0 ) {
+    if ( tile->nation !=0 && tile->supply_center<2) {
         nation_draw_flag( tile->nation, surf,
                           x + ( ( hex_w - nation_flag_width ) >> 1 ),
                           y + hex_h - nation_flag_height - 2,
@@ -1842,6 +1843,8 @@ int map_is_allied_depot( Map_Tile *tile, Unit *unit )
             if ( !(tile->terrain->flags[cur_weather] & SUPPLY_SHIPS) )
                 return 0;
         }
+	if (tile->supply_center > 1) // is currently damaged
+		return 0;
     return 1;
 }
 /*

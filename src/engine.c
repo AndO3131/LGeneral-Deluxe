@@ -248,6 +248,7 @@ static void engine_select_player( Player *player, int skip_unit_prep );
 static int engine_capture_flag( Unit *unit );
 static void engine_show_game_menu( int cx, int cy );
 static void engine_handle_button( int id );
+static int engine_has_strategic_target(int active, int x,int y);
 
 /*
 ====================================================================
@@ -984,11 +985,16 @@ static void engine_select_player( Player *player, int skip_unit_prep )
     }
     /* count down deploy center delay's (1==deploy center again) */
     if ( !skip_unit_prep )
-	    for (x=0;x<map_w;x++)
-		for (y=0;y<map_h;y++)
-		    if (map[x][y].deploy_center > 1 && map[x][y].player == 
-								cur_player)
-			map[x][y].deploy_center--;
+            for (x=0;x<map_w;x++)
+                for (y=0;y<map_h;y++)
+                    {
+                        if (map[x][y].deploy_center > 1 && map[x][y].player == 
+                                                                cur_player)
+                                map[x][y].deploy_center--;
+                        if (map[x][y].supply_center > 1 && map[x][y].player == 
+                                                                cur_player)
+                                map[x][y].supply_center--;
+                    }
     /* set influence mask */
     if ( cur_ctrl != PLAYER_CTRL_NOBODY )
         map_set_infl_mask();
@@ -1595,9 +1601,43 @@ static Unit *engine_get_prim_unit( int x, int y, int region )
     else {
         if ( map[x][y].g_unit )
             return map[x][y].g_unit;
-        else
-            return map[x][y].a_unit;
+        else {
+			/* XXX if current unit can do strategic attack, do 
+			 * not return air unit otherwise attack cannot be performed */
+			if (engine_has_strategic_target (1,x,y))
+				return 0;
+			else
+        		return map[x][y].a_unit;
+		}
     }
+}
+
+/** Perform a strategic attack by cur_unit on its tile. */
+static int engine_strategic_attack(int active)
+{
+	/* safety checks */
+	if( cur_unit == 0)
+		return 0;
+	if (!engine_has_strategic_target(active, cur_unit->x, cur_unit->y))
+		return 0;
+
+	if (active) {
+		/* loose attack and ammo */
+		if ( cur_unit->cur_atk_count > 0 )
+			cur_unit->cur_atk_count--;
+		if ( config.supply ) {
+			if (cur_unit->cur_ammo > 0)
+				cur_unit->cur_ammo--;
+		}
+
+		/* TODO: gain experience and prestige */
+	}
+	
+	/* damage tile */
+	map[cur_unit->x][cur_unit->y].deploy_center = 3;
+	map[cur_unit->x][cur_unit->y].supply_center = 3;
+
+	return 1;
 }
 
 /*
@@ -1605,6 +1645,30 @@ static Unit *engine_get_prim_unit( int x, int y, int region )
 Check if there is a target for current unit on x,y.
 ====================================================================
 */
+static int engine_has_strategic_target(int active, int x,int y)
+{	
+    if ( x < 0 || y < 0 || x >= map_w || y >= map_h )
+		return 0;
+    if ( !mask[x][y].spot ) 
+		return 0;
+	if ( cur_unit == 0 ) 
+		return 0;
+	if (x != cur_unit->x || y != cur_unit->y)
+		return 0;
+	if (map[x][y].nation == 0)
+		return 0;
+	if (player_is_ally(map[x][y].player, cur_unit->player))
+		return 0;
+	if (!(cur_unit->sel_prop->flags & BOMBER))
+		return 0;
+	if (active) {
+		if ( cur_unit->cur_ammo <= 0 )
+			return 0;
+		if ( cur_unit->cur_atk_count == 0 )
+			return 0;
+	}
+	return 1;
+}
 static Unit* engine_get_target( int x, int y, int region )
 {
     Unit *unit;
@@ -1823,7 +1887,7 @@ static void engine_update_info( int mx, int my, int region )
                      gui_set_cursor( CURSOR_STD );
                 else
                 /* unit selected */
-                if ( engine_get_target( mx, my, region ) )
+                if ( engine_get_target( mx, my, region ) || engine_has_strategic_target(1,mx,my))
                     gui_set_cursor( CURSOR_ATTACK );
                 else
                     if ( mask[mx][my].in_range && ( cur_unit->x != mx || cur_unit->y != my ) && !mask[mx][my].blocked ) {
@@ -2652,11 +2716,17 @@ static void engine_check_events(int *reinit)
                                     case BUTTON_LEFT:
                                         if ( cur_unit ) {
                                             /* handle current unit */
-                                            if ( cur_unit->x == mx && cur_unit->y == my && engine_get_prim_unit( mx, my, region ) == cur_unit )
+                                            if ( cur_unit->x == mx && cur_unit->y == my && engine_get_prim_unit( mx, my, region ) == cur_unit)
                                                 engine_show_unit_menu( cx, cy );
                                             else
                                             if ( ( unit = engine_get_target( mx, my, region ) ) ) {
                                                 action_queue_attack( cur_unit, unit );
+                                                frame_hide( gui->qinfo1, 1 );
+                                                frame_hide( gui->qinfo2, 1 );
+                                            }
+                                            else
+                                            if( engine_has_strategic_target(1,mx, my) ) {
+                                                action_queue_strategic_attack( cur_unit );
                                                 frame_hide( gui->qinfo1, 1 );
                                                 frame_hide( gui->qinfo2, 1 );
                                             }
@@ -3009,6 +3079,42 @@ static int engine_get_next_combatants()
     return fight;
 }
 
+/* "fight" for strategic bombing: handle any defensive fire
+ * then have no real fight for strategic bombing itself */
+static int engine_get_next_combatants_strategic()
+{
+    int fight = 0;
+    char str[128];
+    /* check if there are supporting units; if so initate fight 
+       between attacker and these units */
+    if ( df_units->count > 0 ) {
+        cur_atk = list_first( df_units );
+        cur_def = cur_unit;
+        fight = 1;
+        defFire = 1;
+        /* set message if seen */
+        if ( !blind_cpu_turn ) {
+            if ( cur_atk->sel_prop->flags & ARTILLERY )
+                sprintf( str, tr("Defensive Fire") );
+            else
+                if ( cur_atk->sel_prop->flags & AIR_DEFENSE )
+                    sprintf( str, tr("Air-Defense") );
+                else
+                    sprintf( str, tr("Interceptors") );
+            label_write( gui->label, gui->font_error, str );
+        }
+    }
+    else {
+        /* clear info */
+        if ( !blind_cpu_turn ) 
+            label_hide( gui->label, 1 );
+        /* normal attack */
+        cur_atk = cur_unit;
+        fight = 0;
+        defFire = 0;
+    }
+    return fight;
+}
 /*
 ====================================================================
 Unit is completely suppressed so check if it
@@ -3318,6 +3424,34 @@ static void engine_handle_next_action( int *reinit )
                 if ( cur_ctrl == PLAYER_CTRL_HUMAN )
                     image_hide( gui->cursors, 1 );
             }
+            break;
+        case ACTION_STRATEGIC_ATTACK:
+            cur_unit = action->unit;
+            unit_get_df_units_strategic( cur_unit, map[cur_unit->x][cur_unit->y].player, units, df_units );
+			if ( engine_get_next_combatants_strategic() ) {
+				df_units->count--; /* XXX prevent fight with nonexistent target */
+                status = STATUS_ATTACK;
+                phase = PHASE_INIT_ATK;
+                engine_clear_danger_mask();
+                if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+                    image_hide( gui->cursors, 1 );
+				/* XXX engine will run through fight and do strategic bombing
+				 * as passive action so we need to decrease ammo/cur_atk here */
+				if ( cur_unit->cur_atk_count > 0 )
+					cur_unit->cur_atk_count--;
+				if ( config.supply ) {
+					if (cur_unit->cur_ammo > 0)
+						cur_unit->cur_ammo--;
+				}
+            } else {
+				/* with defensive fire engine_get_next_combatants_strategic()
+				 * performs strategic bombing at end of fight. if we get here
+				 * there is no defensive fire and strategic bombing is to be
+				 * performed straight with no animation */
+				engine_strategic_attack (1);
+				engine_select_unit(0);
+				draw_map=1;
+			}
             break;
     }
     free( action );
@@ -3852,6 +3986,8 @@ static void engine_update( int ms )
                                         }
                                 }
                             }
+							/* XXX (maybe) apply passive strategic bombing */
+							engine_strategic_attack(0);
                             /* clear pointers */
                             if ( cur_atk == 0 ) cur_unit = 0;
                             if ( cur_def == 0 ) cur_target = 0;

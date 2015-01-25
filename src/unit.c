@@ -1054,7 +1054,42 @@ void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units )
         list_add( df_units, entry );
     }
 }
-
+/* get defenders for strategic bombing of players supply center */
+void unit_get_df_units_strategic( Unit *unit, Player * player,List *units, List *df_units )
+{
+    Unit *entry;
+    list_clear( df_units );
+    if ( unit->sel_prop->flags & FLYING ) {
+        list_reset( units );
+        while ( ( entry = list_next( units ) ) ) {
+            if ( entry->killed ) continue;
+            if ( entry == unit ) continue;
+            /* bombers -- intercepting impossibly covered by unit_check_attack() */
+            if ( unit_is_close( unit, entry ) )
+                if ( entry->sel_prop->flags & INTERCEPTOR )
+                    if ( player_is_ally( entry->player, player ) )
+                        if ( entry->cur_ammo > 0 ) {
+                            list_add( df_units, entry );
+                            continue;
+                        }
+            /* air-defense */
+            if ( entry->sel_prop->flags & AIR_DEFENSE )
+                if ( unit_is_close( unit, entry ) ) /* adjacent help only */
+                    if ( player_is_ally( entry->player, player ) )
+                        if ( entry->cur_ammo > 0 ) {
+                            list_add( df_units, entry );
+                            continue;
+                        }
+        }
+    }
+    /* randomly remove all support but one */
+    if (df_units->count>0)
+    {
+        entry = list_get(df_units,rand()%df_units->count);
+        list_clear(df_units);
+        list_add( df_units, entry );
+    }
+}
 /*
 ====================================================================
 Check if these two units are allowed to merge with each other.
