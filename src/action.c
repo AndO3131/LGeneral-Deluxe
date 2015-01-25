@@ -155,6 +155,12 @@ void action_queue_attack( Unit *unit, Unit *target )
     action->target = target;
     action_queue( action );
 }
+void action_queue_strategic_attack( Unit *unit)
+{
+    Action *action = action_create( ACTION_STRATEGIC_ATTACK );
+    action->unit = unit;
+    action_queue( action );
+}
 void action_queue_supply( Unit *unit )
 {
     Action *action = action_create( ACTION_SUPPLY );

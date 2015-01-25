@@ -286,7 +286,7 @@ that will give defensive fire to before the real battle
 ====================================================================
 */
 void unit_get_df_units( Unit *unit, Unit *target, List *units, List *df_units );
-
+void unit_get_df_units_strategic( Unit *unit, Player * player,List *units, List *df_units );
 /*
 ====================================================================
 Check if these two units are allowed to merge with each other.

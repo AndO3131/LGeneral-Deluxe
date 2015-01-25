@@ -1,3 +1,8 @@
+Recent:
+- implement LEVELBOMBER flag for strategic bombing (is BOMBER right now)
+- have a proper engine status strategic bombing for animation and results
+- give prestige and experience for strategic bombing
+
 **** Gameplay
 
 - ingame help screen with all shortcuts and interface explanation
