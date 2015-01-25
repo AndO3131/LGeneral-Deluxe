@@ -1,3 +1,5 @@
+- units can be named in scenario files (2015/01/25 Tez Bartlomiej)
+
 1.2.4:
 - fixed bad test function declarations (2014/10/18 Michael Tautschnig)
 - improved man pages (2012/11/4 Markus Koschany)

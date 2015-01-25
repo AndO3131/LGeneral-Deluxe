@@ -575,8 +575,12 @@ int scen_load( const char *fname )
             fprintf( stderr, tr("%s: no player controls this nation\n"), unit_base.nation->name );
             goto failure;
         }
-        /* name */
-        unit_set_generic_name( &unit_base, unit_ref + 1, unit_prop->name );
+       /* name */
+       if ( !parser_get_value( sub, "name", &str,0) )
+           unit_set_generic_name( &unit_base, unit_ref + 1, unit_prop->name );
+       else
+           strcpy_lt( unit_base.name, str, 31 );
+        /* delay */
         /* delay */
         unit_delayed = parser_get_int( sub, "delay", &unit_base.delay );
         /* position */
