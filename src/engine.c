@@ -1665,7 +1665,7 @@ static int engine_has_strategic_target(int active, int x,int y)
 		return 0;
 	if (player_is_ally(map[x][y].player, cur_unit->player))
 		return 0;
-	if (!(cur_unit->sel_prop->flags & BOMBER))
+	if (!(cur_unit->sel_prop->flags & CARPET_BOMBING))
 		return 0;
 	if (active) {
 		if ( cur_unit->cur_ammo <= 0 )

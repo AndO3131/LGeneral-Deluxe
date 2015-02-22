@@ -49,6 +49,7 @@ enum {
     TURN_SUPPR     = ( 1L << 25 ),  /* causes lasting suppression */
     JET            = ( 1L << 26 ),  /* airplane is a jet */
     GROUND_TRSP_OK = ( 1L << 27 ),  /* may have transporter (for purchase) */
+	CARPET_BOMBING = ( 1L << 28 )   /* may temporarily destroy cities/airfields */
 };
 
 /*
