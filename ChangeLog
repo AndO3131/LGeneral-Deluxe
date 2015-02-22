@@ -1,3 +1,5 @@
+- fixed bug in carpet bombing: ground units could still supply (2015/02/22 MS)
+- carpet bombing only possible by level bombers (2015/02/22 MS)
 - added goto unit dialog for easier navigation(2015/02/22 Tez Bartlomiej)
 - bombers can temporarily destroy cities/airfields (2015/01/25 Tez Bartlomiej)
 - units can be named in scenario files (2015/01/25 Tez Bartlomiej)

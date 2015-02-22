@@ -37,7 +37,7 @@ typedef struct {
     Player *player;         /* dito */
     int obj;                /* military objective ? */
     int deploy_center;      /* deploy allowed? */
-    int supply_center;
+    int damaged;  			/* if carped bombed >0, counts down to 0 again */
     Unit *g_unit;           /* ground/naval unit pointer */
     Unit *a_unit;           /* air unit pointer */
 } Map_Tile;
