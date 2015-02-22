@@ -90,6 +90,7 @@ StrToFlag fct_units[] = {
     { "turn_suppr", TURN_SUPPR },
     { "jet", JET },
     { "ground_trsp_ok", GROUND_TRSP_OK },
+	{ "carpet_bombing", CARPET_BOMBING },
     { "X", 0}
 };
 

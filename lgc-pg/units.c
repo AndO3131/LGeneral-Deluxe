@@ -138,7 +138,7 @@ char *unit_classes[] = {
     "fort",     "Fortification",    "low_entr_rate°suppr_fire",                             
     "fighter",  "Fighter",          "interceptor°carrier_ok°flying",    
     "tacbomb",  "Tactical Bomber",  "bomber°carrier_ok°flying",         
-    "levbomb",  "Level Bomber",     "flying°suppr_fire°turn_suppr",                           
+    "levbomb",  "Level Bomber",     "flying°suppr_fire°turn_suppr°carpet_bombing",                           
     "sub",      "Submarine",        "swimming°diving",                  
     "dest",     "Destroyer",        "destroyer°swimming°suppr_fire",               
     "cap",      "Capital Ship",     "swimming°suppr_fire",                         
