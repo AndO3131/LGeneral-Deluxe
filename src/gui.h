@@ -33,6 +33,7 @@ enum {
     ID_MENU = 0,
     ID_SCEN_INFO,
     ID_AIR_MODE,
+    ID_UNIT_LIST,
     ID_DEPLOY,
     ID_STRAT_MAP,
     ID_END_TURN,
@@ -139,6 +140,7 @@ typedef struct {
     Frame *qinfo1, *qinfo2; /* unit quick infos */
     Frame *finfo; /* full unit info */
     Frame *sinfo; /* scenario information */
+    Frame *unit_list;
     Group *unit_buttons; /* unit action buttons */
     Group *split_menu; /* menu of number of units to split up */
     Group *confirm; /* confirmation window */
@@ -480,5 +482,22 @@ void gui_mirror_asymm_windows();
 
 /** Show video mode selection */
 void gui_vmode_dlg_show();
+
+/*
+====================================================================
+Unit list stuff
+TODO: use a proper list for displaying and scrolling through units
+XXX: gui_unit_list_unit_clicked doubles the code from gui_render_unit_list
+XXX: in some functions tags is now character array, that's more simple than
+     list but that may cause stack smashing
+====================================================================
+*/
+SDL_Surface * gui_prepare_unit_list();
+void gui_show_unit_list();
+void gui_hide_unit_list();
+void gui_render_unit_list(SDL_Surface * contents,List * units);
+void gui_scroll_unit_list_up(List * units);
+void gui_scroll_unit_list_down(List * units);
+Unit *gui_unit_list_unit_clicked(List * units,int cx,int cy);
 
 #endif

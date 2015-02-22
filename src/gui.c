@@ -101,6 +101,10 @@ int deploy_offset = 0; /* offset in deployment list */
 int deploy_border = 10;
 int deploy_show_count = 7; /* number of displayed units in list */
 
+int unit_list_offset = 0; /* offset in unit_list */
+int unit_list_max_offset = 0;
+int unit_list_graphical_offset=150; /* y-offset for rendering in dialog */ 
+
 /*
 ====================================================================
 Create a frame surface
@@ -262,6 +266,10 @@ int gui_load( const char *dir )
     if ( ( gui->finfo = frame_create( gui_create_frame( 460, 280 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     frame_hide( gui->finfo, 1 );
+    //unit list
+    if ( ( gui->unit_list = frame_create( gui_create_frame( 600, 460 ), 160, sdl.screen, 0, 0 ) ) == 0 )
+        goto failure;
+    frame_hide( gui->unit_list, 1 );
     /* scenario info */
     if ( ( gui->sinfo = frame_create( gui_create_frame( 300, 260 ), 160, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
@@ -319,14 +327,15 @@ int gui_load( const char *dir )
     edit_hide( gui->edit, 1 );
     /* base menu */
     sprintf( path2, "../themes/%s/menu0_buttons.bmp", dir );
-    if ( ( gui->base_menu = group_create( gui_create_frame( 30, 250 ), 160, load_surf( path2, SDL_SWSURFACE ),
-                                          24, 24, 8, ID_MENU, gui->label, sdl.screen, 0, 0 ) ) == 0 )
+    if ( ( gui->base_menu = group_create( gui_create_frame( 30, 280 ), 160, load_surf( path2, SDL_SWSURFACE ),
+                                          24, 24, 9, ID_MENU, gui->label, sdl.screen, 0, 0 ) ) == 0 )
         goto failure;
     sx = 3; sy = 3;
     group_add_button( gui->base_menu, ID_AIR_MODE, sx, sy, 0, tr("Switch Air/Ground [t]") ); sy += 30; 
     group_add_button( gui->base_menu, ID_STRAT_MAP, sx, sy, 0, tr("Strategic Map [o]") ); sy += 30; 
     group_add_button( gui->base_menu, ID_PURCHASE, sx, sy, 0, tr("Request Reinforcements") ); sy += 30;
     group_add_button( gui->base_menu, ID_DEPLOY, sx, sy, 0, tr("Deploy Reinforcements [d]") ); sy += 30; 
+    group_add_button( gui->base_menu, ID_UNIT_LIST, sx, sy, 0, tr("Unit List") ); sy += 30; 
     group_add_button( gui->base_menu, ID_SCEN_INFO, sx, sy, 0, tr("Scenario Info [i]") ); sy += 30; 
     group_add_button( gui->base_menu, ID_CONDITIONS, sx, sy, 0, tr("Victory Conditions") ); sy += 30; 
     group_add_button( gui->base_menu, ID_END_TURN, sx, sy, 0, tr("End Turn [e]") ); sy += 40; 
@@ -498,6 +507,7 @@ void gui_delete()
         frame_delete( &gui->qinfo1 );
         frame_delete( &gui->qinfo2 );
         frame_delete( &gui->finfo );
+        frame_delete( &gui->unit_list );
         frame_delete( &gui->sinfo );
         group_delete( &gui->confirm );
         group_delete( &gui->unit_buttons );
@@ -542,6 +552,7 @@ void gui_adjust()
     frame_move( gui->qinfo2, 10, sdl.screen->h - 20 - gui->qinfo1->img->img->h * 2 );
     /* full info */
     frame_move( gui->finfo, ( sdl.screen->w - gui->finfo->img->img->w ) >> 1, ( sdl.screen->h - gui->finfo->img->img->h ) >> 1 );
+    frame_move( gui->unit_list, ( sdl.screen->w - gui->unit_list->img->img->w ) >> 1, ( sdl.screen->h - gui->unit_list->img->img->h ) >> 1 );
     /* basic menu */
     group_move( gui->base_menu, sdl.screen->w - 10 - gui->base_menu->frame->img->img->w, 
                                 sdl.screen->h - 10 - gui->base_menu->frame->img->img->h );
@@ -599,6 +610,7 @@ void gui_get_bkgnds()
     frame_get_bkgnd( gui->qinfo1 );
     frame_get_bkgnd( gui->qinfo2 );
     frame_get_bkgnd( gui->finfo );
+    frame_get_bkgnd( gui->unit_list );
     frame_get_bkgnd( gui->sinfo );
     group_get_bkgnd( gui->base_menu );
     group_get_bkgnd( gui->main_menu );
@@ -625,6 +637,7 @@ void gui_draw_bkgnds()
     frame_draw_bkgnd( gui->qinfo1 ); 
     frame_draw_bkgnd( gui->qinfo2 ); 
     frame_draw_bkgnd( gui->finfo ); 
+    frame_draw_bkgnd( gui->unit_list ); 
     frame_draw_bkgnd( gui->sinfo );
     group_draw_bkgnd( gui->base_menu );
     group_draw_bkgnd( gui->main_menu );
@@ -651,6 +664,7 @@ void gui_draw()
     frame_draw( gui->qinfo1 ); 
     frame_draw( gui->qinfo2 ); 
     frame_draw( gui->finfo ); 
+    frame_draw( gui->unit_list ); 
     frame_draw( gui->sinfo ); 
     group_draw( gui->base_menu ); 
     group_draw( gui->main_menu );
@@ -1848,4 +1862,222 @@ void gui_vmode_dlg_show()
 		}
 
 	select_dlg_hide( gui->vmode_dlg, 0 );
+}
+
+//unit_list
+SDL_Surface * gui_prepare_unit_list()
+{
+    SDL_Surface *contents = gui->unit_list->contents;
+    gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
+    /* clear */
+    SDL_FillRect( contents, 0, 0x0 );
+    return contents;
+}
+void gui_show_unit_list( )
+{
+    frame_apply( gui->unit_list );
+    frame_hide( gui->unit_list, 0 );
+}
+void gui_hide_unit_list( )
+{
+    frame_hide( gui->unit_list, 1 );
+}
+static void gui_render_single_unit( SDL_Surface * contents,Unit *unit ,int x,int y)
+{
+    //unit
+    DEST( contents, 
+          x + ( ( hex_w - unit->prop.icon_w ) >> 1 ), y + ( ( ( hex_h - unit->prop.icon_h ) >> 1 ) ),
+          unit->prop.icon_w, unit->prop.icon_h );
+    SOURCE( unit->prop.icon, 0, 0 );
+    blit_surf();
+    //move & attack
+    if ( unit->cur_atk_count > 0 ) {
+        DEST ( contents, x+hex_w/2-unit_info_icons->str_w/2-unit_info_icons->atk->w,
+               y + hex_h - unit_info_icons->atk->h, 
+               unit_info_icons->atk->w, unit_info_icons->atk->h );
+        SOURCE( unit_info_icons->atk, 0, 0 );
+        blit_surf();
+    }
+    if ( unit->cur_mov > 0 ) {
+        DEST ( contents, x+hex_w/2+unit_info_icons->str_w/2, y + hex_h - unit_info_icons->mov->h, 
+               unit_info_icons->mov->w, unit_info_icons->mov->h );
+        SOURCE( unit_info_icons->mov, 0, 0 );
+        blit_surf();
+    }
+    //str
+    DEST( contents, 
+          x + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
+          y +hex_h - unit_info_icons->atk->h,
+          unit_info_icons->str_w, unit_info_icons->str_h );
+    SOURCE( unit_info_icons->str, 0, ( unit->str + 14 ) * unit_info_icons->str_h )
+    blit_surf();
+    /* nation flag */
+    DEST( contents, x, y, nation_flag_width, nation_flag_height );
+    SOURCE( nation_flags, 0, unit->nation->flag_offset );
+    blit_surf();
+    /* name and type */
+    if((2*x/3/hex_w)%2)y+=15;
+    y+=hex_h;
+    write_line( contents, gui->font_std, unit->name, x-24, &y );
+}
+void gui_render_unit_list( SDL_Surface *contents, List * units)
+{
+    int tagUnits=0;
+    int x=hex_w/2,y=-unit_list_offset*hex_h*2;
+    Unit *unit=(Unit *)list_first(units);
+    char tags[160];
+    int tag_iterator=0;
+    int last_tag=0;
+    int already_added_tag=0;
+    int class_count=0;
+	int frame_width = frame_get_width(gui->unit_list);
+	
+    while (unit)
+        {
+            if(unit->player==cur_player&&!unit->killed)
+                {
+                    for(already_added_tag=0,tag_iterator=0;tag_iterator!=last_tag;tag_iterator+=strlen(tags+tag_iterator)+1)
+                        if((!strcmp(tags+tag_iterator,unit->tag))||!strlen(unit->tag)||!unit->str)
+                            {
+                                already_added_tag=1;
+                                break;
+                            }
+                    if(!already_added_tag&&strlen(unit->tag))
+                        {
+                            sprintf(tags+last_tag,"%s",unit->tag);
+                            last_tag+=strlen(unit->tag)+1;
+                            tagUnits=1;
+                        }
+                    if(unit->prop.class>class_count)
+                        class_count=unit->prop.class;
+                }
+            unit=list_next(units);
+        }
+    sprintf(tags+last_tag,"[untagged]");
+    last_tag+=11;
+    for(tag_iterator=0;tag_iterator!=last_tag;tag_iterator+=strlen(tags+tag_iterator)+1)
+        {
+            if(y)y+=20;
+            if(tagUnits)
+                write_line( contents,gui->font_std,tags+tag_iterator,x+200,&y);
+            y+=10;
+            int j=0;
+            for(j=0;j<=class_count;j++)
+                {
+                    unit=(Unit *)list_first(units);
+                    while(unit)
+                        {
+                            if(unit->player==cur_player&&unit->str&&((!strlen(unit->tag)&&!strcmp(tags+tag_iterator,"[untagged]"))||!strcmp(unit->tag,tags+tag_iterator))&&unit->prop.class==j&&!unit->killed)
+                                {
+                                    gui_render_single_unit(contents,unit,x,y);
+                                    x+=hex_w*3/2;
+                                    if(x>frame_width-hex_w)
+                                        {
+                                            x=hex_w/2;
+                                            y+=hex_h*3/2;
+                                        }
+                                }
+                            unit=list_next(units);
+                        }
+                }
+            if(x>hex_w/2)
+                {
+                    x=hex_w/2;
+                    y+=hex_h*3/2;
+                }
+        }
+    unit_list_max_offset=y/hex_h/2+unit_list_offset;
+}
+
+void gui_scroll_unit_list_up(List * units)
+{
+    unit_list_offset -= 2; 
+    if ( unit_list_offset < 0 )
+			unit_list_offset = 0;
+	gui_render_unit_list(gui_prepare_unit_list(),units);
+    frame_apply( gui->unit_list );
+}
+void gui_scroll_unit_list_down(List * units)
+{
+    unit_list_offset += 2;
+    if ( unit_list_offset > unit_list_max_offset )
+		unit_list_offset = unit_list_max_offset;
+	gui_render_unit_list(gui_prepare_unit_list(),units);
+    frame_apply( gui->unit_list );
+}
+Unit *gui_unit_list_unit_clicked( List * units ,int cx,int cy)
+{
+    int tagUnits=0;
+    int x=hex_w/2,y=-unit_list_offset*hex_h*2;
+    Unit *unit=(Unit *)list_first(units);
+    char tags[160];
+    int tag_iterator=0;
+    int last_tag=0;
+    int already_added_tag=0;
+    int class_count=0;
+	int wx, wy;
+	int frame_width = frame_get_width(gui->unit_list);
+
+	/* translate cursor position cx,cy to relative position in window */
+	wx = cx-(config.width - frame_get_width(gui->unit_list))/2;
+	wy = cy-(config.height - frame_get_height(gui->unit_list))/2;
+	
+    while(unit)
+        {
+            if(unit->player==cur_player&&!unit->killed)
+                {
+                    for(already_added_tag=0,tag_iterator=0;tag_iterator!=last_tag;tag_iterator+=strlen(tags+tag_iterator)+1)
+                        if((!strcmp(tags+tag_iterator,unit->tag))||!strlen(unit->tag)||!unit->str)
+                            {
+                                already_added_tag=1;
+                                break;
+                            }
+                    if(!already_added_tag&&strlen(unit->tag))
+                        {
+                            sprintf(tags+last_tag,"%s",unit->tag);
+                            last_tag+=strlen(unit->tag)+1;
+                            tagUnits=1;
+                        }
+                    if(unit->prop.class>class_count)
+                        class_count=unit->prop.class;
+                }
+            unit=list_next(units);
+        }
+    sprintf(tags+last_tag,"[untagged]");
+    last_tag+=11;
+    for(tag_iterator=0;tag_iterator!=last_tag;tag_iterator+=strlen(tags+tag_iterator)+1)
+        {
+            if(y)y+=20;
+            if(tagUnits)
+                y+=10;
+            y+=10;
+            int j=0;
+            for(j=0;j<=class_count;j++)
+                {
+                    unit=(Unit *)list_first(units);
+                    while(unit)
+                        {
+                            if(unit->player==cur_player&&unit->str&&((!strlen(unit->tag)&&!strcmp(tags+tag_iterator,"[untagged]"))||!strcmp(unit->tag,tags+tag_iterator))&&unit->prop.class==j&&!unit->killed)
+                                {
+                                    if(wx > x && wx < x+hex_w*3/2 && 
+                                   				wy > y && wy < y+hex_h*3/2)
+                                        return unit;
+
+                                    x+=hex_w*3/2;
+                                    if(x>frame_width-hex_w)
+                                        {
+                                            x=hex_w/2;
+                                            y+=hex_h*3/2;
+                                        }
+                                }
+                            unit=list_next(units);
+                        }
+                }
+            if(x>hex_w/2)
+                {
+                    x=hex_w/2;
+                    y+=hex_h*3/2;
+                }
+        }
+    return NULL;
 }

@@ -156,6 +156,7 @@ enum {
     STATUS_MERGE,              /* human may merge with partners */
     STATUS_SPLIT,              /* human wants to split up a unit */
     STATUS_DEPLOY,             /* human may deploy units */
+    STATUS_UNIT_LIST,          /* human may see unit list */
     STATUS_DROP,               /* select drop zone for parachutists */
     STATUS_INFO,               /* show full unit infos */
     STATUS_SCEN_INFO,          /* show scenario info */
@@ -485,6 +486,11 @@ static void engine_check_menu_buttons()
         group_set_active( gui->base_menu, ID_DEPLOY, 1 );
     else
         group_set_active( gui->base_menu, ID_DEPLOY, 0 );
+    //unit list
+    if ( status == STATUS_NONE )
+        group_set_active( gui->base_menu, ID_UNIT_LIST, 1 );
+    else
+        group_set_active( gui->base_menu, ID_UNIT_LIST, 0 );
     /* strat map */
     if ( status == STATUS_NONE )
         group_set_active( gui->base_menu, ID_STRAT_MAP, 1 );
@@ -2306,6 +2312,12 @@ static void engine_handle_button( int id )
                 draw_map = 1;
             }
             break;
+        case ID_UNIT_LIST:
+            engine_hide_game_menu();
+            gui_render_unit_list(gui_prepare_unit_list(),units);
+            gui_show_unit_list();
+            status = STATUS_UNIT_LIST;
+            break;
         case ID_STRAT_MAP:
             engine_hide_game_menu();
             status = STATUS_STRAT_MAP;
@@ -2637,6 +2649,22 @@ static void engine_check_events(int *reinit)
                                     }
                                 }
                                 break;
+                            case STATUS_UNIT_LIST:
+								if (button == WHEEL_DOWN) {
+									gui_scroll_unit_list_down(units);
+								} else if (button == WHEEL_UP) {
+									gui_scroll_unit_list_up(units);
+								} else if (button == BUTTON_RIGHT) {
+									status = STATUS_NONE;
+									gui_hide_unit_list();
+								} else if ((unit = gui_unit_list_unit_clicked(units,cx,cy)) ) {
+									status = STATUS_NONE;
+									gui_hide_unit_list();
+									engine_focus(unit->x,unit->y,0);
+									engine_select_unit(unit);
+									draw_map=1;
+								}
+								break;
                             case STATUS_DROP:
                                 if ( button == BUTTON_RIGHT ) {
                                     /* clear status */
