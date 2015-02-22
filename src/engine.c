@@ -1645,7 +1645,7 @@ static int engine_strategic_attack(int active)
 	r = DICE(100);
 	if (r <= cur_unit->str*2) {
 		map[cur_unit->x][cur_unit->y].deploy_center = 3;
-		map[cur_unit->x][cur_unit->y].damaged = 2;
+		map[cur_unit->x][cur_unit->y].damaged = 3;
 	}
 	
 	return 1;
