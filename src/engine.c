@@ -997,9 +997,9 @@ static void engine_select_player( Player *player, int skip_unit_prep )
                         if (map[x][y].deploy_center > 1 && map[x][y].player == 
                                                                 cur_player)
                                 map[x][y].deploy_center--;
-                        if (map[x][y].supply_center > 1 && map[x][y].player == 
+                        if (map[x][y].damaged > 0 && map[x][y].player == 
                                                                 cur_player)
-                                map[x][y].supply_center--;
+                                map[x][y].damaged--;
                     }
     /* set influence mask */
     if ( cur_ctrl != PLAYER_CTRL_NOBODY )
@@ -1621,6 +1621,8 @@ static Unit *engine_get_prim_unit( int x, int y, int region )
 /** Perform a strategic attack by cur_unit on its tile. */
 static int engine_strategic_attack(int active)
 {
+	int r;
+	
 	/* safety checks */
 	if( cur_unit == 0)
 		return 0;
@@ -1636,13 +1638,16 @@ static int engine_strategic_attack(int active)
 				cur_unit->cur_ammo--;
 		}
 
-		/* TODO: gain experience and prestige */
+		/* no experience/prestige: carpet bombing is no skill at all... */
 	}
 	
-	/* damage tile */
-	map[cur_unit->x][cur_unit->y].deploy_center = 3;
-	map[cur_unit->x][cur_unit->y].supply_center = 3;
-
+	/* 2% chance of successful damage (two turns) for each strength point */
+	r = DICE(100);
+	if (r <= cur_unit->str*2) {
+		map[cur_unit->x][cur_unit->y].deploy_center = 3;
+		map[cur_unit->x][cur_unit->y].damaged = 2;
+	}
+	
 	return 1;
 }
 
@@ -1771,8 +1776,8 @@ static void engine_update_info( int mx, int my, int region )
         moveCost = mask[mx][my].moveCost;
     /* entered a new tile so update the terrain info */
     if (status == STATUS_PURCHASE) {
-	snprintf( str, 256, tr("Prestige: %d"), cur_player->cur_prestige );
-	label_write( gui->label, gui->font_std, str );
+		snprintf( str, 256, tr("Prestige: %d"), cur_player->cur_prestige );
+		label_write( gui->label, gui->font_std, str );
     } else if (status==STATUS_DROP)
     {
         label_write( gui->label, gui->font_std,tr("Select Drop Zone")  );
@@ -1789,8 +1794,14 @@ static void engine_update_info( int mx, int my, int region )
     }
     else
     {
-        sprintf( str, "%s (%i,%i)", map[mx][my].name, mx, my );
-        label_write( gui->label, gui->font_status, str );
+		if (map[mx][my].damaged) {
+		    sprintf( str, "%s (%i,%i) [%i]", map[mx][my].name, mx, my,
+		        							map[mx][my].damaged);
+		    label_write( gui->label, gui->font_error, str );
+		} else {
+		    sprintf( str, "%s (%i,%i)", map[mx][my].name, mx, my );
+		    label_write( gui->label, gui->font_status, str );
+		}
     }
     /* DEBUG: 
     sprintf( str, "(%d,%d), P: %d B: %d I: %d D: %d",mx,my,mask[mx][my].in_range-1,mask[mx][my].blocked,mask[mx][my].vis_infl,mask[mx][my].distance); 
