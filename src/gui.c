@@ -805,6 +805,11 @@ void gui_show_quick_info( Frame *qinfo, Unit *unit )
     DEST( qinfo->contents, 6, 6, nation_flag_width, nation_flag_height );
     SOURCE( nation_flags, 0, unit->nation->flag_offset );
     blit_surf();
+	/* core unit flag */
+	gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_BOTTOM;
+	write_text( gui->font_std, qinfo->contents,
+	       				6, qinfo->contents->h - 6, 
+	       				(unit->core==1)?"C":"A", 255 );
     /* name */
     gui->font_std->align = ALIGN_X_LEFT | ALIGN_Y_TOP;
     write_text( gui->font_std, qinfo->contents, 12 + hex_w, 10, unit->name, 255 );
@@ -934,9 +939,13 @@ void gui_show_full_info( Unit *unit )
     /* name and type */
     x = border; y = border + hex_h;
     write_line( contents, gui->font_std, unit->name, x, &y );
+	if (unit->core)
+		write_line( contents, gui->font_std, tr("Core Unit"), x, &y );
+	else
+		write_line( contents, gui->font_std, tr("Auxiliary Unit"), x, &y );
     write_line( contents, gui->font_std, unit->prop.name, x, &y );
     write_line( contents, gui->font_std, unit_classes[unit->prop.class].name, x, &y );
-    y += 10;
+    //y += 10;
     sprintf( str, tr("%s Movement"), mov_types[unit->prop.mov_type].name );
     write_line( contents, gui->font_std, str, x, &y );
     sprintf( str, tr("%s Target"), trgt_types[unit->prop.trgt_type].name );

@@ -449,7 +449,7 @@ void scen_create_pg_weather( FILE *dest_file, int scen_id, FILE *scen_file, int 
 Read unit data from scen_file, convert and write it to dest_file.
 ====================================================================
 */
-void scen_create_unit( int scen_id, FILE *dest_file, FILE *scen_file )
+void scen_create_unit( int scen_id, FILE *dest_file, FILE *scen_file, int is_core_unit )
 {
     int id = 0, nation = 0, x = 0, y = 0, str = 0, entr = 0, exp = 0, trsp_id = 0, org_trsp_id = 0;
     /* read unit -- 14 bytes */
@@ -483,7 +483,10 @@ void scen_create_unit( int scen_id, FILE *dest_file, FILE *scen_file )
             unit_entry_used[org_trsp_id - 1] = 1;
     /* write unit */
     fprintf( dest_file, "<unit\n" );
-    fprintf( dest_file, "id»%i\nnation»%s\n", id - 1, nations[nation * 3] );
+    fprintf( dest_file, "id»%i\nnation»%s\n", 
+    					 id - 1, nations[nation * 3]);
+	if (is_core_unit)
+		fprintf( dest_file, "core»1\n");
     fprintf( dest_file, "x»%i\ny»%i\n", x, y );
     fprintf( dest_file, "str»%i\nentr»%i\nexp»%i\n", str, entr, exp );
     if ( trsp_id == 0 && org_trsp_id == 0 )
@@ -812,15 +815,16 @@ int write_prestige_info( FILE *file, int turns, int *ppt )
 
 /** Read axis/allies max unit count from file handle @file. 
  * Return -1 on error (values incomplete then) or 0 on success. */
-int read_unit_limit( FILE *file, int *axis_ulimit, int *allies_ulimit )
+int read_unit_limit( FILE *file, int *axis_ulimit, int *axis_core_ulimit, int *allies_ulimit )
 {
 	unsigned char buf[3];
 	
-	*axis_ulimit = *allies_ulimit = 0;
+	*axis_ulimit = *axis_core_ulimit = *allies_ulimit = 0;
 	
 	if (freadat(file, 18, buf, 3) < 3)
 		return -1;
-	*axis_ulimit = buf[0] + buf[1];
+	*axis_ulimit = buf[0] + buf[1]; /* core + aux */
+	*axis_core_ulimit = buf[0];
 	*allies_ulimit = buf[2];
 	return 0;
 }
@@ -892,8 +896,9 @@ int scenarios_convert( int scen_id )
     PData *pd = 0, *reinf, *unit;
     int def_str, def_exp, def_entr;
     char *str;
-    int axis_ulimit = 0, allies_ulimit = 0;
+    int axis_ulimit = 0, axis_core_ulimit = 0, allies_ulimit = 0;
     char scen_title[16], scen_desc[160], scen_author[32];
+	int core_unit_count = 0;
 	
     printf( "Scenarios...\n" );
     
@@ -1058,7 +1063,7 @@ int scenarios_convert( int scen_id )
         /* get prestige data for axis and allies */
         read_prestige_info(scen_file, &pi_axis, &pi_allies );
 	/* get unit limits for axis and allies */
-	read_unit_limit( scen_file, &axis_ulimit, &allies_ulimit );
+	read_unit_limit( scen_file, &axis_ulimit, &axis_core_ulimit, &allies_ulimit );
         /* players */
         fprintf( dest_file, "<players\n" );
         /* axis */
@@ -1092,6 +1097,7 @@ int scenarios_convert( int scen_id )
             fprintf( dest_file, "nations»ger°aus°it°hun°bul°rum°fin°esp\n" );
         fprintf( dest_file, "allied_players»\n" );
         fprintf( dest_file, "unit_limit»%d\n", axis_ulimit );
+        fprintf( dest_file, "core_unit_limit»%d\n", axis_core_ulimit );
         fprintf( dest_file, "orientation»%s\ncontrol»human\nstrategy»%i\n", dummy, axis_strat );
 	{
 		int ppt[turns]; /* prestige per turn with dynamic size */
@@ -1143,6 +1149,7 @@ int scenarios_convert( int scen_id )
             fprintf( dest_file, "nations»bel°lux°den°fra°gre°usa°tur°net°nor°pol°por°so°swe°swi°eng°yug\n" );
         fprintf( dest_file, "allied_players»\n" );
         fprintf( dest_file, "unit_limit»%d\n", allies_ulimit );
+		fprintf( dest_file, "core_unit_limit»0\n" );
         fprintf( dest_file, "orientation»%s\ncontrol»cpu\nstrategy»%i\n", dummy, allied_strat );
 	{
 		int ppt[turns]; /* prestige per turn with dynamic size */
@@ -1221,6 +1228,7 @@ int scenarios_convert( int scen_id )
         fseek( scen_file, 33, SEEK_SET );
         ibuf = 0; fread( &ibuf, 1, 1, scen_file );
         unit_count = ibuf; /* core */
+		core_unit_count = unit_count; /* needed for core flag */
         ibuf = 0; fread( &ibuf, 1, 1, scen_file );
         unit_count += ibuf; /* allies */
         ibuf = 0; fread( &ibuf, 1, 1, scen_file );
@@ -1229,7 +1237,7 @@ int scenarios_convert( int scen_id )
         fseek( scen_file, unit_offset, SEEK_SET );
         fprintf( dest_file, "<units\n" );
         for ( j = 0; j < unit_count; j++ )
-            scen_create_unit( (scen_id!=-1)?(-1):(i-1), dest_file, scen_file );
+            scen_create_unit( (scen_id!=-1)?(-1):(i-1), dest_file, scen_file, j < core_unit_count );
         /* reinforcements -- only for original PG scenarios */
         if ( scen_id == -1 && strcmp(target_name,"pg") == 0 ) {
             if ( parser_get_pdata( pd, fnames[i - 1], &reinf ) ) {
