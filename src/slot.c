@@ -88,6 +88,7 @@ enum StorageVersion {
     StoreUnitIsGuarding,	/* up to this versions are stored per unit */
     StoreGlobalVersioning,
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
+	StoreCoreUnitFlag, /* units have now core/aux flag */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -228,7 +229,7 @@ enum UnitStoreParams {
             ,
     UnitNameSize = 21*sizeof(char) + 3*sizeof(char)/*padding*/,
     UnitTagSize = 32*sizeof(char),
-    UnitSize = 2*UnitLibSize + 5*sizeof(void *) + UnitNameSize + UnitTagSize + 26*sizeof(int),
+    UnitSize = 2*UnitLibSize + 5*sizeof(void *) + UnitNameSize + UnitTagSize + 27*sizeof(int),
 };
 static void save_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
 {
@@ -348,7 +349,7 @@ static void save_unit( FILE *file, Unit *unit )
     save_int(file, unit->exp);
     /* unit storage version (was: exp_level) */
     COMPILE_TIME_ASSERT_SYMBOL(unit->exp_level);
-    save_int(file, StoreUnitIsGuarding);
+    save_int(file, StoreCoreUnitFlag);
     /* delay */
     save_int(file, unit->delay);
     /* embark */
@@ -376,8 +377,9 @@ static void save_unit( FILE *file, Unit *unit )
     /* is_guarding (was: damage_bar_offset) */
     COMPILE_TIME_ASSERT_SYMBOL(unit->damage_bar_offset);
     save_int(file, unit->is_guarding);
-    /* reserved (was: suppr) */
-    save_int(file, unit->suppr);
+    /* core unit flag (was: suppr) */
+	COMPILE_TIME_ASSERT_SYMBOL(unit->suppr);
+    save_int(file, unit->core);
     /* turn_suppr */
     save_int(file, unit->turn_suppr);
     /* killed */
@@ -551,8 +553,12 @@ Unit* load_unit( FILE *file )
     /* is_guarding (was: damage_bar_offset) */
     val = load_int(file);
     unit->is_guarding = unit_store_version >= StoreUnitIsGuarding ? val : 0;
-    /* reserved (was: suppr) */
-    load_int(file);
+    /* core unit flag (was: suppr) */
+    val = load_int(file);
+	if (unit_store_version >= StoreCoreUnitFlag)
+		unit->core = val;
+	else
+		unit->core = 0;
     /* turn_suppr */
     unit->turn_suppr = load_int(file);
     /* killed */

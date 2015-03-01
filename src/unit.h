@@ -80,6 +80,7 @@ typedef struct _Unit {
     Unit_Lib_Entry *sel_prop;   /* selected props: either prop or trsp_prop */
     struct _Unit *backup;       /* used to backup various unit values that may temporaly change (e.g. expected losses) */
     char name[24];              /* unit name */
+	int core;					/* 1 = core, 0 = aux */
     Player *player;             /* controlling player */
     Nation *nation;             /* nation unit belongs to */
     Terrain_Type *terrain;      /* terrain the unit is currently on */

@@ -389,6 +389,7 @@ Unit *unit_create( Unit_Lib_Entry *prop, Unit_Lib_Entry *trsp_prop, Unit *base )
         }
     }
     /* copy the base values */
+	unit->core = base->core;
     unit->delay = base->delay;
     unit->x = base->x; unit->y = base->y;
     unit->str = base->str; unit->entr = base->entr;
