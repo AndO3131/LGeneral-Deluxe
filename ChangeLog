@@ -1,3 +1,4 @@
+1.2.5:
 - converter reads in core unit flag and core unit limit (2015/03/01 MS)
 - fixed bug in carpet bombing: ground units could still supply (2015/02/22 MS)
 - carpet bombing only possible by level bombers (2015/02/22 MS)
