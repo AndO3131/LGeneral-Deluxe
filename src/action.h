@@ -28,7 +28,9 @@ enum {
     ACTION_END_TURN,
     ACTION_MOVE,
     ACTION_ATTACK,
-    ACTION_STRATEGIC_ATTACK,
+    ACTION_STRATEGIC_ATTACK,	/* carpet bombing on _empty_ tile;
+				 * if unit present, regular attack checks
+				 * for passive carpet bombing */
     ACTION_SUPPLY,
     ACTION_EMBARK_SEA,
     ACTION_DEBARK_SEA,

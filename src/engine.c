@@ -153,6 +153,7 @@ enum {
                                   have this status set */
     STATUS_MOVE,               /* move unit along 'way' */
     STATUS_ATTACK,             /* unit attacks cur_target (inclusive defensive fire) */
+    STATUS_STRAT_ATTACK,	/* aka carpet bombing */
     STATUS_MERGE,              /* human may merge with partners */
     STATUS_SPLIT,              /* human wants to split up a unit */
     STATUS_DEPLOY,             /* human may deploy units */
@@ -194,6 +195,11 @@ enum {
     PHASE_BROKEN_UP_MSG,        /* display broken up message if needed */
     PHASE_SURRENDER_MSG,        /* display surrender message */
     PHASE_END_COMBAT,           /* clear status and redraw */
+    /* STRATEGIC ATTACK */
+    PHASE_SA_INIT,		/* set label and delay */
+    PHASE_SA_ATTACK,		/* time out delay, then perform attack */
+    PHASE_SA_EXPLOSION,		/* on success: show explosion */
+    PHASE_SA_FINALIZE,		/* clean up */
     /* MOVEMENT */
     PHASE_INIT_MOVE,            /* initiate movement */ 
     PHASE_START_SINGLE_MOVE,    /* initiate movement to next way point from current position */
@@ -1618,16 +1624,17 @@ static Unit *engine_get_prim_unit( int x, int y, int region )
     }
 }
 
-/** Perform a strategic attack by cur_unit on its tile. */
+/** Perform a strategic attack by cur_unit on its tile. 
+ * Return 1 if successul, 0 otherwise. */
 static int engine_strategic_attack(int active)
 {
-	int r;
+	int r, ret = 0;
 	
 	/* safety checks */
 	if( cur_unit == 0)
-		return 0;
+		return ret;
 	if (!engine_has_strategic_target(active, cur_unit->x, cur_unit->y))
-		return 0;
+		return ret;
 
 	if (active) {
 		/* loose attack and ammo */
@@ -1646,9 +1653,10 @@ static int engine_strategic_attack(int active)
 	if (r <= cur_unit->str*2) {
 		map[cur_unit->x][cur_unit->y].deploy_center = 3;
 		map[cur_unit->x][cur_unit->y].damaged = 3;
+		ret = 1;
 	}
 	
-	return 1;
+	return ret;
 }
 
 /*
@@ -1950,7 +1958,7 @@ Hide all animated toplevel windows.
 */
 static void engine_begin_frame()
 {
-    if ( status == STATUS_ATTACK ) {
+    if ( status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK ) {
         anim_draw_bkgnd( terrain_icons->cross );
         anim_draw_bkgnd( terrain_icons->expl1 );
         anim_draw_bkgnd( terrain_icons->expl2 );
@@ -1973,7 +1981,7 @@ static void engine_end_frame()
         engine_draw_map();
         full_refresh = 1;
     }
-    if ( status == STATUS_ATTACK ) {
+    if ( status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK ) {
         anim_get_bkgnd( terrain_icons->cross );
         anim_get_bkgnd( terrain_icons->expl1 );
         anim_get_bkgnd( terrain_icons->expl2 );
@@ -1981,7 +1989,7 @@ static void engine_end_frame()
     if ( status == STATUS_MOVE && move_image ) /* on surprise attack this image ain't created yet */
         image_get_bkgnd( move_image );
     gui_get_bkgnds();
-    if ( status == STATUS_ATTACK ) {
+    if ( status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK ) {
         anim_draw( terrain_icons->cross );
         anim_draw( terrain_icons->expl1 );
         anim_draw( terrain_icons->expl2 );
@@ -2498,7 +2506,7 @@ static void engine_check_events(int *reinit)
     int mx, my, keypressed = 0;
     SDL_PumpEvents(); /* gather events in the queue */
     if ( sdl_quit ) term_game = 1; /* end game by window manager */
-    if ( status == STATUS_MOVE || status == STATUS_ATTACK )
+    if ( status == STATUS_MOVE || status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK )
         return;
     if ( cur_ctrl == PLAYER_CTRL_CPU ) {
         if ( actions_count() == 0 )
@@ -3226,7 +3234,7 @@ static void engine_handle_next_action( int *reinit )
     int enemy_spotted = 0;
     int depth, flags, i, j;
     /* lock action queue? */
-    if ( status == STATUS_CONF || status == STATUS_ATTACK || status == STATUS_MOVE )
+    if ( status == STATUS_CONF || status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK || status == STATUS_MOVE )
         return;
     /* get action */
     if ( ( action = actions_dequeue() ) == 0 ) 
@@ -3465,33 +3473,38 @@ static void engine_handle_next_action( int *reinit )
             }
             break;
         case ACTION_STRATEGIC_ATTACK:
-            cur_unit = action->unit;
-            unit_get_df_units_strategic( cur_unit, map[cur_unit->x][cur_unit->y].player, units, df_units );
-			if ( engine_get_next_combatants_strategic() ) {
-				df_units->count--; /* XXX prevent fight with nonexistent target */
-                status = STATUS_ATTACK;
-                phase = PHASE_INIT_ATK;
-                engine_clear_danger_mask();
-                if ( cur_ctrl == PLAYER_CTRL_HUMAN )
-                    image_hide( gui->cursors, 1 );
-				/* XXX engine will run through fight and do strategic bombing
-				 * as passive action so we need to decrease ammo/cur_atk here */
-				if ( cur_unit->cur_atk_count > 0 )
-					cur_unit->cur_atk_count--;
-				if ( config.supply ) {
-					if (cur_unit->cur_ammo > 0)
-						cur_unit->cur_ammo--;
-				}
-            } else {
-				/* with defensive fire engine_get_next_combatants_strategic()
-				 * performs strategic bombing at end of fight. if we get here
-				 * there is no defensive fire and strategic bombing is to be
-				 * performed straight with no animation */
-				engine_strategic_attack (1);
-				engine_select_unit(0);
-				draw_map=1;
+		cur_unit = action->unit;
+		unit_get_df_units_strategic( cur_unit, map[cur_unit->x][cur_unit->y].player, units, df_units );
+		if ( engine_get_next_combatants_strategic() ) {
+			df_units->count--; /* XXX prevent fight with nonexistent target */
+			status = STATUS_ATTACK;
+			phase = PHASE_INIT_ATK;
+			engine_clear_danger_mask();
+			if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+				image_hide( gui->cursors, 1 );
+			/* XXX engine will run through fight and do strategic bombing
+			* as passive action so we need to decrease ammo/cur_atk here */
+			if ( cur_unit->cur_atk_count > 0 )
+				cur_unit->cur_atk_count--;
+			if ( config.supply ) {
+				if (cur_unit->cur_ammo > 0)
+					cur_unit->cur_ammo--;
 			}
-            break;
+		} else {
+			/* with defensive fire engine_get_next_combatants_strategic()
+			* performs strategic bombing at end of fight. if we get here
+			* there is no defensive fire and strategic bombing is to be
+			* performed straight with no animation */
+			//engine_strategic_attack (1);
+			//engine_select_unit(0);
+			//draw_map=1;
+			status = STATUS_STRAT_ATTACK;
+			phase = PHASE_SA_INIT;
+			engine_clear_danger_mask();
+			if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+				image_hide( gui->cursors, 1 );
+			}
+		break;
     }
     free( action );
 }
@@ -3759,6 +3772,59 @@ static void engine_update( int ms )
                     break;
             }
             break;
+
+	case STATUS_STRAT_ATTACK:
+		switch (phase) {
+			case PHASE_SA_INIT:
+				if ( !blind_cpu_turn && MAP_CHECK_VIS( cur_unit->x, cur_unit->y ) ) {
+					engine_focus( cur_unit->x, cur_unit->y, 1 );
+					label_write( gui->label, gui->font_error, tr("Carpet Bombing!") );
+					engine_get_screen_pos( cur_unit->x, cur_unit->y, &cx, &cy );
+					reset_delay( &msg_delay );
+				}
+				phase = PHASE_SA_ATTACK;
+				break;
+			case PHASE_SA_ATTACK:
+				if ( timed_out( &msg_delay, ms) ) {
+					phase = PHASE_SA_FINALIZE;
+					label_hide( gui->label, 1 );
+					/* perform active attack */
+					if (engine_strategic_attack(1)) {
+						if ( !blind_cpu_turn && MAP_CHECK_VIS( cur_unit->x, cur_unit->y ) ) {
+							map_draw_tile( sdl.screen, cur_unit->x, cur_unit->y, cx, cy, !air_mode, 0 );
+							anim_move( terrain_icons->expl1, cx, cy );
+							anim_play( terrain_icons->expl1, 0 );
+							phase = PHASE_SA_EXPLOSION;
+						}
+					}	
+				}
+				break;
+			case PHASE_SA_EXPLOSION:
+				 if ( !terrain_icons->expl1->playing ) {
+					phase = PHASE_SA_FINALIZE;
+					anim_hide( terrain_icons->expl1, 1 );
+				}
+				break;
+			case PHASE_SA_FINALIZE:		
+				engine_clear_backup(); /* no undo allowed now */
+				/* reselect unit */
+				if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+					engine_select_unit( cur_unit );
+				/* status */
+				engine_set_status( STATUS_NONE );
+				phase = PHASE_NONE;
+				/* allow new human/cpu input */
+				if ( !blind_cpu_turn ) {
+					if ( cur_ctrl == PLAYER_CTRL_HUMAN ) {
+						image_hide( gui->cursors, 0 );
+						gui_set_cursor( CURSOR_STD );
+					}
+					draw_map = 1;
+				}
+				break;
+		}
+	break;
+	
         case STATUS_ATTACK:
             switch ( phase ) {
                 case PHASE_INIT_ATK:
@@ -4025,8 +4091,8 @@ static void engine_update( int ms )
                                         }
                                 }
                             }
-							/* XXX (maybe) apply passive strategic bombing */
-							engine_strategic_attack(0);
+				/* XXX (maybe) apply passive strategic bombing */
+				engine_strategic_attack(0);
                             /* clear pointers */
                             if ( cur_atk == 0 ) cur_unit = 0;
                             if ( cur_def == 0 ) cur_target = 0;
@@ -4098,7 +4164,7 @@ static void engine_update( int ms )
             break;
     }
     /* update anims */
-    if ( status == STATUS_ATTACK ) {
+    if ( status == STATUS_ATTACK || status == STATUS_STRAT_ATTACK ) {
         anim_update( terrain_icons->cross, ms );
         anim_update( terrain_icons->expl1, ms );
         anim_update( terrain_icons->expl2, ms );
