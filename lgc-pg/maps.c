@@ -118,12 +118,8 @@ int maps_convert( int map_id )
     /* name file (try the one in lgc-pg as fallback) */
     snprintf( path, MAXPATHLEN, "%s/mapnames.str", source_path );
     if ( (name_file = fopen_ic( path, "r" )) == NULL ) {
-        snprintf( path, MAXPATHLEN, "%s/convdata/mapnames", get_gamedir() );
-        if ( ( name_file = fopen( path, "r" ) ) == NULL ) {
-            fprintf( stderr, "ERROR: mapnames neither found in %s nor in lgc-pg directory?\n",
-                    	source_path);
-            return 0;
-        }
+        fprintf( stderr, "ERROR: mapnames not found in %s?\n", source_path);
+        return 0;
     }
     
     /* set loop range */
