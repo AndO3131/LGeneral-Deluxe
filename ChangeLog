@@ -1,3 +1,6 @@
+- removed fallback mapnames file from lgc-pg (2015/03/08 Markus Koschany)
+- updated icon handling (2015/03/08 Markus Koschany)
+- updated desktop file with category and keywords (2015/03/08 Markus Koschany)
 - deploy center and damaged info is properly saved/loaded now (2015/03/08 MS)
 - added proper engine status for active carpet bombing (2015/03/08 MS)
 
