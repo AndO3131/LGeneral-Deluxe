@@ -2,22 +2,15 @@ SUBDIRS = intl util lgc-pg lged src tools po
 
 EXTRA_DIST = AUTHORS COPYING ChangeLog README.lgeneral \
 README.lgc-pg README.redit TODO \
-lgeneral48.png lgeneral32.png lgeneral16.png lgeneral.desktop.in \
+lgeneral.png lgeneral.desktop \
 lgeneral-redit
 
 desktopdir = $(datadir)/applications
 desktop_DATA = lgeneral.desktop
-icondir = $(datadir)/icons
-icon_DATA = lgeneral48.png
+icondir = $(datadir)/icons/hicolor/48x48/apps
+icon_DATA = lgeneral.png
 
 AUTOMAKE_OPTIONS = foreign
-
-# We can't use static desktop file because of icon location. Is this 
-# the right way to handle it? At least it works... as long as $datadir
-# does not contain plus signs. :-)
-lgeneral.desktop:
-	@sed -e "s+Icon=+Icon=$(datadir)/icons/lgeneral48.png+" \
-	< lgeneral.desktop.in > lgeneral.desktop
 
 package-translations:
 	test x != "x$(LINGUAS)" || { echo "LINGUAS not set" ; exit 1 ; }

@@ -2,7 +2,7 @@
 Name=LGeneral
 Comment=LGeneral is a turn-based strategy engine heavily inspired by Panzer General.
 Exec=lgeneral
-Icon=
+Icon=lgeneral
 Type=Application
 Categories=Game;StrategyGame;
 Keywords=turn-based;tiles;WWI;army;troops;battle;
