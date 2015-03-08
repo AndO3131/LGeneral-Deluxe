@@ -1,3 +1,5 @@
+- added proper engine status for active carpet bombing (2015/03/08 MS)
+
 1.2.5:
 - converter reads in core unit flag and core unit limit (2015/03/01 MS)
 - fixed bug in carpet bombing: ground units could still supply (2015/02/22 MS)

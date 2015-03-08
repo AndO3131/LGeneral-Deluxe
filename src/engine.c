@@ -3120,48 +3120,15 @@ static int engine_get_next_combatants()
         /* normal attack */
         cur_atk = cur_unit;
         cur_def = cur_target;
-        fight = 1;
+        if (cur_target == NULL) /* empty tile = carpet bombing */
+		fight = 0;
+	else
+		fight = 1;
         defFire = 0;
     }
     return fight;
 }
 
-/* "fight" for strategic bombing: handle any defensive fire
- * then have no real fight for strategic bombing itself */
-static int engine_get_next_combatants_strategic()
-{
-    int fight = 0;
-    char str[128];
-    /* check if there are supporting units; if so initate fight 
-       between attacker and these units */
-    if ( df_units->count > 0 ) {
-        cur_atk = list_first( df_units );
-        cur_def = cur_unit;
-        fight = 1;
-        defFire = 1;
-        /* set message if seen */
-        if ( !blind_cpu_turn ) {
-            if ( cur_atk->sel_prop->flags & ARTILLERY )
-                sprintf( str, tr("Defensive Fire") );
-            else
-                if ( cur_atk->sel_prop->flags & AIR_DEFENSE )
-                    sprintf( str, tr("Air-Defense") );
-                else
-                    sprintf( str, tr("Interceptors") );
-            label_write( gui->label, gui->font_error, str );
-        }
-    }
-    else {
-        /* clear info */
-        if ( !blind_cpu_turn ) 
-            label_hide( gui->label, 1 );
-        /* normal attack */
-        cur_atk = cur_unit;
-        fight = 0;
-        defFire = 0;
-    }
-    return fight;
-}
 /*
 ====================================================================
 Unit is completely suppressed so check if it
@@ -3474,36 +3441,23 @@ static void engine_handle_next_action( int *reinit )
             break;
         case ACTION_STRATEGIC_ATTACK:
 		cur_unit = action->unit;
+		cur_target = NULL;
 		unit_get_df_units_strategic( cur_unit, map[cur_unit->x][cur_unit->y].player, units, df_units );
-		if ( engine_get_next_combatants_strategic() ) {
-			df_units->count--; /* XXX prevent fight with nonexistent target */
+		if (engine_get_next_combatants()) {
+			/* close unit attacks before carpet bombing
+			 * use regular combat status to handle this
+			 * when it comes to final fight with non-existing
+			 * target, engine will switch over again */
 			status = STATUS_ATTACK;
 			phase = PHASE_INIT_ATK;
-			engine_clear_danger_mask();
-			if ( cur_ctrl == PLAYER_CTRL_HUMAN )
-				image_hide( gui->cursors, 1 );
-			/* XXX engine will run through fight and do strategic bombing
-			* as passive action so we need to decrease ammo/cur_atk here */
-			if ( cur_unit->cur_atk_count > 0 )
-				cur_unit->cur_atk_count--;
-			if ( config.supply ) {
-				if (cur_unit->cur_ammo > 0)
-					cur_unit->cur_ammo--;
-			}
 		} else {
-			/* with defensive fire engine_get_next_combatants_strategic()
-			* performs strategic bombing at end of fight. if we get here
-			* there is no defensive fire and strategic bombing is to be
-			* performed straight with no animation */
-			//engine_strategic_attack (1);
-			//engine_select_unit(0);
-			//draw_map=1;
+			/* no defensive fire, run carpet bombing straight */
 			status = STATUS_STRAT_ATTACK;
 			phase = PHASE_SA_INIT;
-			engine_clear_danger_mask();
-			if ( cur_ctrl == PLAYER_CTRL_HUMAN )
-				image_hide( gui->cursors, 1 );
-			}
+		}
+		engine_clear_danger_mask();
+		if ( cur_ctrl == PLAYER_CTRL_HUMAN )
+			image_hide( gui->cursors, 1 );
 		break;
     }
     free( action );
@@ -3994,6 +3948,9 @@ static void engine_update( int ms )
                     }
                     reset = 1;
                     if ( df_units->count > 0 ) {
+			/* this fight was with a supporting unit, 
+			 * clean it from df list and set reset=0 to
+			 * get to next fight */
                         if ( atk_result & AR_TARGET_SUPPRESSED || atk_result & AR_TARGET_KILLED ) {
                             list_clear( df_units );
                             if ( atk_result & AR_TARGET_KILLED )
@@ -4014,13 +3971,18 @@ static void engine_update( int ms )
                     else
                         was_final_fight = 1;
                     if ( !reset ) {
-                        /* continue fights */
+                        /* continue fighting */
                         if ( engine_get_next_combatants() ) {
                             status = STATUS_ATTACK;
                             phase = PHASE_INIT_ATK;
                         }
-                        else
-                            fprintf( stderr, tr("Deadlock! No remaining combatants but supposed to continue fighting? How is this supposed to work????\n") );
+                        else 
+			{
+				/* no target = empty tile was attacked
+				 * -> carpet bombing! switch engine status */
+				status = STATUS_STRAT_ATTACK;
+				phase = PHASE_SA_INIT;
+			}                            
                     }
                     else {
                         /* clear suppression from defensive fire */
