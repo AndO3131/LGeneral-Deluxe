@@ -89,6 +89,7 @@ enum StorageVersion {
     StoreGlobalVersioning,
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
 	StoreCoreUnitFlag, /* units have now core/aux flag */
+	StoreTileDamage, /* deploy center and damaged info */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -690,7 +691,7 @@ static void load_map_tile_units( FILE *file, Unit **unit, Unit **air_unit )
 }
 /*
 ====================================================================
-Save map flags: nation id and player id strings
+Save map flags: nation id and player id strings, damage, deploy center
 ====================================================================
 */
 static void save_map_tile_flag( FILE *file, Map_Tile *tile )
@@ -703,8 +704,13 @@ static void save_map_tile_flag( FILE *file, Map_Tile *tile )
         save_string( file, tile->player->id );
     else
         save_string( file, "none" );
+	
+	/* deploy level and damage */
+	save_int(file, tile->deploy_center);
+	save_int(file, tile->damaged);
 }
-static void load_map_tile_flag( FILE *file, Nation **nation, Player **player )
+static void load_map_tile_flag( FILE *file, Nation **nation, Player **player,
+					int *deploy_center, int *damaged)
 {
     char *str;
     str = load_string( file );
@@ -713,6 +719,12 @@ static void load_map_tile_flag( FILE *file, Nation **nation, Player **player )
     str = load_string( file );
     *player = player_get_by_id( str );
     free( str );
+    
+	/* deploy level and damage */
+	if (store_version >= StoreTileDamage) {
+		*deploy_center = load_int(file);
+		*damaged = load_int(file);
+	}
 }
 
 /*
@@ -822,7 +834,7 @@ int slot_save( int id, char *name )
         map width
         map height
         map tile units
-        map tile flags
+        map tile flags + deploy/damage info
     */
     /* if we ever hit this, we have *big* problems */
     COMPILE_TIME_ASSERT(StoreHighestSupportedVersion <= StoreVersionLimit);
@@ -1004,7 +1016,8 @@ int slot_load( int id )
         }
     for ( i = 0; i < map_w; i++ )
         for ( j = 0; j < map_h; j++ )
-            load_map_tile_flag( file, &map[i][j].nation, &map[i][j].player );
+            load_map_tile_flag( file, &map[i][j].nation, &map[i][j].player,
+				&map[i][j].deploy_center, &map[i][j].damaged);
     /* cannot have deployment-turn (those cannot be saved) */
     deploy_turn = 0;
     fclose( file );
