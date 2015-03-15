@@ -774,6 +774,15 @@ static void engine_show_turn_info()
     else
         sprintf( text, tr("Last Turn") );
     write_text( gui->font_turn_info, sdl.screen, text_x, text_y, text, OPAQUE );
+
+	/* hint about available reinforcements */
+	if (avail_units->count > 0) {
+		text_y += gui->font_turn_info->height;
+		text_y += gui->font_turn_info->height;
+		sprintf( text, tr("New units can be deployed!") );
+		write_text( gui->font_turn_info, sdl.screen, text_x, text_y, text, OPAQUE );
+	}
+	
     refresh_screen( 0, 0, 0, 0 );
     SDL_PumpEvents(); event_clear();
     time_factor = 3000/20;		/* wait 3 sec */
