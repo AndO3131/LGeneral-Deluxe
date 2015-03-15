@@ -102,8 +102,16 @@ static void show_title()
     }
     refresh_screen( 0, 0, 0, 0 );
     /* wait */
-    SDL_PumpEvents(); event_clear();
-    while ( !event_get_buttonup( &dummy, &dummy, &dummy ) ) { SDL_PumpEvents(); SDL_Delay( 20 ); }
+    SDL_PumpEvents();
+    event_clear();
+    while (1) {
+	if (event_check_quit())
+		break;
+	if (event_get_buttonup( &dummy, &dummy, &dummy ))
+		break;
+	SDL_PumpEvents();
+	SDL_Delay( 20 );
+    }
     event_clear();
     /* clear */
     free_surf(&back);
