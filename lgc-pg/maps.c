@@ -73,7 +73,7 @@ static void tile_get_name( FILE *file, int id, char *buf )
     if ( feof( file ) ) 
         sprintf( buf, "none" );
     else
-        fread( buf, 20, 1, file );
+        _fread( buf, 20, 1, file );
 }
 
 /*
@@ -170,10 +170,10 @@ int maps_convert( int map_id )
         /* read/write map size */
         width = height = 0;
         fseek( source_file, 101, SEEK_SET );
-        fread( &width, 2, 1, source_file ); 
+        _fread( &width, 2, 1, source_file ); 
         width = SDL_SwapLE16( width );
         fseek( source_file, 103, SEEK_SET );
-        fread( &height, 2, 1, source_file ); 
+        _fread( &height, 2, 1, source_file ); 
         height = SDL_SwapLE16( height );
         width++; height++;
         fprintf( dest_file, "width»%i\nheight»%i\n", width, height );
@@ -183,7 +183,7 @@ int maps_convert( int map_id )
         for ( y = 0; y < height; y++ ) {
             for ( x = 0; x < width; x++ ) {
                 tile_id = 0;
-                fread( &tile_id, 2, 1, source_file ); 
+                _fread( &tile_id, 2, 1, source_file ); 
                 tile_id = SDL_SwapLE16( tile_id );
                 tile_get_id_string( tile_id, map_tile_str );
                 fprintf( dest_file, "%s", map_tile_str );
@@ -196,7 +196,7 @@ int maps_convert( int map_id )
         fseek( source_file, 123, SEEK_SET );
         for ( y = 0; y < height; y++ ) {
             for ( x = 0; x < width; x++ ) {
-                ibuf = 0; fread( &ibuf, 2, 1, source_file );
+                ibuf = 0; _fread( &ibuf, 2, 1, source_file );
                 ibuf = SDL_SwapLE16( ibuf );
                 tile_get_name( name_file, ibuf, name_buf );
                 fprintf( dest_file, "%s", name_buf );

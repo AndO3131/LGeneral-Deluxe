@@ -261,9 +261,9 @@ int scen_add_flags( FILE *dest_file, FILE *scen_file, int id )
     memset( vic_hexes, 0, sizeof(int) * 40 );
     fseek( scen_file, 37, SEEK_SET );
     for ( i = 0; i < 20; i++ ) {
-        fread( &vic_hexes[i * 2], 2, 1, scen_file );
+        _fread( &vic_hexes[i * 2], 2, 1, scen_file );
         vic_hexes[i * 2] = SDL_SwapLE16(vic_hexes[i * 2]);
-        fread( &vic_hexes[i * 2 + 1], 2, 1, scen_file );
+        _fread( &vic_hexes[i * 2 + 1], 2, 1, scen_file );
         vic_hexes[i * 2 + 1] = SDL_SwapLE16(vic_hexes[i * 2 + 1]);
         if ( vic_hexes[i * 2] >= 1000 || vic_hexes[i * 2] < 0 )
             break;
@@ -278,17 +278,17 @@ int scen_add_flags( FILE *dest_file, FILE *scen_file, int id )
     /* read/write map size */
     width = height = 0;
     fseek( map_file, 101, SEEK_SET );
-    fread( &width, 2, 1, map_file ); 
+    _fread( &width, 2, 1, map_file ); 
     width = SDL_SwapLE16(width);
     fseek( map_file, 103, SEEK_SET );
-    fread( &height, 2, 1, map_file ); 
+    _fread( &height, 2, 1, map_file ); 
     height = SDL_SwapLE16(height);
     width++; height++;
     /* owner info */
     fseek( map_file, 123 + 3 * width * height, SEEK_SET );
     for ( y = 0; y < height; y++ ) {
         for ( x = 0; x < width; x++ ) {
-            ibuf = 0; fread( &ibuf, 1, 1, map_file );
+            ibuf = 0; _fread( &ibuf, 1, 1, map_file );
             if ( ibuf > 0 ) {
                 obj = 0;
                 for ( i = 0; i < obj_count; i++ )
@@ -333,8 +333,8 @@ void scen_create_random_weather( FILE *dest_file, FILE *scen_file, int month, in
     memset( weather, 0, sizeof( int ) * turns );
     /* get condition and region */
     fseek( scen_file, 16, SEEK_SET );
-    fread( &init_cond, 1, 1, scen_file );
-    fread( &region, 1, 1, scen_file );
+    _fread( &init_cond, 1, 1, scen_file );
+    _fread( &region, 1, 1, scen_file );
     
     /* compute the weather */
     random_seed( month * turns + ( region + 1 ) * ( init_cond + 1 ) );
@@ -454,20 +454,20 @@ void scen_create_unit( int scen_id, FILE *dest_file, FILE *scen_file, int is_cor
     int id = 0, nation = 0, x = 0, y = 0, str = 0, entr = 0, exp = 0, trsp_id = 0, org_trsp_id = 0;
     /* read unit -- 14 bytes */
     /* icon id */
-    fread( &id, 2, 1, scen_file ); /* icon id */
+    _fread( &id, 2, 1, scen_file ); /* icon id */
     id = SDL_SwapLE16(id);
-    fread( &org_trsp_id, 2, 1, scen_file ); /* transporter of organic unit */
+    _fread( &org_trsp_id, 2, 1, scen_file ); /* transporter of organic unit */
     org_trsp_id = SDL_SwapLE16(org_trsp_id);
-    fread( &nation, 1, 1, scen_file ); nation--; /* nation + 1 */
-    fread( &trsp_id, 2, 1, scen_file ); /* sea/air transport */
+    _fread( &nation, 1, 1, scen_file ); nation--; /* nation + 1 */
+    _fread( &trsp_id, 2, 1, scen_file ); /* sea/air transport */
     trsp_id = SDL_SwapLE16(trsp_id);
-    fread( &x, 2, 1, scen_file ); /* x */
+    _fread( &x, 2, 1, scen_file ); /* x */
     x = SDL_SwapLE16(x);
-    fread( &y, 2, 1, scen_file ); /* y */
+    _fread( &y, 2, 1, scen_file ); /* y */
     y = SDL_SwapLE16(y);
-    fread( &str, 1, 1, scen_file ); /* strength */
-    fread( &entr, 1, 1, scen_file ); /* entrenchment */
-    fread( &exp, 1, 1, scen_file ); /* experience */
+    _fread( &str, 1, 1, scen_file ); /* strength */
+    _fread( &entr, 1, 1, scen_file ); /* entrenchment */
+    _fread( &exp, 1, 1, scen_file ); /* experience */
     /* FIX: give transporters to artillery in Kiev */
     if (scen_id==23)
     {
@@ -894,7 +894,7 @@ int scenarios_convert( int scen_id )
     char path[MAXPATHLEN];
     FILE *dest_file = 0, *scen_file = 0, *aux_file = 0, *scenstat_file = 0;
     PData *pd = 0, *reinf, *unit;
-    int def_str, def_exp, def_entr;
+    int def_str, def_exp;
     char *str;
     int axis_ulimit = 0, axis_core_ulimit = 0, allies_ulimit = 0;
     char scen_title[16], scen_desc[160], scen_author[32];
@@ -958,10 +958,10 @@ int scenarios_convert( int scen_id )
         /* read title and description from scenstat file for campaign */
         if ( scen_id == -1 ) {
             fseek( scenstat_file, 40 + (i - 1) * 14, SEEK_SET );
-            fread( dummy, 14, 1, scenstat_file );
+            _fread( dummy, 14, 1, scenstat_file );
             snprintf( scen_title, sizeof(scen_title), "%s", dummy);
             fseek( scenstat_file, 600 + (i - 1) * 160 , SEEK_SET );
-            fread( dummy, 160, 1, scenstat_file );
+            _fread( dummy, 160, 1, scenstat_file );
             snprintf( scen_desc, sizeof(scen_desc), "%s", dummy);
             if (strcmp(target_name,"pg") == 0)
                 snprintf( scen_author, sizeof(scen_author), "SSI" );
@@ -1009,19 +1009,19 @@ int scenarios_convert( int scen_id )
         
         /* date */
         fseek( scen_file, 22, SEEK_SET );
-        day = 0; fread( &day, 1, 1, scen_file );
-        month = 0; fread( &month, 1, 1, scen_file );
-        year = 0; fread( &year, 1, 1, scen_file );
+        day = 0; _fread( &day, 1, 1, scen_file );
+        month = 0; _fread( &month, 1, 1, scen_file );
+        year = 0; _fread( &year, 1, 1, scen_file );
         fprintf( dest_file, "date»%02i.%02i.19%i\n", day, month, year );
         
         /* turn limit */
         fseek( scen_file, 21, SEEK_SET );
-        turns = 0; fread( &turns, 1, 1, scen_file );
+        turns = 0; _fread( &turns, 1, 1, scen_file );
         fprintf( dest_file, "turns»%i\n", turns );
         fseek( scen_file, 25, SEEK_SET );
-        turns_per_day = 0; fread( &turns_per_day, 1, 1, scen_file );
+        turns_per_day = 0; _fread( &turns_per_day, 1, 1, scen_file );
         fprintf( dest_file, "turns_per_day»%i\n", turns_per_day );
-        days_per_turn = 0; fread( &days_per_turn, 1, 1, scen_file );
+        days_per_turn = 0; _fread( &days_per_turn, 1, 1, scen_file );
         if ( turns_per_day == 0 && days_per_turn == 0 )
             days_per_turn = 1;
         fprintf( dest_file, "days_per_turn»%i\n", days_per_turn );
@@ -1058,7 +1058,7 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, ">\n" );
         /* get unit offset */
         fseek( scen_file, 117, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 1, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 1, 1, scen_file );
         unit_offset = ibuf * 4 + 135;
         /* get prestige data for axis and allies */
         read_prestige_info(scen_file, &pi_axis, &pi_allies );
@@ -1069,14 +1069,14 @@ int scenarios_convert( int scen_id )
         /* axis */
         fseek( scen_file, 12, SEEK_SET );
         /* orientation */
-        axis_orient = 0; fread( &axis_orient, 1, 1, scen_file );
+        axis_orient = 0; _fread( &axis_orient, 1, 1, scen_file );
         if ( axis_orient == 1 ) 
             sprintf( dummy, "right" );
         else
             sprintf( dummy, "left" );
         /* strategy: -2 (very defensive) to 2 (very aggressive) */
         fseek( scen_file, 15, SEEK_SET );
-        axis_strat = 0; fread( &axis_strat, 1, 1, scen_file );
+        axis_strat = 0; _fread( &axis_strat, 1, 1, scen_file );
         if ( axis_strat == 0 ) 
             axis_strat = 1;
         else
@@ -1113,13 +1113,13 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, "<transporters\n" );
         /* air */
         fseek( scen_file, unit_offset - 8, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
         ibuf = SDL_SwapLE16(ibuf);
         if ( ibuf )
             fprintf( dest_file, "<air\nunit»%i\ncount»50\n>\n", ibuf - 1 );
         /* sea */
         fseek( scen_file, unit_offset - 4, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
         ibuf = SDL_SwapLE16(ibuf);
         if ( ibuf )
             fprintf( dest_file, "<sea\nunit»%i\ncount»50\n>\n", ibuf - 1 );
@@ -1165,13 +1165,13 @@ int scenarios_convert( int scen_id )
         fprintf( dest_file, "<transporters\n" );
         /* air */
         fseek( scen_file, unit_offset - 6, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
         ibuf = SDL_SwapLE16(ibuf);
         if ( ibuf )
             fprintf( dest_file, "<air\nunit»%i\ncount»50\n>\n", ibuf - 1 );
         /* sea */
         fseek( scen_file, unit_offset - 2, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
         ibuf = SDL_SwapLE16(ibuf);
         if ( ibuf )
             fprintf( dest_file, "<sea\nunit»%i\ncount»50\n>\n", ibuf - 1 );
@@ -1201,15 +1201,15 @@ int scenarios_convert( int scen_id )
         }
         /* deployment fields */
         fseek( scen_file, 117, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
         deploy_fields_count = SDL_SwapLE16(ibuf);
         fprintf( dest_file, "<deployfields\n<player\nid»axis\ncoordinates»default°" );
         /* last coordinate is always (-1, -1) */
         for (j = 0; j < deploy_fields_count - 1; j++) {
             int x, y;
-            ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+            ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
             x = SDL_SwapLE16(ibuf);
-            ibuf = 0; fread( &ibuf, 2, 1, scen_file );
+            ibuf = 0; _fread( &ibuf, 2, 1, scen_file );
             y = SDL_SwapLE16(ibuf);
             fprintf( dest_file, "%s%d,%d", j ? "°" : "", x, y );
         }
@@ -1226,12 +1226,12 @@ int scenarios_convert( int scen_id )
         memset( unit_entry_used, 0, sizeof( unit_entry_used ) );
         /* count them */
         fseek( scen_file, 33, SEEK_SET );
-        ibuf = 0; fread( &ibuf, 1, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 1, 1, scen_file );
         unit_count = ibuf; /* core */
 		core_unit_count = unit_count; /* needed for core flag */
-        ibuf = 0; fread( &ibuf, 1, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 1, 1, scen_file );
         unit_count += ibuf; /* allies */
-        ibuf = 0; fread( &ibuf, 1, 1, scen_file );
+        ibuf = 0; _fread( &ibuf, 1, 1, scen_file );
         unit_count += ibuf; /* auxiliary */
         /* build them */
         fseek( scen_file, unit_offset, SEEK_SET );
@@ -1243,7 +1243,7 @@ int scenarios_convert( int scen_id )
             if ( parser_get_pdata( pd, fnames[i - 1], &reinf ) ) {
                 /* units come unsorted with the proper nation stored for each
                    unit */
-                def_str = 10; def_exp = 0; def_entr = 0;
+                def_str = 10; def_exp = 0;
                 list_reset( reinf->entries );
                 while ( ( unit = list_next( reinf->entries ) ) )
                     if ( !strcmp( "unit", unit->name ) ) {

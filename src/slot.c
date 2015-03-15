@@ -122,7 +122,7 @@ Save/load slot name to/from file.
 */
 static void slot_read_name( Slot *slot, FILE *file )
 {
-    fread( slot->name, sizeof( slot->name ), 1, file );
+    _fread( slot->name, sizeof( slot->name ), 1, file );
 }
 static void slot_write_name( Slot *slot, FILE *file )
 {
@@ -205,9 +205,9 @@ static char* load_string( FILE *file )
     char *str = 0;
     int length;
 
-    fread( &length, sizeof( int ), 1, file );
+    _fread( &length, sizeof( int ), 1, file );
     str = calloc( length + 1, sizeof( char ) );
-    fread( str, sizeof( char ), length, file );
+    _fread( str, sizeof( char ), length, file );
     str[length] = 0;
     return str;
 }
@@ -408,12 +408,11 @@ static void save_unit( FILE *file, Unit *unit )
 static void load_unit_lib_entry( FILE *file, Unit_Lib_Entry *entry )
 {
     int i;
-    void *p;
     /* write each member */
     /* reserved */
-    p = load_pointer(file);
+    load_pointer(file);
     /* reserved (was: name) */
-    p = load_pointer(file);
+    load_pointer(file);
     /* nation (since StorePurchaseData) */
     entry->nation = -1;
     if (store_version >= StorePurchaseData)
@@ -507,7 +506,7 @@ Unit* load_unit( FILE *file )
     /* reserved */
     load_pointer(file);
     /* name */
-    fread(unit->name, UnitNameSize, 1, file);
+    _fread(unit->name, UnitNameSize, 1, file);
     unit->name[UnitNameSize - 1] = 0;
     /* reserved */
     load_pointer(file);
@@ -567,7 +566,7 @@ Unit* load_unit( FILE *file )
     /* reserved (was: fresh_deploy) */
     load_int(file);
     /* tag */
-    fread(unit->tag, UnitTagSize, 1, file);
+    _fread(unit->tag, UnitTagSize, 1, file);
     unit->tag[UnitTagSize - 1] = 0;
     /* reserved (was: eval_score) */
     load_int(file);
@@ -923,7 +922,7 @@ int slot_load( int id )
     /* read slot identification -- won't change anything but the file handle needs to move */
     slot_read_name( &slots[id], file );
     /* read version */
-    fread( &store_version, sizeof( int ), 1, file );
+    _fread( &store_version, sizeof( int ), 1, file );
     /* check for endianness */
     endian_need_swap = !!(store_version & 0xFFFF0000);
     if (endian_need_swap)

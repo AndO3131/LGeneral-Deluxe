@@ -57,7 +57,7 @@ Locals
 Macro to shorten the fread call for a single character.
 ====================================================================
 */
-#define FILE_READCHAR( file, c ) fread( &c, sizeof( char ), 1, file )
+#define FILE_READCHAR( file, c ) _fread( &c, sizeof( char ), 1, file )
 
 /*
 ====================================================================
@@ -507,7 +507,7 @@ PData* parser_read_file( char *tree_name, char *fname )
             size = CBUFFER_SIZE - 1;
         }
         fseek( file, 2, SEEK_SET );
-        fread( cbuffer, 1, size, file );
+        _fread( cbuffer, 1, size, file );
         cbuffer[size] = 0;
         /* set indicator to beginning of text */
         cbuffer_pos = cbuffer;

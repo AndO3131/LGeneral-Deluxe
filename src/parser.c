@@ -106,7 +106,7 @@ Macro to shorten the fread call for a single character.
 ====================================================================
 */
 #define FILE_READCHAR( st, c ) do { \
-	fread( &c, sizeof( char ), 1, (st)->file ); \
+	_fread( &c, sizeof( char ), 1, (st)->file ); \
 	if (c == '\n') (st)->lineno++; \
 } while(0)
 
@@ -523,7 +523,7 @@ PData* parser_read_file( const char *tree_name, const char *fname )
             size = CBUFFER_SIZE - 1;
         }
         fseek( st->file, 2, SEEK_SET );
-        fread( cbuffer, 1, size, st->file );
+        _fread( cbuffer, 1, size, st->file );
         cbuffer[size] = 0;
         /* set indicator to beginning of text */
         cbuffer_pos = cbuffer;

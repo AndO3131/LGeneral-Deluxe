@@ -288,35 +288,35 @@ static int units_read_entry( FILE *file, PG_UnitEntry *entry )
 {
     unsigned char dummy[8];
     if ( feof( file ) ) return 0;
-    fread(  entry->name,       1, 20, file );
-    fread( &entry->class,      1, 1,  file );
-    fread( &entry->atk_soft,   1, 1,  file );
-    fread( &entry->atk_hard,   1, 1,  file );
-    fread( &entry->atk_air,    1, 1,  file );
-    fread( &entry->atk_naval,  1, 1,  file );
-    fread( &entry->def_ground, 1, 1,  file );
-    fread( &entry->def_air,    1, 1,  file );
-    fread( &entry->def_close,  1, 1,  file );
-    fread( &entry->target_type,1, 1,  file );
-    fread( &entry->aaf,        1, 1,  file );
-    fread( &dummy[0],          1, 1,  file );
-    fread( &entry->init,       1, 1,  file );
-    fread( &entry->range,      1, 1,  file );
-    fread( &entry->spot,       1, 1,  file );
-    fread( &entry->agf,        1, 1,  file );
-    fread( &entry->move_type,  1, 1,  file );
-    fread( &entry->move,       1, 1,  file );
-    fread( &entry->fuel,       1, 1,  file );
-    fread( &entry->ammo,       1, 1,  file );
-    fread( &dummy[1],          2, 1,  file );
-    fread( &entry->cost,       1, 1,  file );
+    _fread(  entry->name,       1, 20, file );
+    _fread( &entry->class,      1, 1,  file );
+    _fread( &entry->atk_soft,   1, 1,  file );
+    _fread( &entry->atk_hard,   1, 1,  file );
+    _fread( &entry->atk_air,    1, 1,  file );
+    _fread( &entry->atk_naval,  1, 1,  file );
+    _fread( &entry->def_ground, 1, 1,  file );
+    _fread( &entry->def_air,    1, 1,  file );
+    _fread( &entry->def_close,  1, 1,  file );
+    _fread( &entry->target_type,1, 1,  file );
+    _fread( &entry->aaf,        1, 1,  file );
+    _fread( &dummy[0],          1, 1,  file );
+    _fread( &entry->init,       1, 1,  file );
+    _fread( &entry->range,      1, 1,  file );
+    _fread( &entry->spot,       1, 1,  file );
+    _fread( &entry->agf,        1, 1,  file );
+    _fread( &entry->move_type,  1, 1,  file );
+    _fread( &entry->move,       1, 1,  file );
+    _fread( &entry->fuel,       1, 1,  file );
+    _fread( &entry->ammo,       1, 1,  file );
+    _fread( &dummy[1],          2, 1,  file );
+    _fread( &entry->cost,       1, 1,  file );
     entry->cost = (entry->cost * 120) / 10;
-    fread( &entry->pic_id,     1, 1,  file );
-    fread( &dummy[3],          3, 1,  file );
-    fread( &entry->month,      1, 1,  file );
-    fread( &entry->year,       1, 1,  file );
-    fread( &entry->last_year,  1, 1,  file );
-    fread( &dummy[6],          1, 1,  file );
+    _fread( &entry->pic_id,     1, 1,  file );
+    _fread( &dummy[3],          3, 1,  file );
+    _fread( &entry->month,      1, 1,  file );
+    _fread( &entry->year,       1, 1,  file );
+    _fread( &entry->last_year,  1, 1,  file );
+    _fread( &dummy[6],          1, 1,  file );
     entry->nation = get_nation_from_unit_name( entry->name );
     
     return 1;
@@ -476,7 +476,7 @@ int units_convert_database( char *tac_icons )
      * count ( 2 bytes )
      * entries ( 50 bytes each ) 
      */
-    fread( &entry_count, 2, 1, source_file );
+    _fread( &entry_count, 2, 1, source_file );
     entry_count = SDL_SwapLE16(entry_count);
     if ( !single_scen )
         fprintf( dest_file, "@\n" ); /* only a new file needs this magic */

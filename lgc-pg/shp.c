@@ -142,23 +142,23 @@ Read icon header from file pos.
 static void shp_read_icon_header( FILE *file, Icon_Header *header )
 {
     memset( header, 0, sizeof( Icon_Header ) );
-    fread( &header->height, 2, 1, file );
+    _fread( &header->height, 2, 1, file );
     header->height = SDL_SwapLE16(header->height);
     header->height++; /* if y1 == y2 it is at least one line anyway */
-    fread( &header->width, 2, 1, file );
+    _fread( &header->width, 2, 1, file );
     header->width = SDL_SwapLE16(header->width);
     header->width++;
-    fread( &header->cx, 2, 1, file );
+    _fread( &header->cx, 2, 1, file );
     header->cx = SDL_SwapLE16(header->cx);
-    fread( &header->cy, 2, 1, file );
+    _fread( &header->cy, 2, 1, file );
     header->cy = SDL_SwapLE16(header->cy);
-    fread( &header->x1, 4, 1, file );
+    _fread( &header->x1, 4, 1, file );
     header->x1 = SDL_SwapLE32(header->x1);
-    fread( &header->y1, 4, 1, file );
+    _fread( &header->y1, 4, 1, file );
     header->y1 = SDL_SwapLE32(header->y1);
-    fread( &header->x2, 4, 1, file );
+    _fread( &header->x2, 4, 1, file );
     header->x2 = SDL_SwapLE32(header->x2);
-    fread( &header->y2, 4, 1, file );
+    _fread( &header->y2, 4, 1, file );
     header->y2 = SDL_SwapLE32(header->y2);
     header->valid = 1;
     if ( header->x1 >= header->width || header->x2 >= header->width )
@@ -191,14 +191,14 @@ static void shp_read_palette( FILE *file, RGB_Entry *pal )
     int id;
     int part;
     memset( pal, 0, sizeof( RGB_Entry ) * 256 );
-    fread( &count, 4, 1, file );
+    _fread( &count, 4, 1, file );
     count = SDL_SwapLE32(count);
     for ( i = 0; i < count; i++ ) {
-        id = 0; fread( &id, 1, 1, file );
+        id = 0; _fread( &id, 1, 1, file );
         if ( id >= 256 ) id = 255;
-        part = 0; fread( &part, 1, 1, file ); pal[id].r = part * 4;
-        part = 0; fread( &part, 1, 1, file ); pal[id].g = part * 4;
-        part = 0; fread( &part, 1, 1, file ); pal[id].b = part * 4;
+        part = 0; _fread( &part, 1, 1, file ); pal[id].r = part * 4;
+        part = 0; _fread( &part, 1, 1, file ); pal[id].g = part * 4;
+        part = 0; _fread( &part, 1, 1, file ); pal[id].b = part * 4;
     }
 }
 
@@ -216,11 +216,11 @@ static void shp_read_icon( FILE *file, SDL_Surface *surf, int y, RGB_Entry *pal,
     Uint32 ckey = MAPRGB( CKEY_RED, CKEY_GREEN, CKEY_BLUE ); /* transparent color key */
     /* read */
     while ( y1 <= header->y2 ) {
-        buf = 0; fread( &buf, 1, 1, file );
+        buf = 0; _fread( &buf, 1, 1, file );
         flag = buf % 2; bytes = buf / 2;
         if ( bytes == 0 && flag == 1 ) {
             /* transparency */
-            buf = 0; fread( &buf, 1, 1, file );
+            buf = 0; _fread( &buf, 1, 1, file );
             for ( i = 0; i < buf; i++ )
                 set_pixel( surf, x++ + header->x1, y + y1, ckey );
         }
@@ -233,14 +233,14 @@ static void shp_read_icon( FILE *file, SDL_Surface *surf, int y, RGB_Entry *pal,
             else
                 if ( flag == 0 ) {
                     /* byte row */
-                    buf = 0; fread( &buf, 1, 1, file );
+                    buf = 0; _fread( &buf, 1, 1, file );
                     for ( i = 0; i < bytes; i++ )
                         set_pixel( surf, x++ + header->x1, y + y1, MAPRGB( pal[buf].r, pal[buf].g, pal[buf].b ) );
                 }
                 else {
                     /* bytes != 0 && flag == 1: read next bytes uncompressed */
                     for ( i = 0; i < bytes; i++ ) {
-                        buf = 0; fread( &buf, 1, 1, file );
+                        buf = 0; _fread( &buf, 1, 1, file );
                         set_pixel( surf, x++ + header->x1, y + y1, MAPRGB( pal[buf].r, pal[buf].g, pal[buf].b ) );
                     }
                 }
@@ -305,11 +305,11 @@ PG_Shp *shp_load( const char *fname )
     }   
     
     /* magic */
-    fread( &dummy, 4, 1, file );
+    _fread( &dummy, 4, 1, file );
     /* shp struct */
     shp = calloc( 1, sizeof( PG_Shp ) );
     /* icon count */
-    fread( &shp->count, 4, 1, file );
+    _fread( &shp->count, 4, 1, file );
     shp->count = SDL_SwapLE32(shp->count);
     if ( shp->count == 0 ) {
         fprintf( stderr, "%s: no icons found\n", path );
@@ -318,9 +318,9 @@ PG_Shp *shp_load( const char *fname )
     /* create surface (measure size first) */
     for ( i = 0; i < shp->count; i++ ) {
         /* read file position of actual data and palette */
-        fread( &pos, 4, 1, file );
+        _fread( &pos, 4, 1, file );
         pos = SDL_SwapLE32(pos);
-        fread( &dummy, 4, 1, file );
+        _fread( &dummy, 4, 1, file );
         old_pos = ftell( file );
         /* read header */
         fseek( file, pos, SEEK_SET );
@@ -355,9 +355,9 @@ PG_Shp *shp_load( const char *fname )
     for ( i = 0; i < shp->count; i++ ) {
         /* read position of data and palette */
         pos = pal_pos = 0;
-        fread( &pos, 4, 1, file );
+        _fread( &pos, 4, 1, file );
         pos = SDL_SwapLE32(pos);
-        fread( &pal_pos, 4, 1, file );
+        _fread( &pal_pos, 4, 1, file );
         pal_pos = SDL_SwapLE32(pal_pos);
         old_pos = ftell( file );
         /* read palette */

@@ -157,4 +157,9 @@ Copy to dest from source horizontally mirrored.
 */
 void copy_surf_mirrored( SDL_Surface *source, SDL_Rect *srect, SDL_Surface *dest, SDL_Rect *drect );
 
+/** Macro wrapper to read data from file with (very) simple error handling.
+ * Only to be used as standalone command, not in conditions. */
+#define _fread(ptr,size,nmemb,stream) \
+	do { int _freadretval = fread(ptr,size,nmemb,stream); if (_freadretval != nmemb && !feof(stream)) fprintf(stderr, "%s: %d: _fread error\n",__FILE__,__LINE__);} while (0)
+
 #endif

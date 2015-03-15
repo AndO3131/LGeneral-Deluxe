@@ -57,7 +57,12 @@ Locals
 Macro to shorten the fread call for a single character.
 ====================================================================
 */
-#define FILE_READCHAR( file, c ) fread( &c, sizeof( char ), 1, file )
+/** Macro wrapper to read data from file with (very) simple error handling.
+ * Only to be used as standalone command, not in conditions. */
+#define _fread(ptr,size,nmemb,stream) \
+	do { int _freadretval = fread(ptr,size,nmemb,stream); if (_freadretval != nmemb && !feof(stream)) fprintf(stderr, "%s: %d: _fread error\n",__FILE__,__LINE__);} while (0)
+
+#define FILE_READCHAR( file, c ) _fread( &c, sizeof( char ), 1, file )
 
 /*
 ====================================================================
@@ -507,7 +512,7 @@ PData* parser_read_file( const char *tree_name, const char *fname )
             size = CBUFFER_SIZE - 1;
         }
         fseek( file, 2, SEEK_SET );
-        fread( cbuffer, 1, size, file );
+        _fread( cbuffer, 1, size, file );
         cbuffer[size] = 0;
         /* set indicator to beginning of text */
         cbuffer_pos = cbuffer;

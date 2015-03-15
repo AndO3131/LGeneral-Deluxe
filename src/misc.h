@@ -194,4 +194,9 @@ Return the directory the game data is installed under.
 */
 const char *get_gamedir(void);
 
+/** Macro wrapper to read data from file with (very) simple error handling.
+ * Only to be used as standalone command, not in conditions. */
+#define _fread(ptr,size,nmemb,stream) \
+	do { int _freadretval = fread(ptr,size,nmemb,stream); if (_freadretval != nmemb && !feof(stream)) fprintf(stderr, "%s: %d: _fread error\n",__FILE__,__LINE__);} while (0)
+
 #endif

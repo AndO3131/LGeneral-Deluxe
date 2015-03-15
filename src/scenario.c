@@ -928,7 +928,8 @@ int scen_check_result( int after_last_turn )
     if (f) {
         unsigned len;
         scen_result[0] = '\0';
-        fgets(scen_result, sizeof scen_result, f);
+        if (!fgets(scen_result, sizeof scen_result, f))
+		/* do nothing as scen_result is simply empty then */;
         fclose(f);
         len = strlen(scen_result);
         if (len > 0 && scen_result[len-1] == '\n') scen_result[len-1] = '\0';

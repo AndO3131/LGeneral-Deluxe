@@ -369,7 +369,7 @@ void copy_ic( char *sname, char *dname )
     size = ftell( source );
     fseek( source, 0, SEEK_SET );
     buffer = calloc( size, sizeof( char ) );
-    fread( buffer, sizeof( char ), size, source );
+    _fread( buffer, sizeof( char ), size, source );
     fwrite( buffer, sizeof( char ), size, dest );
     free( buffer );
     fclose( source );
@@ -392,7 +392,7 @@ void copy( char *sname, char *dname )
     size = ftell( source );
     fseek( source, 0, SEEK_SET );
     buffer = calloc( size, sizeof( char ) );
-    fread( buffer, sizeof( char ), size, source );
+    _fread( buffer, sizeof( char ), size, source );
     fwrite( buffer, sizeof( char ), size, dest );
     free( buffer );
     fclose( source );
