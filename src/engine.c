@@ -364,7 +364,8 @@ inline static int engine_status_screen_dismissed()
     return event_get_buttonup( &dummy, &dummy, &dummy )
             || event_check_key(SDLK_SPACE)
             || event_check_key(SDLK_RETURN)
-            || event_check_key(SDLK_ESCAPE);
+            || event_check_key(SDLK_ESCAPE)
+            || event_check_quit();
 }
 
 #if 0
