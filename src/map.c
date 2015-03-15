@@ -1632,34 +1632,14 @@ static MapCoord *map_create_new_coord(int x, int y)
 }
 static void map_add_default_deploy_fields( Player *player, List *fields )
 {
-    int i,j,x,y,next_x,next_y,okay;
+    int x, y;
     Unit *unit;
-    list_reset(units);
-    while ((unit=list_next(units)))
-    {
-        if (unit->player == player && unit_supports_deploy(unit))
-        {
-            for (i=0;i<6;i++)
-                if (get_close_hex_pos(unit->x,unit->y,i,&next_x,&next_y))
-                {
-                    okay = 1;
-                    for (j=0;j<6;j++)
-                        if (get_close_hex_pos(next_x,next_y,j,&x,&y))
-                            if (!mask[x][y].spot||
-                                (map[x][y].a_unit&&!player_is_ally(player,map[x][y].a_unit->player))||
-                                (map[x][y].g_unit&&!player_is_ally(player,map[x][y].g_unit->player)))
-                            {
-                                okay = 0; break;
-                            }
-                    if (map[next_x][next_y].terrain->flags[cur_weather]&RIVER) okay = 0;
-                    mask[next_x][next_y].deploy = okay;
-                }
-        }
-    }
+
     list_reset(units);
     while ((unit=list_next(units))) /* make sure all units can be re-deployed */
         if (unit->player == player && unit_supports_deploy(unit))
             mask[unit->x][unit->y].deploy = 1;
+
     map_add_deploy_centers_to_deploy_mask(player,0);
     for ( x = 0; x < map_w; x++ )
         for ( y = 0; y < map_h; y++ )
@@ -1670,8 +1650,8 @@ static void map_add_default_deploy_fields( Player *player, List *fields )
 /*
 ====================================================================
 Set deploy mask by player's field list. If first entry is (-1,-1),
-create a default mask, using the initial layout of spotting and 
-units.
+create a default mask by adding all tiles with own unit on (but 
+not the surrounding to prevent moving front line one step ahead).
 ====================================================================
 */
 static void map_set_initial_deploy_mask( Player *player )
@@ -1687,7 +1667,7 @@ static void map_set_initial_deploy_mask( Player *player )
     list_reset( field_list );
     while ( ( pt = list_next( field_list ) ) ) {
         Mask_Tile *tile = map_mask_tile(pt->x, pt->y);
-        if (!tile) 
+        if (!tile) /* -1,-1 */
         {
             list_delete_current(field_list);
             map_add_default_deploy_fields(player,field_list);

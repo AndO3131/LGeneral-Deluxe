@@ -1,3 +1,5 @@
+- restricted deploy mask: surrounding of own units no longer added to
+  prevent moving whole front line one step forward (2015/03/15 MS)
 - removed fallback mapnames file from lgc-pg (2015/03/08 Markus Koschany)
 - updated icon handling (2015/03/08 Markus Koschany)
 - updated desktop file with category and keywords (2015/03/08 Markus Koschany)
