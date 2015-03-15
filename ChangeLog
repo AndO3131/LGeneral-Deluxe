@@ -1,3 +1,7 @@
+1.2.6:
+- fixed all compiler warnings (2015/03/13 MS)
+- show message about new unit at beginning of turn (2015/03/13 MS)
+- splash/info screen can be closed by window icon (2015/03/13 MS)
 - restricted deploy mask: surrounding of own units no longer added to
   prevent moving whole front line one step forward (2015/03/15 MS)
 - removed fallback mapnames file from lgc-pg (2015/03/08 Markus Koschany)
