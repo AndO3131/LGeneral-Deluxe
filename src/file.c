@@ -227,8 +227,10 @@ List* dir_get_entries( const char *path, const char *root, const char *ext )
 
 #ifdef TESTFILE
 int map_w, map_h;	/* shut up linker in misc.c */
-int char_width() { return 0;}
-int parser_get_string() { return 0;}
+typedef struct _Font Font;
+int char_width(Font *fnt, char c) { (void)fnt; (void)c; return 0;}
+typedef struct _PData PData;
+int parser_get_string(PData *pd, char *name, char   **result) { (void)pd; (void)name; (void)result; return 0;}
 
 int main( int argc, char **argv )
 {

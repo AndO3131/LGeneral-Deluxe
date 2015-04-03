@@ -1,3 +1,5 @@
+- fixed compiler issue in TESTFILE mode (2015/04/03 Michael Tautschnig)
+
 1.2.6:
 - fixed all compiler warnings (2015/03/13 MS)
 - show message about new unit at beginning of turn (2015/03/13 MS)
