@@ -1340,6 +1340,22 @@ Unit *unit_duplicate( Unit *unit )
     return new;
 }
 
+transferredUnitProp *unit_create_transfer_props( Unit *unit )
+{
+    transferredUnitProp *result = calloc( 1, sizeof( transferredUnitProp ) );
+    sprintf( result->id,"%s",unit->prop.id);
+    sprintf( result->nation,"%s",unit->nation->id);
+    sprintf( result->name,"%s",unit->name);
+    sprintf( result->tag,"%s",unit->tag);
+    if( unit->trsp_prop.id )
+	sprintf( result->trsp_id,"%s",unit->trsp_prop.id );
+    else
+	sprintf( result->trsp_id,"none" );
+    result->str = unit->str;
+    result->exp = unit->exp;
+    return result;
+}
+
 /*
 ====================================================================
 Check if unit has low ammo or fuel.

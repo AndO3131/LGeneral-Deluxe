@@ -35,6 +35,7 @@ warsaw { scenario = pg/Warsaw
     minor = "Congratulations, you have won the war against Poland, Herr General! You besieged and captured all objectives before the Soviet Union was able to catch up. Your forces have been diverted to the Western border to guard against French and English aggressions."
     defeat = "Losing on the Polish front was an utter disaster. Your scandalous leadership has enabled the English and French to build up an formidable army which has begun invading Germany."
   }
+  coretransfer = "allowed"
 }
 
 norway { scenario = pg/Norway

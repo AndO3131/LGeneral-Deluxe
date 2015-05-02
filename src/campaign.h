@@ -24,14 +24,17 @@ Campaign Scenario entry.
 ====================================================================
 */
 typedef struct {
-    char *id;       /* entry id */
-    char *scen;     /* scenario file name (if not set this is
-                       a selection) */
-    char *title;    /* title string, will be displayed at the top */
-    char *brief;    /* briefing for this scenario */
-    List *nexts;    /* list of strings: result>next_id
-                       (if not set this is a final message) */
-    List *descs;    /* textual descriptions for result: result>description */
+    char *id;			/* entry id */
+    char *scen;			/* scenario file name (if not set this is
+				   a selection) */
+    char *title;		/* title string, will be displayed at the top */
+    char *brief;		/* briefing for this scenario */
+    List *nexts;		/* list of strings: result>next_id
+				   (if not set this is a final message) */
+    List *descs;		/* textual descriptions for result: result>description */
+    char *core_transfer;	/* set "allowed" if you want to replace core
+				   units from this scenario, with core units
+				   that survived the former one */
 } Camp_Entry;
 
 /*

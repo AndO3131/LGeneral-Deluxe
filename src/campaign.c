@@ -58,6 +58,7 @@ static void camp_delete_entry( void *ptr )
         if ( entry->id ) free( entry->id );
         if ( entry->scen ) free( entry->scen );
         if ( entry->brief ) free( entry->brief );
+        if ( entry->core_transfer ) free( entry->core_transfer );
         if ( entry->nexts ) list_delete( entry->nexts );
         if ( entry->descs ) list_delete( entry->descs );
         free( entry );
@@ -182,6 +183,10 @@ int camp_load( const char *fname )
         centry->title = camp_resolve_ref_localized(scen_ent, "title", centry->id, domain);
         centry->brief = camp_resolve_ref_localized(scen_ent, "briefing", centry->id, domain);
         if (!centry->brief) goto parser_failure;
+        
+        if (!parser_get_string( sub, "coretransfer", &centry->core_transfer ))
+			centry->core_transfer = strdup("denied");
+        
         if ( parser_get_entries( sub, "next", &next_entries ) ) {
             centry->nexts = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
             list_reset( next_entries );

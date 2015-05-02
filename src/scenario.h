@@ -234,4 +234,12 @@ Add casualties for unit. Regard unit and transport classes.
 */
 int scen_inc_casualties_for_unit( struct _Unit *unit );
 
+/*
+====================================================================
+Save/Load core units to be transferred between scenarios.
+====================================================================
+*/
+int save_core_units( );
+int load_core_units( );
+
 #endif

@@ -125,6 +125,21 @@ typedef struct _Unit {
 
 /*
 ====================================================================
+Data needed to transfer unit between scenarios
+====================================================================
+*/
+typedef struct {
+    char id[6];
+    char nation[4];
+    char name[24];
+    char trsp_id[6];
+    char tag[32];
+    int str;
+    int exp;
+} transferredUnitProp;
+
+/*
+====================================================================
 Create a unit by passing a Unit struct with the following stuff set:
   x, y, str, entr, exp, delay, orient, nation, player.
 This function will use the passed values to create a Unit struct
@@ -368,6 +383,9 @@ Duplicate the unit.
 ====================================================================
 */
 Unit *unit_duplicate( Unit *unit );
+
+/* Duplicate properties required for transferring to next scenario. */
+transferredUnitProp *unit_create_transfer_props( Unit *unit );
 
 /*
 ====================================================================

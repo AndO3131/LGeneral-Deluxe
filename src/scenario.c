@@ -57,11 +57,17 @@ extern Setup setup;
 extern int deploy_turn;
 extern List *unit_lib;
 
+extern int core_transfer_allowed; //somewhere in engine.c
+
 /*
 ====================================================================
 Scenario data.
 ====================================================================
 */
+
+List *units_saved = NULL; //list of units transfered between scenarios
+                          //type: transferredUnitProp in unit.h
+
 Setup setup;            /* engine setup with scenario information */
 Scen_Info *scen_info = 0;
 int *weather = 0;       /* weather type for each turn as id to weather_types */
@@ -555,6 +561,11 @@ int scen_load( const char *fname )
     reinf = list_create( LIST_AUTO_DELETE, unit_delete );
     avail_units = list_create( LIST_AUTO_DELETE, unit_delete );
     vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
+
+	if ( core_transfer_allowed )
+		if (units_saved && !list_empty( units_saved ))
+			unit_ref += load_core_units(); /* transfer old units */
+
     if ( !parser_get_entries( pd, "units", &entries ) ) goto parser_failure;
     list_reset( entries );
     while ( ( sub = list_next( entries ) ) ) {
@@ -620,25 +631,28 @@ int scen_load( const char *fname )
         }
         /* actual unit */
         unit = unit_create( unit_prop, trsp_prop, &unit_base );
-        /* put unit to active or reinforcements list */
-        if ( !unit_delayed ) {
-            list_add( units, unit );
-            /* add unit to map */
-            map_insert_unit( unit );
-        }
-        else if (!config.purchase) /* no fixed reinfs with purchase enabled */
-            list_add( reinf, unit );
-        /* adjust transporter count */
-        if ( unit->embark == EMBARK_SEA ) {
-            unit->player->sea_trsp_count++;
-            unit->player->sea_trsp_used++;
-        }
-        else
-            if ( unit->embark == EMBARK_AIR ) {
-                unit->player->air_trsp_count++;
-                unit->player->air_trsp_used++;
-            }
-        unit_ref++;
+        /* put unit to active or reinforcements list */		//not so fast
+	if ( unit->core != 1 || ( !core_transfer_allowed ) )
+	{				//if unit is core, and we have
+	    if ( !unit_delayed ) {	//to transfer forces, we shouldn't
+		list_add( units, unit );//put them. Exception: unit->core=2
+		/* add unit to map */
+		map_insert_unit( unit );
+	    }
+	    else if (!config.purchase) /* no fixed reinfs with purchase enabled */
+		list_add( reinf, unit );
+	    /* adjust transporter count */
+	    if ( unit->embark == EMBARK_SEA ) {
+	         unit->player->sea_trsp_count++;
+	         unit->player->sea_trsp_used++;
+	    }
+	    else
+	    if ( unit->embark == EMBARK_AIR ) {
+		unit->player->air_trsp_count++;
+		unit->player->air_trsp_used++;
+	    }
+	    unit_ref++;
+	}
     }
     /* load deployment hexes */
     if ( parser_get_entries( pd, "deployfields", &entries ) ) {
@@ -1093,4 +1107,104 @@ int scen_inc_casualties_for_unit( Unit *unit )
     if ( unit->trsp_prop.id )
         cnt = scen_inc_casualties( player, unit->trsp_prop.class );
     return cnt;
+}
+
+/*
+====================================================================
+Add core units to list that will be used in next scenario.
+Return unit quantity
+====================================================================
+*/
+int save_core_units( )
+{
+    int n_units = 0;		//how many units we saved?
+    Unit * current;
+    transferredUnitProp * cur;	//local copy of unit parameters
+    if ( !units_saved && units )
+	units_saved = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    if ( units )
+	if ( !list_empty( units ) )
+	{
+	    current = list_first( units );
+	    do
+		if ( current->core )
+		{
+		    cur = unit_create_transfer_props( current );
+		    list_add( units_saved, cur);
+		    n_units++;
+		}
+	    while( (current = list_next( units )) );
+	}
+    if ( reinf )
+	if ( !list_empty( reinf ) )
+	{
+	    current = list_first( reinf );
+	    do
+		if ( current->core )
+		{
+		    cur = unit_create_transfer_props( current );
+		    list_add( units_saved, cur);
+		    n_units++;
+		}
+	    while( (current = list_next( reinf )) );
+	}
+    if ( avail_units )
+	if ( !list_empty( avail_units ) )
+	{
+	    current = list_first( avail_units );
+	    do
+		if ( current->core )
+		{
+		    cur = unit_create_transfer_props( current );
+		    list_add( units_saved, cur);
+		    n_units++;
+		}
+	    while( (current = list_next( avail_units )) );
+	}
+    return n_units;
+}
+/*
+====================================================================
+Load core units from list. Return unit quantity. Clear list.
+====================================================================
+*/
+int load_core_units()
+{
+    int n_units = 0;
+    transferredUnitProp * current;
+    Unit_Lib_Entry *unit_prop=0, *trsp_prop = 0;
+    Unit unit_base;
+    Unit * unit;
+
+    if ( !list_empty( units_saved ) )
+    {
+	list_reset( units_saved );
+	current = list_first( units_saved );
+	do
+	{
+	    unit_prop = unit_lib_find( current->id );
+	    memset( &unit_base, 0, sizeof( Unit ) );
+	    unit_base.nation = nation_find( current->nation );
+	    unit_base.player = player_get_by_nation( unit_base.nation );
+	    unit_base.core = 1;
+	    strcpy_lt( unit_base.name, current->name, 31 );
+	    unit_base.x = 2+n_units;
+	    unit_base.y = 2;
+	    unit_base.str = current->str;
+	    unit_base.entr = 0;
+	    unit_base.exp_level = current->exp/100;//Probably improper thing
+	    trsp_prop = unit_lib_find( current->trsp_id );
+	    unit_base.orient = unit_base.player->orient;
+	    sprintf( unit_base.tag,"%s",current->tag );//second improper thing
+
+	    unit = unit_create( unit_prop, trsp_prop, &unit_base );
+	    unit->core = 1;
+	    list_add( reinf, unit );
+	    n_units++;
+	}
+	while ( (current = list_next( units_saved )) );
+	
+	list_clear(units_saved);
+    }
+    return n_units;
 }

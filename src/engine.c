@@ -66,6 +66,7 @@ extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 extern Setup setup;
 extern int  term_game, sdl_quit;
+extern List *units_saved;
 
 /*
 ====================================================================
@@ -235,6 +236,9 @@ static Action *top_committed_action;/* topmost action not to be removed */
 static struct MessagePane *camp_pane; /* state of campaign message pane */
 static char *last_debriefing;   /* text of last debriefing */
 
+int core_transfer_allowed = 0;	/* if true, the core units will be transferred
+									from previous scenario */
+
 /*
 ====================================================================
 Locals
@@ -277,6 +281,8 @@ static void engine_finish_scenario()
     turn = scen_info->turn_limit;
     engine_set_status( STATUS_NONE ); 
     phase = PHASE_NONE;
+    
+    save_core_units(); /* store core units before deleting scenario */
 }
 
 /*
@@ -4233,6 +4239,8 @@ void engine_delete()
 {
     engine_shutdown();
     scen_clear_setup();
+    if (units_saved)
+	list_delete(units_saved);
     gui_delete();
 }
 
@@ -4428,7 +4436,7 @@ void engine_run()
         while ( reinit ) {
             reinit = 0;
             if(engine_init() == 0) {
-              /* if engine initialisation is unsuccesful */
+              /* if engine initialisation is unsuccessful */
               /* stay with the title screen */
               status = STATUS_TITLE;
               setup.type = SETUP_RUN_TITLE;
@@ -4440,6 +4448,7 @@ void engine_run()
             engine_shutdown();
         }
         if ( scen_done() ) {
+		core_transfer_allowed = 0; /* reset for safety */
             if ( camp_loaded ) {
                 engine_store_debriefing(scen_get_result());
                 /* determine next scenario in campaign */
@@ -4459,6 +4468,10 @@ void engine_run()
                     sprintf( setup.fname, "%s", camp_cur_scen->scen );
                     setup.type = SETUP_CAMP_BRIEFING;
                     reinit = 1;
+                    
+			/* check whether we should transfer core units from previous scenario */
+			if ( strcmp(camp_cur_scen->core_transfer,"allowed") == 0 )
+				core_transfer_allowed = 1;
                 }
             }
             else {
