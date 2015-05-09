@@ -4462,6 +4462,11 @@ void engine_run()
                 else if ( !camp_cur_scen->scen ) { /* options */
                     setup.type = SETUP_CAMP_BRIEFING;
                     reinit = 1;
+                    
+			/* allow transfer core units from previous scenario 
+			   for scenarios with optional choice as well */
+			if ( strcmp(camp_cur_scen->core_transfer,"allowed") == 0 )
+				core_transfer_allowed = 1;
                 }
                 else {
                     /* next scenario */
