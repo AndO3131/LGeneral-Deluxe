@@ -1343,14 +1343,14 @@ Unit *unit_duplicate( Unit *unit )
 transferredUnitProp *unit_create_transfer_props( Unit *unit )
 {
     transferredUnitProp *result = calloc( 1, sizeof( transferredUnitProp ) );
-    sprintf( result->id,"%s",unit->prop.id);
-    sprintf( result->nation,"%s",unit->nation->id);
-    sprintf( result->name,"%s",unit->name);
-    sprintf( result->tag,"%s",unit->tag);
+    snprintf( result->id, sizeof(result->id), "%s",unit->prop.id);
+    snprintf( result->nation,sizeof(result->nation),"%s",unit->nation->id);
+    snprintf( result->name,sizeof(result->name),"%s",unit->name);
+    snprintf( result->tag,sizeof(result->tag),"%s",unit->tag);
     if( unit->trsp_prop.id )
-	sprintf( result->trsp_id,"%s",unit->trsp_prop.id );
+	snprintf( result->trsp_id,sizeof(result->trsp_id),"%s",unit->trsp_prop.id );
     else
-	sprintf( result->trsp_id,"none" );
+	snprintf( result->trsp_id,sizeof(result->trsp_id),"none" );
     result->str = unit->str;
     result->exp = unit->exp;
     return result;
