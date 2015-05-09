@@ -1112,7 +1112,7 @@ int scen_inc_casualties_for_unit( Unit *unit )
 /*
 ====================================================================
 Add core units to list that will be used in next scenario.
-Return unit quantity
+Return unit quantity.
 ====================================================================
 */
 int save_core_units( )
@@ -1127,7 +1127,8 @@ int save_core_units( )
 	{
 	    current = list_first( units );
 	    do
-		if ( current->core )
+		//don't transfer killed units
+		if ( current->core && !current->killed )
 		{
 		    cur = unit_create_transfer_props( current );
 		    list_add( units_saved, cur);
