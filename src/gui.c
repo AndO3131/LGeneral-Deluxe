@@ -1899,6 +1899,7 @@ static void gui_render_single_unit( SDL_Surface * contents,Unit *unit ,int x,int
           unit->prop.icon_w, unit->prop.icon_h );
     SOURCE( unit->prop.icon, 0, 0 );
     blit_surf();
+
     //move & attack
     if ( unit->cur_atk_count > 0 ) {
         DEST ( contents, x+hex_w/2-unit_info_icons->str_w/2-unit_info_icons->atk->w,
@@ -1913,17 +1914,42 @@ static void gui_render_single_unit( SDL_Surface * contents,Unit *unit ,int x,int
         SOURCE( unit_info_icons->mov, 0, 0 );
         blit_surf();
     }
-    //str
-    DEST( contents, 
-          x + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
-          y +hex_h - unit_info_icons->atk->h,
-          unit_info_icons->str_w, unit_info_icons->str_h );
-    SOURCE( unit_info_icons->str, 0, ( unit->str + 14 ) * unit_info_icons->str_h )
-    blit_surf();
-    /* nation flag */
-    DEST( contents, x, y, nation_flag_width, nation_flag_height );
-    SOURCE( nation_flags, 0, unit->nation->flag_offset );
-    blit_surf();
+
+    //str, highlight core units
+    if ( unit->core ) {
+	DEST( contents, 
+	      x + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
+	      y +hex_h - unit_info_icons->atk->h,
+	      unit_info_icons->str_w, unit_info_icons->str_h );
+	fill_surf( 0xffff00 );
+	DEST( contents, 
+	      x + ( ( hex_w - unit_info_icons->str_w ) >> 1 ) + 1,
+	      y +hex_h - unit_info_icons->atk->h + 1,
+	      unit_info_icons->str_w - 2, unit_info_icons->str_h - 2 );
+	SOURCE( unit_info_icons->str, 1, ( unit->str + 14 ) * unit_info_icons->str_h )
+	blit_surf();
+    }
+    else {
+	DEST( contents, 
+	      x + ( ( hex_w - unit_info_icons->str_w ) >> 1 ),
+	      y +hex_h - unit_info_icons->atk->h,
+	      unit_info_icons->str_w, unit_info_icons->str_h );
+	SOURCE( unit_info_icons->str, 0, ( unit->str + 14 ) * unit_info_icons->str_h )
+	blit_surf();
+    }
+    /* nation flag, highlight core units */
+    if ( unit->core ) {
+	DEST( contents, x, y, nation_flag_width, nation_flag_height );
+	fill_surf( 0xffff00 );
+	DEST( contents, x + 1, y + 1, nation_flag_width - 2, nation_flag_height - 2 );
+	SOURCE( nation_flags, 1, unit->nation->flag_offset + 1 );
+	blit_surf();
+    }
+    else {
+	DEST( contents, x, y, nation_flag_width, nation_flag_height );
+	SOURCE( nation_flags, 0, unit->nation->flag_offset );
+	blit_surf();
+    }
     /* name and type */
     if((2*x/3/hex_w)%2)y+=15;
     y+=hex_h;
