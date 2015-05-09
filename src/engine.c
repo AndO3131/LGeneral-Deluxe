@@ -66,7 +66,7 @@ extern int camp_loaded;
 extern Camp_Entry *camp_cur_scen;
 extern Setup setup;
 extern int  term_game, sdl_quit;
-extern List *units_saved;
+extern List *prev_scen_core_units;
 
 /*
 ====================================================================
@@ -4242,8 +4242,8 @@ void engine_delete()
 {
     engine_shutdown();
     scen_clear_setup();
-    if (units_saved)
-	list_delete(units_saved);
+    if (prev_scen_core_units)
+	list_delete(prev_scen_core_units);
     gui_delete();
 }
 

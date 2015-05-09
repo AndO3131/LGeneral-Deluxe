@@ -65,8 +65,8 @@ Scenario data.
 ====================================================================
 */
 
-List *units_saved = NULL; //list of units transfered between scenarios
-                          //type: transferredUnitProp in unit.h
+List *prev_scen_core_units = 0;	//list of units transfered between scenarios
+				//type: transferredUnitProp in unit.h
 
 Setup setup;            /* engine setup with scenario information */
 Scen_Info *scen_info = 0;
@@ -563,7 +563,7 @@ int scen_load( const char *fname )
     vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
 
 	if ( core_transfer_allowed )
-		if (units_saved && !list_empty( units_saved ))
+		if (prev_scen_core_units && !list_empty( prev_scen_core_units ))
 			unit_ref += load_core_units(); /* transfer old units */
 
     if ( !parser_get_entries( pd, "units", &entries ) ) goto parser_failure;
@@ -1120,8 +1120,8 @@ int save_core_units( )
     int n_units = 0;		//how many units we saved?
     Unit * current;
     transferredUnitProp * cur;	//local copy of unit parameters
-    if ( !units_saved && units )
-	units_saved = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+    if ( !prev_scen_core_units && units )
+	prev_scen_core_units = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
     if ( units )
 	if ( !list_empty( units ) )
 	{
@@ -1131,7 +1131,7 @@ int save_core_units( )
 		if ( current->core && !current->killed )
 		{
 		    cur = unit_create_transfer_props( current );
-		    list_add( units_saved, cur);
+		    list_add( prev_scen_core_units, cur);
 		    n_units++;
 		}
 	    while( (current = list_next( units )) );
@@ -1144,7 +1144,7 @@ int save_core_units( )
 		if ( current->core )
 		{
 		    cur = unit_create_transfer_props( current );
-		    list_add( units_saved, cur);
+		    list_add( prev_scen_core_units, cur);
 		    n_units++;
 		}
 	    while( (current = list_next( reinf )) );
@@ -1157,7 +1157,7 @@ int save_core_units( )
 		if ( current->core )
 		{
 		    cur = unit_create_transfer_props( current );
-		    list_add( units_saved, cur);
+		    list_add( prev_scen_core_units, cur);
 		    n_units++;
 		}
 	    while( (current = list_next( avail_units )) );
@@ -1177,10 +1177,10 @@ int load_core_units()
     Unit unit_base;
     Unit * unit;
 
-    if ( !list_empty( units_saved ) )
+    if ( !list_empty( prev_scen_core_units ) )
     {
-	list_reset( units_saved );
-	current = list_first( units_saved );
+	list_reset( prev_scen_core_units );
+	current = list_first( prev_scen_core_units );
 	do
 	{
 	    unit_prop = unit_lib_find( current->id );
@@ -1203,9 +1203,9 @@ int load_core_units()
 	    list_add( reinf, unit );
 	    n_units++;
 	}
-	while ( (current = list_next( units_saved )) );
+	while ( (current = list_next( prev_scen_core_units )) );
 	
-	list_clear(units_saved);
+	list_clear(prev_scen_core_units);
     }
     return n_units;
 }
