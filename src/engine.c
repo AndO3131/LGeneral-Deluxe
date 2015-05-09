@@ -1682,9 +1682,12 @@ Check if there is a target for current unit on x,y.
 */
 static int engine_has_strategic_target(int active, int x,int y)
 {	
-    if ( x < 0 || y < 0 || x >= map_w || y >= map_h )
+	//deny strategic bombing when it rains
+	if ( weather_types[cur_weather].flags & NO_AIR_ATTACK )
 		return 0;
-    if ( !mask[x][y].spot ) 
+	if ( x < 0 || y < 0 || x >= map_w || y >= map_h )
+		return 0;
+	if ( !mask[x][y].spot ) 
 		return 0;
 	if ( cur_unit == 0 ) 
 		return 0;
