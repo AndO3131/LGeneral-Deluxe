@@ -57,6 +57,7 @@ extern Setup setup;
 extern int deploy_turn;
 extern List *unit_lib;
 
+extern int camp_loaded;
 extern int core_transfer_allowed; //somewhere in engine.c
 
 /*
@@ -586,8 +587,11 @@ int scen_load( const char *fname )
             fprintf( stderr, tr("%s: no player controls this nation\n"), unit_base.nation->name );
             goto failure;
         }
-		/* core flag (if not set/found: auxiliary unit) */
+	/* core flag (if not set/found: auxiliary unit) */
+	if (camp_loaded)
 		parser_get_int( sub, "core", &unit_base.core );
+	else
+		unit_base.core = 0; /* no core stuff in single scenario */
        /* name */
        if ( !parser_get_value( sub, "name", &str,0) )
            unit_set_generic_name( &unit_base, unit_ref + 1, unit_prop->name );
