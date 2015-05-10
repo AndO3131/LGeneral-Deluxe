@@ -1174,7 +1174,7 @@ int scen_save_core_units( )
 }
 /*
 ====================================================================
-Load core units from list. Return unit quantity. Clear list.
+Load core units from list. Return unit quantity.
 ====================================================================
 */
 int scen_load_core_units()
@@ -1212,8 +1212,6 @@ int scen_load_core_units()
 	    n_units++;
 	}
 	while ( (current = list_next( prev_scen_core_units )) );
-	
-	list_clear(prev_scen_core_units);
     }
 #ifdef DEBUG_CORETRANSFER
 	printf("loaded %d core units\n", n_units);
