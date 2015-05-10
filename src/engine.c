@@ -4285,6 +4285,11 @@ int engine_init()
             camp_set_cur( setup.scen_state );
             if ( !camp_cur_scen ) return 0;
             setup.type = SETUP_CAMP_BRIEFING;
+            
+		/* new campaign so clear core unit transfer list if any */
+		core_transfer_allowed = 0;
+		if (prev_scen_core_units)
+			list_clear(prev_scen_core_units);
             return 1;
         }
         else {
