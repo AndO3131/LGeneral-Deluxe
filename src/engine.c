@@ -281,8 +281,9 @@ static void engine_finish_scenario()
     turn = scen_info->turn_limit;
     engine_set_status( STATUS_NONE ); 
     phase = PHASE_NONE;
-    
-    scen_save_core_units(); /* store core units before deleting scenario */
+
+	if (camp_loaded)
+		scen_save_core_units(); /* store core units for next scenario */
 }
 
 /*
@@ -1107,6 +1108,9 @@ static void engine_begin_turn( Player *forced_player, int skip_unit_prep )
             engine_select_player( 0, skip_unit_prep );
             engine_set_status( STATUS_NONE ); 
             phase = PHASE_NONE;
+
+		if (camp_loaded)
+			scen_save_core_units(); /* store core units for next scenario */
             return;
         }
         else {

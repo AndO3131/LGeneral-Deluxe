@@ -563,9 +563,8 @@ int scen_load( const char *fname )
     avail_units = list_create( LIST_AUTO_DELETE, unit_delete );
     vis_units = list_create( LIST_NO_AUTO_DELETE, LIST_NO_CALLBACK );
 
-	if ( core_transfer_allowed )
-		if (prev_scen_core_units && !list_empty( prev_scen_core_units ))
-			unit_ref += scen_load_core_units(); /* transfer old units */
+	if ( camp_loaded && core_transfer_allowed )
+		unit_ref += scen_load_core_units(); /* transfer old units */
 
     if ( !parser_get_entries( pd, "units", &entries ) ) goto parser_failure;
     list_reset( entries );
@@ -1124,8 +1123,10 @@ int scen_save_core_units( )
     int n_units = 0;		//how many units we saved?
     Unit * current;
     transferredUnitProp * cur;	//local copy of unit parameters
+    
     if ( !prev_scen_core_units && units )
 	prev_scen_core_units = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+
     if ( units )
 	if ( !list_empty( units ) )
 	{
@@ -1166,6 +1167,9 @@ int scen_save_core_units( )
 		}
 	    while( (current = list_next( avail_units )) );
 	}
+#ifdef DEBUG_CORETRANSFER
+	printf("saved %d core units\n", n_units);
+#endif
     return n_units;
 }
 /*
@@ -1181,7 +1185,7 @@ int scen_load_core_units()
     Unit unit_base;
     Unit * unit;
 
-    if ( !list_empty( prev_scen_core_units ) )
+    if ( prev_scen_core_units && !list_empty( prev_scen_core_units ) )
     {
 	list_reset( prev_scen_core_units );
 	current = list_first( prev_scen_core_units );
@@ -1211,5 +1215,8 @@ int scen_load_core_units()
 	
 	list_clear(prev_scen_core_units);
     }
+#ifdef DEBUG_CORETRANSFER
+	printf("loaded %d core units\n", n_units);
+#endif
     return n_units;
 }
