@@ -565,7 +565,7 @@ int scen_load( const char *fname )
 
 	if ( core_transfer_allowed )
 		if (prev_scen_core_units && !list_empty( prev_scen_core_units ))
-			unit_ref += load_core_units(); /* transfer old units */
+			unit_ref += scen_load_core_units(); /* transfer old units */
 
     if ( !parser_get_entries( pd, "units", &entries ) ) goto parser_failure;
     list_reset( entries );
@@ -1119,7 +1119,7 @@ Add core units to list that will be used in next scenario.
 Return unit quantity.
 ====================================================================
 */
-int save_core_units( )
+int scen_save_core_units( )
 {
     int n_units = 0;		//how many units we saved?
     Unit * current;
@@ -1173,7 +1173,7 @@ int save_core_units( )
 Load core units from list. Return unit quantity. Clear list.
 ====================================================================
 */
-int load_core_units()
+int scen_load_core_units()
 {
     int n_units = 0;
     transferredUnitProp * current;

@@ -282,7 +282,7 @@ static void engine_finish_scenario()
     engine_set_status( STATUS_NONE ); 
     phase = PHASE_NONE;
     
-    save_core_units(); /* store core units before deleting scenario */
+    scen_save_core_units(); /* store core units before deleting scenario */
 }
 
 /*
