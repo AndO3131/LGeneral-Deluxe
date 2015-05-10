@@ -58,6 +58,7 @@ extern char *camp_fname;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;
 extern List *prev_scen_core_units;
+extern int core_transfer_allowed;
 
 /*
 ====================================================================
@@ -1019,6 +1020,11 @@ int slot_load( int id )
         str = load_string( file );
         camp_set_cur( str );
         free( str );
+        
+	if ( strcmp(camp_cur_scen->core_transfer,"allowed") == 0 )
+		core_transfer_allowed = 1;
+	else
+		core_transfer_allowed = 0;
 	if (store_version >= StoreCoreTransferList)
 		load_prev_scen_core_units( file );
 	else if (prev_scen_core_units)
