@@ -57,6 +57,7 @@ extern int camp_loaded;
 extern char *camp_fname;
 extern Camp_Entry *camp_cur_scen;
 extern Map_Tile **map;
+extern List *prev_scen_core_units;
 
 /*
 ====================================================================
@@ -90,6 +91,7 @@ enum StorageVersion {
     StorePurchaseData, /* cost for unit lib entries, prestige for players */
 	StoreCoreUnitFlag, /* units have now core/aux flag */
 	StoreTileDamage, /* deploy center and damaged info */
+	StoreCoreTransferList, /* previous' scenarios core units for campaigns */
     /* insert new versions before this comment */
     StoreMaxVersion,
     StoreHighestSupportedVersion = StoreMaxVersion - 1,
@@ -726,6 +728,72 @@ static void load_map_tile_flag( FILE *file, Nation **nation, Player **player,
 	}
 }
 
+/* Load/save core unit transfer list */
+static void save_prev_scen_core_units( FILE *file )
+{
+	int num = 0;
+	transferredUnitProp *prop;
+	
+	/* save number of entries */
+	if (prev_scen_core_units)
+		num = prev_scen_core_units->count;
+	save_int(file, num);
+	if (num == 0)
+		return; /* no more data */
+		   
+	/* save entries */
+	list_reset(prev_scen_core_units);
+	while ((prop = list_next(prev_scen_core_units))) {
+		save_string(file, prop->id);
+		save_string(file, prop->nation);
+		save_string(file, prop->name);
+		save_string(file, prop->trsp_id);
+		save_string(file, prop->tag);
+		save_int(file, prop->str);
+		save_int(file, prop->exp);
+	}
+}
+static void load_prev_scen_core_units( FILE *file )
+{
+	int i, num;
+	transferredUnitProp *prop;
+	char *str;
+	
+	/* load number */
+	num = load_int(file);
+	if (num == 0)
+		return; /* nothing follows */
+	
+	/* create list if not yet existing */
+	if (!prev_scen_core_units)
+		prev_scen_core_units = list_create( LIST_AUTO_DELETE, LIST_NO_CALLBACK );
+		
+	/* create and push entries to list */
+	for (i = 0; i < num; i++) {
+		prop = calloc( 1, sizeof( transferredUnitProp ) );
+		
+		str = load_string(file);
+		snprintf( prop->id, sizeof(prop->id), "%s",str);
+		free(str);
+		str = load_string(file);
+		snprintf( prop->nation, sizeof(prop->nation), "%s",str);
+		free(str);
+		str = load_string(file);
+		snprintf( prop->name, sizeof(prop->name), "%s",str);
+		free(str);
+		str = load_string(file);
+		snprintf( prop->tag, sizeof(prop->tag), "%s",str);
+		free(str);
+		str = load_string(file);
+		snprintf( prop->trsp_id, sizeof(prop->trsp_id), "%s",str);
+		free(str);
+		prop->str = load_int(file);
+		prop->exp = load_int(file);
+		
+		list_add(prev_scen_core_units, prop);
+	}
+}
+
 /*
 ====================================================================
 Publics
@@ -815,6 +883,7 @@ int slot_save( int id, char *name )
         campaign loaded
         campaign name (optional)
         campaign scenario id (optional)
+        core transfer list (optional)
         scenario file name
         fog_of_war
         supply
@@ -855,6 +924,7 @@ int slot_save( int id, char *name )
     if ( camp_loaded ) {
         save_string( file, camp_fname );
         save_string( file, camp_cur_scen->id );
+        save_prev_scen_core_units( file );
     }
     /* basic data */
     save_string( file, scen_info->fname );
@@ -949,6 +1019,10 @@ int slot_load( int id )
         str = load_string( file );
         camp_set_cur( str );
         free( str );
+	if (store_version >= StoreCoreTransferList)
+		load_prev_scen_core_units( file );
+	else if (prev_scen_core_units)
+		list_clear(prev_scen_core_units);
     }
     /* the scenario that is loaded now is the one that belongs to the scenario id of the campaign above */
     /* read scenario file name */
